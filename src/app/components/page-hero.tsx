@@ -17,10 +17,10 @@ export function PageHero({ eyebrow, title, subtitle, image, cta }: PageHeroProps
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
-    <section ref={ref} className="relative min-h-[75vh] md:min-h-[90vh] pt-28 md:pt-40 pb-12 md:pb-24 overflow-hidden flex items-end">
+    <section ref={ref} className="relative min-h-screen pt-40 pb-24 overflow-hidden">
       <motion.div className="absolute inset-0" style={{ y }}>
         <img src={image} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-[#2E2784]/72" />
@@ -28,7 +28,7 @@ export function PageHero({ eyebrow, title, subtitle, image, cta }: PageHeroProps
 
       <motion.div
         style={{ opacity }}
-        className="relative w-full px-8 md:px-12"
+        className="relative max-w-6xl mx-auto px-8 flex flex-col justify-end min-h-[calc(100vh-10rem)]"
       >
         <motion.div
           initial={{ opacity: 0, y: 20 }}

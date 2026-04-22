@@ -1,46 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
-import {
-  images, stats, loyaltyFramework, sectors, retailers,
-  brandPartners, studies, fallbackPosts, locations,
-} from "@/src/app/data";
-import { AnimatedSection, StaggeredList, StaggeredItem } from "@/components/ui/AnimatedSection";
+import { useRef, useState } from "react";
+import { AnimatedSection } from "@/components/ui/AnimatedSection";
+import { images, stats, brandPartners, studies, fallbackPosts } from "@/src/app/data";
 
-const hairline = "border border-black/[0.08]";
-const softShadow = { boxShadow: "0 8px 40px -12px rgba(46,39,132,0.12)" };
+const gradients = {
+  blue: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
+  yellow: "radial-gradient(130% 130% at 15% 0%, #ffd95a 0%, #F8AE01 50%, #de9800 100%)",
+};
 
-function Eyebrow({ children, onDark }: { children: React.ReactNode; onDark?: boolean }) {
-  return (
-    <div
-      className={`tracking-[0.3em] uppercase ${onDark ? "text-[#F8AE01]" : "text-[#2E2784]"}`}
-      style={{ fontSize: "0.65rem", fontWeight: 600 }}
-    >
-      {children}
-    </div>
-  );
-}
-
-function CTA({ label, variant, href }: { label: string; variant: "yellow" | "dark"; href: string }) {
-  const base = "inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2";
-  const styles =
-    variant === "yellow"
-      ? "bg-[#F8AE01] text-black hover:bg-[#2E2784] hover:text-white"
-      : "bg-[#2E2784] text-white hover:bg-[#F8AE01] hover:text-black";
-  return (
-    <Link href={href} data-cursor="cta" className={`${base} ${styles}`}>
-      <span>{label}</span>
-      <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
-        <ArrowUpRight className="w-4 h-4" />
-      </span>
-    </Link>
-  );
-}
-
-/* ─── HERO ─── */
 function Hero() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -48,28 +19,24 @@ function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
-    <section ref={ref} className="relative min-h-screen pt-28 md:pt-40 pb-16 md:pb-24 overflow-hidden">
-      {/* Parallax background */}
+    <section ref={ref} className="relative min-h-screen pt-40 pb-24 overflow-hidden">
       <motion.div className="absolute inset-0" style={{ y }}>
-        <img src={images.hero} alt="" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-[#2E2784]/72" />
-        {/* Decorative circle — brandbook visual element */}
-        <div
-          className="absolute -right-40 top-1/4 rounded-full opacity-20"
-          style={{ width: 600, height: 600, background: "radial-gradient(circle, #F8AE01 0%, transparent 70%)" }}
-        />
+        <img src={images.hero} alt="KLR Hero" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-[#2E2784]/65" />
       </motion.div>
 
       <motion.div
         style={{ opacity }}
-        className="relative px-8 md:px-12 flex flex-col justify-end min-h-[calc(100vh-10rem)]"
+        className="relative max-w-6xl mx-auto px-8 flex flex-col justify-end min-h-[calc(100vh-10rem)]"
       >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.9, ease: [0.25, 0.1, 0.25, 1] }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+          className="tracking-[0.3em] uppercase text-[#F8AE01]"
+          style={{ fontSize: "0.65rem", fontWeight: 600 }}
         >
-          <Eyebrow onDark>human centred loyalty marketing</Eyebrow>
+          Key to Loyalty in Retail
         </motion.div>
 
         <motion.h1
@@ -77,682 +44,402 @@ function Hero() {
           style={{ fontSize: "clamp(3rem, 9vw, 8rem)", lineHeight: 0.92, fontWeight: 800 }}
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 2.0, ease: [0.25, 0.1, 0.25, 1] }}
+          transition={{ duration: 0.9, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          We Design<br />
-          <span className="text-[#F8AE01]">Emotional Loyalty.</span>
+          We are Key to
+          <br />
+          <span className="text-[#F8AE01]">Loyalty in Retail.</span>
         </motion.h1>
 
         <motion.p
-          className="text-white/80 tracking-tight max-w-2xl mt-10"
+          className="text-white tracking-tight max-w-2xl mt-10"
           style={{ fontSize: "1.125rem", lineHeight: 1.6 }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 2.2, ease: [0.25, 0.1, 0.25, 1] }}
+          transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          We transform customer engagement in grocery and petrol retail into lasting loyalty —
-          combining behavioural insight, emotional reward design, and measurable commercial outcomes.
+          Built on trust and teamwork. Grounded in experience. Engaged in our clients' success and the happiness of their customers.
         </motion.p>
 
         <motion.div
-          className="mt-12 flex flex-wrap gap-4"
+          className="mt-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 2.4, ease: [0.25, 0.1, 0.25, 1] }}
+          transition={{ duration: 0.6, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <CTA label="Get in Touch" variant="yellow" href="/contact" />
-          <CTA label="Discover How We Work" variant="dark" href="/services" />
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-white hover:text-[#2E2784]"
+          >
+            <span>Get in Touch</span>
+            <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
+              <ArrowUpRight className="w-4 h-4" />
+            </span>
+          </Link>
         </motion.div>
       </motion.div>
     </section>
   );
 }
 
-/* ─── BRAND ESSENCE ─── */
-function BrandEssence() {
+function Intro() {
   return (
-    <section className="max-w-6xl mx-auto px-8 pt-32 mb-0">
-      <AnimatedSection>
-        <div
-          className="rounded-[40px] overflow-hidden"
-          style={{ background: "#2E2784", ...softShadow }}
-        >
-          <div className="grid md:grid-cols-2 min-h-[420px]">
-            {/* Text side */}
-            <div className="p-7 md:p-16 flex flex-col justify-center gap-8 relative overflow-hidden">
-              {/* decorative circle */}
-              <div
-                className="absolute -bottom-20 -left-20 rounded-full opacity-10"
-                style={{ width: 300, height: 300, background: "#F8AE01" }}
-              />
-              <Eyebrow onDark>Brand Essence</Eyebrow>
-              <h2
-                className="text-white tracking-[-0.035em]"
-                style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", fontWeight: 700, lineHeight: 1.05 }}
-              >
-                human centred<br />
-                <span className="text-[#F8AE01]">loyalty marketing.</span>
+    <section className="relative pt-28 md:pt-32 pb-16 md:pb-20 overflow-hidden" style={{ background: gradients.yellow }}>
+      <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
+      <div className="max-w-6xl mx-auto px-8 grid md:grid-cols-2 gap-10 items-center">
+        <AnimatedSection>
+          <div>
+            <h2 className="tracking-[0.14em] uppercase text-black" style={{ fontSize: "clamp(1.4rem, 2.8vw, 2.8rem)", lineHeight: 1.15 }}>
+              We are
+              <br />
+              <span className="text-[#2E2784]">Key to Loyalty in Retail</span>
+            </h2>
+            <p className="mt-10 text-black" style={{ fontSize: "clamp(1.02rem, 1.35vw, 1.25rem)", lineHeight: 1.45 }}>
+              At KLR, we apply a unique combination of teamwork, expertise and international experience to deliver bespoke loyalty solutions that work.
+              <br />
+              We know loyalty is more than just collecting points. It's about understanding your customers, your business and your markets and delivering solutions that help you achieve your goals.
+            </p>
+          </div>
+        </AnimatedSection>
+
+        <AnimatedSection delay={0.1}>
+          <div className="relative flex justify-center md:justify-end">
+            <div className="absolute -bottom-10 -left-6 w-[200px] h-[200px] rounded-full bg-[#F8AE01]" />
+            <div className="w-[330px] h-[330px] md:w-[450px] md:h-[450px] rounded-full overflow-hidden bg-[#F8AE01]">
+              <img src={images.aboutTonda} alt="Key to Loyalty in Retail" className="w-full h-full object-cover" />
+            </div>
+          </div>
+        </AnimatedSection>
+      </div>
+    </section>
+  );
+}
+
+function HumanCentered() {
+  return (
+    <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.blue }}>
+      <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
+      <div className="max-w-6xl mx-auto px-8 grid md:grid-cols-2 gap-10 items-center">
+        <AnimatedSection>
+          <div className="relative flex justify-center md:justify-start">
+            <div className="absolute inset-0 m-auto w-[370px] h-[370px] md:w-[460px] md:h-[460px] rounded-full bg-[#F8AE01]" />
+            <div className="relative w-[320px] h-[320px] md:w-[420px] md:h-[420px] rounded-full overflow-hidden bg-[#2E2784]">
+              <img src={images.human} alt="Human Centered Loyalty Marketing" className="w-full h-full object-cover" />
+            </div>
+          </div>
+        </AnimatedSection>
+
+        <AnimatedSection delay={0.1}>
+          <h2 className="tracking-[0.14em] uppercase text-[#F8AE01]" style={{ fontSize: "clamp(1.4rem, 2.8vw, 2.8rem)", lineHeight: 1.15 }}>
+            Human Centered
+          </h2>
+          <h3 className="tracking-[0.14em] uppercase text-white mt-2" style={{ fontSize: "clamp(1.3rem, 2.6vw, 2.5rem)", lineHeight: 1.15 }}>
+            Loyalty Marketing
+          </h3>
+          <p className="mt-10 text-white/90" style={{ fontSize: "clamp(1.02rem, 1.35vw, 1.25rem)", lineHeight: 1.45 }}>
+            One of the things that makes us special is that we're hands on. We personally handle and work with each and every client, which means we're always providing individualised attention.
+          </p>
+          <p className="mt-6 text-white/90" style={{ fontSize: "clamp(1.02rem, 1.35vw, 1.25rem)", lineHeight: 1.45 }}>
+            We believe that loyalty is not about money or rewards, but about understanding your audience's needs and delivering what they want. We put the people at the core of our work, because only genuine and meaningful relationships can result in long-lasting customer loyalty.
+          </p>
+        </AnimatedSection>
+      </div>
+    </section>
+  );
+}
+
+function InternationalExperience() {
+  return (
+    <section className="relative text-black pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.yellow }}>
+      <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-white/20 blur-3xl" />
+      <div className="max-w-6xl mx-auto px-8">
+        <AnimatedSection>
+          <h2 className="tracking-[0.14em] uppercase max-w-2xl text-[#2E2784]" style={{ fontSize: "clamp(1.8rem, 3.4vw, 3.5rem)", lineHeight: 1.1 }}>
+            360deg Loyalty
+            <br />
+            International
+            <br />
+            Experience
+          </h2>
+          <p className="mt-16 max-w-5xl text-[#2E2784]" style={{ fontSize: "clamp(1.05rem, 1.45vw, 1.55rem)", lineHeight: 1.4 }}>
+            We've been working on international markets for years, and we know what it takes to win. We're flexible, quick, and smart enough to deliver all the services tailored specifically to each client's needs.
+            <br />
+            Our international presence with a strong network of partners all around the world allows us to offer the best prices and logistic efficiency.
+          </p>
+          <div className="mt-14 flex justify-end">
+            <Link href="/services" className="text-[#2E2784] hover:text-black transition-colors" style={{ fontSize: "clamp(2rem, 3.2vw, 3.4rem)", letterSpacing: "0.12em" }}>
+              Services <ArrowUpRight className="inline-block w-9 h-9" />
+            </Link>
+          </div>
+        </AnimatedSection>
+      </div>
+    </section>
+  );
+}
+
+const serviceBlocks = [
+  {
+    title: "Loyalty Marketing Strategic Development",
+    body: "We develop winning loyalty marketing strategies that bring concrete results because we know how to understand our clients' business goals and their customers' needs.",
+  },
+  {
+    title: "Loyalty Campaign Management",
+    body: "KLR offers a stress free campaign execution and management. Our international network of local suppliers allows us to handle all the necessary operations required for a successful campaign.",
+  },
+  {
+    title: "Loyalty Measurement and Analytics",
+    body: "Each campaign for us is the opportunity to learn something new, this is the reason why campaign measurement and analytics is an important part of our working process.",
+  },
+];
+
+function ServicesAccordion() {
+  const [open, setOpen] = useState(0);
+
+  return (
+    <section className="relative text-white pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.blue }}>
+      <div className="absolute -top-20 -right-24 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
+      <div className="max-w-6xl mx-auto px-8">
+        {serviceBlocks.map((item, i) => {
+          const isOpen = i === open;
+          return (
+            <AnimatedSection key={item.title} delay={i * 0.03}>
+              <div className={`py-8 ${i !== serviceBlocks.length - 1 ? "border-b border-white/10" : ""}`}>
+                <button className="w-full flex items-start justify-between gap-6 text-left" onClick={() => setOpen(i)} type="button">
+                  <h3 className="tracking-[0.1em]" style={{ fontSize: "clamp(1.6rem, 3vw, 3rem)", lineHeight: 1.15 }}>
+                    {item.title}
+                  </h3>
+                  {isOpen ? <ChevronUp className="w-8 h-8 text-[#F8AE01] shrink-0" /> : <ChevronDown className="w-8 h-8 text-[#F8AE01] shrink-0" />}
+                </button>
+
+                {isOpen && (
+                  <div className="mt-8 grid md:grid-cols-[1fr_auto] gap-8 items-start">
+                    <p className="text-white/90 max-w-4xl" style={{ fontSize: "clamp(1rem, 1.4vw, 1.4rem)", lineHeight: 1.4 }}>{item.body}</p>
+                    <Link href="/services" className="text-white/90 hover:text-[#F8AE01] transition-colors" style={{ fontSize: "clamp(1.8rem, 2.8vw, 3rem)", letterSpacing: "0.1em" }}>
+                      Read More
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </AnimatedSection>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function WhyChoose() {
+  return (
+    <section className="relative text-black pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.yellow }}>
+      <div className="absolute -bottom-24 -left-20 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
+      <div className="max-w-6xl mx-auto px-8">
+        <AnimatedSection>
+          <div className="grid md:grid-cols-2 gap-10">
+            <h2 className="tracking-[0.14em] uppercase text-[#2E2784]" style={{ fontSize: "clamp(1.8rem, 3.2vw, 3.2rem)", lineHeight: 1.15 }}>
+              Why to choose
+              <br />
+              KLR
+            </h2>
+            <p className="text-[#2E2784]" style={{ fontSize: "clamp(1.05rem, 1.45vw, 1.55rem)", lineHeight: 1.4 }}>
+              150 retail chains that trusted us and more than 1000 successful campaigns around Europe cannot be wrong: we are experts with a long and successful history.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mt-16 pt-10 border-t border-[#2E2784]/30">
+            <div>
+              <div className="text-[#2E2784]" style={{ fontSize: "clamp(2.1rem, 4.1vw, 4.1rem)", lineHeight: 1 }}>{stats.retailers}</div>
+              <div className="mt-3 text-[#2E2784]" style={{ fontSize: "clamp(1rem, 1.5vw, 1.6rem)" }}>Retail Chains</div>
+            </div>
+            <div>
+              <div className="text-[#2E2784]" style={{ fontSize: "clamp(2.1rem, 4.1vw, 4.1rem)", lineHeight: 1 }}>{stats.campaigns}</div>
+              <div className="mt-3 text-[#2E2784]" style={{ fontSize: "clamp(1rem, 1.5vw, 1.6rem)" }}>Successful Campaigns</div>
+            </div>
+            <div>
+              <div className="text-[#2E2784]" style={{ fontSize: "clamp(2.1rem, 4.1vw, 4.1rem)", lineHeight: 1 }}>{stats.countries}</div>
+              <div className="mt-3 text-[#2E2784]" style={{ fontSize: "clamp(1rem, 1.5vw, 1.6rem)" }}>Countries</div>
+            </div>
+            <div>
+              <div className="text-[#2E2784]" style={{ fontSize: "clamp(2.1rem, 4.1vw, 4.1rem)", lineHeight: 1 }}>{stats.years}</div>
+              <div className="mt-3 text-[#2E2784]" style={{ fontSize: "clamp(1rem, 1.5vw, 1.6rem)" }}>Years of Experience</div>
+            </div>
+          </div>
+        </AnimatedSection>
+      </div>
+    </section>
+  );
+}
+
+function CustomersAndLogos() {
+  const logos = brandPartners.filter((b) => b.logo).slice(0, 18);
+  const rows = [logos.slice(0, 6), logos.slice(6, 12), logos.slice(12, 18)].filter((r) => r.length > 0);
+
+  return (
+    <section className="relative text-white pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.blue }}>
+      <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
+      <div className="max-w-6xl mx-auto px-8">
+        <AnimatedSection>
+          <div className="grid md:grid-cols-2 gap-10 items-center">
+            <div>
+              <h2 className="tracking-[0.14em] uppercase" style={{ fontSize: "clamp(1.8rem, 3.2vw, 3.2rem)", lineHeight: 1.15 }}>
+                Our European
+                <br />
+                Customers
               </h2>
-              <p className="text-white/75 tracking-tight" style={{ fontSize: "1rem", lineHeight: 1.65 }}>
-                KLR transforms everyday shopping into engaging loyalty experiences —
-                combining <strong className="text-white">behavioural insight</strong>,{" "}
-                <strong className="text-white">emotional reward design</strong>, and{" "}
-                <strong className="text-white">measurable commercial outcomes</strong>.
-                Where others operate loyalty programs, KLR designs emotional loyalty experiences.
+              <p className="mt-10" style={{ fontSize: "clamp(1.05rem, 1.45vw, 1.55rem)", lineHeight: 1.4 }}>
+                We design and deliver loyalty marketing campaigns with positive results. 10 Years of experience and 1000 campaigns completed in more than 10 countries are a guarantee that you can trust us.
               </p>
-              <CTA label="Discover Our Approach" variant="yellow" href="/about" />
             </div>
-            {/* Image side */}
-            <div className="aspect-[4/3] md:aspect-auto overflow-hidden">
-              <img src={images.human} alt="Human Centered Loyalty" className="w-full h-full object-cover" />
+            <div>
+              <img src={images.map} alt="Our European customers" className="w-full h-auto" />
             </div>
           </div>
-        </div>
-      </AnimatedSection>
+
+          <h3 className="text-[#F8AE01] tracking-[0.14em] uppercase text-center mt-20" style={{ fontSize: "clamp(1.6rem, 2.8vw, 3.2rem)" }}>
+            Trusted By 100+ clients:
+          </h3>
+          <div className="mt-10 space-y-8">
+            {rows.map((row, rowIdx) => {
+              const reverse = rowIdx % 2 === 1;
+              const durations = [28, 32, 30];
+
+              return (
+                <div key={`logos-row-${rowIdx}`} className="logo-marquee">
+                  <div
+                    className="logo-marquee-track"
+                    style={{
+                      animationDuration: `${durations[rowIdx % durations.length]}s`,
+                      animationDirection: reverse ? "reverse" : "normal",
+                    }}
+                  >
+                    {[...row, ...row].map((logo, idx) => (
+                      <div key={`${logo.name}-${idx}`} className="shrink-0 flex items-center justify-center px-7 md:px-10 min-h-[52px]">
+                        <img
+                          src={logo.logo as string}
+                          alt={logo.name}
+                          className="max-h-10 md:max-h-12 w-auto object-contain opacity-90"
+                          style={{ filter: "grayscale(1) brightness(0) invert(1)" }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </AnimatedSection>
+      </div>
     </section>
   );
 }
 
-/* ─── STATS ─── */
-function Stats() {
-  const numbers = [
-    { k: stats.years, v: "Years of Loyalty Activity", dark: true },
-    { k: stats.campaigns, v: "Campaigns Delivered" },
-    { k: stats.retailers, v: "Retail Chains as Clients" },
-    { k: stats.countries, v: "Countries Operating" },
-  ];
-  const extra = [
-    { k: stats.combinedExperience, v: "Years of Combined Loyalty Experience" },
-    { k: stats.people, v: "People in Our Team" },
-    { k: stats.nationalities, v: "Nationalities in House" },
-  ];
+function CaseStudies() {
+  const entries = studies.slice(0, 3);
 
   return (
-    <section className="px-8 md:px-12 mt-10 md:mt-16 mb-12 md:mb-32">
-      <AnimatedSection>
-        <div className={`rounded-[40px] bg-white ${hairline} p-6 md:p-14`} style={softShadow}>
-          <Eyebrow>KLR in Numbers</Eyebrow>
-          <h2
-            className="text-[#2E2784] tracking-[-0.035em] mt-8 max-w-2xl"
-            style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 700, lineHeight: 1.05 }}
-          >
-            When Figures Matter…
-          </h2>
-          <StaggeredList className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
-            {numbers.map((s) => (
-              <StaggeredItem key={s.v}>
-                <div
-                  className={`rounded-[32px] p-5 md:p-8 flex flex-col justify-between min-h-[130px] md:min-h-[180px] ${hairline}`}
-                  style={s.dark ? { background: "#2E2784" } : { background: "#fff" }}
-                >
-                  <div
-                    className={s.dark ? "text-[#F8AE01]" : "text-[#2E2784]"}
-                    style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 800, lineHeight: 0.95, letterSpacing: "-0.04em" }}
-                  >
-                    {s.k}
-                  </div>
-                  <div className={s.dark ? "text-white" : "text-black"} style={{ fontSize: "0.85rem" }}>
-                    {s.v}
-                  </div>
-                </div>
-              </StaggeredItem>
-            ))}
-          </StaggeredList>
-
-          <StaggeredList className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-            {extra.map((s) => (
-              <StaggeredItem key={s.v}>
-                <div className={`rounded-[32px] p-5 md:p-8 bg-white ${hairline}`}>
-                  <div
-                    className="text-[#2E2784]"
-                    style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 800, lineHeight: 0.95, letterSpacing: "-0.04em" }}
-                  >
-                    {s.k}
-                  </div>
-                  <div className="text-black mt-3" style={{ fontSize: "0.85rem" }}>{s.v}</div>
-                </div>
-              </StaggeredItem>
-            ))}
-          </StaggeredList>
-
-          <div className="mt-12">
-            <CTA label="Discover More About Us" variant="dark" href="/about" />
-          </div>
-        </div>
-      </AnimatedSection>
-    </section>
-  );
-}
-
-/* ─── THE CHALLENGE ─── */
-function TheChallenge() {
-  const opportunities = [
-    "Increase Store Visits",
-    "Grow Average Ticket",
-    "Turn Occasional Shoppers into Loyal Customers",
-    "Build Emotional Brand Connection",
-    "Make Your Banner Stand Out — Buzz, Reputation, Virality, Market Share",
-  ];
-
-  return (
-    <section className="px-8 md:px-12 mb-16 md:mb-40">
-      <AnimatedSection>
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Challenge card */}
-          <div
-            className="rounded-[40px] p-6 md:p-14 flex flex-col gap-8 relative overflow-hidden"
-            style={{ background: "#2E2784", ...softShadow }}
-          >
-            <div
-              className="absolute -top-16 -right-16 rounded-full opacity-10"
-              style={{ width: 280, height: 280, background: "#F8AE01" }}
-            />
-            <Eyebrow onDark>The Challenge</Eyebrow>
-            <h2
-              className="text-white tracking-[-0.035em]"
-              style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, lineHeight: 1.1 }}
-            >
-              Retail Loyalty Is <span className="text-[#F8AE01]">Harder</span> than Ever
+    <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.yellow }}>
+      <div className="absolute -top-20 -left-24 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
+      <div className="max-w-6xl mx-auto px-8">
+        <AnimatedSection>
+          <div className="grid md:grid-cols-2 gap-10 items-start">
+            <h2 className="tracking-[0.14em] uppercase" style={{ fontSize: "clamp(1.8rem, 3.2vw, 3.2rem)", lineHeight: 1.15 }}>
+              <span className="text-black">KLR Loyalty</span>
+              <br />
+              <span className="text-[#F8AE01]">Case Studies</span>
+              <br />
+              <span className="text-black">Experience</span>
             </h2>
-            <div className="space-y-4">
-              {["Step out from the everyday's price battle", "Build a new, stronger brand's loyalty"].map((t) => (
-                <div key={t} className={`rounded-2xl px-6 py-4 ${hairline} border-white/10`} style={{ background: "rgba(255,255,255,0.07)" }}>
-                  <p className="text-white tracking-tight" style={{ fontSize: "0.9rem", fontWeight: 500 }}>{t}</p>
-                </div>
-              ))}
-            </div>
-            <p className="text-white/60 tracking-tight" style={{ fontSize: "0.9rem", lineHeight: 1.6 }}>
-              Running an impactful loyalty program is <em className="text-[#F8AE01] not-italic font-semibold">extremely challenging</em> nowadays…
+            <p className="text-black max-w-lg" style={{ fontSize: "clamp(1.15rem, 1.6vw, 2rem)", lineHeight: 1.35 }}>
+              Built on trust and teamwork. Grounded in experience.
+              <br />
+              Engaged in our clients success and happiness of their customers.
             </p>
           </div>
 
-          {/* Opportunity card */}
-          <div
-            className="rounded-[40px] p-6 md:p-14 flex flex-col gap-8 relative overflow-hidden"
-            style={{ background: "#F8AE01", ...softShadow }}
-          >
-            <div
-              className="absolute -bottom-16 -left-16 rounded-full opacity-15"
-              style={{ width: 280, height: 280, background: "#2E2784" }}
-            />
-            <div className="tracking-[0.3em] uppercase text-[#2E2784]" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              The Opportunity
-            </div>
-            <h2
-              className="text-[#2E2784] tracking-[-0.035em]"
-              style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, lineHeight: 1.1 }}
-            >
-              When Loyalty Works,<br /><span style={{ fontStyle: "italic" }}>Retailers Win</span>
-            </h2>
-            <div className="flex flex-wrap gap-3">
-              {opportunities.map((o) => (
-                <span key={o} className="rounded-2xl px-4 py-2.5 bg-white/60 text-[#2E2784] tracking-tight" style={{ fontSize: "0.8rem", fontWeight: 500 }}>
-                  {o}
-                </span>
-              ))}
-            </div>
-            <p className="text-[#2E2784] tracking-tight font-semibold" style={{ fontSize: "0.95rem", lineHeight: 1.55 }}>
-              So, it must be <em className="not-italic font-bold">emotionally engaging</em> for customers
-              and <em className="not-italic font-bold">simple to run</em> for retailers.
-            </p>
-          </div>
-        </div>
-      </AnimatedSection>
-    </section>
-  );
-}
-
-/* ─── MAP ─── */
-function MapSection() {
-  return (
-    <section className="px-8 md:px-12 mb-16 md:mb-40">
-      <AnimatedSection>
-        <Eyebrow>KLR Presence</Eyebrow>
-        <h2
-          className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl"
-          style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}
-        >
-          We Are Truly<br /><span className="text-[#F8AE01]">International.</span>
-        </h2>
-      </AnimatedSection>
-      <AnimatedSection delay={0.1}>
-        <div className={`mt-14 relative rounded-[40px] overflow-hidden ${hairline}`} style={softShadow}>
-          <img src={images.map} alt="KLR European map" className="w-full h-auto" />
-        </div>
-      </AnimatedSection>
-      <StaggeredList className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-10">
-        {locations.map((l) => (
-          <StaggeredItem key={l.city}>
-            <div className={`rounded-[24px] p-6 bg-white ${hairline}`}>
-              <div className="tracking-[0.2em] uppercase text-[#F8AE01]" style={{ fontSize: "0.65rem" }}>{l.country}</div>
-              <div className="text-[#2E2784] tracking-[-0.02em] mt-3" style={{ fontSize: "1.1rem", fontWeight: 600 }}>{l.city}</div>
-            </div>
-          </StaggeredItem>
-        ))}
-      </StaggeredList>
-    </section>
-  );
-}
-
-/* ─── LOYALTY FRAMEWORK ─── */
-function LoyaltyFramework() {
-  return (
-    <section className="px-8 md:px-12 mb-16 md:mb-40">
-      <AnimatedSection>
-        <Eyebrow>The KLR Loyalty Framework</Eyebrow>
-        <h2
-          className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl"
-          style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}
-        >
-          Designing<br /><span className="text-[#F8AE01]">Emotional Loyalty.</span>
-        </h2>
-        <p className="text-black tracking-tight max-w-xl mt-8" style={{ fontSize: "1.0625rem", lineHeight: 1.6 }}>
-          Our 3 Pillars of Loyalty — the framework we apply to every campaign.
-        </p>
-      </AnimatedSection>
-      <StaggeredList className="grid md:grid-cols-3 gap-6 mt-8 md:mt-14">
-        {loyaltyFramework.map((p, i) => (
-          <StaggeredItem key={p.title}>
-            <div
-              data-cursor="explore"
-              className={`rounded-[32px] p-10 ${hairline} h-full`}
-              style={i === 1 ? { background: "#2E2784", ...softShadow } : { ...softShadow, background: "#fff" }}
-            >
-              <div className="tracking-[0.25em] uppercase text-[#F8AE01]" style={{ fontSize: "0.7rem" }}>
-                {p.n} — {p.title}
-              </div>
-              <h3
-                className={`${i === 1 ? "text-[#F8AE01]" : "text-[#2E2784]"} tracking-[-0.03em] mt-6`}
-                style={{ fontSize: "clamp(1.75rem, 3vw, 2.25rem)", fontWeight: 700, lineHeight: 1.05 }}
-              >
-                {p.title}.
-              </h3>
-              <p
-                className={`${i === 1 ? "text-white" : "text-black"} tracking-tight mt-6`}
-                style={{ fontSize: "1rem", lineHeight: 1.55 }}
-              >
-                {p.desc}
-              </p>
-            </div>
-          </StaggeredItem>
-        ))}
-      </StaggeredList>
-      <AnimatedSection className="mt-12">
-        <CTA label="Explore Our Services" variant="yellow" href="/services" />
-      </AnimatedSection>
-    </section>
-  );
-}
-
-/* ─── KLR WAY ─── */
-function KLRWay() {
-  const values = [
-    {
-      title: "Smart Thinkers, Fast Movers",
-      desc: "We think strategically but act quickly. Ideas are important, but turning them into reality is what truly creates value for our clients.",
-      accent: false,
-    },
-    {
-      title: "International Mindset, Local Heart",
-      desc: "Our experience and partnerships are international, but our approach remains personal and close to the markets we serve.",
-      accent: true,
-    },
-    {
-      title: "People at the Core, Service at its Best",
-      desc: "People are at the center of our business. Loyalty cannot be imposed — it must be built around real needs and genuine value.",
-      accent: false,
-    },
-  ];
-
-  return (
-    <section className="px-8 md:px-12 mb-16 md:mb-40">
-      <AnimatedSection>
-        <Eyebrow>The KLR Way</Eyebrow>
-        <h2
-          className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl"
-          style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}
-        >
-          We are Central<br /><span className="text-[#F8AE01]">to Loyalty.</span>
-        </h2>
-      </AnimatedSection>
-      <StaggeredList className="grid md:grid-cols-3 gap-6 mt-8 md:mt-14">
-        {values.map((v) => (
-          <StaggeredItem key={v.title}>
-            <div
-              className={`rounded-[32px] p-10 h-full ${hairline}`}
-              style={v.accent ? { background: "#F8AE01", ...softShadow } : { background: "#fff", ...softShadow }}
-            >
-              <h3
-                className={`tracking-[-0.03em] ${v.accent ? "text-[#2E2784]" : "text-[#2E2784]"}`}
-                style={{ fontSize: "clamp(1.375rem, 2.5vw, 1.75rem)", fontWeight: 700, lineHeight: 1.15 }}
-              >
-                {v.title}
-              </h3>
-              <p
-                className={`tracking-tight mt-6 ${v.accent ? "text-[#2E2784]" : "text-black"}`}
-                style={{ fontSize: "1rem", lineHeight: 1.55 }}
-              >
-                {v.desc}
-              </p>
-            </div>
-          </StaggeredItem>
-        ))}
-      </StaggeredList>
-    </section>
-  );
-}
-
-/* ─── SECTORS ─── */
-function Sectors() {
-  return (
-    <section className="px-8 md:px-12 mb-16 md:mb-40">
-      <AnimatedSection>
-        <Eyebrow>Our Loyalty Ecosystem</Eyebrow>
-        <h2
-          className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl"
-          style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}
-        >
-          Born for Grocery & Petrol.<br /><span className="text-[#F8AE01]">Ready for more.</span>
-        </h2>
-        <p className="text-black tracking-tight max-w-xl mt-8" style={{ fontSize: "1rem", lineHeight: 1.6 }}>
-          We were born for Grocery &amp; Petrol — and we are ready to take on the next challenge.
-        </p>
-      </AnimatedSection>
-      <StaggeredList className="grid md:grid-cols-2 gap-6 mt-8 md:mt-14">
-        {sectors.map((s, i) => (
-          <StaggeredItem key={s.title}>
-            <div
-              data-cursor="explore"
-              className={`rounded-[32px] overflow-hidden relative ${hairline}`}
-              style={softShadow}
-            >
-              <div className="aspect-[4/3] overflow-hidden">
-                <img
-                  src={i === 0 ? images.family : images.petrolCouple}
-                  alt={s.title}
-                  className="w-full h-full object-cover transition-transform duration-[1500ms] hover:scale-[1.04]"
-                />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#2E2784]/85 via-[#2E2784]/10 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
-                <div className="tracking-[0.2em] uppercase text-[#F8AE01]" style={{ fontSize: "0.7rem" }}>
-                  {i === 0 ? "01 Grocery" : "02 Petrol"}
+          <div className="mt-12 grid md:grid-cols-3 gap-6">
+            {entries.map((entry) => (
+              <Link key={entry.id} href={`/work/${entry.id}`} className="group block rounded-[28px] overflow-hidden bg-white/85 backdrop-blur-sm border border-white/60">
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img src={entry.img} alt={entry.title} className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700" />
                 </div>
-                <h3
-                  className="text-white tracking-[-0.03em] mt-4"
-                  style={{ fontSize: "clamp(1.75rem, 3vw, 2.25rem)", fontWeight: 700, lineHeight: 1.05 }}
-                >
-                  {s.title}
+                <h3 className="mt-5 px-5 text-black" style={{ fontSize: "clamp(1.2rem, 1.6vw, 1.9rem)", lineHeight: 1.28 }}>
+                  {entry.title}
                 </h3>
-                <p className="text-white/80 tracking-tight mt-5 max-w-md" style={{ fontSize: "0.95rem", lineHeight: 1.55 }}>
-                  {s.desc}
-                </p>
-              </div>
-            </div>
-          </StaggeredItem>
-        ))}
-      </StaggeredList>
-
-      {/* Expanding sectors */}
-      <AnimatedSection delay={0.1} className="mt-8">
-        <div className={`rounded-[32px] p-8 md:p-10 bg-white ${hairline}`} style={softShadow}>
-          <p className="text-[#2E2784] tracking-tight mb-6" style={{ fontSize: "0.9rem", fontWeight: 500 }}>
-            But we are ready to take on the next challenge:
-          </p>
-          <div className="flex flex-wrap gap-3">
-            {["Drugstores", "Pet Stores", "Convenience Stores & On-the-Go", "All-in-Stores (Bazaars)"].map((s) => (
-              <span key={s} className="rounded-2xl px-5 py-2.5 text-[#2E2784] tracking-tight" style={{ fontSize: "0.85rem", fontWeight: 500, background: "#F8AE01" }}>
-                {s}
-              </span>
+                <p className="mt-4 px-5 text-black/55" style={{ fontSize: "0.98rem", lineHeight: 1.55 }}>{entry.summary}</p>
+                <span className="mt-5 mb-5 px-5 inline-block text-black" style={{ fontSize: "2rem", lineHeight: 1 }}>
+                  Read More
+                </span>
+              </Link>
             ))}
           </div>
-          <p className="text-black mt-6 tracking-tight" style={{ fontSize: "0.95rem" }}>
-            Overall, we are <strong className="text-[#2E2784]">loyalty makers</strong> for any retailer.
-          </p>
-        </div>
-      </AnimatedSection>
+
+          <div className="text-center mt-12">
+            <Link href="/work" className="text-[#2E2784] tracking-[0.4em] uppercase" style={{ fontSize: "0.95rem" }}>
+              Load more
+            </Link>
+          </div>
+        </AnimatedSection>
+      </div>
     </section>
   );
 }
 
-/* ─── RETAILERS ─── */
-function Retailers() {
-  return (
-    <section className="px-8 md:px-12 mb-16 md:mb-40">
-      <AnimatedSection>
-        <Eyebrow>Our Clients</Eyebrow>
-        <h2
-          className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl"
-          style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}
-        >
-          The Leading Retailers<br /><span className="text-[#F8AE01]">Who Already Trusted Us.</span>
-        </h2>
-      </AnimatedSection>
-      <AnimatedSection delay={0.1} className="mt-16">
-        <div className="tracking-[0.25em] uppercase text-[#2E2784] mb-6" style={{ fontSize: "0.7rem" }}>Grocery</div>
-        <div className="flex flex-wrap gap-3">
-          {retailers.grocery.map((r) => (
-            <span key={r} className={`rounded-full px-5 py-2.5 bg-[#F8AE01] text-black tracking-tight`} style={{ fontSize: "0.85rem", fontWeight: 500 }}>
-              {r}
-            </span>
-          ))}
-        </div>
-      </AnimatedSection>
-      <AnimatedSection delay={0.15} className="mt-12">
-        <div className="tracking-[0.25em] uppercase text-[#2E2784] mb-6" style={{ fontSize: "0.7rem" }}>Petrol</div>
-        <div className="flex flex-wrap gap-3">
-          {retailers.petrol.map((r) => (
-            <span key={r} className="rounded-full px-5 py-2.5 text-white tracking-tight" style={{ fontSize: "0.85rem", fontWeight: 500, background: "#2E2784" }}>
-              {r}
-            </span>
-          ))}
-        </div>
-      </AnimatedSection>
-    </section>
-  );
-}
+function BlogPreview() {
+  const posts = fallbackPosts.slice(0, 3);
 
-/* ─── BRAND PARTNERS ─── */
-function BrandPartners() {
   return (
-    <section className="px-8 md:px-12 mb-16 md:mb-40">
-      <AnimatedSection>
-        <Eyebrow>Our Portfolio</Eyebrow>
-        <h2
-          className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl"
-          style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}
-        >
-          Global Brands that<br /><span className="text-[#F8AE01]">Power Our Campaigns.</span>
-        </h2>
-        <p className="text-black tracking-tight max-w-xl mt-6" style={{ fontSize: "1rem", lineHeight: 1.6 }}>
-          We partner up with leading global brands to create loyalty programs able to drive high participation.
-        </p>
-      </AnimatedSection>
-      <StaggeredList className="mt-14 grid grid-cols-3 md:grid-cols-6 gap-3">
-        {brandPartners.map((b) => (
-          <StaggeredItem key={b.name}>
-            <div className={`rounded-[20px] bg-white ${hairline} flex items-center justify-center text-center min-h-[90px] overflow-hidden p-4`}>
-              {b.logo ? (
-                <img
-                  src={b.logo}
-                  alt={b.name}
-                  className="max-h-12 max-w-full w-auto object-contain"
-                />
-              ) : (
-                <span className="text-[#2E2784] tracking-tight" style={{ fontSize: "0.8rem", fontWeight: 600 }}>{b.name}</span>
-              )}
-            </div>
-          </StaggeredItem>
-        ))}
-      </StaggeredList>
-      <AnimatedSection className="mt-12">
-        <CTA label="Discover Our Brand Portfolio" variant="dark" href="/brands" />
-      </AnimatedSection>
-    </section>
-  );
-}
-
-/* ─── FEATURED STUDY ─── */
-function FeaturedStudy() {
-  const s = studies[0];
-  return (
-    <section className="px-8 md:px-12 mb-16 md:mb-40">
-      <AnimatedSection>
-        <Eyebrow>Featured Case Study</Eyebrow>
-        <h2
-          className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl"
-          style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}
-        >
-          Loyalty campaigns that<br /><span className="text-[#F8AE01]">drive results.</span>
-        </h2>
-      </AnimatedSection>
-      <AnimatedSection delay={0.1}>
-        <Link
-          href={`/work/${s.id}`}
-          data-cursor="explore"
-          className={`mt-14 block w-full rounded-[40px] overflow-hidden bg-white ${hairline} group`}
-          style={softShadow}
-        >
-          <div className="grid md:grid-cols-2">
-            <div className="aspect-[4/3] md:aspect-auto overflow-hidden">
-              <img
-                src={s.img}
-                alt={s.title}
-                className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-[1500ms]"
-              />
-            </div>
-            <div className="p-6 md:p-14 flex flex-col justify-between gap-8">
-              <div>
-                <div className="tracking-[0.2em] uppercase text-[#2E2784]" style={{ fontSize: "0.7rem" }}>
-                  {s.client} · {s.location}
+    <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.blue }}>
+      <div className="absolute -bottom-24 -right-20 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
+      <div className="max-w-6xl mx-auto px-8">
+        <AnimatedSection>
+          <div className="grid md:grid-cols-3 gap-6">
+            {posts.map((post) => (
+              <Link key={post.id} href={`/blog/${post.slug}`} className="group block rounded-[28px] overflow-hidden bg-white/92 backdrop-blur-sm border border-white/60">
+                <div className="aspect-[16/10] overflow-hidden">
+                  <img src={post.img} alt={post.title} className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700" />
                 </div>
-                <h3
-                  className="text-[#2E2784] tracking-[-0.03em] mt-5"
-                  style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", fontWeight: 700, lineHeight: 1.05 }}
-                >
-                  {s.title}
+                <h3 className="mt-5 px-5 text-black" style={{ fontSize: "clamp(1.2rem, 1.6vw, 1.9rem)", lineHeight: 1.28 }}>
+                  {post.title}
                 </h3>
-                <p className="text-black tracking-tight mt-6" style={{ fontSize: "1rem", lineHeight: 1.6 }}>
-                  {s.summary}
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-4">
-                {s.results.map((r) => (
-                  <div key={r.k} className={`rounded-2xl p-5 ${hairline}`}>
-                    <div className="text-[#2E2784]" style={{ fontSize: "1.5rem", fontWeight: 800, letterSpacing: "-0.04em" }}>{r.k}</div>
-                    <div className="text-black mt-1" style={{ fontSize: "0.8rem" }}>{r.v}</div>
-                  </div>
-                ))}
-              </div>
-              <div className="inline-flex items-center gap-3">
-                <span className="text-[#2E2784] border-b border-[#2E2784] pb-0.5" style={{ fontSize: "0.9rem" }}>
-                  Read the full story
+                <p className="mt-4 px-5 text-black/55" style={{ fontSize: "0.98rem", lineHeight: 1.55 }}>{post.excerpt}</p>
+                <span className="mt-5 mb-5 px-5 inline-block text-black" style={{ fontSize: "2rem", lineHeight: 1 }}>
+                  Read More
                 </span>
-                <span className="w-9 h-9 rounded-full bg-[#2E2784] text-white flex items-center justify-center group-hover:bg-[#F8AE01] group-hover:text-black transition-all">
-                  <ArrowUpRight className="w-4 h-4" />
-                </span>
-              </div>
-            </div>
+              </Link>
+            ))}
           </div>
-        </Link>
-      </AnimatedSection>
-      <AnimatedSection delay={0.05} className="mt-10">
-        <CTA label="See All Case Studies" variant="dark" href="/work" />
-      </AnimatedSection>
+        </AnimatedSection>
+      </div>
     </section>
   );
 }
 
-/* ─── FEATURED POST ─── */
-function FeaturedPost() {
-  const p = fallbackPosts[0];
+function ClosingCta() {
   return (
-    <section className="px-8 md:px-12 mb-16 md:mb-40">
-      <AnimatedSection>
-        <Eyebrow>Latest Insights</Eyebrow>
-      </AnimatedSection>
-      <AnimatedSection delay={0.1}>
-        <Link
-          href={`/blog/${p.slug}`}
-          data-cursor="explore"
-          className={`mt-10 block w-full rounded-[40px] overflow-hidden bg-white ${hairline} group`}
-          style={softShadow}
-        >
-          <div className="grid md:grid-cols-2">
-            <div className="p-6 md:p-14 flex flex-col justify-between gap-8 order-2 md:order-1">
-              <div>
-                <div className="tracking-[0.2em] uppercase text-[#2E2784]" style={{ fontSize: "0.7rem" }}>
-                  {p.category} · {p.date}
-                </div>
-                <h3
-                  className="text-[#2E2784] tracking-[-0.03em] mt-5"
-                  style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", fontWeight: 700, lineHeight: 1.05 }}
-                >
-                  {p.title}
-                </h3>
-                <p className="text-black tracking-tight mt-6" style={{ fontSize: "1rem", lineHeight: 1.6 }}>
-                  {p.excerpt}
-                </p>
-              </div>
-              <div className="inline-flex items-center gap-3">
-                <span className="text-[#2E2784] border-b border-[#2E2784] pb-0.5" style={{ fontSize: "0.9rem" }}>
-                  Read the full story
-                </span>
-                <span className="w-9 h-9 rounded-full bg-[#2E2784] text-white flex items-center justify-center group-hover:bg-[#F8AE01] group-hover:text-black transition-all">
-                  <ArrowUpRight className="w-4 h-4" />
-                </span>
-              </div>
+    <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.yellow }}>
+      <div className="absolute -top-24 right-20 w-[380px] h-[380px] rounded-full bg-white/15 blur-3xl" />
+      <div className="max-w-6xl mx-auto px-8">
+        <AnimatedSection>
+          <div className="grid md:grid-cols-2 gap-10 items-center">
+            <div>
+              <h2 className="text-white" style={{ fontSize: "clamp(2.4rem, 5vw, 5.4rem)", lineHeight: 1.02 }}>
+                Are you ready to
+                <br />
+                <span className="text-[#2E2784] font-semibold">start something</span>
+                <br />
+                <span className="text-[#2E2784] font-semibold">new</span> together?
+              </h2>
+              <p className="mt-8 text-[#2E2784]" style={{ fontSize: "clamp(1.08rem, 1.5vw, 1.7rem)", lineHeight: 1.35 }}>
+                Get in touch with us and we'll find the right solution for you
+              </p>
             </div>
-            <div className="aspect-[4/3] md:aspect-auto overflow-hidden order-1 md:order-2">
-              <img
-                src={p.img}
-                alt={p.title}
-                className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-[1500ms]"
-              />
+            <div className="md:text-right">
+              <Link href="/contact" className="text-white hover:text-[#2E2784] transition-colors" style={{ fontSize: "clamp(2rem, 3.2vw, 3.4rem)", letterSpacing: "0.1em" }}>
+                Get in Touch <ArrowUpRight className="inline-block w-9 h-9" />
+              </Link>
             </div>
           </div>
-        </Link>
-      </AnimatedSection>
-      <AnimatedSection delay={0.05} className="mt-10">
-        <CTA label="See All Insights" variant="dark" href="/blog" />
-      </AnimatedSection>
-    </section>
-  );
-}
-
-/* ─── CLOSING CTA ─── */
-function ClosingCTA() {
-  return (
-    <section className="px-8 md:px-12 pb-32">
-      <AnimatedSection>
-        <div
-          className={`rounded-[40px] p-7 md:p-16 relative overflow-hidden ${hairline}`}
-          style={{ ...softShadow, background: "#2E2784" }}
-        >
-          <div
-            className="absolute -top-24 -right-24 rounded-full opacity-15"
-            style={{ width: 400, height: 400, background: "#F8AE01" }}
-          />
-          <Eyebrow onDark>Keep in Touch!</Eyebrow>
-          <h2
-            className="text-[#F8AE01] tracking-[-0.035em] mt-8 max-w-3xl"
-            style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 700, lineHeight: 1.05 }}
-          >
-            Ready to design your next<br /><span className="text-white">loyalty experience?</span>
-          </h2>
-          <p className="text-white/75 tracking-tight mt-8 max-w-2xl" style={{ fontSize: "1.0625rem", lineHeight: 1.6 }}>
-            Let's talk about how we can help your customers come back more often, spend more, and feel great about it.
-          </p>
-          <div className="mt-12 flex flex-wrap gap-4">
-            <CTA label="Get in Touch" variant="yellow" href="/contact" />
-          </div>
-          <div className="mt-12 pt-10 border-t border-white/10 flex flex-wrap gap-x-8 gap-y-2 text-white/50 tracking-tight" style={{ fontSize: "0.85rem" }}>
-            <span>info@klr-europe.com</span>
-            <span>+386 5 902 87 58</span>
-            <span>Koper, Slovenia · Rovato, Italy</span>
-          </div>
-        </div>
-      </AnimatedSection>
+        </AnimatedSection>
+      </div>
     </section>
   );
 }
@@ -761,15 +448,15 @@ export function HomePage() {
   return (
     <div>
       <Hero />
-      <Stats />
-      <MapSection />
-      <LoyaltyFramework />
-      <Sectors />
-      <Retailers />
-      <BrandPartners />
-      <FeaturedStudy />
-      <FeaturedPost />
-      <ClosingCTA />
+      <Intro />
+      <HumanCentered />
+      <InternationalExperience />
+      <ServicesAccordion />
+      <WhyChoose />
+      <CustomersAndLogos />
+      <CaseStudies />
+      <BlogPreview />
+      <ClosingCta />
     </div>
   );
 }
