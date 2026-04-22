@@ -1,3 +1,4 @@
+"use client";
 import { ArrowUpRight } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, hairline, softShadow } from "./ui-bits";

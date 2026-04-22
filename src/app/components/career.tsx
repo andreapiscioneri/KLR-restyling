@@ -1,3 +1,4 @@
+"use client";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, hairline, softShadow } from "./ui-bits";
 import { images, careerValues, offices } from "../data";

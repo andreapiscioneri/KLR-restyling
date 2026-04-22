@@ -1,3 +1,4 @@
+"use client";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
 const hairline = "border border-black/5";

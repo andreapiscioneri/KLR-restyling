@@ -1,3 +1,4 @@
+"use client";
 import { Eyebrow, hairline, softShadow } from "./ui-bits";
 
 export function Privacy() {

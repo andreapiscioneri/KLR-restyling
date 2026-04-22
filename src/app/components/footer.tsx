@@ -21,7 +21,7 @@ export function Footer({ go }: { go: (r: Route) => void }) {
         <div className="grid md:grid-cols-12 gap-12 mb-24">
           <div className="md:col-span-5">
             <button onClick={() => go({ page: "home" })} className="flex items-center gap-3 mb-10">
-              <img src={logo} alt="KLR" className="h-8 w-auto" />
+              <img src={typeof logo === "string" ? logo : (logo as { src: string }).src} alt="KLR" className="h-8 w-auto" />
             </button>
             <div className="text-[#2E2784] tracking-[-0.03em] max-w-md" style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)", lineHeight: 1.15, fontWeight: 600 }}>
               Key to Loyalty in Retail.<br />

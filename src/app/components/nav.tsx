@@ -41,7 +41,7 @@ export function Nav({ page, setPage }: { page: Page; setPage: (p: Page) => void 
         }}
       >
         <button onClick={() => setPage("home")} className="flex items-center gap-2 shrink-0">
-          <img src={logo} alt="KLR Europe" className="h-7 md:h-8 w-auto" />
+          <img src={typeof logo === "string" ? logo : (logo as { src: string }).src} alt="KLR Europe" className="h-7 md:h-8 w-auto" />
           <span className="w-1.5 h-1.5 rounded-full bg-[#F8AE01]" />
         </button>
 

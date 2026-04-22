@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
