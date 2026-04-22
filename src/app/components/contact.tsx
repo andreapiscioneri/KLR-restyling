@@ -7,14 +7,14 @@ import { PageHero } from "./page-hero";
 
 export function Contact() {
   return (
-    <div className="pb-48">
+    <div className="pb-16 md:pb-48">
       <PageHero
         eyebrow="Contacts"
         title={<>We operate in almost<br /><span className="text-[#F8AE01]">20 Countries.</span></>}
         subtitle="We design and deliver marketing campaigns with positive results for retail businesses. 10 years of experience and more than 300 campaigns completed."
         image={images.contacts}
       />
-      <div className="max-w-6xl mx-auto px-8">
+      <div className="px-8 md:px-12">
 
       {/* MAP */}
       <div className={`mb-20 rounded-[40px] overflow-hidden ${hairline}`} style={softShadow}>
@@ -23,7 +23,7 @@ export function Contact() {
 
       <div className="grid md:grid-cols-12 gap-10">
         {/* FORM */}
-        <form className={`md:col-span-7 rounded-[40px] p-10 md:p-14 space-y-6 ${hairline}`} style={{ ...softShadow, background: "#2E2784" }}>
+        <form className={`md:col-span-7 rounded-[40px] p-6 md:p-14 space-y-6 ${hairline}`} style={{ ...softShadow, background: "#2E2784" }}>
           <div className="grid md:grid-cols-2 gap-x-6 gap-y-6">
             <div className="border-b border-white/20 pb-4">
               <label className="tracking-[0.2em] uppercase text-[#F8AE01] block mb-2" style={{ fontSize: "0.65rem" }}>Full Name *</label>

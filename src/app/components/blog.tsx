@@ -46,14 +46,14 @@ export function Blog({ go }: { go: (r: Route) => void }) {
   const [featured, ...rest] = filtered;
 
   return (
-    <div className="pb-48">
+    <div className="pb-16 md:pb-48">
       <PageHero
         eyebrow="Insights"
-        title={<>Ideas, trends & stories<br /><span className="text-[#F8AE01]">from KLR.</span></>}
+        title={<>Ideas, Trends & Stories<br /><span className="text-[#F8AE01]">from KLR hands on experience.</span></>}
         subtitle="Your go-to spot for fresh takes on loyalty marketing, industry trends, and the people behind our success."
         image={images.human}
       />
-      <div className="max-w-6xl mx-auto px-8">
+      <div className="px-8 md:px-12">
       {loading && (
         <div className="text-black tracking-tight mt-8" style={{ fontSize: "0.85rem" }}>
           Loading latest articles…
@@ -84,7 +84,7 @@ export function Blog({ go }: { go: (r: Route) => void }) {
             <div className="aspect-[4/3] md:aspect-auto md:h-full overflow-hidden">
               <ImageWithFallback src={featured.img} alt={featured.title} className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-[1500ms]" />
             </div>
-            <div className="p-10 md:p-14 flex flex-col justify-between gap-8">
+            <div className="p-6 md:p-14 flex flex-col justify-between gap-8">
               <div>
                 <div className="flex items-center gap-3 flex-wrap">
                   <span className="rounded-full px-3 py-1 bg-[#F8AE01] text-black tracking-[0.2em] uppercase" style={{ fontSize: "0.65rem" }}>
@@ -134,7 +134,7 @@ export function Blog({ go }: { go: (r: Route) => void }) {
       </div>
 
       {/* CLOSING CTA */}
-      <section className="mt-32 flex flex-wrap items-center justify-between gap-6">
+      <section className="mt-16 md:mt-32 flex flex-wrap items-center justify-between gap-6">
         <h3 className="text-[#2E2784] tracking-[-0.03em] max-w-xl" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", lineHeight: 1.1, fontWeight: 600 }}>
           Are you ready to start something new together?
         </h3>

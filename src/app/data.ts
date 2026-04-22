@@ -67,11 +67,26 @@ export const brands = [
   { id: "police", name: "Police", tag: "Lifestyle", img: `${CDN}/2025/02/police.jpg`, since: "2022", campaigns: "7", countries: "5", desc: "Attitude, design and heritage. The Police lifestyle brand brings identity to retail and petrol loyalty." },
 ];
 
-// Brand partner names for logo grid
-export const brandPartners = [
-  "Oracle Red Bull Racing", "NASA", "Bugatti", "Pintinox", "Eurosport", "Guzzini Chefline",
-  "Zanussi", "Spear & Jackson", "Police", "O bag", "Mustang", "Carl Schmidt Sohn",
-  "Luminarc", "Goodyear", "Blaupunkt", "Elle", "NewME", "Wastebusters",
+// Brand partner logos grid
+export const brandPartners: { name: string; logo: string | null }[] = [
+  { name: "Oracle Red Bull Racing", logo: `${CDN}/2025/08/Spar-TZ_RedBull-cover-circle.jpg` },
+  { name: "NASA", logo: `${CDN}/2025/02/pngkey.com-nasa-logo-png-274741.png` },
+  { name: "Bugatti", logo: `${CDN}/2022/12/casa-bugatti-logo-vector-1.svg` },
+  { name: "Pintinox", logo: `${CDN}/2024/01/Logo-Pintinox.png` },
+  { name: "Eurosport", logo: `${CDN}/2022/12/Eurosport-1.svg` },
+  { name: "Guzzini Chefline", logo: `${CDN}/2025/02/LOGO_CHEFLINE.png` },
+  { name: "Zanussi", logo: `${CDN}/2022/12/zanussi-01.svg` },
+  { name: "Spear & Jackson", logo: `${CDN}/2022/12/SpearJackson-1.svg` },
+  { name: "Police", logo: `${CDN}/2024/01/Police-logo.png` },
+  { name: "O bag", logo: null },
+  { name: "Mustang", logo: null },
+  { name: "Carl Schmidt Sohn", logo: null },
+  { name: "Luminarc", logo: `${CDN}/2022/12/Luminarc_2.svg` },
+  { name: "Goodyear", logo: `${CDN}/2022/12/goodyear-1.svg` },
+  { name: "Blaupunkt", logo: `${CDN}/2022/12/Blaupunkt-1.svg` },
+  { name: "Elle", logo: `${CDN}/2022/12/Elle-1.svg` },
+  { name: "NewME", logo: `${CDN}/2022/12/NewME-final-1.svg` },
+  { name: "Wastebusters", logo: `${CDN}/2022/12/Wastebusters-1.svg` },
 ];
 
 export const productCategories = [

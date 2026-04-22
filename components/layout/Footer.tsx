@@ -2,69 +2,174 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowUpRight, Mail, MapPin } from "lucide-react";
+
+function LinkedInIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect x="2" y="9" width="4" height="12" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
+
+function YouTubeIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58a2.78 2.78 0 0 0 1.95 1.97C5.12 20 12 20 12 20s6.88 0 8.59-.45a2.78 2.78 0 0 0 1.95-1.97A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
+      <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white" />
+    </svg>
+  );
+}
 
 const explore = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
+  { href: "/",         label: "Home" },
+  { href: "/about",    label: "About" },
   { href: "/services", label: "Services" },
-  { href: "/brands", label: "Brands" },
+  { href: "/brands",   label: "Brands" },
 ];
 const more = [
-  { href: "/work", label: "Case Studies" },
-  { href: "/blog", label: "Insights" },
-  { href: "/team", label: "Team" },
-  { href: "/career", label: "Career" },
-  { href: "/contact", label: "Contact" },
+  { href: "/work",     label: "Case Studies" },
+  { href: "/blog",     label: "Insights" },
+  { href: "/team",     label: "Team" },
+  { href: "/contact",  label: "Contact" },
 ];
+
+const glassCard = {
+  background: "rgba(255,255,255,0.04)",
+  border: "1px solid rgba(255,255,255,0.08)",
+  backdropFilter: "blur(20px)",
+  WebkitBackdropFilter: "blur(20px)",
+  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
+};
 
 export function Footer() {
   return (
-    <footer className="bg-[#2E2784]">
-      <div className="max-w-6xl mx-auto px-8 py-24">
-        <div className="grid md:grid-cols-12 gap-12 mb-24">
-          {/* Brand */}
-          <div className="md:col-span-5">
-            <Link href="/" className="flex items-center gap-2 mb-10">
-              <Image src="/klr-logo.png" alt="KLR Europe" width={120} height={40} className="h-8 w-auto" />
+    <footer className="relative overflow-hidden" style={{ background: "#06051C" }}>
+
+      {/* Decorative gradient blobs */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          bottom: "-10%", left: "-8%",
+          width: 560, height: 560,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(248,174,1,0.18) 0%, transparent 65%)",
+        }}
+      />
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: "-15%", right: "-10%",
+          width: 700, height: 700,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(46,39,132,0.55) 0%, transparent 65%)",
+        }}
+      />
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: "40%", left: "35%",
+          width: 320, height: 320,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(200,104,250,0.08) 0%, transparent 65%)",
+        }}
+      />
+
+      <div className="relative px-8 md:px-12 pt-20 pb-10">
+
+        {/* ── Tagline glass panel ── */}
+        <div className="rounded-[32px] p-6 sm:p-8 md:px-14 md:py-14 mb-16 flex flex-wrap items-end justify-between gap-8" style={glassCard}>
+          <div>
+            <Link href="/" className="inline-block mb-8">
+              <Image src="/klr-logo.png" alt="KLR Europe" width={130} height={44} className="h-9 w-auto" />
             </Link>
-            <div
-              className="text-white tracking-[-0.03em] max-w-md"
-              style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)", lineHeight: 1.15, fontWeight: 600 }}
+            <h2
+              className="text-white tracking-[-0.04em] leading-none"
+              style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", fontWeight: 800 }}
             >
-              Key to Loyalty in Retail.<br />
-              <span className="text-[#F8AE01]">Built on trust and teamwork.</span>
-            </div>
-            <p className="text-white/60 tracking-tight mt-6 max-w-xs text-[0.9rem] leading-relaxed">
-              We design and deliver marketing campaigns with positive results for retail businesses.
+              We Design<br />
+              <span style={{ color: "#F8AE01", textShadow: "0 0 60px rgba(248,174,1,0.35)" }}>
+                Emotional Loyalty.
+              </span>
+            </h2>
+            <p className="text-white/45 tracking-tight mt-5 max-w-sm text-[0.9rem] leading-relaxed">
+              human centred loyalty marketing — transforming customer engagement into lasting loyalty across Europe and beyond.
             </p>
-            <div className="flex items-center gap-4 mt-8">
+          </div>
+
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-3 pl-5 pr-2 py-2 rounded-2xl tracking-tight text-[0.9rem] font-medium shrink-0 transition-all hover:scale-[1.02]"
+            style={{
+              background: "#F8AE01",
+              color: "#000",
+              boxShadow: "0 0 40px rgba(248,174,1,0.4), inset 0 1px 0 rgba(255,255,255,0.35)",
+            }}
+          >
+            <span>Keep in Touch!</span>
+            <span
+              className="w-8 h-8 rounded-xl flex items-center justify-center"
+              style={{ background: "rgba(0,0,0,0.12)" }}
+            >
+              <ArrowUpRight className="w-4 h-4" />
+            </span>
+          </Link>
+        </div>
+
+        {/* ── Columns ── */}
+        <div className="grid md:grid-cols-12 gap-10 mb-14">
+
+          {/* Socials + desc */}
+          <div className="md:col-span-4">
+            <p className="text-white/40 tracking-tight text-[0.88rem] leading-relaxed max-w-xs">
+              KLR Europe S.r.l. — Loyalty campaign design and full-cycle execution for grocery and petrol retailers across 20+ European markets.
+            </p>
+            <div className="flex items-center gap-3 mt-8">
               <a
                 href="https://www.linkedin.com/company/klr-key-to-loyalty-in-retail/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/70 hover:text-[#F8AE01] transition-colors text-[0.85rem] tracking-tight"
+                className="flex items-center justify-center w-9 h-9 rounded-xl transition-all hover:scale-105"
+                style={{ ...glassCard, color: "rgba(255,255,255,0.55)" }}
+                aria-label="LinkedIn"
               >
-                LinkedIn
+                <LinkedInIcon className="w-4 h-4" />
               </a>
-              <span className="text-white/20">·</span>
               <a
                 href="https://www.youtube.com/@klreurope"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/70 hover:text-[#F8AE01] transition-colors text-[0.85rem] tracking-tight"
+                className="flex items-center justify-center w-9 h-9 rounded-xl transition-all hover:scale-105"
+                style={{ ...glassCard, color: "rgba(255,255,255,0.55)" }}
+                aria-label="YouTube"
               >
-                YouTube
+                <YouTubeIcon className="w-4 h-4" />
+              </a>
+              <a
+                href="mailto:info@klr-europe.com"
+                className="flex items-center justify-center w-9 h-9 rounded-xl transition-all hover:scale-105"
+                style={{ ...glassCard, color: "rgba(255,255,255,0.55)" }}
+                aria-label="Email"
+              >
+                <Mail className="w-4 h-4" />
               </a>
             </div>
           </div>
 
           {/* Explore */}
-          <div className="md:col-span-2">
-            <div className="tracking-[0.2em] uppercase text-white/50 mb-6 text-[0.7rem]">Explore</div>
-            <ul className="space-y-3 text-white/80 tracking-tight text-[0.95rem]">
+          <div className="md:col-span-2 md:col-start-6">
+            <div className="tracking-[0.22em] uppercase text-white/25 mb-5 text-[0.63rem]">Explore</div>
+            <ul className="space-y-3.5">
               {explore.map((e) => (
                 <li key={e.href}>
-                  <Link href={e.href} className="hover:text-[#F8AE01] transition-colors">{e.label}</Link>
+                  <Link
+                    href={e.href}
+                    className="text-white/55 hover:text-[#F8AE01] transition-colors tracking-tight text-[0.9rem]"
+                  >
+                    {e.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -72,11 +177,16 @@ export function Footer() {
 
           {/* Links */}
           <div className="md:col-span-2">
-            <div className="tracking-[0.2em] uppercase text-white/50 mb-6 text-[0.7rem]">Links</div>
-            <ul className="space-y-3 text-white/80 tracking-tight text-[0.95rem]">
+            <div className="tracking-[0.22em] uppercase text-white/25 mb-5 text-[0.63rem]">Links</div>
+            <ul className="space-y-3.5">
               {more.map((e) => (
                 <li key={e.href}>
-                  <Link href={e.href} className="hover:text-[#F8AE01] transition-colors">{e.label}</Link>
+                  <Link
+                    href={e.href}
+                    className="text-white/55 hover:text-[#F8AE01] transition-colors tracking-tight text-[0.9rem]"
+                  >
+                    {e.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -84,35 +194,54 @@ export function Footer() {
 
           {/* HQ */}
           <div className="md:col-span-3">
-            <div className="tracking-[0.2em] uppercase text-white/50 mb-6 text-[0.7rem]">Headquarters</div>
-            <p className="text-white/80 tracking-tight text-[0.95rem] leading-relaxed">
-              Ulica 15. Maja 19<br />
-              SI-6000 Koper/Capodistria<br />
-              +386 5 902 87 58
-            </p>
-            <p className="text-white/80 tracking-tight text-[0.95rem] leading-relaxed mt-4">
-              Via XXV Aprile 68<br />
-              25038 Rovato (BS), Italy<br />
-              +39 030 52 81 427
-            </p>
-            <a
-              href="mailto:info@klr-europe.com"
-              className="text-white/70 hover:text-[#F8AE01] tracking-tight mt-4 block transition-colors text-[0.95rem]"
-            >
-              info@klr-europe.com
-            </a>
+            <div className="tracking-[0.22em] uppercase text-white/25 mb-5 text-[0.63rem]">Headquarters</div>
+
+            <div className="space-y-5">
+              <div className="flex gap-3">
+                <MapPin className="w-4 h-4 text-[#F8AE01]/60 shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-white/55 tracking-tight text-[0.88rem] leading-relaxed">
+                    Ulica 15. Maja 19<br />
+                    SI-6000 Koper/Capodistria<br />
+                    <span className="text-white/35">+386 5 902 87 58</span>
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-3">
+                <MapPin className="w-4 h-4 text-[#F8AE01]/60 shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-white/55 tracking-tight text-[0.88rem] leading-relaxed">
+                    Via XXV Aprile 68<br />
+                    25038 Rovato (BS), Italy<br />
+                    <span className="text-white/35">+39 030 52 81 427</span>
+                  </p>
+                </div>
+              </div>
+
+              <a
+                href="mailto:info@klr-europe.com"
+                className="text-white/45 hover:text-[#F8AE01] tracking-tight block transition-colors text-[0.88rem]"
+              >
+                info@klr-europe.com
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="flex items-center justify-between text-white/40 tracking-tight pt-10 border-t border-white/10 flex-wrap gap-4 text-[0.8rem]">
+        {/* ── Bottom bar ── */}
+        <div
+          className="flex items-center justify-between text-white/25 tracking-tight pt-8 flex-wrap gap-4 text-[0.78rem]"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+        >
           <span>© 2026 KLR-EVROPA d.o.o.</span>
           <div className="flex items-center gap-4">
-            <Link href="/copyright" className="hover:text-white transition-colors">Copyright</Link>
-            <span className="text-white/20">·</span>
-            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/copyright" className="hover:text-white/55 transition-colors">Copyright</Link>
+            <span className="text-white/10">·</span>
+            <Link href="/privacy" className="hover:text-white/55 transition-colors">Privacy Policy</Link>
           </div>
         </div>
+
       </div>
     </footer>
   );

@@ -23,14 +23,14 @@ export function Studies({ go }: { go: (r: Route) => void }) {
   ];
 
   return (
-    <div className="pb-48">
+    <div className="pb-16 md:pb-48">
       <PageHero
         eyebrow="Case Studies"
-        title={<>Loyalty Campaigns<br /><span className="text-[#F8AE01]">that drive success.</span></>}
+        title={<>Real Results for<br /><span className="text-[#F8AE01]">Real Retail Chains.</span></>}
         subtitle="340+ campaigns across 20+ countries. Explore how we've helped grocery and fuel retail chains achieve measurable results."
         image={images.mask}
       />
-      <div className="max-w-6xl mx-auto px-8">
+      <div className="px-8 md:px-12">
 
       {/* FILTER CHIPS */}
       <div className="sticky top-28 z-30 mb-20 flex flex-wrap justify-center gap-3">
@@ -56,7 +56,7 @@ export function Studies({ go }: { go: (r: Route) => void }) {
             </button>
           ))}
         </div>
-        <div className={`rounded-full p-1.5 inline-flex gap-1 bg-white ${hairline}`}>
+        <div className={`rounded-full p-1.5 flex flex-wrap gap-1 bg-white ${hairline}`}>
           {["all", ...allBrands].map((b) => (
             <button
               key={b}
@@ -117,7 +117,7 @@ export function Studies({ go }: { go: (r: Route) => void }) {
       </div>
 
       {/* CLOSING CTA */}
-      <section className="mt-32 flex flex-wrap items-center justify-between gap-6">
+      <section className="mt-16 md:mt-32 flex flex-wrap items-center justify-between gap-6">
         <h3 className="text-[#2E2784] tracking-[-0.03em] max-w-xl" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", lineHeight: 1.1, fontWeight: 600 }}>
           Are you ready to start something new together?
         </h3>

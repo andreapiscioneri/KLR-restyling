@@ -9,8 +9,8 @@ import type { Route } from "../App";
 
 type FullPost = Post & { contentHtml?: string };
 
-export function BlogDetail({ slug, go }: { slug: string; go: (r: Route) => void }) {
-  const initial: FullPost = fallbackPosts.find((p) => p.slug === slug) || fallbackPosts[0];
+export function BlogDetail({ slug, go, initialPost }: { slug: string; go: (r: Route) => void; initialPost?: FullPost }) {
+  const initial: FullPost = initialPost || fallbackPosts.find((p) => p.slug === slug) || fallbackPosts[0];
   const [post, setPost] = useState<FullPost>(initial);
 
   useEffect(() => {

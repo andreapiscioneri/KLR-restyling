@@ -8,7 +8,7 @@ import type { Route } from "../App";
 
 export function Brands({ go }: { go: (r: Route) => void }) {
   return (
-    <div className="pb-48">
+    <div className="pb-16 md:pb-48">
       <PageHero
         eyebrow="Brand Partners"
         title={<>Exceptional Brands.<br /><span className="text-[#F8AE01]">Unforgettable Rewards.</span></>}
@@ -18,12 +18,12 @@ export function Brands({ go }: { go: (r: Route) => void }) {
       />
 
       {/* PRODUCT CATEGORIES */}
-      <section className="max-w-6xl mx-auto px-8 mb-32">
+      <section className="px-8 md:px-12 mb-12 md:mb-32">
         <Eyebrow>The Full Scope of Loyalty</Eyebrow>
         <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
           Product categories<br /><span className="text-[#F8AE01]">we curate.</span>
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-14">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-8 md:mt-14">
           {productCategories.map((c, i) => (
             <div key={c.title} className={`rounded-[28px] p-8 ${hairline}`} style={i % 2 === 0 ? { background: "#fff", ...softShadow } : { background: "#2E2784", ...softShadow }}>
               <h3 className={`${i % 2 === 0 ? "text-[#2E2784]" : "text-[#F8AE01]"} tracking-[-0.02em]`} style={{ fontSize: "1.25rem", fontWeight: 700 }}>{c.title}</h3>
@@ -34,12 +34,12 @@ export function Brands({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* BRAND SHOWCASES — per-brand stats */}
-      <section className="max-w-6xl mx-auto px-8 mb-32">
+      <section className="px-8 md:px-12 mb-12 md:mb-32">
         <Eyebrow>Our Brand Partners</Eyebrow>
         <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
           Every collection<br /><span className="text-[#F8AE01]">has a story.</span>
         </h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-14">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 md:mt-14">
           {brands.map((b) => (
             <button
               key={b.id}
@@ -81,22 +81,26 @@ export function Brands({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* BRAND PARTNER LOGO GRID */}
-      <section className="max-w-6xl mx-auto px-8 mb-40">
+      <section className="px-8 md:px-12 mb-16 md:mb-40">
         <Eyebrow>Global Brands</Eyebrow>
         <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
           A growing portfolio<br /><span className="text-[#F8AE01]">of trusted brands.</span>
         </h2>
-        <div className="mt-14 grid grid-cols-2 md:grid-cols-6 gap-3">
+        <div className="mt-14 grid grid-cols-3 md:grid-cols-6 gap-3">
           {brandPartners.map((b) => (
-            <div key={b} className={`rounded-[20px] p-6 bg-white ${hairline} flex items-center justify-center text-center min-h-[100px]`}>
-              <span className="text-[#2E2784] tracking-tight" style={{ fontSize: "0.9rem", fontWeight: 600 }}>{b}</span>
+            <div key={b.name} className={`rounded-[20px] bg-white ${hairline} flex items-center justify-center text-center min-h-[90px] overflow-hidden p-4`}>
+              {b.logo ? (
+                <img src={b.logo} alt={b.name} className="max-h-12 max-w-full w-auto object-contain" />
+              ) : (
+                <span className="text-[#2E2784] tracking-tight" style={{ fontSize: "0.8rem", fontWeight: 600 }}>{b.name}</span>
+              )}
             </div>
           ))}
         </div>
       </section>
 
       {/* WHY BRANDS PARTNER WITH US */}
-      <section className="max-w-6xl mx-auto px-8 mb-32">
+      <section className="px-8 md:px-12 mb-12 md:mb-32">
         <Eyebrow>Why Brands Partner with KLR</Eyebrow>
         <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
           Unlock the power of loyalty<br /><span className="text-[#F8AE01]">for your brand.</span>
@@ -104,9 +108,9 @@ export function Brands({ go }: { go: (r: Route) => void }) {
         <p className="text-black tracking-tight max-w-2xl mt-8" style={{ fontSize: "1.0625rem", lineHeight: 1.65 }}>
           For global and premium brands, retail loyalty campaigns represent one of the most effective ways to reach millions of consumers in a trusted, high-frequency shopping environment.
         </p>
-        <div className="grid md:grid-cols-3 gap-6 mt-14">
+        <div className="grid md:grid-cols-3 gap-6 mt-8 md:mt-14">
           {whyBrandsPartner.map((v, i) => (
-            <div key={v.title} className={`rounded-[32px] p-10 ${hairline}`} style={i % 2 === 0 ? { background: "#fff", ...softShadow } : { background: "#2E2784", ...softShadow }}>
+            <div key={v.title} className={`rounded-[32px] p-6 md:p-10 ${hairline}`} style={i % 2 === 0 ? { background: "#fff", ...softShadow } : { background: "#2E2784", ...softShadow }}>
               <h3 className={`${i % 2 === 0 ? "text-[#2E2784]" : "text-[#F8AE01]"} tracking-[-0.02em]`} style={{ fontSize: "1.375rem", fontWeight: 700, lineHeight: 1.15 }}>{v.title}</h3>
               <p className={`${i % 2 === 0 ? "text-black" : "text-white"} tracking-tight mt-6`} style={{ fontSize: "0.95rem", lineHeight: 1.6 }}>{v.desc}</p>
             </div>
@@ -115,12 +119,12 @@ export function Brands({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* HOW BRAND PARTNERSHIPS WORK */}
-      <section className="max-w-6xl mx-auto px-8 mb-32">
+      <section className="px-8 md:px-12 mb-12 md:mb-32">
         <Eyebrow>How Brand Partnerships Work</Eyebrow>
         <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
           From licensing to in-store:<br /><span className="text-[#F8AE01]">a seamless process.</span>
         </h2>
-        <div className={`mt-14 rounded-[40px] p-10 md:p-14 ${hairline}`} style={{ background: "#2E2784", ...softShadow }}>
+        <div className={`mt-14 rounded-[40px] p-6 md:p-14 ${hairline}`} style={{ background: "#2E2784", ...softShadow }}>
           <div className="divide-y divide-white/15">
             {brandPartnershipProcess.map((p) => (
               <div key={p.n} className="py-8 grid md:grid-cols-12 gap-6 first:pt-0 last:pb-0">
@@ -138,7 +142,7 @@ export function Brands({ go }: { go: (r: Route) => void }) {
         <div className={`rounded-[40px] overflow-hidden ${hairline} relative`} style={softShadow}>
           <ImageWithFallback src={images.human} alt="" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-[#2E2784]/80" />
-          <div className="relative p-10 md:p-16">
+          <div className="relative p-7 md:p-16">
             <Eyebrow onDark>For Brand Partners</Eyebrow>
             <h2 className="text-[#F8AE01] tracking-[-0.035em] mt-8 max-w-3xl" style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)", fontWeight: 700, lineHeight: 1.05 }}>
               Interested in reaching millions of<br /><span className="text-white">European consumers through loyalty?</span>

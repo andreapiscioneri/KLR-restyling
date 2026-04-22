@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Purple background -->
+  <rect width="64" height="64" rx="14" fill="#2E2784"/>
+  <!-- Ring (large circle, top-right area) -->
+  <circle cx="38" cy="26" r="14" fill="#F8AE01"/>
+  <circle cx="38" cy="26" r="7.5" fill="#2E2784"/>
+  <!-- Dot (small filled circle, bottom-left of ring) -->
+  <circle cx="24" cy="42" r="7" fill="#F8AE01"/>
+</svg>

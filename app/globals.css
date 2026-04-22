@@ -2,8 +2,17 @@
 @import "tailwindcss";
 
 :root {
+  /* Primary */
   --klr-blue: #2E2784;
   --klr-amber: #F8AE01;
+  /* Extended palette from brandbook */
+  --klr-purple-light: #C868FA;
+  --klr-purple-dark: #3D0088;
+  --klr-amber-light: #FBE300;
+  --klr-amber-pale: #FFF8D6;
+  --klr-blue-pale: #ECEAF8;
+  --klr-gray: #F5F5F5;
+  --klr-dark: #111111;
   font-family: 'Poppins', system-ui, sans-serif;
 }
 

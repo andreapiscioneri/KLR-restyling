@@ -8,7 +8,7 @@ import type { Route } from "../App";
 
 export function Team({ go }: { go: (r: Route) => void }) {
   return (
-    <div className="pb-48">
+    <div className="pb-16 md:pb-48">
       <PageHero
         eyebrow="Our Team"
         title={<>Loyalty starts<br /><span className="text-[#F8AE01]">with us.</span></>}
@@ -16,10 +16,10 @@ export function Team({ go }: { go: (r: Route) => void }) {
         image={images.teamPhoto}
         cta={{ label: "Join the Team", href: "/career" }}
       />
-      <div className="max-w-6xl mx-auto px-8">
+      <div className="px-8 md:px-12">
 
       {/* LEADERSHIP */}
-      <div className="mb-40">
+      <div className="mb-16 md:mb-40">
         <div className="flex items-baseline justify-between mb-14 flex-wrap gap-4">
           <Eyebrow>Our Leading People</Eyebrow>
           <div className="text-black tracking-tight" style={{ fontSize: "0.85rem" }}>{leadership.length} leaders</div>
@@ -51,14 +51,14 @@ export function Team({ go }: { go: (r: Route) => void }) {
       </div>
 
       {/* INTERNATIONAL PRESENCE */}
-      <section className="mb-40">
+      <section className="mb-16 md:mb-40">
         <Eyebrow>We Are Truly International</Eyebrow>
         <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
           10 locations<br /><span className="text-[#F8AE01]">across Europe.</span>
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-14">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-8 md:mt-14">
           {locations.map((l, i) => (
-            <div key={l.city} className={`rounded-[24px] p-6 ${hairline}`} style={i % 2 === 0 ? { background: "#fff", ...softShadow } : { background: "#2E2784", ...softShadow }}>
+            <div key={l.city} className={`rounded-[24px] p-4 md:p-6 ${hairline}`} style={i % 2 === 0 ? { background: "#fff", ...softShadow } : { background: "#2E2784", ...softShadow }}>
               <div className={`tracking-[0.2em] uppercase ${i % 2 === 0 ? "text-[#F8AE01]" : "text-[#F8AE01]"}`} style={{ fontSize: "0.65rem" }}>{l.country}</div>
               <div className={`${i % 2 === 0 ? "text-[#2E2784]" : "text-white"} tracking-[-0.02em] mt-3`} style={{ fontSize: "1.1rem", fontWeight: 700 }}>{l.city}</div>
             </div>
@@ -67,15 +67,15 @@ export function Team({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* CULTURE */}
-      <section className="grid md:grid-cols-2 gap-6 md:gap-8 mb-32">
-        <div className={`rounded-[32px] overflow-hidden ${hairline} relative aspect-[4/5] md:aspect-auto md:h-[560px] group`} style={softShadow}>
+      <section className="grid md:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-32">
+        <div className={`rounded-[32px] overflow-hidden ${hairline} relative aspect-[4/5] md:aspect-auto md:h-[420px] lg:h-[560px] group`} style={softShadow}>
           <ImageWithFallback src={images.teamwork} alt="Teamwork culture" className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-[1500ms]" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#2E2784]/70 to-transparent" />
           <div className="absolute bottom-8 left-8 right-8 text-[#F8AE01] tracking-[-0.03em]" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.875rem)", fontWeight: 700, lineHeight: 1.1 }}>
             Teamwork is our natural language.
           </div>
         </div>
-        <div className={`rounded-[32px] overflow-hidden ${hairline} relative aspect-[4/5] md:aspect-auto md:h-[560px] group`} style={softShadow}>
+        <div className={`rounded-[32px] overflow-hidden ${hairline} relative aspect-[4/5] md:aspect-auto md:h-[420px] lg:h-[560px] group`} style={softShadow}>
           <ImageWithFallback src={images.human} alt="Human centered" className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-[1500ms]" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#2E2784]/70 to-transparent" />
           <div className="absolute bottom-8 left-8 right-8 text-[#F8AE01] tracking-[-0.03em]" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.875rem)", fontWeight: 700, lineHeight: 1.1 }}>
@@ -85,7 +85,7 @@ export function Team({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* CULTURE VALUES */}
-      <section className="mb-32">
+      <section className="mb-12 md:mb-32">
         <Eyebrow>Our Culture</Eyebrow>
         <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
           What it's like<br /><span className="text-[#F8AE01]">to work at KLR.</span>
@@ -93,9 +93,9 @@ export function Team({ go }: { go: (r: Route) => void }) {
         <p className="text-black tracking-tight max-w-2xl mt-8" style={{ fontSize: "1.0625rem", lineHeight: 1.6 }}>
           KLR is more than a company — it's a family of open-minded professionals from different cultures and backgrounds. We give people freedom to contribute, support to grow, and recognition for the value they bring.
         </p>
-        <div className="grid md:grid-cols-3 gap-6 mt-14">
+        <div className="grid md:grid-cols-3 gap-6 mt-8 md:mt-14">
           {careerValues.map((v) => (
-            <div key={v.title} className={`rounded-[32px] p-10 bg-white ${hairline}`} style={softShadow}>
+            <div key={v.title} className={`rounded-[32px] p-6 md:p-10 bg-white ${hairline}`} style={softShadow}>
               <h3 className="text-[#2E2784] tracking-[-0.03em]" style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 700, lineHeight: 1.1 }}>{v.title}</h3>
               <p className="text-black tracking-tight mt-6" style={{ fontSize: "1rem", lineHeight: 1.55 }}>{v.desc}</p>
             </div>
@@ -104,8 +104,8 @@ export function Team({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* GUIDING PRINCIPLE */}
-      <section className="mb-32">
-        <div className={`rounded-[40px] p-12 md:p-20 ${hairline}`} style={{ background: "#2E2784", ...softShadow }}>
+      <section className="mb-12 md:mb-32">
+        <div className={`rounded-[40px] p-7 md:p-20 ${hairline}`} style={{ background: "#2E2784", ...softShadow }}>
           <Eyebrow onDark>Guiding Principle</Eyebrow>
           <h2 className="text-[#F8AE01] tracking-[-0.04em] mt-10" style={{ fontSize: "clamp(2rem, 5.5vw, 4.5rem)", fontWeight: 800, lineHeight: 0.95 }}>
             People First.<br />Team Second.<br /><span className="text-white">Happy Clients and Customers Always.</span>
@@ -117,7 +117,7 @@ export function Team({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* JOIN US */}
-      <section className="mb-32">
+      <section className="mb-12 md:mb-32">
         <Eyebrow>Join Our Team</Eyebrow>
         <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
           Want to work<br /><span className="text-[#F8AE01]">with us?</span>
@@ -126,7 +126,7 @@ export function Team({ go }: { go: (r: Route) => void }) {
           We're always interested in meeting talented people who share our passion for loyalty and teamwork.
         </p>
 
-        <form className={`mt-14 rounded-[40px] p-10 md:p-14 ${hairline} grid md:grid-cols-2 gap-x-8 gap-y-6`} style={{ background: "#2E2784", ...softShadow }}>
+        <form className={`mt-14 rounded-[40px] p-6 md:p-14 ${hairline} grid md:grid-cols-2 gap-x-8 gap-y-6`} style={{ background: "#2E2784", ...softShadow }}>
           {[{ p: "Full name" }, { p: "Email" }, { p: "Role of interest / Open application" }, { p: "CV upload (drag & drop)" }].map((f) => (
             <div key={f.p} className="border-b border-white/20 pb-4">
               <input placeholder={f.p} className="w-full bg-transparent outline-none text-white placeholder:text-white tracking-tight" style={{ fontSize: "1rem" }} />

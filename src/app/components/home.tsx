@@ -14,14 +14,14 @@ export function Home({ go }: { go: (r: Route) => void }) {
       <section className="relative min-h-screen pt-40 pb-24 overflow-hidden">
         <ImageWithFallback src={images.hero} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-[#2E2784]/70" />
-        <div className="relative max-w-6xl mx-auto px-8 flex flex-col justify-end min-h-[calc(100vh-10rem)]">
+        <div className="relative px-8 md:px-12 flex flex-col justify-end min-h-[calc(100vh-10rem)]">
           <Eyebrow onDark>Key to Loyalty in Retail</Eyebrow>
           <h1 className="text-white tracking-[-0.04em] max-w-5xl mt-10" style={{ fontSize: "clamp(3rem, 9vw, 8rem)", lineHeight: 0.92, fontWeight: 700 }}>
             We are Key to<br />
             <span className="text-[#F8AE01]">Loyalty in Retail.</span>
           </h1>
           <p className="text-white tracking-tight max-w-2xl mt-10" style={{ fontSize: "1.125rem", lineHeight: 1.55 }}>
-            Built on trust and teamwork. Grounded in experience. Engaged in our clients' success and the happiness of their customers.
+            Built on trust and teamwork. 10+ years, 340+ campaigns, 150+ retail clients, and activations across 20+ European countries.
           </p>
           <div className="mt-12">
             <CTA label="Get in Touch" variant="yellow" onClick={() => go({ page: "contact" })} />
@@ -30,7 +30,7 @@ export function Home({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* HUMAN CENTERED */}
-      <section className="max-w-6xl mx-auto px-8 pt-32 pb-0 mb-0">
+      <section className="px-8 md:px-12 pt-32 pb-0 mb-0">
         <div className={`rounded-[40px] overflow-hidden relative ${hairline}`} style={softShadow}>
           <div className="grid md:grid-cols-2">
             <div className="aspect-[4/3] md:aspect-auto overflow-hidden">
@@ -53,7 +53,7 @@ export function Home({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* STATS BAR */}
-      <section className="max-w-6xl mx-auto px-8 mt-16 relative z-10 mb-32">
+      <section className="px-8 md:px-12 mt-16 relative z-10 mb-32">
         <div className={`rounded-[40px] bg-white ${hairline} p-10 md:p-14`} style={softShadow}>
           <Eyebrow>360° Loyalty International Experience</Eyebrow>
           <h2 className="text-[#2E2784] tracking-[-0.035em] mt-8 max-w-2xl" style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 700, lineHeight: 1.05 }}>
@@ -90,7 +90,7 @@ export function Home({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* INTERNATIONAL PRESENCE */}
-      <section className="max-w-6xl mx-auto px-8 mb-40">
+      <section className="px-8 md:px-12 mb-40">
         <Eyebrow>International Presence</Eyebrow>
         <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
           We Are Truly<br /><span className="text-[#F8AE01]">International.</span>
@@ -109,7 +109,7 @@ export function Home({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* LOYALTY FRAMEWORK */}
-      <section className="max-w-6xl mx-auto px-8 mb-40">
+      <section className="px-8 md:px-12 mb-40">
         <Eyebrow>The KLR Loyalty Framework</Eyebrow>
         <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
           Designing<br /><span className="text-[#F8AE01]">Emotional Loyalty.</span>
@@ -136,7 +136,7 @@ export function Home({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* TWO SECTORS */}
-      <section className="max-w-6xl mx-auto px-8 mb-40">
+      <section className="px-8 md:px-12 mb-40">
         <Eyebrow>Two Sectors. Deep Expertise.</Eyebrow>
         <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
           Born for Grocery & Petrol.<br /><span className="text-[#F8AE01]">Ready for more.</span>
@@ -159,8 +159,8 @@ export function Home({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* RETAILER LOGOS */}
-      <section className="max-w-6xl mx-auto px-8 mb-40">
-        <Eyebrow>The Leading Retailers Who Already Trusted Us</Eyebrow>
+      <section className="px-8 md:px-12 mb-40">
+        <Eyebrow>The Leading Retailers Who Trust Us</Eyebrow>
         <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
           Trusted across<br /><span className="text-[#F8AE01]">Europe.</span>
         </h2>
@@ -183,15 +183,19 @@ export function Home({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* OUR BRANDS */}
-      <section className="max-w-6xl mx-auto px-8 mb-40">
+      <section className="px-8 md:px-12 mb-40">
         <Eyebrow>Our Brands</Eyebrow>
         <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
           Global brands that<br /><span className="text-[#F8AE01]">power our campaigns.</span>
         </h2>
-        <div className="mt-14 grid grid-cols-2 md:grid-cols-6 gap-3">
+        <div className="mt-14 grid grid-cols-3 md:grid-cols-6 gap-3">
           {brandPartners.map((b) => (
-            <div key={b} className={`rounded-[20px] p-6 bg-white ${hairline} flex items-center justify-center text-center min-h-[100px]`}>
-              <span className="text-[#2E2784] tracking-tight" style={{ fontSize: "0.9rem", fontWeight: 600 }}>{b}</span>
+            <div key={b.name} className={`rounded-[20px] bg-white ${hairline} flex items-center justify-center text-center min-h-[90px] overflow-hidden p-4`}>
+              {b.logo ? (
+                <img src={b.logo} alt={b.name} className="max-h-12 max-w-full w-auto object-contain" />
+              ) : (
+                <span className="text-[#2E2784] tracking-tight" style={{ fontSize: "0.8rem", fontWeight: 600 }}>{b.name}</span>
+              )}
             </div>
           ))}
         </div>
@@ -201,7 +205,7 @@ export function Home({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* FEATURED CASE STUDY */}
-      <section className="max-w-6xl mx-auto px-8 mb-40">
+      <section className="px-8 md:px-12 mb-40">
         <Eyebrow>Featured Case Study</Eyebrow>
         <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
           Loyalty campaigns that<br /><span className="text-[#F8AE01]">drive results.</span>
@@ -230,7 +234,7 @@ export function Home({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* FEATURED INSIGHT */}
-      <section className="max-w-6xl mx-auto px-8 mb-40">
+      <section className="px-8 md:px-12 mb-40">
         <Eyebrow>Latest Insights</Eyebrow>
         <button onClick={() => go({ page: "blog-detail", slug: featuredPost.slug })} className={`mt-10 w-full rounded-[40px] overflow-hidden bg-white ${hairline} text-left group`} style={softShadow}>
           <div className="grid md:grid-cols-2">
@@ -256,7 +260,7 @@ export function Home({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* CLOSING CTA */}
-      <section className="max-w-5xl mx-auto px-8 pb-32">
+      <section className="px-8 md:px-12 pb-32">
         <div className={`rounded-[40px] p-10 md:p-16 ${hairline}`} style={{ ...softShadow, background: "#2E2784" }}>
           <Eyebrow onDark>Ready to start?</Eyebrow>
           <h2 className="text-[#F8AE01] tracking-[-0.035em] mt-8 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 700, lineHeight: 1.05 }}>
