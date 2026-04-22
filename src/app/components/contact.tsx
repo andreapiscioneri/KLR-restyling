@@ -1,19 +1,25 @@
 import { ArrowUpRight } from "lucide-react";
+import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, hairline, softShadow } from "./ui-bits";
-import { offices } from "../data";
+import { offices, images } from "../data";
 
 export function Contact() {
   return (
     <div className="pt-44 pb-48 max-w-6xl mx-auto px-8">
       {/* HERO */}
-      <div className="mb-20">
-        <Eyebrow>Contact</Eyebrow>
+      <div className="mb-16">
+        <Eyebrow>Contacts</Eyebrow>
         <h1 className="text-[#2E2784] tracking-[-0.04em] max-w-4xl mt-10" style={{ fontSize: "clamp(3rem, 8vw, 7rem)", lineHeight: 0.95, fontWeight: 700 }}>
-          Keep in<br /><span className="text-[#F8AE01]">Touch!</span>
+          We operate in almost<br /><span className="text-[#F8AE01]">20 Countries.</span>
         </h1>
         <p className="text-black tracking-tight max-w-2xl mt-10" style={{ fontSize: "1.125rem", lineHeight: 1.6 }}>
-          Whether you're ready to launch a campaign, exploring ideas, looking for a brand partnership, or simply curious — we'd love to hear from you.
+          We design and deliver marketing campaigns with positive results for retail businesses. 10 years of experience and more than 300 campaigns completed are a guarantee that you can trust us.
         </p>
+      </div>
+
+      {/* MAP */}
+      <div className={`mb-20 rounded-[40px] overflow-hidden ${hairline}`} style={softShadow}>
+        <ImageWithFallback src={images.map} alt="KLR European presence map" className="w-full h-auto" />
       </div>
 
       <div className="grid md:grid-cols-12 gap-10">

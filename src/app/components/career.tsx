@@ -9,21 +9,23 @@ export function Career({ go }: { go: (r: Route) => void }) {
       <section className="max-w-6xl mx-auto px-8 mb-24">
         <Eyebrow>Career</Eyebrow>
         <h1 className="text-[#2E2784] tracking-[-0.04em] max-w-5xl mt-10" style={{ fontSize: "clamp(3rem, 8vw, 7rem)", lineHeight: 0.95, fontWeight: 700 }}>
-          Be part of<br />
-          <span className="text-[#F8AE01]">something we love.</span>
+          A Loyal Team<br />
+          <span className="text-[#F8AE01]">of Professionals.</span>
         </h1>
         <p className="text-black tracking-tight max-w-2xl mt-10" style={{ fontSize: "1.125rem", lineHeight: 1.6 }}>
-          We are excited to invite you to join our team made up of open-minded, flexible and engaging
-          professionals dedicated to creating innovative and impactful loyalty marketing campaigns.
+          Loyalty starts within our team. We are a team of professionals of different nationalities, beliefs and culture — cohesion, trust, and mutual respect among our members is our foundation.
+        </p>
+        <p className="text-black tracking-tight max-w-2xl mt-6" style={{ fontSize: "1rem", lineHeight: 1.65 }}>
+          We are excited to invite you to be part of our international team — open-minded, flexible and engaging professionals dedicated to creating innovative and impactful loyalty marketing campaigns.
         </p>
       </section>
 
       <section className={`relative h-[75vh] min-h-[480px] mx-4 md:mx-8 mb-32 rounded-[40px] overflow-hidden ${hairline}`} style={softShadow}>
-        <ImageWithFallback src={images.career} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <ImageWithFallback src={images.recruiting} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#2E2784]/70 via-[#2E2784]/10 to-transparent" />
         <div className="absolute bottom-10 left-10 right-10 flex items-end justify-between gap-6 flex-wrap">
           <h2 className="text-[#F8AE01] tracking-[-0.035em] max-w-2xl" style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)", lineHeight: 1.05, fontWeight: 600 }}>
-            We work collaboratively<br />and openly.
+            Be part of our<br />International Team.
           </h2>
         </div>
       </section>
@@ -91,9 +93,9 @@ export function Career({ go }: { go: (r: Route) => void }) {
       {/* CTA */}
       <section className="max-w-5xl mx-auto px-8 flex flex-wrap items-center justify-between gap-6">
         <h3 className="text-[#2E2784] tracking-[-0.03em] max-w-xl" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", lineHeight: 1.1, fontWeight: 600 }}>
-          Don't see your role? Get in touch anyway.
+          Let's get started something new together.
         </h3>
-        <CTA label="Send CV" variant="yellow" onClick={() => go({ page: "contact" })} />
+        <CTA label="Get in Touch" variant="yellow" onClick={() => go({ page: "contact" })} />
       </section>
     </div>
   );

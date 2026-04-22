@@ -10,29 +10,29 @@ export function About({ go }: { go: (r: Route) => void }) {
       <section className="max-w-6xl mx-auto px-8 mb-32">
         <Eyebrow>About KLR</Eyebrow>
         <h1 className="text-[#2E2784] tracking-[-0.04em] max-w-5xl mt-10" style={{ fontSize: "clamp(3rem, 8vw, 7rem)", lineHeight: 0.95, fontWeight: 700 }}>
-          We Are Central<br /><span className="text-[#F8AE01]">to Loyalty.</span>
+          People First to Deliver<br /><span className="text-[#F8AE01]">the Best Results.</span>
         </h1>
         <p className="text-black tracking-tight max-w-2xl mt-10" style={{ fontSize: "1.125rem", lineHeight: 1.6 }}>
-          KLR was born from friendship — different cultures, shared ambitions, and a belief that loyalty is built on trust. Over ten years, we've grown from a three-person office in Koper to a 43-person international team delivering campaigns across 20+ European markets.
+          KLR is a human-centered loyalty marketing agency. We combine qualitative and quantitative methodologies to design incentive-based solutions that foster customer loyalty and increase sales — for grocery retailers, petrol chains, and beyond.
         </p>
       </section>
 
-      {/* BRAND STORY */}
+      {/* HOW WE BRING LOYALTY TO LIFE */}
       <section className="max-w-6xl mx-auto px-8 mb-40">
         <div className={`rounded-[40px] overflow-hidden ${hairline} relative`} style={softShadow}>
           <div className="aspect-[16/9] overflow-hidden">
-            <ImageWithFallback src={images.family2} alt="" className="w-full h-full object-cover" />
+            <ImageWithFallback src={images.teamPhoto} alt="" className="w-full h-full object-cover" />
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-[#2E2784]/80 via-[#2E2784]/10 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-10 md:p-14">
-            <Eyebrow onDark>Brand Story</Eyebrow>
+            <Eyebrow onDark>How We Bring Loyalty to Life</Eyebrow>
             <h2 className="text-white tracking-[-0.035em] mt-8 max-w-3xl" style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)", fontWeight: 700, lineHeight: 1.05 }}>
-              Where others operate loyalty programs,<br /><span className="text-[#F8AE01]">we design emotional loyalty.</span>
+              The culture of loyalty<br /><span className="text-[#F8AE01]">starts within our team.</span>
             </h2>
           </div>
         </div>
         <p className="text-black tracking-tight max-w-3xl mt-12" style={{ fontSize: "1.0625rem", lineHeight: 1.7 }}>
-          Traditional loyalty programs focus on systems and incentives. We focus on human emotion, motivation, and satisfaction. We design campaigns that inspire genuine participation — with rewards customers truly value and experiences that feel meaningful.
+          KLR is more than just a company — it is a family of open-minded people. We are flexible, quick, and smart to deliver all the services tailored specifically to each client's needs.
         </p>
         <p className="text-black tracking-tight max-w-3xl mt-6" style={{ fontSize: "1.0625rem", lineHeight: 1.7 }}>
           Our approach combines behavioural insight with creative design, powerful omnichannel communication, and exceptional reward collections. We help brands turn transactions into lasting relationships.
@@ -112,7 +112,7 @@ export function About({ go }: { go: (r: Route) => void }) {
       <section className="max-w-6xl mx-auto px-8 mb-32">
         <Eyebrow>Our Journey</Eyebrow>
         <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
-          10 Years of<br /><span className="text-[#F8AE01]">Growth.</span>
+          The Power of Our Experience<br /><span className="text-[#F8AE01]">is Rooted in Our History.</span>
         </h2>
         <div className="mt-14 flex flex-col md:flex-row md:overflow-x-auto md:snap-x gap-6 pb-4">
           {journey.map((j, i) => (
@@ -130,7 +130,7 @@ export function About({ go }: { go: (r: Route) => void }) {
       {/* CLOSING CTA */}
       <section className="max-w-5xl mx-auto px-8 flex flex-wrap items-center justify-between gap-6">
         <h3 className="text-[#2E2784] tracking-[-0.03em] max-w-xl" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", lineHeight: 1.1, fontWeight: 600 }}>
-          Let's build something together.
+          Join our team and let's shape together the world of loyalty.
         </h3>
         <CTA label="Keep in Touch!" variant="yellow" onClick={() => go({ page: "contact" })} />
       </section>

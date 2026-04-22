@@ -25,10 +25,10 @@ export function Studies({ go }: { go: (r: Route) => void }) {
       <div className="mb-20">
         <Eyebrow>Case Studies</Eyebrow>
         <h1 className="text-[#2E2784] tracking-[-0.04em] max-w-5xl mt-10" style={{ fontSize: "clamp(3rem, 8vw, 7rem)", lineHeight: 0.95, fontWeight: 700 }}>
-          Real results for<br /><span className="text-[#F8AE01]">real retail chains.</span>
+          Loyalty Campaigns<br /><span className="text-[#F8AE01]">that drive success.</span>
         </h1>
         <p className="text-black tracking-tight max-w-2xl mt-10" style={{ fontSize: "1.125rem", lineHeight: 1.6 }}>
-          340+ campaigns across 20+ countries. Explore how we've helped grocery and fuel retail chains increase visits, grow basket size, and build lasting customer relationships.
+          340+ campaigns across 20+ countries. Explore how we've helped grocery and fuel retail chains achieve their goals through loyalty programs with measurable results.
         </p>
       </div>
 
@@ -119,9 +119,9 @@ export function Studies({ go }: { go: (r: Route) => void }) {
       {/* CLOSING CTA */}
       <section className="mt-32 flex flex-wrap items-center justify-between gap-6">
         <h3 className="text-[#2E2784] tracking-[-0.03em] max-w-xl" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", lineHeight: 1.1, fontWeight: 600 }}>
-          Let's talk about your goals.
+          Are you ready to start something new together?
         </h3>
-        <CTA label="Keep in Touch!" variant="yellow" onClick={() => go({ page: "contact" })} />
+        <CTA label="Get in Touch" variant="yellow" onClick={() => go({ page: "contact" })} />
       </section>
     </div>
   );

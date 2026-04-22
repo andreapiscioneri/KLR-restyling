@@ -15,24 +15,47 @@ export function Home({ go }: { go: (r: Route) => void }) {
         <ImageWithFallback src={images.hero} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-[#2E2784]/70" />
         <div className="relative max-w-6xl mx-auto px-8 flex flex-col justify-end min-h-[calc(100vh-10rem)]">
-          <Eyebrow onDark>We Design Emotional Loyalty</Eyebrow>
+          <Eyebrow onDark>Key to Loyalty in Retail</Eyebrow>
           <h1 className="text-white tracking-[-0.04em] max-w-5xl mt-10" style={{ fontSize: "clamp(3rem, 9vw, 8rem)", lineHeight: 0.92, fontWeight: 700 }}>
-            We Design<br />
-            <span className="text-[#F8AE01]">Emotional Loyalty.</span>
+            We are Key to<br />
+            <span className="text-[#F8AE01]">Loyalty in Retail.</span>
           </h1>
           <p className="text-white tracking-tight max-w-2xl mt-10" style={{ fontSize: "1.125rem", lineHeight: 1.55 }}>
-            Loyalty campaigns that excite and engage customers of all targets. Deliver real impact to your stores with measurable KPIs. Easy to run for retailers and their marketing teams.
+            Built on trust and teamwork. Grounded in experience. Engaged in our clients' success and the happiness of their customers.
           </p>
           <div className="mt-12">
-            <CTA label="Discover How We Work" variant="yellow" onClick={() => go({ page: "services" })} />
+            <CTA label="Get in Touch" variant="yellow" onClick={() => go({ page: "contact" })} />
+          </div>
+        </div>
+      </section>
+
+      {/* HUMAN CENTERED */}
+      <section className="max-w-6xl mx-auto px-8 pt-32 pb-0 mb-0">
+        <div className={`rounded-[40px] overflow-hidden relative ${hairline}`} style={softShadow}>
+          <div className="grid md:grid-cols-2">
+            <div className="aspect-[4/3] md:aspect-auto overflow-hidden">
+              <ImageWithFallback src={images.human} alt="Human Centered Loyalty" className="w-full h-full object-cover" />
+            </div>
+            <div className="p-10 md:p-16 flex flex-col justify-center gap-6 bg-white">
+              <Eyebrow>Human Centered Loyalty Marketing</Eyebrow>
+              <h2 className="text-[#2E2784] tracking-[-0.035em]" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", fontWeight: 700, lineHeight: 1.05 }}>
+                Loyalty beyond<br /><span className="text-[#F8AE01]">rewards.</span>
+              </h2>
+              <p className="text-black tracking-tight" style={{ fontSize: "1rem", lineHeight: 1.6 }}>
+                We believe loyalty is about understanding your audience's needs and delivering meaningful relationships — not just points and prizes. Our human-centred approach puts real people at the heart of every campaign.
+              </p>
+              <div>
+                <CTA label="Discover Our Services" variant="yellow" onClick={() => go({ page: "services" })} />
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* STATS BAR */}
-      <section className="max-w-6xl mx-auto px-8 -mt-24 relative z-10 mb-32">
+      <section className="max-w-6xl mx-auto px-8 mt-16 relative z-10 mb-32">
         <div className={`rounded-[40px] bg-white ${hairline} p-10 md:p-14`} style={softShadow}>
-          <Eyebrow>When Figures Matter…</Eyebrow>
+          <Eyebrow>360° Loyalty International Experience</Eyebrow>
           <h2 className="text-[#2E2784] tracking-[-0.035em] mt-8 max-w-2xl" style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 700, lineHeight: 1.05 }}>
             KLR in numbers.
           </h2>

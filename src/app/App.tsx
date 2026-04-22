@@ -12,7 +12,10 @@ import { BlogDetail } from "./components/blog-detail";
 import { Team } from "./components/team";
 import { TeamDetail } from "./components/team-detail";
 import { Klr10 } from "./components/klr10";
+import { Career } from "./components/career";
 import { Contact } from "./components/contact";
+import { Copyright } from "./components/copyright";
+import { Privacy } from "./components/privacy";
 import { Footer } from "./components/footer";
 
 export type Route =
@@ -51,7 +54,10 @@ export default function App() {
         {route.page === "blog" && <Blog go={go} />}
         {route.page === "team" && <Team go={go} />}
         {route.page === "klr10" && <Klr10 go={go} />}
+        {route.page === "career" && <Career go={go} />}
         {route.page === "contact" && <Contact />}
+        {route.page === "copyright" && <Copyright />}
+        {route.page === "privacy" && <Privacy />}
         {route.page === "brand-detail" && <BrandDetail id={route.id} go={go} />}
         {route.page === "study-detail" && <StudyDetail id={route.id} go={go} />}
         {route.page === "team-detail" && <TeamDetail id={route.id} go={go} />}

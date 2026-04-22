@@ -14,7 +14,10 @@ export function Brands({ go }: { go: (r: Route) => void }) {
           Exceptional Brands.<br /><span className="text-[#F8AE01]">Unforgettable Rewards.</span>
         </h1>
         <p className="text-black tracking-tight max-w-2xl mt-10" style={{ fontSize: "1.125rem", lineHeight: 1.6 }}>
-          We partner with world-class brands to create exclusive reward collections that inspire desire, deliver satisfaction, and elevate retail loyalty campaigns across Europe.
+          We are exciting shoppers and rewarding their loyalty in meaningful ways. We turn doing grocery or filling fuel into rewarding experiences, encouraging customers to return to their favourite retail chains.
+        </p>
+        <p className="text-black tracking-tight max-w-2xl mt-6" style={{ fontSize: "1rem", lineHeight: 1.65 }}>
+          Our partnerships with the world's leading brands guarantee that our rewards collections are tangible, sustainable and unique.
         </p>
       </section>
 
@@ -157,9 +160,9 @@ export function Brands({ go }: { go: (r: Route) => void }) {
       {/* RETAILER CTA */}
       <section className="max-w-5xl mx-auto px-8 flex flex-wrap items-center justify-between gap-6">
         <h3 className="text-[#2E2784] tracking-[-0.03em] max-w-xl" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", lineHeight: 1.1, fontWeight: 600 }}>
-          Looking for the perfect collection for your campaign?
+          Discover real stories of success with our clients!
         </h3>
-        <CTA label="Keep in Touch!" variant="dark" onClick={() => go({ page: "contact" })} />
+        <CTA label="Our Case Studies" variant="dark" onClick={() => go({ page: "studies" })} />
       </section>
     </div>
   );

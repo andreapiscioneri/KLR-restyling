@@ -11,7 +11,10 @@ type Page =
   | "blog"
   | "team"
   | "klr10"
-  | "contact";
+  | "career"
+  | "contact"
+  | "copyright"
+  | "privacy";
 
 export function Nav({ page, setPage }: { page: Page; setPage: (p: Page) => void }) {
   const [open, setOpen] = useState(false);
@@ -22,7 +25,7 @@ export function Nav({ page, setPage }: { page: Page; setPage: (p: Page) => void 
     { id: "brand", label: "Brands" },
     { id: "studies", label: "Case Studies" },
     { id: "blog", label: "Insights" },
-    { id: "team", label: "Team" },
+    { id: "career", label: "Career" },
     { id: "klr10", label: "KLR 10 Years" },
   ];
 

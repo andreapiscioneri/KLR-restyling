@@ -51,7 +51,7 @@ export function Blog({ go }: { go: (r: Route) => void }) {
           Ideas, trends & stories<br /><span className="text-[#F8AE01]">from KLR.</span>
         </h1>
         <p className="text-black tracking-tight max-w-2xl mt-10" style={{ fontSize: "1.125rem", lineHeight: 1.6 }}>
-          Fresh perspectives on loyalty marketing, retail innovation, and the people behind our work.
+          Your go-to spot for fresh takes on loyalty marketing, industry trends, and the people behind our success.
         </p>
         {loading && (
           <div className="text-black tracking-tight mt-8" style={{ fontSize: "0.85rem" }}>
@@ -136,9 +136,9 @@ export function Blog({ go }: { go: (r: Route) => void }) {
       {/* CLOSING CTA */}
       <section className="mt-32 flex flex-wrap items-center justify-between gap-6">
         <h3 className="text-[#2E2784] tracking-[-0.03em] max-w-xl" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", lineHeight: 1.1, fontWeight: 600 }}>
-          Want to collaborate on content?
+          Are you ready to start something new together?
         </h3>
-        <CTA label="Keep in Touch!" variant="yellow" onClick={() => go({ page: "contact" })} />
+        <CTA label="Get in Touch" variant="yellow" onClick={() => go({ page: "contact" })} />
       </section>
     </div>
   );

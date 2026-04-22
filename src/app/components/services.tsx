@@ -30,15 +30,29 @@ export function Services({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* HERO IMAGE */}
-      <section className={`relative h-[70vh] min-h-[480px] mx-4 md:mx-8 rounded-[40px] overflow-hidden mb-32 ${hairline}`} style={softShadow}>
+      <section className={`relative h-[70vh] min-h-[480px] mx-4 md:mx-8 rounded-[40px] overflow-hidden mb-16 ${hairline}`} style={softShadow}>
         <ImageWithFallback src={images.services} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-[#2E2784]/60" />
         <div className="absolute inset-0 flex items-center justify-center p-8">
           <div className="max-w-3xl text-center">
             <h2 className="text-[#F8AE01] tracking-[-0.035em]" style={{ fontSize: "clamp(1.75rem, 4.5vw, 3.5rem)", fontWeight: 700, lineHeight: 1.05 }}>
-              Born for Grocery & Petrol.<br /><span className="text-white">Ready for more.</span>
+              360° Loyalty Marketing<br /><span className="text-white">Tailor Made Service.</span>
             </h2>
           </div>
+        </div>
+      </section>
+
+      {/* INFOGRAPHIC */}
+      <section className="max-w-6xl mx-auto px-8 mb-32">
+        <Eyebrow>Our Tailor-made Solutions</Eyebrow>
+        <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
+          Full Cycle of<br /><span className="text-[#F8AE01]">Our Services.</span>
+        </h2>
+        <p className="text-black tracking-tight max-w-2xl mt-8" style={{ fontSize: "1.0625rem", lineHeight: 1.6 }}>
+          10 years of experience and more than 300 campaigns completed are a guarantee that you can trust us.
+        </p>
+        <div className={`mt-14 rounded-[40px] overflow-hidden ${hairline}`} style={softShadow}>
+          <ImageWithFallback src={images.servicesInfographic} alt="KLR Full Cycle of Services" className="w-full h-auto" />
         </div>
       </section>
 
