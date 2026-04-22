@@ -2,25 +2,20 @@
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, hairline, softShadow } from "./ui-bits";
 import { brands, brandPartners, productCategories, whyBrandsPartner, brandPartnershipProcess, images } from "../data";
+import { PageHero } from "./page-hero";
 import { ArrowUpRight } from "lucide-react";
 import type { Route } from "../App";
 
 export function Brands({ go }: { go: (r: Route) => void }) {
   return (
-    <div className="pt-44 pb-48">
-      {/* HERO */}
-      <section className="max-w-6xl mx-auto px-8 mb-24">
-        <Eyebrow>Brands</Eyebrow>
-        <h1 className="text-[#2E2784] tracking-[-0.04em] max-w-5xl mt-10" style={{ fontSize: "clamp(3rem, 8vw, 7rem)", lineHeight: 0.95, fontWeight: 700 }}>
-          Exceptional Brands.<br /><span className="text-[#F8AE01]">Unforgettable Rewards.</span>
-        </h1>
-        <p className="text-black tracking-tight max-w-2xl mt-10" style={{ fontSize: "1.125rem", lineHeight: 1.6 }}>
-          We are exciting shoppers and rewarding their loyalty in meaningful ways. We turn doing grocery or filling fuel into rewarding experiences, encouraging customers to return to their favourite retail chains.
-        </p>
-        <p className="text-black tracking-tight max-w-2xl mt-6" style={{ fontSize: "1rem", lineHeight: 1.65 }}>
-          Our partnerships with the world's leading brands guarantee that our rewards collections are tangible, sustainable and unique.
-        </p>
-      </section>
+    <div className="pb-48">
+      <PageHero
+        eyebrow="Brand Partners"
+        title={<>Exceptional Brands.<br /><span className="text-[#F8AE01]">Unforgettable Rewards.</span></>}
+        subtitle="We turn grocery shopping and fuel stops into rewarding experiences. Our partnerships with the world's leading brands make loyalty collections tangible, sustainable and unique."
+        image={images.tailorMade}
+        cta={{ label: "Our Case Studies", href: "/work" }}
+      />
 
       {/* PRODUCT CATEGORIES */}
       <section className="max-w-6xl mx-auto px-8 mb-32">

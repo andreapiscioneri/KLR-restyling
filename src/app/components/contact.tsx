@@ -3,20 +3,18 @@ import { ArrowUpRight } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, hairline, softShadow } from "./ui-bits";
 import { offices, images } from "../data";
+import { PageHero } from "./page-hero";
 
 export function Contact() {
   return (
-    <div className="pt-44 pb-48 max-w-6xl mx-auto px-8">
-      {/* HERO */}
-      <div className="mb-16">
-        <Eyebrow>Contacts</Eyebrow>
-        <h1 className="text-[#2E2784] tracking-[-0.04em] max-w-4xl mt-10" style={{ fontSize: "clamp(3rem, 8vw, 7rem)", lineHeight: 0.95, fontWeight: 700 }}>
-          We operate in almost<br /><span className="text-[#F8AE01]">20 Countries.</span>
-        </h1>
-        <p className="text-black tracking-tight max-w-2xl mt-10" style={{ fontSize: "1.125rem", lineHeight: 1.6 }}>
-          We design and deliver marketing campaigns with positive results for retail businesses. 10 years of experience and more than 300 campaigns completed are a guarantee that you can trust us.
-        </p>
-      </div>
+    <div className="pb-48">
+      <PageHero
+        eyebrow="Contacts"
+        title={<>We operate in almost<br /><span className="text-[#F8AE01]">20 Countries.</span></>}
+        subtitle="We design and deliver marketing campaigns with positive results for retail businesses. 10 years of experience and more than 300 campaigns completed."
+        image={images.contacts}
+      />
+      <div className="max-w-6xl mx-auto px-8">
 
       {/* MAP */}
       <div className={`mb-20 rounded-[40px] overflow-hidden ${hairline}`} style={softShadow}>
@@ -77,6 +75,7 @@ export function Contact() {
             <a href="mailto:info@klr-europe.com" className="text-[#2E2784] tracking-[-0.02em] mt-4 block hover:text-[#F8AE01] transition-colors" style={{ fontSize: "1.125rem", fontWeight: 600 }}>info@klr-europe.com</a>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

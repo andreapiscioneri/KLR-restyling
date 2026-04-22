@@ -1,14 +1,18 @@
 "use client";
 import { Eyebrow, hairline, softShadow } from "./ui-bits";
+import { PageHero } from "./page-hero";
+import { images } from "../data";
 
 export function Copyright() {
   return (
-    <div className="pt-44 pb-48 max-w-4xl mx-auto px-8">
-      <Eyebrow>Legal</Eyebrow>
-      <h1 className="text-[#2E2784] tracking-[-0.04em] mt-10" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", lineHeight: 0.95, fontWeight: 700 }}>
-        Copyright &<br /><span className="text-[#F8AE01]">Terms of Use.</span>
-      </h1>
-
+    <div className="pb-48">
+      <PageHero
+        eyebrow="Legal"
+        title={<>Copyright &<br /><span className="text-[#F8AE01]">Terms of Use.</span></>}
+        subtitle="All content, brands, and materials on this site are the exclusive property of KLR-EVROPA d.o.o."
+        image={images.teamwork}
+      />
+      <div className="max-w-4xl mx-auto px-8">
       <div className={`mt-16 rounded-[40px] p-10 md:p-14 bg-white ${hairline}`} style={softShadow}>
         <p className="text-black tracking-tight mb-2" style={{ fontSize: "0.8rem", opacity: 0.5 }}>Last updated: January 12, 2023</p>
 
@@ -64,6 +68,7 @@ export function Copyright() {
             </p>
           </div>
         </section>
+      </div>
       </div>
     </div>
   );

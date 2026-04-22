@@ -2,7 +2,8 @@
 import { useEffect, useState } from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, hairline, softShadow } from "./ui-bits";
-import { fallbackPosts, type Post } from "../data";
+import { fallbackPosts, images, type Post } from "../data";
+import { PageHero } from "./page-hero";
 import { ArrowUpRight } from "lucide-react";
 import type { Route } from "../App";
 
@@ -45,21 +46,19 @@ export function Blog({ go }: { go: (r: Route) => void }) {
   const [featured, ...rest] = filtered;
 
   return (
-    <div className="pt-44 pb-48 max-w-6xl mx-auto px-8">
-      <section className="mb-16">
-        <Eyebrow>Insights</Eyebrow>
-        <h1 className="text-[#2E2784] tracking-[-0.04em] max-w-5xl mt-10" style={{ fontSize: "clamp(3rem, 8vw, 7rem)", lineHeight: 0.95, fontWeight: 700 }}>
-          Ideas, trends & stories<br /><span className="text-[#F8AE01]">from KLR.</span>
-        </h1>
-        <p className="text-black tracking-tight max-w-2xl mt-10" style={{ fontSize: "1.125rem", lineHeight: 1.6 }}>
-          Your go-to spot for fresh takes on loyalty marketing, industry trends, and the people behind our success.
-        </p>
-        {loading && (
-          <div className="text-black tracking-tight mt-8" style={{ fontSize: "0.85rem" }}>
-            Loading latest articles…
-          </div>
-        )}
-      </section>
+    <div className="pb-48">
+      <PageHero
+        eyebrow="Insights"
+        title={<>Ideas, trends & stories<br /><span className="text-[#F8AE01]">from KLR.</span></>}
+        subtitle="Your go-to spot for fresh takes on loyalty marketing, industry trends, and the people behind our success."
+        image={images.human}
+      />
+      <div className="max-w-6xl mx-auto px-8">
+      {loading && (
+        <div className="text-black tracking-tight mt-8" style={{ fontSize: "0.85rem" }}>
+          Loading latest articles…
+        </div>
+      )}
 
       {/* CATEGORY FILTER */}
       <div className="flex flex-wrap gap-3 mb-16">
@@ -141,6 +140,7 @@ export function Blog({ go }: { go: (r: Route) => void }) {
         </h3>
         <CTA label="Get in Touch" variant="yellow" onClick={() => go({ page: "contact" })} />
       </section>
+      </div>
     </div>
   );
 }

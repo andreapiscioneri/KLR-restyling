@@ -2,23 +2,20 @@
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, hairline, softShadow } from "./ui-bits";
 import { images, journey, stats, fallbackPosts } from "../data";
+import { PageHero } from "./page-hero";
 import type { Route } from "../App";
 
 export function Klr10({ go }: { go: (r: Route) => void }) {
   const anniversary = fallbackPosts.find((p) => p.slug.includes("10-anniversary")) || fallbackPosts[4];
 
   return (
-    <div className="pt-44 pb-48">
-      {/* HERO */}
-      <section className="max-w-6xl mx-auto px-8 mb-24">
-        <Eyebrow>KLR 10 Years</Eyebrow>
-        <h1 className="text-[#2E2784] tracking-[-0.04em] max-w-5xl mt-10" style={{ fontSize: "clamp(3rem, 9vw, 8rem)", lineHeight: 0.92, fontWeight: 700 }}>
-          A decade<br /><span className="text-[#F8AE01]">built together.</span>
-        </h1>
-        <p className="text-black tracking-tight max-w-2xl mt-10" style={{ fontSize: "1.125rem", lineHeight: 1.6 }}>
-          From three founders in Koper to a 43-person international team delivering loyalty campaigns across 20+ European markets. This is our story.
-        </p>
-      </section>
+    <div className="pb-48">
+      <PageHero
+        eyebrow="KLR 10 Years"
+        title={<>A decade<br /><span className="text-[#F8AE01]">built together.</span></>}
+        subtitle="From three founders in Koper to a 43-person international team delivering loyalty campaigns across 20+ European markets. This is our story."
+        image={images.anniversario}
+      />
 
       {/* ANNIVERSARIO HERO IMAGE */}
       <section className={`relative h-[80vh] min-h-[520px] mx-4 md:mx-8 rounded-[40px] overflow-hidden mb-32 ${hairline}`} style={softShadow}>

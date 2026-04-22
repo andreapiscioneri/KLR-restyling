@@ -2,6 +2,7 @@
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, hairline, softShadow } from "./ui-bits";
 import { studies, brands } from "../data";
+import { PageHero } from "./page-hero";
 import { ArrowLeft, MapPin, Calendar, Tag } from "lucide-react";
 import type { Route } from "../App";
 
@@ -11,28 +12,14 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
   const related = studies.filter((x) => x.id !== s.id && x.cat === s.cat).slice(0, 2);
 
   return (
-    <div className="pt-40 pb-48">
-      <div className="max-w-6xl mx-auto px-8">
-        <button onClick={() => go({ page: "studies" })} className="inline-flex items-center gap-2 text-black hover:text-[#2E2784] transition-colors mb-10">
-          <ArrowLeft className="w-4 h-4" /> All studies
-        </button>
-
-        <Eyebrow>{s.cat === "petrol" ? "Petrol · Case Study" : "Retail · Case Study"}</Eyebrow>
-        <h1 className="text-black tracking-[-0.04em] max-w-5xl mt-10 mb-10" style={{ fontSize: "clamp(2.5rem, 7vw, 6rem)", lineHeight: 0.95, fontWeight: 700 }}>
-          {s.title}
-        </h1>
-        <div className="flex flex-wrap gap-6 text-black tracking-tight mb-16" style={{ fontSize: "0.9rem" }}>
-          <span className="inline-flex items-center gap-2"><Tag className="w-4 h-4 text-[#F8AE01]" /> {s.client}</span>
-          <span className="inline-flex items-center gap-2"><MapPin className="w-4 h-4 text-[#F8AE01]" /> {s.location}</span>
-          <span className="inline-flex items-center gap-2"><Calendar className="w-4 h-4 text-[#F8AE01]" /> {s.year}</span>
-        </div>
-      </div>
-
-      {/* HERO IMAGE FULL BLEED */}
-      <div className={`relative h-[80vh] min-h-[520px] mb-24 mx-4 md:mx-8 rounded-[40px] overflow-hidden ${hairline}`} style={softShadow}>
-        <ImageWithFallback src={s.img} alt={s.title} className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#2E2784]/60 via-transparent to-transparent" />
-      </div>
+    <div className="pb-48">
+      <PageHero
+        eyebrow={s.cat === "petrol" ? "Fuel · Case Study" : "Grocery · Case Study"}
+        title={<>{s.title}</>}
+        subtitle={`${s.client} · ${s.location} · ${s.year}`}
+        image={s.img}
+        cta={{ label: "All Case Studies", href: "/work" }}
+      />
 
       <div className="max-w-6xl mx-auto px-8">
         {/* SUMMARY */}

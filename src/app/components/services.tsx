@@ -2,6 +2,7 @@
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, hairline, softShadow } from "./ui-bits";
 import { pillars, images } from "../data";
+import { PageHero } from "./page-hero";
 import type { Route } from "../App";
 
 const sectorsList = [
@@ -15,20 +16,14 @@ const sectorsList = [
 
 export function Services({ go }: { go: (r: Route) => void }) {
   return (
-    <div className="pt-44 pb-48">
-      {/* HERO */}
-      <section className="max-w-6xl mx-auto px-8 mb-24">
-        <Eyebrow>Services</Eyebrow>
-        <h1 className="text-[#2E2784] tracking-[-0.04em] max-w-5xl mt-10" style={{ fontSize: "clamp(3rem, 8vw, 7rem)", lineHeight: 0.95, fontWeight: 700 }}>
-          360° Loyalty Campaign<br /><span className="text-[#F8AE01]">Design & Execution.</span>
-        </h1>
-        <p className="text-black tracking-tight max-w-2xl mt-10" style={{ fontSize: "1.125rem", lineHeight: 1.6 }}>
-          From strategy to delivery, we handle every stage of your loyalty campaign — so you can focus on your business while we make your customers come back.
-        </p>
-        <p className="text-black tracking-tight max-w-2xl mt-6" style={{ fontSize: "1rem", lineHeight: 1.65 }}>
-          We design and execute loyalty campaigns that increase store visits, grow average ticket, turn occasional shoppers into loyal customers, build emotional brand connection, and make your banner stand out with buzz, reputation, virality, and market share — emotionally engaging for customers and simple to run for retailers.
-        </p>
-      </section>
+    <div className="pb-48">
+      <PageHero
+        eyebrow="Services"
+        title={<>360° Loyalty Campaign<br /><span className="text-[#F8AE01]">Design & Execution.</span></>}
+        subtitle="From strategy to delivery, we handle every stage of your loyalty campaign — so you can focus on your business while we make your customers come back."
+        image={images.services}
+        cta={{ label: "See Our Work", href: "/work" }}
+      />
 
       {/* HERO IMAGE */}
       <section className={`relative h-[70vh] min-h-[480px] mx-4 md:mx-8 rounded-[40px] overflow-hidden mb-16 ${hairline}`} style={softShadow}>

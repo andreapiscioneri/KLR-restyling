@@ -2,33 +2,21 @@
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, hairline, softShadow } from "./ui-bits";
 import { leadership, locations, images, careerValues } from "../data";
+import { PageHero } from "./page-hero";
 import { ArrowUpRight } from "lucide-react";
 import type { Route } from "../App";
 
 export function Team({ go }: { go: (r: Route) => void }) {
   return (
-    <div className="pt-44 pb-48 max-w-6xl mx-auto px-8">
-      {/* HERO */}
-      <div className="mb-32">
-        <Eyebrow>Team</Eyebrow>
-        <h1 className="text-[#2E2784] tracking-[-0.04em] max-w-5xl mt-10" style={{ fontSize: "clamp(3rem, 8vw, 7rem)", lineHeight: 0.95, fontWeight: 700 }}>
-          Loyalty starts<br /><span className="text-[#F8AE01]">with us.</span>
-        </h1>
-        <p className="text-black tracking-tight max-w-2xl mt-10" style={{ fontSize: "1.125rem", lineHeight: 1.55 }}>
-          A 43-person team. 11 nationalities. 10 locations across Europe. One shared passion: designing loyalty experiences that customers feel, trust, and value.
-        </p>
-      </div>
-
-      {/* GROUP PHOTO */}
-      <section className={`relative h-[72vh] min-h-[480px] rounded-[40px] overflow-hidden mb-32 ${hairline}`} style={softShadow}>
-        <ImageWithFallback src={images.teamPhoto} alt="KLR team — 10 year anniversary in Franciacorta" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#2E2784]/80 via-transparent to-transparent" />
-        <div className="absolute bottom-10 left-10 right-10">
-          <div className="text-[#F8AE01] tracking-[-0.03em] max-w-xl" style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)", fontWeight: 700, lineHeight: 1.1 }}>
-            Driving a 43-person team.
-          </div>
-        </div>
-      </section>
+    <div className="pb-48">
+      <PageHero
+        eyebrow="Our Team"
+        title={<>Loyalty starts<br /><span className="text-[#F8AE01]">with us.</span></>}
+        subtitle="A 43-person team. 11 nationalities. 10 locations across Europe. One shared passion: designing loyalty experiences that customers feel, trust, and value."
+        image={images.teamPhoto}
+        cta={{ label: "Join the Team", href: "/career" }}
+      />
+      <div className="max-w-6xl mx-auto px-8">
 
       {/* LEADERSHIP */}
       <div className="mb-40">
@@ -163,6 +151,7 @@ export function Team({ go }: { go: (r: Route) => void }) {
         </h3>
         <CTA label="Keep in Touch!" variant="yellow" onClick={() => go({ page: "contact" })} />
       </section>
+      </div>
     </div>
   );
 }

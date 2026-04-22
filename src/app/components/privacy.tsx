@@ -1,14 +1,18 @@
 "use client";
 import { Eyebrow, hairline, softShadow } from "./ui-bits";
+import { PageHero } from "./page-hero";
+import { images } from "../data";
 
 export function Privacy() {
   return (
-    <div className="pt-44 pb-48 max-w-4xl mx-auto px-8">
-      <Eyebrow>Legal</Eyebrow>
-      <h1 className="text-[#2E2784] tracking-[-0.04em] mt-10" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", lineHeight: 0.95, fontWeight: 700 }}>
-        Privacy<br /><span className="text-[#F8AE01]">Policy.</span>
-      </h1>
-
+    <div className="pb-48">
+      <PageHero
+        eyebrow="Legal"
+        title={<>Privacy<br /><span className="text-[#F8AE01]">Policy.</span></>}
+        subtitle="We believe privacy is important. Learn how we collect, use, and protect your data."
+        image={images.contacts}
+      />
+      <div className="max-w-4xl mx-auto px-8">
       <div className={`mt-16 rounded-[40px] p-10 md:p-14 bg-white ${hairline}`} style={softShadow}>
         <p className="text-black tracking-tight mb-2" style={{ fontSize: "0.8rem", opacity: 0.5 }}>Last updated: 11/01/2023</p>
 
@@ -78,6 +82,7 @@ export function Privacy() {
             </p>
           </div>
         </section>
+      </div>
       </div>
     </div>
   );

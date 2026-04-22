@@ -2,21 +2,19 @@
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, hairline, softShadow } from "./ui-bits";
 import { images, whatWeDeliver, aboutImpact, moreThanLoyalty, journey } from "../data";
+import { PageHero } from "./page-hero";
 import type { Route } from "../App";
 
 export function About({ go }: { go: (r: Route) => void }) {
   return (
-    <div className="pt-44 pb-48">
-      {/* HERO */}
-      <section className="max-w-6xl mx-auto px-8 mb-32">
-        <Eyebrow>About KLR</Eyebrow>
-        <h1 className="text-[#2E2784] tracking-[-0.04em] max-w-5xl mt-10" style={{ fontSize: "clamp(3rem, 8vw, 7rem)", lineHeight: 0.95, fontWeight: 700 }}>
-          People First to Deliver<br /><span className="text-[#F8AE01]">the Best Results.</span>
-        </h1>
-        <p className="text-black tracking-tight max-w-2xl mt-10" style={{ fontSize: "1.125rem", lineHeight: 1.6 }}>
-          KLR is a human-centered loyalty marketing agency. We combine qualitative and quantitative methodologies to design incentive-based solutions that foster customer loyalty and increase sales — for grocery retailers, petrol chains, and beyond.
-        </p>
-      </section>
+    <div className="pb-48">
+      <PageHero
+        eyebrow="About KLR"
+        title={<>People First to Deliver<br /><span className="text-[#F8AE01]">the Best Results.</span></>}
+        subtitle="KLR is a human-centered loyalty marketing agency. We combine qualitative and quantitative methodologies to design incentive-based solutions that foster customer loyalty and increase sales."
+        image={images.teamPhoto}
+        cta={{ label: "Meet the Team", href: "/team" }}
+      />
 
       {/* HOW WE BRING LOYALTY TO LIFE */}
       <section className="max-w-6xl mx-auto px-8 mb-40">

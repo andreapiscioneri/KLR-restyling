@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, hairline, softShadow } from "./ui-bits";
 import { fallbackPosts, type Post } from "../data";
+import { PageHero } from "./page-hero";
 import { ArrowLeft } from "lucide-react";
 import type { Route } from "../App";
 
@@ -43,21 +44,14 @@ export function BlogDetail({ slug, go }: { slug: string; go: (r: Route) => void 
   const others = fallbackPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
 
   return (
-    <div className="pt-40 pb-48">
-      <div className="max-w-4xl mx-auto px-8">
-        <button onClick={() => go({ page: "blog" })} className="inline-flex items-center gap-2 text-black hover:text-[#2E2784] transition-colors mb-10">
-          <ArrowLeft className="w-4 h-4" /> Back to blog
-        </button>
-
-        <Eyebrow>{post.category} · {post.date}</Eyebrow>
-        <h1 className="text-[#2E2784] tracking-[-0.04em] mt-10 mb-12" style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", lineHeight: 1, fontWeight: 700 }}>
-          {post.title}
-        </h1>
-      </div>
-
-      <div className={`relative h-[70vh] min-h-[440px] mx-4 md:mx-8 rounded-[40px] overflow-hidden mb-20 ${hairline}`} style={softShadow}>
-        <ImageWithFallback src={post.img} alt={post.title} className="absolute inset-0 w-full h-full object-cover" />
-      </div>
+    <div className="pb-48">
+      <PageHero
+        eyebrow={`${post.category} · ${post.date}`}
+        title={<>{post.title}</>}
+        subtitle={post.excerpt}
+        image={post.img || "https://klr-europe.com/wp-content/uploads/2022/12/KLR-HUMAN-CENTERED-scaled-e1674495532538.jpg"}
+        cta={{ label: "Back to Insights", href: "/blog" }}
+      />
 
       <div className="max-w-3xl mx-auto px-8">
         {post.contentHtml ? (

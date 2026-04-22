@@ -2,6 +2,7 @@
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, hairline, softShadow } from "./ui-bits";
 import { brands, studies } from "../data";
+import { PageHero } from "./page-hero";
 import { ArrowLeft } from "lucide-react";
 import type { Route } from "../App";
 
@@ -11,28 +12,15 @@ export function BrandDetail({ id, go }: { id: string; go: (r: Route) => void }) 
   const more = brands.filter((b) => b.id !== brand.id).slice(0, 3);
 
   return (
-    <div className="pt-40 pb-48 max-w-6xl mx-auto px-8">
-      <button onClick={() => go({ page: "brand" })} className="inline-flex items-center gap-2 text-black hover:text-[#2E2784] transition-colors mb-12">
-        <ArrowLeft className="w-4 h-4" /> All brands
-      </button>
-
-      <div className="grid md:grid-cols-12 gap-10 md:gap-14 items-end mb-20">
-        <div className="md:col-span-6">
-          <Eyebrow>{brand.tag}</Eyebrow>
-          <h1 className="text-black tracking-[-0.04em] mt-8" style={{ fontSize: "clamp(3rem, 7.5vw, 6rem)", lineHeight: 0.95, fontWeight: 700 }}>
-            {brand.name}<span className="text-[#F8AE01]">.</span>
-          </h1>
-          <p className="text-black tracking-tight mt-8 max-w-md" style={{ fontSize: "1.125rem", lineHeight: 1.55 }}>{brand.desc}</p>
-          <div className="mt-10">
-            <CTA label="Request collection" variant="dark" onClick={() => go({ page: "contact" })} />
-          </div>
-        </div>
-        <div className={`md:col-span-6 rounded-[40px] overflow-hidden ${hairline}`} style={softShadow}>
-          <div className="aspect-[4/5] overflow-hidden">
-            <ImageWithFallback src={brand.img} alt={brand.name} className="w-full h-full object-cover hover:scale-[1.03] transition-transform duration-[1500ms]" />
-          </div>
-        </div>
-      </div>
+    <div className="pb-48">
+      <PageHero
+        eyebrow={brand.tag}
+        title={<>{brand.name}<span className="text-[#F8AE01]">.</span></>}
+        subtitle={brand.desc}
+        image={brand.img}
+        cta={{ label: "All Brands", href: "/brands" }}
+      />
+      <div className="max-w-6xl mx-auto px-8">
 
       {/* FACTS BAR */}
       <div className={`rounded-[40px] p-10 md:p-14 mb-24 ${hairline}`} style={{ ...softShadow, background: "#2E2784" }}>
@@ -96,6 +84,7 @@ export function BrandDetail({ id, go }: { id: string; go: (r: Route) => void }) 
             </button>
           ))}
         </div>
+      </div>
       </div>
     </div>
   );

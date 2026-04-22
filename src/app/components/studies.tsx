@@ -3,7 +3,8 @@ import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, hairline, softShadow } from "./ui-bits";
-import { studies } from "../data";
+import { studies, images } from "../data";
+import { PageHero } from "./page-hero";
 import type { Route } from "../App";
 
 type Sector = "all" | "petrol" | "retail";
@@ -22,16 +23,14 @@ export function Studies({ go }: { go: (r: Route) => void }) {
   ];
 
   return (
-    <div className="pt-44 pb-48 max-w-6xl mx-auto px-8">
-      <div className="mb-20">
-        <Eyebrow>Case Studies</Eyebrow>
-        <h1 className="text-[#2E2784] tracking-[-0.04em] max-w-5xl mt-10" style={{ fontSize: "clamp(3rem, 8vw, 7rem)", lineHeight: 0.95, fontWeight: 700 }}>
-          Loyalty Campaigns<br /><span className="text-[#F8AE01]">that drive success.</span>
-        </h1>
-        <p className="text-black tracking-tight max-w-2xl mt-10" style={{ fontSize: "1.125rem", lineHeight: 1.6 }}>
-          340+ campaigns across 20+ countries. Explore how we've helped grocery and fuel retail chains achieve their goals through loyalty programs with measurable results.
-        </p>
-      </div>
+    <div className="pb-48">
+      <PageHero
+        eyebrow="Case Studies"
+        title={<>Loyalty Campaigns<br /><span className="text-[#F8AE01]">that drive success.</span></>}
+        subtitle="340+ campaigns across 20+ countries. Explore how we've helped grocery and fuel retail chains achieve measurable results."
+        image={images.mask}
+      />
+      <div className="max-w-6xl mx-auto px-8">
 
       {/* FILTER CHIPS */}
       <div className="sticky top-28 z-30 mb-20 flex flex-wrap justify-center gap-3">
@@ -124,6 +123,7 @@ export function Studies({ go }: { go: (r: Route) => void }) {
         </h3>
         <CTA label="Get in Touch" variant="yellow" onClick={() => go({ page: "contact" })} />
       </section>
+      </div>
     </div>
   );
 }

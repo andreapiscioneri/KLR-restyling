@@ -2,6 +2,7 @@
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, hairline, softShadow } from "./ui-bits";
 import { leadership } from "../data";
+import { PageHero } from "./page-hero";
 import { ArrowLeft, Linkedin, Mail } from "lucide-react";
 import type { Route } from "../App";
 
@@ -10,12 +11,16 @@ export function TeamDetail({ id, go }: { id: string; go: (r: Route) => void }) {
   const others = leadership.filter((x) => x.id !== p.id).slice(0, 4);
 
   return (
-    <div className="pt-40 pb-48 max-w-6xl mx-auto px-8">
-      <button onClick={() => go({ page: "team" })} className="inline-flex items-center gap-2 text-black hover:text-[#2E2784] transition-colors mb-12">
-        <ArrowLeft className="w-4 h-4" /> Back to team
-      </button>
-
-      <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-start mb-24">
+    <div className="pb-48">
+      <PageHero
+        eyebrow={p.role}
+        title={<>{p.name}<span className="text-[#F8AE01]">.</span></>}
+        subtitle={p.bio}
+        image={p.img}
+        cta={{ label: "Back to Team", href: "/team" }}
+      />
+      <div className="max-w-6xl mx-auto px-8">
+      <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-start mb-24 pt-20">
         <div className={`md:col-span-6 rounded-[40px] overflow-hidden ${hairline} bg-[#F8AE01]/20`} style={softShadow}>
           <div className="aspect-[4/5]">
             <ImageWithFallback src={p.img} alt={p.name} className="w-full h-full object-cover" />
@@ -76,6 +81,7 @@ export function TeamDetail({ id, go }: { id: string; go: (r: Route) => void }) {
             </button>
           ))}
         </div>
+      </div>
       </div>
     </div>
   );
