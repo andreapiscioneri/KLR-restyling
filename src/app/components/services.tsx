@@ -1,7 +1,7 @@
 "use client";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, softShadow } from "./ui-bits";
-import { pillars, loyaltyFramework, images } from "../data";
+import { images } from "../data";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import type { Route } from "../App";
@@ -11,44 +11,26 @@ const G = {
   yellow: "radial-gradient(130% 130% at 15% 0%, #ffd95a 0%, #F8AE01 50%, #de9800 100%)",
 };
 
-const challengePoints = [
-  "Step out of everyday price competition",
-  "Build stronger long-term customer loyalty",
+const processSteps = [
+  "Understanding Business Goals of our Client",
+  "Understanding Client's Customers Needs",
+  "Loyalty Campaign Strategy Development",
+  "Loyalty Campaign Development",
+  "360° Communication Design Development And Delivery",
+  "Loyalty Campaign Management & Logistics",
+  "Loyalty Campaign Monitoring",
+  "Loyalty Campaign Analytics",
 ];
 
-const opportunityPoints = [
-  "Increase Store Visits",
-  "Grow Average Ticket",
-  "Turn Occasional Shoppers into Loyal Customers",
-  "Build Emotional Brand Connection",
-  "Make Your Banner Stand Out",
-];
-
-const sectorsList = [
-  { title: "Grocery Retail", desc: "Collectible campaigns, seasonal mechanics, cross-category engagement", primary: true },
-  { title: "Fuel Retail", desc: "Repeat visit programs, service area engagement, international rollouts", primary: true },
-  { title: "Drugstores", desc: "Health and beauty retail", primary: false },
-  { title: "Pet Stores", desc: "Specialty pet retail", primary: false },
-  { title: "Convenience & On-the-Go", desc: "Quick-service and convenience retail", primary: false },
-  { title: "All-in-Stores (Bazaars)", desc: "Multi-category discount retail", primary: false },
-];
-
-const engagementFormula = [
-  {
-    n: "01",
-    title: "Emotional Design",
-    desc: "Strong visual storytelling, compelling reward imagery, and smart mechanics build desire before a customer earns a single point. Anticipation is a loyalty tool — we use it deliberately.",
-  },
-  {
-    n: "02",
-    title: "Exceptional Rewards",
-    desc: "Rewards are symbols of achievement. Our global partner network ensures every reward is exclusive, desirable, top-quality, and relevant — because a cheap reward undermines everything the program was built to create.",
-  },
-  {
-    n: "03",
-    title: "Memorable Moments",
-    desc: "The most powerful moment is when a customer receives their reward. That moment must deliver satisfaction and strengthen the emotional bond between customer and brand.",
-  },
+const campaignManagementItems = [
+  "Campaign marketing",
+  "Strategy & development",
+  "Logistics & stock management",
+  "Posm design and delivery",
+  "Campaign running support",
+  "Staff training and motivation",
+  "Campaign analytics and reports",
+  "Events and advertising management",
 ];
 
 export function Services({ go }: { go: (r: Route) => void }) {
@@ -56,55 +38,51 @@ export function Services({ go }: { go: (r: Route) => void }) {
     <>
       <PageHero
         eyebrow="Services"
-        title={<>360° Loyalty Campaign<br /><span className="text-[#F8AE01]">Design & Execution.</span></>}
-        subtitle="From strategy to delivery, we handle every stage of your loyalty campaign. Proven through 340+ campaigns across 20+ European countries."
+        title={<>Our<br /><span className="text-[#F8AE01]">Services.</span></>}
+        subtitle="We have a full range of services that allow us to deliver concrete results to our clients. Happy rewarded loyal customers mean more visits in-store, stable or increased turnover and a better reputation."
         image={images.services}
         cta={{ label: "See Our Work", href: "/work" }}
       />
 
-      {/* CHALLENGE / OPPORTUNITY — yellow */}
+      {/* 360° TAILOR MADE SERVICE — yellow */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <div className="grid md:grid-cols-2 gap-6">
-              {/* Challenge */}
-              <div className="rounded-[40px] p-6 md:p-14 flex flex-col gap-8 relative overflow-hidden" style={{ background: "#2E2784", ...softShadow }}>
-                <div className="absolute -top-16 -right-16 rounded-full opacity-10" style={{ width: 280, height: 280, background: "#F8AE01" }} />
-                <Eyebrow onDark>The Challenge</Eyebrow>
-                <h2 className="text-white tracking-[-0.035em]" style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, lineHeight: 1.1 }}>
-                  Retail Loyalty Is <span className="text-[#F8AE01]">Harder</span> than Ever
+            <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+              <div>
+                <h2 className="text-[#2E2784] tracking-[-0.04em]" style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1, fontWeight: 800 }}>
+                  360° Loyalty Marketing<br />Tailor Made Service
                 </h2>
-                <p className="text-white/70 tracking-tight" style={{ fontSize: "0.95rem", lineHeight: 1.6 }}>Retailers today must:</p>
-                <div className="space-y-4">
-                  {challengePoints.map((p) => (
-                    <div key={p} className="rounded-2xl px-6 py-4 border border-white/10" style={{ background: "rgba(255,255,255,0.07)" }}>
-                      <p className="text-white tracking-tight font-medium" style={{ fontSize: "0.9rem" }}>{p}</p>
-                    </div>
-                  ))}
-                </div>
-                <p className="text-white/60 tracking-tight italic" style={{ fontSize: "0.9rem" }}>
-                  Running an impactful loyalty program is{" "}
-                  <span className="text-[#F8AE01] not-italic font-semibold">extremely challenging</span> nowadays…
+                <p className="text-[#2E2784] tracking-tight mt-10" style={{ fontSize: "clamp(1rem, 1.4vw, 1.25rem)", lineHeight: 1.55 }}>
+                  We've been working in international markets for years and we know what it takes to win. We work with you to create solutions to deliver sales, growth and brand recognition.
                 </p>
               </div>
-
-              {/* Opportunity */}
-              <div className="rounded-[40px] p-6 md:p-14 flex flex-col gap-8 relative overflow-hidden border border-black/5" style={{ background: "#fff", ...softShadow }}>
-                <div className="absolute -bottom-16 -left-16 rounded-full opacity-15" style={{ width: 280, height: 280, background: "#2E2784" }} />
-                <div className="tracking-[0.3em] uppercase text-[#F8AE01]" style={{ fontSize: "0.65rem", fontWeight: 600 }}>The Opportunity</div>
-                <h2 className="text-[#2E2784] tracking-[-0.035em]" style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, lineHeight: 1.1 }}>
-                  When Loyalty Works,<br /><em>Retailers Win</em>
-                </h2>
-                <div className="flex flex-wrap gap-3">
-                  {opportunityPoints.map((o) => (
-                    <span key={o} className="rounded-2xl px-4 py-2.5 bg-[#F8AE01]/20 text-[#2E2784] tracking-tight font-medium" style={{ fontSize: "0.8rem" }}>
-                      {o}
-                    </span>
-                  ))}
+              <div className="relative flex justify-center md:justify-end">
+                <div className="absolute -bottom-10 -left-6 w-[200px] h-[200px] rounded-full bg-[#2E2784]/20" />
+                <div className="w-[330px] h-[330px] md:w-[450px] md:h-[450px] rounded-full overflow-hidden border-4 border-white/40" style={softShadow}>
+                  <ImageWithFallback src={images.aboutTonda} alt="360° Loyalty Marketing" className="w-full h-full object-cover" />
                 </div>
-                <p className="text-[#2E2784] font-bold tracking-tight" style={{ fontSize: "0.95rem", lineHeight: 1.55 }}>
-                  So, it must be <em className="not-italic">emotionally engaging</em> for customers and <em className="not-italic">simple to run</em> for retailers.
+              </div>
+            </div>
+
+            <div className="mt-20 grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+              <div className="relative flex justify-center md:justify-start order-2 md:order-1">
+                <div className="absolute -bottom-10 -right-6 w-[200px] h-[200px] rounded-full bg-[#F8AE01]/30" />
+                <div className="w-[330px] h-[330px] md:w-[420px] md:h-[420px] rounded-[40px] overflow-hidden border border-black/5" style={softShadow}>
+                  <ImageWithFallback src={images.human} alt="Our Tailor-made Solutions" className="w-full h-full object-cover" />
+                </div>
+              </div>
+              <div className="order-1 md:order-2">
+                <Eyebrow>Our Approach</Eyebrow>
+                <h2 className="text-[#2E2784] tracking-[-0.04em] mt-8" style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1, fontWeight: 800 }}>
+                  Our <em className="not-italic text-black">Tailor-made</em> Solutions
+                </h2>
+                <p className="text-[#2E2784] tracking-tight mt-10" style={{ fontSize: "clamp(1rem, 1.4vw, 1.25rem)", lineHeight: 1.55 }}>
+                  We're flexible, quick, and smart enough to deliver all the services tailored specifically to each client's needs. Our international presence with a strong network of partners all around Europe allows us to offer the best prices and logistics efficiency.
+                </p>
+                <p className="text-[#2E2784] tracking-tight mt-6" style={{ fontSize: "clamp(1rem, 1.4vw, 1.25rem)", lineHeight: 1.55 }}>
+                  Whether you are looking for a dedicated partner or just want advice on the best route from A to B, KLR team is here for you.
                 </p>
               </div>
             </div>
@@ -112,136 +90,218 @@ export function Services({ go }: { go: (r: Route) => void }) {
         </div>
       </section>
 
-      {/* ENGAGEMENT FORMULA — blue */}
+      {/* FULL CYCLE OF SERVICES — blue */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
         <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <Eyebrow onDark>Our Answer</Eyebrow>
-            <h2 className="text-white tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
-              The KLR<br /><span className="text-[#F8AE01]">Engagement Formula.</span>
+            <h2 className="text-white tracking-[-0.04em] max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4.5rem)", lineHeight: 0.95, fontWeight: 800 }}>
+              Full Cycle of our <span className="text-[#F8AE01]">Services</span>
             </h2>
-            <p className="text-white/80 tracking-tight max-w-2xl mt-8" style={{ fontSize: "1.0625rem", lineHeight: 1.6 }}>
-              How we attract, engage and make customers loyal.
+            <p className="text-white/80 tracking-tight max-w-2xl mt-10" style={{ fontSize: "clamp(1rem, 1.4vw, 1.25rem)", lineHeight: 1.55 }}>
+              We cover all the stages, from understanding our clients' goals to loyalty campaign execution. Campaign analytics allow us to deliver even better results each time in long-term partnerships with our clients and their customers.
             </p>
-            <div className="grid md:grid-cols-3 gap-6 mt-8 md:mt-14">
-              {engagementFormula.map((f, i) => (
-                <div key={f.title} className="rounded-[32px] p-6 md:p-10 border border-white/10" style={i === 1 ? { background: "#F8AE01", ...softShadow } : { background: "rgba(255,255,255,0.07)", ...softShadow }}>
-                  <div className="tracking-[0.25em] uppercase text-[#F8AE01]" style={{ fontSize: "0.7rem", color: i === 1 ? "#2E2784" : undefined }}>{f.n}</div>
-                  <h3 className={`${i === 1 ? "text-[#2E2784]" : "text-[#F8AE01]"} tracking-[-0.03em] mt-6`} style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 700, lineHeight: 1.1 }}>
-                    {f.title}
-                  </h3>
-                  <p className={`${i === 1 ? "text-[#2E2784]" : "text-white/80"} tracking-tight mt-6`} style={{ fontSize: "1rem", lineHeight: 1.55 }}>
-                    {f.desc}
-                  </p>
-                </div>
+            <div className="mt-14 grid md:grid-cols-3 gap-5 pt-10 border-t border-white/15">
+              {[
+                { label: "Marketing Strategic Development", n: "01" },
+                { label: "Full Campaign Management", n: "02" },
+                { label: "Measurement and Analytics", n: "03" },
+              ].map((s) => (
+                <button
+                  key={s.label}
+                  onClick={() => {}}
+                  className="group rounded-[28px] p-8 text-left border border-white/10 transition-all hover:border-[#F8AE01]/40"
+                  style={{ background: "rgba(255,255,255,0.07)", ...softShadow }}
+                >
+                  <div className="tracking-[0.25em] uppercase text-[#F8AE01]" style={{ fontSize: "0.7rem" }}>{s.n}</div>
+                  <div className="text-white tracking-[-0.02em] mt-4 group-hover:text-[#F8AE01] transition-colors" style={{ fontSize: "1.1rem", fontWeight: 600, lineHeight: 1.3 }}>{s.label}</div>
+                </button>
               ))}
             </div>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* INFOGRAPHIC — yellow */}
+      {/* HUMAN CENTERED APPROACH + THE PROCESS — yellow */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-white/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <Eyebrow>Our Tailor-made Solutions</Eyebrow>
-            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
-              Full Cycle of<br /><span className="text-black">Our Services.</span>
-            </h2>
-            <p className="text-[#2E2784] tracking-tight max-w-2xl mt-8" style={{ fontSize: "1.0625rem", lineHeight: 1.6 }}>
-              10+ years of experience and 340+ campaigns delivered across 20+ countries.
-            </p>
-            <div className="mt-14 rounded-[40px] overflow-hidden border border-black/5" style={softShadow}>
-              <ImageWithFallback src={images.servicesInfographic} alt="KLR Full Cycle of Services" className="w-full h-auto" />
+            <div className="grid md:grid-cols-2 gap-10 items-start mb-16">
+              <div>
+                <Eyebrow>Our Methodology</Eyebrow>
+                <h2 className="text-[#2E2784] tracking-[-0.04em] mt-8" style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1, fontWeight: 800 }}>
+                  Human Centered<br />Approach
+                </h2>
+              </div>
+              <div className="md:pt-16">
+                <p className="text-[#2E2784] tracking-tight" style={{ fontSize: "clamp(1rem, 1.4vw, 1.25rem)", lineHeight: 1.55 }}>
+                  At the heart of every campaign is a deep understanding of your customers. We combine qualitative and quantitative methods to deliver solutions that truly connect.
+                </p>
+              </div>
             </div>
-          </AnimatedSection>
-        </div>
-      </section>
 
-      {/* SECTORS — blue */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
-        <div className="absolute -top-20 -right-24 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
-        <div className="max-w-6xl mx-auto px-8">
-          <AnimatedSection>
-            <Eyebrow onDark>We Are Loyalty Makers for Any Retailer</Eyebrow>
-            <h2 className="text-white tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
-              Born for Grocery & Petrol.<br /><span className="text-[#F8AE01]">Ready to Scale Across Retail.</span>
-            </h2>
-            <div className="grid md:grid-cols-3 gap-6 mt-8 md:mt-14">
-              {sectorsList.map((s) => (
-                <div key={s.title} className="rounded-[28px] p-8 border border-white/10" style={s.primary ? { background: "#F8AE01", ...softShadow } : { background: "rgba(255,255,255,0.07)", ...softShadow }}>
-                  <h3 className={`${s.primary ? "text-[#2E2784]" : "text-[#F8AE01]"} tracking-[-0.02em]`} style={{ fontSize: "1.25rem", fontWeight: 700 }}>{s.title}</h3>
-                  <p className={`${s.primary ? "text-[#2E2784]" : "text-white/75"} tracking-tight mt-4`} style={{ fontSize: "0.95rem", lineHeight: 1.55 }}>{s.desc}</p>
-                </div>
-              ))}
+            <div className="mt-6 rounded-[40px] p-10 md:p-14 border border-black/5" style={{ background: "#2E2784", ...softShadow }}>
+              <div className="grid md:grid-cols-3 gap-6">
+                {[
+                  { title: "Loyalty Marketing Strategic Development", icon: "⚙" },
+                  { title: "Loyalty Campaign Management", icon: "👥" },
+                  { title: "Loyalty Measurement and Analytics", icon: "📊" },
+                ].map((item) => (
+                  <div key={item.title} className="rounded-[28px] p-8 text-center border border-white/10" style={{ background: "rgba(255,255,255,0.06)" }}>
+                    <div className="text-3xl mb-4">{item.icon}</div>
+                    <div className="text-[#F8AE01] tracking-[-0.01em]" style={{ fontSize: "1rem", fontWeight: 700, lineHeight: 1.3 }}>{item.title}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-          </AnimatedSection>
-        </div>
-      </section>
 
-      {/* 3 PILLARS — yellow */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
-        <div className="absolute -bottom-24 -left-20 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
-        <div className="max-w-6xl mx-auto px-8">
-          <AnimatedSection>
-            <Eyebrow>Service Overview</Eyebrow>
-            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
-              Three Pillars.<br /><span className="text-black">One Seamless Experience.</span>
-            </h2>
-            <p className="text-[#2E2784] tracking-tight max-w-2xl mt-8" style={{ fontSize: "1.0625rem", lineHeight: 1.6 }}>
-              We cover the full cycle: understanding your goals, designing the right campaign, executing flawlessly, and measuring what matters.
-            </p>
-
-            <div className="space-y-8 mt-10 md:mt-16">
-              {pillars.map((p, i) => (
-                <div key={p.n} className="rounded-[40px] p-6 md:p-14 border border-black/5" style={i === 1 ? { background: "#2E2784", ...softShadow } : i === 2 ? { background: "#fff", ...softShadow } : { background: "#fff", ...softShadow }}>
-                  <div className="grid md:grid-cols-12 gap-10">
-                    <div className="md:col-span-4">
-                      <div className="tracking-[0.25em] uppercase text-[#F8AE01]" style={{ fontSize: "0.7rem" }}>Pillar {p.n}</div>
-                      <h3
-                        className={`${i === 1 ? "text-[#F8AE01]" : "text-[#2E2784]"} tracking-[-0.03em] mt-6`}
-                        style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", fontWeight: 700, lineHeight: 1.05 }}
-                      >
-                        {p.title}
-                      </h3>
-                    </div>
-                    <div className="md:col-span-8 space-y-6">
-                      <div>
-                        <div className={`tracking-[0.2em] uppercase ${i === 1 ? "text-[#F8AE01]" : "text-[#2E2784]"} mb-2`} style={{ fontSize: "0.65rem" }}>What it is</div>
-                        <p className={`${i === 1 ? "text-white" : "text-black"} tracking-tight`} style={{ fontSize: "1rem", lineHeight: 1.6 }}>{p.what}</p>
-                      </div>
-                      <div>
-                        <div className={`tracking-[0.2em] uppercase ${i === 1 ? "text-[#F8AE01]" : "text-[#2E2784]"} mb-2`} style={{ fontSize: "0.65rem" }}>How it works</div>
-                        <p className={`${i === 1 ? "text-white" : "text-black"} tracking-tight`} style={{ fontSize: "1rem", lineHeight: 1.6 }}>{p.how}</p>
-                      </div>
-                      <div>
-                        <div className={`tracking-[0.2em] uppercase ${i === 1 ? "text-[#F8AE01]" : "text-[#2E2784]"} mb-2`} style={{ fontSize: "0.65rem" }}>What you get</div>
-                        <p className={`${i === 1 ? "text-white" : "text-black"} tracking-tight`} style={{ fontSize: "1rem", lineHeight: 1.6 }}>{p.out}</p>
-                      </div>
-                    </div>
+            <h3 className="text-[#2E2784] tracking-[-0.04em] mt-20" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1, fontWeight: 800 }}>
+              The Process
+            </h3>
+            <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
+              {processSteps.map((step, i) => (
+                <div
+                  key={step}
+                  className="rounded-[24px] p-6 border border-black/5"
+                  style={i % 2 === 0 ? { background: "#fff", ...softShadow } : { background: "#2E2784", ...softShadow }}
+                >
+                  <div className={`tracking-[0.25em] uppercase ${i % 2 === 0 ? "text-[#F8AE01]" : "text-[#F8AE01]"}`} style={{ fontSize: "0.65rem" }}>
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
+                  <div className={`${i % 2 === 0 ? "text-[#2E2784]" : "text-white"} tracking-[-0.01em] mt-4`} style={{ fontSize: "0.9rem", fontWeight: 600, lineHeight: 1.35 }}>
+                    {step}
                   </div>
                 </div>
               ))}
             </div>
-            <div className="mt-12">
-              <CTA label="See How We Execute" variant="dark" onClick={() => go({ page: "studies" })} />
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* LOYALTY MARKETING STRATEGIC DEVELOPMENT — blue */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+        <div className="absolute -top-20 -right-24 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
+        <div className="max-w-6xl mx-auto px-8">
+          <AnimatedSection>
+            <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
+              <div>
+                <h2 className="text-white tracking-[-0.04em]" style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1, fontWeight: 800 }}>
+                  Loyalty Marketing<br /><span className="text-[#F8AE01]">Strategic Development</span>
+                </h2>
+                <p className="text-white/80 tracking-tight mt-10" style={{ fontSize: "clamp(1rem, 1.4vw, 1.25rem)", lineHeight: 1.55 }}>
+                  In today's competitive market, it takes more than a great product to stand out. At KLR, we help clients to tell their stories and captivate audiences using integrated marketing communications that are brand-centric and highly measurable.
+                </p>
+                <div className="mt-10 relative w-full rounded-[32px] overflow-hidden" style={{ aspectRatio: "4/3" }}>
+                  <ImageWithFallback src={images.aboutTonda} alt="Loyalty Marketing Strategic Development" className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-[#2E2784]/30" />
+                </div>
+              </div>
+              <div className="space-y-8 md:pt-4">
+                {[
+                  {
+                    title: "Loyalty Marketing Strategic Development",
+                    body: "A business that respects its local roots has a particular identity that can become part of its marketing strength. Even companies that market further afield can look back to their place of origin and use it to help their positioning. The “local touch” can be a unique take on what the business offers. Far more consumers identify with businesses that are (or seem) local than those that are generic in their branding.",
+                  },
+                  {
+                    title: "Tailored Marketing Mechanics",
+                    body: "Tailored marketing dives into your brand's target audience. One of the goals of tailored marketing is to make sure your communication reaches the people you're supposed to be reaching and the campaign mechanics is a right driver to achieve your goals.",
+                  },
+                  {
+                    title: "Tailor-made program concept development",
+                    body: "We deliver tailor-made loyalty program concepts that your customers will love. We do this by analyzing market trends and analytics gathering insights into what excites, motivates and inspires your customers to develop the best solutions for each market.",
+                  },
+                ].map((item) => (
+                  <div key={item.title} className="rounded-[28px] p-8 border border-white/10" style={{ background: "rgba(255,255,255,0.07)", ...softShadow }}>
+                    <h3 className="text-[#F8AE01] tracking-[-0.02em]" style={{ fontSize: "1rem", fontWeight: 700, lineHeight: 1.3, fontStyle: "italic" }}>{item.title}</h3>
+                    <p className="text-white/80 tracking-tight mt-4" style={{ fontSize: "0.95rem", lineHeight: 1.6 }}>{item.body}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* CLOSING CTA — blue */}
+      {/* FULL LOYALTY CAMPAIGN MANAGEMENT — yellow */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
+        <div className="absolute -bottom-24 -left-20 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
+        <div className="max-w-6xl mx-auto px-8">
+          <AnimatedSection>
+            <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
+              <div>
+                <Eyebrow>Service 02</Eyebrow>
+                <h2 className="text-[#2E2784] tracking-[-0.04em] mt-8" style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1, fontWeight: 800 }}>
+                  Full Loyalty<br />Campaign Management
+                </h2>
+                <p className="text-[#2E2784] tracking-tight mt-10" style={{ fontSize: "clamp(1rem, 1.4vw, 1.25rem)", lineHeight: 1.55 }}>
+                  As a company, KLR offers 360-degree marketing campaign management, from development to delivery. As a result, with us, our clients have complete control during all the stages.
+                </p>
+                <p className="text-[#2E2784] tracking-tight mt-6" style={{ fontSize: "clamp(1rem, 1.4vw, 1.25rem)", lineHeight: 1.55 }}>
+                  From strategic planning to daily operations, from logistics and stock management to staff training and motivation — you're in charge of your campaign. Let us help you achieve your business goals!
+                </p>
+                <div className="mt-10 grid grid-cols-2 gap-3">
+                  {campaignManagementItems.map((item) => (
+                    <div key={item} className="rounded-2xl px-5 py-3.5 border border-black/5 flex items-center gap-3" style={{ background: "#2E2784" }}>
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#F8AE01] shrink-0" />
+                      <span className="text-white tracking-tight" style={{ fontSize: "0.85rem", lineHeight: 1.4 }}>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="relative flex justify-center md:justify-end">
+                <div className="absolute -bottom-10 -right-6 w-[200px] h-[200px] rounded-full bg-[#2E2784]/20" />
+                <div className="w-[330px] h-[330px] md:w-[450px] md:h-[450px] rounded-full overflow-hidden border-4 border-white/40" style={softShadow}>
+                  <ImageWithFallback src={images.human} alt="Full Loyalty Campaign Management" className="w-full h-full object-cover" />
+                </div>
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* LOYALTY MEASUREMENT AND ANALYTICS — blue */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
-        <div className="absolute -bottom-20 -right-20 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
+        <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
+        <div className="max-w-6xl mx-auto px-8">
+          <AnimatedSection>
+            <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
+              <div>
+                <Eyebrow onDark>Service 03</Eyebrow>
+                <h2 className="text-white tracking-[-0.04em] mt-8" style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1, fontWeight: 800 }}>
+                  Loyalty Measurement<br /><span className="text-[#F8AE01]">and Analytics</span>
+                </h2>
+              </div>
+              <div className="md:pt-20">
+                <p className="text-white/80 tracking-tight" style={{ fontSize: "clamp(1rem, 1.4vw, 1.25rem)", lineHeight: 1.6 }}>
+                  Long-term satisfied consumers are the result of a positive experience. Offering such an experience requires a thorough knowledge of your clients. Customer loyalty analytics uses sales and client data to find actionable insights into user behavior to see how loyal your consumers are to your business and what can drive them to increase purchases, visits and communication.
+                </p>
+                <p className="text-white/80 tracking-tight mt-6" style={{ fontSize: "clamp(1rem, 1.4vw, 1.25rem)", lineHeight: 1.6 }}>
+                  Customer Retention Rate (CRR), Repeat Purchase Rate (RPR), Social Media Audits, Discovery Workshops and other custom metrics help us together with the client to find the best way to deliver a winning loyalty campaign.
+                </p>
+              </div>
+            </div>
+            <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-5 pt-10 border-t border-white/15">
+              {["CRR", "RPR", "Social Media Audits", "Discovery Workshops"].map((metric) => (
+                <div key={metric} className="rounded-[28px] p-7 border border-white/10 text-center" style={{ background: "rgba(255,255,255,0.07)", ...softShadow }}>
+                  <div className="text-[#F8AE01] tracking-[-0.02em]" style={{ fontSize: "1rem", fontWeight: 700 }}>{metric}</div>
+                </div>
+              ))}
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* CLOSING CTA — yellow */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
+        <div className="absolute -top-24 right-20 w-[380px] h-[380px] rounded-full bg-white/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="flex flex-wrap items-center justify-between gap-6">
-              <h3 className="text-white tracking-[-0.03em] max-w-xl" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", lineHeight: 1.1, fontWeight: 600 }}>
-                Every campaign is different. Let's find the right approach for yours.
+              <h3 className="text-[#2E2784] tracking-[-0.04em] max-w-2xl" style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1, fontWeight: 800 }}>
+                Get in Touch with us and we'll find the right solution for you
               </h3>
-              <CTA label="Keep in Touch!" variant="yellow" onClick={() => go({ page: "contact" })} />
+              <CTA label="Get in Touch" variant="dark" onClick={() => go({ page: "contact" })} />
             </div>
           </AnimatedSection>
         </div>
