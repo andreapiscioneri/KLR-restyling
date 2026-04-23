@@ -113,8 +113,7 @@ export function Nav() {
             style={{
               background: "#F8AE01",
               color: "#000",
-              boxShadow: "0 0 24px rgba(248,174,1,0.45), inset 0 1px 0 rgba(255,255,255,0.35)",
-            }}
+              }}
           >
             <span>Keep in Touch!</span>
             <span

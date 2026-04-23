@@ -99,6 +99,14 @@ function Intro() {
               <br />
               We know loyalty is more than just collecting points. It's about understanding your customers, your business and your markets and delivering solutions that help you achieve your goals.
             </p>
+            <div className="mt-10">
+              <Link href="/about" className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black">
+                <span>Read More</span>
+                <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+                  <ArrowUpRight className="w-4 h-4" />
+                </span>
+              </Link>
+            </div>
           </div>
         </AnimatedSection>
 
@@ -142,6 +150,14 @@ function HumanCentered() {
           <p className="mt-6 text-white/90" style={{ fontSize: "clamp(1.02rem, 1.35vw, 1.25rem)", lineHeight: 1.45 }}>
             We believe that loyalty is not about money or rewards, but about understanding your audience's needs and delivering what they want. We put the people at the core of our work, because only genuine and meaningful relationships can result in long-lasting customer loyalty.
           </p>
+          <div className="mt-10">
+            <Link href="/about" className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-white hover:text-[#2E2784]">
+              <span>About Us</span>
+              <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
+                <ArrowUpRight className="w-4 h-4" />
+              </span>
+            </Link>
+          </div>
         </AnimatedSection>
       </div>
     </section>
@@ -155,7 +171,7 @@ function InternationalExperience() {
       <div className="max-w-6xl mx-auto px-8">
         <AnimatedSection>
           <h2 className="tracking-[0.14em] uppercase max-w-2xl text-[#2E2784]" style={{ fontSize: "clamp(1.8rem, 3.4vw, 3.5rem)", lineHeight: 1.1 }}>
-            360deg Loyalty
+            360° Loyalty
             <br />
             International
             <br />
@@ -391,7 +407,10 @@ function BlogPreview() {
       <div className="absolute -bottom-24 -right-20 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
       <div className="max-w-6xl mx-auto px-8">
         <AnimatedSection>
-          <div className="grid md:grid-cols-3 gap-6">
+          <h2 className="tracking-[0.14em] uppercase text-[#F8AE01]" style={{ fontSize: "clamp(1.8rem, 3.2vw, 3.2rem)", lineHeight: 1.15 }}>
+            KLR Blog
+          </h2>
+          <div className="mt-12 grid md:grid-cols-3 gap-6">
             {posts.map((post) => (
               <Link key={post.id} href={`/blog/${post.slug}`} className="group block rounded-[28px] overflow-hidden bg-white/92 backdrop-blur-sm border border-white/60">
                 <div className="aspect-[16/10] overflow-hidden">
@@ -407,6 +426,11 @@ function BlogPreview() {
               </Link>
             ))}
           </div>
+          <div className="text-center mt-12">
+            <Link href="/blog" className="text-[#F8AE01] tracking-[0.4em] uppercase" style={{ fontSize: "0.95rem" }}>
+              All articles
+            </Link>
+          </div>
         </AnimatedSection>
       </div>
     </section>
@@ -421,20 +445,23 @@ function ClosingCta() {
         <AnimatedSection>
           <div className="grid md:grid-cols-2 gap-10 items-center">
             <div>
-              <h2 className="text-white" style={{ fontSize: "clamp(2.4rem, 5vw, 5.4rem)", lineHeight: 1.02 }}>
+              <h2 className="text-[#2E2784]" style={{ fontSize: "clamp(2.4rem, 5vw, 5.4rem)", lineHeight: 1.02, fontWeight: 800 }}>
                 Are you ready to
                 <br />
-                <span className="text-[#2E2784] font-semibold">start something</span>
+                start something
                 <br />
-                <span className="text-[#2E2784] font-semibold">new</span> together?
+                new together?
               </h2>
-              <p className="mt-8 text-[#2E2784]" style={{ fontSize: "clamp(1.08rem, 1.5vw, 1.7rem)", lineHeight: 1.35 }}>
+              <p className="mt-8 text-black" style={{ fontSize: "clamp(1.08rem, 1.5vw, 1.7rem)", lineHeight: 1.35 }}>
                 Get in touch with us and we'll find the right solution for you
               </p>
             </div>
             <div className="md:text-right">
-              <Link href="/contact" className="text-white hover:text-[#2E2784] transition-colors" style={{ fontSize: "clamp(2rem, 3.2vw, 3.4rem)", letterSpacing: "0.1em" }}>
-                Get in Touch <ArrowUpRight className="inline-block w-9 h-9" />
+              <Link href="/contact" className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black">
+                <span>Get in Touch</span>
+                <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+                  <ArrowUpRight className="w-4 h-4" />
+                </span>
               </Link>
             </div>
           </div>
@@ -452,10 +479,10 @@ export function HomePage() {
       <HumanCentered />
       <InternationalExperience />
       <ServicesAccordion />
-      <WhyChoose />
-      <CustomersAndLogos />
       <CaseStudies />
       <BlogPreview />
+      <WhyChoose />
+      <CustomersAndLogos />
       <ClosingCta />
     </div>
   );
