@@ -63,7 +63,7 @@ export function Services({ go }: { go: (r: Route) => void }) {
                   className="absolute -bottom-10 -left-6 w-[200px] h-[200px] rounded-full border-[5px] border-[#2E2784]"
                   style={{ background: "color-mix(in oklab, #2E2784 20%, transparent)" }}
                 />
-                <div className="w-[330px] h-[330px] md:w-[450px] md:h-[450px] rounded-full overflow-hidden border-[5px] border-[#ffd56b]" style={softShadow}>
+                <div className="w-[330px] h-[330px] md:w-[450px] md:h-[450px] rounded-full overflow-hidden border-[5px] border-[#2E2784]" style={softShadow}>
                   <ImageWithFallback src="/1.png" alt="360° Loyalty Marketing" className="w-full h-full object-cover" />
                 </div>
               </div>
@@ -75,7 +75,7 @@ export function Services({ go }: { go: (r: Route) => void }) {
                   className="absolute -bottom-10 -right-6 w-[200px] h-[200px] rounded-full border-[5px] border-[#2E2784]"
                   style={{ background: "color-mix(in oklab, #2E2784 20%, transparent)" }}
                 />
-                <div className="w-[330px] h-[330px] md:w-[420px] md:h-[420px] rounded-full overflow-hidden border-[5px] border-[#ffd56b]" style={softShadow}>
+                <div className="w-[330px] h-[330px] md:w-[420px] md:h-[420px] rounded-full overflow-hidden border-[5px] border-[#2E2784]" style={softShadow}>
                   <ImageWithFallback src="/2.png" alt="Our Tailor-made Solutions" className="w-full h-full object-cover" />
                 </div>
               </div>
@@ -150,12 +150,12 @@ export function Services({ go }: { go: (r: Route) => void }) {
             <div className="mt-6 rounded-[40px] p-10 md:p-14 border border-black/5" style={{ background: "#2E2784", ...softShadow }}>
               <div className="grid md:grid-cols-3 gap-6">
                 {[
-                  { title: "Loyalty Marketing Strategic Development", icon: "⚙" },
-                  { title: "Loyalty Campaign Management", icon: "👥" },
-                  { title: "Loyalty Measurement and Analytics", icon: "📊" },
+                  { title: "Loyalty Marketing Strategic Development"},
+                  { title: "Loyalty Campaign Management" },
+                  { title: "Loyalty Measurement and Analytics"},
                 ].map((item) => (
                   <div key={item.title} className="rounded-[28px] p-8 text-center border border-white/10" style={{ background: "rgba(255,255,255,0.06)" }}>
-                    <div className="text-3xl mb-4">{item.icon}</div>
+
                     <div className="text-[#F8AE01] tracking-[-0.01em]" style={{ fontSize: "1rem", fontWeight: 700, lineHeight: 1.3 }}>{item.title}</div>
                   </div>
                 ))}
@@ -170,9 +170,9 @@ export function Services({ go }: { go: (r: Route) => void }) {
                 <div
                   key={step}
                   className="rounded-[24px] p-6 border border-black/5"
-                  style={i % 2 === 0 ? { background: "#fff", ...softShadow } : { background: "#2E2784", ...softShadow }}
+                  style={i % 2 === 0 ? { background: "#ffffff00", ...softShadow, border: "4px solid #2E2784" } : { background: "#2E2784", ...softShadow }}
                 >
-                  <div className={`tracking-[0.25em] uppercase ${i % 2 === 0 ? "text-[#F8AE01]" : "text-[#F8AE01]"}`} style={{ fontSize: "0.65rem" }}>
+                  <div className={`tracking-[0.25em] uppercase ${i % 2 === 0 ? "text-[#2E2784]" : "text-[#F8AE01]"}`} style={{ fontSize: "0.65rem" }}>
                     {String(i + 1).padStart(2, "0")}
                   </div>
                   <div className={`${i % 2 === 0 ? "text-[#2E2784]" : "text-white"} tracking-[-0.01em] mt-4`} style={{ fontSize: "0.9rem", fontWeight: 600, lineHeight: 1.35 }}>
