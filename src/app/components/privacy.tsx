@@ -238,8 +238,8 @@ export function Privacy() {
         </div>
       </section>
 
-      {/* 7. RIGHTS & CONTACT (Blue) */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.blue }}>
+      {/* 7. RIGHTS & CONTACT (white) */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: "#fff" }}>
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="grid md:grid-cols-[1.5fr_1fr] gap-16">
@@ -247,7 +247,7 @@ export function Privacy() {
                 <h2 className="tracking-[0.14em] uppercase text-[#F8AE01] mb-10" style={{ fontSize: "2.4rem" }}>
                   Rights of the<br />Data Subject
                 </h2>
-                <div className="grid sm:grid-cols-2 gap-x-12 gap-y-4 text-white/80 text-sm">
+                <div className="grid sm:grid-cols-2 gap-x-12 gap-y-4 text-[#2E2784]/80 text-sm">
                   <ul className="space-y-3">
                     <li>• Be informed about processing.</li>
                     <li>• Withdraw consent at any time.</li>

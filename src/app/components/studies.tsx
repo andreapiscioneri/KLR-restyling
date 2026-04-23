@@ -24,7 +24,7 @@ export function Studies({ go }: { go: (r: Route) => void }) {
         eyebrow="Work"
         title={<>Our Works<br /><span className="text-[#F8AE01]">& Case Studies.</span></>}
         subtitle="Have a look at the success stories of our clients who have implemented loyalty marketing campaigns with us."
-        image={images.mask}
+        image={images.services}
       />
 
       {/* LOYALTY CAMPAIGNS INTRO — yellow */}
@@ -58,18 +58,18 @@ export function Studies({ go }: { go: (r: Route) => void }) {
         </div>
       </section>
 
-      {/* CASE STUDIES GRID — blue */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+      {/* CASE STUDIES GRID — white */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: "#fff" }}>
         <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <h2 className="text-white tracking-[-0.04em] text-center max-w-3xl mx-auto" style={{ fontSize: "clamp(1.75rem, 3.5vw, 3rem)", lineHeight: 1.1, fontWeight: 700 }}>
+            <h2 className="text-[#2E2784] tracking-[-0.04em] text-center max-w-3xl mx-auto" style={{ fontSize: "clamp(1.75rem, 3.5vw, 3rem)", lineHeight: 1.1, fontWeight: 700 }}>
               Some examples of the successful projects<br />we've completed for our clients
             </h2>
 
             {/* Filter chips */}
             <div className="flex justify-center gap-3 mt-12">
-              <div className="rounded-full p-1.5 inline-flex gap-1 border border-white/10" style={{ background: "rgba(255,255,255,0.08)" }}>
+              <div className="rounded-full p-1.5 inline-flex gap-1 border border-[#2E2784]/10" style={{ background: "rgba(46, 39, 132, 0.05)" }}>
                 {[
                   { id: "all" as Filter, label: "All Posts" },
                   { id: "case-studies" as Filter, label: "Case Studies" },
@@ -78,7 +78,7 @@ export function Studies({ go }: { go: (r: Route) => void }) {
                     key={c.id}
                     onClick={() => setFilter(c.id)}
                     className={`px-6 py-2 rounded-full tracking-tight transition-all duration-300 ${
-                      filter === c.id ? "bg-[#F8AE01] text-black font-semibold" : "text-white hover:text-[#F8AE01]"
+                      filter === c.id ? "bg-[#2E2784] text-white font-semibold" : "text-[#2E2784] hover:text-[#F8AE01]"
                     }`}
                     style={{ fontSize: "0.85rem" }}
                   >
@@ -114,7 +114,7 @@ export function Studies({ go }: { go: (r: Route) => void }) {
         </div>
       </section>
 
-      {/* CLOSING CTA — yellow */}
+      {/* CLOSING CTA — white */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute -top-24 right-20 w-[380px] h-[380px] rounded-full bg-white/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">

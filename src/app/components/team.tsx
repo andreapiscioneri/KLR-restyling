@@ -147,37 +147,37 @@ export function Team({ go }: { go: (r: Route) => void }) {
         </div>
       </section>
 
-      {/* JOIN US — blue */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+      {/* JOIN US — white */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: "#fff" }}>
         <div className="absolute -top-20 -right-24 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <Eyebrow onDark>Join Our Team</Eyebrow>
-            <h2 className="text-white tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
+            <Eyebrow>Join Our Team</Eyebrow>
+            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
               Want to work<br /><span className="text-[#F8AE01]">with us?</span>
             </h2>
-            <p className="text-white/80 tracking-tight max-w-2xl mt-8" style={{ fontSize: "1.0625rem", lineHeight: 1.6 }}>
+            <p className="text-[#2E2784]/80 tracking-tight max-w-2xl mt-8" style={{ fontSize: "1.0625rem", lineHeight: 1.6 }}>
               We're always interested in meeting talented people who share our passion for loyalty and teamwork.
             </p>
 
-            <form className="mt-14 rounded-[40px] p-6 md:p-14 border border-white/10 grid md:grid-cols-2 gap-x-8 gap-y-6" style={{ background: "rgba(255,255,255,0.07)", ...softShadow }}>
+            <form className="mt-14 rounded-[40px] p-6 md:p-14 border border-[#2E2784]/10 grid md:grid-cols-2 gap-x-8 gap-y-6" style={{ background: "rgba(46, 39, 132, 0.03)", ...softShadow }}>
               {[{ p: "Full name" }, { p: "Email" }, { p: "Role of interest / Open application" }, { p: "CV upload (drag & drop)" }].map((f) => (
-                <div key={f.p} className="border-b border-white/20 pb-4">
-                  <input placeholder={f.p} className="w-full bg-transparent outline-none text-white placeholder:text-white/50 tracking-tight" style={{ fontSize: "1rem" }} />
+                <div key={f.p} className="border-b border-[#2E2784]/20 pb-4">
+                  <input placeholder={f.p} className="w-full bg-transparent outline-none text-[#2E2784] placeholder:text-[#2E2784]/50 tracking-tight" style={{ fontSize: "1rem" }} />
                 </div>
               ))}
-              <div className="border-b border-white/20 pb-4 md:col-span-2">
-                <textarea rows={4} placeholder="Short message" className="w-full bg-transparent outline-none text-white placeholder:text-white/50 tracking-tight resize-none" style={{ fontSize: "1rem" }} />
+              <div className="border-b border-[#2E2784]/20 pb-4 md:col-span-2">
+                <textarea rows={4} placeholder="Short message" className="w-full bg-transparent outline-none text-[#2E2784] placeholder:text-[#2E2784]/50 tracking-tight resize-none" style={{ fontSize: "1rem" }} />
               </div>
               <div className="md:col-span-2 mt-4">
-                <CTA label="Send application" variant="yellow" />
+                <CTA label="Send application" variant="dark" />
               </div>
             </form>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* CLOSING CTA — yellow */}
+      {/* CLOSING CTA — white */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute -bottom-24 -left-20 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">

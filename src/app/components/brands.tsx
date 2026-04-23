@@ -128,7 +128,7 @@ export function Brands({ go }: { go: (r: Route) => void }) {
         </div>
       </section>
 
-      {/* CASE STUDIES CTA — yellow */}
+      {/* CASE STUDIES CTA — white */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-white/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">

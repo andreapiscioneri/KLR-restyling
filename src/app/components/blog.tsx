@@ -90,19 +90,19 @@ export function Blog({ go }: { go: (r: Route) => void }) {
         </div>
       </section>
 
-      {/* ARTICLES GRID — blue */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+      {/* ARTICLES GRID — white */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: "#fff" }}>
         <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <h2 className="text-white tracking-[-0.04em]" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1, fontWeight: 800 }}>
+            <h2 className="text-[#2E2784] tracking-[-0.04em]" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1, fontWeight: 800 }}>
               Articles
               <br />
               <span className="text-[#F8AE01]" style={{ fontStyle: "italic" }}>News</span>
             </h2>
 
             {loading && (
-              <div className="text-white/50 tracking-tight mt-4" style={{ fontSize: "0.85rem" }}>Loading latest articles…</div>
+              <div className="text-black/50 tracking-tight mt-4" style={{ fontSize: "0.85rem" }}>Loading latest articles…</div>
             )}
 
             {/* Category filter */}
@@ -113,8 +113,8 @@ export function Blog({ go }: { go: (r: Route) => void }) {
                   onClick={() => { setCat(c); setVisible(PAGE_SIZE); }}
                   className={`rounded-full px-5 py-2 tracking-tight transition-all border ${
                     cat === c
-                      ? "bg-[#F8AE01] text-black border-[#F8AE01] font-semibold"
-                      : "text-white border-white/20 hover:border-[#F8AE01] hover:text-[#F8AE01]"
+                      ? "bg-[#2E2784] text-white border-[#2E2784] font-semibold"
+                      : "text-[#2E2784] border-[#2E2784]/20 hover:border-[#F8AE01] hover:text-[#F8AE01]"
                   }`}
                   style={{ fontSize: "0.85rem" }}
                 >
@@ -163,7 +163,7 @@ export function Blog({ go }: { go: (r: Route) => void }) {
         </div>
       </section>
 
-      {/* CLOSING CTA — yellow */}
+      {/* CLOSING CTA — white */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute -top-24 right-20 w-[380px] h-[380px] rounded-full bg-white/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">

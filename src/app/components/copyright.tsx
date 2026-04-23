@@ -152,12 +152,12 @@ export function Copyright() {
         </div>
       </section>
 
-      {/* 7. FINAL PROVISIONS & CONTACT (Blue) */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.blue }}>
+      {/* 7. FINAL PROVISIONS & CONTACT (white) */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: "#fff" }}>
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <div className="grid md:grid-cols-2 gap-16 pb-16 border-b border-white/10">
-              <div className="space-y-8 text-white/80">
+            <div className="grid md:grid-cols-2 gap-16 pb-16 border-b border-[#2E2784]/10">
+              <div className="space-y-8 text-[#2E2784]/80">
                 <div>
                   <h3 className="text-[#F8AE01] font-bold uppercase tracking-widest text-sm mb-2">Severability and Waiver</h3>
                   <p className="text-xs leading-relaxed">If any provision is held unenforceable, the remaining provisions continue in full force. Failure to exercise a right does not affect the ability to exercise it thereafter.</p>

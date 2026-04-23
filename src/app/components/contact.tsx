@@ -150,7 +150,7 @@ function InternationalReach() {
 
 function ContactForm() {
   return (
-    <section id="contact-section" className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.yellow }}>
+    <section id="contact-section" className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: "#fff" }}>
       <div className="absolute -top-24 -left-20 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
       <div className="max-w-6xl mx-auto px-8">
         <AnimatedSection>

@@ -102,7 +102,7 @@ export function Klr10({ go }: { go: (r: Route) => void }) {
         </div>
       </section>
 
-      {/* CLOSING — blue */}
+      {/* CLOSING — white */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
         <div className="absolute -bottom-20 -right-20 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">

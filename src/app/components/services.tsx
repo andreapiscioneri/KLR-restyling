@@ -292,7 +292,7 @@ export function Services({ go }: { go: (r: Route) => void }) {
         </div>
       </section>
 
-      {/* CLOSING CTA — yellow */}
+      {/* CLOSING CTA — white */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute -top-24 right-20 w-[380px] h-[380px] rounded-full bg-white/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">

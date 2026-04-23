@@ -89,13 +89,13 @@ export function BlogDetail({ slug, go, initialPost }: { slug: string; go: (r: Ro
         </div>
       </section>
 
-      {/* MORE ARTICLES — blue */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+      {/* MORE ARTICLES — white */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: "#fff" }}>
         <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <Eyebrow onDark>More articles</Eyebrow>
-            <h2 className="text-white tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
+            <Eyebrow>More articles</Eyebrow>
+            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
               Keep reading<br /><span className="text-[#F8AE01]">from our insights.</span>
             </h2>
             <div className="grid md:grid-cols-2 gap-6 mt-10 md:mt-14">
@@ -103,7 +103,7 @@ export function BlogDetail({ slug, go, initialPost }: { slug: string; go: (r: Ro
                 <button
                   key={p.id}
                   onClick={() => go({ page: "blog-detail", slug: p.slug })}
-                  className="group rounded-[32px] overflow-hidden bg-white border border-white/10 text-left"
+                  className="group rounded-[32px] overflow-hidden bg-white border border-[#2E2784]/10 text-left"
                   style={softShadow}
                 >
                   <div className="aspect-[16/10] overflow-hidden">

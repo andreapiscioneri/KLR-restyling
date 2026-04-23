@@ -135,6 +135,24 @@ export function Home({ go }: { go: (r: Route) => void }) {
         </div>
       </section>
 
+      {/* EMOTIONAL LOYALTY INSIGHT — white */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: "#fff" }}>
+        <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-[#2E2784]/10 blur-3xl" />
+        <div className="max-w-6xl mx-auto px-8">
+          <div>
+            <h2 className="text-[#2E2784] tracking-[-0.04em] max-w-4xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 0.95, fontWeight: 800 }}>
+              Emotional loyalty<br />is more than<br /><span className="text-[#F8AE01]">transactions.</span>
+            </h2>
+            <p className="text-[#2E2784]/80 tracking-tight max-w-2xl mt-10" style={{ fontSize: "1.0625rem", lineHeight: 1.6 }}>
+              It's about creating connections between retailers, brands, and shoppers. We help you build campaigns that make people feel valued, understood, and eager to come back.
+            </p>
+            <div className="mt-10">
+              <CTA label="Learn More About Our Approach" variant="dark" onClick={() => go({ page: "about" })} />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* TWO SECTORS */}
       <section className="px-8 md:px-12 mb-40">
         <Eyebrow>Two Sectors. Deep Expertise.</Eyebrow>
@@ -230,6 +248,24 @@ export function Home({ go }: { go: (r: Route) => void }) {
         </button>
         <div className="mt-10">
           <CTA label="See All Case Studies" variant="dark" onClick={() => go({ page: "studies" })} />
+        </div>
+      </section>
+
+      {/* WHY KLR — white */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: "#fff" }}>
+        <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
+        <div className="max-w-6xl mx-auto px-8">
+          <div>
+            <h2 className="text-[#2E2784] tracking-[-0.04em] max-w-4xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 0.95, fontWeight: 800 }}>
+              Why choose KLR?<br /><span className="text-[#F8AE01]">10 years of proven results.</span>
+            </h2>
+            <p className="text-[#2E2784]/80 tracking-tight max-w-2xl mt-10" style={{ fontSize: "1.0625rem", lineHeight: 1.6 }}>
+              Since 2015, we've designed and executed 340+ loyalty campaigns across 20+ countries. We don't just build loyalty programs — we create emotional connections that drive real business results for retailers, brands, and their customers.
+            </p>
+            <div className="mt-10">
+              <CTA label="Explore Our Success Stories" variant="dark" onClick={() => go({ page: "studies" })} />
+            </div>
+          </div>
         </div>
       </section>
 
