@@ -1,8 +1,7 @@
 "use client";
 import { useState } from "react";
-import { ArrowUpRight } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { Eyebrow, CTA, softShadow } from "./ui-bits";
+import { CTA, softShadow } from "./ui-bits";
 import { studies, images } from "../data";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
@@ -13,112 +12,105 @@ const G = {
   yellow: "radial-gradient(130% 130% at 15% 0%, #ffd95a 0%, #F8AE01 50%, #de9800 100%)",
 };
 
-type Sector = "all" | "petrol" | "retail";
+type Filter = "all" | "case-studies";
 
 export function Studies({ go }: { go: (r: Route) => void }) {
-  const [sector, setSector] = useState<Sector>("all");
-  const [brand, setBrand] = useState<string>("all");
-
-  const allBrands = Array.from(new Set(studies.map((s) => s.brand)));
-  const filtered = studies.filter((s) => (sector === "all" || s.cat === sector) && (brand === "all" || s.brand === brand));
-
-  const sectorChips: { id: Sector; label: string }[] = [
-    { id: "all", label: "All" },
-    { id: "retail", label: "Grocery" },
-    { id: "petrol", label: "Fuel" },
-  ];
+  const [filter, setFilter] = useState<Filter>("all");
+  const filtered = filter === "all" ? studies : studies.filter((s) => s.cat === "retail" || s.cat === "petrol");
 
   return (
     <>
       <PageHero
-        eyebrow="Case Studies"
-        title={<>Real Results for<br /><span className="text-[#F8AE01]">Real Retail Chains.</span></>}
-        subtitle="340+ campaigns across 20+ countries. Explore how we've helped grocery and fuel retail chains achieve measurable results."
+        eyebrow="Work"
+        title={<>Our Works<br /><span className="text-[#F8AE01]">& Case Studies.</span></>}
+        subtitle="Have a look at the success stories of our clients who have implemented loyalty marketing campaigns with us."
         image={images.mask}
       />
 
-      {/* FILTER — yellow */}
-      <section className="relative pt-20 pb-10 overflow-hidden" style={{ background: G.yellow }}>
+      {/* LOYALTY CAMPAIGNS INTRO — yellow */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
-          <div className="flex flex-wrap justify-center gap-3">
-            <div
-              className="rounded-full p-1.5 inline-flex gap-1 border border-black/10"
-              style={{ background: "#2E2784" }}
-            >
-              {sectorChips.map((c) => (
-                <button
-                  key={c.id}
-                  onClick={() => setSector(c.id)}
-                  className={`px-6 py-2 rounded-full tracking-tight transition-all duration-500 ${
-                    sector === c.id ? "bg-[#F8AE01] text-black" : "text-white"
-                  }`}
-                  style={{ fontSize: "0.85rem" }}
-                >
-                  {c.label}
-                </button>
-              ))}
+          <AnimatedSection>
+            <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+              <div className="relative flex justify-center md:justify-start">
+                <div className="absolute -bottom-10 -left-6 w-[180px] h-[180px] rounded-full bg-[#F8AE01]" />
+                <div className="w-[300px] h-[300px] md:w-[420px] md:h-[420px] rounded-full overflow-hidden" style={softShadow}>
+                  <ImageWithFallback src={images.aboutTonda} alt="Loyalty Campaigns" className="w-full h-full object-cover" />
+                </div>
+              </div>
+              <div>
+                <h2 className="text-[#2E2784] tracking-[-0.04em]" style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1, fontWeight: 800 }}>
+                  Loyalty Campaigns<br />that drive success!
+                </h2>
+                <p className="text-[#2E2784] tracking-tight mt-8" style={{ fontSize: "clamp(1rem, 1.4vw, 1.2rem)", lineHeight: 1.65 }}>
+                  Have a look at the success stories of our clients who have implemented loyalty marketing campaigns with us. From supermarkets to petrol stations, our solutions have helped them increase customer engagement and boost revenue.
+                </p>
+                <p className="text-[#2E2784] tracking-tight mt-6" style={{ fontSize: "clamp(1rem, 1.4vw, 1.2rem)", lineHeight: 1.65 }}>
+                  Browse through our diverse range of case studies to see how we have helped businesses to achieve their goals and discover the benefits for your company. Take inspiration and let's work together to create a loyalty program that drives results for your business!
+                </p>
+                <p className="text-[#2E2784] tracking-tight mt-6" style={{ fontSize: "clamp(1rem, 1.4vw, 1.2rem)", lineHeight: 1.65 }}>
+                  We'd be happy to share more case studies or provide references from our satisfied clients upon request.
+                </p>
+              </div>
             </div>
-            <div className="rounded-full p-1.5 flex flex-wrap gap-1 bg-white border border-black/5">
-              {["all", ...allBrands].map((b) => (
-                <button
-                  key={b}
-                  onClick={() => setBrand(b)}
-                  className={`px-5 py-2 rounded-full tracking-tight transition-all duration-500 ${
-                    brand === b ? "bg-[#2E2784] text-white" : "text-black hover:text-[#2E2784]"
-                  }`}
-                  style={{ fontSize: "0.8rem" }}
-                >
-                  {b === "all" ? "All brands" : b}
-                </button>
-              ))}
-            </div>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
-      {/* CASE STUDIES LIST — blue */}
-      <section className="relative pt-10 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+      {/* CASE STUDIES GRID — blue */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
         <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
-          <div className="space-y-24 md:space-y-32 pt-14">
-            {filtered.map((s, i) => (
-              <AnimatedSection key={s.id} delay={0}>
-                <article
-                  className={`group cursor-pointer ${i % 3 === 0 ? "md:mr-16" : i % 3 === 1 ? "md:ml-16" : ""}`}
+          <AnimatedSection>
+            <h2 className="text-white tracking-[-0.04em] text-center max-w-3xl mx-auto" style={{ fontSize: "clamp(1.75rem, 3.5vw, 3rem)", lineHeight: 1.1, fontWeight: 700 }}>
+              Some examples of the successful projects<br />we've completed for our clients
+            </h2>
+
+            {/* Filter chips */}
+            <div className="flex justify-center gap-3 mt-12">
+              <div className="rounded-full p-1.5 inline-flex gap-1 border border-white/10" style={{ background: "rgba(255,255,255,0.08)" }}>
+                {[
+                  { id: "all" as Filter, label: "All Posts" },
+                  { id: "case-studies" as Filter, label: "Case Studies" },
+                ].map((c) => (
+                  <button
+                    key={c.id}
+                    onClick={() => setFilter(c.id)}
+                    className={`px-6 py-2 rounded-full tracking-tight transition-all duration-300 ${
+                      filter === c.id ? "bg-[#F8AE01] text-black font-semibold" : "text-white hover:text-[#F8AE01]"
+                    }`}
+                    style={{ fontSize: "0.85rem" }}
+                  >
+                    {c.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Grid */}
+            <div className="mt-12 grid md:grid-cols-3 gap-6">
+              {filtered.map((s) => (
+                <button
+                  key={s.id}
                   onClick={() => go({ page: "study-detail", id: s.id })}
+                  className="group rounded-[28px] overflow-hidden bg-white text-left border border-white/10"
+                  style={softShadow}
                 >
-                  <div className="relative rounded-[40px] overflow-hidden border border-white/10" style={softShadow}>
-                    <div className="aspect-[16/9] overflow-hidden">
-                      <ImageWithFallback src={s.img} alt={s.title} className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-[1500ms]" />
-                    </div>
-                    <div
-                      className="absolute top-6 left-6 rounded-full px-4 py-1.5 border border-white/25 text-white tracking-[0.2em] uppercase"
-                      style={{ background: "rgba(46,39,132,0.5)", backdropFilter: "blur(40px)", WebkitBackdropFilter: "blur(40px)", fontSize: "0.65rem" }}
-                    >
-                      {s.cat === "petrol" ? "Fuel" : "Grocery"} · {s.brand}
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <ImageWithFallback src={s.img} alt={s.title} className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[1200ms]" />
+                  </div>
+                  <div className="p-6">
+                    <div className="text-[#2E2784] tracking-[-0.02em]" style={{ fontSize: "1rem", fontWeight: 700, lineHeight: 1.3 }}>{s.title}</div>
+                    <div className="text-black/60 tracking-tight mt-3" style={{ fontSize: "0.85rem", lineHeight: 1.55 }}>{s.summary}</div>
+                    <div className="text-[#2E2784] tracking-tight mt-4 font-semibold group-hover:text-[#F8AE01] transition-colors" style={{ fontSize: "0.85rem" }}>
+                      Read More
                     </div>
                   </div>
-                  <div className="mt-8 flex items-end justify-between gap-8 flex-wrap">
-                    <div>
-                      <div className="text-white/60 tracking-tight" style={{ fontSize: "0.85rem" }}>
-                        {s.client} — {s.location} — {s.year}
-                      </div>
-                      <h2 className="text-white tracking-[-0.035em] mt-3" style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)", lineHeight: 1.05, fontWeight: 700 }}>
-                        {s.title}
-                      </h2>
-                    </div>
-                    <div className="inline-flex items-center gap-3 text-white">
-                      <span className="border-b border-white/40 group-hover:border-[#F8AE01] pb-0.5 transition-colors" style={{ fontSize: "0.9rem" }}>Read study</span>
-                      <span className="w-9 h-9 rounded-full bg-white/10 text-white flex items-center justify-center group-hover:bg-[#F8AE01] group-hover:text-black transition-all">
-                        <ArrowUpRight className="w-4 h-4" />
-                      </span>
-                    </div>
-                  </div>
-                </article>
-              </AnimatedSection>
-            ))}
-          </div>
+                </button>
+              ))}
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 
@@ -128,9 +120,14 @@ export function Studies({ go }: { go: (r: Route) => void }) {
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="flex flex-wrap items-center justify-between gap-6">
-              <h3 className="text-[#2E2784] tracking-[-0.03em] max-w-xl" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", lineHeight: 1.1, fontWeight: 600 }}>
-                Are you ready to start something new together?
-              </h3>
+              <div>
+                <h3 className="text-[#2E2784] tracking-[-0.04em] max-w-xl" style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1, fontWeight: 800 }}>
+                  Are you ready to <span className="text-black">start something new</span> together?
+                </h3>
+                <p className="text-[#2E2784] tracking-tight mt-6" style={{ fontSize: "clamp(1rem, 1.4vw, 1.2rem)", lineHeight: 1.55 }}>
+                  Get in touch with us and we'll find the right solution for you
+                </p>
+              </div>
               <CTA label="Get in Touch" variant="dark" onClick={() => go({ page: "contact" })} />
             </div>
           </AnimatedSection>
