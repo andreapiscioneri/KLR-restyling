@@ -28,37 +28,15 @@ function ContactHero() {
         style={{ opacity }}
         className="relative max-w-6xl mx-auto px-8 flex flex-col justify-end min-h-[calc(100vh-10rem)]"
       >
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-          className="tracking-[0.3em] uppercase text-[#F8AE01]"
-          style={{ fontSize: "0.65rem", fontWeight: 600 }}
-        >
-          Our Global Network
-        </motion.div>
-
         <motion.h1
-          className="text-white tracking-[-0.04em] max-w-5xl mt-10"
+          className="text-white tracking-[-0.04em] max-w-5xl"
           style={{ fontSize: "clamp(3rem, 9vw, 8rem)", lineHeight: 0.92, fontWeight: 800 }}
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          20 Countries
-          <br />
-          <span className="text-[#F8AE01]">And Growing</span>
+          Contacts
         </motion.h1>
-
-        <motion.p
-          className="text-white tracking-tight max-w-2xl mt-10"
-          style={{ fontSize: "1.125rem", lineHeight: 1.6 }}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-        >
-          With offices in Slovenia and Italy, we operate across the entire European continent to bring loyalty marketing solutions to our partners.
-        </motion.p>
 
         <motion.div
           className="mt-12"
@@ -83,30 +61,35 @@ function ContactHero() {
 
 function OurContacts() {
   return (
-    <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.yellow }}>
-      <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
+    <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.blue }}>
+      <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
       <div className="max-w-6xl mx-auto px-8">
         <AnimatedSection>
-          <h2 className="text-[#2E2784] tracking-[-0.04em] max-w-4xl" style={{ fontSize: "clamp(2rem, 5vw, 4.5rem)", lineHeight: 0.95, fontWeight: 800 }}>
-            Our Contacts<br />
-            <span className="text-black">Headquarters & Offices</span>
+          <div className="border-t border-white/20 pt-10 mb-16" />
+          <h2 className="text-white tracking-[-0.04em] max-w-4xl" style={{ fontSize: "clamp(2rem, 5vw, 4.5rem)", lineHeight: 0.95, fontWeight: 800 }}>
+            Our Contacts
           </h2>
 
-          <div className="mt-16 grid md:grid-cols-2 gap-8">
+          <div className="mt-16 grid md:grid-cols-2 gap-16">
             {offices.map((office) => (
-              <div key={office.city} className="rounded-[32px] bg-white/90 backdrop-blur-sm border border-white/60 p-10">
-                <div className="tracking-[0.2em] uppercase text-[#F8AE01]" style={{ fontSize: "0.75rem", fontWeight: 600 }}>
-                  {office.region}
-                </div>
-                <h3 className="text-[#2E2784] tracking-[-0.02em] mt-4" style={{ fontSize: "clamp(1.4rem, 2vw, 2rem)", fontWeight: 700, lineHeight: 1.2 }}>
+              <div key={office.city}>
+                <h3 className="text-white tracking-[-0.02em]" style={{ fontSize: "clamp(1.4rem, 2vw, 2rem)", fontWeight: 700, lineHeight: 1.2 }}>
                   {office.city}
                 </h3>
-                <div className="text-black/70 tracking-tight mt-6 whitespace-pre-line" style={{ fontSize: "0.95rem", lineHeight: 1.7 }}>
+                <div className="tracking-[0.2em] uppercase text-[#F8AE01] mt-6" style={{ fontSize: "0.75rem", fontWeight: 600 }}>
+                  {office.region}
+                </div>
+                <div className="text-white/80 tracking-tight mt-6 whitespace-pre-line" style={{ fontSize: "0.95rem", lineHeight: 1.7 }}>
                   {office.addr}
                 </div>
-                <div className="text-black tracking-tight mt-4 font-medium" style={{ fontSize: "0.95rem" }}>
+                <div className="text-white tracking-tight mt-6 font-medium" style={{ fontSize: "0.95rem" }}>
                   {office.phone}
                 </div>
+                {office.email && (
+                  <div className="text-white tracking-tight mt-2" style={{ fontSize: "0.95rem" }}>
+                    {office.email}
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -119,29 +102,18 @@ function OurContacts() {
 function InternationalReach() {
   return (
     <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.blue }}>
-      <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
+      <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
       <div className="max-w-6xl mx-auto px-8">
         <AnimatedSection>
-          <div className="grid md:grid-cols-2 gap-10 items-center">
-            <div>
-              <h2 className="text-white tracking-[0.14em] uppercase" style={{ fontSize: "clamp(1.8rem, 3.2vw, 3.2rem)", lineHeight: 1.15 }}>
-                10 Years
-                <br />
-                of International
-                <br />
-                <span className="text-[#F8AE01]">Experience</span>
-              </h2>
-              <p className="mt-10 text-white" style={{ fontSize: "clamp(1.05rem, 1.45vw, 1.55rem)", lineHeight: 1.4 }}>
-                Since 2015, we've been building trust across European markets. From our Slovenian headquarters in Koper to our Italian sales office in Rovato, we've developed strong partnerships with over 100+ retail clients across 20 countries.
-              </p>
-              <p className="mt-6 text-white/80" style={{ fontSize: "clamp(1.05rem, 1.45vw, 1.55rem)", lineHeight: 1.4 }}>
-                Our international team brings deep local market knowledge combined with a unified vision for loyalty marketing excellence.
-              </p>
-            </div>
-            <div className="rounded-[32px] overflow-hidden border border-white/10">
-              <img src={images.map} alt="KLR European presence" className="w-full h-auto" />
-            </div>
+          <h2 className="text-[#F8AE01] tracking-[0.14em] uppercase" style={{ fontSize: "clamp(1.8rem, 3.2vw, 3.2rem)", lineHeight: 1.15 }}>
+            20 Countries and<br />Growing
+          </h2>
+          <div className="mt-12 rounded-[32px] overflow-hidden border border-white/10">
+            <img src={images.map} alt="KLR European presence" className="w-full h-auto" />
           </div>
+          <p className="mt-12 text-white" style={{ fontSize: "clamp(1.05rem, 1.45vw, 1.55rem)", lineHeight: 1.55 }}>
+            Based in Italy and Slovenia, we operate in 20 countries in Europe and keep growing. Having an international network of partners helps us to better serve our multinational clients by providing local expertise and understanding of different cultures and consumer behaviours.
+          </p>
         </AnimatedSection>
       </div>
     </section>
@@ -155,13 +127,13 @@ function ContactForm() {
       <div className="max-w-6xl mx-auto px-8">
         <AnimatedSection>
           <h2 className="text-[#2E2784] tracking-[-0.04em] max-w-4xl" style={{ fontSize: "clamp(2rem, 5vw, 4.5rem)", lineHeight: 0.95, fontWeight: 800 }}>
-            Let's Get Started
+            Let's get start
             <br />
-            <span className="text-black">Something New Together</span>
+            <span className="text-black">something new together</span>
           </h2>
 
           <p className="text-black/70 mt-8 max-w-2xl" style={{ fontSize: "1.1rem", lineHeight: 1.6 }}>
-            Fill out the form below and we'll get back to you within one business day. Let's discuss how KLR can support your loyalty marketing goals.
+            Reach out to us with your ideas. Our team will respond within one business day to discuss how we can bring your loyalty marketing vision to life.
           </p>
 
           <form className="mt-16 max-w-3xl rounded-[32px] bg-white/95 backdrop-blur-sm border border-white/60 p-10 md:p-16 space-y-8">

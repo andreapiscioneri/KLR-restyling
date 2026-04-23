@@ -55,26 +55,14 @@ export function Nav() {
         layout
       >
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 shrink-0" data-cursor="default">
-          <div
-            className="flex items-center px-3 py-1.5 rounded-xl"
-            style={{
-              background: "rgba(255,255,255,0.07)",
-              border: "1px solid rgba(255,255,255,0.09)",
-            }}
-          >
-            <Image
-              src="/klr-logo.png"
-              alt="KLR Europe"
-              width={120}
-              height={40}
-              className="h-6 md:h-7 w-auto"
-              priority
-            />
-          </div>
-          <span
-            className="w-1.5 h-1.5 rounded-full"
-            style={{ background: "#F8AE01", boxShadow: "0 0 8px rgba(248,174,1,0.8)" }}
+        <Link href="/" className="flex items-center shrink-0" data-cursor="default">
+          <Image
+            src="/klr-logo.png"
+            alt="KLR Europe"
+            width={120}
+            height={40}
+            className="h-6 md:h-7 w-auto"
+            priority
           />
         </Link>
 

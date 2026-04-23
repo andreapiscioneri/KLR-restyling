@@ -40,7 +40,7 @@ export function Services({ go }: { go: (r: Route) => void }) {
         eyebrow="Services"
         title={<>Our<br /><span className="text-[#F8AE01]">Services.</span></>}
         subtitle="We have a full range of services that allow us to deliver concrete results to our clients. Happy rewarded loyal customers mean more visits in-store, stable or increased turnover and a better reputation."
-        image={images.services}
+        image="/3.png"
         cta={{ label: "See Our Work", href: "/work" }}
       />
 
@@ -59,24 +59,30 @@ export function Services({ go }: { go: (r: Route) => void }) {
                 </p>
               </div>
               <div className="relative flex justify-center md:justify-end">
-                <div className="absolute -bottom-10 -left-6 w-[200px] h-[200px] rounded-full bg-[#2E2784]/20" />
-                <div className="w-[330px] h-[330px] md:w-[450px] md:h-[450px] rounded-full overflow-hidden border-4 border-white/40" style={softShadow}>
-                  <ImageWithFallback src={images.aboutTonda} alt="360° Loyalty Marketing" className="w-full h-full object-cover" />
+                <div
+                  className="absolute -bottom-10 -left-6 w-[200px] h-[200px] rounded-full border-[5px] border-[#2E2784]"
+                  style={{ background: "color-mix(in oklab, #2E2784 20%, transparent)" }}
+                />
+                <div className="w-[330px] h-[330px] md:w-[450px] md:h-[450px] rounded-full overflow-hidden border-[5px] border-[#ffd56b]" style={softShadow}>
+                  <ImageWithFallback src="/1.png" alt="360° Loyalty Marketing" className="w-full h-full object-cover" />
                 </div>
               </div>
             </div>
 
             <div className="mt-20 grid md:grid-cols-2 gap-10 md:gap-16 items-center">
               <div className="relative flex justify-center md:justify-start order-2 md:order-1">
-                <div className="absolute -bottom-10 -right-6 w-[200px] h-[200px] rounded-full bg-[#F8AE01]/30" />
-                <div className="w-[330px] h-[330px] md:w-[420px] md:h-[420px] rounded-[40px] overflow-hidden border border-black/5" style={softShadow}>
-                  <ImageWithFallback src={images.human} alt="Our Tailor-made Solutions" className="w-full h-full object-cover" />
+                <div
+                  className="absolute -bottom-10 -right-6 w-[200px] h-[200px] rounded-full border-[5px] border-[#2E2784]"
+                  style={{ background: "color-mix(in oklab, #2E2784 20%, transparent)" }}
+                />
+                <div className="w-[330px] h-[330px] md:w-[420px] md:h-[420px] rounded-full overflow-hidden border-[5px] border-[#ffd56b]" style={softShadow}>
+                  <ImageWithFallback src="/2.png" alt="Our Tailor-made Solutions" className="w-full h-full object-cover" />
                 </div>
               </div>
               <div className="order-1 md:order-2">
                 <Eyebrow>Our Approach</Eyebrow>
                 <h2 className="text-[#2E2784] tracking-[-0.04em] mt-8" style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1, fontWeight: 800 }}>
-                  Our <em className="not-italic text-black">Tailor-made</em> Solutions
+                  Our <em className="not-italic text-white">Tailor-made</em> Solutions
                 </h2>
                 <p className="text-[#2E2784] tracking-tight mt-10" style={{ fontSize: "clamp(1rem, 1.4vw, 1.25rem)", lineHeight: 1.55 }}>
                   We're flexible, quick, and smart enough to deliver all the services tailored specifically to each client's needs. Our international presence with a strong network of partners all around Europe allows us to offer the best prices and logistics efficiency.
@@ -193,7 +199,7 @@ export function Services({ go }: { go: (r: Route) => void }) {
                   In today's competitive market, it takes more than a great product to stand out. At KLR, we help clients to tell their stories and captivate audiences using integrated marketing communications that are brand-centric and highly measurable.
                 </p>
                 <div className="mt-10 relative w-full rounded-[32px] overflow-hidden" style={{ aspectRatio: "4/3" }}>
-                  <ImageWithFallback src={images.aboutTonda} alt="Loyalty Marketing Strategic Development" className="w-full h-full object-cover" />
+                  <ImageWithFallback src="/1.png" alt="Loyalty Marketing Strategic Development" className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-[#2E2784]/30" />
                 </div>
               </div>

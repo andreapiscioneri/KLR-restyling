@@ -194,8 +194,8 @@ export const locations = [
 
 // Real offices — headquarters Koper, sales office Rovato
 export const offices = [
-  { city: "Headquarters · Koper", addr: "Ulica 15. Maja 19\nSI-6000 Koper/Capodistria", phone: "+386 5 902 87 58", region: "Slovenia" },
-  { city: "Sales Office · Rovato", addr: "Via XXV Aprile 68\n25038 Rovato (BS)", phone: "+39 030 52 81 427", region: "Italy" },
+  { city: "Headquarters", addr: "Ulica 15 Maja 19\nSI-6000 Koper/Capodistria, Slovenia", phone: "+386 5 902 87 58", email: "info@klr-europe.com", region: "European Sales Region" },
+  { city: "Regional Sales Headquarter", addr: "Via XXV Aprile, 66\n25038 – Rovato(BS) – Italy", phone: "+39 030 5281427", email: "info@klr-europe.com", region: "Italy" },
 ];
 
 // Journey milestones — About/KLR 10 page
