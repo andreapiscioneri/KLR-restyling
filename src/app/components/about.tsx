@@ -1,7 +1,7 @@
 "use client";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, softShadow } from "./ui-bits";
-import { images, whatWeDeliver, aboutImpact, moreThanLoyalty, journey } from "../data";
+import { images, journey } from "../data";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import type { Route } from "../App";
@@ -11,37 +11,19 @@ const G = {
   yellow: "radial-gradient(130% 130% at 15% 0%, #ffd95a 0%, #F8AE01 50%, #de9800 100%)",
 };
 
-const klrWayValues = [
-  {
-    title: "Smart Thinkers, Fast Movers",
-    desc: "We think strategically but act quickly. Ideas are important, but turning them into reality is what truly creates value for our clients.",
-  },
-  {
-    title: "International Mindset, Local Heart",
-    desc: "Our experience and partnerships are international, but our approach remains personal and close to the markets we serve. We understand global trends while staying deeply connected to local customers.",
-  },
-  {
-    title: "People at the Core",
-    desc: "People are at the center of our business. We care about our colleagues and our clients the way a family member would. Loyalty cannot be imposed — it must be built around real needs and genuine value.",
-  },
-  {
-    title: "Learning by Doing",
-    desc: "Experience is our greatest teacher. We believe the best solutions emerge from experimentation, curiosity, and constant improvement. We learn, adapt, and evolve with every campaign we deliver.",
-  },
-  {
-    title: "Loyalty Service at Its Best",
-    desc: "Our reputation is built on reliability, organisation, and dedication. Clients trust us because we keep our word, respect our commitments, and always go the extra mile.",
-  },
-  {
-    title: "Partnership Over Transactions",
-    desc: "We work with our clients, not just for them. Our goal is not simply to deliver a campaign but to build lasting partnerships that create value for both sides.",
-  },
+const values = [
+  { title: "People First", desc: "People are at the center of everything we do — colleagues, clients, and customers." },
+  { title: "Creativity", desc: "We bring fresh thinking to every campaign, every market, every challenge." },
+  { title: "Personalised Approach", desc: "Every client receives tailor-made solutions built around their specific needs and audience." },
+  { title: "Proactiveness", desc: "We anticipate needs and act before problems arise — always one step ahead." },
+  { title: "Experience", desc: "10+ years and 340+ campaigns give us a depth of knowledge that truly sets us apart." },
 ];
 
-const brandArchetype = [
-  { label: "Magician", desc: "We transform everyday transactions into engaging loyalty experiences." },
-  { label: "Creator", desc: "We design unique campaigns and outstanding reward collections that inspire customers." },
-  { label: "Caregiver", desc: "We support our clients with dependable service and operational excellence." },
+const stats = [
+  { k: "150+", v: "Retail Chains" },
+  { k: "300+", v: "Successful Campaigns" },
+  { k: "20+", v: "Countries" },
+  { k: "10+", v: "Years of Experience" },
 ];
 
 export function About({ go }: { go: (r: Route) => void }) {
@@ -49,32 +31,35 @@ export function About({ go }: { go: (r: Route) => void }) {
     <>
       <PageHero
         eyebrow="About KLR"
-        title={<>Being Central to<br /><span className="text-[#F8AE01]">Loyalty.</span></>}
-        subtitle="We make loyalty campaigns work beautifully and reliably: 10+ years, 340+ campaigns, 150+ retail clients, and activations across 20+ European markets."
+        title={<>We put <span className="text-[#F8AE01]">People First</span><br />to Deliver the Best Results.</>}
+        subtitle="Our unique, human-centred approach to loyalty design is the key to deliver successful campaigns through smart, incentive-based solutions."
         image={images.teamPhoto}
         cta={{ label: "Meet the Team", href: "/team" }}
       />
 
-      {/* BRAND PROMISE — yellow */}
+      {/* HOW WE BRING LOYALTY TO LIFE — yellow */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <div className="rounded-[40px] overflow-hidden relative" style={{ background: "#2E2784", ...softShadow }}>
-              <div className="absolute -top-20 -right-20 rounded-full opacity-10" style={{ width: 350, height: 350, background: "#F8AE01" }} />
-              <div className="grid md:grid-cols-2">
-                <div className="p-7 md:p-16 flex flex-col justify-center gap-8">
-                  <Eyebrow onDark>Brand Promise</Eyebrow>
-                  <h2 className="text-white tracking-[-0.035em]" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", fontWeight: 700, lineHeight: 1.1, fontStyle: "italic" }}>
-                    "We design loyalty experiences that customers feel emotionally, trust consistently, and value deeply."
-                  </h2>
-                  <p className="text-white/70 tracking-tight" style={{ fontSize: "1rem", lineHeight: 1.65 }}>
-                    Helping retail chains turn transactions into business growth through a loyal customer base.
-                    Where others operate loyalty programs, <strong className="text-[#F8AE01]">KLR designs emotional loyalty experiences.</strong>
-                  </p>
-                </div>
-                <div className="aspect-[4/3] md:aspect-auto overflow-hidden">
-                  <ImageWithFallback src={images.teamPhoto} alt="KLR Team" className="w-full h-full object-cover" />
+            <div className="grid md:grid-cols-2 gap-10 items-center">
+              <div>
+                <Eyebrow>Our Approach</Eyebrow>
+                <h2 className="text-[#2E2784] tracking-[-0.04em] mt-8" style={{ fontSize: "clamp(2rem, 5vw, 4.5rem)", lineHeight: 0.96, fontWeight: 800 }}>
+                  How we bring<br />
+                  <em className="not-italic text-black">Loyalty to Life</em>
+                </h2>
+                <p className="text-[#2E2784] tracking-tight mt-10" style={{ fontSize: "clamp(1rem, 1.4vw, 1.25rem)", lineHeight: 1.55 }}>
+                  Our unique, human-centred approach to loyalty design is the key to deliver successful campaigns through smart, incentive-based solutions creating a positive, trustful and loyal relationship between retail chains and their clients.
+                </p>
+                <p className="text-[#2E2784] tracking-tight mt-6" style={{ fontSize: "clamp(1rem, 1.4vw, 1.25rem)", lineHeight: 1.55 }}>
+                  We are experts in understanding customers through the lens of human behavior by combining qualitative and quantitative methodologies. We pride ourselves on our ability to deliver tailor-made solutions that are always adapted to specific client needs based on their target audience — identifying the right rewards and a compelling offer that will motivate them to take action, increasing sales and building brand loyalty.
+                </p>
+              </div>
+              <div className="relative flex justify-center md:justify-end">
+                <div className="absolute -bottom-10 -left-6 w-[200px] h-[200px] rounded-full bg-[#F8AE01]" />
+                <div className="w-[330px] h-[330px] md:w-[450px] md:h-[450px] rounded-full overflow-hidden border-4 border-white/40" style={softShadow}>
+                  <ImageWithFallback src={images.aboutTonda} alt="How we bring Loyalty to Life" className="w-full h-full object-cover" />
                 </div>
               </div>
             </div>
@@ -82,84 +67,64 @@ export function About({ go }: { go: (r: Route) => void }) {
         </div>
       </section>
 
-      {/* MISSION / VISION — blue */}
+      {/* 10 YEARS STATEMENT + STATS — blue */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
         <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <Eyebrow onDark>Our Direction</Eyebrow>
-            <div className="grid md:grid-cols-2 gap-6 mt-8 md:mt-14">
-              <div className="rounded-[40px] p-6 md:p-14 border border-white/10" style={{ background: "rgba(255,255,255,0.07)", ...softShadow }}>
-                <div className="tracking-[0.25em] uppercase text-[#F8AE01]" style={{ fontSize: "0.7rem" }}>Brand Mission</div>
-                <h3 className="text-white tracking-[-0.03em] mt-6" style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 700, lineHeight: 1.1 }}>
-                  Designing Emotional Loyalty
-                </h3>
-                <p className="text-white/80 tracking-tight mt-6" style={{ fontSize: "1rem", lineHeight: 1.65 }}>
-                  To design and execute loyalty experiences that create emotional engagement and lasting customer relationships
-                  with measurable retail results — while making campaign management <strong>simple and reliable</strong> for our clients.
-                </p>
-              </div>
-              <div className="rounded-[40px] p-6 md:p-14" style={{ background: "#F8AE01", ...softShadow }}>
-                <div className="tracking-[0.25em] uppercase text-[#2E2784]" style={{ fontSize: "0.7rem" }}>Brand Vision</div>
-                <h3 className="text-[#2E2784] tracking-[-0.03em] mt-6" style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 700, lineHeight: 1.1 }}>
-                  Europe's Most Trusted Loyalty Partner
-                </h3>
-                <p className="text-[#2E2784] tracking-tight mt-6" style={{ fontSize: "1rem", lineHeight: 1.65 }}>
-                  We envision a future where loyalty campaigns are powerful experiences that customers look forward to.
-                  KLR aims to be a trusted loyalty partner for retail and fuel chains across Europe —
-                  known for <strong>creativity, reliability, and exceptional campaign execution.</strong>
-                </p>
-              </div>
+            <h2 className="text-white tracking-[-0.04em] max-w-4xl" style={{ fontSize: "clamp(2.5rem, 6vw, 5.5rem)", lineHeight: 0.95, fontWeight: 800 }}>
+              10 Years in Loyalty Business,{" "}
+              <span className="text-[#F8AE01]">More than 100 Retail Chains</span>{" "}
+              as Clients.
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mt-16 pt-10 border-t border-white/15">
+              {stats.map((s) => (
+                <div key={s.v}>
+                  <div className="text-[#F8AE01] tracking-[-0.04em]" style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)", lineHeight: 1, fontWeight: 800 }}>{s.k}</div>
+                  <div className="text-white tracking-tight mt-3" style={{ fontSize: "clamp(0.9rem, 1.3vw, 1.2rem)" }}>{s.v}</div>
+                </div>
+              ))}
             </div>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* HOW WE BRING LOYALTY TO LIFE — yellow */}
+      {/* CULTURE OF LOYALTY + VALUES — yellow */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-white/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <div className="rounded-[40px] overflow-hidden border border-black/5 relative" style={softShadow}>
-              <div className="aspect-[16/9] overflow-hidden">
-                <ImageWithFallback src={images.teamPhoto} alt="" className="w-full h-full object-cover" />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#2E2784]/80 via-[#2E2784]/10 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-14">
-                <Eyebrow onDark>How We Bring Loyalty to Life</Eyebrow>
-                <h2 className="text-white tracking-[-0.035em] mt-8 max-w-3xl" style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)", fontWeight: 700, lineHeight: 1.05 }}>
-                  The culture of loyalty<br /><span className="text-[#F8AE01]">starts within our team.</span>
+            <div className="grid md:grid-cols-2 gap-10 items-start mb-16">
+              <div>
+                <Eyebrow>Our Culture</Eyebrow>
+                <h2 className="text-[#2E2784] tracking-[-0.04em] mt-8" style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1, fontWeight: 800 }}>
+                  The culture of loyalty<br />starts within our team.
                 </h2>
               </div>
+              <div className="md:pt-16">
+                <p className="text-[#2E2784] tracking-tight" style={{ fontSize: "clamp(1rem, 1.4vw, 1.25rem)", lineHeight: 1.55 }}>
+                  Our values are at the heart of everything that we do. We've put them in place to ensure that everyone who works at KLR feels empowered and ambitious too.
+                </p>
+              </div>
             </div>
-            <div className="grid md:grid-cols-2 gap-10 mt-12">
-              <p className="text-[#2E2784] tracking-tight" style={{ fontSize: "1.0625rem", lineHeight: 1.7 }}>
-                KLR is a 43-person international team with 11 nationalities. We combine strategic thinking and operational discipline to deliver services tailored to each client's goals.
-              </p>
-              <p className="text-[#2E2784] tracking-tight" style={{ fontSize: "1.0625rem", lineHeight: 1.7 }}>
-                Our approach combines behavioural insight with creative design, powerful omnichannel communication, and exceptional reward collections. We help brands turn transactions into lasting relationships.
-              </p>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
 
-      {/* OUR ANSWER — blue */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
-        <div className="absolute -top-20 -right-24 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
-        <div className="max-w-6xl mx-auto px-8">
-          <AnimatedSection>
-            <Eyebrow onDark>Our Answer</Eyebrow>
-            <h2 className="text-white tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
-              Loyalty Campaigns <span className="text-[#F8AE01]">That…</span>
-            </h2>
-            <div className="grid md:grid-cols-3 gap-6 mt-8 md:mt-14">
-              {whatWeDeliver.map((v, i) => (
-                <div key={v.title} className="rounded-[32px] p-6 md:p-10 border border-white/10" style={i === 1 ? { background: "#F8AE01", ...softShadow } : { background: "rgba(255,255,255,0.07)", ...softShadow }}>
-                  <h3 className={`${i === 1 ? "text-[#2E2784]" : "text-[#F8AE01]"} tracking-[-0.03em]`} style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 700, lineHeight: 1.1 }}>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              {values.map((v, i) => (
+                <div
+                  key={v.title}
+                  className="rounded-[28px] p-6 md:p-8 border border-black/5"
+                  style={i % 2 === 0 ? { background: "#2E2784", ...softShadow } : { background: "#fff", ...softShadow }}
+                >
+                  <h3
+                    className={`${i % 2 === 0 ? "text-[#F8AE01]" : "text-[#2E2784]"} tracking-[-0.02em]`}
+                    style={{ fontSize: "1.1rem", fontWeight: 700, lineHeight: 1.2 }}
+                  >
                     {v.title}
                   </h3>
-                  <p className={`${i === 1 ? "text-[#2E2784]" : "text-white/80"} tracking-tight mt-6`} style={{ fontSize: "1rem", lineHeight: 1.55 }}>
+                  <p
+                    className={`${i % 2 === 0 ? "text-white/75" : "text-black"} tracking-tight mt-4`}
+                    style={{ fontSize: "0.85rem", lineHeight: 1.55 }}
+                  >
                     {v.desc}
                   </p>
                 </div>
@@ -169,22 +134,61 @@ export function About({ go }: { go: (r: Route) => void }) {
         </div>
       </section>
 
-      {/* THE IMPACT — yellow */}
+      {/* KLR IS MORE THAN A COMPANY — blue */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+        <div className="absolute -top-20 -right-24 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
+        <div className="max-w-6xl mx-auto px-8">
+          <AnimatedSection>
+            <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
+              <div>
+                <h2 className="text-[#F8AE01] tracking-[-0.04em]" style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1, fontWeight: 800, fontStyle: "italic" }}>
+                  "KLR is more than just a company: it is a family of open-minded people."
+                </h2>
+              </div>
+              <div>
+                <p className="text-white/90 tracking-tight" style={{ fontSize: "clamp(1rem, 1.4vw, 1.2rem)", lineHeight: 1.65 }}>
+                  Working at KLR means joining a unique organization that's a pioneer in the field of loyalty programs and that has repeatedly been named by our employees one of the best places to work at because we give them opportunities to grow and rewards them for their performance.
+                </p>
+                <p className="text-white/90 tracking-tight mt-6" style={{ fontSize: "clamp(1rem, 1.4vw, 1.2rem)", lineHeight: 1.65 }}>
+                  We're hiring talented and diverse people who want to make a difference. Whether you're just starting out or have a long history of success, you have a right field here to realise your ambitions. Brilliant extraordinary people with unconventional approach are always welcome.
+                </p>
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* THE POWER OF EXPERIENCE — yellow */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute -bottom-24 -left-20 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <Eyebrow>The Impact</Eyebrow>
-            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
-              What This Delivers<br /><span className="text-black">To You.</span>
-            </h2>
-            <div className="grid md:grid-cols-3 gap-6 mt-8 md:mt-14">
-              {aboutImpact.map((v) => (
-                <div key={v.title} className="rounded-[32px] p-6 md:p-10 border border-black/5" style={{ background: "#2E2784", ...softShadow }}>
-                  <h3 className="text-[#F8AE01] tracking-[-0.03em]" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.625rem)", fontWeight: 700, lineHeight: 1.15 }}>
-                    {v.title}
-                  </h3>
-                  <p className="text-white/75 tracking-tight mt-6" style={{ fontSize: "1rem", lineHeight: 1.55 }}>{v.desc}</p>
+            <div className="grid md:grid-cols-2 gap-10 items-start">
+              <div>
+                <Eyebrow>Our History</Eyebrow>
+                <h2 className="text-[#2E2784] tracking-[-0.04em] mt-8" style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1, fontWeight: 800 }}>
+                  The Power of our Experience is Rooted in our History.
+                </h2>
+              </div>
+              <div className="md:pt-16 space-y-6">
+                <p className="text-[#2E2784] tracking-tight" style={{ fontSize: "clamp(1rem, 1.4vw, 1.25rem)", lineHeight: 1.55 }}>
+                  150 retail chains and more than 1000 successful campaigns around Europe cannot be wrong: we are experts with a long and successful history.
+                </p>
+                <p className="text-[#2E2784] tracking-tight" style={{ fontSize: "clamp(1rem, 1.4vw, 1.25rem)", lineHeight: 1.55 }}>
+                  Our international vision is combined with a local market approach. With years of experience, we always offered an attractive range of physical rewards, our understanding, knowledge and creativity to help keep your shoppers shopping with you.
+                </p>
+                <div className="pt-4">
+                  <CTA label="Explore KLR 10 Years" variant="dark" onClick={() => go({ page: "klr10" })} />
+                </div>
+              </div>
+            </div>
+
+            {/* Timeline cards */}
+            <div className="mt-16 flex flex-col md:flex-row md:overflow-x-auto md:snap-x gap-6 pb-4">
+              {journey.map((j, i) => (
+                <div key={i} className="md:snap-start shrink-0 md:w-64 rounded-[24px] p-6 border border-black/5" style={i % 2 === 0 ? { background: "#fff", ...softShadow } : { background: "#2E2784", ...softShadow }}>
+                  <div className={`tracking-[0.25em] uppercase ${i % 2 === 0 ? "text-[#F8AE01]" : "text-[#F8AE01]"}`} style={{ fontSize: "0.7rem" }}>{j.year}</div>
+                  <div className={`${i % 2 === 0 ? "text-[#2E2784]" : "text-white"} tracking-[-0.02em] mt-4`} style={{ fontSize: "1rem", fontWeight: 600, lineHeight: 1.3 }}>{j.title}</div>
                 </div>
               ))}
             </div>
@@ -192,162 +196,18 @@ export function About({ go }: { go: (r: Route) => void }) {
         </div>
       </section>
 
-      {/* BIG STATEMENT — blue */}
+      {/* JOIN OUR TEAM CTA — blue */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
         <div className="absolute -bottom-20 -right-20 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <div className="rounded-[40px] p-7 md:p-20 border border-white/10 relative overflow-hidden" style={{ background: "#F8AE01", ...softShadow }}>
-              <div className="absolute -bottom-20 -right-20 rounded-full opacity-20" style={{ width: 360, height: 360, background: "#2E2784" }} />
-              <h2 className="text-[#2E2784] tracking-[-0.04em]" style={{ fontSize: "clamp(2.25rem, 6vw, 5rem)", fontWeight: 800, lineHeight: 0.95 }}>
-                This isn't just Loyalty…<br />
-                <span style={{ color: "#3D0088" }}>this is Marketing!</span>
-              </h2>
-              <p className="text-[#2E2784] tracking-tight mt-8 max-w-xl font-semibold" style={{ fontSize: "1.125rem", lineHeight: 1.55 }}>
-                And we make the process MORE than simple.
-              </p>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* MORE THAN A LOYALTY COMPANY — yellow */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
-        <div className="absolute -top-24 right-20 w-[380px] h-[380px] rounded-full bg-white/15 blur-3xl" />
-        <div className="max-w-6xl mx-auto px-8">
-          <AnimatedSection>
-            <Eyebrow>More than a loyalty company</Eyebrow>
-            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
-              We Are<br /><span className="text-black">More Than a Loyalty Company.</span>
-            </h2>
-            <div className="grid md:grid-cols-3 gap-6 mt-8 md:mt-14">
-              {moreThanLoyalty.map((v, i) => (
-                <div key={v.title} className="rounded-[32px] p-6 md:p-10 border border-black/5" style={i === 0 ? { background: "#2E2784", ...softShadow } : { background: "#fff", ...softShadow }}>
-                  <h3 className={`${i === 0 ? "text-[#F8AE01]" : "text-[#2E2784]"} tracking-[-0.03em]`} style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 700, lineHeight: 1.1 }}>{v.title}</h3>
-                  <p className={`${i === 0 ? "text-white" : "text-black"} tracking-tight mt-6`} style={{ fontSize: "1rem", lineHeight: 1.55 }}>{v.desc}</p>
-                </div>
-              ))}
-            </div>
-            <div className="mt-12">
-              <CTA label="Discover Our Team" variant="dark" onClick={() => go({ page: "team" })} />
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* THE KLR WAY — blue */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
-        <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
-        <div className="max-w-6xl mx-auto px-8">
-          <AnimatedSection>
-            <Eyebrow onDark>The KLR Way</Eyebrow>
-            <h2 className="text-white tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
-              Being Central<br /><span className="text-[#F8AE01]">to Loyalty.</span>
-            </h2>
-            <p className="text-white/80 tracking-tight max-w-2xl mt-8" style={{ fontSize: "1.0625rem", lineHeight: 1.65 }}>
-              It is the way we think, the way we work, and the way we build relationships with both colleagues and clients.
-              KLR is built on people, trust, hands-on experience and shared responsibility.
-            </p>
-            <div className="grid md:grid-cols-3 gap-6 mt-8 md:mt-14">
-              {klrWayValues.map((v, i) => (
-                <div
-                  key={v.title}
-                  className="rounded-[32px] p-6 md:p-10 border border-white/10"
-                  style={i % 3 === 1 ? { background: "#F8AE01", ...softShadow } : { background: "rgba(255,255,255,0.07)", ...softShadow }}
-                >
-                  <h3
-                    className={`${i % 3 === 1 ? "text-[#2E2784]" : "text-[#F8AE01]"} tracking-[-0.02em]`}
-                    style={{ fontSize: "1.2rem", fontWeight: 700, lineHeight: 1.2 }}
-                  >
-                    {v.title}
-                  </h3>
-                  <p className={`${i % 3 === 1 ? "text-[#2E2784]" : "text-white/80"} tracking-tight mt-5`} style={{ fontSize: "0.95rem", lineHeight: 1.55 }}>
-                    {v.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* BRAND ARCHETYPE — yellow */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
-        <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-white/20 blur-3xl" />
-        <div className="max-w-6xl mx-auto px-8">
-          <AnimatedSection>
-            <Eyebrow>Brand Archetype</Eyebrow>
-            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
-              Magician + Creator<br /><span className="text-black">+ Caregiver.</span>
-            </h2>
-            <div className="grid md:grid-cols-3 gap-6 mt-8 md:mt-14">
-              {brandArchetype.map((a, i) => (
-                <div
-                  key={a.label}
-                  className="rounded-[32px] p-6 md:p-10 border border-black/5"
-                  style={i === 0 ? { background: "#2E2784", ...softShadow } : { background: "#fff", ...softShadow }}
-                >
-                  <div className="tracking-[0.25em] uppercase text-[#F8AE01]" style={{ fontSize: "0.7rem" }}>
-                    {i === 0 ? "Primary" : i === 1 ? "Secondary" : "Cultural"}
-                  </div>
-                  <h3
-                    className={`${i === 0 ? "text-[#F8AE01]" : "text-[#2E2784]"} tracking-[-0.03em] mt-6`}
-                    style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 700, lineHeight: 1.1 }}
-                  >
-                    {a.label}
-                  </h3>
-                  <p
-                    className={`${i === 0 ? "text-white" : "text-black"} tracking-tight mt-6`}
-                    style={{ fontSize: "1rem", lineHeight: 1.55 }}
-                  >
-                    {a.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-            <p className="text-[#2E2784] tracking-tight max-w-2xl mt-10" style={{ fontSize: "1rem", lineHeight: 1.65 }}>
-              This balance allows us to create loyalty campaigns that are both{" "}
-              <strong>inspiring for customers</strong> and{" "}
-              <strong>effortless for clients to manage</strong>.
-            </p>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* TIMELINE — blue */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
-        <div className="absolute -top-20 -right-24 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
-        <div className="max-w-6xl mx-auto px-8">
-          <AnimatedSection>
-            <Eyebrow onDark>Our Journey</Eyebrow>
-            <h2 className="text-white tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
-              The Power of Our Experience<br /><span className="text-[#F8AE01]">is Rooted in Our History.</span>
-            </h2>
-            <div className="mt-14 flex flex-col md:flex-row md:overflow-x-auto md:snap-x gap-6 pb-4">
-              {journey.map((j, i) => (
-                <div key={i} className="md:snap-start shrink-0 md:w-72 rounded-[28px] p-8 border border-white/10" style={i % 2 === 0 ? { background: "rgba(255,255,255,0.07)", ...softShadow } : { background: "#F8AE01", ...softShadow }}>
-                  <div className={`tracking-[0.25em] uppercase ${i % 2 === 0 ? "text-[#F8AE01]" : "text-[#2E2784]"}`} style={{ fontSize: "0.7rem" }}>{j.year}</div>
-                  <div className={`${i % 2 === 0 ? "text-white" : "text-[#2E2784]"} tracking-[-0.02em] mt-6`} style={{ fontSize: "1.15rem", fontWeight: 600, lineHeight: 1.25 }}>{j.title}</div>
-                </div>
-              ))}
-            </div>
-            <div className="mt-12">
-              <CTA label="Explore Our Full 10-Year Journey" variant="yellow" onClick={() => go({ page: "klr10" })} />
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* CLOSING CTA — yellow */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
-        <div className="absolute -bottom-24 -left-20 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
-        <div className="max-w-6xl mx-auto px-8">
-          <AnimatedSection>
             <div className="flex flex-wrap items-center justify-between gap-6">
-              <h3 className="text-[#2E2784] tracking-[-0.03em] max-w-xl" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", lineHeight: 1.1, fontWeight: 600 }}>
-                Join our team and let's shape together the world of loyalty.
+              <h3 className="text-white tracking-[-0.04em] max-w-2xl" style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1, fontWeight: 800 }}>
+                Join our team and let's{" "}
+                <span className="text-[#F8AE01]">shape together</span>{" "}
+                the world of loyalty.
               </h3>
-              <CTA label="Keep in Touch!" variant="dark" onClick={() => go({ page: "contact" })} />
+              <CTA label="Apply Now" variant="yellow" onClick={() => go({ page: "career" })} />
             </div>
           </AnimatedSection>
         </div>
