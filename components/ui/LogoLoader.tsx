@@ -4,10 +4,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 
-const gradients = {
-  blue: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
-};
-
 export function LogoLoader() {
   const [done, setDone] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -32,7 +28,9 @@ export function LogoLoader() {
       {!done && (
         <motion.div
           className="fixed inset-0 z-[9998] overflow-hidden flex flex-col items-center justify-center"
-          style={{ background: gradients.blue }}
+          style={{
+            backgroundImage: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
+          }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         >
