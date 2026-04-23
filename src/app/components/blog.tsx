@@ -1,11 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
+import { ArrowUpRight } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { Eyebrow, CTA, hairline, softShadow } from "./ui-bits";
+import { Eyebrow, CTA, softShadow } from "./ui-bits";
 import { fallbackPosts, images, type Post } from "../data";
 import { PageHero } from "./page-hero";
-import { ArrowUpRight } from "lucide-react";
+import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import type { Route } from "../App";
+
+const G = {
+  blue: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
+  yellow: "radial-gradient(130% 130% at 15% 0%, #ffd95a 0%, #F8AE01 50%, #de9800 100%)",
+};
 
 const CATEGORIES = ["All", "Loyalty Marketing", "Retail Trends", "Leadership & Culture", "KLR Life"];
 
@@ -46,101 +52,119 @@ export function Blog({ go }: { go: (r: Route) => void }) {
   const [featured, ...rest] = filtered;
 
   return (
-    <div className="pb-16 md:pb-48">
+    <>
       <PageHero
         eyebrow="Insights"
         title={<>Ideas, Trends & Stories<br /><span className="text-[#F8AE01]">from KLR hands on experience.</span></>}
         subtitle="Your go-to spot for fresh takes on loyalty marketing, industry trends, and the people behind our success."
         image={images.human}
       />
-      <div className="px-8 md:px-12">
-      {loading && (
-        <div className="text-black tracking-tight mt-8" style={{ fontSize: "0.85rem" }}>
-          Loading latest articles…
-        </div>
-      )}
 
-      {/* CATEGORY FILTER */}
-      <div className="flex flex-wrap gap-3 mb-16">
-        {CATEGORIES.map((c) => (
-          <button
-            key={c}
-            onClick={() => setCat(c)}
-            className={`rounded-full px-5 py-2 tracking-tight transition-all ${cat === c ? "bg-[#2E2784] text-white" : `bg-white text-black ${hairline} hover:text-[#2E2784]`}`}
-            style={{ fontSize: "0.85rem" }}
-          >
-            {c}
-          </button>
-        ))}
-      </div>
+      {/* FEATURED + FILTER — yellow */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
+        <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
+        <div className="max-w-6xl mx-auto px-8">
+          {loading && (
+            <div className="text-[#2E2784] tracking-tight mb-8" style={{ fontSize: "0.85rem" }}>Loading latest articles…</div>
+          )}
 
-      {featured && (
-        <button
-          onClick={() => go({ page: "blog-detail", slug: featured.slug })}
-          className={`group block w-full rounded-[40px] overflow-hidden bg-white ${hairline} text-left mb-20`}
-          style={softShadow}
-        >
-          <div className="grid md:grid-cols-2">
-            <div className="aspect-[4/3] md:aspect-auto md:h-full overflow-hidden">
-              <ImageWithFallback src={featured.img} alt={featured.title} className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-[1500ms]" />
+          {/* CATEGORY FILTER */}
+          <AnimatedSection>
+            <div className="flex flex-wrap gap-3 mb-16">
+              {CATEGORIES.map((c) => (
+                <button
+                  key={c}
+                  onClick={() => setCat(c)}
+                  className={`rounded-full px-5 py-2 tracking-tight transition-all border border-black/5 ${cat === c ? "bg-[#2E2784] text-white" : "bg-white text-black hover:text-[#2E2784]"}`}
+                  style={{ fontSize: "0.85rem" }}
+                >
+                  {c}
+                </button>
+              ))}
             </div>
-            <div className="p-6 md:p-14 flex flex-col justify-between gap-8">
-              <div>
-                <div className="flex items-center gap-3 flex-wrap">
-                  <span className="rounded-full px-3 py-1 bg-[#F8AE01] text-black tracking-[0.2em] uppercase" style={{ fontSize: "0.65rem" }}>
-                    Featured
-                  </span>
-                  <span className="text-black tracking-tight" style={{ fontSize: "0.8rem" }}>{featured.date} · {featured.category}</span>
+
+            {featured && (
+              <button
+                onClick={() => go({ page: "blog-detail", slug: featured.slug })}
+                className="group block w-full rounded-[40px] overflow-hidden bg-white border border-black/5 text-left"
+                style={softShadow}
+              >
+                <div className="grid md:grid-cols-2">
+                  <div className="aspect-[4/3] md:aspect-auto md:h-full overflow-hidden">
+                    <ImageWithFallback src={featured.img} alt={featured.title} className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-[1500ms]" />
+                  </div>
+                  <div className="p-6 md:p-14 flex flex-col justify-between gap-8">
+                    <div>
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <span className="rounded-full px-3 py-1 bg-[#F8AE01] text-black tracking-[0.2em] uppercase" style={{ fontSize: "0.65rem" }}>Featured</span>
+                        <span className="text-black tracking-tight" style={{ fontSize: "0.8rem" }}>{featured.date} · {featured.category}</span>
+                      </div>
+                      <h2 className="text-[#2E2784] tracking-[-0.03em] mt-6" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", fontWeight: 700, lineHeight: 1.1 }}>
+                        {featured.title}
+                      </h2>
+                      <p className="text-black tracking-tight mt-6" style={{ fontSize: "1rem", lineHeight: 1.6 }}>{featured.excerpt}…</p>
+                    </div>
+                    <div className="inline-flex items-center gap-3">
+                      <span className="text-[#2E2784] border-b border-[#2E2784] pb-0.5" style={{ fontSize: "0.9rem" }}>Read the full story</span>
+                      <span className="w-9 h-9 rounded-full bg-[#2E2784] text-white flex items-center justify-center group-hover:bg-[#F8AE01] group-hover:text-black transition-all">
+                        <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform" />
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <h2 className="text-[#2E2784] tracking-[-0.03em] mt-6" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", fontWeight: 700, lineHeight: 1.1 }}>
-                  {featured.title}
-                </h2>
-                <p className="text-black tracking-tight mt-6" style={{ fontSize: "1rem", lineHeight: 1.6 }}>{featured.excerpt}…</p>
-              </div>
-              <div className="inline-flex items-center gap-3">
-                <span className="text-[#2E2784] border-b border-[#2E2784] pb-0.5" style={{ fontSize: "0.9rem" }}>Read the full story</span>
-                <span className="w-9 h-9 rounded-full bg-[#2E2784] text-white flex items-center justify-center group-hover:bg-[#F8AE01] group-hover:text-black transition-all">
-                  <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform" />
-                </span>
-              </div>
-            </div>
-          </div>
-        </button>
-      )}
-
-      <div className="grid md:grid-cols-2 gap-8">
-        {rest.map((p) => (
-          <button
-            key={p.id}
-            onClick={() => go({ page: "blog-detail", slug: p.slug })}
-            className={`group rounded-[32px] overflow-hidden bg-white ${hairline} text-left`}
-            style={softShadow}
-          >
-            <div className="aspect-[16/10] overflow-hidden">
-              <ImageWithFallback src={p.img} alt={p.title} className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[1200ms]" />
-            </div>
-            <div className="p-8">
-              <div className="flex items-center gap-3 flex-wrap">
-                <span className="tracking-[0.2em] uppercase text-[#2E2784]" style={{ fontSize: "0.65rem" }}>{p.category}</span>
-                <span className="text-black tracking-tight" style={{ fontSize: "0.8rem" }}>{p.date}</span>
-              </div>
-              <h3 className="text-[#2E2784] tracking-[-0.02em] mt-5" style={{ fontSize: "1.25rem", fontWeight: 700, lineHeight: 1.25 }}>
-                {p.title}
-              </h3>
-              <p className="text-black tracking-tight mt-4 line-clamp-3" style={{ fontSize: "0.9rem", lineHeight: 1.55 }}>{p.excerpt}…</p>
-            </div>
-          </button>
-        ))}
-      </div>
-
-      {/* CLOSING CTA */}
-      <section className="mt-16 md:mt-32 flex flex-wrap items-center justify-between gap-6">
-        <h3 className="text-[#2E2784] tracking-[-0.03em] max-w-xl" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", lineHeight: 1.1, fontWeight: 600 }}>
-          Are you ready to start something new together?
-        </h3>
-        <CTA label="Get in Touch" variant="yellow" onClick={() => go({ page: "contact" })} />
+              </button>
+            )}
+          </AnimatedSection>
+        </div>
       </section>
-      </div>
-    </div>
+
+      {/* ARTICLES GRID — blue */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+        <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
+        <div className="max-w-6xl mx-auto px-8">
+          <AnimatedSection>
+            <div className="grid md:grid-cols-2 gap-8">
+              {rest.map((p) => (
+                <button
+                  key={p.id}
+                  onClick={() => go({ page: "blog-detail", slug: p.slug })}
+                  className="group rounded-[32px] overflow-hidden bg-white border border-white/10 text-left"
+                  style={softShadow}
+                >
+                  <div className="aspect-[16/10] overflow-hidden">
+                    <ImageWithFallback src={p.img} alt={p.title} className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[1200ms]" />
+                  </div>
+                  <div className="p-8">
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <span className="tracking-[0.2em] uppercase text-[#2E2784]" style={{ fontSize: "0.65rem" }}>{p.category}</span>
+                      <span className="text-black tracking-tight" style={{ fontSize: "0.8rem" }}>{p.date}</span>
+                    </div>
+                    <h3 className="text-[#2E2784] tracking-[-0.02em] mt-5" style={{ fontSize: "1.25rem", fontWeight: 700, lineHeight: 1.25 }}>
+                      {p.title}
+                    </h3>
+                    <p className="text-black tracking-tight mt-4 line-clamp-3" style={{ fontSize: "0.9rem", lineHeight: 1.55 }}>{p.excerpt}…</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* CLOSING CTA — yellow */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
+        <div className="absolute -top-24 right-20 w-[380px] h-[380px] rounded-full bg-white/15 blur-3xl" />
+        <div className="max-w-6xl mx-auto px-8">
+          <AnimatedSection>
+            <div className="flex flex-wrap items-center justify-between gap-6">
+              <h3 className="text-[#2E2784] tracking-[-0.03em] max-w-xl" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", lineHeight: 1.1, fontWeight: 600 }}>
+                Are you ready to start something new together?
+              </h3>
+              <CTA label="Get in Touch" variant="dark" onClick={() => go({ page: "contact" })} />
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+    </>
   );
 }
