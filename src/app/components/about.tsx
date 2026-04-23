@@ -67,21 +67,21 @@ export function About({ go }: { go: (r: Route) => void }) {
         </div>
       </section>
 
-      {/* 10 YEARS STATEMENT + STATS — white */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: "#fff" }}>
+      {/* 10 YEARS STATEMENT + STATS — blue */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
         <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <h2 className="text-[#2E2784] tracking-[-0.04em] max-w-4xl" style={{ fontSize: "clamp(2.5rem, 6vw, 5.5rem)", lineHeight: 0.95, fontWeight: 800 }}>
+            <h2 className="text-white tracking-[-0.04em] max-w-4xl" style={{ fontSize: "clamp(2.5rem, 6vw, 5.5rem)", lineHeight: 0.95, fontWeight: 800 }}>
               10 Years in Loyalty Business,{" "}
               <span className="text-[#F8AE01]">More than 100 Retail Chains</span>{" "}
               as Clients.
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mt-16 pt-10 border-t border-[#2E2784]/10">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mt-16 pt-10 border-t border-white/10">
               {stats.map((s) => (
                 <div key={s.v}>
                   <div className="text-[#F8AE01] tracking-[-0.04em]" style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)", lineHeight: 1, fontWeight: 800 }}>{s.k}</div>
-                  <div className="text-[#2E2784] tracking-tight mt-3" style={{ fontSize: "clamp(0.9rem, 1.3vw, 1.2rem)" }}>{s.v}</div>
+                  <div className="text-white tracking-tight mt-3" style={{ fontSize: "clamp(0.9rem, 1.3vw, 1.2rem)" }}>{s.v}</div>
                 </div>
               ))}
             </div>
@@ -89,8 +89,8 @@ export function About({ go }: { go: (r: Route) => void }) {
         </div>
       </section>
 
-      {/* CULTURE OF LOYALTY + VALUES — white */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: "#fff" }}>
+      {/* CULTURE OF LOYALTY + VALUES — yellow */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-[#2E2784]/10 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
@@ -112,8 +112,8 @@ export function About({ go }: { go: (r: Route) => void }) {
               {values.map((v, i) => (
                 <div
                   key={v.title}
-                  className="rounded-[28px] p-6 md:p-8 border border-black/5"
-                  style={i % 2 === 0 ? { background: "#2E2784", ...softShadow } : { background: "#fff", ...softShadow }}
+                  className="rounded-[28px] p-6 md:p-8 border-2 border-[#2E2784]"
+                  style={i % 2 === 0 ? { background: "#2E2784", ...softShadow } : { background: "transparent", ...softShadow }}
                 >
                   <h3
                     className={`${i % 2 === 0 ? "text-[#F8AE01]" : "text-[#2E2784]"} tracking-[-0.02em]`}
@@ -122,7 +122,7 @@ export function About({ go }: { go: (r: Route) => void }) {
                     {v.title}
                   </h3>
                   <p
-                    className={`${i % 2 === 0 ? "text-white/75" : "text-black"} tracking-tight mt-4`}
+                    className={`${i % 2 === 0 ? "text-white/75" : "text-[#2E2784]"} tracking-tight mt-4`}
                     style={{ fontSize: "0.85rem", lineHeight: 1.55 }}
                   >
                     {v.desc}
@@ -186,8 +186,8 @@ export function About({ go }: { go: (r: Route) => void }) {
             {/* Timeline cards */}
             <div className="mt-16 flex flex-col md:flex-row md:overflow-x-auto md:snap-x gap-6 pb-4">
               {journey.map((j, i) => (
-                <div key={i} className="md:snap-start shrink-0 md:w-64 rounded-[24px] p-6 border border-black/5" style={i % 2 === 0 ? { background: "#fff", ...softShadow } : { background: "#2E2784", ...softShadow }}>
-                  <div className={`tracking-[0.25em] uppercase ${i % 2 === 0 ? "text-[#F8AE01]" : "text-[#F8AE01]"}`} style={{ fontSize: "0.7rem" }}>{j.year}</div>
+                <div key={i} className="md:snap-start shrink-0 md:w-64 rounded-[24px] p-6 border-2 border-[#2E2784]" style={i % 2 === 0 ? { background: "transparent", ...softShadow } : { background: "#2E2784", ...softShadow }}>
+                  <div className={`tracking-[0.25em] uppercase ${i % 2 === 0 ? "text-[#2E2784]" : "text-[#F8AE01]"}`} style={{ fontSize: "0.7rem" }}>{j.year}</div>
                   <div className={`${i % 2 === 0 ? "text-[#2E2784]" : "text-white"} tracking-[-0.02em] mt-4`} style={{ fontSize: "1rem", fontWeight: 600, lineHeight: 1.3 }}>{j.title}</div>
                 </div>
               ))}
