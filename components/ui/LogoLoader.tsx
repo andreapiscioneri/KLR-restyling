@@ -55,7 +55,7 @@ export function LogoLoader() {
                 width={140}
                 height={48}
                 priority
-                className="h-12 w-auto brightness-0 invert"
+                className="h-12 w-auto"
               />
             </motion.div>
 
