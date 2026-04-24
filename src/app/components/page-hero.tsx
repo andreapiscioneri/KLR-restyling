@@ -11,9 +11,10 @@ interface PageHeroProps {
   subtitle?: string;
   image: string;
   cta?: { label: string; href: string };
+  children?: React.ReactNode;
 }
 
-export function PageHero({ eyebrow, title, subtitle, image, cta }: PageHeroProps) {
+export function PageHero({ eyebrow, title, subtitle, image, cta, children }: PageHeroProps) {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
@@ -61,6 +62,8 @@ export function PageHero({ eyebrow, title, subtitle, image, cta }: PageHeroProps
             {subtitle}
           </motion.p>
         )}
+
+        {children}
 
         {cta && (
           <motion.div
