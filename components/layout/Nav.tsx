@@ -78,10 +78,10 @@ export function Nav() {
                 style={
                   active
                     ? {
-                        color: "#fff",
-                        background: "rgba(255,255,255,0.12)",
-                        border: "1px solid rgba(255,255,255,0.10)",
-                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15)",
+                        color: "#F8AE01",
+                        background: "rgba(248,174,1,0.12)",
+                        border: "1px solid rgba(248,174,1,0.18)",
+                        boxShadow: "inset 0 1px 0 rgba(248,174,1,0.15)",
                       }
                     : { color: "rgba(255,255,255,0.6)" }
                 }
@@ -150,9 +150,9 @@ export function Nav() {
                   style={
                     active
                       ? {
-                          background: "rgba(255,255,255,0.12)",
-                          color: "#fff",
-                          border: "1px solid rgba(255,255,255,0.10)",
+                          background: "rgba(248,174,1,0.12)",
+                          color: "#F8AE01",
+                          border: "1px solid rgba(248,174,1,0.18)",
                         }
                       : { color: "rgba(255,255,255,0.65)" }
                   }
