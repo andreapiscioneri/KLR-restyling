@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, Mail, MapPin } from "lucide-react";
+import { ArrowUpRight, MapPin } from "lucide-react";
 
 function LinkedInIcon({ className }: { className?: string }) {
   return (
@@ -77,7 +77,8 @@ export function Footer() {
         }}
       />
 
-      <div className="relative px-8 md:px-12 pt-20 pb-10">
+      <div className="relative pt-20 pb-10">
+        <div className="max-w-6xl mx-auto px-8">
 
         {/* ── Tagline glass panel ── */}
         <div className="rounded-[32px] p-6 sm:p-8 md:px-14 md:py-14 mb-16 flex flex-wrap items-end justify-between gap-8" style={glassCard}>
@@ -146,20 +147,12 @@ export function Footer() {
               >
                 <YouTubeIcon className="w-4 h-4" />
               </a>
-              <a
-                href="mailto:info@klr-europe.com"
-                className="flex items-center justify-center w-9 h-9 rounded-xl transition-all hover:scale-105"
-                style={{ ...glassCard, color: "rgba(255,255,255,0.55)" }}
-                aria-label="Email"
-              >
-                <Mail className="w-4 h-4" />
-              </a>
             </div>
           </div>
 
           {/* Explore */}
           <div className="md:col-span-2 md:col-start-6">
-            <div className="tracking-[0.22em] uppercase text-white/25 mb-5 text-[0.63rem]">Explore</div>
+            <div className="tracking-[0.22em] uppercase text-[#F8AE01]/70 mb-5 text-[0.63rem]">Explore</div>
             <ul className="space-y-3.5">
               {explore.map((e) => (
                 <li key={e.href}>
@@ -176,7 +169,7 @@ export function Footer() {
 
           {/* Links */}
           <div className="md:col-span-2">
-            <div className="tracking-[0.22em] uppercase text-white/25 mb-5 text-[0.63rem]">Links</div>
+            <div className="tracking-[0.22em] uppercase text-[#F8AE01]/70 mb-5 text-[0.63rem]">Links</div>
             <ul className="space-y-3.5">
               {more.map((e) => (
                 <li key={e.href}>
@@ -193,7 +186,7 @@ export function Footer() {
 
           {/* HQ */}
           <div className="md:col-span-3">
-            <div className="tracking-[0.22em] uppercase text-white/25 mb-5 text-[0.63rem]">Headquarters</div>
+            <div className="tracking-[0.22em] uppercase text-[#F8AE01]/70 mb-5 text-[0.63rem]">Headquarters</div>
 
             <div className="space-y-5">
               <div className="flex gap-3">
@@ -220,7 +213,7 @@ export function Footer() {
 
               <a
                 href="mailto:info@klr-europe.com"
-                className="text-white/45 hover:text-[#F8AE01] tracking-tight block transition-colors text-[0.88rem]"
+                className="text-[#F8AE01]/80 hover:text-[#F8AE01] tracking-tight block transition-colors text-[0.88rem]"
               >
                 info@klr-europe.com
               </a>
@@ -230,17 +223,18 @@ export function Footer() {
 
         {/* ── Bottom bar ── */}
         <div
-          className="flex items-center justify-between text-white/25 tracking-tight pt-8 flex-wrap gap-4 text-[0.78rem]"
+          className="flex items-center justify-between text-[#F8AE01]/50 tracking-tight pt-8 flex-wrap gap-4 text-[0.78rem]"
           style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
         >
           <span>© 2026 KLR-EVROPA d.o.o.</span>
           <div className="flex items-center gap-4">
-            <Link href="/copyright" className="hover:text-white/55 transition-colors">Copyright</Link>
-            <span className="text-white/10">·</span>
-            <Link href="/privacy" className="hover:text-white/55 transition-colors">Privacy Policy</Link>
+            <Link href="/copyright" className="text-[#F8AE01]/70 hover:text-[#F8AE01] transition-colors">Copyright</Link>
+            <span className="text-[#F8AE01]/20">·</span>
+            <Link href="/privacy" className="text-[#F8AE01]/70 hover:text-[#F8AE01] transition-colors">Privacy Policy</Link>
           </div>
         </div>
 
+        </div>
       </div>
     </footer>
   );
