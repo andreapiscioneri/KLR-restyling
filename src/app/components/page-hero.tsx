@@ -20,15 +20,15 @@ export function PageHero({ eyebrow, title, subtitle, image, cta }: PageHeroProps
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
-    <section ref={ref} className="relative min-h-screen pt-40 pb-24 overflow-hidden">
+    <section ref={ref} className="relative min-h-screen overflow-hidden">
       <motion.div className="absolute inset-0" style={{ y }}>
-        <img src={image} alt="" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-[#2E2784]/72" />
+        <img src={image} alt="" className="absolute inset-0 w-full h-full object-cover object-top" />
+        <div className="absolute inset-0 bg-[#2E2784]/65" />
       </motion.div>
 
       <motion.div
         style={{ opacity }}
-        className="relative max-w-6xl mx-auto px-8 flex flex-col justify-end min-h-[calc(100vh-10rem)]"
+        className="relative max-w-6xl mx-auto px-8 flex flex-col justify-center min-h-screen pt-32 pb-24"
       >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
