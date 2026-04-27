@@ -58,7 +58,7 @@ export default function App() {
         {route.page === "klr10" && <Klr10 go={go} />}
         {route.page === "career" && <Career go={go} />}
         {route.page === "contact" && <Contact />}
-        {route.page === "copyright" && <Copyright />}
+        {route.page === "copyright" && <Copyright go={go} />}
         {route.page === "privacy" && <Privacy />}
         {route.page === "brand-detail" && <BrandDetail id={route.id} go={go} />}
         {route.page === "study-detail" && <StudyDetail id={route.id} go={go} />}
