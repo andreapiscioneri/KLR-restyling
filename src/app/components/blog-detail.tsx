@@ -1,23 +1,30 @@
 "use client";
+
 import { useEffect, useState } from "react";
+import { ArrowUpRight, Target } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { Eyebrow, CTA, softShadow } from "./ui-bits";
+import { Eyebrow } from "./ui-bits";
 import { fallbackPosts, type Post } from "../data";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import type { Route } from "../App";
 
-const G = {
-  blue: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
-  yellow: "radial-gradient(130% 130% at 15% 0%, #ffd95a 0%, #F8AE01 50%, #de9800 100%)",
+const COLORS = {
+  navy: "#1a1752",       // Sfondo pagina profondo
+  purpleBox: "#241f69",  // Sfondo dei Box (più chiaro del navy)
+  gold: "#F8AE01",       // Giallo per accenti e titoletti
+  whiteText: "#f8f9fa",  // Bianco sporco per massima leggibilità del testo
 };
 
-type FullPost = Post & { contentHtml?: string };
+type FullPost = Post & { 
+  contentHtml?: string; 
+  authorName?: string; 
+  authorAvatar?: string;
+};
 
 export function BlogDetail({ slug, go, initialPost }: { slug: string; go: (r: Route) => void; initialPost?: FullPost }) {
   const baseInitial: FullPost = initialPost || fallbackPosts.find((p) => p.slug === slug) || fallbackPosts[0];
-  const initial: FullPost = { ...baseInitial, link: `/blog/${baseInitial.slug}` };
-  const [post, setPost] = useState<FullPost>(initial);
+  const [post, setPost] = useState<FullPost>({ ...baseInitial, link: `/blog/${baseInitial.slug}` });
 
   useEffect(() => {
     const ctrl = new AbortController();
@@ -28,91 +35,220 @@ export function BlogDetail({ slug, go, initialPost }: { slug: string; go: (r: Ro
         const data = await r.json();
         if (!data?.length) return;
         const p = data[0];
-        const strip = (s: string) => s.replace(/&#8217;/g, "'").replace(/&#8216;/g, "'").replace(/&amp;/g, "&").replace(/&#8220;|&#8221;/g, '"').replace(/&nbsp;/g, " ");
+        const author = p._embedded?.author?.[0];
+        
         setPost({
           id: p.id,
           slug: p.slug,
-          title: strip(p.title.rendered.replace(/<[^>]+>/g, "")),
+          title: p.title.rendered.replace(/<[^>]+>/g, ""),
           date: String(p.date).slice(0, 10),
-          excerpt: strip(p.excerpt.rendered.replace(/<[^>]+>/g, "")).trim().slice(0, 280),
-          img: p._embedded?.["wp:featuredmedia"]?.[0]?.source_url || initial.img,
+          excerpt: p.excerpt.rendered.replace(/<[^>]+>/g, "").trim(),
           link: `/blog/${p.slug}`,
-          category: p._embedded?.["wp:term"]?.[0]?.[0]?.name || "Post",
-          contentHtml: strip(p.content.rendered),
+          img: p._embedded?.["wp:featuredmedia"]?.[0]?.source_url || baseInitial.img,
+          category: p._embedded?.["wp:term"]?.[0]?.[0]?.name || "KLR Insights",
+          // Pulisce le classi spazzatura e mantiene pulito l'HTML
+          contentHtml: p.content.rendered.replace(/class="[^"]*"/g, ""), 
+          authorName: author?.name || "Nina Bjelivuk",
+          authorAvatar: author?.avatar_urls?.['96']
         });
-      } catch {
-        /* keep fallback */
-      }
+      } catch (e) {}
     })();
     return () => ctrl.abort();
   }, [slug]);
 
-  const others = fallbackPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
+  const others = fallbackPosts.filter((p) => p.slug !== post.slug).slice(0, 3);
+
+  // LOGICA DEL TITOLO HERO: Dividiamo le parole per colorarle
+  const titleWords = post.title ? post.title.split(" ") : [];
+  const titleFirstPart = titleWords.slice(0, 2).join(" ");
+  const titleSecondPart = titleWords.slice(2).join(" ");
 
   return (
-    <>
+    <div className="min-h-screen text-white font-sans selection:bg-[#F8AE01] selection:text-[#1a1752]" style={{ background: COLORS.navy }}>
+      
+      {/* INIEZIONE CSS: Tutti i titoletti (h3, h4) diventano gialli */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        .klr-editorial-content * {
+          color: #f8f9fa !important;
+          background-color: transparent !important;
+          font-family: inherit !important;
+        }
+        
+        .klr-editorial-content p {
+          font-size: 1.15rem !important;
+          line-height: 1.8 !important;
+          margin-bottom: 2rem !important;
+          font-weight: 300 !important;
+          opacity: 0.9 !important;
+        }
+
+        .klr-editorial-content h1, 
+        .klr-editorial-content h2 {
+          color: ${COLORS.gold} !important;
+          font-size: clamp(2.2rem, 5vw, 3.5rem) !important;
+          font-weight: 900 !important;
+          letter-spacing: -0.05em !important;
+          line-height: 1.05 !important;
+          margin-top: 4.5rem !important;
+          margin-bottom: 1.5rem !important;
+        }
+
+        /* MODIFICA: Ora h3 e h4 forzati in Giallo Oro */
+        .klr-editorial-content h3, 
+        .klr-editorial-content h4 {
+          color: ${COLORS.gold} !important;
+          font-size: 1.75rem !important;
+          font-weight: 800 !important;
+          letter-spacing: -0.02em !important;
+          margin-top: 3.5rem !important;
+          margin-bottom: 1rem !important;
+        }
+
+        .klr-editorial-content img,
+        .klr-editorial-content video,
+        .klr-editorial-content iframe {
+          width: 100% !important;
+          height: auto !important;
+          border-radius: 30px !important;
+          margin: 4.5rem 0 !important;
+          border: 1px solid rgba(255,255,255,0.1) !important;
+        }
+
+        .klr-editorial-content a {
+          color: ${COLORS.gold} !important;
+          text-decoration: none !important;
+          font-weight: 700 !important;
+          border-bottom: 2px solid rgba(248,174,1,0.3) !important;
+          transition: all 0.3s ease !important;
+        }
+
+        .klr-editorial-content a:hover {
+          border-bottom-color: ${COLORS.gold} !important;
+        }
+
+        .klr-editorial-content blockquote {
+          border-left: 5px solid ${COLORS.gold} !important;
+          background: rgba(255,255,255,0.04) !important;
+          padding: 2.5rem 3rem !important;
+          margin: 3.5rem 0 !important;
+          border-radius: 0 28px 28px 0 !important;
+          font-size: 1.6rem !important;
+          font-weight: 600 !important;
+          font-style: italic !important;
+          line-height: 1.5 !important;
+          letter-spacing: -0.01em !important;
+        }
+
+        .klr-editorial-content ul, 
+        .klr-editorial-content ol {
+          margin-bottom: 2.5rem !important;
+          padding-left: 1.75rem !important;
+        }
+
+        .klr-editorial-content li {
+          margin-bottom: 0.85rem !important;
+          font-size: 1.15rem !important;
+          line-height: 1.7 !important;
+        }
+        
+        .klr-editorial-content strong,
+        .klr-editorial-content b {
+          font-weight: 800 !important;
+          color: #ffffff !important;
+        }
+      `}} />
+
+      {/* 1. HERO */}
       <PageHero
-        eyebrow={`${post.category} · ${post.date}`}
-        title={<>{post.title}</>}
+        eyebrow={post.category}
+        title={
+          <span className="font-black tracking-tighter leading-[0.9]">
+            <span className="text-white">{titleFirstPart} </span>
+            {titleSecondPart && <span className="text-[#F8AE01]">{titleSecondPart}</span>}
+          </span>
+        }
         subtitle={post.excerpt}
-        image={post.img || "https://klr-europe.com/wp-content/uploads/2022/12/KLR-HUMAN-CENTERED-scaled-e1674495532538.jpg"}
+        image={post.img}
         cta={{ label: "Back to Insights", href: "/blog" }}
       />
 
-      {/* ARTICLE CONTENT — yellow */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
-        <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
-        <div className="max-w-4xl mx-auto px-8">
-          <AnimatedSection>
-            <div className="rounded-[40px] p-10 md:p-14 bg-white border border-black/5" style={softShadow}>
-              {post.contentHtml ? (
-                <div
-                  className="klr-prose text-black tracking-tight"
-                  style={{ fontSize: "1.0625rem", lineHeight: 1.7 }}
-                  dangerouslySetInnerHTML={{ __html: post.contentHtml }}
-                />
-              ) : (
-                <div className="text-black tracking-tight" style={{ fontSize: "1.125rem", lineHeight: 1.7 }}>
-                  <p>{post.excerpt}</p>
-                  <p className="mt-6">
-                    Read the full article on{" "}
-                    <a href={post.link} className="text-[#2E2784] underline hover:text-[#2E2784]/70">
-                      this website
-                    </a>.
-                  </p>
-                </div>
-              )}
-              <div className="mt-16 pt-8 border-t border-black/10">
-                <CTA label="Open article" variant="dark" onClick={() => go({ page: "blog-detail", slug: post.slug })} />
+      <div className="max-w-6xl mx-auto px-6 md:px-8 py-20 space-y-16">
+        
+        {/* 2. OVERVIEW & AUTHOR */}
+        <AnimatedSection>
+          <div className="rounded-[40px] border border-white/10 overflow-hidden flex flex-col lg:flex-row">
+            
+            {/* Left: Author Profilo */}
+            <div className="lg:w-1/3 p-10 md:p-14 flex flex-col items-center justify-center text-center" style={{ background: COLORS.purpleBox }}>
+              <div className="w-32 h-32 rounded-full border-4 border-[#F8AE01] overflow-hidden mb-6">
+                <img src={post.authorAvatar || "https://klr-europe.com/wp-content/uploads/2023/01/logo-klr.png"} alt={post.authorName} className="w-full h-full object-cover" />
               </div>
+              <div className="text-white/50 font-bold tracking-[0.2em] uppercase text-xs mb-2">Author</div>
+              {/* MODIFICA: Nome Autore Giallo Oro */}
+              <h3 className="text-[#F8AE01] text-3xl font-black tracking-tight leading-none mb-4">{post.authorName}</h3>
             </div>
-          </AnimatedSection>
-        </div>
-      </section>
 
-      {/* MORE ARTICLES — white */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: "#fff" }}>
-        <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
-        <div className="max-w-6xl mx-auto px-8">
+            {/* Right: Overview/Estratto (Giallo) */}
+            <div className="lg:w-2/3 p-10 md:p-14 flex flex-col justify-center" style={{ background: COLORS.gold }}>
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-[#1a1752] flex items-center justify-center text-[#F8AE01] rotate-3">
+                  <Target size={24} strokeWidth={3} />
+                </div>
+                <div className="text-[#2E2784] font-bold tracking-[0.2em] uppercase text-xs">Executive Summary</div>
+              </div>
+              
+              <h2 className="text-[#2E2784] text-4xl md:text-5xl font-black tracking-tighter mb-6 leading-none italic">
+                The core concept.
+              </h2>
+              <p className="text-[#1a1752] text-2xl md:text-3xl font-medium leading-snug tracking-tight border-l-4 border-[#2E2784] pl-8 opacity-90">
+                "{post.excerpt}"
+              </p>
+            </div>
+
+          </div>
+        </AnimatedSection>
+
+        {/* 3. CONTENUTO INTERNO: Tutti gli h3/h4 nel contenuto saranno gialli grazie all'iniezione CSS */}
+        <AnimatedSection>
+          <div className="rounded-[50px] border border-white/10 py-16 md:py-24 px-6 md:px-12" style={{ background: COLORS.purpleBox }}>
+            <div className="max-w-3xl mx-auto">
+              <div 
+                className="klr-editorial-content"
+                dangerouslySetInnerHTML={{ __html: post.contentHtml || "" }} 
+              />
+            </div>
+          </div>
+        </AnimatedSection>
+      </div>
+
+      {/* 4. RELATED ARTICLES */}
+      <section className="py-32 px-6 md:px-8 mt-20" style={{ background: COLORS.gold }}>
+        <div className="max-w-6xl mx-auto">
           <AnimatedSection>
-            <Eyebrow>More articles</Eyebrow>
-            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
-              Keep reading<br /><span className="text-[#F8AE01]">from our insights.</span>
+            <div className="text-[#2E2784] font-bold tracking-[0.3em] uppercase text-xs mb-6">Keep reading</div>
+            <h2 className="text-[#2E2784] tracking-[-0.07em] text-6xl md:text-8xl font-black leading-[0.85] mb-20">
+              More Insights,<br /><span className="text-black">Same Ambition.</span>
             </h2>
-            <div className="grid md:grid-cols-2 gap-6 mt-10 md:mt-14">
-              {others.map((p) => (
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {others.map((p, i) => (
                 <button
                   key={p.id}
                   onClick={() => go({ page: "blog-detail", slug: p.slug })}
-                  className="group rounded-[32px] overflow-hidden bg-white border border-[#2E2784]/10 text-left"
-                  style={softShadow}
+                  className="group relative rounded-[40px] overflow-hidden text-left transition-all duration-500 hover:-translate-y-4 border-2 border-[#2E2784]"
+                  style={{ background: COLORS.navy }}
                 >
-                  <div className="aspect-[16/10] overflow-hidden">
-                    <ImageWithFallback src={p.img} alt={p.title} className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[1200ms]" />
+                  <div className="aspect-[16/10] overflow-hidden border-b border-white/10">
+                    <ImageWithFallback src={p.img} alt={p.title} className="w-full h-full object-cover opacity-90 group-hover:scale-110 group-hover:opacity-100 transition-all duration-1000" />
                   </div>
-                  <div className="p-7">
-                    <div className="tracking-[0.2em] uppercase text-[#2E2784]" style={{ fontSize: "0.65rem" }}>{p.category}</div>
-                    <div className="text-[#2E2784] tracking-[-0.02em] mt-3" style={{ fontSize: "1.2rem", fontWeight: 600, lineHeight: 1.25 }}>{p.title}</div>
+                  <div className="p-8 md:p-10">
+                    <div className="text-white/50 font-bold tracking-[0.2em] uppercase text-[10px] mb-4">0{i+1} · {p.category}</div>
+                    {/* MODIFICA: Titoletto Card Giallo Oro */}
+                    <h4 className="text-[#F8AE01] text-2xl font-black leading-tight group-hover:text-white transition-colors">{p.title}</h4>
+                    
+                    <div className="mt-8 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-[#F8AE01] group-hover:text-[#2E2784] transition-all">
+                      <ArrowUpRight size={22} />
+                    </div>
                   </div>
                 </button>
               ))}
@@ -120,6 +256,25 @@ export function BlogDetail({ slug, go, initialPost }: { slug: string; go: (r: Ro
           </AnimatedSection>
         </div>
       </section>
-    </>
+
+      {/* 5. FOOTER CTA */}
+      <section className="py-40 px-6 md:px-8 text-center" style={{ background: COLORS.gold }}>
+        <AnimatedSection>
+          <h2 className="text-[#2E2784] text-5xl md:text-8xl font-black tracking-tighter leading-none mb-14">
+            This isn't just Loyalty...<br />
+            <span className="text-white drop-shadow-md">this is Marketing!</span>
+          </h2>
+          <button
+            onClick={() => go({ page: "contact" })}
+            className="group inline-flex items-center gap-5 rounded-full pl-10 pr-6 py-5 bg-[#2E2784] text-[#F8AE01] text-2xl font-black hover:bg-black transition-all active:scale-95"
+          >
+            <span>Let's talk Strategy</span>
+            <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center group-hover:rotate-45 transition-transform">
+              <ArrowUpRight size={28} />
+            </div>
+          </button>
+        </AnimatedSection>
+      </section>
+    </div>
   );
 }
