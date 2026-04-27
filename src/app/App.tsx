@@ -59,7 +59,7 @@ export default function App() {
         {route.page === "career" && <Career go={go} />}
         {route.page === "contact" && <Contact />}
         {route.page === "copyright" && <Copyright go={go} />}
-        {route.page === "privacy" && <Privacy />}
+        {route.page === "privacy" && <Privacy go={go} />}
         {route.page === "brand-detail" && <BrandDetail id={route.id} go={go} />}
         {route.page === "study-detail" && <StudyDetail id={route.id} go={go} />}
         {route.page === "team-detail" && <TeamDetail id={route.id} go={go} />}
