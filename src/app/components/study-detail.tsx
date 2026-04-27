@@ -379,7 +379,7 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
                 <span className={`${prevStudy ? "text-[#2E2784]" : "text-[#2E2784]/45"}`}>
                   <ArrowLeft className="w-4 h-4" />
                 </span>
-                <span className="tracking-tight" style={{ fontSize: "0.84rem", fontWeight: 700 }}>
+                <span className="tracking-tight" style={{ fontSize: "1rem", fontWeight: 700 }}>
                   {prevStudy ? `Prev: ${prevStudy.title}` : "No previous"}
                 </span>
               </button>
@@ -389,7 +389,7 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
                 disabled={!nextStudy}
                 className={`group inline-flex items-center gap-3 px-1 py-1.5 transition-all ${nextStudy ? "text-[#2E2784] hover:opacity-75" : "text-[#2E2784]/45 cursor-not-allowed"}`}
               >
-                <span className="tracking-tight" style={{ fontSize: "0.84rem", fontWeight: 700 }}>
+                <span className="tracking-tight" style={{ fontSize: "1rem", fontWeight: 700 }}>
                   {nextStudy ? `Next: ${nextStudy.title}` : "No next"}
                 </span>
                 <span className={`${nextStudy ? "text-[#2E2784]" : "text-[#2E2784]/45"}`}>
