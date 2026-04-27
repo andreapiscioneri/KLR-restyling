@@ -81,7 +81,7 @@ function FounderCard({
             className="w-7 h-7 rounded-full bg-[#F8AE01] text-[#2E2784] flex items-center justify-center hover:bg-white transition-colors"
             aria-label={`LinkedIn – ${person.name}`}
           >
-            <LucideLinkedin className="w-3.5 h-3.5" />
+            <LucideLinkedin className="w-4 h-4" fill="currentColor" stroke="none" />
           </a>
         )}
       </div>
@@ -100,10 +100,12 @@ function TeamCard({
   const li = linkedinById[person.id];
   return (
     <article
-      className="rounded-[24px] p-4 flex flex-col items-center text-center"
+      // Centrato con items-center, text-center e justify-center
+      className="rounded-[24px] p-4 flex flex-col items-center text-center justify-center"
       style={{ background: "#F8AE01", ...softShadow }}
     >
-      <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden bg-white border-4 border-white flex-shrink-0">
+      {/* Bordo blu (#2E2784) */}
+      <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden bg-white border-4 border-[#2E2784] flex-shrink-0">
         <ImageWithFallback src={person.img} alt={person.name} className="w-full h-full object-cover" />
       </div>
 
@@ -133,7 +135,7 @@ function TeamCard({
             className="w-6 h-6 rounded-full bg-[#2E2784] text-white flex items-center justify-center hover:bg-black transition-colors"
             aria-label={`LinkedIn – ${person.name}`}
           >
-            <LucideLinkedin className="w-3 h-3" />
+            <LucideLinkedin className="w-3.5 h-3.5" fill="currentColor" stroke="none" />
           </a>
         )}
       </div>
@@ -191,7 +193,7 @@ export function Team({ go }: { go: (r: Route) => void }) {
             <div id="leadership-grid" className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
               Leadership Team
             </div>
-            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.05, fontWeight: 800 }}>
+            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
               Our Leading People
             </h2>
 
@@ -284,7 +286,7 @@ export function Team({ go }: { go: (r: Route) => void }) {
             <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
               Our Culture
             </div>
-            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.05, fontWeight: 800 }}>
+            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
               What It's Like to Work at KLR
             </h2>
             <p className="text-[#2E2784]/80 tracking-tight mt-7 max-w-4xl" style={{ fontSize: "1.05rem", lineHeight: 1.65 }}>
