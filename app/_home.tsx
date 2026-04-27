@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Heart, Star, Award } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
@@ -193,40 +193,107 @@ function InternationalPresence() {
   );
 }
 
+{/* LOYALTY FRAMEWORK: SOLO GIALLO E BLU, NIENTE BIANCO/NERO */}
 function LoyaltyFramework() {
   return (
     <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.yellow }}>
-      <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-white/15 blur-3xl" />
-      <div className="max-w-6xl mx-auto px-8">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-[#F8AE01]/50 blur-3xl pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-8 relative z-10">
         <AnimatedSection>
-          <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-            The KLR Loyalty Framework
-          </div>
-          <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-            Designing Emotional Loyalty
-          </h2>
-
-          <div className="mt-14 grid md:grid-cols-3 gap-6">
-            {loyaltyFramework.map((p) => (
-              <div key={p.n} className="rounded-[28px] p-8 border border-white/40" style={{ background: "rgba(255,255,255,0.18)" }}>
-                <div className="text-[#2E2784] tracking-[0.1em]" style={{ fontSize: "0.75rem", fontWeight: 700 }}>{p.n}</div>
-                <h3 className="text-[#2E2784] tracking-[-0.02em] mt-4" style={{ fontSize: "1.5rem", fontWeight: 700 }}>{p.title}</h3>
-                <p className="text-black/70 tracking-tight mt-4" style={{ fontSize: "0.95rem", lineHeight: 1.6 }}>{p.desc}</p>
+          <div className="flex flex-col lg:flex-row gap-16 items-center">
+            
+            {/* Left Column: Text & Pillars */}
+            <div className="lg:w-1/2 w-full">
+              <div className="inline-block  text-[#2E2784]  tracking-[0.1em] uppercase px-4 py-1.5 rounded-full mb-8" style={{ fontSize: "0.65rem" }}>
+                The KLR Loyalty Framework
               </div>
-            ))}
-          </div>
+              
+              <h2 className="text-[#2E2784] tracking-[-0.035em] mb-10" style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", lineHeight: 1.05, fontWeight: 800 }}>
+                Designing <br />
+                <span className="text-black italic">Emotional Loyalty</span>
+              </h2>
+              
+              <p className="text-[#2E2784]/80 tracking-tight mb-8" style={{ fontSize: "1.125rem", fontWeight: 500 }}>
+                Our 3 Pillars of Loyalty:
+              </p>
 
-          <div className="mt-12">
+              <div className="space-y-6">
+                {/* 1. Desire */}
+                <div className="bg-[#2E2784]/5 backdrop-blur-sm border border-[#2E2784]/20 rounded-[28px] p-6 shadow-sm">
+                  <Heart className="w-8 h-8 text-[#2E2784] mb-4" />
+                  <div className="inline-block bg-[#2E2784] text-[#F8AE01] font-bold uppercase tracking-wider px-4 py-1 rounded-full mb-3" style={{ fontSize: "0.75rem" }}>
+                    Desire
+                  </div>
+                  <p className="text-[#2E2784] text-lg leading-snug">
+                    "Dream" High-Quality <span className="font-black text-[#2E2784]">Rewards</span> that Money Can't Buy
+                  </p>
+                </div>
+                
+                {/* 2. Experience */}
+                <div className="bg-[#2E2784]/5 backdrop-blur-sm border border-[#2E2784]/20 rounded-[28px] p-6 shadow-sm">
+                  <Star className="w-8 h-8 text-[#2E2784] mb-4" fill="currentColor" />
+                  <div className="inline-block bg-[#2E2784] text-[#F8AE01] font-bold uppercase tracking-wider px-4 py-1 rounded-full mb-3" style={{ fontSize: "0.75rem" }}>
+                    Experience
+                  </div>
+                  <p className="text-[#2E2784] text-lg leading-snug">
+                    High Participation is The Key to <span className="font-black italic text-[#2E2784]">Real Engagement</span>
+                  </p>
+                </div>
+                
+                {/* 3. Satisfaction */}
+                <div className="bg-[#2E2784]/5 backdrop-blur-sm border border-[#2E2784]/20 rounded-[28px] p-6 shadow-sm">
+                  <Award className="w-8 h-8 text-[#2E2784] mb-4" />
+                  <div className="inline-block bg-[#2E2784] text-[#F8AE01] font-bold uppercase tracking-wider px-4 py-1 rounded-full mb-3" style={{ fontSize: "0.75rem" }}>
+                    Satisfaction
+                  </div>
+                  <p className="text-[#2E2784] text-lg leading-snug">
+                    High Perceived Value Rewards that last 4ever into Your Best Customers' Heart <span className="font-black italic block mt-1 text-[#2E2784]">Long Positive Memory Effect</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Dynamic CSS Venn Diagram (Solo Giallo e Blu) */}
+            <div className="lg:w-1/2 w-full flex justify-center lg:justify-end items-center min-h-[450px]">
+              <div className="relative w-[300px] h-[300px] sm:w-[420px] sm:h-[420px]">
+                
+                {/* Top Circle - Desire (Heart) */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] rounded-full border-[5px] border-[#2E2784] bg-[#2E2784]/5 flex justify-center pt-8 sm:pt-10 backdrop-blur-sm transition-transform hover:scale-105 duration-500">
+                  <Heart className="w-10 h-10 sm:w-14 sm:h-14 text-[#2E2784]" />
+                </div>
+
+                {/* Bottom Left Circle - Experience (Star) */}
+                <div className="absolute bottom-4 left-0 w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] rounded-full border-[5px] border-[#2E2784] bg-[#1a1752]/5 flex items-end justify-start pb-10 pl-10 sm:pb-14 sm:pl-14 backdrop-blur-sm transition-transform hover:scale-105 duration-500">
+                  <Star className="w-10 h-10 sm:w-14 sm:h-14 text-[#2E2784]" fill="currentColor" />
+                </div>
+
+                {/* Bottom Right Circle - Satisfaction (Award) */}
+                <div className="absolute bottom-4 right-0 w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] rounded-full border-[5px] border-[#2E2784] bg-[#5b53bf]/5 flex items-end justify-end pb-10 pr-10 sm:pb-14 sm:pr-14 backdrop-blur-sm transition-transform hover:scale-105 duration-500">
+                  <Award className="w-10 h-10 sm:w-14 sm:h-14 text-[#2E2784]" />
+                </div>
+
+                {/* Center Core - Emotional Loyalty (Heart) */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mt-4 z-20 flex items-center justify-center w-20 h-20 sm:w-28 sm:h-28 rounded-full bg-[#2E2784] shadow-[0_0_40px_rgba(46,39,132,0.4)] animate-pulse">
+                  <Heart className="w-10 h-10 sm:w-14 sm:h-14 text-[#F8AE01] fill-[#F8AE01]" />
+                </div>
+              </div>
+            </div>
+
+          </div>
+          
+          <div className="mt-16 flex justify-center lg:justify-start">
             <Link
               href="/services"
-              className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
+              className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-[#F8AE01] hover:bg-[#1a1752] "
             >
               <span>Explore Our Services</span>
-              <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+              <span className="w-8 h-8 rounded-full bg-[#F8AE01]/20 flex items-center justify-center">
                 <ArrowUpRight className="w-4 h-4" />
               </span>
             </Link>
           </div>
+
         </AnimatedSection>
       </div>
     </section>
