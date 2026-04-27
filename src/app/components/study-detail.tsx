@@ -1,8 +1,8 @@
 "use client";
 
-import { ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { softShadow } from "./ui-bits";
+import { Eyebrow, softShadow } from "./ui-bits";
 import { studies, brands } from "../data";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
@@ -16,6 +16,10 @@ const G = {
 export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) {
   const s = studies.find((x) => x.id === id) || studies[0];
   const brand = brands.find((b) => b.name === s.brand);
+  const details = (s as any).details;
+  const currentIndex = studies.findIndex((x) => x.id === s.id);
+  const prevStudy = currentIndex > 0 ? studies[currentIndex - 1] : null;
+  const nextStudy = currentIndex < studies.length - 1 ? studies[currentIndex + 1] : null;
   const related = studies
     .filter((x) => x.id !== s.id)
     .sort((a, b) => {
@@ -25,33 +29,41 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
     })
     .slice(0, 3);
 
-  const duration = s.results.find((r) => /wk/i.test(r.k))?.k || "8-16 weeks";
   const sector = s.cat === "petrol" ? "Fuel" : "Grocery";
   const campaignType = s.cat === "petrol" ? "Fuel Loyalty Campaign" : "Grocery Loyalty Campaign";
+  const rewardGroups = details?.rewardGroups ?? [];
+  const activations = details?.activations ?? [];
+  const mechanics = details?.mechanics ?? [];
+  const gallery = details?.gallery ?? [s.img];
+  const social = details?.social ?? [];
+  const videos = details?.videos ?? [];
+  const informationBlocks = [
+    {
+      label: "Client Objective",
+      text: details?.challenge || s.summary,
+    },
+    {
+      label: "Reward Strategy",
+      text: rewardGroups.length
+        ? `${rewardGroups.length} reward clusters built around high perceived value and practical usage.`
+        : "Reward portfolio designed to maximize participation and redemption.",
+    },
+    {
+      label: "Execution Model",
+      text: mechanics.length
+        ? `${mechanics.length} clear mechanics to drive repeat visits and measurable engagement.`
+        : "Simple participation mechanics designed for scale and repeat behavior.",
+    },
+  ];
 
   const quickFacts = [
     { label: "Client", value: s.client },
     { label: "Country", value: s.location },
     { label: "Sector", value: sector },
-    { label: "Duration", value: duration },
+    { label: "Year", value: s.year },
     { label: "Brand", value: s.brand },
     { label: "Campaign Type", value: campaignType },
   ];
-
-  const approachSteps = [
-    "Strategy workshop to align client goals, audience and commercial KPIs.",
-    "Mechanics design for participation, repeat visits and basket-size growth.",
-    "Reward curation and campaign storytelling around the featured brand.",
-    "Multi-channel execution: in-store POSM, digital communication and weekly optimisation.",
-  ];
-
-  const testimonials: Record<string, string> = {
-    "spar-redbull": "The campaign created real excitement in-store and generated measurable commercial uplift week after week.",
-    "mol-pintinox": "KLR made execution simple for our teams and transformed routine forecourt traffic into active participation.",
-    "circle-k-nasa": "A campaign that combined operational precision and strong emotional pull for our customers.",
-  };
-
-  const gallery = [s.img, brand?.img || s.img, "/3.png"];
 
   return (
     <>
@@ -62,32 +74,57 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
         image={s.img}
         cta={{ label: "All Case Studies", href: "/work" }}
       >
-        <div className="mt-6 inline-flex items-center gap-3 rounded-full px-5 py-2 border border-white/30 bg-white/10 text-white tracking-tight" style={{ fontSize: "0.86rem" }}>
+        <div className="mt-6 inline-flex items-center gap-3 rounded-full px-5 py-2 border border-[#F8AE01]/45 bg-[#F8AE01]/20 text-white tracking-tight" style={{ fontSize: "0.86rem" }}>
           <span className="text-[#F8AE01]" style={{ fontWeight: 700 }}>{s.client}</span>
           <span className="text-white/55">|</span>
           <span>{s.brand}</span>
         </div>
       </PageHero>
 
-      {/* QUICK FACTS — yellow */}
+      {/* OVERVIEW + KPI — yellow */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              Quick Facts
-            </div>
-            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.05, fontWeight: 800 }}>
-              Campaign Snapshot
-            </h2>
+            <div className="grid md:grid-cols-12 gap-10 md:gap-14">
+              <div className="md:col-span-7">
+                <Eyebrow>Overview</Eyebrow>
+                <h2 className="text-[#2E2784] tracking-[-0.04em] mt-8" style={{ fontSize: "clamp(2rem, 5vw, 4.1rem)", lineHeight: 0.98, fontWeight: 800 }}>
+                  How this campaign<br />
+                  <em className="not-italic text-black">came to life</em>
+                </h2>
+                <p className="text-[#2E2784] tracking-tight mt-6 max-w-3xl" style={{ fontSize: "clamp(1rem, 1.35vw, 1.15rem)", lineHeight: 1.65 }}>
+                  {s.summary}
+                </p>
+              </div>
 
-            <div className="mt-12 grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-              {quickFacts.map((fact) => (
-                <article key={fact.label} className="rounded-[24px] p-6 border border-white/50" style={{ background: "rgba(255,255,255,0.22)" }}>
-                  <div className="text-[#2E2784]/45 tracking-[0.16em] uppercase" style={{ fontSize: "0.62rem", fontWeight: 700 }}>
+              <div className="md:col-span-5">
+                <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-1 gap-4">
+                  {s.results.map((r) => (
+                    <article key={`${r.k}-${r.v}`} className="rounded-[24px] p-6 border-2 border-[#2E2784]/35 bg-[#F8AE01]/35" style={softShadow}>
+                      <div className="text-[#2E2784]/55 tracking-[0.16em] uppercase" style={{ fontSize: "0.62rem", fontWeight: 700 }}>
+                        {r.v}
+                      </div>
+                      <div className="text-[#2E2784] tracking-[-0.03em] mt-2" style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.7rem)", lineHeight: 1, fontWeight: 800 }}>
+                        {r.k}
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-10 grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+              {quickFacts.map((fact, i) => (
+                <article
+                  key={fact.label}
+                  className="rounded-[24px] p-6 border-2 border-[#2E2784]"
+                  style={i % 2 === 0 ? { background: "#2E2784", ...softShadow } : { background: "rgba(248,174,1,0.35)", ...softShadow }}
+                >
+                  <div className={`${i % 2 === 0 ? "text-[#F8AE01]/90" : "text-[#2E2784]/45"} tracking-[0.16em] uppercase`} style={{ fontSize: "0.62rem", fontWeight: 700 }}>
                     {fact.label}
                   </div>
-                  <div className="text-[#2E2784] tracking-tight mt-3" style={{ fontSize: "1rem", fontWeight: 700, lineHeight: 1.35 }}>
+                  <div className={`${i % 2 === 0 ? "text-white" : "text-[#2E2784]"} tracking-tight mt-3`} style={{ fontSize: "1rem", fontWeight: 700, lineHeight: 1.35 }}>
                     {fact.value}
                   </div>
                 </article>
@@ -97,36 +134,38 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
         </div>
       </section>
 
-      {/* CHALLENGE + APPROACH — blue */}
+      {/* CAMPAIGN CONTEXT — blue */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
         <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="grid md:grid-cols-12 gap-10 md:gap-16">
               <div className="md:col-span-5">
-                <div className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-                  The Challenge
-                </div>
+                <Eyebrow onDark>Campaign</Eyebrow>
                 <h2 className="text-white tracking-[-0.03em] mt-5" style={{ fontSize: "clamp(1.7rem, 3vw, 2.6rem)", fontWeight: 800, lineHeight: 1.1 }}>
-                  What was the client trying to achieve?
+                  {details?.campaignTitle || "How The Campaign Was Designed"}
                 </h2>
                 <p className="text-white/75 tracking-tight mt-6" style={{ fontSize: "1rem", lineHeight: 1.7 }}>
-                  {s.summary}
+                  {details?.challenge || s.summary}
                 </p>
               </div>
 
               <div className="md:col-span-7">
-                <div className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-                  Our Approach
-                </div>
-                <h3 className="text-white tracking-[-0.025em] mt-5" style={{ fontSize: "clamp(1.5rem, 2.5vw, 2.1rem)", fontWeight: 800, lineHeight: 1.15 }}>
-                  Strategy, mechanics, rewards, execution
+                <Eyebrow onDark>Information Structure</Eyebrow>
+                <h3 className="text-white tracking-[-0.03em] mt-6" style={{ fontSize: "clamp(1.7rem, 3.2vw, 2.6rem)", fontWeight: 800, lineHeight: 1.05 }}>
+                  What mattered most,
+                  <br /><span className="text-[#F8AE01]">and why it worked.</span>
                 </h3>
 
                 <div className="mt-7 space-y-3">
-                  {approachSteps.map((step) => (
-                    <div key={step} className="rounded-[18px] p-4 border border-white/15 bg-white/5 text-white/80 tracking-tight" style={{ fontSize: "0.95rem", lineHeight: 1.55 }}>
-                      {step}
+                  {informationBlocks.map((block) => (
+                    <div key={block.label} className="rounded-[18px] p-5 border border-[#F8AE01]/30 bg-[#F8AE01]/12" style={softShadow}>
+                      <div className="text-[#F8AE01] tracking-[0.18em] uppercase" style={{ fontSize: "0.62rem", fontWeight: 700 }}>
+                        {block.label}
+                      </div>
+                      <p className="text-white/90 tracking-tight mt-3" style={{ fontSize: "0.93rem", lineHeight: 1.6 }}>
+                        {block.text}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -136,23 +175,35 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
         </div>
       </section>
 
-      {/* RESULTS — yellow */}
+      {/* REWARDS — yellow */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              The Results
-            </div>
-            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.05, fontWeight: 800 }}>
-              Quantified Performance Impact
+            <Eyebrow>Reward Collection</Eyebrow>
+            <h2 className="text-[#2E2784] tracking-[-0.04em] mt-8" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 0.98, fontWeight: 800 }}>
+              Premium rewards<br />
+              <span className="text-black">people actually want.</span>
             </h2>
 
             <div className="mt-12 grid md:grid-cols-3 gap-4">
-              {s.results.map((r) => (
-                <article key={r.v} className="rounded-[24px] p-6 border border-white/50 bg-white/75" style={softShadow}>
-                  <div className="text-[#2E2784]/45 tracking-[0.14em] uppercase" style={{ fontSize: "0.62rem", fontWeight: 700 }}>{r.v}</div>
-                  <div className="text-[#2E2784] tracking-[-0.03em] mt-3" style={{ fontSize: "clamp(2rem, 3.2vw, 2.8rem)", lineHeight: 1, fontWeight: 800 }}>{r.k}</div>
+              {rewardGroups.map((group: any, i: number) => (
+                <article
+                  key={group.title}
+                  className="rounded-[28px] p-6 border-2 border-[#2E2784]"
+                  style={i % 2 === 0 ? { background: "#2E2784", ...softShadow } : { background: "rgba(248,174,1,0.35)", ...softShadow }}
+                >
+                  <div className={`${i % 2 === 0 ? "text-[#F8AE01]" : "text-[#2E2784]"} tracking-[-0.015em]`} style={{ fontSize: "1.08rem", fontWeight: 800, lineHeight: 1.25 }}>{group.title}</div>
+                  <p className={`${i % 2 === 0 ? "text-white/75" : "text-[#2E2784]/75"} tracking-tight mt-3`} style={{ fontSize: "0.86rem", lineHeight: 1.55 }}>
+                    {group.subtitle}
+                  </p>
+                  <div className="mt-5 space-y-2">
+                    {group.items?.map((item: string) => (
+                      <div key={item} className={`${i % 2 === 0 ? "text-white" : "text-[#2E2784]"} tracking-tight`} style={{ fontSize: "0.88rem", lineHeight: 1.45 }}>
+                        {item}
+                      </div>
+                    ))}
+                  </div>
                 </article>
               ))}
             </div>
@@ -160,35 +211,120 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
         </div>
       </section>
 
-      {/* GALLERY — blue */}
+      {/* ACTIVATIONS + MECHANICS — blue */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
         <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <div className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              Gallery
+            <div className="grid md:grid-cols-12 gap-10 md:gap-12">
+              <div className="md:col-span-6">
+                <Eyebrow onDark>In-Store Experience</Eyebrow>
+                <h3 className="text-white tracking-[-0.03em] mt-6" style={{ fontSize: "clamp(1.7rem, 3vw, 2.4rem)", fontWeight: 800, lineHeight: 1.05 }}>
+                  Activations that turn
+                  <br />footfall into engagement.
+                </h3>
+                <div className="mt-7 space-y-3">
+                  {activations.length > 0 ? (
+                    activations.map((item: string) => (
+                      <div key={item} className="rounded-[18px] p-4 border border-[#F8AE01]/30 bg-[#F8AE01]/12 text-white/90 tracking-tight" style={{ fontSize: "0.92rem", lineHeight: 1.55 }}>
+                        {item}
+                      </div>
+                    ))
+                  ) : (
+                    <div className="rounded-[18px] p-4 border border-[#F8AE01]/30 bg-[#F8AE01]/12 text-white/90 tracking-tight" style={{ fontSize: "0.92rem", lineHeight: 1.55 }}>
+                      Campaign assets were activated in high-traffic locations to increase visibility, participation and conversion.
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="md:col-span-6">
+                <Eyebrow onDark>Mechanics</Eyebrow>
+                <h3 className="text-white tracking-[-0.03em] mt-6" style={{ fontSize: "clamp(1.7rem, 3vw, 2.4rem)", fontWeight: 800, lineHeight: 1.05 }}>
+                  Clear mechanics,
+                  <br />strong repeat behavior.
+                </h3>
+                <div className="mt-7 space-y-3">
+                  {mechanics.map((item: string) => (
+                    <div key={item} className="rounded-[18px] p-4 border border-[#F8AE01]/30 bg-[#F8AE01]/12 text-white/90 tracking-tight" style={{ fontSize: "0.92rem", lineHeight: 1.55 }}>
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-            <h2 className="text-white tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.05, fontWeight: 800 }}>
-              POSM, in-store moments, products, video-ready assets
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* GALLERY — yellow */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
+        <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-white/20 blur-3xl" />
+        <div className="max-w-6xl mx-auto px-8">
+          <AnimatedSection>
+            <Eyebrow>Gallery</Eyebrow>
+            <h2 className="text-[#2E2784] tracking-[-0.04em] mt-8" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 0.98, fontWeight: 800 }}>
+              In-store assets,<br />
+              <span className="text-black">POSM and campaign touchpoints.</span>
             </h2>
 
-            <div className="mt-12 grid md:grid-cols-3 gap-6">
-              {gallery.map((img, i) => (
-                <div key={`${img}-${i}`} className="rounded-[24px] overflow-hidden border border-white/10" style={softShadow}>
-                  <ImageWithFallback src={img} alt={`${s.title} gallery ${i + 1}`} className="w-full h-[260px] object-cover" />
+            <div className="mt-12 grid md:grid-cols-2 xl:grid-cols-4 gap-4">
+              {gallery.slice(0, 8).map((img: string, i: number) => (
+                <div key={`${img}-${i}`} className="rounded-[24px] overflow-hidden border border-white/40" style={softShadow}>
+                  <ImageWithFallback src={img} alt={`${s.title} gallery ${i + 1}`} className="w-full h-[220px] object-cover" />
                 </div>
               ))}
             </div>
 
+            {social.length > 0 && (
+              <>
+                <div className="tracking-[0.3em] uppercase text-[#2E2784]/60 mt-14" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
+                  Social Media
+                </div>
+                <div className="mt-6 grid md:grid-cols-3 gap-4">
+                  {social.slice(0, 3).map((img: string, i: number) => (
+                    <div key={`${img}-${i}`} className="rounded-[24px] overflow-hidden border border-white/40" style={softShadow}>
+                      <ImageWithFallback src={img} alt={`${s.title} social ${i + 1}`} className="w-full h-[220px] object-cover" />
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {videos.length > 0 && (
+              <>
+                <div className="tracking-[0.3em] uppercase text-[#2E2784]/60 mt-14" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
+                  Video
+                </div>
+                <div className="mt-6 grid md:grid-cols-2 gap-4">
+                  {videos.map((video: string, i: number) => (
+                    <div key={`${video}-${i}`} className="rounded-[24px] overflow-hidden border border-white/40 bg-black" style={softShadow}>
+                      <video className="w-full h-[280px] object-cover" controls preload="metadata" playsInline>
+                        <source src={video} />
+                      </video>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* BRAND LINK — blue */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+        <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
+        <div className="max-w-6xl mx-auto px-8">
+          <AnimatedSection>
             {brand && (
-              <div className="mt-10 rounded-[24px] p-6 border border-white/15 bg-white/5 flex flex-wrap items-center justify-between gap-4">
+              <div className="mt-10 rounded-[24px] p-6 border border-[#F8AE01]/35 bg-[#F8AE01]/12 flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <div className="text-[#F8AE01] tracking-[0.2em] uppercase" style={{ fontSize: "0.62rem", fontWeight: 700 }}>Featured Brand</div>
                   <div className="text-white tracking-tight mt-2" style={{ fontSize: "1.05rem", fontWeight: 700 }}>{brand.name}</div>
                 </div>
                 <button
                   onClick={() => go({ page: "brand-detail", id: brand.id })}
-                  className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-white hover:text-[#2E2784]"
+                  className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-[#ffd95a] hover:text-[#2E2784]"
                 >
                   <span>Explore Brand</span>
                   <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
@@ -201,27 +337,6 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
         </div>
       </section>
 
-      {/* TESTIMONIAL — yellow (optional) */}
-      {testimonials[s.id] && (
-        <section className="relative pt-24 md:pt-28 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
-          <div className="max-w-6xl mx-auto px-8">
-            <AnimatedSection>
-              <div className="rounded-[28px] p-8 md:p-10 border border-white/60 bg-white/70" style={softShadow}>
-                <div className="text-[#2E2784]/55 tracking-[0.2em] uppercase" style={{ fontSize: "0.62rem", fontWeight: 700 }}>
-                  Testimonial
-                </div>
-                <p className="text-[#2E2784] tracking-[-0.01em] mt-4" style={{ fontSize: "clamp(1.2rem, 2.1vw, 1.8rem)", lineHeight: 1.4, fontWeight: 600 }}>
-                  "{testimonials[s.id]}"
-                </p>
-                <p className="text-[#2E2784]/65 tracking-tight mt-4" style={{ fontSize: "0.92rem" }}>
-                  {s.client}
-                </p>
-              </div>
-            </AnimatedSection>
-          </div>
-        </section>
-      )}
-
       {/* RELATED — yellow */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute -bottom-24 -left-20 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
@@ -230,8 +345,8 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
             <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
               Related
             </div>
-            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.05, fontWeight: 800 }}>
-              More Campaign Stories
+            <h2 className="text-[#2E2784] tracking-[-0.04em] mt-8" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 0.98, fontWeight: 800 }}>
+              More stories,<br /><span className="text-black">same loyalty ambition.</span>
             </h2>
             <div className="grid md:grid-cols-3 gap-6 mt-12">
               {related.map((r) => (
@@ -254,6 +369,34 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
                 </button>
               ))}
             </div>
+
+            <div className="mt-10 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+              <button
+                onClick={() => prevStudy && go({ page: "study-detail", id: prevStudy.id })}
+                disabled={!prevStudy}
+                className={`group inline-flex items-center gap-3 px-1 py-1.5 transition-all ${prevStudy ? "text-[#2E2784] hover:opacity-75" : "text-[#2E2784]/45 cursor-not-allowed"}`}
+              >
+                <span className={`${prevStudy ? "text-[#2E2784]" : "text-[#2E2784]/45"}`}>
+                  <ArrowLeft className="w-4 h-4" />
+                </span>
+                <span className="tracking-tight" style={{ fontSize: "0.84rem", fontWeight: 700 }}>
+                  {prevStudy ? `Prev: ${prevStudy.title}` : "No previous"}
+                </span>
+              </button>
+
+              <button
+                onClick={() => nextStudy && go({ page: "study-detail", id: nextStudy.id })}
+                disabled={!nextStudy}
+                className={`group inline-flex items-center gap-3 px-1 py-1.5 transition-all ${nextStudy ? "text-[#2E2784] hover:opacity-75" : "text-[#2E2784]/45 cursor-not-allowed"}`}
+              >
+                <span className="tracking-tight" style={{ fontSize: "0.84rem", fontWeight: 700 }}>
+                  {nextStudy ? `Next: ${nextStudy.title}` : "No next"}
+                </span>
+                <span className={`${nextStudy ? "text-[#2E2784]" : "text-[#2E2784]/45"}`}>
+                  <ArrowRight className="w-4 h-4" />
+                </span>
+              </button>
+            </div>
           </AnimatedSection>
         </div>
       </section>
@@ -274,7 +417,7 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
               <div className="md:text-right">
                 <button
                   onClick={() => go({ page: "contact" })}
-                  className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-white hover:text-[#2E2784]"
+                  className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-[#ffd95a] hover:text-[#2E2784]"
                 >
                   <span>Let's Talk About Your Goals</span>
                   <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
