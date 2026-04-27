@@ -55,16 +55,16 @@ export function Nav() {
         layout
       >
         {/* Logo */}
-<Link href="/" className="flex items-center shrink-0" data-cursor="default">
-  <Image
-    src="/klr-logo.png"
-    alt="KLR Europe"
-    width={100} 
-    height={30}
-    className="h-4 md:h-5  w-auto"
-    priority
-  />
-</Link>
+          <Link href="/" className="flex items-center shrink-0" data-cursor="default">
+            <Image
+              src="/klr-logo.png"
+              alt="KLR Europe"
+              width={100} 
+              height={30}
+              className="h-4 md:h-5  w-auto"
+              priority
+            />
+          </Link>
 
         {/* Desktop links */}
         <div className="hidden lg:flex items-center gap-0.5">
