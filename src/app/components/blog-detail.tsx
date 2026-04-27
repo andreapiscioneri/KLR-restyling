@@ -15,7 +15,8 @@ const G = {
 type FullPost = Post & { contentHtml?: string };
 
 export function BlogDetail({ slug, go, initialPost }: { slug: string; go: (r: Route) => void; initialPost?: FullPost }) {
-  const initial: FullPost = initialPost || fallbackPosts.find((p) => p.slug === slug) || fallbackPosts[0];
+  const baseInitial: FullPost = initialPost || fallbackPosts.find((p) => p.slug === slug) || fallbackPosts[0];
+  const initial: FullPost = { ...baseInitial, link: `/blog/${baseInitial.slug}` };
   const [post, setPost] = useState<FullPost>(initial);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export function BlogDetail({ slug, go, initialPost }: { slug: string; go: (r: Ro
           date: String(p.date).slice(0, 10),
           excerpt: strip(p.excerpt.rendered.replace(/<[^>]+>/g, "")).trim().slice(0, 280),
           img: p._embedded?.["wp:featuredmedia"]?.[0]?.source_url || initial.img,
-          link: p.link,
+          link: `/blog/${p.slug}`,
           category: p._embedded?.["wp:term"]?.[0]?.[0]?.name || "Post",
           contentHtml: strip(p.content.rendered),
         });
@@ -75,14 +76,14 @@ export function BlogDetail({ slug, go, initialPost }: { slug: string; go: (r: Ro
                   <p>{post.excerpt}</p>
                   <p className="mt-6">
                     Read the full article on{" "}
-                    <a href={post.link} target="_blank" rel="noreferrer" className="text-[#2E2784] underline hover:text-[#2E2784]/70">
-                      klr-europe.com
+                    <a href={post.link} className="text-[#2E2784] underline hover:text-[#2E2784]/70">
+                      this website
                     </a>.
                   </p>
                 </div>
               )}
               <div className="mt-16 pt-8 border-t border-black/10">
-                <CTA label="Read on klr-europe.com" variant="dark" onClick={() => window.open(post.link, "_blank")} />
+                <CTA label="Open article" variant="dark" onClick={() => go({ page: "blog-detail", slug: post.slug })} />
               </div>
             </div>
           </AnimatedSection>

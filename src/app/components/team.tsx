@@ -390,7 +390,7 @@ export function Team({ go }: { go: (r: Route) => void }) {
               <input type="hidden" name="_subject" value="KLR Team Application" />
               <input type="hidden" name="_captcha" value="false" />
               <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_next" value="https://klr-europe.com/thank-you" />
+              <input type="hidden" name="_next" value="/thank-you" />
 
               <div className="border-b border-[#2E2784]/20 pb-4">
                 <input

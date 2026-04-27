@@ -52,7 +52,7 @@ const fetchBlogPost = cache(async (slug: string): Promise<BlogPost | null> => {
       date: String(post.date).slice(0, 10),
       excerpt: stripHtml(post.excerpt.rendered.replace(/<[^>]+>/g, "")).trim().slice(0, 280),
       img: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || fallbackPosts[0].img,
-      link: post.link,
+      link: `/blog/${post.slug}`,
       category: post._embedded?.["wp:term"]?.[0]?.[0]?.name || "Post",
       contentHtml: stripHtml(post.content.rendered),
     };

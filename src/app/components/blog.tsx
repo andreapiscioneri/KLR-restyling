@@ -78,7 +78,7 @@ export function Blog({ go }: { go: (r: Route) => void }) {
             date: String(p.date).slice(0, 10),
             excerpt,
             img: p._embedded?.["wp:featuredmedia"]?.[0]?.source_url || images.human,
-            link: p.link,
+            link: `/blog/${p.slug}`,
             category,
             normalizedCategory: normalizeCategory(category),
             authorName,

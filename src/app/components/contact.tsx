@@ -46,7 +46,7 @@ function ContactFormSection() {
             <input type="hidden" name="_subject" value="KLR Contact Form" />
             <input type="hidden" name="_captcha" value="false" />
             <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_next" value="https://klr-europe.com/thank-you" />
+            <input type="hidden" name="_next" value="/thank-you" />
 
             {/* Full Name */}
             <div className="border-b border-[#2E2784]/20 pb-4">
