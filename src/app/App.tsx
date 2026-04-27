@@ -17,6 +17,7 @@ import { Contact } from "./components/contact";
 import { Copyright } from "./components/copyright";
 import { Privacy } from "./components/privacy";
 import { Footer } from "./components/footer";
+import { CustomCursor } from "./components/custom-cursor";
 
 export type Route =
   | { page: Page }
@@ -42,7 +43,8 @@ export default function App() {
   const activePage: Page = (map[route.page] || (route.page as Page));
 
   return (
-    <div className="min-h-screen bg-white text-black">
+    <div className="min-h-screen bg-white text-black cursor-none">
+      <CustomCursor />
       <Nav page={activePage} setPage={(p) => go({ page: p })} />
 
       <main className="relative z-10">
