@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Users, Star, TrendingUp, CheckCircle, LayoutTemplate, Rocket } from "lucide-react";
+import { motion } from "motion/react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { PageHero } from "@/src/app/components/page-hero";
 import { images, whatWeDeliver, aboutImpact, moreThanLoyalty, journey } from "@/src/app/data";
@@ -63,8 +64,8 @@ export function AboutClient() {
         </div>
       </section>
 
-      {/* OUR ANSWER — blue, 3 cards */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+      {/* OUR ANSWER — blue, 3 SHOPPING BAG CARDS (Animated with Original Texts & Blue borders) */}
+      <section className="relative pt-28 md:pt-32 pb-32 md:pb-40 overflow-hidden" style={{ background: G.blue }}>
         <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
@@ -72,22 +73,64 @@ export function AboutClient() {
               Our Answer
             </div>
             <h2 className="text-white tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-              We Design Loyalty Campaigns That…
+             We Design Loyalty Campaigns That…
             </h2>
 
-            <div className="mt-14 grid md:grid-cols-3 gap-6">
+            {/* Trittico Borse della Spesa Animato con i testi di whatWeDeliver */}
+            <div className="mt-20 grid md:grid-cols-3 gap-12 md:gap-6 pt-8">
               {whatWeDeliver.map((item, i) => (
-                <div key={item.title} className="rounded-[28px] p-8 border border-[#F8AE01]/25" style={{ background: "rgba(248,174,1,0.12)" }}>
-                  <div className="text-[#F8AE01]/50 tracking-[0.1em]" style={{ fontSize: "0.75rem", fontWeight: 700 }}>
-                    {String(i + 1).padStart(2, "0")}
-                  </div>
-                  <h3 className="text-white tracking-[-0.02em] mt-5" style={{ fontSize: "1.3rem", fontWeight: 700, lineHeight: 1.2 }}>
-                    {item.title}
-                  </h3>
-                  <p className="text-white/65 tracking-tight mt-4" style={{ fontSize: "0.95rem", lineHeight: 1.6 }}>
-                    {item.desc}
-                  </p>
-                </div>
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: 0.1 + i * 0.2 }}
+                >
+                  <motion.div
+                    animate={{ y: [0, -12, 0] }}
+                    transition={{ repeat: Infinity, duration: 4 + i * 0.5, ease: "easeInOut", delay: i * 0.2 }}
+                    className="relative bg-[#F8AE01] rounded-b-xl rounded-t-sm shadow-[0_20px_50px_-12px_rgba(0,0,0,0.4)] p-4 h-full min-h-[420px]"
+                  >
+                    {/* Manico della borsa */}
+                    <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-14 border-t-[6px] border-x-[6px] border-[#F8AE01] rounded-t-full z-[-1]" />
+                    
+                    {/* Contenuto Borsa */}
+                    <div className="h-full border-[3px] border-[#2E2784] bg-[#2E2784] p-6 md:p-8 flex flex-col items-center text-center">
+                      <div className="text-[#F8AE01] tracking-[0.2em] font-black text-sm mb-14">
+                        {String(i + 1).padStart(2, "0")}
+                      </div>
+                      <h3 className="font-black uppercase leading-[1.1] tracking-tighter text-[1.4rem] text-[#F8AE01]">
+                        {item.title}
+                      </h3>
+                      <p className="text-[#F8AE01] tracking-tight text-[0.95rem] leading-relaxed mt-4 flex-1">
+                        {item.desc}
+                      </p>
+                      
+                      {/* Icone in base all'indice della card */}
+                      <div className="flex gap-3 text-[#F8AE01] items-end justify-center w-full relative h-[60px] mt-6 pt-4">
+                        {i === 0 && (
+                          <>
+                            <Users size={54} strokeWidth={1.5} className="absolute bottom-0 left-1/2 -translate-x-1/2" />
+                            <Star size={20} fill="currentColor" className="absolute top-0 right-6 text-[#F8AE01]" />
+                            <Star size={14} fill="currentColor" className="absolute top-4 left-8 text-[#F8AE01]" />
+                          </>
+                        )}
+                        {i === 1 && (
+                          <>
+                            <TrendingUp size={48} strokeWidth={2.5} />
+                            <CheckCircle size={32} strokeWidth={2.5} className="mb-2 text-[#F8AE01]" />
+                          </>
+                        )}
+                        {i === 2 && (
+                          <>
+                            <LayoutTemplate size={50} strokeWidth={1.5} className="absolute left-6 bottom-0" />
+                            <Rocket size={36} strokeWidth={1.5} className="absolute right-8 bottom-2 text-[#F8AE01]" />
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
               ))}
             </div>
           </AnimatedSection>

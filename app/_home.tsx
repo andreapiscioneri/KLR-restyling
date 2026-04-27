@@ -205,7 +205,7 @@ function LoyaltyFramework() {
             
             {/* Left Column: Text & Pillars */}
             <div className="lg:w-1/2 w-full">
-              <div className="inline-block  text-[#2E2784]  tracking-[0.1em] uppercase px-4 py-1.5 rounded-full mb-8" style={{ fontSize: "0.65rem" }}>
+              <div className="tracking-[0.3em] uppercase text-[#2E2784]/60"  style={{fontSize: "0.65rem", fontWeight: 600, marginBottom: "0.75rem"}}>
                 The KLR Loyalty Framework
               </div>
               
