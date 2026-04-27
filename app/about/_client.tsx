@@ -89,7 +89,7 @@ export function AboutClient() {
                   <motion.div
                     animate={{ y: [0, -12, 0] }}
                     transition={{ repeat: Infinity, duration: 4 + i * 0.5, ease: "easeInOut", delay: i * 0.2 }}
-                    className="relative bg-[#F8AE01] rounded-b-xl rounded-t-sm shadow-[0_20px_50px_-12px_rgba(0,0,0,0.4)] p-4 h-full min-h-[420px]"
+                    className="relative bg-[#F8AE01] rounded-b-xl rounded-t-sm shadow-[0_20px_50px_-12px_rgba(0,0,0,0.4)] p-2 h-full min-h-[420px]"
                   >
                     {/* Manico della borsa */}
                     <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-14 border-t-[6px] border-x-[6px] border-[#F8AE01] rounded-t-full z-[-1]" />
