@@ -14,24 +14,6 @@ const G = {
 };
 
 export function Brands({ go }: { go: (r: Route) => void }) {
-  const logos = brandPartners.slice(0, 21);
-  const logoImageItems = logos.filter((b) => b.logo && b.name !== "Oracle Red Bull Racing");
-  const textOnlyLogos = [
-    { name: "Oracle Red Bull Racing" },
-    { name: "Zanussi" },
-    { name: "Guzzini Chefline" },
-    { name: "Police" },
-    { name: "Waverley" },
-    { name: "O bag" },
-    { name: "Mustang" },
-    { name: "Carl Schmidt Sohn" },
-    { name: "Luminarc" },
-    { name: "Goodyear" },
-    { name: "Blaupunkt" },
-    { name: "Elle" },
-    { name: "NewME" },
-    { name: "Wastebusters" },
-  ];
   const featured = brands.slice(0, 6);
   const additional = [
     "Zanussi",
@@ -49,6 +31,20 @@ export function Brands({ go }: { go: (r: Route) => void }) {
     "Wastebusters",
   ];
   const categoryIcons = [ChefHat, Trees, Plane, Sparkles, Baby, Dumbbell] as const;
+
+  // Immagini dalla cartella /public come richiesto
+  const globalBrandLogos = [
+    "/Senza titolo.png",
+    "/Senza titolo2.png",
+    "/Senza titolo4.png",
+    "/Senza titolo3.png",
+    "/Senza titolo5.png",
+    "/Senza titolo6.png",
+    "/Senza titolo7.png",
+    "/Senza titolo8.png",
+    "/Senza titolo9.png",
+    "/Senza titolo10.png",
+  ];
 
   return (
     <>
@@ -187,27 +183,24 @@ export function Brands({ go }: { go: (r: Route) => void }) {
             <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2.3rem, 5vw, 4.2rem)", fontWeight: 800, lineHeight: 1.03 }}>
               Global Brands
             </h2>
+            
+            {/* Nuovo paragrafo aggiunto qui in stile Hero subtitle */}
+            <p className="text-[#2E2784] tracking-tight mt-6 max-w-2xl" style={{ fontSize: "1.125rem", lineHeight: 1.6 }}>
+              We partner up with leading global brands to create loyalty programs able to drive high participation.
+            </p>
 
-            <div className="mt-14 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-10 gap-y-10 md:gap-y-12 items-center">
-              {logoImageItems.map((logo) => (
+            <div className="mt-14 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-10 gap-y-10 md:gap-y-12 items-center">
+              {globalBrandLogos.map((src, idx) => (
                 <div
-                  key={logo.name}
+                  key={idx}
                   className="flex items-center justify-center min-h-[92px]"
                 >
                   <img
-                    src={logo.logo as string}
-                    alt={logo.name}
+                    src={src}
+                    alt={`Global Brand ${idx + 1}`}
                     className="max-h-14 md:max-h-16 w-auto object-contain opacity-95"
                     style={{ filter: "brightness(0) saturate(100%) invert(18%) sepia(21%) saturate(2500%) hue-rotate(222deg) brightness(88%) contrast(98%)" }}
                   />
-                </div>
-              ))}
-
-              {textOnlyLogos.map((logo) => (
-                <div key={logo.name} className="flex items-center justify-center min-h-[92px] text-center">
-                  <span className="text-[#2E2784] tracking-tight" style={{ fontSize: "clamp(1.1rem, 2vw, 1.75rem)", fontWeight: 700, lineHeight: 1.2 }}>
-                    {logo.name}
-                  </span>
                 </div>
               ))}
             </div>
