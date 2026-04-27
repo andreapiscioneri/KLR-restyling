@@ -334,7 +334,7 @@ export function Privacy({ go }: { go?: (r: Route) => void }) {
                     </div>
                   ))}
                   <div className="px-6 py-4 border-t border-white/10" style={{ background: "rgba(255,255,255,0.05)" }}>
-                    <p className="text-white/40" style={{ fontSize: "0.75rem", lineHeight: 1.6, fontStyle: "italic" }}>
+                    <p className="text-white/70" style={{ fontSize: "0.75rem", lineHeight: 1.6, fontStyle: "italic" }}>
                       At the end of the conservation period, all Personal Data will be deleted or stored in a form that does not allow identification.
                     </p>
                   </div>

@@ -5,27 +5,11 @@ import { motion, useMotionValue, useSpring } from "motion/react";
 
 type CursorState = "default" | "explore" | "cta" | "link";
 
-function getLuminance(el: Element | null): number {
-  let node = el as HTMLElement | null;
-  while (node) {
-    const bg = getComputedStyle(node).backgroundColor;
-    const m = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
-    if (m) {
-      const r = +m[1], g = +m[2], b = +m[3];
-      if (r + g + b > 0) return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-    }
-    node = node.parentElement;
-  }
-  return 1;
-}
-
 export function CustomCursor() {
   const mouseX = useMotionValue(-200);
   const mouseY = useMotionValue(-200);
   const [state, setState] = useState<CursorState>("default");
   const [visible, setVisible] = useState(false);
-  const [dark, setDark] = useState(false);
-  const tickRef = useRef(false);
 
   const smoothX = useSpring(mouseX, { damping: 28, stiffness: 350, mass: 0.5 });
   const smoothY = useSpring(mouseY, { damping: 28, stiffness: 350, mass: 0.5 });
@@ -37,15 +21,6 @@ export function CustomCursor() {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
       if (!visible) setVisible(true);
-
-      if (!tickRef.current) {
-        tickRef.current = true;
-        requestAnimationFrame(() => {
-          tickRef.current = false;
-          const el = document.elementFromPoint(e.clientX, e.clientY);
-          setDark(getLuminance(el) < 0.5);
-        });
-      }
     };
 
     const onLeave = () => setVisible(false);
@@ -77,20 +52,20 @@ export function CustomCursor() {
 
   const size = state === "explore" ? 80 : state === "cta" ? 64 : state === "link" ? 44 : 32;
 
-  const ringColor = dark ? "rgba(255,255,255,0.9)" : "rgba(46,39,132,0.7)";
-  const dotColor = dark ? "#ffffff" : "#2E2784";
+  const ringColor = "rgba(255,255,255,0.9)";
+  const dotColor = "#ffffff";
 
   const bg =
-    state === "explore" ? (dark ? "rgba(255,255,255,0.15)" : "rgba(46,39,132,0.92)") :
+    state === "explore" ? "rgba(255,255,255,0.15)" :
     state === "cta"     ? "#F8AE01" :
-    state === "link"    ? (dark ? "rgba(255,255,255,0.15)" : "rgba(248,174,1,0.15)") :
+    state === "link"    ? "rgba(255,255,255,0.15)" :
     "transparent";
 
   const border =
     state === "default" ? `2px solid ${ringColor}` :
-    state === "link"    ? `2px solid ${dark ? "rgba(255,255,255,0.8)" : "#F8AE01"}` : "none";
+    state === "link"    ? "2px solid rgba(255,255,255,0.8)" : "none";
 
-  const labelColor = state === "explore" ? (dark ? "#ffffff" : "#ffffff") : "#000000";
+  const labelColor = state === "explore" ? "#ffffff" : "#000000";
 
   return (
     <>
