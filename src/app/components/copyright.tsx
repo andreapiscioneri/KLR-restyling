@@ -207,7 +207,7 @@ export function Copyright({ go }: { go?: (r: Route) => void }) {
               Governing Law &amp; Miscellaneous
             </div>
             <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4.5vw, 3.8rem)", lineHeight: 1.0, fontWeight: 800 }}>
-              Your rights,<br /><span className="text-black">our responsibilities.</span>
+              Your rights,<br /><span className="text-[#2E2784]">our responsibilities.</span>
             </h2>
 
             <div className="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
