@@ -1,207 +1,129 @@
 "use client";
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+
+import { ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
+import { softShadow } from "./ui-bits";
+import { PageHero } from "./page-hero";
 import { offices, images } from "../data";
 
-const gradients = {
+const G = {
   blue: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
   yellow: "radial-gradient(130% 130% at 15% 0%, #ffd95a 0%, #F8AE01 50%, #de9800 100%)",
 };
 
-function ContactHero() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+const officeLabels: Record<number, { label: string; city: string; country: string }> = {
+  0: { label: "Headquarter", city: "Koper", country: "Slovenia" },
+  1: { label: "Sales Office", city: "Rovato", country: "Italy" },
+};
 
+const nextSteps = [
+  { n: "01", title: "We review your message", desc: "Our team reads every inquiry carefully and responds within one business day." },
+  { n: "02", title: "Discovery call", desc: "If there's a fit, we schedule a short call to understand your goals and context." },
+  { n: "03", title: "Tailored proposal", desc: "From there, we propose an approach designed specifically for your campaign and market." },
+];
+
+
+function ContactFormSection() {
   return (
-    <section ref={ref} className="relative min-h-screen pt-40 pb-24 overflow-hidden">
-      <motion.div className="absolute inset-0" style={{ y }}>
-        <img src={images.contacts} alt="KLR Contacts" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-[#2E2784]/65" />
-      </motion.div>
+    <section id="contact-form" className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
+      <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/20 blur-3xl" />
+      <div className="max-w-6xl mx-auto px-8">
+        <AnimatedSection>
+          <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
+            Contact Form
+          </div>
+          <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4 max-w-3xl" style={{ fontSize: "clamp(2rem, 4.5vw, 3.8rem)", lineHeight: 1.0, fontWeight: 800 }}>
+            Let's Start Something<br />
+            <span style={{ fontStyle: "italic" }}>New Together</span>
+          </h2>
 
-      <motion.div
-        style={{ opacity }}
-        className="relative max-w-6xl mx-auto px-8 flex flex-col justify-end min-h-[calc(100vh-10rem)]"
-      >
-        <motion.h1
-          className="text-white tracking-[-0.04em] max-w-5xl"
-          style={{ fontSize: "clamp(3rem, 9vw, 8rem)", lineHeight: 0.92, fontWeight: 800 }}
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-        >
-          Contacts
-        </motion.h1>
-
-        <motion.div
-          className="mt-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-        >
-          <a
-            href="#contact-section"
-            className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-white hover:text-[#2E2784]"
+          <form
+            method="POST"
+            action="https://formsubmit.co/info@klr-europe.com"
+            className="mt-14 rounded-[40px] p-6 md:p-14 border border-[#2E2784]/10 grid md:grid-cols-2 gap-x-8 gap-y-8"
+            style={{ background: "rgba(255,255,255,0.3)", ...softShadow }}
           >
-            <span>Get in Touch</span>
-            <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
-              <ArrowUpRight className="w-4 h-4" />
-            </span>
-          </a>
-        </motion.div>
-      </motion.div>
-    </section>
-  );
-}
+            <input type="hidden" name="_subject" value="KLR Contact Form" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_next" value="https://klr-europe.com/thank-you" />
 
-function OurContacts() {
-  return (
-    <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.blue }}>
-      <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
-      <div className="max-w-6xl mx-auto px-8">
-        <AnimatedSection>
-          <div className="border-t border-white/20 pt-10 mb-16" />
-          <h2 className="text-white tracking-[-0.04em] max-w-4xl" style={{ fontSize: "clamp(2rem, 5vw, 4.5rem)", lineHeight: 0.95, fontWeight: 800 }}>
-            Our Contacts
-          </h2>
-
-          <div className="mt-16 grid md:grid-cols-2 gap-16">
-            {offices.map((office) => (
-              <div key={office.city}>
-                <h3 className="text-white tracking-[-0.02em]" style={{ fontSize: "clamp(1.4rem, 2vw, 2rem)", fontWeight: 700, lineHeight: 1.2 }}>
-                  {office.city}
-                </h3>
-                <div className="tracking-[0.2em] uppercase text-[#F8AE01] mt-6" style={{ fontSize: "0.75rem", fontWeight: 600 }}>
-                  {office.region}
-                </div>
-                <div className="text-white/80 tracking-tight mt-6 whitespace-pre-line" style={{ fontSize: "0.95rem", lineHeight: 1.7 }}>
-                  {office.addr}
-                </div>
-                <div className="text-white tracking-tight mt-6 font-medium" style={{ fontSize: "0.95rem" }}>
-                  {office.phone}
-                </div>
-                {office.email && (
-                  <div className="text-white tracking-tight mt-2" style={{ fontSize: "0.95rem" }}>
-                    {office.email}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </AnimatedSection>
-      </div>
-    </section>
-  );
-}
-
-function InternationalReach() {
-  return (
-    <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.blue }}>
-      <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
-      <div className="max-w-6xl mx-auto px-8">
-        <AnimatedSection>
-          <h2 className="text-[#F8AE01] tracking-[0.14em] uppercase" style={{ fontSize: "clamp(1.8rem, 3.2vw, 3.2rem)", lineHeight: 1.15 }}>
-            20 Countries and<br />Growing
-          </h2>
-          <div className="mt-12 rounded-[32px] overflow-hidden border border-white/10">
-            <img src={images.map} alt="KLR European presence" className="w-full h-auto" />
-          </div>
-          <p className="mt-12 text-white" style={{ fontSize: "clamp(1.05rem, 1.45vw, 1.55rem)", lineHeight: 1.55 }}>
-            Based in Italy and Slovenia, we operate in 20 countries in Europe and keep growing. Having an international network of partners helps us to better serve our multinational clients by providing local expertise and understanding of different cultures and consumer behaviours.
-          </p>
-        </AnimatedSection>
-      </div>
-    </section>
-  );
-}
-
-function ContactForm() {
-  return (
-    <section id="contact-section" className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: "#fff" }}>
-      <div className="absolute -top-24 -left-20 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
-      <div className="max-w-6xl mx-auto px-8">
-        <AnimatedSection>
-          <h2 className="text-[#2E2784] tracking-[-0.04em] max-w-4xl" style={{ fontSize: "clamp(2rem, 5vw, 4.5rem)", lineHeight: 0.95, fontWeight: 800 }}>
-            Let's get start
-            <br />
-            <span className="text-black">something new together</span>
-          </h2>
-
-          <p className="text-black/70 mt-8 max-w-2xl" style={{ fontSize: "1.1rem", lineHeight: 1.6 }}>
-            Reach out to us with your ideas. Our team will respond within one business day to discuss how we can bring your loyalty marketing vision to life.
-          </p>
-
-          <form className="mt-16 max-w-3xl rounded-[32px] bg-white/95 backdrop-blur-sm border border-white/60 p-10 md:p-16 space-y-8">
-            <div className="grid md:grid-cols-2 gap-x-8 gap-y-8">
-              <div className="border-b-2 border-[#F8AE01]/20 pb-3">
-                <label className="tracking-[0.2em] uppercase text-[#2E2784] block mb-3" style={{ fontSize: "0.7rem", fontWeight: 600 }}>
-                  Full Name *
-                </label>
-                <input
-                  placeholder="Your name"
-                  className="w-full bg-transparent outline-none text-[#2E2784] placeholder:text-black/30 tracking-tight font-medium"
-                  style={{ fontSize: "1rem" }}
-                  required
-                />
-              </div>
-              <div className="border-b-2 border-[#F8AE01]/20 pb-3">
-                <label className="tracking-[0.2em] uppercase text-[#2E2784] block mb-3" style={{ fontSize: "0.7rem", fontWeight: 600 }}>
-                  Email *
-                </label>
-                <input
-                  type="email"
-                  placeholder="your@company.com"
-                  className="w-full bg-transparent outline-none text-[#2E2784] placeholder:text-black/30 tracking-tight font-medium"
-                  style={{ fontSize: "1rem" }}
-                  required
-                />
-              </div>
-              <div className="border-b-2 border-[#F8AE01]/20 pb-3">
-                <label className="tracking-[0.2em] uppercase text-[#2E2784] block mb-3" style={{ fontSize: "0.7rem", fontWeight: 600 }}>
-                  Company
-                </label>
-                <input
-                  placeholder="Your company"
-                  className="w-full bg-transparent outline-none text-[#2E2784] placeholder:text-black/30 tracking-tight font-medium"
-                  style={{ fontSize: "1rem" }}
-                />
-              </div>
-              <div className="border-b-2 border-[#F8AE01]/20 pb-3">
-                <label className="tracking-[0.2em] uppercase text-[#2E2784] block mb-3" style={{ fontSize: "0.7rem", fontWeight: 600 }}>
-                  Job Title
-                </label>
-                <input
-                  placeholder="Your role"
-                  className="w-full bg-transparent outline-none text-[#2E2784] placeholder:text-black/30 tracking-tight font-medium"
-                  style={{ fontSize: "1rem" }}
-                />
-              </div>
-            </div>
-
-            <div className="border-b-2 border-[#F8AE01]/20 pb-3">
-              <label className="tracking-[0.2em] uppercase text-[#2E2784] block mb-3" style={{ fontSize: "0.7rem", fontWeight: 600 }}>
-                Message *
+            {/* Full Name */}
+            <div className="border-b border-[#2E2784]/20 pb-4">
+              <label className="tracking-[0.2em] uppercase text-[#2E2784]/60 block mb-2" style={{ fontSize: "0.62rem", fontWeight: 700 }}>
+                Full Name *
               </label>
-              <textarea
-                rows={6}
-                placeholder="Tell us about your loyalty marketing goals…"
-                className="w-full bg-transparent outline-none text-[#2E2784] placeholder:text-black/30 tracking-tight resize-none font-medium"
-                style={{ fontSize: "1rem" }}
+              <input
+                name="name"
+                placeholder="Your full name"
                 required
+                className="w-full bg-transparent outline-none text-[#2E2784] placeholder:text-[#2E2784]/40 tracking-tight font-medium"
+                style={{ fontSize: "1rem" }}
               />
             </div>
 
-            <div className="pt-4">
+            {/* Email */}
+            <div className="border-b border-[#2E2784]/20 pb-4">
+              <label className="tracking-[0.2em] uppercase text-[#2E2784]/60 block mb-2" style={{ fontSize: "0.62rem", fontWeight: 700 }}>
+                Email Address *
+              </label>
+              <input
+                name="email"
+                type="email"
+                placeholder="your@company.com"
+                required
+                className="w-full bg-transparent outline-none text-[#2E2784] placeholder:text-[#2E2784]/40 tracking-tight font-medium"
+                style={{ fontSize: "1rem" }}
+              />
+            </div>
+
+            {/* Company */}
+            <div className="border-b border-[#2E2784]/20 pb-4">
+              <label className="tracking-[0.2em] uppercase text-[#2E2784]/60 block mb-2" style={{ fontSize: "0.62rem", fontWeight: 700 }}>
+                Company Name
+              </label>
+              <input
+                name="company"
+                placeholder="Your company"
+                className="w-full bg-transparent outline-none text-[#2E2784] placeholder:text-[#2E2784]/40 tracking-tight font-medium"
+                style={{ fontSize: "1rem" }}
+              />
+            </div>
+
+            {/* Job Title */}
+            <div className="border-b border-[#2E2784]/20 pb-4">
+              <label className="tracking-[0.2em] uppercase text-[#2E2784]/60 block mb-2" style={{ fontSize: "0.62rem", fontWeight: 700 }}>
+                Job Title
+              </label>
+              <input
+                name="job_title"
+                placeholder="Your role"
+                className="w-full bg-transparent outline-none text-[#2E2784] placeholder:text-[#2E2784]/40 tracking-tight font-medium"
+                style={{ fontSize: "1rem" }}
+              />
+            </div>
+
+            {/* Message */}
+            <div className="border-b border-[#2E2784]/20 pb-4 md:col-span-2">
+              <label className="tracking-[0.2em] uppercase text-[#2E2784]/60 block mb-2" style={{ fontSize: "0.62rem", fontWeight: 700 }}>
+                Your Message *
+              </label>
+              <textarea
+                name="message"
+                rows={5}
+                placeholder="Tell us about your campaign, idea, or question…"
+                required
+                className="w-full bg-transparent outline-none text-[#2E2784] placeholder:text-[#2E2784]/40 tracking-tight font-medium resize-none"
+                style={{ fontSize: "1rem" }}
+              />
+            </div>
+
+            <div className="md:col-span-2 mt-2">
               <button
                 type="submit"
                 className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
               >
-                <span>Send Message</span>
+                <span style={{ fontWeight: 700 }}>Send Message</span>
                 <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
                   <ArrowUpRight className="w-4 h-4" />
                 </span>
@@ -214,39 +136,111 @@ function ContactForm() {
   );
 }
 
-function ClosingCta() {
+function WhatHappensNext() {
   return (
-    <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.blue }}>
-      <div className="absolute -bottom-24 right-20 w-[380px] h-[380px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
+    <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+      <div className="absolute -top-20 -right-24 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
       <div className="max-w-6xl mx-auto px-8">
         <AnimatedSection>
-          <div className="grid md:grid-cols-2 gap-10 items-center">
-            <div>
-              <h2 className="text-white" style={{ fontSize: "clamp(2rem, 4.5vw, 4.5rem)", lineHeight: 1.05, fontWeight: 800 }}>
-                Ready to
-                <br />
-                discuss your
-                <br />
-                <span className="text-[#F8AE01]">loyalty strategy?</span>
-              </h2>
-              <p className="mt-8 text-white/90" style={{ fontSize: "clamp(1.08rem, 1.5vw, 1.7rem)", lineHeight: 1.35 }}>
-                Reach out directly and let's explore how we can help you build stronger customer loyalty.
-              </p>
-            </div>
-            <div className="md:text-right">
-              <div className="inline-block rounded-[28px] bg-white/90 backdrop-blur-sm border border-white/60 p-10">
-                <div className="tracking-[0.2em] uppercase text-[#F8AE01]" style={{ fontSize: "0.75rem", fontWeight: 600 }}>
-                  Email us
+          <div className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
+            What Happens Next
+          </div>
+          <h2 className="text-white tracking-[-0.035em] mt-4 max-w-2xl" style={{ fontSize: "clamp(2rem, 4.5vw, 3.8rem)", lineHeight: 1.0, fontWeight: 800 }}>
+            Simple steps,<br />
+            <span className="text-[#F8AE01]">real results</span>
+          </h2>
+
+          <div className="mt-14 grid md:grid-cols-3 gap-5">
+            {nextSteps.map((step) => (
+              <div
+                key={step.n}
+                className="rounded-[28px] p-7 border border-white/12"
+                style={{ background: "linear-gradient(145deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.04) 100%)", ...softShadow }}
+              >
+                <div className="w-10 h-10 rounded-full bg-[#F8AE01] flex items-center justify-center mb-5">
+                  <span className="text-[#2E2784] tracking-tight" style={{ fontSize: "0.7rem", fontWeight: 800 }}>{step.n}</span>
                 </div>
-                <a
-                  href="mailto:info@klr-europe.com"
-                  className="text-[#2E2784] tracking-[-0.02em] mt-4 block hover:text-[#F8AE01] transition-colors font-medium"
-                  style={{ fontSize: "1.3rem" }}
-                >
-                  info@klr-europe.com
-                </a>
+                <h3 className="text-white tracking-[-0.02em]" style={{ fontSize: "1.1rem", fontWeight: 700, lineHeight: 1.2 }}>
+                  {step.title}
+                </h3>
+                <p className="text-white/70 tracking-tight mt-3" style={{ fontSize: "0.9rem", lineHeight: 1.6 }}>
+                  {step.desc}
+                </p>
               </div>
-            </div>
+            ))}
+          </div>
+        </AnimatedSection>
+      </div>
+    </section>
+  );
+}
+
+function Offices() {
+  return (
+    <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
+      <div className="absolute -bottom-24 -left-20 w-[360px] h-[360px] rounded-full bg-white/20 blur-3xl" />
+      <div className="max-w-6xl mx-auto px-8">
+        <AnimatedSection>
+          <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
+            Offices
+          </div>
+          <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4.5vw, 3.8rem)", lineHeight: 1.0, fontWeight: 800 }}>
+            Find Us
+          </h2>
+
+          <div className="mt-14 grid md:grid-cols-2 gap-6">
+            {offices.map((office, i) => {
+              const meta = officeLabels[i];
+              return (
+                <div
+                  key={office.city}
+                  className="rounded-[28px] p-7 md:p-10 border border-[#2E2784]/15"
+                  style={{ background: "#2E2784", ...softShadow }}
+                >
+                  <div className="tracking-[0.2em] uppercase text-[#F8AE01]" style={{ fontSize: "0.65rem", fontWeight: 700 }}>
+                    {meta.label}
+                  </div>
+                  <h3 className="text-white tracking-[-0.02em] mt-3" style={{ fontSize: "1.5rem", fontWeight: 800 }}>
+                    {meta.city}
+                    <span className="text-white/50 ml-2" style={{ fontSize: "1rem", fontWeight: 500 }}>{meta.country}</span>
+                  </h3>
+
+                  <div className="mt-7 space-y-4">
+                    <div className="flex items-start gap-3">
+                      <MapPin className="w-4 h-4 text-[#F8AE01] flex-shrink-0 mt-0.5" />
+                      <p className="text-white/80 tracking-tight whitespace-pre-line" style={{ fontSize: "0.9rem", lineHeight: 1.65 }}>
+                        {office.addr}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Phone className="w-4 h-4 text-[#F8AE01] flex-shrink-0" />
+                      <a
+                        href={`tel:${office.phone.replace(/\s/g, "")}`}
+                        className="text-white/80 hover:text-white transition-colors tracking-tight"
+                        style={{ fontSize: "0.9rem" }}
+                      >
+                        {office.phone}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Global email */}
+          <div className="mt-8 rounded-[28px] p-7 border border-[#2E2784]/15 flex flex-col sm:flex-row sm:items-center gap-4" style={{ background: "rgba(255,255,255,0.3)", ...softShadow }}>
+            <Mail className="w-5 h-5 text-[#2E2784] flex-shrink-0" />
+            <a
+              href="mailto:info@klr-europe.com"
+              className="text-[#2E2784] hover:text-black transition-colors tracking-tight"
+              style={{ fontSize: "1.1rem", fontWeight: 700 }}
+            >
+              info@klr-europe.com
+            </a>
+            <span className="text-[#2E2784]/50 tracking-tight sm:ml-2" style={{ fontSize: "0.85rem" }}>
+              — for any inquiry, from anywhere in Europe
+            </span>
           </div>
         </AnimatedSection>
       </div>
@@ -257,11 +251,16 @@ function ClosingCta() {
 export function Contact() {
   return (
     <>
-      <ContactHero />
-      <OurContacts />
-      <InternationalReach />
-      <ContactForm />
-      <ClosingCta />
+      <PageHero
+        eyebrow="Contact"
+        title={<>Keep in Touch<span className="text-[#F8AE01]">!</span></>}
+        subtitle="Whether you're ready to launch a campaign, exploring ideas, looking for a brand partnership, or simply curious — we'd love to hear from you."
+        image={images.contacts}
+        cta={{ label: "Get in Touch", href: "#contact-form" }}
+      />
+      <ContactFormSection />
+      <WhatHappensNext />
+      <Offices />
     </>
   );
 }
