@@ -10,6 +10,7 @@ import type { Route } from "../App";
 const G = {
   blue: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
   yellow: "radial-gradient(130% 130% at 15% 0%, #ffd95a 0%, #F8AE01 50%, #de9800 100%)",
+  rosa: "radial-gradient(130% 130% at 10% 0%, #f0e8ff 0%, #C8B8F0 45%, #9d85d4 100%)",
 };
 
 const dataCategories = [
@@ -183,9 +184,9 @@ export function Privacy({ go }: { go?: (r: Route) => void }) {
         </div>
       </section>
 
-      {/* COOKIES — yellow */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
-        <div className="absolute -bottom-24 -left-20 w-[360px] h-[360px] rounded-full bg-white/20 blur-3xl" />
+      {/* COOKIES — rosa */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
+        <div className="absolute -top-24 right-0 w-[400px] h-[400px] rounded-full bg-white/10 blur-3xl pointer-events-none" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="flex items-center gap-4 mb-4">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "motion/react";
 
 interface Props {
@@ -20,11 +20,19 @@ export function AnimatedSection({
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once, margin: "-8% 0px" });
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.matchMedia("(pointer: coarse)").matches);
+  }, []);
+
+  // On mobile: opacity-only fade, no translate (avoids scroll jank)
+  const travel = isMobile ? 0 : 40;
 
   const initial = {
     opacity: 0,
-    y: direction === "up" ? 40 : 0,
-    x: direction === "left" ? -40 : direction === "right" ? 40 : 0,
+    y: direction === "up" ? travel : 0,
+    x: direction === "left" ? -travel : direction === "right" ? travel : 0,
   };
 
   return (
@@ -34,9 +42,9 @@ export function AnimatedSection({
       initial={initial}
       animate={isInView ? { opacity: 1, y: 0, x: 0 } : initial}
       transition={{
-        duration: 0.75,
+        duration: isMobile ? 0.4 : 0.75,
         ease: [0.25, 0.1, 0.25, 1],
-        delay,
+        delay: isMobile ? 0 : delay,
       }}
     >
       {children}

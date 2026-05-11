@@ -4,11 +4,12 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { PageHero } from "@/src/app/components/page-hero";
-import { pillars, sectors } from "@/src/app/data";
+import { pillars, sectors, images } from "@/src/app/data";
 
 const G = {
-  blue: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
+  blue:   "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
   yellow: "radial-gradient(130% 130% at 15% 0%, #ffd95a 0%, #F8AE01 50%, #de9800 100%)",
+  rosa:   "radial-gradient(130% 130% at 10% 0%, #f0e8ff 0%, #C8B8F0 45%, #9d85d4 100%)",
 };
 
 const pillarImages = ["/1.png", "/2.png", "/3.png"];
@@ -78,12 +79,8 @@ function PillarSection({
                 ))}
               </div>
 
-              <p className={`${textColor} tracking-tight mt-6 italic`} style={{ fontSize: "0.9rem", lineHeight: 1.6 }}>
-                Overall, we are loyalty makers for any retailer.
-              </p>
-
               {index === 1 && (
-                <div className="mt-8">
+                <div className="mt-8 flex">
                   <Link
                     href="/case-studies/"
                     className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
@@ -100,11 +97,11 @@ function PillarSection({
             {/* Circle image */}
             <div className="relative flex justify-center md:justify-end">
               <div
-                className={`absolute -bottom-10 -left-6 w-[200px] h-[200px] rounded-full border-[5px] ${isYellow ? "border-[#2E2784]" : "border-[#F8AE01]"}`}
+                className="absolute -bottom-10 -left-6 w-[200px] h-[200px] rounded-full"
                 style={{ background: isYellow ? "color-mix(in oklab, #2E2784 20%, transparent)" : "color-mix(in oklab, #F8AE01 20%, transparent)" }}
               />
               <div
-                className={`relative w-[330px] h-[330px] md:w-[450px] md:h-[450px] rounded-full overflow-hidden border-[5px] ${isYellow ? "border-[#2E2784]" : "border-[#F8AE01]"}`}
+                className="relative w-[280px] h-[280px] md:w-[360px] md:h-[360px] lg:w-[450px] lg:h-[450px] rounded-full overflow-hidden"
                 style={{ boxShadow: "0 40px 100px -40px rgba(46,39,132,0.18)" }}
               >
                 <img src={img} alt={pillar.title} className="w-full h-full object-cover" />
@@ -125,7 +122,7 @@ export function ServicesClient() {
         eyebrow="Our Services"
         title={<>360° Loyalty<br /><span className="text-[#F8AE01]">Campaign Design & Execution</span></>}
         subtitle="From the first strategic brief to the last reward delivered — we cover every stage, in every market."
-        image="/3.png"
+        image={images.human}
         cta={{ label: "Let's Talk", href: "/contact" }}
       >
         <div className="max-w-2xl mt-5">
@@ -144,7 +141,7 @@ export function ServicesClient() {
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              Born for Grocery &amp; Petrol
+              Our Services
             </div>
             <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
               Three Pillars.<br />One Seamless Experience.
@@ -163,7 +160,7 @@ export function ServicesClient() {
               ))}
             </div>
 
-            <div className="mt-14 grid md:grid-cols-3 gap-6">
+            <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {pillars.map((p) => (
                 <div key={p.n} className="rounded-[28px] p-8" style={{ background: "rgba(255,255,255,0.18)", border: "1px solid rgba(255,255,255,0.4)" }}>
                   <div className="text-[#2E2784]/40 tracking-[0.1em]" style={{ fontSize: "0.75rem", fontWeight: 700 }}>
@@ -193,6 +190,78 @@ export function ServicesClient() {
         />
       ))}
 
+      {/* BORN FOR GROCERY & PETROL + NEXT CHALLENGE */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
+        <div className="absolute -top-24 right-0 w-[400px] h-[400px] rounded-full bg-white/10 blur-3xl pointer-events-none" />
+        <div className="max-w-6xl mx-auto px-8">
+          <AnimatedSection>
+
+            {/* ── Born for Grocery & Petrol ── */}
+            <div className="tracking-[0.3em] uppercase text-[#2E2784]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
+              Our Ecosystem
+            </div>
+            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4 mb-10" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
+              We Were Born for<br /><span className="text-black">Grocery &amp; Petrol</span>
+            </h2>
+
+            <div className="grid md:grid-cols-2 gap-6 mb-16">
+              {[
+                { title: sectors[0].title, desc: sectors[0].desc, img: images.family },
+                { title: sectors[1].title, desc: sectors[1].desc, img: images.hero },
+              ].map((s) => (
+                <div key={s.title} className="rounded-[28px] overflow-hidden relative" style={{ minHeight: "280px" }}>
+                  <img src={s.img} alt={s.title} className="absolute inset-0 w-full h-full object-cover" />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(46,39,132,0.92) 0%, rgba(46,39,132,0.5) 50%, transparent 100%)" }} />
+                  <div className="relative flex flex-col justify-end p-8" style={{ minHeight: "280px" }}>
+                    <h3 className="text-white tracking-[-0.02em]" style={{ fontSize: "1.4rem", fontWeight: 700 }}>{s.title}</h3>
+                    <p className="text-white/70 mt-3 tracking-tight" style={{ fontSize: "0.9rem", lineHeight: 1.6 }}>{s.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* ── Next Challenge — 2 col: text+pills left, image right ── */}
+            <div className="rounded-[32px] overflow-hidden grid md:grid-cols-2" style={{ background: "rgba(255,255,255,0.18)", border: "1px solid rgba(255,255,255,0.35)" }}>
+              {/* Left */}
+              <div className="p-10 md:p-12 flex flex-col justify-between gap-8">
+                <div>
+                  <p className="text-[#2E2784] tracking-tight mb-8" style={{ fontSize: "1.05rem", fontWeight: 600 }}>
+                    But we are ready to take on the next challenge:
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {["Drugstores", "Pet Stores", "Convenience Stores & On-The-Go", "All-In-Stores (Bazaars)"].map((cat) => (
+                      <span
+                        key={cat}
+                        className="px-5 py-2.5 rounded-full tracking-tight"
+                        style={{ background: "rgba(255,255,255,0.6)", border: "2px solid #2E2784", color: "#2E2784", fontSize: "0.88rem", fontWeight: 700 }}
+                      >
+                        {cat}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* "Overall" statement */}
+                <div className="rounded-[20px] px-7 py-6" style={{ background: "#241f69" }}>
+                  <p className="tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.6rem)", fontWeight: 800, lineHeight: 1.25, color: "white" }}>
+                    Overall, we are{" "}
+                    <span style={{ color: "#F8AE01" }}>loyalty Makers</span>{" "}
+                    for any retailer.
+                  </p>
+                </div>
+              </div>
+
+              {/* Right — cartoon in circle with blue bg */}
+              <div className="relative flex items-center justify-center min-h-[320px] p-10" style={{ background: "#2E2784" }}>
+                <div className="absolute bottom-6 left-6 w-28 h-28 rounded-full" style={{ background: "rgba(46,39,132,0.5)" }} />
+                <img src="/1.png" alt="Loyalty for any retailer" className="relative z-10 w-full max-w-[320px] h-auto object-contain" />
+              </div>
+            </div>
+
+          </AnimatedSection>
+        </div>
+      </section>
+
       {/* CLOSING CTA — yellow */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute -bottom-20 -right-20 w-[360px] h-[360px] rounded-full bg-white/20 blur-3xl" />
@@ -213,7 +282,7 @@ export function ServicesClient() {
                   href="/contact"
                   className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
                 >
-                  <span>Keep in Touch!</span>
+                  <span>Get in Touch</span>
                   <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
                     <ArrowUpRight className="w-4 h-4" />
                   </span>

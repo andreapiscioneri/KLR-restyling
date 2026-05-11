@@ -110,40 +110,40 @@ export function Blog({ go }: { go: (r: Route) => void }) {
         cta={{ label: "Explore Articles", href: "#insight-feed" }}
       />
 
-      {/* FEATURED ARTICLE — blue */}
+      {/* FEATURED ARTICLE — yellow */}
       {featured && (
-        <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
-          <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
+        <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
+          <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
           <div className="max-w-6xl mx-auto px-8">
             <AnimatedSection>
-              <div className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
+              <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
                 Featured Article
               </div>
-              <div className="mt-8 grid md:grid-cols-2 gap-8 rounded-[32px] overflow-hidden border border-white/10 bg-white/5" style={softShadow}>
+              <div className="mt-8 grid md:grid-cols-2 gap-8 rounded-[32px] overflow-hidden border border-[#2E2784]/20 bg-[#2E2784]/8" style={softShadow}>
                 <div className="min-h-[280px] md:min-h-[420px]">
                   <ImageWithFallback src={featured.img} alt={featured.title} className="w-full h-full object-cover" />
                 </div>
                 <div className="p-8 md:p-10 flex flex-col">
-                  <div className="text-[#F8AE01] tracking-[0.2em] uppercase" style={{ fontSize: "0.62rem", fontWeight: 700 }}>
+                  <div className="text-[#2E2784] tracking-[0.2em] uppercase" style={{ fontSize: "0.62rem", fontWeight: 700 }}>
                     {featured.normalizedCategory}
                   </div>
-                  <h2 className="text-white tracking-[-0.03em] mt-5" style={{ fontSize: "clamp(1.7rem, 2.8vw, 2.7rem)", lineHeight: 1.15, fontWeight: 800 }}>
+                  <h2 className="text-[#2E2784] tracking-[-0.03em] mt-5" style={{ fontSize: "clamp(1.7rem, 2.8vw, 2.7rem)", lineHeight: 1.15, fontWeight: 800 }}>
                     {featured.title}
                   </h2>
-                  <p className="text-white/70 tracking-tight mt-5" style={{ fontSize: "0.95rem", lineHeight: 1.6 }}>
+                  <p className="text-black/60 tracking-tight mt-5" style={{ fontSize: "0.95rem", lineHeight: 1.6 }}>
                     {featured.excerpt}
                   </p>
 
                   <div className="mt-6 flex items-center gap-3">
-                    <img src={featured.authorAvatar} alt={featured.authorName} className="w-9 h-9 rounded-full object-cover border border-white/15" />
-                    <div className="text-white/75 tracking-tight" style={{ fontSize: "0.82rem" }}>
+                    <img src={featured.authorAvatar} alt={featured.authorName} className="w-9 h-9 rounded-full object-cover border border-[#2E2784]/20" />
+                    <div className="text-[#2E2784]/70 tracking-tight" style={{ fontSize: "0.82rem" }}>
                       {featured.authorName} · {featured.readingTime} · {featured.date}
                     </div>
                   </div>
 
                   <button
                     onClick={() => go({ page: "blog-detail", slug: featured.slug })}
-                    className="mt-auto pt-8 inline-flex items-center gap-2 text-[#F8AE01] hover:text-white transition-colors tracking-tight"
+                    className="mt-auto pt-8 inline-flex items-center gap-2 text-[#2E2784] hover:text-black transition-colors tracking-tight"
                     style={{ fontSize: "0.9rem", fontWeight: 600 }}
                   >
                     Read featured article <ArrowUpRight className="w-4 h-4" />
@@ -155,21 +155,21 @@ export function Blog({ go }: { go: (r: Route) => void }) {
         </section>
       )}
 
-      {/* INSIGHTS FEED — yellow */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
-        <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/20 blur-3xl" />
-        <div className="absolute -bottom-24 -left-20 w-[360px] h-[360px] rounded-full bg-[#2E2784]/15 blur-3xl" />
+      {/* INSIGHTS FEED — blue */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+        <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
+        <div className="absolute -bottom-24 -left-20 w-[360px] h-[360px] rounded-full bg-[#C8B8F0]/10 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <div id="insight-feed" className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
+            <div id="insight-feed" className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
               Categories
             </div>
-            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.05, fontWeight: 800 }}>
+            <h2 className="text-white tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.05, fontWeight: 800 }}>
               Insights Feed
             </h2>
 
             {loading && (
-              <div className="text-[#2E2784]/55 tracking-tight mt-4" style={{ fontSize: "0.85rem" }}>Loading latest articles…</div>
+              <div className="text-white/55 tracking-tight mt-4" style={{ fontSize: "0.85rem" }}>Loading latest articles…</div>
             )}
 
             {/* Category filter */}
@@ -178,10 +178,10 @@ export function Blog({ go }: { go: (r: Route) => void }) {
                 <button
                   key={c}
                   onClick={() => { setCat(c); setVisible(PAGE_SIZE); }}
-                  className={`rounded-full px-5 py-2 tracking-tight transition-all border ${
+                  className={`rounded-full px-5 py-2 tracking-tight transition-all ${
                     cat === c
-                      ? "bg-[#2E2784] text-white border-[#2E2784] font-semibold"
-                      : "text-[#2E2784] border-[#2E2784]/20 bg-white/70 hover:border-[#F8AE01] hover:text-[#F8AE01] hover:bg-white"
+                      ? "bg-[#F8AE01] text-black font-semibold"
+                      : "bg-white/10 text-white hover:bg-white/20"
                   }`}
                   style={{ fontSize: "0.85rem" }}
                 >
@@ -189,55 +189,57 @@ export function Blog({ go }: { go: (r: Route) => void }) {
                 </button>
               ))}
             </div>
-
-            {/* Grid */}
-            <div className="mt-12 grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {feed.slice(0, visible).map((p) => (
-                <button
-                  key={p.id}
-                  onClick={() => go({ page: "blog-detail", slug: p.slug })}
-                  className="group rounded-[28px] overflow-hidden bg-[#2E2784] border border-white/20 text-left"
-                  style={softShadow}
-                >
-                  <div className="aspect-[16/10] overflow-hidden">
-                    <ImageWithFallback src={p.img} alt={p.title} className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[1200ms]" />
-                  </div>
-                  <div className="p-6">
-                    <div className="text-[#F8AE01] tracking-[0.18em] uppercase" style={{ fontSize: "0.62rem", fontWeight: 700 }}>
-                      {p.normalizedCategory}
-                    </div>
-                    <div className="text-white tracking-[-0.02em] mt-3" style={{ fontSize: "1rem", fontWeight: 700, lineHeight: 1.35 }}>{p.title}</div>
-
-                    <div className="mt-4 flex items-center gap-3">
-                      <img src={p.authorAvatar} alt={p.authorName} className="w-8 h-8 rounded-full object-cover border border-white/15" />
-                      <div className="text-white/65 tracking-tight" style={{ fontSize: "0.78rem" }}>
-                        {p.authorName} · {p.readingTime}
-                      </div>
-                    </div>
-
-                    <div className="text-white/55 tracking-tight mt-3" style={{ fontSize: "0.78rem" }}>{p.date}</div>
-                    <p className="text-white/75 tracking-tight mt-3 line-clamp-3" style={{ fontSize: "0.85rem", lineHeight: 1.55 }}>{p.excerpt}…</p>
-                    <div className="text-[#F8AE01] tracking-tight font-semibold mt-4 group-hover:text-white transition-colors inline-flex items-center gap-2" style={{ fontSize: "0.85rem" }}>
-                      Read More <ArrowUpRight className="w-4 h-4" />
-                    </div>
-                  </div>
-                </button>
-              ))}
-            </div>
-
-            {/* Load More */}
-            {visible < feed.length && (
-              <div className="mt-14 flex justify-center">
-                <button
-                  onClick={() => setVisible((v) => v + PAGE_SIZE)}
-                  className="rounded-full px-10 py-3.5 bg-[#2E2784] text-white tracking-tight transition-all hover:bg-[#F8AE01] hover:text-black border border-white/10"
-                  style={{ fontSize: "0.9rem", fontWeight: 600 }}
-                >
-                  Load More
-                </button>
-              </div>
-            )}
           </AnimatedSection>
+
+          {/* Grid — outside AnimatedSection so state updates don't re-trigger animation */}
+          <div className="mt-12 grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {feed.slice(0, visible).map((p) => (
+              <button
+                key={p.id}
+                type="button"
+                onClick={() => go({ page: "blog-detail", slug: p.slug })}
+                className="group rounded-[28px] overflow-hidden border border-white/20 text-left cursor-pointer"
+                style={{ background: "rgba(255,255,255,0.07)", touchAction: "manipulation", ...softShadow }}
+              >
+                <div className="aspect-[16/10] overflow-hidden">
+                  <ImageWithFallback src={p.img} alt={p.title} className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[1200ms]" />
+                </div>
+                <div className="p-6">
+                  <div className="text-[#F8AE01] tracking-[0.18em] uppercase" style={{ fontSize: "0.62rem", fontWeight: 700 }}>
+                    {p.normalizedCategory}
+                  </div>
+                  <div className="text-white tracking-[-0.02em] mt-3" style={{ fontSize: "1rem", fontWeight: 700, lineHeight: 1.35 }}>{p.title}</div>
+
+                  <div className="mt-4 flex items-center gap-3">
+                    <img src={p.authorAvatar} alt={p.authorName} className="w-8 h-8 rounded-full object-cover border border-white/15" />
+                    <div className="text-white/65 tracking-tight" style={{ fontSize: "0.78rem" }}>
+                      {p.authorName} · {p.readingTime}
+                    </div>
+                  </div>
+
+                  <div className="text-white/55 tracking-tight mt-3" style={{ fontSize: "0.78rem" }}>{p.date}</div>
+                  <p className="text-white/75 tracking-tight mt-3 line-clamp-3" style={{ fontSize: "0.85rem", lineHeight: 1.55 }}>{p.excerpt}…</p>
+                  <div className="text-[#F8AE01] tracking-tight font-semibold mt-4 group-hover:text-white transition-colors inline-flex items-center gap-2" style={{ fontSize: "0.85rem" }}>
+                    Read More <ArrowUpRight className="w-4 h-4" />
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
+
+          {/* Load More */}
+          {visible < feed.length && (
+            <div className="mt-14 pb-2 flex justify-center relative z-10">
+              <button
+                type="button"
+                onClick={() => setVisible((v) => v + PAGE_SIZE)}
+                className="rounded-full px-10 py-4 bg-[#F8AE01] text-black tracking-tight transition-all active:scale-95 cursor-pointer"
+                style={{ fontSize: "0.9rem", fontWeight: 600, touchAction: "manipulation", WebkitTapHighlightColor: "transparent" }}
+              >
+                Load More
+              </button>
+            </div>
+          )}
         </div>
       </section>
 

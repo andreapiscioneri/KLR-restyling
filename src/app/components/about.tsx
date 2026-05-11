@@ -80,7 +80,11 @@ export function About({ go }: { go: (r: Route) => void }) {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mt-16 pt-10 border-t border-white/10">
               {stats.map((s) => (
                 <div key={s.v}>
-                  <div className="text-[#F8AE01] tracking-[-0.04em]" style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)", lineHeight: 1, fontWeight: 800 }}>{s.k}</div>
+                  {s.k === "10+" ? (
+                    <img src="/anniv.png" alt="KLR 10 Years" className="h-16 w-auto object-contain drop-shadow-[0_0_16px_rgba(248,174,1,0.4)]" />
+                  ) : (
+                    <div className="text-[#F8AE01] tracking-[-0.04em]" style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)", lineHeight: 1, fontWeight: 800 }}>{s.k}</div>
+                  )}
                   <div className="text-white tracking-tight mt-3" style={{ fontSize: "clamp(0.9rem, 1.3vw, 1.2rem)" }}>{s.v}</div>
                 </div>
               ))}

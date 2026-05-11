@@ -37,22 +37,22 @@ export function Studies({ go }: { go: (r: Route) => void }) {
         image={images.services}
       />
 
-      {/* FILTERS + GRID — yellow */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
-        <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
-        <div className="absolute -bottom-24 -left-24 w-[420px] h-[420px] rounded-full bg-[#2E2784]/15 blur-3xl" />
+      {/* FILTERS + GRID — blue */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+        <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
+        <div className="absolute -bottom-24 -left-24 w-[420px] h-[420px] rounded-full bg-[#C8B8F0]/10 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
+            <div className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
               Filters
             </div>
-            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-              Find the Right Campaign Story
+            <h2 className="text-white tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
+              Find the Right <span className="text-[#F8AE01]">Campaign Story</span>
             </h2>
 
             <div className="mt-10 grid lg:grid-cols-2 gap-6">
-              <div className="rounded-[24px] p-6 border border-white/50" style={{ background: "rgba(255,255,255,0.2)" }}>
-                <div className="text-[#2E2784]/55 tracking-[0.2em] uppercase" style={{ fontSize: "0.62rem", fontWeight: 700 }}>
+              <div className="rounded-[24px] p-6 border border-white/15" style={{ background: "rgba(255,255,255,0.07)" }}>
+                <div className="text-[#F8AE01]/70 tracking-[0.2em] uppercase" style={{ fontSize: "0.62rem", fontWeight: 700 }}>
                   By Sector
                 </div>
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -65,7 +65,7 @@ export function Studies({ go }: { go: (r: Route) => void }) {
                       key={item.id}
                       onClick={() => setSector(item.id as "all" | "retail" | "petrol")}
                       className={`px-4 py-2 rounded-full transition-all tracking-tight text-[0.85rem] ${
-                        sector === item.id ? "bg-[#2E2784] text-white" : "bg-white/70 text-[#2E2784] hover:bg-white"
+                        sector === item.id ? "bg-[#F8AE01] text-black" : "bg-white/10 text-white hover:bg-white/20"
                       }`}
                     >
                       {item.label}
@@ -74,15 +74,15 @@ export function Studies({ go }: { go: (r: Route) => void }) {
                 </div>
               </div>
 
-              <div className="rounded-[24px] p-6 border border-white/50" style={{ background: "rgba(255,255,255,0.2)" }}>
-                <div className="text-[#2E2784]/55 tracking-[0.2em] uppercase" style={{ fontSize: "0.62rem", fontWeight: 700 }}>
+              <div className="rounded-[24px] p-6 border border-white/15" style={{ background: "rgba(255,255,255,0.07)" }}>
+                <div className="text-[#F8AE01]/70 tracking-[0.2em] uppercase" style={{ fontSize: "0.62rem", fontWeight: 700 }}>
                   By Brand
                 </div>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <button
                     onClick={() => setBrand("all")}
                     className={`px-4 py-2 rounded-full transition-all tracking-tight text-[0.85rem] ${
-                      brand === "all" ? "bg-[#2E2784] text-white" : "bg-white/70 text-[#2E2784] hover:bg-white"
+                      brand === "all" ? "bg-[#F8AE01] text-black" : "bg-white/10 text-white hover:bg-white/20"
                     }`}
                   >
                     All Brands
@@ -92,7 +92,7 @@ export function Studies({ go }: { go: (r: Route) => void }) {
                       key={b}
                       onClick={() => setBrand(b)}
                       className={`px-4 py-2 rounded-full transition-all tracking-tight text-[0.85rem] ${
-                        brand === b ? "bg-[#2E2784] text-white" : "bg-white/70 text-[#2E2784] hover:bg-white"
+                        brand === b ? "bg-[#F8AE01] text-black" : "bg-white/10 text-white hover:bg-white/20"
                       }`}
                     >
                       {b}
@@ -135,8 +135,8 @@ export function Studies({ go }: { go: (r: Route) => void }) {
             </div>
 
             {filtered.length === 0 && (
-              <div className="mt-10 rounded-[24px] p-8 border border-[#2E2784]/15 bg-white/70">
-                <p className="text-[#2E2784] tracking-tight" style={{ fontSize: "1rem" }}>
+              <div className="mt-10 rounded-[24px] p-8 border border-white/15" style={{ background: "rgba(255,255,255,0.07)" }}>
+                <p className="text-white/70 tracking-tight" style={{ fontSize: "1rem" }}>
                   No campaigns match this filter combination yet.
                 </p>
               </div>

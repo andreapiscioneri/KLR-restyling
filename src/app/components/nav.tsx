@@ -90,7 +90,7 @@ export function Nav({ page, setPage }: { page: Page; setPage: (p: Page) => void 
                 setPage(l.id);
                 setOpen(false);
               }}
-              className={`px-4 py-3 rounded-2xl text-left transition-all ${
+              className={`px-4 py-3 rounded-2xl text-center transition-all ${
                 page === l.id ? "bg-[#2E2784] text-white" : l.id === "contact" ? "bg-[#F8AE01] text-black" : "text-black"
               }`}
             >

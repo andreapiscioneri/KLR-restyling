@@ -45,6 +45,7 @@ function VideoWithPoster({ src }: { src: string }) {
 const G = {
   blue: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
   yellow: "radial-gradient(130% 130% at 15% 0%, #ffd95a 0%, #F8AE01 50%, #de9800 100%)",
+  rosa: "radial-gradient(130% 130% at 10% 0%, #f0e8ff 0%, #C8B8F0 45%, #9d85d4 100%)",
 };
 
 const milestones = [
@@ -146,20 +147,20 @@ export function Klr10({ go }: { go: (r: Route) => void }) {
         </div>
       </section>
 
-      {/* STATS — blue */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
-        <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
+      {/* STATS — rosa */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
+        <div className="absolute -top-24 right-0 w-[400px] h-[400px] rounded-full bg-white/10 blur-3xl pointer-events-none" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <h2 className="text-white tracking-[-0.04em] max-w-4xl" style={{ fontSize: "clamp(2.5rem, 6vw, 5.5rem)", lineHeight: 0.95, fontWeight: 800 }}>
+            <h2 className="text-[#2E2784] tracking-[-0.04em] max-w-4xl" style={{ fontSize: "clamp(2.5rem, 6vw, 5.5rem)", lineHeight: 0.95, fontWeight: 800 }}>
               10 Years of Loyalty,{" "}
-              <span className="text-[#F8AE01]">Built Together.</span>
+              <span className="text-black">Built Together.</span>
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mt-16 pt-10 border-t border-white/10">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-16 pt-10 border-t border-[#2E2784]/15">
               {pageStats.map((s) => (
                 <div key={s.k}>
-                  <div className="text-[#F8AE01] tracking-[-0.04em]" style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)", lineHeight: 1, fontWeight: 800 }}>{s.k}</div>
-                  <div className="text-white/80 tracking-tight mt-3" style={{ fontSize: "clamp(0.85rem, 1.2vw, 1rem)", lineHeight: 1.45 }}>{s.v}</div>
+                  <div className="text-[#2E2784] tracking-[-0.04em]" style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)", lineHeight: 1, fontWeight: 800 }}>{s.k}</div>
+                  <div className="text-[#2E2784]/70 tracking-tight mt-3" style={{ fontSize: "clamp(0.85rem, 1.2vw, 1rem)", lineHeight: 1.45 }}>{s.v}</div>
                 </div>
               ))}
             </div>

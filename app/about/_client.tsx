@@ -1,32 +1,66 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, Users, Star, TrendingUp, CheckCircle, LayoutTemplate, Rocket } from "lucide-react";
+import { ArrowUpRight, Users, Star, TrendingUp, CheckCircle, LayoutTemplate, Rocket, Heart, Award, Lightbulb, Globe, Handshake } from "lucide-react";
 import { motion } from "motion/react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { PageHero } from "@/src/app/components/page-hero";
 import { images, whatWeDeliver, aboutImpact, moreThanLoyalty, journey } from "@/src/app/data";
 
 const G = {
-  blue: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
+  blue:   "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
   yellow: "radial-gradient(130% 130% at 15% 0%, #ffd95a 0%, #F8AE01 50%, #de9800 100%)",
+  rosa:   "radial-gradient(130% 130% at 10% 0%, #f0e8ff 0%, #C8B8F0 45%, #9d85d4 100%)",
 };
 
 export function AboutClient() {
   return (
     <>
-      {/* HERO */}
+      {/* ── 1. HERO ── */}
       <PageHero
         eyebrow="About KLR"
         title={<>We Are Central<br /><span className="text-[#F8AE01]">to Loyalty.</span></>}
         subtitle="KLR was born from friendship — different cultures, shared ambitions, and a belief that loyalty is built on trust. Over ten years, we've grown from a three-person office in Koper to a 43-person international team delivering campaigns across 20+ European markets."
-        image={images.teamPhoto}
+        image={images.teamwork}
         cta={{ label: "Meet the Team", href: "/team" }}
       />
 
-      {/* BRAND STORY — yellow, with circle image */}
+      {/* ── 2. WHAT WE DO ── */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
-        <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
+        <div className="max-w-6xl mx-auto px-8">
+          <AnimatedSection>
+            <h2 className="tracking-[-0.04em] mb-10" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, fontStyle: "italic", color: "#2E2784" }}>
+              What We Do
+            </h2>
+
+            <div className="grid md:grid-cols-2 gap-5">
+              {/* Left — big blue card */}
+              <div className="rounded-[24px] p-8 md:p-10 flex items-center" style={{ background: "#2E2784", minHeight: "280px" }}>
+                <p className="text-white tracking-tight" style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.25rem)", lineHeight: 1.75 }}>
+                  We transform <strong>customer engagement</strong> in grocery and petrol retail into <strong>lasting loyalty</strong> — combining <strong>behavioural insight, emotional reward design, and measurable commercial outcomes.</strong> Easy to run for retailers and their marketing teams.
+                </p>
+              </div>
+
+              {/* Right — two cards stacked */}
+              <div className="flex flex-col gap-5">
+                <div className="rounded-[24px] p-8 flex items-center gap-4" style={{ background: "#2C2C34" }}>
+                  <img src="/anniv.png" alt="KLR 10 Years" className="w-16 h-16 object-contain shrink-0 drop-shadow-[0_0_16px_rgba(248,174,1,0.4)]" />
+                  <span className="text-white tracking-tight" style={{ fontSize: "1.15rem", fontWeight: 700, lineHeight: 1.25 }}>Years of<br />Expertise</span>
+                </div>
+                <div className="rounded-[24px] p-8 flex items-center" style={{ background: "#2E2784" }}>
+                  <p className="text-white tracking-tight" style={{ fontSize: "1.05rem", fontWeight: 700, lineHeight: 1.55 }}>
+                    Not just a rewards supplier.<br /><span style={{ color: "#F8AE01" }}>A strategic loyalty partner.</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* ── 3. BRAND STORY ── */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
+        <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-[#2E2784]/08 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
@@ -46,17 +80,13 @@ export function AboutClient() {
                 </p>
               </div>
 
-              {/* Circles — Services page style */}
-              <div className="relative flex justify-center md:justify-end">
+              {/* Anniversary photo — rounded, no decorative ring */}
+              <div className="flex justify-center md:justify-end">
                 <div
-                  className="absolute -bottom-10 -left-6 w-[200px] h-[200px] rounded-full border-[5px] border-[#2E2784]"
-                  style={{ background: "color-mix(in oklab, #2E2784 20%, transparent)" }}
-                />
-                <div
-                  className="relative w-[330px] h-[330px] md:w-[450px] md:h-[450px] rounded-full overflow-hidden border-[5px] border-[#2E2784]"
-                  style={{ boxShadow: "0 40px 100px -40px rgba(46,39,132,0.18)" }}
+                  className="w-[330px] h-[330px] md:w-[450px] md:h-[450px] rounded-[40px] overflow-hidden"
+                  style={{ boxShadow: "0 40px 100px -24px rgba(46,39,132,0.25)" }}
                 >
-                  <img src={images.aboutTonda} alt="KLR — Emotional Loyalty" className="w-full h-full object-cover" />
+                  <img src={images.teamPhoto} alt="KLR Anniversary" className="w-full h-full object-cover" />
                 </div>
               </div>
             </div>
@@ -64,20 +94,166 @@ export function AboutClient() {
         </div>
       </section>
 
-      {/* OUR ANSWER — blue, 3 SHOPPING BAG CARDS (Animated with Original Texts & Blue borders) */}
-      <section className="relative pt-28 md:pt-32 pb-32 md:pb-40 overflow-hidden" style={{ background: G.blue }}>
-        <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
+      {/* ── 4. OUR JOURNEY ── */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+        <div className="absolute -bottom-24 -left-20 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              Our Answer
+              Our Journey
             </div>
             <h2 className="text-white tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-             We Design Loyalty Campaigns That…
+              10 Years of Growth
             </h2>
 
-            {/* Trittico Borse della Spesa Animato con i testi di whatWeDeliver */}
-            <div className="mt-20 grid md:grid-cols-3 gap-12 md:gap-6 pt-8">
+            {/* Desktop timeline */}
+            <div className="hidden md:block mt-14 relative">
+              <div className="absolute left-0 right-0 h-px bg-white/20" style={{ top: "2.25rem" }} />
+              <div className="grid grid-cols-9 gap-2">
+                {journey.map((j, i) => (
+                  <div key={i} className="flex flex-col items-center">
+                    <div
+                      className="w-4 h-4 rounded-full border-2 border-white shrink-0 z-10"
+                      style={{ background: i % 2 === 0 ? "#F8AE01" : "#C8B8F0" }}
+                    />
+                    <div className="mt-3 text-[#F8AE01] tracking-[0.15em] uppercase text-center" style={{ fontSize: "0.65rem", fontWeight: 700 }}>
+                      {j.year}
+                    </div>
+                    <div className="mt-2 text-white/70 tracking-tight text-center" style={{ fontSize: "0.78rem", lineHeight: 1.4 }}>
+                      {j.title}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile timeline */}
+            <div className="md:hidden mt-14 relative pl-6">
+              <div className="absolute left-[0.6rem] top-2 bottom-2 w-px bg-white/20" />
+              <div className="flex flex-col gap-6">
+                {journey.map((j, i) => (
+                  <div key={i} className="relative flex gap-4 items-start">
+                    <div
+                      className="absolute -left-6 mt-1 w-4 h-4 rounded-full border-2 border-white shrink-0"
+                      style={{ background: i % 2 === 0 ? "#F8AE01" : "#C8B8F0" }}
+                    />
+                    <div>
+                      <div className="text-[#F8AE01] tracking-[0.15em] uppercase" style={{ fontSize: "0.65rem", fontWeight: 700 }}>
+                        {j.year}
+                      </div>
+                      <div className="mt-1 text-white/70 tracking-tight" style={{ fontSize: "0.9rem", lineHeight: 1.4 }}>
+                        {j.title}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-12 flex">
+              <Link
+                href="/10-years"
+                className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-white hover:text-[#2E2784]"
+              >
+                <span>Explore Our Full 10-Year Journey</span>
+                <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
+                  <ArrowUpRight className="w-4 h-4" />
+                </span>
+              </Link>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* ── 5. MORE THAN A LOYALTY COMPANY ── */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
+        <div className="absolute -top-20 -right-24 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
+        <div className="max-w-6xl mx-auto px-8">
+          <AnimatedSection>
+            <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
+              More Than Loyalty
+            </div>
+            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
+              We Are More Than<br /><span className="text-black">a Loyalty Company</span>
+            </h2>
+
+            <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {moreThanLoyalty.map((item, i) => {
+                const bg = i === 0 ? "#2C2C34" : i === 1 ? "#C8B8F0" : "#2E2784";
+                const titleColor = i === 1 ? "#2E2784" : "#F8AE01";
+                const textColor = i === 1 ? "rgba(46,39,132,0.7)" : "rgba(255,255,255,0.7)";
+                return (
+                  <div key={item.title} className="rounded-[28px] p-8" style={{ background: bg }}>
+                    <h3 className="tracking-[-0.02em]" style={{ fontSize: "1.3rem", fontWeight: 700, color: titleColor }}>
+                      {item.title}
+                    </h3>
+                    <p className="tracking-tight mt-4" style={{ fontSize: "0.95rem", lineHeight: 1.6, color: textColor }}>
+                      {item.desc}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="mt-12 flex">
+              <Link
+                href="/team"
+                className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
+              >
+                <span>Discover More About Our Team</span>
+                <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+                  <ArrowUpRight className="w-4 h-4" />
+                </span>
+              </Link>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* ── 6. KLR VISION ── */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
+        <div className="absolute -top-24 right-0 w-[480px] h-[480px] rounded-full bg-[#2E2784]/06 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[320px] h-[320px] rounded-full bg-[#2E2784]/05 blur-3xl pointer-events-none" />
+        <div className="max-w-6xl mx-auto px-8 relative z-10">
+          <AnimatedSection>
+            <div className="tracking-[0.3em] uppercase text-[#2E2784]/60 mb-4" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
+              KLR Vision
+            </div>
+            <h2 className="text-[#2E2784] tracking-[-0.035em] mb-14" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
+              We Are <span className="text-black italic">Central</span> to Loyalty
+            </h2>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                { Icon: Lightbulb, desc: "We envision a future where loyalty campaigns are powerful experiences that customers look forward to.", bg: "#2E2784" },
+                { Icon: Globe,     desc: "Where retailers can run engaging loyalty programs without operational complexity.", bg: "#2C2C34" },
+                { Icon: Handshake, desc: "KLR aims to become the most trusted loyalty partner for retail and fuel chains across Europe and beyond — known for creativity, reliability, and exceptional campaign execution.", bg: "#2E2784" },
+              ].map(({ Icon, desc, bg }, i) => (
+                <div key={i} className="rounded-[28px] p-8" style={{ background: bg }}>
+                  <Icon className="w-8 h-8 mb-5 text-[#F8AE01]" />
+                  <p className="tracking-tight" style={{ fontSize: "0.95rem", lineHeight: 1.65, color: "rgba(255,255,255,0.75)" }}>
+                    {desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* ── 7. OUR SOLUTION (shopping bags) ── */}
+      <section className="relative pt-28 md:pt-32 pb-32 md:pb-40 overflow-hidden" style={{ background: G.blue }}>
+        <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
+        <div className="max-w-6xl mx-auto px-8">
+          <AnimatedSection>
+            <div className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
+              Our Solution
+            </div>
+            <h2 className="text-white tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
+              We Design <span className="text-[#F8AE01]">Loyalty</span> Campaigns That…
+            </h2>
+
+            <div className="mt-20 grid md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-6 pt-8">
               {whatWeDeliver.map((item, i) => (
                 <motion.div
                   key={item.title}
@@ -89,12 +265,10 @@ export function AboutClient() {
                   <motion.div
                     animate={{ y: [0, -12, 0] }}
                     transition={{ repeat: Infinity, duration: 4 + i * 0.5, ease: "easeInOut", delay: i * 0.2 }}
-                    className="relative bg-[#F8AE01] rounded-b-xl rounded-t-sm shadow-[0_20px_50px_-12px_rgba(0,0,0,0.4)] p-2 h-full min-h-[420px]"
+                    className="relative bg-[#2E2784] rounded-b-xl rounded-t-sm ] p-0 h-full min-h-[420px]"
+                    style={{ border: "5px solid #F8AE01" }}
                   >
-                    {/* Manico della borsa */}
                     <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-14 border-t-[6px] border-x-[6px] border-[#F8AE01] rounded-t-full z-[-1]" />
-                    
-                    {/* Contenuto Borsa */}
                     <div className="h-full border-[3px] border-[#2E2784] bg-[#2E2784] p-6 md:p-8 flex flex-col items-center text-center">
                       <div className="text-[#F8AE01] tracking-[0.2em] font-black text-sm mb-14">
                         {String(i + 1).padStart(2, "0")}
@@ -105,26 +279,24 @@ export function AboutClient() {
                       <p className="text-[#F8AE01] tracking-tight text-[0.95rem] leading-relaxed mt-4 flex-1">
                         {item.desc}
                       </p>
-                      
-                      {/* Icone in base all'indice della card */}
                       <div className="flex gap-3 text-[#F8AE01] items-end justify-center w-full relative h-[60px] mt-6 pt-4">
                         {i === 0 && (
                           <>
                             <Users size={54} strokeWidth={1.5} className="absolute bottom-0 left-1/2 -translate-x-1/2" />
-                            <Star size={20} fill="currentColor" className="absolute top-0 right-6 text-[#F8AE01]" />
-                            <Star size={14} fill="currentColor" className="absolute top-4 left-8 text-[#F8AE01]" />
+                            <Star size={20} fill="currentColor" className="absolute top-0 right-6" />
+                            <Star size={14} fill="currentColor" className="absolute top-4 left-8" />
                           </>
                         )}
                         {i === 1 && (
                           <>
                             <TrendingUp size={48} strokeWidth={2.5} />
-                            <CheckCircle size={32} strokeWidth={2.5} className="mb-2 text-[#F8AE01]" />
+                            <CheckCircle size={32} strokeWidth={2.5} className="mb-2" />
                           </>
                         )}
                         {i === 2 && (
                           <>
                             <LayoutTemplate size={50} strokeWidth={1.5} className="absolute left-6 bottom-0" />
-                            <Rocket size={36} strokeWidth={1.5} className="absolute right-8 bottom-2 text-[#F8AE01]" />
+                            <Rocket size={36} strokeWidth={1.5} className="absolute right-8 bottom-2" />
                           </>
                         )}
                       </div>
@@ -137,9 +309,67 @@ export function AboutClient() {
         </div>
       </section>
 
-      {/* THE IMPACT — yellow, 3 cards + typographic statement */}
+      {/* ── 8. LOYALTY FRAMEWORK ── */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
-        <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-white/15 blur-3xl" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-[#F8AE01]/50 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-1/3 w-[300px] h-[300px] rounded-full opacity-20 pointer-events-none" style={{ background: "radial-gradient(circle, #C8B8F0 0%, transparent 70%)" }} />
+        <div className="max-w-6xl mx-auto px-8 relative z-10">
+          <AnimatedSection>
+            <div className="flex flex-col lg:flex-row gap-16 items-center">
+              <div className="lg:w-1/2 w-full">
+                <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600, marginBottom: "0.75rem" }}>
+                  The KLR Loyalty Framework
+                </div>
+                <h2 className="text-[#2E2784] tracking-[-0.035em] mb-10" style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", lineHeight: 1.05, fontWeight: 800 }}>
+                  Designing <br /><span className="text-black italic">Emotional Loyalty</span>
+                </h2>
+                <p className="text-[#2E2784]/80 tracking-tight mb-8" style={{ fontSize: "1.125rem", fontWeight: 500 }}>
+                  Our 3 Pillars of Loyalty:
+                </p>
+                <div className="space-y-4">
+                  <div className="rounded-[24px] p-6" style={{ background: "#2C2C34" }}>
+                    <Heart className="w-7 h-7 mb-3" style={{ color: "#F8AE01" }} />
+                    <div className="inline-block font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style={{ fontSize: "0.72rem", background: "#F8AE01", color: "#2C2C34" }}>Desire</div>
+                    <p className="text-white/80 leading-snug" style={{ fontSize: "0.95rem" }}>"Dream" High-Quality <span className="font-black text-white">Rewards</span> that Money Can't Buy</p>
+                  </div>
+                  <div className="rounded-[24px] p-6" style={{ background: "#C8B8F0" }}>
+                    <Star className="w-7 h-7 mb-3" style={{ color: "#2E2784" }} fill="currentColor" />
+                    <div className="inline-block font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style={{ fontSize: "0.72rem", background: "#2E2784", color: "#C8B8F0" }}>Experience</div>
+                    <p className="text-[#2E2784] leading-snug" style={{ fontSize: "0.95rem" }}>High Participation is The Key to <span className="font-black italic">Real Engagement</span></p>
+                  </div>
+                  <div className="rounded-[24px] p-6" style={{ background: "#2E2784" }}>
+                    <Award className="w-7 h-7 mb-3" style={{ color: "#F8AE01" }} />
+                    <div className="inline-block font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style={{ fontSize: "0.72rem", background: "#F8AE01", color: "#2E2784" }}>Satisfaction</div>
+                    <p className="text-white/80 leading-snug" style={{ fontSize: "0.95rem" }}>High Perceived Value Rewards — <span className="font-black italic text-white block mt-1">Long Positive Memory Effect</span></p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Venn diagram */}
+              <div className="lg:w-1/2 w-full flex justify-center lg:justify-end items-center min-h-[450px]">
+                <div className="relative w-[300px] h-[300px] sm:w-[420px] sm:h-[420px]">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] rounded-full border-[5px] flex justify-center pt-8 sm:pt-10 transition-transform hover:scale-105 duration-500" style={{ borderColor: "#2C2C34", background: "rgba(44,44,52,0.12)" }}>
+                    <Heart className="w-10 h-10 sm:w-14 sm:h-14" style={{ color: "#2C2C34" }} />
+                  </div>
+                  <div className="absolute bottom-4 left-0 w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] rounded-full border-[5px] flex items-end justify-start pb-10 pl-10 sm:pb-14 sm:pl-14 transition-transform hover:scale-105 duration-500" style={{ borderColor: "#C8B8F0", background: "rgba(200,184,240,0.18)" }}>
+                    <Star className="w-10 h-10 sm:w-14 sm:h-14" style={{ color: "#9B7FD4" }} fill="currentColor" />
+                  </div>
+                  <div className="absolute bottom-4 right-0 w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] rounded-full border-[5px] flex items-end justify-end pb-10 pr-10 sm:pb-14 sm:pr-14 transition-transform hover:scale-105 duration-500" style={{ borderColor: "#2E2784", background: "rgba(46,39,132,0.10)" }}>
+                    <Award className="w-10 h-10 sm:w-14 sm:h-14" style={{ color: "#2E2784" }} />
+                  </div>
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mt-4 z-20 flex items-center justify-center w-20 h-20 sm:w-28 sm:h-28 rounded-full bg-[#2E2784] shadow-[0_0_40px_rgba(46,39,132,0.4)] animate-pulse">
+                    <Heart className="w-10 h-10 sm:w-14 sm:h-14 text-[#F8AE01] fill-[#F8AE01]" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* ── 8. THE IMPACT ── */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
+        <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-[#2E2784]/06 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
@@ -149,65 +379,59 @@ export function AboutClient() {
               What This Delivers To You
             </h2>
 
-            <div className="mt-14 grid md:grid-cols-3 gap-6">
-              {aboutImpact.map((item) => (
-                <div key={item.title} className="rounded-[28px] p-8 border border-white/40" style={{ background: "rgba(255,255,255,0.18)" }}>
-                  <h3 className="text-[#2E2784] tracking-[-0.02em]" style={{ fontSize: "1.1rem", fontWeight: 700, lineHeight: 1.3 }}>
-                    {item.title}
-                  </h3>
-                  <p className="text-black/60 tracking-tight mt-4" style={{ fontSize: "0.95rem", lineHeight: 1.6 }}>
-                    {item.desc}
-                  </p>
-                </div>
-              ))}
+            <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {aboutImpact.map((item, i) => {
+                const bg = i === 0 ? "#2E2784" : i === 1 ? "#2C2C34" : "#2E2784";
+                const titleCol = "#F8AE01";
+                return (
+                  <div key={item.title} className="rounded-[28px] p-8" style={{ background: bg }}>
+                    <h3 className="tracking-[-0.02em]" style={{ fontSize: "1.1rem", fontWeight: 700, lineHeight: 1.3, color: titleCol }}>
+                      {item.title}
+                    </h3>
+                    <p className="tracking-tight mt-4" style={{ fontSize: "0.95rem", lineHeight: 1.6, color: "rgba(255,255,255,0.65)" }}>
+                      {item.desc}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
+          </AnimatedSection>
+        </div>
+      </section>
 
-            {/* Typographic statement */}
-            <div className="mt-24 text-center">
-              <p className="text-[#2E2784] tracking-[-0.04em]" style={{ fontSize: "clamp(1.8rem, 4vw, 3.8rem)", fontWeight: 800, lineHeight: 1.1 }}>
+      {/* ── 9. THIS ISN'T JUST LOYALTY + CTA SERVICES ── */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+        <div className="absolute -top-24 right-20 w-[380px] h-[380px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
+        <div className="max-w-6xl mx-auto px-8">
+          <AnimatedSection>
+            <div className="text-center mb-16">
+              <p className="text-white tracking-[-0.04em]" style={{ fontSize: "clamp(1.8rem, 4vw, 3.8rem)", fontWeight: 800, lineHeight: 1.1 }}>
                 This isn't just Loyalty…<br />
-                <span className="text-black">this is Marketing!</span>
-              </p>
-              <p className="text-[#2E2784]/65 tracking-tight mt-5" style={{ fontSize: "1.1rem" }}>
-                And we make the process MORE than simple.
+                <span className="text-[#F8AE01]">this is Marketing!</span>
               </p>
             </div>
-          </AnimatedSection>
-        </div>
-      </section>
 
-      {/* MORE THAN A LOYALTY COMPANY — blue, 3 cards + CTA */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
-        <div className="absolute -top-20 -right-24 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
-        <div className="max-w-6xl mx-auto px-8">
-          <AnimatedSection>
-            <div className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              More Than Loyalty
-            </div>
-            <h2 className="text-white tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-              We Are More Than<br /><span className="text-[#F8AE01]">a Loyalty Company</span>
-            </h2>
-
-            <div className="mt-14 grid md:grid-cols-3 gap-6">
-              {moreThanLoyalty.map((item) => (
-                <div key={item.title} className="rounded-[28px] p-8 border border-[#F8AE01]/25" style={{ background: "rgba(248,174,1,0.12)" }}>
-                  <h3 className="text-[#F8AE01] tracking-[-0.02em]" style={{ fontSize: "1.3rem", fontWeight: 700 }}>
-                    {item.title}
-                  </h3>
-                  <p className="text-white/65 tracking-tight mt-4" style={{ fontSize: "0.95rem", lineHeight: 1.6 }}>
-                    {item.desc}
-                  </p>
+            {/* Pillar callout */}
+            <div className="rounded-[32px] p-10 md:p-14 flex flex-col md:flex-row items-center gap-10 justify-between" style={{ background: "#2C2C34" }}>
+              <div className="md:max-w-xl">
+                <div className="tracking-[0.3em] uppercase mb-4" style={{ fontSize: "0.65rem", fontWeight: 600, color: "#C8B8F0" }}>
+                  Our Core Promise
                 </div>
-              ))}
-            </div>
-
-            <div className="mt-12">
+                <h3 className="text-white tracking-[-0.03em]" style={{ fontSize: "clamp(1.6rem, 3vw, 2.8rem)", fontWeight: 800, lineHeight: 1.1 }}>
+                  We Make the Process{" "}
+                  <span style={{ color: "#F8AE01" }}>More Than Simple.</span>
+                </h3>
+                <p className="mt-6 tracking-tight" style={{ fontSize: "1.05rem", lineHeight: 1.7, color: "rgba(255,255,255,0.6)" }}>
+                  From concept to in-store execution, logistics, brand licensing, and post-campaign reporting — we manage 100% of the campaign so your team can focus on running the store.
+                </p>
+              </div>
               <Link
-                href="/team"
-                className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-white hover:text-[#2E2784]"
+                href="/services"
+                className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 shrink-0 hover:opacity-90 whitespace-nowrap"
+                style={{ background: "#F8AE01", color: "#2C2C34" }}
               >
-                <span>Discover More About Our Team</span>
-                <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
+                <span style={{ fontWeight: 600 }}>Learn More About Our Services</span>
+                <span className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: "rgba(44,44,52,0.15)" }}>
                   <ArrowUpRight className="w-4 h-4" />
                 </span>
               </Link>
@@ -216,106 +440,27 @@ export function AboutClient() {
         </div>
       </section>
 
-      {/* TIMELINE — yellow, horizontal scroll */}
+      {/* ── 10. CLOSING CTA ── */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
-        <div className="absolute -bottom-24 -left-20 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
-        <div className="max-w-6xl mx-auto px-8">
-          <AnimatedSection>
-            <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              Our Journey
-            </div>
-            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-              10 Years of Growth
-            </h2>
-
-            {/* Desktop timeline */}
-            <div className="hidden md:block mt-14 relative">
-              {/* Horizontal line */}
-              <div className="absolute left-0 right-0 h-px bg-[#2E2784]/30" style={{ top: "2.25rem" }} />
-
-              <div className="grid grid-cols-9 gap-2">
-                {journey.map((j, i) => (
-                  <div key={i} className="flex flex-col items-center">
-                    {/* Dot */}
-                    <div
-                      className="w-4 h-4 rounded-full border-2 border-[#2E2784] shrink-0 z-10"
-                      style={{ background: i % 2 === 0 ? "#F8AE01" : "#2E2784" }}
-                    />
-                    {/* Year */}
-                    <div className="mt-3 text-[#2E2784] tracking-[0.15em] uppercase text-center" style={{ fontSize: "0.65rem", fontWeight: 700 }}>
-                      {j.year}
-                    </div>
-                    {/* Title */}
-                    <div className="mt-2 text-[#2E2784]/80 tracking-tight text-center" style={{ fontSize: "0.78rem", lineHeight: 1.4 }}>
-                      {j.title}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Mobile timeline — vertical */}
-            <div className="md:hidden mt-14 relative pl-6">
-              {/* Vertical line */}
-              <div className="absolute left-[0.6rem] top-2 bottom-2 w-px bg-[#2E2784]/30" />
-
-              <div className="flex flex-col gap-6">
-                {journey.map((j, i) => (
-                  <div key={i} className="relative flex gap-4 items-start">
-                    {/* Dot */}
-                    <div
-                      className="absolute -left-6 mt-1 w-4 h-4 rounded-full border-2 border-[#2E2784] shrink-0"
-                      style={{ background: i % 2 === 0 ? "#F8AE01" : "#2E2784" }}
-                    />
-                    <div>
-                      <div className="text-[#2E2784] tracking-[0.15em] uppercase" style={{ fontSize: "0.65rem", fontWeight: 700 }}>
-                        {j.year}
-                      </div>
-                      <div className="mt-1 text-[#2E2784]/80 tracking-tight" style={{ fontSize: "0.9rem", lineHeight: 1.4 }}>
-                        {j.title}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-12">
-              <Link
-                href="/10-years"
-                className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
-              >
-                <span>Explore Our Full 10-Year Journey</span>
-                <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
-                  <ArrowUpRight className="w-4 h-4" />
-                </span>
-              </Link>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* CLOSING CTA — blue */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
-        <div className="absolute -bottom-20 -right-20 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
+        <div className="absolute -bottom-20 -right-20 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="grid md:grid-cols-2 gap-10 items-center">
               <div>
-                <h2 className="text-white tracking-[-0.035em]" style={{ fontSize: "clamp(1.9rem, 3.8vw, 4rem)", lineHeight: 1.05, fontWeight: 800 }}>
-                  Let's Build Something<br /><span className="text-[#F8AE01]">Together</span>
+                <h2 className="text-[#2E2784] tracking-[-0.035em]" style={{ fontSize: "clamp(1.9rem, 3.8vw, 4rem)", lineHeight: 1.05, fontWeight: 800 }}>
+                  Let's Build Something<br /><span className="text-black">Together</span>
                 </h2>
-                <p className="text-white/60 tracking-tight mt-6" style={{ fontSize: "clamp(1rem, 1.4vw, 1.2rem)", lineHeight: 1.55 }}>
+                <p className="text-[#2E2784]/70 tracking-tight mt-6" style={{ fontSize: "clamp(1rem, 1.4vw, 1.2rem)", lineHeight: 1.55 }}>
                   Whether you're a retailer looking for your next campaign or a brand wanting to reach millions — we'd love to hear from you.
                 </p>
               </div>
               <div className="md:text-right">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-white hover:text-[#2E2784]"
+                  className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
                 >
-                  <span>Keep in Touch!</span>
-                  <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
+                  <span>Get in Touch</span>
+                  <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
                     <ArrowUpRight className="w-4 h-4" />
                   </span>
                 </Link>

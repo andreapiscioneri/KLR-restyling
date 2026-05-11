@@ -11,6 +11,7 @@ import type { Route } from "../App";
 const G = {
   blue: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
   yellow: "radial-gradient(130% 130% at 15% 0%, #ffd95a 0%, #F8AE01 50%, #de9800 100%)",
+  rosa: "radial-gradient(130% 130% at 10% 0%, #f0e8ff 0%, #C8B8F0 45%, #9d85d4 100%)",
 };
 
 const linkedinById: Record<string, string> = {
@@ -157,31 +158,13 @@ export function Team({ go }: { go: (r: Route) => void }) {
     .map((t) => ({ ...t, person: leadership.find((p) => p.id === t.id)! }))
     .filter((t) => Boolean(t.person));
 
-  const openRoles = [
-    {
-      title: "Account Manager, Loyalty Campaigns",
-      location: "Milan / Hybrid",
-      desc: "Lead retail client relationships and coordinate campaign delivery across teams.",
-    },
-    {
-      title: "Campaign Operations Specialist",
-      location: "Koper / Hybrid",
-      desc: "Drive execution excellence across timelines, suppliers and in-store rollout quality.",
-    },
-    {
-      title: "Graphic & Packaging Designer",
-      location: "Rovato / Hybrid",
-      desc: "Create campaign-ready product collections, POSM and premium packaging systems.",
-    },
-  ];
-
   return (
     <>
       <PageHero
         eyebrow="Team"
         title={<>Loyalty Starts<br /><span className="text-[#F8AE01]">With Us</span></>}
         subtitle={`A ${stats.people}-person team. ${stats.nationalities} nationalities. 10 locations across Europe. One shared passion: designing loyalty experiences that customers feel, trust, and value.`}
-        image={images.teamPhoto}
+        image={images.recruiting}
         cta={{ label: "Meet Our Leadership", href: "#leadership-grid" }}
       />
 
@@ -254,25 +237,71 @@ export function Team({ go }: { go: (r: Route) => void }) {
               10 locations across Europe, from Slovenia to Latvia — one connected team.
             </p>
 
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-10 md:mt-14">
-              {locations.map((l, i) => (
-                <div
-                  key={l.city}
-                  className="rounded-[20px] p-4 md:p-5 border border-white/12"
-                  style={
-                    i % 2 === 0
-                      ? { background: "linear-gradient(145deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.04) 100%)", ...softShadow }
-                      : { background: "linear-gradient(145deg, #F8AE01 0%, #ffc63b 100%)", ...softShadow }
-                  }
-                >
-                  <div className={`tracking-[0.18em] uppercase ${i % 2 === 0 ? "text-white/60" : "text-[#2E2784]/70"}`} style={{ fontSize: "0.62rem", fontWeight: 700 }}>
-                    {l.country}
+            {/* Postcard shelf */}
+            <div className="mt-12 md:mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+              {locations.map((l, i) => {
+                const palettes = [
+                  { sky: "#C8E6FF", ground: "#E8DEFF", accent: "#2E2784", text: "#2E2784" },
+                  { sky: "#FFE8B0", ground: "#FFF3CC", accent: "#F8AE01", text: "#2E2784" },
+                  { sky: "#D4F0E0", ground: "#E8DEFF", accent: "#2E2784", text: "#2E2784" },
+                  { sky: "#FFD6D6", ground: "#FFE8CC", accent: "#C84040", text: "#2E2784" },
+                  { sky: "#C8E6FF", ground: "#E0F4FF", accent: "#2E2784", text: "#2E2784" },
+                  { sky: "#E8DEFF", ground: "#F0E8FF", accent: "#5b53bf", text: "#2E2784" },
+                  { sky: "#FFE8B0", ground: "#FFF8E0", accent: "#F8AE01", text: "#2E2784" },
+                  { sky: "#D4F0E0", ground: "#E8F8EE", accent: "#2E8A50", text: "#2E2784" },
+                  { sky: "#FFD6D6", ground: "#FFE8E8", accent: "#C84040", text: "#2E2784" },
+                  { sky: "#C8E6FF", ground: "#E8DEFF", accent: "#2E2784", text: "#2E2784" },
+                ];
+                const p = palettes[i % palettes.length];
+                const tilt = i % 2 === 0 ? "rotate-[-1.5deg]" : "rotate-[1.5deg]";
+                return (
+                  <div
+                    key={l.city}
+                    className={`${tilt} hover:rotate-0 transition-transform duration-300`}
+                  >
+                    {/* Postcard */}
+                    <div
+                      className="rounded-[12px] overflow-hidden"
+                      style={{
+                        background: "white",
+                        boxShadow: "0 8px 32px rgba(0,0,0,0.28), 0 2px 8px rgba(0,0,0,0.15)",
+                        border: "3px solid white",
+                      }}
+                    >
+                      {/* Illustrated scene */}
+                      <div className="relative" style={{ height: "90px", background: p.sky }}>
+                        {/* Ground strip */}
+                        <div className="absolute bottom-0 left-0 right-0" style={{ height: "32px", background: p.ground }} />
+                        {/* Simple building silhouette */}
+                        <div className="absolute" style={{ bottom: "32px", left: "18px", width: "20px", height: "38px", background: p.accent, opacity: 0.75, borderRadius: "3px 3px 0 0" }} />
+                        <div className="absolute" style={{ bottom: "32px", left: "42px", width: "28px", height: "52px", background: p.accent, opacity: 0.6, borderRadius: "3px 3px 0 0" }} />
+                        <div className="absolute" style={{ bottom: "32px", left: "74px", width: "22px", height: "42px", background: p.accent, opacity: 0.8, borderRadius: "3px 3px 0 0" }} />
+                        <div className="absolute" style={{ bottom: "32px", left: "100px", width: "16px", height: "30px", background: p.accent, opacity: 0.55, borderRadius: "3px 3px 0 0" }} />
+                        {/* Windows */}
+                        <div className="absolute" style={{ bottom: "50px", left: "22px", width: "6px", height: "5px", background: "white", opacity: 0.7, borderRadius: "1px" }} />
+                        <div className="absolute" style={{ bottom: "50px", left: "47px", width: "6px", height: "5px", background: "white", opacity: 0.7, borderRadius: "1px" }} />
+                        <div className="absolute" style={{ bottom: "40px", left: "47px", width: "6px", height: "5px", background: "white", opacity: 0.7, borderRadius: "1px" }} />
+                        <div className="absolute" style={{ bottom: "50px", left: "78px", width: "6px", height: "5px", background: "white", opacity: 0.7, borderRadius: "1px" }} />
+                        {/* Sun */}
+                        <div className="absolute" style={{ top: "10px", right: "14px", width: "16px", height: "16px", borderRadius: "50%", background: p.accent, opacity: 0.4 }} />
+                      </div>
+                      {/* Text area */}
+                      <div className="px-3 py-2.5" style={{ background: "white" }}>
+                        <div style={{ fontSize: "0.58rem", fontWeight: 700, color: p.accent, textTransform: "uppercase", letterSpacing: "0.12em", opacity: 0.7 }}>
+                          {l.country}
+                        </div>
+                        <div style={{ fontSize: "0.9rem", fontWeight: 800, color: p.text, letterSpacing: "-0.02em", marginTop: "2px", lineHeight: 1.1 }}>
+                          {l.city}
+                        </div>
+                        {/* Stamp decoration */}
+                        <div className="flex justify-end mt-1">
+                          <div style={{ width: "18px", height: "22px", border: `1.5px solid ${p.accent}`, opacity: 0.35, borderRadius: "2px" }} />
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className={`${i % 2 === 0 ? "text-white" : "text-[#2E2784]"} tracking-[-0.02em] mt-2`} style={{ fontSize: "1.08rem", fontWeight: 700 }}>
-                    {l.city}
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </AnimatedSection>
         </div>
@@ -337,155 +366,122 @@ export function Team({ go }: { go: (r: Route) => void }) {
         </div>
       </section>
 
-      {/* JOIN OUR TEAM — yellow */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
-        <div className="absolute -top-20 -right-24 w-[360px] h-[360px] rounded-full bg-white/20 blur-3xl" />
+      {/* JOIN OUR TEAM — rosa */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
+        <div className="absolute -top-20 -right-24 w-[360px] h-[360px] rounded-full bg-white/10 blur-3xl pointer-events-none" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              Want to Work With Us?
-            </div>
-            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
-              Join Our Team
-            </h2>
-            <p className="text-[#2E2784]/80 tracking-tight max-w-2xl mt-8" style={{ fontSize: "1.0625rem", lineHeight: 1.6 }}>
-              We're always interested in meeting talented people who share our passion for loyalty and teamwork.
-            </p>
-
-            {/* OPEN ROLES */}
-            <div className="mt-10 rounded-[28px] p-6 md:p-8 border border-[#2E2784]/12" style={{ background: "rgba(255,255,255,0.3)" }}>
-              <div className="text-[#2E2784]/60 tracking-[0.18em] uppercase mb-6" style={{ fontSize: "0.62rem", fontWeight: 700 }}>
-                Open roles
+            <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
+              <div>
+                <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
+                  Want to Work With Us?
+                </div>
+                <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.05, fontWeight: 800 }}>
+                  Join Our Team
+                </h2>
+                <p className="text-[#2E2784]/75 tracking-tight mt-6 max-w-md" style={{ fontSize: "1rem", lineHeight: 1.65 }}>
+                  We're always interested in meeting talented people who share our passion for loyalty and teamwork. Send us your details and we'll be in touch.
+                </p>
               </div>
-              <div className="space-y-4">
-                {openRoles.map((r) => (
-                  <div
-                    key={r.title}
-                    className="rounded-[18px] p-5 border border-white/10 flex flex-wrap items-start justify-between gap-4 transition-transform hover:scale-[1.01]"
-                    style={{ background: "#2E2784", ...softShadow }}
+
+              {/* CONTACT FORM */}
+              <form
+                method="POST"
+                action="https://formsubmit.co/info@klr-europe.com"
+                encType="multipart/form-data"
+                className="rounded-[32px] p-7 md:p-10 grid gap-5"
+                style={{ background: "rgba(255,255,255,0.30)", border: "1px solid rgba(255,255,255,0.5)", ...softShadow }}
+              >
+                <input type="hidden" name="_subject" value="KLR Team Application" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
+                <input type="hidden" name="_next" value="/thank-you" />
+
+                <div className="border-b border-[#2E2784]/20 pb-4">
+                  <input
+                    name="name"
+                    placeholder="Name"
+                    required
+                    className="w-full bg-transparent outline-none text-[#2E2784] placeholder:text-[#2E2784]/45 tracking-tight"
+                    style={{ fontSize: "1rem" }}
+                  />
+                </div>
+
+                <div className="border-b border-[#2E2784]/20 pb-4">
+                  <input
+                    name="email"
+                    type="email"
+                    placeholder="Email"
+                    required
+                    className="w-full bg-transparent outline-none text-[#2E2784] placeholder:text-[#2E2784]/45 tracking-tight"
+                    style={{ fontSize: "1rem" }}
+                  />
+                </div>
+
+                <div className="border-b border-[#2E2784]/20 pb-4">
+                  <input
+                    name="role"
+                    placeholder="Role of interest"
+                    className="w-full bg-transparent outline-none text-[#2E2784] placeholder:text-[#2E2784]/45 tracking-tight"
+                    style={{ fontSize: "1rem" }}
+                  />
+                </div>
+
+                <div className="border-b border-[#2E2784]/20 pb-4">
+                  <input
+                    name="cv"
+                    type="file"
+                    accept=".pdf,.doc,.docx"
+                    className="w-full bg-transparent outline-none text-[#2E2784] tracking-tight file:mr-4 file:rounded-full file:border-0 file:bg-[#2E2784] file:px-3 file:py-1.5 file:text-xs file:text-white"
+                    style={{ fontSize: "0.9rem" }}
+                  />
+                </div>
+
+                <div className="border-b border-[#2E2784]/20 pb-4">
+                  <textarea
+                    name="message"
+                    rows={3}
+                    placeholder="Short message"
+                    className="w-full bg-transparent outline-none text-[#2E2784] placeholder:text-[#2E2784]/45 tracking-tight resize-none"
+                    style={{ fontSize: "1rem" }}
+                  />
+                </div>
+
+                <div>
+                  <button
+                    type="submit"
+                    className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
                   >
-                    <div className="flex-1 min-w-[280px]">
-                      <div className="text-white tracking-tight" style={{ fontSize: "1.1rem", fontWeight: 700 }}>{r.title}</div>
-                      <div className="text-white/60 tracking-tight mt-1" style={{ fontSize: "0.85rem" }}>{r.location}</div>
-                      <p className="text-white/85 tracking-tight mt-3" style={{ fontSize: "0.95rem", lineHeight: 1.5 }}>{r.desc}</p>
-                    </div>
-                    <a
-                      href="mailto:info@klr-europe.com?subject=Application%20for%20KLR%20Open%20Role"
-                      className="inline-flex items-center gap-1.5 text-[#F8AE01] hover:text-white transition-colors"
-                      style={{ fontSize: "0.85rem", fontWeight: 700 }}
-                    >
-                      Apply via email <ArrowUpRight className="w-4 h-4" />
-                    </a>
-                  </div>
-                ))}
-              </div>
+                    <span>Send Application</span>
+                    <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+                      <ArrowUpRight className="w-4 h-4" />
+                    </span>
+                  </button>
+                </div>
+              </form>
             </div>
-
-            {/* APPLICATION FORM */}
-            <form
-              method="POST"
-              action="https://formsubmit.co/info@klr-europe.com"
-              encType="multipart/form-data"
-              className="mt-14 rounded-[40px] p-6 md:p-14 border border-[#2E2784]/10 grid md:grid-cols-2 gap-x-8 gap-y-6"
-              style={{ background: "rgba(255, 255, 255, 0.25)", ...softShadow }}
-            >
-              <input type="hidden" name="_subject" value="KLR Team Application" />
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_next" value="/thank-you" />
-
-              <div className="border-b border-[#2E2784]/20 pb-4">
-                <input
-                  name="name"
-                  placeholder="Name"
-                  required
-                  className="w-full bg-transparent outline-none text-[#2E2784] placeholder:text-[#2E2784]/50 tracking-tight"
-                  style={{ fontSize: "1rem" }}
-                />
-              </div>
-
-              <div className="border-b border-[#2E2784]/20 pb-4">
-                <input
-                  name="email"
-                  type="email"
-                  placeholder="Email"
-                  required
-                  className="w-full bg-transparent outline-none text-[#2E2784] placeholder:text-[#2E2784]/50 tracking-tight"
-                  style={{ fontSize: "1rem" }}
-                />
-              </div>
-
-              <div className="border-b border-[#2E2784]/20 pb-4">
-                <select
-                  name="role_interest"
-                  defaultValue=""
-                  required
-                  className="w-full bg-transparent outline-none text-[#2E2784] tracking-tight"
-                  style={{ fontSize: "1rem" }}
-                >
-                  <option value="" disabled>Role of interest / Open application</option>
-                  {openRoles.map((r) => (
-                    <option key={r.title} value={r.title}>{r.title}</option>
-                  ))}
-                  <option value="Open application">Open application</option>
-                </select>
-              </div>
-
-              <div className="border-b border-[#2E2784]/20 pb-4">
-                <input
-                  name="cv"
-                  type="file"
-                  accept=".pdf,.doc,.docx"
-                  required
-                  className="w-full bg-transparent outline-none text-[#2E2784] tracking-tight file:mr-4 file:rounded-full file:border-0 file:bg-[#2E2784] file:px-3 file:py-1.5 file:text-xs file:text-white"
-                  style={{ fontSize: "0.95rem" }}
-                />
-              </div>
-
-              <div className="border-b border-[#2E2784]/20 pb-4 md:col-span-2">
-                <textarea
-                  name="message"
-                  rows={4}
-                  placeholder="Short message"
-                  className="w-full bg-transparent outline-none text-[#2E2784] placeholder:text-[#2E2784]/50 tracking-tight resize-none"
-                  style={{ fontSize: "1rem" }}
-                />
-              </div>
-
-              <div className="md:col-span-2 mt-4">
-                <button
-                  type="submit"
-                  className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
-                >
-                  <span>Send Application</span>
-                  <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
-                    <ArrowUpRight className="w-4 h-4" />
-                  </span>
-                </button>
-              </div>
-            </form>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* CLOSING CTA — blue */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
-        <div className="absolute -bottom-24 -left-20 w-[360px] h-[360px] rounded-full bg-white/10 blur-3xl" />
+      {/* CLOSING CTA — yellow */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
+        <div className="absolute -top-24 right-20 w-[380px] h-[380px] rounded-full bg-white/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="grid md:grid-cols-2 gap-10 items-center">
               <div>
-                <h3 className="text-white tracking-[-0.03em]" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.9rem)", lineHeight: 1.1, fontWeight: 700 }}>
-                  Keep in Touch!
+                <h3 className="text-[#2E2784] tracking-[-0.03em]" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.9rem)", lineHeight: 1.1, fontWeight: 700 }}>
+                  Get in Touch
                 </h3>
               </div>
               <div className="md:text-right">
                 <a
                   href="/contacts/"
-                  className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-[#2E2784] hover:bg-white"
+                  className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
                 >
-                  <span style={{ fontWeight: 700 }}>Keep in Touch!</span>
-                  <span className="w-8 h-8 rounded-full bg-[#2E2784]/10 flex items-center justify-center">
+                  <span style={{ fontWeight: 700 }}>Get in Touch</span>
+                  <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
                     <ArrowUpRight className="w-4 h-4" />
                   </span>
                 </a>

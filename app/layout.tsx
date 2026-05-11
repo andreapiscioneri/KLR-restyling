@@ -84,9 +84,9 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.png", type: "image/svg+xml" },
+      { url: "/favicon.png", type: "image/png" },
     ],
-    apple: { url: "/favicon.png", type: "image/svg+xml" },
+    apple: { url: "/favicon.png", type: "image/png" },
     shortcut: "/favicon.png",
   },
   manifest: "/site.webmanifest",
@@ -124,7 +124,7 @@ const orgJsonLd = {
     },
     {
       "@type": "PostalAddress",
-      streetAddress: "Via XXV Aprile 68",
+      streetAddress: "Via XXV Aprile 66",
       addressLocality: "Rovato",
       postalCode: "25038",
       addressRegion: "Brescia",

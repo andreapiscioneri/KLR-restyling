@@ -13,6 +13,9 @@
   --klr-blue-pale: #ECEAF8;
   --klr-gray: #F5F5F5;
   --klr-dark: #111111;
+  --klr-lilac: #C8B8F0;
+  --klr-lilac-light: #E8DEFF;
+  --klr-anthracite: #2C2C34;
   font-family: 'Poppins', system-ui, sans-serif;
 }
 
@@ -111,3 +114,32 @@ html.lenis, html.lenis body {
 @media (pointer: coarse) {
   .custom-cursor { display: none !important; }
 }
+
+/* Tablet: ensure brand logo marquee shows two rows instead of mobile single-row */
+@media (min-width: 640px) and (max-width: 767px) {
+  .logo-marquee-track { animation-duration: 22s !important; }
+}
+
+/* Mobile performance: remove expensive blur filters and reduce animation load */
+@media (pointer: coarse) {
+  /* Hide decorative blur orbs — main cause of GPU lag on mobile */
+  [class*="blur-2xl"],
+  [class*="blur-3xl"] {
+    display: none !important;
+  }
+
+  /* Disable hover scale transforms on cards — avoids paint during scroll */
+  [class*="group-hover:scale"] {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* Ensure smooth native momentum scroll everywhere */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Hide scrollbar for horizontal card carousels */
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+.scrollbar-hide::-webkit-scrollbar { display: none; }

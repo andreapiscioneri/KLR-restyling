@@ -75,11 +75,18 @@ export function BlogDetail({ slug, go, initialPost }: { slug: string; go: (r: Ro
         }
         
         .klr-editorial-content p {
-          font-size: 1.15rem !important;
-          line-height: 1.8 !important;
-          margin-bottom: 2rem !important;
+          font-size: 1rem !important;
+          line-height: 1.75 !important;
+          margin-bottom: 1.75rem !important;
           font-weight: 300 !important;
           opacity: 0.9 !important;
+        }
+
+        @media (min-width: 768px) {
+          .klr-editorial-content p {
+            font-size: 1.15rem !important;
+            margin-bottom: 2rem !important;
+          }
         }
 
         .klr-editorial-content h1, 
@@ -94,14 +101,23 @@ export function BlogDetail({ slug, go, initialPost }: { slug: string; go: (r: Ro
         }
 
         /* MODIFICA: Ora h3 e h4 forzati in Giallo Oro */
-        .klr-editorial-content h3, 
+        .klr-editorial-content h3,
         .klr-editorial-content h4 {
           color: ${COLORS.gold} !important;
-          font-size: 1.75rem !important;
+          font-size: 1.3rem !important;
           font-weight: 800 !important;
           letter-spacing: -0.02em !important;
-          margin-top: 3.5rem !important;
-          margin-bottom: 1rem !important;
+          margin-top: 2.5rem !important;
+          margin-bottom: 0.75rem !important;
+        }
+
+        @media (min-width: 768px) {
+          .klr-editorial-content h3,
+          .klr-editorial-content h4 {
+            font-size: 1.75rem !important;
+            margin-top: 3.5rem !important;
+            margin-bottom: 1rem !important;
+          }
         }
 
         .klr-editorial-content img,
@@ -129,14 +145,23 @@ export function BlogDetail({ slug, go, initialPost }: { slug: string; go: (r: Ro
         .klr-editorial-content blockquote {
           border-left: 5px solid ${COLORS.gold} !important;
           background: rgba(255,255,255,0.04) !important;
-          padding: 2.5rem 3rem !important;
-          margin: 3.5rem 0 !important;
-          border-radius: 0 28px 28px 0 !important;
-          font-size: 1.6rem !important;
+          padding: 1.5rem 1.5rem !important;
+          margin: 2rem 0 !important;
+          border-radius: 0 20px 20px 0 !important;
+          font-size: 1.1rem !important;
           font-weight: 600 !important;
           font-style: italic !important;
           line-height: 1.5 !important;
           letter-spacing: -0.01em !important;
+        }
+
+        @media (min-width: 768px) {
+          .klr-editorial-content blockquote {
+            padding: 2.5rem 3rem !important;
+            margin: 3.5rem 0 !important;
+            border-radius: 0 28px 28px 0 !important;
+            font-size: 1.6rem !important;
+          }
         }
 
         .klr-editorial-content ul, 
@@ -146,9 +171,17 @@ export function BlogDetail({ slug, go, initialPost }: { slug: string; go: (r: Ro
         }
 
         .klr-editorial-content li {
-          margin-bottom: 0.85rem !important;
-          font-size: 1.15rem !important;
-          line-height: 1.7 !important;
+          margin-bottom: 0.75rem !important;
+          font-size: 1rem !important;
+          line-height: 1.65 !important;
+        }
+
+        @media (min-width: 768px) {
+          .klr-editorial-content li {
+            font-size: 1.15rem !important;
+            margin-bottom: 0.85rem !important;
+            line-height: 1.7 !important;
+          }
         }
         
         .klr-editorial-content strong,
@@ -185,7 +218,7 @@ export function BlogDetail({ slug, go, initialPost }: { slug: string; go: (r: Ro
               </div>
               <div className="text-white/50 font-bold tracking-[0.2em] uppercase text-xs mb-2">Author</div>
               {/* MODIFICA: Nome Autore Giallo Oro */}
-              <h3 className="text-[#F8AE01] text-3xl font-black tracking-tight leading-none mb-4">{post.authorName}</h3>
+              <h3 className="text-[#F8AE01] text-xl md:text-3xl font-black tracking-tight leading-none mb-4">{post.authorName}</h3>
             </div>
 
             {/* Right: Overview/Estratto (Giallo) */}
@@ -197,10 +230,10 @@ export function BlogDetail({ slug, go, initialPost }: { slug: string; go: (r: Ro
                 <div className="text-[#2E2784] font-bold tracking-[0.2em] uppercase text-xs">Executive Summary</div>
               </div>
               
-              <h2 className="text-[#2E2784] text-4xl md:text-5xl font-black tracking-tighter mb-6 leading-none italic">
+              <h2 className="text-[#2E2784] text-2xl md:text-5xl font-black tracking-tighter mb-6 leading-none italic">
                 The core concept.
               </h2>
-              <p className="text-[#1a1752] text-2xl md:text-3xl font-medium leading-snug tracking-tight border-l-4 border-[#2E2784] pl-8 opacity-90">
+              <p className="text-[#1a1752] text-base md:text-3xl font-medium leading-snug tracking-tight border-l-4 border-[#2E2784] pl-5 md:pl-8 opacity-90">
                 "{post.excerpt}"
               </p>
             </div>
@@ -222,11 +255,11 @@ export function BlogDetail({ slug, go, initialPost }: { slug: string; go: (r: Ro
       </div>
 
       {/* 4. RELATED ARTICLES */}
-      <section className="py-32 px-6 md:px-8 mt-20" style={{ background: COLORS.gold }}>
+      <section className="py-16 md:py-32 px-6 md:px-8 mt-10 md:mt-20" style={{ background: COLORS.gold }}>
         <div className="max-w-6xl mx-auto">
           <AnimatedSection>
             <div className="text-[#2E2784] font-bold tracking-[0.3em] uppercase text-xs mb-6">Keep reading</div>
-            <h2 className="text-[#2E2784] tracking-[-0.07em] text-6xl md:text-8xl font-black leading-[0.85] mb-20">
+            <h2 className="text-[#2E2784] tracking-[-0.04em] md:tracking-[-0.07em] text-4xl md:text-8xl font-black leading-[0.9] md:leading-[0.85] mb-10 md:mb-20">
               More Insights,<br /><span className="text-black">Same Ambition.</span>
             </h2>
 
@@ -241,10 +274,10 @@ export function BlogDetail({ slug, go, initialPost }: { slug: string; go: (r: Ro
                   <div className="aspect-[16/10] overflow-hidden border-b border-white/10">
                     <ImageWithFallback src={p.img} alt={p.title} className="w-full h-full object-cover opacity-90 group-hover:scale-110 group-hover:opacity-100 transition-all duration-1000" />
                   </div>
-                  <div className="p-8 md:p-10">
+                  <div className="p-5 md:p-10">
                     <div className="text-white/50 font-bold tracking-[0.2em] uppercase text-[10px] mb-4">0{i+1} · {p.category}</div>
                     {/* MODIFICA: Titoletto Card Giallo Oro */}
-                    <h4 className="text-[#F8AE01] text-2xl font-black leading-tight group-hover:text-white transition-colors">{p.title}</h4>
+                    <h4 className="text-[#F8AE01] text-lg md:text-2xl font-black leading-tight group-hover:text-white transition-colors">{p.title}</h4>
                     
                     <div className="mt-8 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-[#F8AE01] group-hover:text-[#2E2784] transition-all">
                       <ArrowUpRight size={22} />
@@ -258,15 +291,15 @@ export function BlogDetail({ slug, go, initialPost }: { slug: string; go: (r: Ro
       </section>
 
       {/* 5. FOOTER CTA */}
-      <section className="py-40 px-6 md:px-8 text-center" style={{ background: COLORS.gold }}>
+      <section className="py-20 md:py-40 px-6 md:px-8 text-center" style={{ background: COLORS.gold }}>
         <AnimatedSection>
-          <h2 className="text-[#2E2784] text-5xl md:text-8xl font-black tracking-tighter leading-none mb-14">
+          <h2 className="text-[#2E2784] text-3xl md:text-8xl font-black tracking-[-0.04em] md:tracking-tighter leading-tight md:leading-none mb-10 md:mb-14">
             This isn't just Loyalty...<br />
             <span className="text-white drop-shadow-md">this is Marketing!</span>
           </h2>
           <button
             onClick={() => go({ page: "contact" })}
-            className="group inline-flex items-center gap-5 rounded-full pl-10 pr-6 py-5 bg-[#2E2784] text-[#F8AE01] text-2xl font-black hover:bg-black transition-all active:scale-95"
+            className="group inline-flex items-center gap-3 md:gap-5 rounded-full pl-7 md:pl-10 pr-4 md:pr-6 py-4 md:py-5 bg-[#2E2784] text-[#F8AE01] text-lg md:text-2xl font-black hover:bg-black transition-all active:scale-95"
           >
             <span>Let's talk Strategy</span>
             <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center group-hover:rotate-45 transition-transform">

@@ -1,7 +1,8 @@
 "use client";
 
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { ArrowUpRight, Baby, ChefHat, Dumbbell, Plane, Sparkles, Trees } from "lucide-react";
+import { ArrowUpRight, Baby, ChefHat, Dumbbell, Plane, Sparkles, Trees, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
 import { softShadow } from "./ui-bits";
 import { brandPartners, brandPartnershipProcess, brands, images, productCategories, whyBrandsPartner } from "../data";
 import { PageHero } from "./page-hero";
@@ -9,42 +10,106 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import type { Route } from "../App";
 
 const G = {
-  blue: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
+  blue:   "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
   yellow: "radial-gradient(130% 130% at 15% 0%, #ffd95a 0%, #F8AE01 50%, #de9800 100%)",
+  rosa:   "radial-gradient(130% 130% at 10% 0%, #f0e8ff 0%, #C8B8F0 45%, #9d85d4 100%)",
 };
 
-export function Brands({ go }: { go: (r: Route) => void }) {
-  const featured = brands.slice(0, 6);
-  const additional = [
-    "Zanussi",
-    "Guzzini Chefline",
-    "Police",
-    "Waverley",
-    "O bag",
-    "Mustang",
-    "Carl Schmidt Sohn",
-    "Luminarc",
-    "Goodyear",
-    "Blaupunkt",
-    "Elle",
-    "NewME",
-    "Wastebusters",
-  ];
-  const categoryIcons = [ChefHat, Trees, Plane, Sparkles, Baby, Dumbbell] as const;
+const collections = [
+  { src: "https://klr-europe.com/wp-content/uploads/2023/04/ZAnussi-Cooking-Easy-KLR-Europe-1.jpg", label: "Zanussi — Cooking Easy" },
+  { src: "https://klr-europe.com/wp-content/uploads/2023/04/ZAnussi-SUPERGRIP-KLR-Europe.jpg", label: "Zanussi — SuperGrip" },
+  { src: "https://klr-europe.com/wp-content/uploads/2024/01/ZAnussi-ZmartMove-KLR-Europe.jpg", label: "Zanussi — Zmart Move" },
+  { src: "https://klr-europe.com/wp-content/uploads/2024/01/Pintinox-Trust-Forged-In-Steel.jpg", label: "Pintinox — Trust" },
+  { src: "https://klr-europe.com/wp-content/uploads/2025/02/pintinox-barbeque.jpg", label: "Pintinox — Barbeque" },
+  { src: "https://klr-europe.com/wp-content/uploads/2025/02/pintinox-hexacore.jpg", label: "Pintinox — Hexacore" },
+  { src: "https://klr-europe.com/wp-content/uploads/2025/02/virtuoso.jpg", label: "Pintinox — Virtuoso" },
+  { src: "https://klr-europe.com/wp-content/uploads/2024/01/Bugatti-Spezia-KLR-Europe.jpg", label: "Bugatti — Spezia" },
+  { src: "https://klr-europe.com/wp-content/uploads/2023/01/Bugatti-Ergo-Pakka-KLR-Europe.jpg", label: "Bugatti — Ergo Pakka" },
+  { src: "https://klr-europe.com/wp-content/uploads/2023/01/Bugatti-Prestigio-KLR-Europe.jpg", label: "Bugatti — Prestigio" },
+  { src: "https://klr-europe.com/wp-content/uploads/2023/01/Bugatti-Buono-Cookiez-KLR-Europe.jpg", label: "Bugatti — Buono Cookiez" },
+  { src: "https://klr-europe.com/wp-content/uploads/2023/01/Bugatti-Buono-Bakeware-KLR-Europe.jpg", label: "Bugatti — Buono Bakeware" },
+  { src: "https://klr-europe.com/wp-content/uploads/2023/04/Spear-and-Jackson-The-Best-Sellers-KLR-Europe.jpg", label: "Spear & Jackson — Best Sellers" },
+  { src: "https://klr-europe.com/wp-content/uploads/2023/01/Spear-and-Jackson-Sense-of-Adventure-KLR-Europe-1.jpg", label: "Spear & Jackson — Adventure" },
+  { src: "https://klr-europe.com/wp-content/uploads/2023/01/Spear-and-Jackson-Sense-of-Nature-KLR-Europe.jpg", label: "Spear & Jackson — Nature" },
+  { src: "https://klr-europe.com/wp-content/uploads/2025/02/police.jpg", label: "Police" },
+  { src: "https://klr-europe.com/wp-content/uploads/2024/04/Eurosport-Champions.jpg", label: "Eurosport — Champions" },
+  { src: "https://klr-europe.com/wp-content/uploads/2023/04/NEWME-Food-Containers-KLR-Europe.jpg", label: "NEWME — Food Containers" },
+  { src: "https://klr-europe.com/wp-content/uploads/2023/01/Wastebusters-KLR-Europe-1.jpg", label: "Wastebusters" },
+  { src: "https://klr-europe.com/wp-content/uploads/2024/04/NASA-STARDUST-black-KLR-Europe.jpg", label: "NASA Stardust" },
+  { src: "https://klr-europe.com/wp-content/uploads/2025/02/Guzzini-Chefline.jpg", label: "Guzzini — Chefline" },
+  { src: "https://klr-europe.com/wp-content/uploads/2025/02/waverely.jpg", label: "Waverley" },
+];
 
-  // Immagini dalla cartella /public come richiesto
-  const globalBrandLogos = [
-    "/Senza titolo.png",
-    "/Senza titolo2.png",
-    "/Senza titolo4.png",
-    "/Senza titolo3.png",
-    "/Senza titolo5.png",
-    "/Senza titolo6.png",
-    "/Senza titolo7.png",
-    "/Senza titolo8.png",
-    "/Senza titolo9.png",
-    "/Senza titolo10.png",
-  ];
+function CollectionsSlider() {
+  const [idx, setIdx] = useState(0);
+  const total = collections.length;
+  const visible = 3;
+  const max = total - visible;
+
+  const prev = () => setIdx((i) => Math.max(0, i - 1));
+  const next = () => setIdx((i) => Math.min(max, i + 1));
+
+  return (
+    <div className="mt-12 max-w-6xl mx-auto px-8">
+      <div className="relative">
+        <div className="overflow-hidden">
+          <div
+            className="flex gap-6 transition-transform duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
+            style={{ transform: `translateX(calc(-${idx} * (100% / ${visible} + 24px / ${visible} * (${visible} - 1) / ${visible})))` }}
+          >
+            {collections.map((item) => (
+              <div key={item.src} className="shrink-0 rounded-[24px] overflow-hidden" style={{ width: `calc((100% - ${(visible - 1) * 24}px) / ${visible})` }}>
+                <div className="aspect-square overflow-hidden">
+                  <img src={item.src} alt={item.label} className="w-full h-full object-cover hover:scale-[1.03] transition-transform duration-500" />
+                </div>
+                <div className="pt-3 pb-1 px-1">
+                  <p className="text-[#2E2784] tracking-tight" style={{ fontSize: "0.85rem", fontWeight: 600 }}>{item.label}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Arrows */}
+        <button
+          onClick={prev}
+          disabled={idx === 0}
+          className="absolute -left-5 top-[45%] -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center transition-all disabled:opacity-30"
+          style={{ background: "#2E2784", color: "#F8AE01" }}
+          aria-label="Previous"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button
+          onClick={next}
+          disabled={idx >= max}
+          className="absolute -right-5 top-[45%] -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center transition-all disabled:opacity-30"
+          style={{ background: "#2E2784", color: "#F8AE01" }}
+          aria-label="Next"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+      </div>
+
+      {/* Dots */}
+      <div className="flex justify-center gap-1.5 mt-8">
+        {Array.from({ length: max + 1 }).map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIdx(i)}
+            className="rounded-full transition-all"
+            style={{ width: i === idx ? "24px" : "8px", height: "8px", background: i === idx ? "#2E2784" : "rgba(46,39,132,0.25)" }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function Brands({ go }: { go: (r: Route) => void }) {
+  const featured = brands.slice(0, 4);
+  const categoryIcons = [ChefHat, Trees, Plane, Sparkles, Baby, Dumbbell] as const;
+  const partnerLogos = brandPartners.filter((b) => b.logo);
 
   return (
     <>
@@ -53,8 +118,52 @@ export function Brands({ go }: { go: (r: Route) => void }) {
         title={<>Exceptional Brands.<br /><span className="text-[#F8AE01]">Unforgettable Rewards.</span></>}
         subtitle="We partner with world-class brands to create exclusive reward collections that inspire desire, deliver satisfaction, and elevate retail loyalty campaigns across Europe."
         image={images.tailorMade}
-        cta={{ label: "Explore Brand Partners", href: "#brand-showcases" }}
+        cta={{ label: "Explore Brand Partners", href: "#featured-brands" }}
       />
+
+      {/* BRAND PARTNERS MARQUEE — dark */}
+      <section className="relative py-14 overflow-hidden" style={{ background: "#06051C" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 80% at 50% 50%, rgba(46,39,132,0.25) 0%, transparent 70%)" }} />
+        <div className="max-w-6xl mx-auto px-8 mb-10">
+          <div className="tracking-[0.3em] uppercase text-[#F8AE01]/60 text-center" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
+            Our Brand Partners
+          </div>
+        </div>
+        <div className="relative overflow-hidden">
+          <div
+            className="flex gap-12 items-center"
+            style={{
+              animation: "marquee 28s linear infinite",
+              width: "max-content",
+            }}
+          >
+            {[...partnerLogos, ...partnerLogos].map((b, i) => (
+              <div key={i} className="flex items-center justify-center min-h-[56px] shrink-0">
+                <img
+                  src={b.logo!}
+                  alt={b.name}
+                  className="max-h-10 w-auto object-contain"
+                  style={{ filter: "brightness(0) invert(1)", opacity: 0.6 }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        <style>{`@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }`}</style>
+
+        {/* CTA */}
+        <div className="max-w-6xl mx-auto px-8 mt-12 flex justify-center">
+          <a
+            href="#featured-brands"
+            className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-white"
+          >
+            <span>Become our next Partner</span>
+            <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
+              <ArrowUpRight className="w-4 h-4" />
+            </span>
+          </a>
+        </div>
+      </section>
 
       {/* PRODUCT CATEGORIES — yellow */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
@@ -68,7 +177,7 @@ export function Brands({ go }: { go: (r: Route) => void }) {
               The Full Scope of Loyalty
             </h2>
 
-            <div className="mt-14 grid md:grid-cols-3 gap-6">
+            <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {productCategories.map((c, i) => {
                 const Icon = categoryIcons[i % categoryIcons.length];
                 return (
@@ -94,21 +203,20 @@ export function Brands({ go }: { go: (r: Route) => void }) {
         </div>
       </section>
 
-      {/* BRAND SHOWCASES — blue */}
-      <section id="brand-showcases" className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+      {/* FEATURED BRANDS — blue */}
+      <section id="featured-brands" className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
         <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              Our Brand Partners
+              Brand Excellence
             </div>
             <h2 className="text-white tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-              Selected Partners.
-              <br />
-              <span className="text-[#F8AE01]">Proven Market Impact.</span>
+              Partners That Set<br />
+              <span className="text-[#F8AE01]">the Standard.</span>
             </h2>
 
-            <div className="mt-14 grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="mt-14 grid md:grid-cols-2 gap-6">
               {featured.map((b) => (
                 <article key={b.id} className="rounded-[28px] overflow-hidden border border-white/10 bg-[#241f69]" style={softShadow}>
                   <div className="aspect-[16/10] overflow-hidden">
@@ -150,62 +258,28 @@ export function Brands({ go }: { go: (r: Route) => void }) {
                 </article>
               ))}
             </div>
-
-            <div className="mt-10 rounded-[24px] p-6 border border-[#F8AE01]/20 bg-[#1f1a5f]">
-              <div className="text-[#F8AE01]/75 tracking-[0.2em] uppercase" style={{ fontSize: "0.65rem", fontWeight: 700 }}>
-                Additional Brands
-              </div>
-              <div className="mt-4 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
-                {additional.map((name) => (
-                  <div
-                    key={name}
-                    className="rounded-[14px] px-4 py-3 border border-white/12 bg-white/5 text-white/85"
-                    style={{ fontSize: "0.86rem", fontWeight: 600, lineHeight: 1.3 }}
-                  >
-                    {name}
-                  </div>
-                ))}
-              </div>
-            </div>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* GLOBAL BRANDS — yellow */}
-      <section className="relative pt-28 md:pt-32 pb-24 md:pb-28 overflow-hidden" style={{ background: G.yellow }}>
-        <div className="absolute -top-20 -left-24 w-[360px] h-[360px] rounded-full bg-white/20 blur-3xl" />
-        <div className="absolute -bottom-20 -right-20 w-[340px] h-[340px] rounded-full bg-[#2E2784]/15 blur-3xl" />
+      {/* EXCLUSIVE REWARDS CAROUSEL — rosa */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
+        <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-[#2E2784]/08 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <div className="tracking-[0.3em] uppercase text-[#2E2784]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              Brand partener
+            <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
+              Exclusive Rewards
             </div>
-            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2.3rem, 5vw, 4.2rem)", fontWeight: 800, lineHeight: 1.03 }}>
-              Global Brands
+            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
+              Our Collections
             </h2>
-            
-            {/* Nuovo paragrafo aggiunto qui in stile Hero subtitle */}
-            <p className="text-[#2E2784] tracking-tight mt-6 max-w-2xl" style={{ fontSize: "1.125rem", lineHeight: 1.6 }}>
-              We partner up with leading global brands to create loyalty programs able to drive high participation.
+            <p className="text-[#2E2784]/70 tracking-tight mt-4 max-w-2xl" style={{ fontSize: "1rem", lineHeight: 1.6 }}>
+              Our partnerships with the world's leading brands guarantee that our rewards collections are tangible, sustainable and unique!
             </p>
-
-            <div className="mt-14 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-10 gap-y-10 md:gap-y-12 items-center">
-              {globalBrandLogos.map((src, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-center justify-center min-h-[92px]"
-                >
-                  <img
-                    src={src}
-                    alt={`Global Brand ${idx + 1}`}
-                    className="max-h-14 md:max-h-16 w-auto object-contain opacity-95"
-                    style={{ filter: "brightness(0) saturate(100%) invert(18%) sepia(21%) saturate(2500%) hue-rotate(222deg) brightness(88%) contrast(98%)" }}
-                  />
-                </div>
-              ))}
-            </div>
           </AnimatedSection>
         </div>
+
+        <CollectionsSlider />
       </section>
 
       {/* WHY PARTNER — blue */}
@@ -326,7 +400,7 @@ export function Brands({ go }: { go: (r: Route) => void }) {
                     onClick={() => go({ page: "contact" })}
                     className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-white hover:text-[#2E2784]"
                   >
-                    <span>Keep in Touch!</span>
+                    <span>Get in Touch</span>
                     <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
                       <ArrowUpRight className="w-4 h-4" />
                     </span>

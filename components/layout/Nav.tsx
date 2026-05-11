@@ -8,13 +8,12 @@ import { Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 const links = [
-  { href: "/about",    label: "About" },
+  { href: "/about",    label: "About", sub: [{ href: "/10-years", label: "10 Years" }] },
   { href: "/services", label: "Services" },
   { href: "/brands",   label: "Brands" },
   { href: "/work",     label: "Case Studies" },
   { href: "/blog",     label: "Insights" },
   { href: "/team",     label: "Team" },
-  { href: "/10-years", label: "KLR 10 Years" },
 ];
 
 const glass = {
@@ -70,6 +69,41 @@ export function Nav() {
         <div className="hidden lg:flex items-center gap-0.5">
           {links.map((l) => {
             const active = pathname === l.href || (l.href !== "/" && pathname.startsWith(l.href));
+            if (l.sub) {
+              return (
+                <div key={l.href} className="relative group">
+                  <Link
+                    href={l.href}
+                    className="relative px-3 py-1.5 rounded-xl tracking-tight transition-all duration-300 text-[0.82rem] flex items-center gap-1"
+                    style={
+                      active
+                        ? { color: "#F8AE01", background: "rgba(248,174,1,0.12)", border: "1px solid rgba(248,174,1,0.18)", boxShadow: "inset 0 1px 0 rgba(248,174,1,0.15)" }
+                        : { color: "rgba(255,255,255,0.6)" }
+                    }
+                  >
+                    {l.label}
+                    <svg className="w-2.5 h-2.5 opacity-50" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                  </Link>
+                  {/* Dropdown */}
+                  <div
+                    className="absolute top-full left-0 pt-2 min-w-[140px] opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200"
+                  >
+                    <div className="rounded-[14px] py-1.5" style={{ background: "rgba(10,7,46,0.95)", backdropFilter: "blur(60px)", border: "1px solid rgba(255,255,255,0.10)", boxShadow: "0 16px 48px -8px rgba(46,39,132,0.5)" }}>
+                    {l.sub.map((s) => (
+                      <Link
+                        key={s.href}
+                        href={s.href}
+                        className="block px-4 py-2.5 text-[0.82rem] tracking-tight transition-colors hover:text-[#F8AE01]"
+                        style={{ color: "rgba(255,255,255,0.65)" }}
+                      >
+                        {s.label}
+                      </Link>
+                    ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            }
             return (
               <Link
                 key={l.href}
@@ -77,12 +111,7 @@ export function Nav() {
                 className="relative px-3 py-1.5 rounded-xl tracking-tight transition-all duration-300 text-[0.82rem]"
                 style={
                   active
-                    ? {
-                        color: "#F8AE01",
-                        background: "rgba(248,174,1,0.12)",
-                        border: "1px solid rgba(248,174,1,0.18)",
-                        boxShadow: "inset 0 1px 0 rgba(248,174,1,0.15)",
-                      }
+                    ? { color: "#F8AE01", background: "rgba(248,174,1,0.12)", border: "1px solid rgba(248,174,1,0.18)", boxShadow: "inset 0 1px 0 rgba(248,174,1,0.15)" }
                     : { color: "rgba(255,255,255,0.6)" }
                 }
               >
@@ -97,13 +126,13 @@ export function Nav() {
           <Link
             href="/contact"
             data-cursor="cta"
-            className="hidden sm:inline-flex items-center gap-2 pl-4 pr-1.5 py-1.5 rounded-xl tracking-tight text-[0.85rem] font-medium transition-all"
+            className="hidden lg:inline-flex items-center gap-2 pl-4 pr-1.5 py-1.5 rounded-xl tracking-tight text-[0.85rem] font-medium transition-all"
             style={{
               background: "#F8AE01",
               color: "#000",
               }}
           >
-            <span>Keep in Touch!</span>
+            <span>Get in Touch</span>
             <span
               className="w-6 h-6 rounded-lg flex items-center justify-center"
               style={{ background: "rgba(0,0,0,0.12)" }}
@@ -140,27 +169,35 @@ export function Nav() {
               boxShadow: "0 32px 80px -16px rgba(46,39,132,0.65), inset 0 1px 0 rgba(255,255,255,0.10)",
             }}
           >
-            {[{ href: "/", label: "Home" }, ...links].map((l) => {
-              const active = pathname === l.href;
-              return (
+            {[{ href: "/", label: "Home", sub: undefined }, ...links].map((l) => (
+              <div key={l.href}>
                 <Link
-                  key={l.href}
                   href={l.href}
-                  className="px-4 py-3 rounded-xl text-[0.92rem] tracking-tight transition-all"
+                  className="block px-4 py-3 rounded-xl text-[0.92rem] tracking-tight transition-all"
                   style={
-                    active
-                      ? {
-                          background: "rgba(248,174,1,0.12)",
-                          color: "#F8AE01",
-                          border: "1px solid rgba(248,174,1,0.18)",
-                        }
+                    pathname === l.href
+                      ? { background: "rgba(248,174,1,0.12)", color: "#F8AE01", border: "1px solid rgba(248,174,1,0.18)" }
                       : { color: "rgba(255,255,255,0.65)" }
                   }
                 >
                   {l.label}
                 </Link>
-              );
-            })}
+                {l.sub?.map((s) => (
+                  <Link
+                    key={s.href}
+                    href={s.href}
+                    className="block px-7 py-2.5 rounded-xl text-[0.86rem] tracking-tight transition-all"
+                    style={
+                      pathname === s.href
+                        ? { color: "#F8AE01" }
+                        : { color: "rgba(255,255,255,0.4)" }
+                    }
+                  >
+                    {s.label}
+                  </Link>
+                ))}
+              </div>
+            ))}
             <Link
               href="/contact"
               className="mt-1.5 px-4 py-3 rounded-xl text-[0.92rem] font-medium tracking-tight"
@@ -170,7 +207,7 @@ export function Nav() {
                 boxShadow: "0 0 24px rgba(248,174,1,0.35), inset 0 1px 0 rgba(255,255,255,0.3)",
               }}
             >
-              Keep in Touch!
+              Get in Touch
             </Link>
           </motion.div>
         )}

@@ -32,7 +32,7 @@ export function BrandDetail({ id, go }: { id: string; go: (r: Route) => void }) 
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="rounded-[40px] p-10 md:p-14 border border-black/5" style={{ background: "#2E2784", ...softShadow }}>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-10 text-white">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-white">
                 {[
                   { k: "EU-wide", v: "Distribution" },
                   { k: "100%", v: "Licensed" },
@@ -92,7 +92,7 @@ export function BrandDetail({ id, go }: { id: string; go: (r: Route) => void }) 
             <h2 className="text-[#2E2784] tracking-[-0.035em] mt-10 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
               Explore our<br /><span className="text-black">full portfolio.</span>
             </h2>
-            <div className="grid grid-cols-3 gap-5 mt-10 md:mt-14">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-10 md:mt-14">
               {more.map((b) => (
                 <button
                   key={b.id}
@@ -100,7 +100,7 @@ export function BrandDetail({ id, go }: { id: string; go: (r: Route) => void }) 
                   className="group rounded-[28px] overflow-hidden bg-white border border-black/5 text-left"
                   style={softShadow}
                 >
-                  <div className="aspect-square overflow-hidden">
+                  <div className="aspect-[16/9] sm:aspect-square overflow-hidden">
                     <ImageWithFallback src={b.img} alt={b.name} className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[1200ms]" />
                   </div>
                   <div className="p-5">
@@ -109,11 +109,13 @@ export function BrandDetail({ id, go }: { id: string; go: (r: Route) => void }) 
                 </button>
               ))}
             </div>
-            <div className="mt-14 flex flex-wrap items-center justify-between gap-6">
+            <div className="mt-14 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 text-center sm:text-left">
               <h3 className="text-[#2E2784] tracking-[-0.03em] max-w-xl" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", lineHeight: 1.1, fontWeight: 600 }}>
                 Interested in becoming a brand partner?
               </h3>
-              <CTA label="Get in Touch" variant="dark" onClick={() => go({ page: "contact" })} />
+              <div className="flex justify-center sm:justify-end">
+                <CTA label="Get in Touch" variant="dark" onClick={() => go({ page: "contact" })} />
+              </div>
             </div>
           </AnimatedSection>
         </div>

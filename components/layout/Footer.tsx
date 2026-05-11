@@ -24,10 +24,11 @@ function YouTubeIcon({ className }: { className?: string }) {
 }
 
 const explore = [
-  { href: "/",         label: "Home" },
-  { href: "/about",    label: "About" },
-  { href: "/services", label: "Services" },
-  { href: "/brands",   label: "Brands" },
+  { href: "/",          label: "Home",     indent: false },
+  { href: "/about",     label: "About",    indent: false },
+  { href: "/10-years",  label: "10 Years", indent: true  },
+  { href: "/services",  label: "Services", indent: false },
+  { href: "/brands",    label: "Brands",   indent: false },
 ];
 const more = [
   { href: "/work",     label: "Case Studies" },
@@ -108,7 +109,7 @@ export function Footer() {
               color: "#000",
               }}
           >
-            <span>Keep in Touch!</span>
+            <span>Get in Touch</span>
             <span
               className="w-8 h-8 rounded-xl flex items-center justify-center"
               style={{ background: "rgba(0,0,0,0.12)" }}
@@ -119,10 +120,10 @@ export function Footer() {
         </div>
 
         {/* ── Columns ── */}
-        <div className="grid md:grid-cols-12 gap-10 mb-14">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-12 gap-10 mb-14">
 
           {/* Socials + desc */}
-          <div className="md:col-span-4">
+          <div className="sm:col-span-2 lg:col-span-4">
             <p className="text-white/40 tracking-tight text-[0.88rem] leading-relaxed max-w-xs">
               KLR Europe S.r.l. — Loyalty campaign design and full-cycle execution for grocery and petrol retailers across 20+ European markets.
             </p>
@@ -151,16 +152,16 @@ export function Footer() {
           </div>
 
           {/* Explore */}
-          <div className="md:col-span-2 md:col-start-6">
+          <div className="lg:col-span-2 lg:col-start-6">
             <div className="tracking-[0.22em] uppercase text-[#F8AE01]/70 mb-5 text-[0.63rem]">Explore</div>
             <ul className="space-y-3.5">
               {explore.map((e) => (
-                <li key={e.href}>
+                <li key={e.href} className={e.indent ? "pl-3" : ""}>
                   <Link
                     href={e.href}
-                    className="text-white/55 hover:text-[#F8AE01] transition-colors tracking-tight text-[0.9rem]"
+                    className={`hover:text-[#F8AE01] transition-colors tracking-tight ${e.indent ? "text-white/35 text-[0.82rem]" : "text-white/55 text-[0.9rem]"}`}
                   >
-                    {e.label}
+                    {e.indent && <span className="mr-1.5 text-[#F8AE01]/30">—</span>}{e.label}
                   </Link>
                 </li>
               ))}
@@ -168,7 +169,7 @@ export function Footer() {
           </div>
 
           {/* Links */}
-          <div className="md:col-span-2">
+          <div className="lg:col-span-2">
             <div className="tracking-[0.22em] uppercase text-[#F8AE01]/70 mb-5 text-[0.63rem]">Links</div>
             <ul className="space-y-3.5">
               {more.map((e) => (
@@ -185,7 +186,7 @@ export function Footer() {
           </div>
 
           {/* HQ */}
-          <div className="md:col-span-3">
+          <div className="sm:col-span-2 lg:col-span-3">
             <div className="tracking-[0.22em] uppercase text-[#F8AE01]/70 mb-5 text-[0.63rem]">Headquarters</div>
 
             <div className="space-y-5">
@@ -204,7 +205,7 @@ export function Footer() {
                 <MapPin className="w-4 h-4 text-[#F8AE01]/60 shrink-0 mt-0.5" />
                 <div>
                   <p className="text-white/55 tracking-tight text-[0.88rem] leading-relaxed">
-                    Via XXV Aprile 68<br />
+                    Via XXV Aprile 66<br />
                     25038 Rovato (BS), Italy<br />
                     <span className="text-white/35">+39 030 52 81 427</span>
                   </p>

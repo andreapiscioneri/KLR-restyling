@@ -11,6 +11,7 @@ import type { Route } from "../App";
 const G = {
   blue: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
   yellow: "radial-gradient(130% 130% at 15% 0%, #ffd95a 0%, #F8AE01 50%, #de9800 100%)",
+  rosa: "radial-gradient(130% 130% at 10% 0%, #f0e8ff 0%, #C8B8F0 45%, #9d85d4 100%)",
 };
 
 export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) {
@@ -175,9 +176,9 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
         </div>
       </section>
 
-      {/* REWARDS — yellow */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
-        <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
+      {/* REWARDS — rosa */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
+        <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/10 blur-3xl pointer-events-none" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <Eyebrow>Reward Collection</Eyebrow>
@@ -186,12 +187,12 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
               <span className="text-black">people actually want.</span>
             </h2>
 
-            <div className="mt-12 grid md:grid-cols-3 gap-4">
+            <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {rewardGroups.map((group: any, i: number) => (
                 <article
                   key={group.title}
-                  className="rounded-[28px] p-6 border-2 border-[#2E2784]"
-                  style={i % 2 === 0 ? { background: "#2E2784", ...softShadow } : { background: "rgba(248,174,1,0.35)", ...softShadow }}
+                  className="rounded-[28px] p-6"
+                  style={i % 2 === 0 ? { background: "#2E2784", border: "2px solid #2E2784", ...softShadow } : { background: "rgba(255,255,255,0.35)", border: "2px solid rgba(255,255,255,0.5)", ...softShadow }}
                 >
                   <div className={`${i % 2 === 0 ? "text-[#F8AE01]" : "text-[#2E2784]"} tracking-[-0.015em]`} style={{ fontSize: "1.08rem", fontWeight: 800, lineHeight: 1.25 }}>{group.title}</div>
                   <p className={`${i % 2 === 0 ? "text-white/75" : "text-[#2E2784]/75"} tracking-tight mt-3`} style={{ fontSize: "0.86rem", lineHeight: 1.55 }}>
@@ -281,7 +282,7 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
                 <div className="tracking-[0.3em] uppercase text-[#2E2784]/60 mt-14" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
                   Social Media
                 </div>
-                <div className="mt-6 grid md:grid-cols-3 gap-4">
+                <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {social.slice(0, 3).map((img: string, i: number) => (
                     <div key={`${img}-${i}`} className="rounded-[24px] overflow-hidden border border-white/40" style={softShadow}>
                       <ImageWithFallback src={img} alt={`${s.title} social ${i + 1}`} className="w-full h-[220px] object-cover" />
@@ -311,23 +312,23 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
         </div>
       </section>
 
-      {/* BRAND LINK — blue */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
-        <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
+      {/* BRAND LINK — rosa */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
+        <div className="absolute -top-24 right-0 w-[400px] h-[400px] rounded-full bg-white/10 blur-3xl pointer-events-none" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             {brand && (
-              <div className="mt-10 rounded-[24px] p-6 border border-[#F8AE01]/35 bg-[#F8AE01]/12 flex flex-wrap items-center justify-between gap-4">
+              <div className="rounded-[24px] p-8 flex flex-wrap items-center justify-between gap-6" style={{ background: "rgba(255,255,255,0.25)", border: "1px solid rgba(255,255,255,0.45)" }}>
                 <div>
-                  <div className="text-[#F8AE01] tracking-[0.2em] uppercase" style={{ fontSize: "0.62rem", fontWeight: 700 }}>Featured Brand</div>
-                  <div className="text-white tracking-tight mt-2" style={{ fontSize: "1.05rem", fontWeight: 700 }}>{brand.name}</div>
+                  <div className="text-[#2E2784]/60 tracking-[0.2em] uppercase" style={{ fontSize: "0.62rem", fontWeight: 700 }}>Featured Brand</div>
+                  <div className="text-[#2E2784] tracking-tight mt-2" style={{ fontSize: "1.3rem", fontWeight: 800 }}>{brand.name}</div>
                 </div>
                 <button
                   onClick={() => go({ page: "brand-detail", id: brand.id })}
-                  className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-[#ffd95a] hover:text-[#2E2784]"
+                  className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
                 >
                   <span>Explore Brand</span>
-                  <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
+                  <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
                     <ArrowUpRight className="w-4 h-4" />
                   </span>
                 </button>
@@ -348,7 +349,7 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
             <h2 className="text-[#2E2784] tracking-[-0.04em] mt-8" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 0.98, fontWeight: 800 }}>
               More stories,<br /><span className="text-black">same loyalty ambition.</span>
             </h2>
-            <div className="grid md:grid-cols-3 gap-6 mt-12">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
               {related.map((r) => (
                 <button
                   key={r.id}
