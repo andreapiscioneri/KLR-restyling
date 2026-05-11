@@ -2,12 +2,13 @@
 
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { ArrowUpRight, Baby, ChefHat, Dumbbell, Plane, Sparkles, Trees, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { softShadow } from "./ui-bits";
-import { brandPartners, brandPartnershipProcess, brands, images, productCategories, whyBrandsPartner } from "../data";
+import { brandPartners, brandPartnershipProcess, brands as fallbackBrands, images, productCategories, whyBrandsPartner } from "../data";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import type { Route } from "../App";
+
 
 const G = {
   blue:   "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
@@ -107,6 +108,10 @@ function CollectionsSlider() {
 }
 
 export function Brands({ go }: { go: (r: Route) => void }) {
+  const [brands, setBrands] = useState(fallbackBrands);
+  useEffect(() => {
+    fetch("/api/content?type=brands").then(r => r.json()).then(j => { if (j.data?.length) setBrands(j.data); }).catch(() => {});
+  }, []);
   const featured = brands.slice(0, 4);
   const categoryIcons = [ChefHat, Trees, Plane, Sparkles, Baby, Dumbbell] as const;
   const partnerLogos = brandPartners.filter((b) => b.logo);

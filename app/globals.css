@@ -143,3 +143,8 @@ html.lenis, html.lenis body {
 /* Hide scrollbar for horizontal card carousels */
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+/* Admin panel — hide mobile topbar on desktop */
+@media (min-width: 768px) {
+  .admin-mobile-bar { display: none !important; }
+}

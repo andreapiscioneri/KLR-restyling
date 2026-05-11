@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { ArrowUpRight, MapPin } from "lucide-react";
 
 function LinkedInIcon({ className }: { className?: string }) {
@@ -46,6 +47,12 @@ const glassCard = {
 };
 
 export function Footer() {
+  const pathname = usePathname();
+
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <footer className="relative overflow-hidden" style={{ background: "#06051C" }}>
 

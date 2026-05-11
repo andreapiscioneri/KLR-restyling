@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X, ArrowUpRight, UserCircle } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 const links = [
@@ -45,6 +45,10 @@ export function Nav() {
   }, []);
 
   useEffect(() => setOpen(false), [pathname]);
+
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
 
   return (
     <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[96%] max-w-6xl">
@@ -123,6 +127,16 @@ export function Nav() {
 
         {/* CTA + burger */}
         <div className="flex items-center gap-2">
+         {/* <Link
+            href="/admin"
+            className="p-2 rounded-xl transition-all text-white/40 hover:text-white/70"
+            style={{ background: "rgba(255,255,255,0.04)" }}
+            aria-label="Admin"
+            title="Accedi al pannello admin"
+          >
+            <UserCircle className="w-4 h-4" />
+          </Link> */}
+
           <Link
             href="/contact"
             data-cursor="cta"

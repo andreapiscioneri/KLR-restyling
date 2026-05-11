@@ -1,0 +1,22 @@
+{
+  "siteName": "KLR Europe",
+  "siteDescription": "Loyalty campaigns that excite and engage customers. Design emotional loyalty experiences for grocery and petrol retail.",
+  "siteKeywords": "loyalty, retail, campaigns, marketing, grocery, petrol",
+  "siteUrl": "https://klr-europe.com",
+  "defaultEmail": "info@klr-europe.com",
+  "supportEmail": "support@klr-europe.com",
+  "phone": "+386 1 620 2600",
+  "socialLinks": {
+    "linkedin": "https://www.linkedin.com/company/klr-loyalty/",
+    "instagram": "",
+    "twitter": "",
+    "facebook": ""
+  },
+  "hq": {
+    "address": "Ljubljanska cesta 51, 6310 Izola, Slovenia",
+    "city": "Izola",
+    "country": "Slovenia"
+  },
+  "googleAnalyticsId": "UA-XXXXXXXXX-X",
+  "customCss": ""
+}

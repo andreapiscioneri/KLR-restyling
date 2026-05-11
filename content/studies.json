@@ -1,0 +1,74 @@
+[
+  {
+    "id": "oracle-red-bull-racing-adrenaline-for-spar-slovenia",
+    "cat": "retail",
+    "client": "SPAR Slovenia",
+    "title": "Oracle Red Bull Racing Adrenaline for SPAR Slovenia",
+    "location": "Slovenia",
+    "year": "2025",
+    "img": "https://klr-europe.com/wp-content/uploads/2025/08/Spar-TZ_RedBull-cover-circle.jpg",
+    "summary": "A 12-week national grocery campaign with experiential activations, premium Oracle Red Bull Racing rewards and a Porsche driving lottery.",
+    "results": [{ "k": "12", "v": "Weeks" }, { "k": "93", "v": "Supermarkets" }, { "k": "13", "v": "Exclusive products" }],
+    "brand": "Oracle Red Bull Racing"
+  },
+  {
+    "id": "pintinox-bbq-for-mol-hungary",
+    "cat": "petrol",
+    "client": "MOL Hungary",
+    "title": "Pintinox BBQ for MOL Hungary",
+    "location": "Hungary",
+    "year": "2025",
+    "img": "https://klr-europe.com/wp-content/uploads/2025/10/pintinox-bbq-collection-cover-1.png",
+    "summary": "An 11-week loyalty program across 370 stations built around the Pintinox Master The Grill collection and a digital stamp mechanic in MOL Move.",
+    "results": [{ "k": "11", "v": "Weeks" }, { "k": "370", "v": "Petrol stations" }, { "k": "13", "v": "Exclusive products" }],
+    "brand": "Pintinox"
+  },
+  {
+    "id": "oracle-red-bull-racing-adrenaline-kaufland-bulgaria",
+    "cat": "retail",
+    "client": "Kaufland Bulgaria",
+    "title": "Oracle Red Bull Racing Adrenaline for Kaufland Bulgaria",
+    "location": "Bulgaria",
+    "year": "2025",
+    "img": "https://klr-europe.com/wp-content/uploads/2025/08/Spar-TZ_RedBull-cover-circle.jpg",
+    "summary": "A 10-week campaign combining collectible Oracle Red Bull Racing rewards, in-store activations and a Porsche 718 Cayman S experience lottery.",
+    "results": [{ "k": "10", "v": "Weeks" }, { "k": "68", "v": "Supermarkets" }, { "k": "13", "v": "Exclusive products" }],
+    "brand": "Oracle Red Bull Racing"
+  },
+  {
+    "id": "bugatti-primo-for-lukoil-bulgaria",
+    "cat": "petrol",
+    "client": "Lukoil Bulgaria",
+    "title": "Bugatti Primo for Lukoil Bulgaria",
+    "location": "Bulgaria",
+    "year": "2024",
+    "img": "https://klr-europe.com/wp-content/uploads/2025/04/Primo-cover.png",
+    "summary": "Awarded Best Loyalty Campaign 2024 at Lukoil Bulgaria, this 10-week program paired premium Bugatti kitchen rewards with a high-frequency points mechanic.",
+    "results": [{ "k": "10", "v": "Weeks" }, { "k": "215", "v": "Petrol stations" }, { "k": "11", "v": "Exclusive products" }],
+    "brand": "Bugatti"
+  },
+  {
+    "id": "stardust-travel-for-omv-hungary",
+    "cat": "petrol",
+    "client": "OMV Hungary",
+    "title": "Stardust Travel for OMV Hungary",
+    "location": "Hungary",
+    "year": "2024",
+    "img": "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023.png",
+    "summary": "A 12-week NASA-inspired forecourt loyalty campaign with 13 travel products and a lottery to win an Audi Q2.",
+    "results": [{ "k": "12", "v": "Weeks" }, { "k": "185", "v": "Gas stations" }, { "k": "Lottery", "v": "Audi Q2 prize" }],
+    "brand": "NASA Stardust"
+  },
+  {
+    "id": "pintinox-trust-forged-in-steel-for-petrom-romania",
+    "cat": "petrol",
+    "client": "Petrom Romania",
+    "title": "Pintinox Trust Forged In Steel for Petrom Romania",
+    "location": "Romania",
+    "year": "2024",
+    "img": "https://klr-europe.com/wp-content/uploads/2024/07/petrom-pintinox-cover.png",
+    "summary": "A 14-week sticker-based campaign across 389 stations, offering premium Pintinox kitchen and outdoor essentials with discounts up to 83%.",
+    "results": [{ "k": "14", "v": "Weeks" }, { "k": "389", "v": "Petrol stations" }, { "k": "10", "v": "Products" }],
+    "brand": "Pintinox"
+  }
+]

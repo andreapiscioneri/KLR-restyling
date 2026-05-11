@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { ArrowUpRight } from "lucide-react";
 import { softShadow } from "./ui-bits";
-import { studies, images } from "../data";
+import { studies as fallbackStudies, images } from "../data";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import type { Route } from "../App";
@@ -14,11 +14,14 @@ const G = {
   yellow: "radial-gradient(130% 130% at 15% 0%, #ffd95a 0%, #F8AE01 50%, #de9800 100%)",
 };
 
-type Filter = "all" | "case-studies";
-
 export function Studies({ go }: { go: (r: Route) => void }) {
   const [sector, setSector] = useState<"all" | "retail" | "petrol">("all");
   const [brand, setBrand] = useState<string>("all");
+  const [studies, setStudies] = useState(fallbackStudies);
+
+  useEffect(() => {
+    fetch("/api/content?type=studies").then(r => r.json()).then(j => { if (j.data?.length) setStudies(j.data); }).catch(() => {});
+  }, []);
 
   const brands = Array.from(new Set(studies.map((s) => s.brand))).sort((a, b) => a.localeCompare(b));
 

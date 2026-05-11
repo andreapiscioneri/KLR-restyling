@@ -4,9 +4,9 @@ import React from "react";
 import Link from "next/link";
 import { ArrowUpRight, ArrowLeft, ArrowRight, Heart, Star, Award, Trophy, Globe, ShoppingCart, Clock, Users, Flag } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { images, stats, brandPartners, studies, fallbackPosts, loyaltyFramework, sectors, retailers, locations } from "@/src/app/data";
+import { images, stats as defaultStats, brandPartners as defaultBrands, studies as defaultStudies, fallbackPosts, loyaltyFramework, sectors, retailers, locations } from "@/src/app/data";
 
 const gradients = {
   blue:   "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
@@ -84,19 +84,6 @@ function Hero() {
   );
 }
 
-/* ── Stat card color variants (inspired by corporate deck) ──
-   dark  = anthracite bg, amber number
-   lilac = light lilac bg, dark blue number
-   blue  = KLR blue bg, amber number               */
-const statCards = [
-  { value: stats.campaigns,          label: "Campaigns Delivered Up to Now",          variant: "dark",  Icon: Trophy       },
-  { value: stats.countries,          label: "Countries Operating",                    variant: "lilac", Icon: Globe        },
-  { value: stats.retailers,          label: "Retail Chains as Clients",               variant: "lilac", Icon: ShoppingCart },
-  { value: stats.combinedExperience, label: "Years of Combined Loyalty Experience",   variant: "dark",  Icon: Clock        },
-  { value: stats.nationalities,      label: "Nationalities In House",                 variant: "dark",  Icon: Flag         },
-  { value: stats.people,             label: "People In Our Team",                     variant: "lilac", Icon: Users        },
-];
-
 const cardStyles: Record<string, React.CSSProperties> = {
   dark:  { background: "#2C2C34", borderColor: "transparent" },
   lilac: { background: "#E8DEFF", borderColor: "transparent" },
@@ -110,7 +97,16 @@ const labelColor: Record<string, string> = {
   lilac: "rgba(46,39,132,0.65)",
 };
 
-function StatsBar() {
+function StatsBar({ stats }: { stats: typeof defaultStats }) {
+  const statCards = [
+    { value: stats.campaigns,          label: "Campaigns Delivered Up to Now",          variant: "dark",  Icon: Trophy       },
+    { value: stats.countries,          label: "Countries Operating",                    variant: "lilac", Icon: Globe        },
+    { value: stats.retailers,          label: "Retail Chains as Clients",               variant: "lilac", Icon: ShoppingCart },
+    { value: stats.combinedExperience, label: "Years of Combined Loyalty Experience",   variant: "dark",  Icon: Clock        },
+    { value: stats.nationalities,      label: "Nationalities In House",                 variant: "dark",  Icon: Flag         },
+    { value: stats.people,             label: "People In Our Team",                     variant: "lilac", Icon: Users        },
+  ];
+
   return (
     <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.blue }}>
       {/* Decorative blobs */}
@@ -431,8 +427,8 @@ function ClientLogos() {
   );
 }
 
-function OurBrands() {
-  const logos = brandPartners.filter((b) => b.logo);
+function OurBrands({ brands }: { brands: typeof defaultBrands }) {
+  const logos = brands.filter((b) => b.logo);
   const allRows = [logos.slice(0, 6), logos.slice(6, 12), logos.slice(12)].filter((r) => r.length > 0);
   const durations = [28, 32, 30];
 
@@ -512,7 +508,7 @@ function OurBrands() {
   );
 }
 
-function CaseStudies() {
+function CaseStudies({ studies }: { studies: typeof defaultStudies }) {
   const entries = studies.slice(0, 3);
   const [idx, setIdx] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -685,16 +681,60 @@ function ClosingCta() {
 }
 
 export function HomePage() {
+  const [stats, setStats] = useState(defaultStats);
+  const [brandPartners, setBrandPartners] = useState(defaultBrands);
+  const [studies, setStudies] = useState(defaultStudies);
+
+  const fetchData = async () => {
+    try {
+      const [statsRes, brandsRes, studiesRes] = await Promise.all([
+        fetch("/api/admin/content?type=stats", { cache: "no-store" }),
+        fetch("/api/admin/content?type=brands", { cache: "no-store" }),
+        fetch("/api/admin/content?type=studies", { cache: "no-store" }),
+      ]);
+      
+      if (statsRes.ok) {
+        const data = await statsRes.json();
+        setStats(data.data || defaultStats);
+      }
+      if (brandsRes.ok) {
+        const data = await brandsRes.json();
+        setBrandPartners(data.data || defaultBrands);
+      }
+      if (studiesRes.ok) {
+        const data = await studiesRes.json();
+        setStudies(data.data || defaultStudies);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    // Initial fetch
+    fetchData();
+
+    // Refetch when page becomes visible (user switches tabs)
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        fetchData();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, []);
+
   return (
     <div>
       <Hero />
-      <StatsBar />
+      <StatsBar stats={stats} />
       <LoyaltyFramework />
-      <OurBrands />
+      <OurBrands brands={brandPartners} />
       <TwoSectors />
       <InternationalPresence />
       <ClientLogos />
-      <CaseStudies />
+      <CaseStudies studies={studies} />
       <BlogPreview />
       <ClosingCta />
     </div>

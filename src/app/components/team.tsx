@@ -3,10 +3,11 @@
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { ArrowUpRight, LucideLinkedin } from "lucide-react";
 import { softShadow } from "./ui-bits";
-import { leadership, locations, images, stats } from "../data";
+import { leadership as fallbackLeadership, locations, images, stats as fallbackStats } from "../data";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import type { Route } from "../App";
+import { useState, useEffect } from "react";
 
 const G = {
   blue: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
@@ -42,7 +43,7 @@ function FounderCard({
   person,
   go,
 }: {
-  person: (typeof leadership)[number];
+  person: (typeof fallbackLeadership)[number];
   go: (r: Route) => void;
 }) {
   const { first, last } = splitName(person.name);
@@ -94,7 +95,7 @@ function TeamCard({
   person,
   go,
 }: {
-  person: (typeof leadership)[number];
+  person: (typeof fallbackLeadership)[number];
   go: (r: Route) => void;
 }) {
   const { first, last } = splitName(person.name);
@@ -145,6 +146,12 @@ function TeamCard({
 }
 
 export function Team({ go }: { go: (r: Route) => void }) {
+  const [leadership, setLeadership] = useState(fallbackLeadership);
+  const [stats, setStats] = useState(fallbackStats);
+  useEffect(() => {
+    fetch("/api/content?type=leadership").then(r => r.json()).then(j => { if (j.data?.length) setLeadership(j.data); }).catch(() => {});
+    fetch("/api/content?type=stats").then(r => r.json()).then(j => { if (j.data) setStats(j.data); }).catch(() => {});
+  }, []);
   const get = (id: string) => leadership.find((p) => p.id === id)!;
   const row1 = row1Ids.map(get);
   const row2 = row2Ids.map(get);

@@ -1,0 +1,9 @@
+[
+  {
+    "id": "admin",
+    "name": "Andrea",
+    "email": "andrea.piscioneri@denani.it",
+    "password": "denani",
+    "role": "admin"
+  }
+]
