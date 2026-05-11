@@ -11,21 +11,22 @@ const gradients = {
 
 export default function NotFound() {
   return (
-    <section className="relative min-h-screen pt-40 pb-24 overflow-hidden flex items-center" style={{ background: gradients.blue }}>
+    <section className="relative min-h-screen overflow-hidden flex items-center justify-center px-4 py-16 md:px-8 md:pt-40 md:pb-24" style={{ background: gradients.blue }}>
       {/* Decorative gradient blob */}
       <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
 
-      <div className="relative max-w-6xl mx-auto px-8 w-full">
+      <div className="relative max-w-6xl mx-auto w-full">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+            className="text-center md:text-left"
           >
             {/* Large 404 with styled "0" */}
             <div className="relative mb-8">
-              <div className="flex items-start gap-2">
+              <div className="flex items-start justify-center md:justify-start gap-2">
                 <h1
                   className="text-white"
                   style={{
@@ -82,7 +83,7 @@ export default function NotFound() {
 
             {/* Description */}
             <motion.p
-              className="text-white tracking-tight max-w-xl"
+              className="text-white tracking-tight max-w-xl mx-auto md:mx-0"
               style={{
                 fontSize: 'clamp(1.02rem, 1.35vw, 1.125rem)',
                 lineHeight: 1.6,
@@ -97,7 +98,7 @@ export default function NotFound() {
             </motion.p>
 
             <motion.p
-              className="text-white tracking-tight max-w-xl"
+              className="text-white tracking-tight max-w-xl mx-auto md:mx-0"
               style={{
                 fontSize: 'clamp(1.02rem, 1.35vw, 1.125rem)',
                 lineHeight: 1.6,
@@ -113,7 +114,7 @@ export default function NotFound() {
 
             {/* CTA Buttons */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
