@@ -5,7 +5,7 @@ import { ArrowUpRight, Users, Star, TrendingUp, CheckCircle, LayoutTemplate, Roc
 import { motion } from "motion/react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { PageHero } from "@/src/app/components/page-hero";
-import { images, whatWeDeliver, aboutImpact, moreThanLoyalty, journey } from "@/src/app/data";
+import { images, whatWeDeliver, aboutImpact, journey } from "@/src/app/data";
 
 const G = {
   blue:   "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
@@ -166,47 +166,18 @@ export function AboutClient() {
       </section>
 
       {/* ── 5. MORE THAN A LOYALTY COMPANY ── */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
-        <div className="absolute -top-20 -right-24 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
-        <div className="max-w-6xl mx-auto px-8">
-          <AnimatedSection>
-            <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              More Than Loyalty
-            </div>
-            <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-              We Are More Than<br /><span className="text-black">a Loyalty Company</span>
-            </h2>
-
-            <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {moreThanLoyalty.map((item, i) => {
-                const bg = i === 0 ? "#2C2C34" : i === 1 ? "#C8B8F0" : "#2E2784";
-                const titleColor = i === 1 ? "#2E2784" : "#F8AE01";
-                const textColor = i === 1 ? "rgba(46,39,132,0.7)" : "rgba(255,255,255,0.7)";
-                return (
-                  <div key={item.title} className="rounded-[28px] p-8" style={{ background: bg }}>
-                    <h3 className="tracking-[-0.02em]" style={{ fontSize: "1.3rem", fontWeight: 700, color: titleColor }}>
-                      {item.title}
-                    </h3>
-                    <p className="tracking-tight mt-4" style={{ fontSize: "0.95rem", lineHeight: 1.6, color: textColor }}>
-                      {item.desc}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="mt-12 flex">
-              <Link
-                href="/team"
-                className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
-              >
-                <span>Discover More About Our Team</span>
-                <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
-                  <ArrowUpRight className="w-4 h-4" />
-                </span>
-              </Link>
-            </div>
-          </AnimatedSection>
+      <section className="w-full">
+        <img src="/fondo.png" alt="More Than a Loyalty Company" className="w-full h-auto block" />
+        <div className="flex justify-center py-10" style={{ backgroundImage: "url('/back.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
+          <Link
+            href="/team"
+            className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
+          >
+            <span>Discover More About Our Team</span>
+            <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+              <ArrowUpRight className="w-4 h-4" />
+            </span>
+          </Link>
         </div>
       </section>
 

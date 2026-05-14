@@ -212,15 +212,19 @@ function InternationalPresence() {
           </h2>
 
           <p className="text-white/60 tracking-tight mt-6 max-w-2xl" style={{ fontSize: "0.95rem", lineHeight: 1.7 }}>
-            Based in Italy and Slovenia, we operate in 20 countries in Europe and keep growing. Having an international network of partners helps us to better serve our multinational clients by providing local expertise and understanding of different cultures and consumer behaviours.
+            We successfully launched our campaigns in 20 countries:
           </p>
 
           <div className="mt-10 flex justify-center">
             <img src={images.map} alt="KLR European presence" className="w-full max-w-3xl h-auto" />
           </div>
 
+          <p className="text-white/60 tracking-tight mt-10 max-w-2xl" style={{ fontSize: "0.95rem", lineHeight: 1.7 }}>
+            Our agents are present in following cities
+          </p>
+
           {/* City grid — 5 col desktop, 2 col mobile */}
-          <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+          <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
             {locations.map((l, i) => {
               const accents = ["#F8AE01","#C8B8F0","#F8AE01","#C8B8F0","#F8AE01","#C8B8F0","#F8AE01","#C8B8F0","#F8AE01","#C8B8F0"];
               const acc = accents[i];

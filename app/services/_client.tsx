@@ -147,20 +147,7 @@ export function ServicesClient() {
               Three Pillars.<br />One Seamless Experience.
             </h2>
 
-            <div className="mt-10 grid md:grid-cols-2 gap-6">
-              {sectors.map((s) => (
-                <div key={s.title} className="rounded-[28px] p-8" style={{ background: "rgba(255,255,255,0.18)", border: "1px solid rgba(255,255,255,0.4)" }}>
-                  <h3 className="text-[#2E2784] tracking-[-0.02em]" style={{ fontSize: "1.2rem", fontWeight: 700 }}>
-                    {s.title}
-                  </h3>
-                  <p className="text-black/60 tracking-tight mt-4" style={{ fontSize: "0.95rem", lineHeight: 1.6 }}>
-                    {s.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {pillars.map((p) => (
                 <div key={p.n} className="rounded-[28px] p-8" style={{ background: "rgba(255,255,255,0.18)", border: "1px solid rgba(255,255,255,0.4)" }}>
                   <div className="text-[#2E2784]/40 tracking-[0.1em]" style={{ fontSize: "0.75rem", fontWeight: 700 }}>

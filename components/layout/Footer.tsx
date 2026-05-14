@@ -177,7 +177,7 @@ export function Footer() {
 
           {/* Links */}
           <div className="lg:col-span-2">
-            <div className="tracking-[0.22em] uppercase text-[#F8AE01]/70 mb-5 text-[0.63rem]">Links</div>
+            <div className="tracking-[0.22em] uppercase text-[#F8AE01]/70 mb-5 text-[0.63rem]">Pages</div>
             <ul className="space-y-3.5">
               {more.map((e) => (
                 <li key={e.href}>

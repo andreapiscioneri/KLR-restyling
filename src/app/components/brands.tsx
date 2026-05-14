@@ -1,7 +1,7 @@
 "use client";
 
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { ArrowUpRight, Baby, ChefHat, Dumbbell, Plane, Sparkles, Trees, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight, ArrowDown, Baby, ChefHat, Dumbbell, Plane, Sparkles, Trees, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { softShadow } from "./ui-bits";
 import { brandPartners, brandPartnershipProcess, brands as fallbackBrands, images, productCategories, whyBrandsPartner } from "../data";
@@ -158,15 +158,15 @@ export function Brands({ go }: { go: (r: Route) => void }) {
 
         {/* CTA */}
         <div className="max-w-6xl mx-auto px-8 mt-12 flex justify-center">
-          <a
-            href="#featured-brands"
+          <button
+            onClick={() => document.getElementById("why-partner")?.scrollIntoView({ behavior: "smooth" })}
             className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-white"
           >
             <span>Become our next Partner</span>
             <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
-              <ArrowUpRight className="w-4 h-4" />
+              <ArrowDown className="w-4 h-4" />
             </span>
-          </a>
+          </button>
         </div>
       </section>
 
@@ -288,7 +288,7 @@ export function Brands({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* WHY PARTNER — blue */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+      <section id="why-partner" className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
         <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
