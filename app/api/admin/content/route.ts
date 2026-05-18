@@ -1,9 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
-import { isAdminRequest } from "@/lib/admin-auth";
+import { isAdminRequest, canWrite, getAdminUserFromRequest, hashNewPassword } from "@/lib/admin-auth";
 import { getStats, getBrands, getLeadership, getPages, getStudies, getPosts, getUsers, getColors, getSettings, writeJSON } from "@/lib/content";
 
-const VALID_TYPES = ["stats", "brands", "leadership", "pages", "studies", "posts", "users", "colors", "settings"];
+const VALID_TYPES = ["stats","brands","leadership","pages","studies","posts","users","colors","settings"];
+
+type RawUser = {
+  id: string;
+  name: string;
+  email: string;
+  password?: string;
+  passwordHash?: string;
+  passwordSalt?: string;
+  role: string;
+};
 
 export async function GET(request: NextRequest) {
   if (!isAdminRequest(request)) {
@@ -14,19 +24,18 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Invalid type" }, { status: 400 });
   }
   const loaders: Record<string, () => unknown> = {
-    stats: getStats,
-    brands: getBrands,
+    stats:      getStats,
+    brands:     getBrands,
     leadership: getLeadership,
-    pages: getPages,
-    studies: getStudies,
-    posts: getPosts,
-    users: getUsers,
-    colors: getColors,
-    settings: getSettings,
+    pages:      getPages,
+    studies:    getStudies,
+    posts:      getPosts,
+    users:      () => (getUsers() as RawUser[]).map(({ id, name, email, role }) => ({ id, name, email, role })),
+    colors:     getColors,
+    settings:   getSettings,
   };
   const data = loaders[type]?.();
   const response = NextResponse.json({ data });
-  // No caching for admin API
   response.headers.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
   return response;
 }
@@ -39,27 +48,45 @@ export async function PUT(request: NextRequest) {
   if (!type || !VALID_TYPES.includes(type)) {
     return NextResponse.json({ error: "Invalid type" }, { status: 400 });
   }
-  const body = await request.json();
+
+  const user = getAdminUserFromRequest(request);
+  const role = user?.role ?? "editor";
+  if (!canWrite(role, type)) {
+    return NextResponse.json({ error: "Forbidden: permessi insufficienti" }, { status: 403 });
+  }
+
+  let body = await request.json();
+
+  // Hash passwords before saving users
+  if (type === "users") {
+    const existingUsers = getUsers() as RawUser[];
+    body = (body as RawUser[]).map((u: RawUser) => {
+      const existing = existingUsers.find(e => e.id === u.id);
+      if (u.password && u.password.length > 0) {
+        const { passwordHash, passwordSalt } = hashNewPassword(u.password);
+        const { password: _, ...rest } = u;
+        return { ...rest, passwordHash, passwordSalt };
+      }
+      if (existing) {
+        const { password: _, ...rest } = u;
+        return {
+          ...rest,
+          ...(existing.passwordHash
+            ? { passwordHash: existing.passwordHash, passwordSalt: existing.passwordSalt }
+            : { password: existing.password }),
+        };
+      }
+      return u;
+    });
+  }
+
   writeJSON(`${type}.json`, body);
-  
-  // Revalidate all pages that might use this data
+
   const pathsToRevalidate = [
-    "/",
-    "/about",
-    "/services",
-    "/team",
-    "/brands",
-    "/work",
-    "/blog",
-    "/10-years",
-    "/career",
-    "/contact",
-    "/privacy",
-    "/copyright",
-    "/geo",
+    "/","/about","/services","/team","/brands","/work",
+    "/blog","/10-years","/career","/contact","/privacy","/copyright","/geo",
   ];
-  
-  pathsToRevalidate.forEach(path => revalidatePath(path));
-  
+  pathsToRevalidate.forEach(p => revalidatePath(p));
+
   return NextResponse.json({ ok: true });
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Users, Star, TrendingUp, CheckCircle, LayoutTemplate, Rocket, Heart, Award, Lightbulb, Globe, Handshake } from "lucide-react";
 import { motion } from "motion/react";
@@ -13,15 +14,36 @@ const G = {
   rosa:   "radial-gradient(130% 130% at 10% 0%, #f0e8ff 0%, #C8B8F0 45%, #9d85d4 100%)",
 };
 
+type AboutCms = Record<string, Record<string, string>>;
+
 export function AboutClient() {
+  const [cms, setCms] = useState<AboutCms>({});
+
+  useEffect(() => {
+    fetch("/api/content?type=pages", { cache: "no-store" })
+      .then((r) => r.json())
+      .then((d) => { if (d?.data?.about) setCms(d.data.about as AboutCms); })
+      .catch(() => {});
+  }, []);
+
+  const hero         = cms.hero         || {};
+  const whatWeDo     = cms.whatWeDo     || {};
+  const brandStory   = cms.brandStory   || {};
+  const journeyData  = cms.journey      || {};
+  const vision       = cms.vision       || {};
+  const ourSolution  = cms.ourSolution  || {};
+  const impact       = cms.impact       || {};
+  const corePromise  = cms.corePromise  || {};
+  const closing      = cms.closing      || {};
+
   return (
     <>
       {/* ── 1. HERO ── */}
       <PageHero
-        eyebrow="About KLR"
-        title={<>We Are Central<br /><span className="text-[#F8AE01]">to Loyalty.</span></>}
-        subtitle="KLR was born from friendship — different cultures, shared ambitions, and a belief that loyalty is built on trust. Over ten years, we've grown from a three-person office in Koper to a 43-person international team delivering campaigns across 20+ European markets."
-        image={images.teamwork}
+        eyebrow={hero.eyebrow || "About KLR"}
+        title={hero.title ? hero.title : <><span>We Are Central</span><br /><span className="text-[#F8AE01]">to Loyalty.</span></>}
+        subtitle={hero.subtitle || "KLR was born from friendship — different cultures, shared ambitions, and a belief that loyalty is built on trust. Over ten years, we've grown from a three-person office in Koper to a 43-person international team delivering campaigns across 20+ European markets."}
+        image={hero.image || images.teamwork}
         cta={{ label: "Meet the Team", href: "/team" }}
       />
 
@@ -30,14 +52,14 @@ export function AboutClient() {
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <h2 className="tracking-[-0.04em] mb-10" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, fontStyle: "italic", color: "#2E2784" }}>
-              What We Do
+              {whatWeDo.eyebrow || "What We Do"}
             </h2>
 
             <div className="grid md:grid-cols-2 gap-5">
               {/* Left — big blue card */}
               <div className="rounded-[24px] p-8 md:p-10 flex items-center" style={{ background: "#2E2784", minHeight: "280px" }}>
                 <p className="text-white tracking-tight" style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.25rem)", lineHeight: 1.75 }}>
-                  We transform <strong>customer engagement</strong> in grocery and petrol retail into <strong>lasting loyalty</strong> — combining <strong>behavioural insight, emotional reward design, and measurable commercial outcomes.</strong> Easy to run for retailers and their marketing teams.
+                  {whatWeDo.mainText || "We transform customer engagement in grocery and petrol retail into lasting loyalty — combining behavioural insight, emotional reward design, and measurable commercial outcomes. Easy to run for retailers and their marketing teams."}
                 </p>
               </div>
 
@@ -45,11 +67,11 @@ export function AboutClient() {
               <div className="flex flex-col gap-5">
                 <div className="rounded-[24px] p-8 flex items-center gap-4" style={{ background: "#2C2C34" }}>
                   <img src="/anniv.png" alt="KLR 10 Years" className="w-16 h-16 object-contain shrink-0 drop-shadow-[0_0_16px_rgba(248,174,1,0.4)]" />
-                  <span className="text-white tracking-tight" style={{ fontSize: "1.15rem", fontWeight: 700, lineHeight: 1.25 }}>Years of<br />Expertise</span>
+                  <span className="text-white tracking-tight" style={{ fontSize: "1.15rem", fontWeight: 700, lineHeight: 1.25 }}>{whatWeDo.badge1 || "Years of Expertise"}</span>
                 </div>
                 <div className="rounded-[24px] p-8 flex items-center" style={{ background: "#2E2784" }}>
                   <p className="text-white tracking-tight" style={{ fontSize: "1.05rem", fontWeight: 700, lineHeight: 1.55 }}>
-                    Not just a rewards supplier.<br /><span style={{ color: "#F8AE01" }}>A strategic loyalty partner.</span>
+                    {whatWeDo.badge2 || "Not just a rewards supplier. A strategic loyalty partner."}
                   </p>
                 </div>
               </div>
@@ -66,17 +88,13 @@ export function AboutClient() {
             <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
               <div>
                 <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-                  Brand Story
+                  {brandStory.eyebrow || "Brand Story"}
                 </div>
                 <h2 className="text-[#2E2784] tracking-[-0.04em] mt-6" style={{ fontSize: "clamp(1.8rem, 3.5vw, 3.2rem)", lineHeight: 1.05, fontWeight: 800 }}>
-                  Where Others Operate Loyalty Programs, We Design{" "}
-                  <span className="text-black">Emotional Loyalty Experiences</span>
+                  {brandStory.title || "Where Others Operate Loyalty Programs, We Design Emotional Loyalty Experiences"}
                 </h2>
                 <p className="text-[#2E2784] tracking-tight mt-8" style={{ fontSize: "clamp(1rem, 1.4vw, 1.15rem)", lineHeight: 1.65 }}>
-                  Traditional loyalty programs focus on systems and incentives. We focus on human emotion, motivation, and satisfaction. We design campaigns that inspire genuine participation — with rewards customers truly value and experiences that feel meaningful.
-                </p>
-                <p className="text-[#2E2784] tracking-tight mt-5" style={{ fontSize: "clamp(1rem, 1.4vw, 1.15rem)", lineHeight: 1.65 }}>
-                  Our approach combines behavioural insight with creative design, powerful omnichannel communication, and exceptional reward collections. We help brands turn transactions into lasting relationships.
+                  {brandStory.text || "KLR was founded in 2015 in Koper, Slovenia — a city at the crossroads of Central and Western Europe. From day one, our ambition was clear: bring world-class loyalty marketing to retailers who needed it most. Today, we are a 43-person team spanning 11 nationalities, running campaigns in 20+ markets."}
                 </p>
               </div>
 
@@ -100,10 +118,10 @@ export function AboutClient() {
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              Our Journey
+              {journeyData.eyebrow || "Our Journey"}
             </div>
             <h2 className="text-white tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-              10 Years of Growth
+              {journeyData.title || "10 Years of Growth"}
             </h2>
 
             {/* Desktop timeline */}
@@ -188,17 +206,17 @@ export function AboutClient() {
         <div className="max-w-6xl mx-auto px-8 relative z-10">
           <AnimatedSection>
             <div className="tracking-[0.3em] uppercase text-[#2E2784]/60 mb-4" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              KLR Vision
+              {vision.eyebrow || "KLR Vision"}
             </div>
             <h2 className="text-[#2E2784] tracking-[-0.035em] mb-14" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-              We Are <span className="text-black italic">Central</span> to Loyalty
+              {vision.title || "We Are Central to Loyalty"}
             </h2>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
-                { Icon: Lightbulb, desc: "We envision a future where loyalty campaigns are powerful experiences that customers look forward to.", bg: "#2E2784" },
-                { Icon: Globe,     desc: "Where retailers can run engaging loyalty programs without operational complexity.", bg: "#2C2C34" },
-                { Icon: Handshake, desc: "KLR aims to become the most trusted loyalty partner for retail and fuel chains across Europe and beyond — known for creativity, reliability, and exceptional campaign execution.", bg: "#2E2784" },
+                { Icon: Lightbulb, desc: vision.item1 || "We envision a future where loyalty campaigns are powerful experiences that customers look forward to.", bg: "#2E2784" },
+                { Icon: Globe,     desc: vision.item2 || "Where retailers can run engaging loyalty programs without operational complexity.", bg: "#2C2C34" },
+                { Icon: Handshake, desc: vision.item3 || "KLR aims to become the most trusted loyalty partner for retail and fuel chains across Europe and beyond — known for creativity, reliability, and exceptional campaign execution.", bg: "#2E2784" },
               ].map(({ Icon, desc, bg }, i) => (
                 <div key={i} className="rounded-[28px] p-8" style={{ background: bg }}>
                   <Icon className="w-8 h-8 mb-5 text-[#F8AE01]" />
@@ -218,10 +236,10 @@ export function AboutClient() {
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              Our Solution
+              {ourSolution.eyebrow || "Our Solution"}
             </div>
             <h2 className="text-white tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-              We Design <span className="text-[#F8AE01]">Loyalty</span> Campaigns That…
+              {ourSolution.title || "We Design Loyalty Campaigns That…"}
             </h2>
 
             <div className="mt-20 grid md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-6 pt-8">
@@ -344,10 +362,10 @@ export function AboutClient() {
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              The Impact
+              {impact.eyebrow || "The Impact"}
             </div>
             <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-              What This Delivers To You
+              {impact.title || "What This Delivers To You"}
             </h2>
 
             <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -386,22 +404,21 @@ export function AboutClient() {
             <div className="rounded-[32px] p-10 md:p-14 flex flex-col md:flex-row items-center gap-10 justify-between" style={{ background: "#2C2C34" }}>
               <div className="md:max-w-xl">
                 <div className="tracking-[0.3em] uppercase mb-4" style={{ fontSize: "0.65rem", fontWeight: 600, color: "#C8B8F0" }}>
-                  Our Core Promise
+                  {corePromise.eyebrow || "Our Core Promise"}
                 </div>
                 <h3 className="text-white tracking-[-0.03em]" style={{ fontSize: "clamp(1.6rem, 3vw, 2.8rem)", fontWeight: 800, lineHeight: 1.1 }}>
-                  We Make the Process{" "}
-                  <span style={{ color: "#F8AE01" }}>More Than Simple.</span>
+                  {corePromise.title || "We Make the Process More Than Simple."}
                 </h3>
                 <p className="mt-6 tracking-tight" style={{ fontSize: "1.05rem", lineHeight: 1.7, color: "rgba(255,255,255,0.6)" }}>
-                  From concept to in-store execution, logistics, brand licensing, and post-campaign reporting — we manage 100% of the campaign so your team can focus on running the store.
+                  {corePromise.text || "From concept to in-store execution, logistics, brand licensing, and post-campaign reporting — we manage 100% of the campaign so your team stays focused on running your business."}
                 </p>
               </div>
               <Link
-                href="/services"
+                href={corePromise.ctaHref || "/services"}
                 className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 shrink-0 hover:opacity-90 whitespace-nowrap"
                 style={{ background: "#F8AE01", color: "#2C2C34" }}
               >
-                <span style={{ fontWeight: 600 }}>Learn More About Our Services</span>
+                <span style={{ fontWeight: 600 }}>{corePromise.ctaLabel || "Learn More About Our Services"}</span>
                 <span className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: "rgba(44,44,52,0.15)" }}>
                   <ArrowUpRight className="w-4 h-4" />
                 </span>
@@ -419,18 +436,18 @@ export function AboutClient() {
             <div className="grid md:grid-cols-2 gap-10 items-center">
               <div>
                 <h2 className="text-[#2E2784] tracking-[-0.035em]" style={{ fontSize: "clamp(1.9rem, 3.8vw, 4rem)", lineHeight: 1.05, fontWeight: 800 }}>
-                  Let's Build Something<br /><span className="text-black">Together</span>
+                  {closing.title || "Let's Build Something Together"}
                 </h2>
                 <p className="text-[#2E2784]/70 tracking-tight mt-6" style={{ fontSize: "clamp(1rem, 1.4vw, 1.2rem)", lineHeight: 1.55 }}>
-                  Whether you're a retailer looking for your next campaign or a brand wanting to reach millions — we'd love to hear from you.
+                  {closing.subtitle || "Whether you're a retailer looking for your next campaign or a brand wanting to reach millions — we'd love to hear from you."}
                 </p>
               </div>
               <div className="md:text-right">
                 <Link
-                  href="/contact"
+                  href={closing.ctaHref || "/contact"}
                   className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
                 >
-                  <span>Get in Touch</span>
+                  <span>{closing.ctaLabel || "Get in Touch"}</span>
                   <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
                     <ArrowUpRight className="w-4 h-4" />
                   </span>

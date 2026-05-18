@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
@@ -114,23 +115,39 @@ function PillarSection({
   );
 }
 
+type ServicesCms = Record<string, Record<string, string | string[]>>;
+
 export function ServicesClient() {
+  const [cms, setCms] = useState<ServicesCms>({});
+
+  useEffect(() => {
+    fetch("/api/content?type=pages", { cache: "no-store" })
+      .then((r) => r.json())
+      .then((d) => { if (d?.data?.services) setCms(d.data.services as ServicesCms); })
+      .catch(() => {});
+  }, []);
+
+  const sHero    = cms.hero    || {};
+  const sOverview= cms.overview|| {};
+  const sNext    = cms.nextChallenge || {};
+  const sClosing = cms.closing || {};
+
   return (
     <>
       {/* HERO */}
       <PageHero
-        eyebrow="Our Services"
-        title={<>360° Loyalty<br /><span className="text-[#F8AE01]">Campaign Design & Execution</span></>}
-        subtitle="From the first strategic brief to the last reward delivered — we cover every stage, in every market."
-        image={images.human}
+        eyebrow={String(sHero.eyebrow || "Our Services")}
+        title={sHero.title ? String(sHero.title) : <>360° Loyalty<br /><span className="text-[#F8AE01]">Campaign Design & Execution</span></>}
+        subtitle={String(sHero.subtitle || "From the first strategic brief to the last reward delivered — we cover every stage, in every market.")}
+        image={String(sHero.image || images.human)}
         cta={{ label: "Let's Talk", href: "/contact" }}
       >
         <div className="max-w-2xl mt-5">
           <p className="text-white/65 tracking-tight" style={{ fontSize: "1rem", lineHeight: 1.6 }}>
-            We design and execute loyalty campaigns that increase store visits, grow average ticket, turn occasional shoppers into loyal customers, build emotional brand connection, and make your banner stand out with buzz, reputation, virality, and market share.
+            {String(sOverview.bodyText || "We design and execute loyalty campaigns that increase store visits, grow average ticket, turn occasional shoppers into loyal customers, build emotional brand connection, and make your banner stand out with buzz, reputation, virality, and market share.")}
           </p>
           <p className="text-[#F8AE01] tracking-tight mt-4" style={{ fontSize: "1rem", fontWeight: 600, lineHeight: 1.5 }}>
-            Emotionally engaging for customers and simple to run for retailers.
+            {String(sOverview.tagline || "Emotionally engaging for customers and simple to run for retailers.")}
           </p>
         </div>
       </PageHero>
@@ -141,10 +158,10 @@ export function ServicesClient() {
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              Our Services
+              {String(sOverview.eyebrow || "Our Services")}
             </div>
             <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-              Three Pillars.<br />One Seamless Experience.
+              {String(sOverview.title || "Three Pillars. One Seamless Experience.")}
             </h2>
 
             <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -213,16 +230,16 @@ export function ServicesClient() {
               <div className="p-10 md:p-12 flex flex-col justify-between gap-8">
                 <div>
                   <p className="text-[#2E2784] tracking-tight mb-8" style={{ fontSize: "1.05rem", fontWeight: 600 }}>
-                    But we are ready to take on the next challenge:
+                    {String(sNext.intro || "But we are ready to take on the next challenge:")}
                   </p>
                   <div className="flex flex-wrap gap-3">
-                    {["Drugstores", "Pet Stores", "Convenience Stores & On-The-Go", "All-In-Stores (Bazaars)"].map((cat) => (
+                    {(Array.isArray(sNext.challenges) ? sNext.challenges : ["Drugstores", "Pet Stores", "Convenience Stores & On-The-Go", "All-In-Stores (Bazaars)"]).map((cat) => (
                       <span
-                        key={cat}
+                        key={String(cat)}
                         className="px-5 py-2.5 rounded-full tracking-tight"
                         style={{ background: "rgba(255,255,255,0.6)", border: "2px solid #2E2784", color: "#2E2784", fontSize: "0.88rem", fontWeight: 700 }}
                       >
-                        {cat}
+                        {String(cat)}
                       </span>
                     ))}
                   </div>
@@ -231,9 +248,7 @@ export function ServicesClient() {
                 {/* "Overall" statement */}
                 <div className="rounded-[20px] px-7 py-6" style={{ background: "#241f69" }}>
                   <p className="tracking-[-0.02em]" style={{ fontSize: "clamp(1.1rem, 2vw, 1.6rem)", fontWeight: 800, lineHeight: 1.25, color: "white" }}>
-                    Overall, we are{" "}
-                    <span style={{ color: "#F8AE01" }}>loyalty Makers</span>{" "}
-                    for any retailer.
+                    {String(sNext.closing || "Overall, we are loyalty Makers for any retailer.")}
                   </p>
                 </div>
               </div>
@@ -257,19 +272,18 @@ export function ServicesClient() {
             <div className="grid md:grid-cols-2 gap-10 items-center">
               <div>
                 <h2 className="text-[#2E2784] tracking-[-0.035em]" style={{ fontSize: "clamp(1.9rem, 3.8vw, 4rem)", lineHeight: 1.05, fontWeight: 800 }}>
-                  Every Campaign Is Different.<br />
-                  <span className="text-black">Let's Find the Right Approach for Yours.</span>
+                  {String(sClosing.title || "Every Campaign Is Different. Let's Find the Right Approach for Yours.")}
                 </h2>
                 <p className="text-[#2E2784]/65 tracking-tight mt-6" style={{ fontSize: "clamp(1rem, 1.4vw, 1.2rem)", lineHeight: 1.55 }}>
-                  Whether you're launching your first loyalty programme or optimising an existing one — we'd love to hear from you.
+                  {String(sClosing.subtitle || "Whether you're launching your first loyalty programme or optimising an existing one — we'd love to hear from you.")}
                 </p>
               </div>
               <div className="md:text-right">
                 <Link
-                  href="/contact"
+                  href={String(sClosing.ctaHref || "/contact")}
                   className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
                 >
-                  <span>Get in Touch</span>
+                  <span>{String(sClosing.ctaLabel || "Get in Touch")}</span>
                   <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
                     <ArrowUpRight className="w-4 h-4" />
                   </span>

@@ -107,23 +107,46 @@ function CollectionsSlider() {
   );
 }
 
+type BrandsCmsData = {
+  hero?: { eyebrow?: string; title?: string; subtitle?: string; image?: string; ctaLabel?: string; ctaHref?: string };
+  partnerSection?: { eyebrow?: string; title?: string; subtitle?: string };
+  closing?: { title?: string; ctaLabel?: string; ctaHref?: string; partnerEmail?: string };
+};
+
 export function Brands({ go }: { go: (r: Route) => void }) {
   const [brands, setBrands] = useState(fallbackBrands);
+  const [brandsCms, setBrandsCms] = useState<BrandsCmsData>({});
   useEffect(() => {
-    fetch("/api/content?type=brands").then(r => r.json()).then(j => { if (j.data?.length) setBrands(j.data); }).catch(() => {});
+    fetch("/api/content?type=brands", { cache: "no-store" }).then(r => r.json()).then(j => { if (j.data?.length) setBrands(j.data); }).catch(() => {});
+    fetch("/api/content?type=pages", { cache: "no-store" })
+      .then(r => r.json())
+      .then(j => { if (j.data?.brands) setBrandsCms(j.data.brands); })
+      .catch(() => {});
   }, []);
   const featured = brands.slice(0, 4);
   const categoryIcons = [ChefHat, Trees, Plane, Sparkles, Baby, Dumbbell] as const;
   const partnerLogos = brandPartners.filter((b) => b.logo);
 
+  const heroEyebrow = brandsCms.hero?.eyebrow || "Brands";
+  const heroTitle = brandsCms.hero?.title || "Exceptional Brands. Unforgettable Rewards.";
+  const heroSubtitle = brandsCms.hero?.subtitle || "We partner with world-class brands to create exclusive reward collections that inspire desire, deliver satisfaction, and elevate retail loyalty campaigns across Europe.";
+  const heroImage = brandsCms.hero?.image || images.tailorMade;
+  const heroCtaLabel = brandsCms.hero?.ctaLabel || "Explore Brand Partners";
+  const heroCtaHref = brandsCms.hero?.ctaHref || "#featured-brands";
+
+  // Split title at period for two-line display
+  const titleParts = heroTitle.split(".");
+  const titleLine1 = titleParts[0] ? titleParts[0].trim() + "." : heroTitle;
+  const titleLine2 = titleParts.slice(1).join(".").trim();
+
   return (
     <>
       <PageHero
-        eyebrow="Brands"
-        title={<>Exceptional Brands.<br /><span className="text-[#F8AE01]">Unforgettable Rewards.</span></>}
-        subtitle="We partner with world-class brands to create exclusive reward collections that inspire desire, deliver satisfaction, and elevate retail loyalty campaigns across Europe."
-        image={images.tailorMade}
-        cta={{ label: "Explore Brand Partners", href: "#featured-brands" }}
+        eyebrow={heroEyebrow}
+        title={titleLine2 ? <>{titleLine1}<br /><span className="text-[#F8AE01]">{titleLine2}</span></> : <>{heroTitle}</>}
+        subtitle={heroSubtitle}
+        image={heroImage}
+        cta={{ label: heroCtaLabel, href: heroCtaHref }}
       />
 
       {/* BRAND PARTNERS MARQUEE — dark */}

@@ -14,16 +14,60 @@ const gradients = {
   rosa:   "radial-gradient(130% 130% at 10% 0%, #f0e8ff 0%, #C8B8F0 45%, #9d85d4 100%)",
 };
 
-function Hero() {
+type HeroData = {
+  eyebrow?: string;
+  titleLine1?: string;
+  titleLine2?: string;
+  subtitle?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  image?: string;
+};
+
+type StatsData = {
+  eyebrow?: string;
+  title?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  labels?: {
+    campaigns?: string;
+    countries?: string;
+    retailers?: string;
+    combinedExperience?: string;
+    nationalities?: string;
+    people?: string;
+  };
+};
+
+type SectionData = {
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  mapImage?: string;
+  image1?: string;
+  image2?: string;
+};
+
+function Hero({ data = {} }: { data?: HeroData }) {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
+  const bg       = data.image     || images.petrolCouple;
+  const eyebrow  = data.eyebrow   || "Key to Loyalty in Retail";
+  const line1    = data.titleLine1 || "We Design";
+  const line2    = data.titleLine2 || "Emotional Loyalty.";
+  const subtitle = data.subtitle  || "Loyalty campaigns that excite and engage customers of all targets. Deliver real impact to your stores with measurable KPIs. Easy to run for retailers and their marketing teams.";
+  const ctaLabel = data.ctaLabel  || "Discover How We Work";
+  const ctaHref  = data.ctaHref   || "/work";
+
   return (
     <section ref={ref} className="relative min-h-screen overflow-hidden">
       <motion.div className="absolute inset-0" style={{ y }}>
-        <img src={images.petrolCouple} alt="KLR Hero" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <img src={bg} alt="KLR Hero" className="absolute inset-0 w-full h-full object-cover object-center" />
         <div className="absolute inset-0 bg-[#2E2784]/70" />
       </motion.div>
 
@@ -38,7 +82,7 @@ function Hero() {
           className="tracking-[0.3em] uppercase text-[#F8AE01]"
           style={{ fontSize: "0.65rem", fontWeight: 600 }}
         >
-          Key to Loyalty in Retail
+          {eyebrow}
         </motion.div>
 
         <motion.h1
@@ -48,9 +92,9 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          We Design
+          {line1}
           <br />
-          <span className="text-[#F8AE01]">Emotional Loyalty.</span>
+          <span className="text-[#F8AE01]">{line2}</span>
         </motion.h1>
 
         <motion.p
@@ -60,7 +104,7 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          Loyalty campaigns that excite and engage customers of all targets. Deliver real impact to your stores with measurable KPIs. Easy to run for retailers and their marketing teams.
+          {subtitle}
         </motion.p>
 
         <motion.div
@@ -70,10 +114,10 @@ function Hero() {
           transition={{ duration: 0.6, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <Link
-            href="/work"
+            href={ctaHref}
             className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-white hover:text-[#2E2784]"
           >
-            <span>Discover How We Work</span>
+            <span>{ctaLabel}</span>
             <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
               <ArrowUpRight className="w-4 h-4" />
             </span>
@@ -97,15 +141,21 @@ const labelColor: Record<string, string> = {
   lilac: "rgba(46,39,132,0.65)",
 };
 
-function StatsBar({ stats }: { stats: typeof defaultStats }) {
+function StatsBar({ stats, data = {} }: { stats: typeof defaultStats; data?: StatsData }) {
+  const L = data.labels || {};
   const statCards = [
-    { value: stats.campaigns,          label: "Campaigns Delivered Up to Now",          variant: "dark",  Icon: Trophy       },
-    { value: stats.countries,          label: "Countries Operating",                    variant: "lilac", Icon: Globe        },
-    { value: stats.retailers,          label: "Retail Chains as Clients",               variant: "lilac", Icon: ShoppingCart },
-    { value: stats.combinedExperience, label: "Years of Combined Loyalty Experience",   variant: "dark",  Icon: Clock        },
-    { value: stats.nationalities,      label: "Nationalities In House",                 variant: "dark",  Icon: Flag         },
-    { value: stats.people,             label: "People In Our Team",                     variant: "lilac", Icon: Users        },
+    { value: stats.campaigns,          label: L.campaigns          || "Campaigns Delivered Up to Now",        variant: "dark",  Icon: Trophy       },
+    { value: stats.countries,          label: L.countries          || "Countries Operating",                  variant: "lilac", Icon: Globe        },
+    { value: stats.retailers,          label: L.retailers          || "Retail Chains as Clients",             variant: "lilac", Icon: ShoppingCart },
+    { value: stats.combinedExperience, label: L.combinedExperience || "Years of Combined Loyalty Experience", variant: "dark",  Icon: Clock        },
+    { value: stats.nationalities,      label: L.nationalities      || "Nationalities In House",               variant: "dark",  Icon: Flag         },
+    { value: stats.people,             label: L.people             || "People In Our Team",                   variant: "lilac", Icon: Users        },
   ];
+
+  const eyebrow  = data.eyebrow  || "KLR In Numbers";
+  const title    = data.title    || "When Figures Matter…";
+  const ctaLabel = data.ctaLabel || "Discover More About Us";
+  const ctaHref  = data.ctaHref  || "/about";
 
   return (
     <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.blue }}>
@@ -116,10 +166,10 @@ function StatsBar({ stats }: { stats: typeof defaultStats }) {
       <div className="max-w-6xl mx-auto px-8">
         <AnimatedSection>
           <div className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-            KLR In Numbers
+            {eyebrow}
           </div>
           <h2 className="text-white tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-            When <span className="italic text-[#F8AE01]">Figures</span> Matter…
+            {title}
           </h2>
 
           {/* Main grid: big 10-anni card left + 2×3 smaller cards right */}
@@ -183,10 +233,10 @@ function StatsBar({ stats }: { stats: typeof defaultStats }) {
 
           <div className="mt-10 flex">
             <Link
-              href="/about"
+              href={ctaHref}
               className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-white"
             >
-              <span>Discover More About Us</span>
+              <span>{ctaLabel}</span>
               <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
                 <ArrowUpRight className="w-4 h-4" />
               </span>
@@ -198,25 +248,30 @@ function StatsBar({ stats }: { stats: typeof defaultStats }) {
   );
 }
 
-function InternationalPresence() {
+function InternationalPresence({ data = {} }: { data?: SectionData }) {
+  const eyebrow  = data.eyebrow  || "Presence";
+  const title    = data.title    || "We are truly international";
+  const subtitle = data.subtitle || "Based in Italy and Slovenia, we operate in 20 countries in Europe and keep growing. Our network of local experts ensures campaigns are culturally relevant and operationally flawless.";
+  const mapImage = data.mapImage || images.map;
+
   return (
     <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.blue }}>
       <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
       <div className="max-w-6xl mx-auto px-8">
         <AnimatedSection>
           <div className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-            Presence
+            {eyebrow}
           </div>
           <h2 className="text-white tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-            We are truly <span className="text-[#F8AE01]">international</span>
+            {title}
           </h2>
 
           <p className="text-white/60 tracking-tight mt-6 max-w-2xl" style={{ fontSize: "0.95rem", lineHeight: 1.7 }}>
-            We successfully launched our campaigns in 20 countries:
+            {subtitle}
           </p>
 
           <div className="mt-10 flex justify-center">
-            <img src={images.map} alt="KLR European presence" className="w-full max-w-3xl h-auto" />
+            <img src={mapImage} alt="KLR European presence" className="w-full max-w-3xl h-auto" />
           </div>
 
           <p className="text-white/60 tracking-tight mt-10 max-w-2xl" style={{ fontSize: "0.95rem", lineHeight: 1.7 }}>
@@ -255,7 +310,11 @@ function InternationalPresence() {
 }
 
 {/* LOYALTY FRAMEWORK: SOLO GIALLO E BLU, NIENTE BIANCO/NERO */}
-function LoyaltyFramework() {
+function LoyaltyFramework({ data = {} }: { data?: SectionData }) {
+  const eyebrow  = data.eyebrow  || "The KLR Loyalty Framework";
+  const title    = data.title    || "Designing Emotional Loyalty";
+  const subtitle = data.subtitle || "Our 3 Pillars of Loyalty:";
+
   return (
     <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.yellow }}>
       <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-[#F8AE01]/50 blur-3xl pointer-events-none" />
@@ -263,20 +322,19 @@ function LoyaltyFramework() {
       <div className="max-w-6xl mx-auto px-8 relative z-10">
         <AnimatedSection>
           <div className="flex flex-col lg:flex-row gap-16 items-center">
-            
+
             {/* Left Column: Text & Pillars */}
             <div className="lg:w-1/2 w-full">
               <div className="tracking-[0.3em] uppercase text-[#2E2784]/60"  style={{fontSize: "0.65rem", fontWeight: 600, marginBottom: "0.75rem"}}>
-                The KLR Loyalty Framework
+                {eyebrow}
               </div>
-              
+
               <h2 className="text-[#2E2784] tracking-[-0.035em] mb-10" style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", lineHeight: 1.05, fontWeight: 800 }}>
-                Designing <br />
-                <span className="text-black italic">Emotional Loyalty</span>
+                {title}
               </h2>
-              
+
               <p className="text-[#2E2784]/80 tracking-tight mb-8" style={{ fontSize: "1.125rem", fontWeight: 500 }}>
-                Our 3 Pillars of Loyalty:
+                {subtitle}
               </p>
 
               <div className="space-y-4">
@@ -361,8 +419,10 @@ function LoyaltyFramework() {
   );
 }
 
-function TwoSectors() {
-  const sectorImgs = [images.family, images.hero];
+function TwoSectors({ data = {} }: { data?: SectionData }) {
+  const eyebrow    = data.eyebrow || "Expertise";
+  const title      = data.title   || "Two Sectors. Deep Expertise.";
+  const sectorImgs = [data.image1 || images.family, data.image2 || images.hero];
 
   return (
     <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.yellow }}>
@@ -370,10 +430,10 @@ function TwoSectors() {
       <div className="max-w-6xl mx-auto px-8">
         <AnimatedSection>
           <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-            Expertise
+            {eyebrow}
           </div>
           <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-            Two Sectors. <span className="text-black">Deep Expertise.</span>
+            {title}
           </h2>
 
           <div className="mt-14 grid md:grid-cols-2 gap-6">
@@ -394,17 +454,20 @@ function TwoSectors() {
   );
 }
 
-function ClientLogos() {
+function ClientLogos({ data = {} }: { data?: SectionData }) {
+  const eyebrow = data.eyebrow || "Our Clients";
+  const title   = data.title   || "The Leading Retailers Who Already Trusted Us";
+
   return (
     <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.rosa }}>
       <div className="absolute -bottom-24 -left-20 w-[360px] h-[360px] rounded-full bg-[#2E2784]/08 blur-3xl" />
       <div className="max-w-6xl mx-auto px-8">
         <AnimatedSection>
           <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-            Our Clients
+            {eyebrow}
           </div>
           <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-            The Leading Retailers Who<br className="hidden md:block" /> Already Trusted Us
+            {title}
           </h2>
 
           <div className="mt-14 grid md:grid-cols-2 gap-12">
@@ -431,7 +494,12 @@ function ClientLogos() {
   );
 }
 
-function OurBrands({ brands }: { brands: typeof defaultBrands }) {
+function OurBrands({ brands, data = {} }: { brands: typeof defaultBrands; data?: SectionData }) {
+  const eyebrow  = data.eyebrow  || "Brand Partners";
+  const title    = data.title    || "Global Brands That Power Our Campaigns";
+  const ctaLabel = data.ctaLabel || "Discover Our Brand Portfolio";
+  const ctaHref  = data.ctaHref  || "/brands";
+
   const logos = brands.filter((b) => b.logo);
   const allRows = [logos.slice(0, 6), logos.slice(6, 12), logos.slice(12)].filter((r) => r.length > 0);
   const durations = [28, 32, 30];
@@ -442,10 +510,10 @@ function OurBrands({ brands }: { brands: typeof defaultBrands }) {
       <div className="max-w-6xl mx-auto px-8">
         <AnimatedSection>
           <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-            Brand Partners
+            {eyebrow}
           </div>
           <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-            Global Brands That<br /><span className="text-black">Power Our Campaigns</span>
+            {title}
           </h2>
         </AnimatedSection>
       </div>
@@ -497,10 +565,10 @@ function OurBrands({ brands }: { brands: typeof defaultBrands }) {
         <AnimatedSection>
           <div className="flex">
             <Link
-              href="/brands"
+              href={ctaHref}
               className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
             >
-              <span>Discover Our Brand Portfolio</span>
+              <span>{ctaLabel}</span>
               <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
                 <ArrowUpRight className="w-4 h-4" />
               </span>
@@ -512,7 +580,12 @@ function OurBrands({ brands }: { brands: typeof defaultBrands }) {
   );
 }
 
-function CaseStudies({ studies }: { studies: typeof defaultStudies }) {
+function CaseStudies({ studies, data = {} }: { studies: typeof defaultStudies; data?: SectionData }) {
+  const eyebrow  = data.eyebrow  || "Case Studies";
+  const title    = data.title    || "Loyalty Campaigns That Drive Results";
+  const ctaLabel = data.ctaLabel || "See All Case Studies";
+  const ctaHref  = data.ctaHref  || "/work";
+
   const entries = studies.slice(0, 3);
   const [idx, setIdx] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -530,10 +603,10 @@ function CaseStudies({ studies }: { studies: typeof defaultStudies }) {
       <div className="max-w-6xl mx-auto px-8">
         <AnimatedSection>
           <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-            Case Studies
+            {eyebrow}
           </div>
           <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-            Loyalty Campaigns That <span className="text-black">Drive Results</span>
+            {title}
           </h2>
 
           <div ref={scrollRef} className="mt-14 flex gap-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:snap-none">
@@ -568,10 +641,10 @@ function CaseStudies({ studies }: { studies: typeof defaultStudies }) {
 
           <div className="mt-8 md:mt-12 flex">
             <Link
-              href="/work"
+              href={ctaHref}
               className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
             >
-              <span>See All Case Studies</span>
+              <span>{ctaLabel}</span>
               <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
                 <ArrowUpRight className="w-4 h-4" />
               </span>
@@ -583,7 +656,12 @@ function CaseStudies({ studies }: { studies: typeof defaultStudies }) {
   );
 }
 
-function BlogPreview() {
+function BlogPreview({ data = {} }: { data?: SectionData }) {
+  const eyebrow  = data.eyebrow  || "Insights";
+  const title    = data.title    || "Latest Insights";
+  const ctaLabel = data.ctaLabel || "See All Insights";
+  const ctaHref  = data.ctaHref  || "/blog";
+
   const posts = fallbackPosts.slice(0, 3);
   const [idx, setIdx] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -601,10 +679,10 @@ function BlogPreview() {
       <div className="max-w-6xl mx-auto px-8">
         <AnimatedSection>
           <div className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-            Insights
+            {eyebrow}
           </div>
           <h2 className="text-white tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-            Latest <span className="text-[#F8AE01]">Insights</span>
+            {title}
           </h2>
 
           <div ref={scrollRef} className="mt-14 flex gap-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:snap-none">
@@ -639,10 +717,10 @@ function BlogPreview() {
 
           <div className="mt-8 md:mt-12 flex">
             <Link
-              href="/blog"
+              href={ctaHref}
               className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-white"
             >
-              <span>See All Insights</span>
+              <span>{ctaLabel}</span>
               <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
                 <ArrowUpRight className="w-4 h-4" />
               </span>
@@ -654,7 +732,12 @@ function BlogPreview() {
   );
 }
 
-function ClosingCta() {
+function ClosingCta({ data = {} }: { data?: SectionData }) {
+  const title    = data.title    || "Ready to Design Your Next Loyalty Experience?";
+  const subtitle = data.subtitle || "Let's talk about how we can help your customers come back more often, spend more, and feel great about it.";
+  const ctaLabel = data.ctaLabel || "Get in Touch";
+  const ctaHref  = data.ctaHref  || "/contact";
+
   return (
     <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.yellow }}>
       <div className="absolute -top-24 right-20 w-[380px] h-[380px] rounded-full bg-white/15 blur-3xl" />
@@ -663,15 +746,15 @@ function ClosingCta() {
           <div className="grid md:grid-cols-2 gap-10 items-center">
             <div>
               <h2 className="text-[#2E2784]" style={{ fontSize: "clamp(1.6rem, 2.8vw, 3rem)", lineHeight: 1.1, fontWeight: 800 }}>
-                Ready to Design Your Next<br />Loyalty Experience?
+                {title}
               </h2>
               <p className="mt-8 text-black" style={{ fontSize: "clamp(1.08rem, 1.5vw, 1.5rem)", lineHeight: 1.4 }}>
-                Let's talk about how we can help your customers come back more often, spend more, and feel great about it.
+                {subtitle}
               </p>
             </div>
             <div className="md:text-right">
-              <Link href="/contact" className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black">
-                <span>Get in Touch</span>
+              <Link href={ctaHref} className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black">
+                <span>{ctaLabel}</span>
                 <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
                   <ArrowUpRight className="w-4 h-4" />
                 </span>
@@ -688,59 +771,59 @@ export function HomePage() {
   const [stats, setStats] = useState(defaultStats);
   const [brandPartners, setBrandPartners] = useState(defaultBrands);
   const [studies, setStudies] = useState(defaultStudies);
+  const [pages, setPages] = useState<Record<string, Record<string, unknown>>>({});
 
   const fetchData = async () => {
     try {
-      const [statsRes, brandsRes, studiesRes] = await Promise.all([
-        fetch("/api/admin/content?type=stats", { cache: "no-store" }),
-        fetch("/api/admin/content?type=brands", { cache: "no-store" }),
-        fetch("/api/admin/content?type=studies", { cache: "no-store" }),
+      const [statsRes, brandsRes, studiesRes, pagesRes] = await Promise.all([
+        fetch("/api/content?type=stats",   { cache: "no-store" }),
+        fetch("/api/content?type=brands",  { cache: "no-store" }),
+        fetch("/api/content?type=studies", { cache: "no-store" }),
+        fetch("/api/content?type=pages",   { cache: "no-store" }),
       ]);
-      
-      if (statsRes.ok) {
-        const data = await statsRes.json();
-        setStats(data.data || defaultStats);
-      }
-      if (brandsRes.ok) {
-        const data = await brandsRes.json();
-        setBrandPartners(data.data || defaultBrands);
-      }
-      if (studiesRes.ok) {
-        const data = await studiesRes.json();
-        setStudies(data.data || defaultStudies);
-      }
+
+      if (statsRes.ok)   { const d = await statsRes.json();   setStats(d.data || defaultStats); }
+      if (brandsRes.ok)  { const d = await brandsRes.json();  setBrandPartners(d.data || defaultBrands); }
+      if (studiesRes.ok) { const d = await studiesRes.json(); setStudies(d.data || defaultStudies); }
+      if (pagesRes.ok)   { const d = await pagesRes.json();   setPages(d.data || {}); }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
   useEffect(() => {
-    // Initial fetch
     fetchData();
-
-    // Refetch when page becomes visible (user switches tabs)
     const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible") {
-        fetchData();
-      }
+      if (document.visibilityState === "visible") fetchData();
     };
-
     document.addEventListener("visibilitychange", handleVisibilityChange);
     return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
   }, []);
 
+  const home = (pages.home as Record<string, unknown>) || {};
+  const heroData         = (home.hero          as HeroData)    || {};
+  const statsData        = (home.stats         as StatsData)   || {};
+  const frameworkData    = (home.framework      as SectionData) || {};
+  const sectorsData      = (home.sectors        as SectionData) || {};
+  const internationalData= (home.international  as SectionData) || {};
+  const clientsData      = (home.clients        as SectionData) || {};
+  const brandPartnersData= (home.brandPartners  as SectionData) || {};
+  const caseStudiesData  = (home.caseStudies    as SectionData) || {};
+  const blogData         = (home.blog           as SectionData) || {};
+  const closingData      = (home.closing        as SectionData) || {};
+
   return (
     <div>
-      <Hero />
-      <StatsBar stats={stats} />
-      <LoyaltyFramework />
-      <OurBrands brands={brandPartners} />
-      <TwoSectors />
-      <InternationalPresence />
-      <ClientLogos />
-      <CaseStudies studies={studies} />
-      <BlogPreview />
-      <ClosingCta />
+      <Hero data={heroData} />
+      <StatsBar stats={stats} data={statsData} />
+      <LoyaltyFramework data={frameworkData} />
+      <OurBrands brands={brandPartners} data={brandPartnersData} />
+      <TwoSectors data={sectorsData} />
+      <InternationalPresence data={internationalData} />
+      <ClientLogos data={clientsData} />
+      <CaseStudies studies={studies} data={caseStudiesData} />
+      <BlogPreview data={blogData} />
+      <ClosingCta data={closingData} />
     </div>
   );
 }

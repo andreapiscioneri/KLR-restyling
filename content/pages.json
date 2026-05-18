@@ -244,6 +244,27 @@
       "partnerEmail": "brands@klr-europe.com"
     }
   },
+  "caseStudies": {
+    "hero": {
+      "eyebrow": "Case Studies",
+      "title": "Real Results for Real Retail Chains",
+      "subtitle": "340+ campaigns across 20+ countries. Explore how we've helped grocery and fuel retail chains increase visits, grow basket size, and build lasting customer relationships."
+    }
+  },
+  "blog": {
+    "hero": {
+      "eyebrow": "Insights",
+      "title": "Ideas, Trends & Stories from KLR hands on experience",
+      "subtitle": "Fresh perspectives on loyalty marketing, retail innovation, and the people behind our work."
+    }
+  },
+  "work": {
+    "hero": {
+      "eyebrow": "Case Studies",
+      "title": "Real Results for Real Retail Chains",
+      "subtitle": "340+ campaigns across 20+ countries."
+    }
+  },
   "footer": {
     "tagline": "We Design Emotional Loyalty.",
     "description": "human centred loyalty marketing — transforming customer engagement into lasting loyalty across Europe and beyond.",

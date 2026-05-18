@@ -6,6 +6,7 @@ import { LenisProvider } from "@/components/ui/LenisProvider";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { LogoLoader } from "@/components/ui/LogoLoader";
 import { PageTransition } from "@/components/ui/PageTransition";
+import { getColors } from "@/lib/content";
 
 const CDN = "https://klr-europe.com/wp-content/uploads";
 const SITE = "https://klr-europe.com";
@@ -201,10 +202,32 @@ const websiteJsonLd = {
   ],
 };
 
+const SUPPORTED_FONTS = [
+  "Inter","Poppins","Montserrat","Raleway","Nunito","Open Sans","Roboto","Lato",
+  "DM Sans","Plus Jakarta Sans","Playfair Display","Merriweather","Libre Baskerville","Source Sans 3",
+];
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const colors = getColors() as { headingFont?: string; bodyFont?: string };
+  const headingFont = SUPPORTED_FONTS.includes(colors.headingFont ?? "") ? (colors.headingFont ?? "Inter") : "Inter";
+  const bodyFont    = SUPPORTED_FONTS.includes(colors.bodyFont    ?? "") ? (colors.bodyFont    ?? "Inter") : "Inter";
+  const uniqueFonts = [...new Set([headingFont, bodyFont])];
+  const googleFontsUrl = `https://fonts.googleapis.com/css2?${uniqueFonts.map(f => `family=${f.replace(/ /g, "+")}:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400`).join("&")}&display=swap`;
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="stylesheet" href={googleFontsUrl} />
+        <style dangerouslySetInnerHTML={{ __html: `
+          :root {
+            --font-heading: '${headingFont}', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-body: '${bodyFont}', -apple-system, BlinkMacSystemFont, sans-serif;
+          }
+          body { font-family: var(--font-body); }
+          h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
+        `}} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}

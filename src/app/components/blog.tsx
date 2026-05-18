@@ -53,6 +53,23 @@ export function Blog({ go }: { go: (r: Route) => void }) {
   const [loading, setLoading] = useState(true);
   const [cat, setCat] = useState<InsightCategory>("All");
   const [visible, setVisible] = useState(PAGE_SIZE);
+  const [heroEyebrow, setHeroEyebrow] = useState("Insights");
+  const [heroTitle, setHeroTitle] = useState("Ideas, Trends & Stories from KLR hands on experience");
+  const [heroSubtitle, setHeroSubtitle] = useState("Fresh perspectives on loyalty marketing, retail innovation, and the people behind our work.");
+
+  useEffect(() => {
+    fetch("/api/content?type=pages", { cache: "no-store" })
+      .then(r => r.json())
+      .then(j => {
+        const bh = j.data?.blog?.hero;
+        if (bh) {
+          if (bh.eyebrow) setHeroEyebrow(bh.eyebrow);
+          if (bh.title) setHeroTitle(bh.title);
+          if (bh.subtitle) setHeroSubtitle(bh.subtitle);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const ctrl = new AbortController();
@@ -88,7 +105,30 @@ export function Blog({ go }: { go: (r: Route) => void }) {
         });
         if (normalized.length) setPosts(normalized);
       } catch {
-        /* fallback */
+        // WordPress non disponibile — usa i post del CMS locale
+        try {
+          const localRes = await fetch("/api/content?type=posts");
+          if (localRes.ok) {
+            const localData = await localRes.json();
+            const localPosts: InsightPost[] = (localData.data || []).map((p: any) => ({
+              id: p.id ?? p.slug,
+              slug: p.slug,
+              title: p.title,
+              date: p.date,
+              excerpt: p.excerpt || "",
+              img: p.img || images.human,
+              link: `/blog/${p.slug}`,
+              category: p.category || "KLR Life",
+              normalizedCategory: normalizeCategory(p.category || ""),
+              authorName: "KLR Editorial Team",
+              authorAvatar: images.teamPhoto,
+              readingTime: "5 min read",
+            }));
+            if (localPosts.length) setPosts(localPosts);
+          }
+        } catch {
+          /* usa fallbackPosts già in stato */
+        }
       } finally {
         setLoading(false);
       }
@@ -103,9 +143,17 @@ export function Blog({ go }: { go: (r: Route) => void }) {
   return (
     <>
       <PageHero
-        eyebrow="Insights"
-        title={<>Ideas, Trends & Stories<br /><span className="text-[#F8AE01]">from KLR hands on experience</span></>}
-        subtitle="Fresh perspectives on loyalty marketing, retail innovation, and the people behind our work."
+        eyebrow={heroEyebrow}
+        title={(() => {
+          const idx = heroTitle.indexOf(" from ");
+          if (idx > -1) {
+            return <>{heroTitle.slice(0, idx)}<br /><span className="text-[#F8AE01]">{heroTitle.slice(idx + 1)}</span></>;
+          }
+          const words = heroTitle.split(" ");
+          const mid = Math.ceil(words.length / 2);
+          return <>{words.slice(0, mid).join(" ")}<br /><span className="text-[#F8AE01]">{words.slice(mid).join(" ")}</span></>;
+        })()}
+        subtitle={heroSubtitle}
         image={images.human}
         cta={{ label: "Explore Articles", href: "#insight-feed" }}
       />

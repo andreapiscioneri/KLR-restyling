@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, ArrowUpRight, UserCircle } from "lucide-react";
+import { Menu, X, ArrowUpRight, UserCircle, Lock } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 const links = [
@@ -37,6 +37,14 @@ export function Nav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/admin/auth")
+      .then(r => r.json())
+      .then(d => setIsLoggedIn(d.authenticated))
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -127,15 +135,19 @@ export function Nav() {
 
         {/* CTA + burger */}
         <div className="flex items-center gap-2">
-         {/* <Link
-            href="/admin"
-            className="p-2 rounded-xl transition-all text-white/40 hover:text-white/70"
-            style={{ background: "rgba(255,255,255,0.04)" }}
+          <Link
+            href={isLoggedIn ? "/admin/dashboard" : "/admin/login"}
+            data-cursor="default"
+            className="p-2 rounded-xl transition-all hidden lg:flex items-center justify-center"
+            style={{
+              background: isLoggedIn ? "rgba(248,174,1,0.15)" : "rgba(255,255,255,0.04)",
+              color: isLoggedIn ? "#F8AE01" : "rgba(255,255,255,0.35)",
+            }}
             aria-label="Admin"
-            title="Accedi al pannello admin"
+            title={isLoggedIn ? "Pannello Admin" : "Accedi al pannello admin"}
           >
-            <UserCircle className="w-4 h-4" />
-          </Link> */}
+            {isLoggedIn ? <UserCircle className="w-4 h-4" /> : <Lock className="w-4 h-4" />}
+          </Link>
 
           <Link
             href="/contact"

@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
-import { getUsers } from "@/lib/content";
+import crypto from "crypto";
+import { getUsers, writeJSON } from "@/lib/content";
 
 const TOKEN = "klr-admin-v1-secure-token-2025";
 const COOKIE_NAME = "klr_admin_session";
@@ -9,39 +10,103 @@ export type AdminUser = {
   id: string;
   name: string;
   email: string;
+  role: "superadmin" | "admin" | "editor";
+};
+
+type RawUser = {
+  id: string;
+  name: string;
+  email: string;
+  password?: string;
+  passwordHash?: string;
+  passwordSalt?: string;
   role: string;
 };
 
-type SessionValue = {
-  token: string;
-  email?: string;
+// Sections visible per role
+export const ROLE_SECTIONS: Record<string, string[]> = {
+  superadmin: ["overview","pages","stats","brands","leadership","studies","posts","colors","users","settings"],
+  admin:      ["overview","pages","stats","brands","leadership","studies","posts","colors","settings"],
+  editor:     ["overview","studies","posts"],
 };
 
-function parseSessionValue(value: string): SessionValue | null {
-  if (!value) return null;
-  const decodedValue = (() => {
-    try {
-      return decodeURIComponent(value);
-    } catch {
-      return value;
-    }
-  })();
-  if (decodedValue.includes("|")) {
-    const [token, email] = decodedValue.split("|");
-    return { token, email };
-  }
-  return { token: decodedValue };
+// Content types writable per role
+const WRITE_PERMISSIONS: Record<string, string[]> = {
+  superadmin: ["stats","brands","leadership","pages","studies","posts","users","colors","settings"],
+  admin:      ["stats","brands","leadership","pages","studies","posts","colors","settings"],
+  editor:     ["studies","posts"],
+};
+
+export function canWrite(role: string, type: string): boolean {
+  return (WRITE_PERMISSIONS[role] ?? []).includes(type);
 }
 
-function getUserByEmail(email?: string): AdminUser | null {
+// PBKDF2 password hashing (no external deps)
+function pbkdf2Hash(password: string, salt?: string): { hash: string; salt: string } {
+  const actualSalt = salt ?? crypto.randomBytes(16).toString("hex");
+  const hash = crypto.pbkdf2Sync(password, actualSalt, 10000, 32, "sha256").toString("hex");
+  return { hash, salt: actualSalt };
+}
+
+export function hashNewPassword(password: string): { passwordHash: string; passwordSalt: string } {
+  const { hash, salt } = pbkdf2Hash(password);
+  return { passwordHash: hash, passwordSalt: salt };
+}
+
+type SessionValue = { token: string; email?: string };
+
+function parseSession(value: string): SessionValue | null {
+  if (!value) return null;
+  let v = value;
+  try { v = decodeURIComponent(value); } catch { /* noop */ }
+  if (v.includes("|")) {
+    const [token, email] = v.split("|");
+    return { token, email };
+  }
+  return { token: v };
+}
+
+function getRawUserByEmail(email?: string): RawUser | null {
   if (!email) return null;
-  const user = getUsers().find((entry) => entry.email === email);
-  return user ? { id: user.id, name: user.name, email: user.email, role: user.role } : null;
+  return (getUsers() as RawUser[]).find(u => u.email === email) ?? null;
+}
+
+function toAdminUser(u: RawUser): AdminUser {
+  return { id: u.id, name: u.name, email: u.email, role: u.role as AdminUser["role"] };
 }
 
 export function findUserByCredentials(email: string, password: string): AdminUser | null {
-  const user = getUsers().find((entry) => entry.email === email && entry.password === password);
-  return user ? { id: user.id, name: user.name, email: user.email, role: user.role } : null;
+  const users = getUsers() as RawUser[];
+  const user = users.find(u => u.email === email);
+  if (!user) return null;
+
+  let valid = false;
+  let migrate = false;
+
+  if (user.passwordHash && user.passwordSalt) {
+    try {
+      const { hash } = pbkdf2Hash(password, user.passwordSalt);
+      valid = crypto.timingSafeEqual(Buffer.from(hash, "hex"), Buffer.from(user.passwordHash, "hex"));
+    } catch { valid = false; }
+  } else if (user.password) {
+    valid = user.password === password;
+    if (valid) migrate = true;
+  }
+
+  if (!valid) return null;
+
+  // Auto-migrate plaintext → PBKDF2
+  if (migrate) {
+    const { hash, salt } = pbkdf2Hash(password);
+    const updated = users.map(u => {
+      if (u.id !== user.id) return u;
+      const { password: _p, ...rest } = u;
+      return { ...rest, passwordHash: hash, passwordSalt: salt };
+    });
+    writeJSON("users.json", updated);
+  }
+
+  return toAdminUser(user);
 }
 
 export function validateCredentials(email: string, password: string): boolean {
@@ -53,13 +118,11 @@ export function generateToken(email?: string): string {
 }
 
 export function isValidToken(token: string): boolean {
-  const session = parseSessionValue(token);
-  return session?.token === TOKEN;
+  return parseSession(token)?.token === TOKEN;
 }
 
 export async function getAdminSession(): Promise<boolean> {
-  const user = await getAdminSessionUser();
-  return Boolean(user);
+  return Boolean(await getAdminSessionUser());
 }
 
 export async function getAdminSessionUser(): Promise<AdminUser | null> {
@@ -67,12 +130,12 @@ export async function getAdminSessionUser(): Promise<AdminUser | null> {
   const session = cookieStore.get(COOKIE_NAME);
   if (!session || !isValidToken(session.value)) return null;
 
-  const parsed = parseSessionValue(session.value);
-  const user = getUserByEmail(parsed?.email);
-  if (user) return user;
+  const parsed = parseSession(session.value);
+  const raw = getRawUserByEmail(parsed?.email);
+  if (raw) return toAdminUser(raw);
 
-  const firstUser = getUsers()[0];
-  return firstUser ? { id: firstUser.id, name: firstUser.name, email: firstUser.email, role: firstUser.role } : null;
+  const first = (getUsers() as RawUser[])[0];
+  return first ? toAdminUser(first) : null;
 }
 
 export function isAdminRequest(request: NextRequest): boolean {
@@ -80,11 +143,19 @@ export function isAdminRequest(request: NextRequest): boolean {
   return session ? isValidToken(session.value) : false;
 }
 
+export function getAdminUserFromRequest(request: NextRequest): AdminUser | null {
+  const session = request.cookies.get(COOKIE_NAME);
+  if (!session || !isValidToken(session.value)) return null;
+  const email = parseSession(session.value)?.email;
+  const raw = getRawUserByEmail(email);
+  return raw ? toAdminUser(raw) : null;
+}
+
 export const COOKIE_OPTIONS = {
   name: COOKIE_NAME,
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",
   sameSite: "lax" as const,
-  maxAge: 60 * 60 * 24 * 7, // 7 days
+  maxAge: 60 * 60 * 24 * 7,
   path: "/",
 };

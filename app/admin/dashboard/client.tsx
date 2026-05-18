@@ -1,20 +1,37 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import {
   LayoutGrid, FileText, BarChart3, Tags, Users, FolderOpen,
   PenLine, LogOut, Menu, X, Save, ChevronRight, Globe,
   Home, Info, Wrench, Phone, Footprints, Star, Palette, Settings,
-  Lightbulb, Paperclip, ArrowRight, CheckCircle, Folder, MapPin, 
-  Link as LinkIcon, Calendar, MessageSquare
+  Lightbulb, Paperclip, ArrowRight, CheckCircle, Folder, MapPin,
+  Link as LinkIcon, Calendar, MessageSquare, BookOpen, Briefcase
 } from "lucide-react";
 import type { AdminUser } from "@/lib/admin-auth";
 import type { LucideIcon } from "lucide-react";
 import klrLogo from "@/src/imports/KLR-Logosito.png";
 
 type TopSection = "overview" | "pages" | "stats" | "brands" | "leadership" | "studies" | "posts" | "colors" | "users" | "settings";
-type PageKey = "site" | "nav" | "home" | "about" | "services" | "contact" | "team" | "brands_page" | "footer";
+
+const ROLE_SECTIONS: Record<string, TopSection[]> = {
+  superadmin: ["overview","pages","stats","brands","leadership","studies","posts","colors","users","settings"],
+  admin:      ["overview","pages","stats","brands","leadership","studies","posts","colors","settings"],
+  editor:     ["overview","studies","posts"],
+};
+
+const ROLE_LABELS: Record<string, string> = {
+  superadmin: "Super Admin",
+  admin: "Admin",
+  editor: "Editor",
+};
+
+const GOOGLE_FONTS = [
+  "Inter","Poppins","Montserrat","Raleway","Nunito","Open Sans","Roboto","Lato",
+  "DM Sans","Plus Jakarta Sans","Playfair Display","Merriweather","Libre Baskerville","Source Sans 3",
+];
+type PageKey = "site" | "nav" | "home" | "about" | "services" | "contact" | "team" | "brands" | "caseStudies" | "blog" | "work" | "footer";
 
 const TOP_NAV: { id: TopSection; label: string; icon: LucideIcon }[] = [
   { id: "overview",    label: "Overview",       icon: LayoutGrid },
@@ -23,7 +40,7 @@ const TOP_NAV: { id: TopSection; label: string; icon: LucideIcon }[] = [
   { id: "brands",      label: "Brand Partners", icon: Tags       },
   { id: "leadership",  label: "Team",           icon: Users      },
   { id: "studies",     label: "Case Studies",   icon: FolderOpen },
-  { id: "posts",       label: "Blog",           icon: PenLine    },
+  { id: "posts",       label: "Insights",       icon: PenLine    },
   { id: "colors",      label: "Colori & Tema",  icon: Palette   },
   { id: "users",       label: "Utenti",         icon: Users      },
   { id: "settings",    label: "Impostazioni",   icon: Settings  },
@@ -37,8 +54,11 @@ const PAGE_TABS: { id: PageKey; label: string; icon: LucideIcon }[] = [
   { id: "services",   label: "Services",   icon: Wrench    },
   { id: "contact",    label: "Contact",    icon: Phone     },
   { id: "team",       label: "Team",       icon: Users     },
-  { id: "brands_page",label: "Brands",     icon: Star      },
-  { id: "footer",     label: "Footer",     icon: Footprints},
+  { id: "brands",      label: "Brands",      icon: Star      },
+  { id: "caseStudies",label: "Case Studies",icon: Briefcase },
+  { id: "blog",       label: "Insights",    icon: BookOpen  },
+  { id: "work",       label: "Work",        icon: Folder    },
+  { id: "footer",     label: "Footer",      icon: Footprints},
 ];
 
 export function AdminDashboardClient({ currentUser }: { currentUser: AdminUser }) {
@@ -164,13 +184,13 @@ export function AdminDashboardClient({ currentUser }: { currentUser: AdminUser }
           </div>
           <div>
             <div style={{ color: "#fff", fontSize: 13, fontWeight: 600, lineHeight: 1.2 }}>{currentUser.name}</div>
-            <div style={{ color: "rgba(255,255,255,0.38)", fontSize: 10, marginTop: 2, textTransform: "uppercase", letterSpacing: "0.07em" }}>{currentUser.role}</div>
+            <div style={{ color: "rgba(255,255,255,0.38)", fontSize: 10, marginTop: 2, textTransform: "uppercase", letterSpacing: "0.07em" }}>{ROLE_LABELS[currentUser.role] ?? currentUser.role}</div>
           </div>
         </div>
 
         {/* Nav */}
         <nav style={{ flex: 1, padding: "10px 10px", overflowY: "auto" }}>
-          {TOP_NAV.map(item => {
+          {TOP_NAV.filter(item => (ROLE_SECTIONS[currentUser.role] ?? ROLE_SECTIONS.editor).includes(item.id)).map(item => {
             const active = section === item.id;
             return (
               <button key={item.id}
@@ -309,7 +329,7 @@ function Overview() {
           ["Brand Partners", "aggiungi, modifica o elimina brand con immagini e descrizioni"],
           ["Team",           "gestisci tutti i membri del team (nome, ruolo, bio, foto)"],
           ["Case Studies",   "aggiungi e modifica le campagne (case studies)"],
-          ["Blog",           "gestisci i post di Insights con titolo, data, categoria, immagine e contenuto"],
+          ["Insights",       "aggiungi, modifica o elimina gli articoli del blog / insights"],
         ].map(([k, v]) => (
           <div key={k} style={{ display: "flex", gap: 8, marginBottom: 10, fontSize: 13, color: "#444", alignItems: "flex-start" }}>
             <span style={{ fontWeight: 700, color: "#2E2784", minWidth: 120 }}>{k}</span>
@@ -374,9 +394,11 @@ type GlobalColors = {
   logoUrl: string;
   siteUrl: string;
   defaultEmail: string;
+  headingFont?: string;
+  bodyFont?: string;
 };
 
-const COLORS_LABELS: Record<keyof GlobalColors, string> = {
+const COLORS_LABELS: Record<string, string> = {
   primaryColor: "Colore Primario",
   accentColor: "Colore Accento",
   logoUrl: "URL Logo",
@@ -388,54 +410,87 @@ function ColorsEditor({ data, onSave }: { data: Record<string,string>|null; onSa
   const [form, setForm] = useState<Record<string,string>>({});
   useEffect(() => { if (data) setForm(data); }, [data]);
   if (!data) return <Loader />;
-  
+
   return (
-    <Panel title="Colori e Impostazioni Globali">
-      <Grid>
-        {Object.entries(COLORS_LABELS).map(([key, lbl]) => {
-          const value = form[key] || "";
-          const isColor = key === "primaryColor" || key === "accentColor";
-          const isImage = key === "logoUrl";
-          
-          return (
-            <Field key={key} label={lbl} full={false}>
-              {isColor ? (
-                <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                  <input 
-                    type="color" 
-                    value={value} 
-                    onChange={e => setForm(p => ({ ...p, [key]: e.target.value }))}
-                    style={{ width: 45, height: 40, border: "1.5px solid #E8E8F0", borderRadius: 9, cursor: "pointer", padding: 2, flexShrink: 0 }} 
-                  />
+    <div>
+      <Panel title="Colori e Impostazioni Globali">
+        <Grid>
+          {Object.entries(COLORS_LABELS).map(([key, lbl]) => {
+            const value = form[key] || "";
+            const isColor = key === "primaryColor" || key === "accentColor";
+            const isImage = key === "logoUrl";
+            return (
+              <Field key={key} label={lbl} full={false}>
+                {isColor ? (
+                  <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                    <input
+                      type="color"
+                      value={value}
+                      onChange={e => setForm(p => ({ ...p, [key]: e.target.value }))}
+                      style={{ width: 45, height: 40, border: "1.5px solid #E8E8F0", borderRadius: 9, cursor: "pointer", padding: 2, flexShrink: 0 }}
+                    />
+                    <Input value={value} onChange={v => setForm(p => ({ ...p, [key]: v }))} />
+                  </div>
+                ) : (
                   <Input value={value} onChange={v => setForm(p => ({ ...p, [key]: v }))} />
-                </div>
-              ) : (
-                <Input value={value} onChange={v => setForm(p => ({ ...p, [key]: v }))} />
-              )}
-              {isImage && value && (
-                <img src={value} alt="Logo" style={{ marginTop: 8, height: 40, objectFit: "contain", borderRadius: 8, border: "1px solid #eee" }} />
-              )}
-            </Field>
-          );
-        })}
-      </Grid>
-      
-      <div style={{ marginTop: 24, padding: "18px", background: "#F5F5FA", borderRadius: 12, border: "1px solid #E8E8F0" }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "#666", textTransform: "uppercase", marginBottom: 12 }}>Anteprima Colori</div>
-        <div style={{ display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 32, height: 32, background: form.primaryColor || "#2E2784", borderRadius: 8, border: "1px solid rgba(0,0,0,0.1)" }} />
-            <div style={{ fontSize: 12, color: "#555" }}>Primario: {form.primaryColor || "#2E2784"}</div>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 32, height: 32, background: form.accentColor || "#F8AE01", borderRadius: 8, border: "1px solid rgba(0,0,0,0.1)" }} />
-            <div style={{ fontSize: 12, color: "#555" }}>Accento: {form.accentColor || "#F8AE01"}</div>
+                )}
+                {isImage && value && (
+                  <img src={value} alt="Logo" style={{ marginTop: 8, height: 40, objectFit: "contain", borderRadius: 8, border: "1px solid #eee" }} />
+                )}
+              </Field>
+            );
+          })}
+        </Grid>
+
+        <div style={{ marginTop: 24, padding: "18px", background: "#F5F5FA", borderRadius: 12, border: "1px solid #E8E8F0" }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: "#666", textTransform: "uppercase", marginBottom: 12 }}>Anteprima Colori</div>
+          <div style={{ display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <div style={{ width: 32, height: 32, background: form.primaryColor || "#2E2784", borderRadius: 8, border: "1px solid rgba(0,0,0,0.1)" }} />
+              <div style={{ fontSize: 12, color: "#555" }}>Primario: {form.primaryColor || "#2E2784"}</div>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <div style={{ width: 32, height: 32, background: form.accentColor || "#F8AE01", borderRadius: 8, border: "1px solid rgba(0,0,0,0.1)" }} />
+              <div style={{ fontSize: 12, color: "#555" }}>Accento: {form.accentColor || "#F8AE01"}</div>
+            </div>
           </div>
         </div>
-      </div>
-      
+      </Panel>
+
+      <Panel title="Tipografia — Font Google">
+        <div style={{ marginBottom: 14, fontSize: 12, color: "#777", lineHeight: 1.5 }}>
+          Seleziona i font da Google Fonts. Il sito caricherà automaticamente il font scelto. Dopo aver salvato, ricarica la pagina per vedere i cambiamenti.
+        </div>
+        <Grid>
+          <Field label="Font Titoli (H1, H2, H3…)">
+            <FontSelect value={form.headingFont || "Inter"} onChange={v => setForm(p => ({ ...p, headingFont: v }))} />
+          </Field>
+          <Field label="Font Testi (paragrafi, UI…)">
+            <FontSelect value={form.bodyFont || "Inter"} onChange={v => setForm(p => ({ ...p, bodyFont: v }))} />
+          </Field>
+        </Grid>
+        <div style={{ marginTop: 16, padding: "16px 18px", background: "#F5F5FA", borderRadius: 12, border: "1px solid #E8E8F0" }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: "#999", textTransform: "uppercase", marginBottom: 10 }}>Anteprima (font caricati nel browser)</div>
+          <div style={{ fontSize: 22, fontWeight: 700, color: "#111", marginBottom: 6, fontFamily: `'${form.headingFont || "Inter"}', sans-serif` }}>
+            KLR Europe — Heading
+          </div>
+          <div style={{ fontSize: 14, color: "#555", lineHeight: 1.6, fontFamily: `'${form.bodyFont || "Inter"}', sans-serif` }}>
+            Loyalty campaigns that excite and engage customers of all targets. Deliver real impact to your stores.
+          </div>
+        </div>
+      </Panel>
+
       <FooterBar><SaveBtn onClick={() => onSave(form)} /></FooterBar>
-    </Panel>
+    </div>
+  );
+}
+
+function FontSelect({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  return (
+    <select value={value} onChange={e => onChange(e.target.value)}
+      style={{ width: "100%", boxSizing: "border-box", padding: "9px 12px", border: "1.5px solid #E8E8F0", borderRadius: 9, fontSize: 13, color: "#111", background: "#FAFAFA", outline: "none", fontFamily: "inherit", cursor: "pointer" }}>
+      {GOOGLE_FONTS.map(f => <option key={f} value={f}>{f}</option>)}
+    </select>
   );
 }
 
@@ -600,7 +655,8 @@ const FIELD_LABELS: Record<string,string> = {
 
 const PAGE_SECTION_LABELS: Record<string,string> = {
   site:"Impostazioni Globali",nav:"Navigazione",home:"Home Page",about:"Pagina About",
-  services:"Pagina Services",contact:"Pagina Contact",team:"Pagina Team",brands_page:"Pagina Brands",footer:"Footer",
+  services:"Pagina Services",contact:"Pagina Contact",team:"Pagina Team",brands:"Pagina Brands",
+  caseStudies:"Case Studies",blog:"Insights / Blog",work:"Work / Portfolio",footer:"Footer",
 };
 
 function PagesEditor({ data, onSave }: { data: PagesData|null; onSave: (d: unknown) => void }) {
@@ -686,6 +742,29 @@ function PagesEditor({ data, onSave }: { data: PagesData|null; onSave: (d: unkno
                   return renderField(fk, String(fv ?? ""), v => update(activePage, sectionKey, fk, v));
                 })}
               </Grid>
+              {/* Render nested objects (e.g. stats.labels) as sub-grids */}
+              {Object.entries(obj).map(([subKey, subVal]) => {
+                if (typeof subVal !== "object" || subVal === null || Array.isArray(subVal)) return null;
+                const subObj = subVal as Record<string, unknown>;
+                const subLabel = subKey.replace(/([A-Z])/g, " $1").replace(/^./, s => s.toUpperCase());
+                return (
+                  <div key={subKey} style={{ marginTop: 16 }}>
+                    <div style={{ fontSize: 11, fontWeight: 700, color: "#888", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 8 }}>{subLabel}</div>
+                    <Grid>
+                      {Object.entries(subObj).map(([fk, fv]) => {
+                        if (typeof fv === "object") return null;
+                        return renderField(fk, String(fv ?? ""), v => setForm(prev => ({
+                          ...prev,
+                          [activePage]: {
+                            ...prev[activePage],
+                            [sectionKey]: { ...obj, [subKey]: { ...subObj, [fk]: v } },
+                          },
+                        })));
+                      })}
+                    </Grid>
+                  </div>
+                );
+              })}
               {Array.isArray(obj.challenges) && (
                 <div style={{ marginTop: 14 }}>
                   <Field label="Challenge (una per riga)">
@@ -744,7 +823,7 @@ type BrandItem  = { id:string;name:string;tag:string;img:string;since:string;cam
 type LeaderItem = { id:string;name:string;role:string;img:string;bio:string;quote:string };
 type StudyItem  = { id:string;title:string;client:string;year:string;location:string;img:string;summary:string;cat:string;brand:string };
 type PostItem   = { id:number;slug:string;title:string;date:string;excerpt:string;img:string;category:string;contentHtml?:string };
-type UserItem   = { id:string;name:string;email:string;password:string;role:string };
+type UserItem   = { id:string;name:string;email:string;password?:string;role:string };
 
 const BRAND_FIELDS:  FieldDef[] = [
   {key:"id",label:"ID Slug",type:"text"},{key:"name",label:"Nome",type:"text"},{key:"tag",label:"Categoria",type:"text"},
@@ -766,12 +845,13 @@ const POST_FIELDS:   FieldDef[] = [
   {key:"slug",label:"Slug (URL)",type:"text"},{key:"title",label:"Titolo",type:"text"},
   {key:"date",label:"Data (YYYY-MM-DD)",type:"text"},{key:"category",label:"Categoria",type:"text"},
   {key:"img",label:"Immagine (URL)",type:"url"},{key:"excerpt",label:"Estratto",type:"textarea"},
-  {key:"contentHtml",label:"Contenuto HTML",type:"textarea-lg"},
+  {key:"contentHtml",label:"Contenuto Articolo",type:"richtext"},
 ];
 const USER_FIELDS:   FieldDef[] = [
-  {key:"id",label:"Username",type:"text"},{key:"name",label:"Nome Completo",type:"text"},
-  {key:"email",label:"Email",type:"email"},{key:"password",label:"Password",type:"password"},
-  {key:"role",label:"Ruolo (admin/editor)",type:"text"},
+  {key:"id",label:"Username / ID",type:"text"},{key:"name",label:"Nome Completo",type:"text"},
+  {key:"email",label:"Email",type:"email"},
+  {key:"password",label:"Password (lascia vuoto per non cambiare)",type:"password"},
+  {key:"role",label:"Ruolo",type:"select",options:["superadmin","admin","editor"]},
 ];
 
 function BrandsEditor    ({ data, onSave }: { data: BrandItem[]  | null; onSave: (d: BrandItem[])  => void }) {
@@ -793,7 +873,7 @@ function PostsEditor     ({ data, onSave }: { data: PostItem[]   | null; onSave:
 /* ══════════════════════════════════════════════════
    GENERIC LIST EDITOR
 ══════════════════════════════════════════════════ */
-type FieldDef = { key: string; label: string; type: string };
+type FieldDef = { key: string; label: string; type: string; options?: string[] };
 
 function ListEditor<T extends Record<string, unknown>>({
   title, data, fields, nameKey, imgKey, onSave, blank,
@@ -866,11 +946,16 @@ function ListEditor<T extends Record<string, unknown>>({
             </div>
             <Grid>
               {fields.map(f => (
-                <Field key={f.key} label={f.label} full={f.type.startsWith("textarea")}>
-                  {f.type.startsWith("textarea")
-                    ? <Textarea rows={f.type === "textarea-lg" ? 10 : 3} value={form[f.key] || ""} onChange={v => setForm(p => ({...p,[f.key]:v}))} />
-                    : <Input type={f.type} value={form[f.key] || ""} onChange={v => setForm(p => ({...p,[f.key]:v}))} />
-                  }
+                <Field key={f.key} label={f.label} full={f.type === "richtext" || f.type.startsWith("textarea")}>
+                  {f.type === "richtext" ? (
+                    <RichTextEditor value={form[f.key] || ""} onChange={v => setForm(p => ({...p,[f.key]:v}))} />
+                  ) : f.type === "select" ? (
+                    <FieldSelect value={form[f.key] || ""} onChange={v => setForm(p => ({...p,[f.key]:v}))} options={f.options ?? []} />
+                  ) : f.type.startsWith("textarea") ? (
+                    <Textarea rows={f.type === "textarea-lg" ? 10 : 3} value={form[f.key] || ""} onChange={v => setForm(p => ({...p,[f.key]:v}))} />
+                  ) : (
+                    <Input type={f.type} value={form[f.key] || ""} onChange={v => setForm(p => ({...p,[f.key]:v}))} />
+                  )}
                   {f.type === "url" && form[f.key] && (
                     <img src={form[f.key]} alt="" style={{ marginTop: 6, height: 52, objectFit: "cover", borderRadius: 6, border: "1px solid #eee" }} />
                   )}
@@ -919,6 +1004,98 @@ function ListEditor<T extends Record<string, unknown>>({
 }
 
 /* ══════════════════════════════════════════════════
+   RICH TEXT EDITOR
+══════════════════════════════════════════════════ */
+type RichCmd = { cmd: string; arg?: string; label: string; title: string };
+
+const RICH_CMDS: RichCmd[] = [
+  { cmd:"bold",               label:"B",      title:"Grassetto (Ctrl+B)"     },
+  { cmd:"italic",             label:"I",      title:"Corsivo (Ctrl+I)"       },
+  { cmd:"underline",          label:"U",      title:"Sottolineato (Ctrl+U)"  },
+  { cmd:"formatBlock", arg:"<h2>",  label:"H2", title:"Titolo H2"            },
+  { cmd:"formatBlock", arg:"<h3>",  label:"H3", title:"Titolo H3"            },
+  { cmd:"formatBlock", arg:"<p>",   label:"¶",  title:"Paragrafo"            },
+  { cmd:"insertUnorderedList",label:"• List", title:"Lista puntata"          },
+  { cmd:"insertOrderedList",  label:"1. List",title:"Lista numerata"         },
+  { cmd:"removeFormat",       label:"✕ fmt",  title:"Rimuovi formattazione"  },
+];
+
+function RichTextEditor({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const editorRef  = useRef<HTMLDivElement>(null);
+  const skipSync   = useRef(false);
+
+  useEffect(() => {
+    if (editorRef.current && !skipSync.current) {
+      editorRef.current.innerHTML = value || "";
+    }
+  }, [value]);
+
+  const exec = (cmd: string, arg?: string) => {
+    document.execCommand(cmd, false, arg);
+    editorRef.current?.focus();
+    emit();
+  };
+
+  const emit = () => {
+    skipSync.current = true;
+    onChange(editorRef.current?.innerHTML ?? "");
+    setTimeout(() => { skipSync.current = false; }, 0);
+  };
+
+  const insertLink = () => {
+    const url = prompt("URL del link (es: https://klr-europe.com):");
+    if (url) exec("createLink", url);
+  };
+
+  const toolBtn = (label: string, action: () => void, title: string) => (
+    <button
+      key={label}
+      type="button"
+      title={title}
+      onMouseDown={e => { e.preventDefault(); action(); }}
+      style={{
+        padding: "4px 8px", border: "none", borderRadius: 5, background: "transparent",
+        cursor: "pointer", fontSize: 11, fontWeight: 700, color: "#444",
+        transition: "background 0.1s",
+      }}
+      onMouseEnter={e => (e.currentTarget.style.background = "#E8E8F0")}
+      onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+    >
+      {label}
+    </button>
+  );
+
+  return (
+    <div style={{ border: "1.5px solid #E8E8F0", borderRadius: 9, overflow: "hidden", background: "#FAFAFA" }}>
+      {/* Toolbar */}
+      <div style={{ display: "flex", gap: 2, padding: "6px 8px", background: "#F0F0F8", borderBottom: "1px solid #E8E8F0", flexWrap: "wrap", alignItems: "center" }}>
+        {RICH_CMDS.map(c => toolBtn(c.label, () => exec(c.cmd, c.arg), c.title))}
+        <div style={{ width: 1, height: 18, background: "#DDD", margin: "0 4px" }} />
+        {toolBtn("🔗 Link", insertLink, "Inserisci link")}
+        {toolBtn("✂ Unlink", () => exec("unlink"), "Rimuovi link")}
+      </div>
+      {/* Editable area */}
+      <div
+        ref={editorRef}
+        contentEditable
+        suppressContentEditableWarning
+        onInput={emit}
+        style={{
+          minHeight: 280, padding: "12px 14px",
+          fontSize: 13, color: "#111", lineHeight: 1.7,
+          outline: "none", fontFamily: "inherit",
+        }}
+        onFocus={e => { e.currentTarget.parentElement!.style.borderColor = "#2E2784"; }}
+        onBlur={e => { e.currentTarget.parentElement!.style.borderColor = "#E8E8F0"; }}
+      />
+      <div style={{ padding: "4px 12px 6px", fontSize: 10, color: "#aaa", borderTop: "1px solid #F0F0F0" }}>
+        Usa Ctrl+B / Ctrl+I per grassetto/corsivo · Il contenuto viene salvato come HTML
+      </div>
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════
    SHARED UI
 ══════════════════════════════════════════════════ */
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
@@ -959,6 +1136,17 @@ function Textarea({ value, onChange, rows = 3 }: { value: string; onChange: (v: 
       onFocus={e => e.target.style.borderColor = "#2E2784"}
       onBlur={e => e.target.style.borderColor = "#E8E8F0"}
     />
+  );
+}
+function FieldSelect({ value, onChange, options }: { value: string; onChange: (v: string) => void; options: string[] }) {
+  return (
+    <select value={value} onChange={e => onChange(e.target.value)}
+      style={{ width: "100%", boxSizing: "border-box", padding: "9px 12px", border: "1.5px solid #E8E8F0", borderRadius: 9, fontSize: 13, color: "#111", background: "#FAFAFA", outline: "none", fontFamily: "inherit", cursor: "pointer" }}
+      onFocus={e => e.target.style.borderColor = "#2E2784"}
+      onBlur={e => e.target.style.borderColor = "#E8E8F0"}
+    >
+      {options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+    </select>
   );
 }
 function Loader() {

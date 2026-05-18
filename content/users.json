@@ -3,7 +3,8 @@
     "id": "admin",
     "name": "Andrea",
     "email": "andrea.piscioneri@denani.it",
-    "password": "denani",
-    "role": "admin"
+    "role": "superadmin",
+    "passwordHash": "c112e0a06e18665c612f758699590eb104398fa23a39a9c5eddf8e821780b3b8",
+    "passwordSalt": "4676b3852c672780178fada7144680fd"
   }
 ]

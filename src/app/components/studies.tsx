@@ -18,9 +18,23 @@ export function Studies({ go }: { go: (r: Route) => void }) {
   const [sector, setSector] = useState<"all" | "retail" | "petrol">("all");
   const [brand, setBrand] = useState<string>("all");
   const [studies, setStudies] = useState(fallbackStudies);
+  const [heroEyebrow, setHeroEyebrow] = useState("Case Studies");
+  const [heroTitle, setHeroTitle] = useState("Real Results for Real Retail Chains");
+  const [heroSubtitle, setHeroSubtitle] = useState("340+ campaigns across 20+ countries. Explore how we've helped grocery and fuel retail chains increase visits, grow basket size, and build lasting customer relationships.");
 
   useEffect(() => {
-    fetch("/api/content?type=studies").then(r => r.json()).then(j => { if (j.data?.length) setStudies(j.data); }).catch(() => {});
+    fetch("/api/content?type=studies", { cache: "no-store" }).then(r => r.json()).then(j => { if (j.data?.length) setStudies(j.data); }).catch(() => {});
+    fetch("/api/content?type=pages", { cache: "no-store" })
+      .then(r => r.json())
+      .then(j => {
+        const cs = j.data?.caseStudies?.hero;
+        if (cs) {
+          if (cs.eyebrow) setHeroEyebrow(cs.eyebrow);
+          if (cs.title) setHeroTitle(cs.title);
+          if (cs.subtitle) setHeroSubtitle(cs.subtitle);
+        }
+      })
+      .catch(() => {});
   }, []);
 
   const brands = Array.from(new Set(studies.map((s) => s.brand))).sort((a, b) => a.localeCompare(b));
@@ -34,9 +48,9 @@ export function Studies({ go }: { go: (r: Route) => void }) {
   return (
     <>
       <PageHero
-        eyebrow="Case Studies"
-        title={<>Real Results for<br /><span className="text-[#F8AE01]">Real Retail Chains</span></>}
-        subtitle="340+ campaigns across 20+ countries. Explore how we've helped grocery and fuel retail chains increase visits, grow basket size, and build lasting customer relationships."
+        eyebrow={heroEyebrow}
+        title={<>{heroTitle.split(" ").slice(0, 3).join(" ")}<br /><span className="text-[#F8AE01]">{heroTitle.split(" ").slice(3).join(" ")}</span></>}
+        subtitle={heroSubtitle}
         image={images.services}
       />
 

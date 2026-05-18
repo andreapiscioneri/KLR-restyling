@@ -3,5 +3,7 @@
   "accentColor": "#F8AE01",
   "logoUrl": "/klr-logo.png",
   "siteUrl": "https://klr-europe.com",
-  "defaultEmail": "info@klr-europe.com"
+  "defaultEmail": "info@klr-europe.com",
+  "headingFont": "Inter",
+  "bodyFont": "Inter"
 }

@@ -51,7 +51,30 @@ export function BlogDetail({ slug, go, initialPost }: { slug: string; go: (r: Ro
           authorName: author?.name || "Nina Bjelivuk",
           authorAvatar: author?.avatar_urls?.['96']
         });
-      } catch (e) {}
+      } catch (e) {
+        try {
+          const r2 = await fetch(`/api/content?type=posts`, { cache: "no-store" });
+          if (r2.ok) {
+            const d2 = await r2.json();
+            const found = (d2.data || []).find((p: any) => p.slug === slug);
+            if (found) {
+              setPost({
+                id: found.id ?? found.slug,
+                slug: found.slug,
+                title: found.title,
+                date: found.date,
+                excerpt: found.excerpt || "",
+                link: `/blog/${found.slug}`,
+                img: found.img || baseInitial.img,
+                category: found.category || "KLR Insights",
+                contentHtml: found.contentHtml || found.excerpt || "",
+                authorName: "KLR Editorial Team",
+                authorAvatar: undefined,
+              });
+            }
+          }
+        } catch {}
+      }
     })();
     return () => ctrl.abort();
   }, [slug]);

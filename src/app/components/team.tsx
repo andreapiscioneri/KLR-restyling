@@ -145,12 +145,23 @@ function TeamCard({
   );
 }
 
+type TeamCmsData = {
+  hero?: { eyebrow?: string; title?: string; subtitle?: string; image?: string };
+  international?: { eyebrow?: string; title?: string };
+  joinUs?: { eyebrow?: string; title?: string; subtitle?: string; contactEmail?: string; ctaLabel?: string; ctaHref?: string };
+};
+
 export function Team({ go }: { go: (r: Route) => void }) {
   const [leadership, setLeadership] = useState(fallbackLeadership);
   const [stats, setStats] = useState(fallbackStats);
+  const [teamCms, setTeamCms] = useState<TeamCmsData>({});
   useEffect(() => {
-    fetch("/api/content?type=leadership").then(r => r.json()).then(j => { if (j.data?.length) setLeadership(j.data); }).catch(() => {});
-    fetch("/api/content?type=stats").then(r => r.json()).then(j => { if (j.data) setStats(j.data); }).catch(() => {});
+    fetch("/api/content?type=leadership", { cache: "no-store" }).then(r => r.json()).then(j => { if (j.data?.length) setLeadership(j.data); }).catch(() => {});
+    fetch("/api/content?type=stats", { cache: "no-store" }).then(r => r.json()).then(j => { if (j.data) setStats(j.data); }).catch(() => {});
+    fetch("/api/content?type=pages", { cache: "no-store" })
+      .then(r => r.json())
+      .then(j => { if (j.data?.team) setTeamCms(j.data.team); })
+      .catch(() => {});
   }, []);
   const get = (id: string) => leadership.find((p) => p.id === id)!;
   const row1 = row1Ids.map(get);
@@ -165,13 +176,28 @@ export function Team({ go }: { go: (r: Route) => void }) {
     .map((t) => ({ ...t, person: leadership.find((p) => p.id === t.id)! }))
     .filter((t) => Boolean(t.person));
 
+  const heroEyebrow = teamCms.hero?.eyebrow || "Team";
+  const heroTitle = teamCms.hero?.title || "Loyalty Starts With Us";
+  const heroSubtitle = teamCms.hero?.subtitle || `A ${stats.people}-person team. ${stats.nationalities} nationalities. 10 locations across Europe. One shared passion: designing loyalty experiences that customers feel, trust, and value.`;
+  const heroImage = teamCms.hero?.image || images.recruiting;
+  const intlEyebrow = teamCms.international?.eyebrow || "International Presence";
+  const intlTitle = teamCms.international?.title || "We Are Truly International";
+  const joinEyebrow = teamCms.joinUs?.eyebrow || "Want to Work With Us?";
+  const joinTitle = teamCms.joinUs?.title || "Join Our Team";
+  const joinSubtitle = teamCms.joinUs?.subtitle || "We're always interested in meeting talented people who share our passion for loyalty and teamwork. Send us your details and we'll be in touch.";
+
+  // Split title for coloring last words
+  const heroTitleWords = heroTitle.trim().split(/\s+/);
+  const heroTitleFirst = heroTitleWords.slice(0, -2).join(" ");
+  const heroTitleLast = heroTitleWords.slice(-2).join(" ");
+
   return (
     <>
       <PageHero
-        eyebrow="Team"
-        title={<>Loyalty Starts<br /><span className="text-[#F8AE01]">With Us</span></>}
-        subtitle={`A ${stats.people}-person team. ${stats.nationalities} nationalities. 10 locations across Europe. One shared passion: designing loyalty experiences that customers feel, trust, and value.`}
-        image={images.recruiting}
+        eyebrow={heroEyebrow}
+        title={heroTitleFirst ? <>{heroTitleFirst}<br /><span className="text-[#F8AE01]">{heroTitleLast}</span></> : <>{heroTitle}</>}
+        subtitle={heroSubtitle}
+        image={heroImage}
         cta={{ label: "Meet Our Leadership", href: "#leadership-grid" }}
       />
 
@@ -235,10 +261,14 @@ export function Team({ go }: { go: (r: Route) => void }) {
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              International Presence
+              {intlEyebrow}
             </div>
             <h2 className="text-white tracking-[-0.035em] mt-4 max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1, fontWeight: 700 }}>
-              We Are Truly<br /><span className="text-[#F8AE01]">International</span>
+              {intlTitle.includes(",") ? (
+                <>{intlTitle.split(",")[0]},<br /><span className="text-[#F8AE01]">{intlTitle.split(",").slice(1).join(",").trim()}</span></>
+              ) : intlTitle.split(" ").length > 3 ? (
+                <>{intlTitle.split(" ").slice(0, -2).join(" ")}<br /><span className="text-[#F8AE01]">{intlTitle.split(" ").slice(-2).join(" ")}</span></>
+              ) : intlTitle}
             </h2>
             <p className="text-white/70 mt-5 tracking-tight" style={{ fontSize: "1rem", lineHeight: 1.6 }}>
               10 locations across Europe, from Slovenia to Latvia — one connected team.
@@ -381,13 +411,13 @@ export function Team({ go }: { go: (r: Route) => void }) {
             <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
               <div>
                 <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-                  Want to Work With Us?
+                  {joinEyebrow}
                 </div>
                 <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.05, fontWeight: 800 }}>
-                  Join Our Team
+                  {joinTitle}
                 </h2>
                 <p className="text-[#2E2784]/75 tracking-tight mt-6 max-w-md" style={{ fontSize: "1rem", lineHeight: 1.65 }}>
-                  We're always interested in meeting talented people who share our passion for loyalty and teamwork. Send us your details and we'll be in touch.
+                  {joinSubtitle}
                 </p>
               </div>
 

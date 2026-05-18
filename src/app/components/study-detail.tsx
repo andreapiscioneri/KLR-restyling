@@ -1,9 +1,10 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, softShadow } from "./ui-bits";
-import { studies, brands } from "../data";
+import { studies as fallbackStudies, brands as fallbackBrands } from "../data";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import type { Route } from "../App";
@@ -15,8 +16,17 @@ const G = {
 };
 
 export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) {
+  const [studies, setStudies] = useState(fallbackStudies);
+
+  useEffect(() => {
+    fetch("/api/content?type=studies", { cache: "no-store" })
+      .then(r => r.json())
+      .then(j => { if (j.data?.length) setStudies(j.data); })
+      .catch(() => {});
+  }, []);
+
   const s = studies.find((x) => x.id === id) || studies[0];
-  const brand = brands.find((b) => b.name === s.brand);
+  const brand = fallbackBrands.find((b) => b.name === s.brand);
   const details = (s as any).details;
   const currentIndex = studies.findIndex((x) => x.id === s.id);
   const prevStudy = currentIndex > 0 ? studies[currentIndex - 1] : null;

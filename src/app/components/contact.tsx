@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { softShadow } from "./ui-bits";
@@ -17,25 +18,28 @@ const officeLabels: Record<number, { label: string; city: string; country: strin
   1: { label: "Sales Office", city: "Rovato", country: "Italy" },
 };
 
-const nextSteps = [
-  { n: "01", title: "We review your message", desc: "Our team reads every inquiry carefully and responds within one business day." },
-  { n: "02", title: "Discovery call", desc: "If there's a fit, we schedule a short call to understand your goals and context." },
-  { n: "03", title: "Tailored proposal", desc: "From there, we propose an approach designed specifically for your campaign and market." },
-];
+type ContactCmsData = {
+  hero?: { eyebrow?: string; title?: string; subtitle?: string; image?: string };
+  form?: { eyebrow?: string; title?: string };
+  nextSteps?: { eyebrow?: string; title?: string; step1Title?: string; step1Desc?: string; step2Title?: string; step2Desc?: string; step3Title?: string; step3Desc?: string };
+  offices?: { eyebrow?: string; title?: string; emailNote?: string };
+};
 
-
-function ContactFormSection() {
+function ContactFormSection({ cms }: { cms: ContactCmsData }) {
+  const eyebrow = cms.form?.eyebrow || "Contact Form";
+  const title = cms.form?.title || "Let's Start Something New Together";
   return (
     <section id="contact-form" className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
       <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/20 blur-3xl" />
       <div className="max-w-6xl mx-auto px-8">
         <AnimatedSection>
           <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-            Contact Form
+            {eyebrow}
           </div>
           <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4 max-w-3xl" style={{ fontSize: "clamp(2rem, 4.5vw, 3.8rem)", lineHeight: 1.0, fontWeight: 800 }}>
-            Let's Start Something<br />
-            <span style={{ fontStyle: "italic" }}>New Together</span>
+            {title.includes("New Together") ? (
+              <>{title.replace("New Together", "").trim()}<br /><span style={{ fontStyle: "italic" }}>New Together</span></>
+            ) : title}
           </h2>
 
           <form
@@ -137,18 +141,27 @@ function ContactFormSection() {
   );
 }
 
-function WhatHappensNext() {
+function WhatHappensNext({ cms }: { cms: ContactCmsData }) {
+  const ns = cms.nextSteps;
+  const eyebrow = ns?.eyebrow || "What Happens Next";
+  const title = ns?.title || "Simple steps, real results";
+  const nextSteps = [
+    { n: "01", title: ns?.step1Title || "We review your message", desc: ns?.step1Desc || "Our team reads every inquiry carefully and responds within one business day." },
+    { n: "02", title: ns?.step2Title || "Discovery call", desc: ns?.step2Desc || "If there's a fit, we schedule a short call to understand your goals and context." },
+    { n: "03", title: ns?.step3Title || "Tailored proposal", desc: ns?.step3Desc || "From there, we propose an approach designed specifically for your campaign and market." },
+  ];
   return (
     <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
       <div className="absolute -top-20 -right-24 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
       <div className="max-w-6xl mx-auto px-8">
         <AnimatedSection>
           <div className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-            What Happens Next
+            {eyebrow}
           </div>
           <h2 className="text-white tracking-[-0.035em] mt-4 max-w-2xl" style={{ fontSize: "clamp(2rem, 4.5vw, 3.8rem)", lineHeight: 1.0, fontWeight: 800 }}>
-            Simple steps,<br />
-            <span className="text-[#F8AE01]">real results</span>
+            {title.includes(",") ? (
+              <>{title.split(",")[0]},<br /><span className="text-[#F8AE01]">{title.split(",").slice(1).join(",").trim()}</span></>
+            ) : title}
           </h2>
 
           <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -176,17 +189,21 @@ function WhatHappensNext() {
   );
 }
 
-function Offices() {
+function Offices({ cms }: { cms: ContactCmsData }) {
+  const off = cms.offices;
+  const eyebrow = off?.eyebrow || "Offices";
+  const title = off?.title || "Find Us";
+  const emailNote = off?.emailNote || "— for any inquiry, from anywhere in Europe";
   return (
     <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
       <div className="absolute -top-24 right-0 w-[400px] h-[400px] rounded-full bg-white/10 blur-3xl pointer-events-none" />
       <div className="max-w-6xl mx-auto px-8">
         <AnimatedSection>
           <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-            Offices
+            {eyebrow}
           </div>
           <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4.5vw, 3.8rem)", lineHeight: 1.0, fontWeight: 800 }}>
-            Find Us
+            {title}
           </h2>
 
           <div className="mt-14 grid md:grid-cols-2 gap-6">
@@ -240,7 +257,7 @@ function Offices() {
               info@klr-europe.com
             </a>
             <span className="text-[#2E2784]/50 tracking-tight sm:ml-2" style={{ fontSize: "0.85rem" }}>
-              — for any inquiry, from anywhere in Europe
+              {emailNote}
             </span>
           </div>
         </AnimatedSection>
@@ -250,18 +267,32 @@ function Offices() {
 }
 
 export function Contact() {
+  const [cms, setCms] = useState<ContactCmsData>({});
+
+  useEffect(() => {
+    fetch("/api/content?type=pages", { cache: "no-store" })
+      .then(r => r.json())
+      .then(j => { if (j.data?.contact) setCms(j.data.contact); })
+      .catch(() => {});
+  }, []);
+
+  const heroEyebrow = cms.hero?.eyebrow || "Contact";
+  const heroTitle = cms.hero?.title || "Keep in Touch!";
+  const heroSubtitle = cms.hero?.subtitle || "Whether you're ready to launch a campaign, exploring ideas, looking for a brand partnership, or simply curious — we'd love to hear from you.";
+  const heroImage = cms.hero?.image || images.contacts;
+
   return (
     <>
       <PageHero
-        eyebrow="Contact"
-        title={<>Keep in Touch<span className="text-[#F8AE01]">!</span></>}
-        subtitle="Whether you're ready to launch a campaign, exploring ideas, looking for a brand partnership, or simply curious — we'd love to hear from you."
-        image={images.contacts}
+        eyebrow={heroEyebrow}
+        title={heroTitle.endsWith("!") ? <>{heroTitle.slice(0, -1)}<span className="text-[#F8AE01]">!</span></> : <>{heroTitle}</>}
+        subtitle={heroSubtitle}
+        image={heroImage}
         cta={{ label: "Get in Touch", href: "#contact-form" }}
       />
-      <ContactFormSection />
-      <WhatHappensNext />
-      <Offices />
+      <ContactFormSection cms={cms} />
+      <WhatHappensNext cms={cms} />
+      <Offices cms={cms} />
     </>
   );
 }
