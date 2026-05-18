@@ -135,21 +135,7 @@ export function Nav() {
 
         {/* CTA + burger */}
         <div className="flex items-center gap-2">
-          <Link
-            href={isLoggedIn ? "/admin/dashboard" : "/admin/login"}
-            data-cursor="default"
-            className="p-2 rounded-xl transition-all hidden lg:flex items-center justify-center"
-            style={{
-              background: isLoggedIn ? "rgba(248,174,1,0.15)" : "rgba(255,255,255,0.04)",
-              color: isLoggedIn ? "#F8AE01" : "rgba(255,255,255,0.35)",
-            }}
-            aria-label="Admin"
-            title={isLoggedIn ? "Pannello Admin" : "Accedi al pannello admin"}
-          >
-            {isLoggedIn ? <UserCircle className="w-4 h-4" /> : <Lock className="w-4 h-4" />}
-          </Link>
-
-          <Link
+<Link
             href="/contact"
             data-cursor="cta"
             className="hidden lg:inline-flex items-center gap-2 pl-4 pr-1.5 py-1.5 rounded-xl tracking-tight text-[0.85rem] font-medium transition-all"
