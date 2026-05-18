@@ -3,7 +3,7 @@ import { findUserByCredentials, generateToken, COOKIE_OPTIONS, isAdminRequest } 
 
 export async function POST(request: NextRequest) {
   const { email, password } = await request.json();
-  const user = findUserByCredentials(email, password);
+  const user = await findUserByCredentials(email, password);
   if (!user) {
     return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
   }

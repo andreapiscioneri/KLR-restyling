@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
-import { isAdminRequest, canWrite, getAdminUserFromRequest, hashNewPassword } from "@/lib/admin-auth";
-import { getStats, getBrands, getLeadership, getPages, getStudies, getPosts, getUsers, getColors, getSettings, writeJSON } from "@/lib/content";
+import { isAdminRequest, canWrite, getAdminUserFromRequestAsync, hashNewPassword } from "@/lib/admin-auth";
+import { getStats, getBrands, getLeadership, getPages, getStudies, getPosts, getUsers, getColors, getSettings, getPositions, getCustomPages, writeJSON } from "@/lib/content";
 
-const VALID_TYPES = ["stats","brands","leadership","pages","studies","posts","users","colors","settings"];
+const VALID_TYPES = ["stats","brands","leadership","pages","studies","posts","users","colors","settings","positions","customPages"];
 
 type RawUser = {
   id: string;
@@ -23,18 +23,20 @@ export async function GET(request: NextRequest) {
   if (!type || !VALID_TYPES.includes(type)) {
     return NextResponse.json({ error: "Invalid type" }, { status: 400 });
   }
-  const loaders: Record<string, () => unknown> = {
-    stats:      getStats,
-    brands:     getBrands,
-    leadership: getLeadership,
-    pages:      getPages,
-    studies:    getStudies,
-    posts:      getPosts,
-    users:      () => (getUsers() as RawUser[]).map(({ id, name, email, role }) => ({ id, name, email, role })),
-    colors:     getColors,
-    settings:   getSettings,
+  const loaders: Record<string, () => Promise<unknown>> = {
+    stats:       getStats,
+    brands:      getBrands,
+    leadership:  getLeadership,
+    pages:       getPages,
+    studies:     getStudies,
+    posts:       getPosts,
+    users:       async () => ((await getUsers()) as RawUser[]).map(({ id, name, email, role }) => ({ id, name, email, role })),
+    colors:      getColors,
+    settings:    getSettings,
+    positions:   getPositions,
+    customPages: getCustomPages,
   };
-  const data = loaders[type]?.();
+  const data = await loaders[type]?.();
   const response = NextResponse.json({ data });
   response.headers.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
   return response;
@@ -49,7 +51,7 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ error: "Invalid type" }, { status: 400 });
   }
 
-  const user = getAdminUserFromRequest(request);
+  const user = await getAdminUserFromRequestAsync(request);
   const role = user?.role ?? "editor";
   if (!canWrite(role, type)) {
     return NextResponse.json({ error: "Forbidden: permessi insufficienti" }, { status: 403 });
@@ -57,9 +59,8 @@ export async function PUT(request: NextRequest) {
 
   let body = await request.json();
 
-  // Hash passwords before saving users
   if (type === "users") {
-    const existingUsers = getUsers() as RawUser[];
+    const existingUsers = (await getUsers()) as RawUser[];
     body = (body as RawUser[]).map((u: RawUser) => {
       const existing = existingUsers.find(e => e.id === u.id);
       if (u.password && u.password.length > 0) {
@@ -80,7 +81,7 @@ export async function PUT(request: NextRequest) {
     });
   }
 
-  writeJSON(`${type}.json`, body);
+  await writeJSON(`${type}.json`, body);
 
   const pathsToRevalidate = [
     "/","/about","/services","/team","/brands","/work",

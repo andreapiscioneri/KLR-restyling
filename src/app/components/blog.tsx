@@ -56,6 +56,7 @@ export function Blog({ go }: { go: (r: Route) => void }) {
   const [heroEyebrow, setHeroEyebrow] = useState("Insights");
   const [heroTitle, setHeroTitle] = useState("Ideas, Trends & Stories from KLR hands on experience");
   const [heroSubtitle, setHeroSubtitle] = useState("Fresh perspectives on loyalty marketing, retail innovation, and the people behind our work.");
+  const [heroVisible, setHeroVisible] = useState(true);
 
   useEffect(() => {
     fetch("/api/content?type=pages", { cache: "no-store" })
@@ -66,6 +67,7 @@ export function Blog({ go }: { go: (r: Route) => void }) {
           if (bh.eyebrow) setHeroEyebrow(bh.eyebrow);
           if (bh.title) setHeroTitle(bh.title);
           if (bh.subtitle) setHeroSubtitle(bh.subtitle);
+          if (bh._visible === false) setHeroVisible(false);
         }
       })
       .catch(() => {});
@@ -142,7 +144,7 @@ export function Blog({ go }: { go: (r: Route) => void }) {
 
   return (
     <>
-      <PageHero
+      {heroVisible && <PageHero
         eyebrow={heroEyebrow}
         title={(() => {
           const idx = heroTitle.indexOf(" from ");
@@ -156,7 +158,7 @@ export function Blog({ go }: { go: (r: Route) => void }) {
         subtitle={heroSubtitle}
         image={images.human}
         cta={{ label: "Explore Articles", href: "#insight-feed" }}
-      />
+      />}
 
       {/* FEATURED ARTICLE — yellow */}
       {featured && (

@@ -1,45 +1,31 @@
-import fs from "fs";
-import path from "path";
+import { readContent, writeContent } from "./storage";
 
-const CONTENT_DIR = path.join(process.cwd(), "content");
-
-function readJSON<T>(file: string, fallback: T): T {
-  try {
-    const filePath = path.join(CONTENT_DIR, file);
-    if (!fs.existsSync(filePath)) return fallback;
-    return JSON.parse(fs.readFileSync(filePath, "utf-8")) as T;
-  } catch {
-    return fallback;
-  }
+export async function writeJSON(file: string, data: unknown): Promise<void> {
+  const key = file.replace(/\.json$/, "");
+  await writeContent(key, data);
 }
 
-export function writeJSON(file: string, data: unknown): void {
-  const filePath = path.join(CONTENT_DIR, file);
-  fs.mkdirSync(CONTENT_DIR, { recursive: true });
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf-8");
-}
-
-export function getStats() {
-  return readJSON("stats.json", {
+export async function getStats() {
+  return readContent("stats", {
     campaigns: "340+", retailers: "150+", countries: "20+", years: "10+",
     combinedExperience: "275", people: "43", nationalities: "11",
   });
 }
 
-export function getBrands() {
-  return readJSON("brands.json", []);
+export async function getBrands() {
+  return readContent("brands", []);
 }
 
-export function getLeadership() {
-  return readJSON("leadership.json", []);
+export async function getLeadership() {
+  return readContent("leadership", []);
 }
 
-export function getPages() {
-  return readJSON("pages.json", {});
+export async function getPages() {
+  return readContent("pages", {});
 }
 
-export function getColors() {
-  return readJSON("colors.json", {
+export async function getColors() {
+  return readContent("colors", {
     primaryColor: "#2E2784",
     accentColor: "#F8AE01",
     logoUrl: "/klr-logo.png",
@@ -48,8 +34,8 @@ export function getColors() {
   });
 }
 
-export function getSettings() {
-  return readJSON("settings.json", {
+export async function getSettings() {
+  return readContent("settings", {
     siteName: "KLR Europe",
     siteDescription: "Loyalty campaigns that excite and engage customers.",
     siteKeywords: "loyalty, retail, campaigns, marketing",
@@ -64,16 +50,16 @@ export function getSettings() {
   });
 }
 
-export function getStudies() {
-  return readJSON("studies.json", null);
+export async function getStudies() {
+  return readContent("studies", null);
 }
 
-export function getPosts() {
-  return readJSON("posts.json", null);
+export async function getPosts() {
+  return readContent("posts", null);
 }
 
-export function getUsers() {
-  return readJSON("users.json", [
+export async function getUsers() {
+  return readContent("users", [
     {
       id: "admin",
       name: "Admin",
@@ -82,4 +68,17 @@ export function getUsers() {
       role: "admin",
     },
   ]);
+}
+
+export async function getPositions() {
+  return readContent("positions", [
+    { id: "1", role: "Loyalty Program Manager", loc: "Milan · IT", description: "" },
+    { id: "2", role: "Account Executive — Petrol", loc: "Ljubljana · SI", description: "" },
+    { id: "3", role: "Creative Copywriter", loc: "Remote · EU", description: "" },
+    { id: "4", role: "Supply Chain Coordinator", loc: "Milan · IT", description: "" },
+  ]);
+}
+
+export async function getCustomPages() {
+  return readContent("customPages", []);
 }

@@ -1,0 +1,18 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NEXT_IGNORE_INCORRECT_LOCKFILE = "1"
+
+# Firebase Storage upload config is provided via Netlify environment variables.
+# See README for the required keys.
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Include content JSON files in the serverless bundle
+# so they are available as fallback on first deploy
+[functions]
+  included_files = ["content/**"]

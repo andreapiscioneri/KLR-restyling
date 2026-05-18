@@ -4,8 +4,8 @@ import { redirect } from "next/navigation";
 import { findUserByCredentials, generateToken, COOKIE_OPTIONS } from "./admin-auth";
 
 export async function adminLoginAction(email: string, password: string) {
-  const user = findUserByCredentials(email, password);
-  
+  const user = await findUserByCredentials(email, password);
+
   if (!user) {
     return { ok: false, error: "Email o password non corretti." };
   }

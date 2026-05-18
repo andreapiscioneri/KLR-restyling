@@ -21,6 +21,7 @@ export function Studies({ go }: { go: (r: Route) => void }) {
   const [heroEyebrow, setHeroEyebrow] = useState("Case Studies");
   const [heroTitle, setHeroTitle] = useState("Real Results for Real Retail Chains");
   const [heroSubtitle, setHeroSubtitle] = useState("340+ campaigns across 20+ countries. Explore how we've helped grocery and fuel retail chains increase visits, grow basket size, and build lasting customer relationships.");
+  const [heroVisible, setHeroVisible] = useState(true);
 
   useEffect(() => {
     fetch("/api/content?type=studies", { cache: "no-store" }).then(r => r.json()).then(j => { if (j.data?.length) setStudies(j.data); }).catch(() => {});
@@ -32,6 +33,7 @@ export function Studies({ go }: { go: (r: Route) => void }) {
           if (cs.eyebrow) setHeroEyebrow(cs.eyebrow);
           if (cs.title) setHeroTitle(cs.title);
           if (cs.subtitle) setHeroSubtitle(cs.subtitle);
+          if (cs._visible === false) setHeroVisible(false);
         }
       })
       .catch(() => {});
@@ -47,12 +49,12 @@ export function Studies({ go }: { go: (r: Route) => void }) {
 
   return (
     <>
-      <PageHero
+      {heroVisible && <PageHero
         eyebrow={heroEyebrow}
         title={<>{heroTitle.split(" ").slice(0, 3).join(" ")}<br /><span className="text-[#F8AE01]">{heroTitle.split(" ").slice(3).join(" ")}</span></>}
         subtitle={heroSubtitle}
         image={images.services}
-      />
+      />}
 
       {/* FILTERS + GRID — blue */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>

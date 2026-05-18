@@ -280,19 +280,20 @@ export function Contact() {
   const heroTitle = cms.hero?.title || "Keep in Touch!";
   const heroSubtitle = cms.hero?.subtitle || "Whether you're ready to launch a campaign, exploring ideas, looking for a brand partnership, or simply curious — we'd love to hear from you.";
   const heroImage = cms.hero?.image || images.contacts;
+  const visible = (section?: Record<string, string>) => (section as Record<string, unknown> | undefined)?._visible !== false;
 
   return (
     <>
-      <PageHero
+      {visible(cms.hero) && <PageHero
         eyebrow={heroEyebrow}
         title={heroTitle.endsWith("!") ? <>{heroTitle.slice(0, -1)}<span className="text-[#F8AE01]">!</span></> : <>{heroTitle}</>}
         subtitle={heroSubtitle}
         image={heroImage}
         cta={{ label: "Get in Touch", href: "#contact-form" }}
-      />
-      <ContactFormSection cms={cms} />
-      <WhatHappensNext cms={cms} />
-      <Offices cms={cms} />
+      />}
+      {visible(cms.form) && <ContactFormSection cms={cms} />}
+      {visible(cms.nextSteps) && <WhatHappensNext cms={cms} />}
+      {visible(cms.offices) && <Offices cms={cms} />}
     </>
   );
 }

@@ -185,6 +185,7 @@ export function Team({ go }: { go: (r: Route) => void }) {
   const joinEyebrow = teamCms.joinUs?.eyebrow || "Want to Work With Us?";
   const joinTitle = teamCms.joinUs?.title || "Join Our Team";
   const joinSubtitle = teamCms.joinUs?.subtitle || "We're always interested in meeting talented people who share our passion for loyalty and teamwork. Send us your details and we'll be in touch.";
+  const visible = (section?: Record<string, string>) => (section as Record<string, unknown> | undefined)?._visible !== false;
 
   // Split title for coloring last words
   const heroTitleWords = heroTitle.trim().split(/\s+/);
@@ -193,13 +194,13 @@ export function Team({ go }: { go: (r: Route) => void }) {
 
   return (
     <>
-      <PageHero
+      {visible(teamCms.hero) && <PageHero
         eyebrow={heroEyebrow}
         title={heroTitleFirst ? <>{heroTitleFirst}<br /><span className="text-[#F8AE01]">{heroTitleLast}</span></> : <>{heroTitle}</>}
         subtitle={heroSubtitle}
         image={heroImage}
         cta={{ label: "Meet Our Leadership", href: "#leadership-grid" }}
-      />
+      />}
 
       {/* LEADERSHIP TEAM — yellow */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
@@ -256,7 +257,7 @@ export function Team({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* INTERNATIONAL PRESENCE — blue */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+      {visible(teamCms.international) && <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
         <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
@@ -342,7 +343,7 @@ export function Team({ go }: { go: (r: Route) => void }) {
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section>}
 
       {/* OUR CULTURE — yellow */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
@@ -404,7 +405,7 @@ export function Team({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* JOIN OUR TEAM — rosa */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
+      {visible(teamCms.joinUs) && <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
         <div className="absolute -top-20 -right-24 w-[360px] h-[360px] rounded-full bg-white/10 blur-3xl pointer-events-none" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
@@ -499,7 +500,7 @@ export function Team({ go }: { go: (r: Route) => void }) {
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section>}
 
       {/* CLOSING CTA — yellow */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>

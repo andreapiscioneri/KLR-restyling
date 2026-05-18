@@ -110,6 +110,7 @@ function CollectionsSlider() {
 type BrandsCmsData = {
   hero?: { eyebrow?: string; title?: string; subtitle?: string; image?: string; ctaLabel?: string; ctaHref?: string };
   partnerSection?: { eyebrow?: string; title?: string; subtitle?: string };
+  featured?: { eyebrow?: string; title?: string };
   closing?: { title?: string; ctaLabel?: string; ctaHref?: string; partnerEmail?: string };
 };
 
@@ -133,6 +134,7 @@ export function Brands({ go }: { go: (r: Route) => void }) {
   const heroImage = brandsCms.hero?.image || images.tailorMade;
   const heroCtaLabel = brandsCms.hero?.ctaLabel || "Explore Brand Partners";
   const heroCtaHref = brandsCms.hero?.ctaHref || "#featured-brands";
+  const visible = (section?: Record<string, string>) => (section as Record<string, unknown> | undefined)?._visible !== false;
 
   // Split title at period for two-line display
   const titleParts = heroTitle.split(".");
@@ -141,20 +143,20 @@ export function Brands({ go }: { go: (r: Route) => void }) {
 
   return (
     <>
-      <PageHero
+      {visible(brandsCms.hero) && <PageHero
         eyebrow={heroEyebrow}
         title={titleLine2 ? <>{titleLine1}<br /><span className="text-[#F8AE01]">{titleLine2}</span></> : <>{heroTitle}</>}
         subtitle={heroSubtitle}
         image={heroImage}
         cta={{ label: heroCtaLabel, href: heroCtaHref }}
-      />
+      />}
 
       {/* BRAND PARTNERS MARQUEE — dark */}
-      <section className="relative py-14 overflow-hidden" style={{ background: "#06051C" }}>
+      {visible(brandsCms.partnerSection) && <section className="relative py-14 overflow-hidden" style={{ background: "#06051C" }}>
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 80% at 50% 50%, rgba(46,39,132,0.25) 0%, transparent 70%)" }} />
         <div className="max-w-6xl mx-auto px-8 mb-10">
           <div className="tracking-[0.3em] uppercase text-[#F8AE01]/60 text-center" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-            Our Brand Partners
+            {brandsCms.partnerSection?.eyebrow || "Our Brand Partners"}
           </div>
         </div>
         <div className="relative overflow-hidden">
@@ -191,7 +193,7 @@ export function Brands({ go }: { go: (r: Route) => void }) {
             </span>
           </button>
         </div>
-      </section>
+      </section>}
 
       {/* PRODUCT CATEGORIES — yellow */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
@@ -232,16 +234,15 @@ export function Brands({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* FEATURED BRANDS — blue */}
-      <section id="featured-brands" className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+      {visible(brandsCms.featured) && <section id="featured-brands" className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
         <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              Brand Excellence
+              {brandsCms.featured?.eyebrow || "Brand Excellence"}
             </div>
             <h2 className="text-white tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-              Partners That Set<br />
-              <span className="text-[#F8AE01]">the Standard.</span>
+              {brandsCms.featured?.title ? brandsCms.featured.title : <>Partners That Set<br /><span className="text-[#F8AE01]">the Standard.</span></>}
             </h2>
 
             <div className="mt-14 grid md:grid-cols-2 gap-6">
@@ -288,7 +289,7 @@ export function Brands({ go }: { go: (r: Route) => void }) {
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section>}
 
       {/* EXCLUSIVE REWARDS CAROUSEL — rosa */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
@@ -382,7 +383,7 @@ export function Brands({ go }: { go: (r: Route) => void }) {
       </section>
 
       {/* DUAL CTA — blue */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+      {visible(brandsCms.closing) && <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
         <div className="absolute -bottom-24 -left-20 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
@@ -438,7 +439,7 @@ export function Brands({ go }: { go: (r: Route) => void }) {
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section>}
 
       {/* EXTRA CTA — yellow */}
       <section className="relative pt-24 md:pt-28 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>

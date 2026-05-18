@@ -32,8 +32,8 @@ export const ROLE_SECTIONS: Record<string, string[]> = {
 
 // Content types writable per role
 const WRITE_PERMISSIONS: Record<string, string[]> = {
-  superadmin: ["stats","brands","leadership","pages","studies","posts","users","colors","settings"],
-  admin:      ["stats","brands","leadership","pages","studies","posts","colors","settings"],
+  superadmin: ["stats","brands","leadership","pages","studies","posts","users","colors","settings","positions","customPages"],
+  admin:      ["stats","brands","leadership","pages","studies","posts","colors","settings","positions","customPages"],
   editor:     ["studies","posts"],
 };
 
@@ -66,17 +66,17 @@ function parseSession(value: string): SessionValue | null {
   return { token: v };
 }
 
-function getRawUserByEmail(email?: string): RawUser | null {
+async function getRawUserByEmail(email?: string): Promise<RawUser | null> {
   if (!email) return null;
-  return (getUsers() as RawUser[]).find(u => u.email === email) ?? null;
+  return ((await getUsers()) as RawUser[]).find(u => u.email === email) ?? null;
 }
 
 function toAdminUser(u: RawUser): AdminUser {
   return { id: u.id, name: u.name, email: u.email, role: u.role as AdminUser["role"] };
 }
 
-export function findUserByCredentials(email: string, password: string): AdminUser | null {
-  const users = getUsers() as RawUser[];
+export async function findUserByCredentials(email: string, password: string): Promise<AdminUser | null> {
+  const users = (await getUsers()) as RawUser[];
   const user = users.find(u => u.email === email);
   if (!user) return null;
 
@@ -103,14 +103,14 @@ export function findUserByCredentials(email: string, password: string): AdminUse
       const { password: _p, ...rest } = u;
       return { ...rest, passwordHash: hash, passwordSalt: salt };
     });
-    writeJSON("users.json", updated);
+    await writeJSON("users.json", updated);
   }
 
   return toAdminUser(user);
 }
 
-export function validateCredentials(email: string, password: string): boolean {
-  return Boolean(findUserByCredentials(email, password));
+export async function validateCredentials(email: string, password: string): Promise<boolean> {
+  return Boolean(await findUserByCredentials(email, password));
 }
 
 export function generateToken(email?: string): string {
@@ -131,10 +131,10 @@ export async function getAdminSessionUser(): Promise<AdminUser | null> {
   if (!session || !isValidToken(session.value)) return null;
 
   const parsed = parseSession(session.value);
-  const raw = getRawUserByEmail(parsed?.email);
+  const raw = await getRawUserByEmail(parsed?.email);
   if (raw) return toAdminUser(raw);
 
-  const first = (getUsers() as RawUser[])[0];
+  const first = ((await getUsers()) as RawUser[])[0];
   return first ? toAdminUser(first) : null;
 }
 
@@ -143,11 +143,19 @@ export function isAdminRequest(request: NextRequest): boolean {
   return session ? isValidToken(session.value) : false;
 }
 
-export function getAdminUserFromRequest(request: NextRequest): AdminUser | null {
+export function getAdminUserFromRequest(request: NextRequest): { email: string } | null {
   const session = request.cookies.get(COOKIE_NAME);
   if (!session || !isValidToken(session.value)) return null;
   const email = parseSession(session.value)?.email;
-  const raw = getRawUserByEmail(email);
+  if (!email) return null;
+  return { email };
+}
+
+export async function getAdminUserFromRequestAsync(request: NextRequest): Promise<AdminUser | null> {
+  const session = request.cookies.get(COOKIE_NAME);
+  if (!session || !isValidToken(session.value)) return null;
+  const email = parseSession(session.value)?.email;
+  const raw = await getRawUserByEmail(email);
   return raw ? toAdminUser(raw) : null;
 }
 

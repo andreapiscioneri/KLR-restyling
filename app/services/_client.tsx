@@ -132,10 +132,12 @@ export function ServicesClient() {
   const sNext    = cms.nextChallenge || {};
   const sClosing = cms.closing || {};
 
+  const visible = (s: Record<string, string | string[]>) => (s as Record<string, unknown>)._visible !== false;
+
   return (
     <>
       {/* HERO */}
-      <PageHero
+      {visible(sHero) && <PageHero
         eyebrow={String(sHero.eyebrow || "Our Services")}
         title={sHero.title ? String(sHero.title) : <>360° Loyalty<br /><span className="text-[#F8AE01]">Campaign Design & Execution</span></>}
         subtitle={String(sHero.subtitle || "From the first strategic brief to the last reward delivered — we cover every stage, in every market.")}
@@ -150,10 +152,10 @@ export function ServicesClient() {
             {String(sOverview.tagline || "Emotionally engaging for customers and simple to run for retailers.")}
           </p>
         </div>
-      </PageHero>
+      </PageHero>}
 
       {/* SERVICE OVERVIEW — yellow */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
+      {visible(sOverview) && <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute -top-24 -right-24 w-[400px] h-[400px] rounded-full bg-white/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
@@ -181,7 +183,7 @@ export function ServicesClient() {
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section>}
 
       {/* PILLAR SECTIONS */}
       {pillars.map((p, i) => (
@@ -195,7 +197,7 @@ export function ServicesClient() {
       ))}
 
       {/* BORN FOR GROCERY & PETROL + NEXT CHALLENGE */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
+      {visible(sNext) && <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
         <div className="absolute -top-24 right-0 w-[400px] h-[400px] rounded-full bg-white/10 blur-3xl pointer-events-none" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
@@ -262,10 +264,10 @@ export function ServicesClient() {
 
           </AnimatedSection>
         </div>
-      </section>
+      </section>}
 
       {/* CLOSING CTA — yellow */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
+      {visible(sClosing) && <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute -bottom-20 -right-20 w-[360px] h-[360px] rounded-full bg-white/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
@@ -292,7 +294,7 @@ export function ServicesClient() {
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section>}
     </>
   );
 }

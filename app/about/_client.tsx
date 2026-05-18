@@ -14,7 +14,8 @@ const G = {
   rosa:   "radial-gradient(130% 130% at 10% 0%, #f0e8ff 0%, #C8B8F0 45%, #9d85d4 100%)",
 };
 
-type AboutCms = Record<string, Record<string, string>>;
+type CmsSection = Record<string, string>;
+type AboutCms = Record<string, CmsSection>;
 
 export function AboutClient() {
   const [cms, setCms] = useState<AboutCms>({});
@@ -26,29 +27,32 @@ export function AboutClient() {
       .catch(() => {});
   }, []);
 
-  const hero         = cms.hero         || {};
-  const whatWeDo     = cms.whatWeDo     || {};
-  const brandStory   = cms.brandStory   || {};
-  const journeyData  = cms.journey      || {};
-  const vision       = cms.vision       || {};
-  const ourSolution  = cms.ourSolution  || {};
-  const impact       = cms.impact       || {};
-  const corePromise  = cms.corePromise  || {};
-  const closing      = cms.closing      || {};
+  const hero              = cms.hero             || {};
+  const whatWeDo          = cms.whatWeDo         || {};
+  const brandStory        = cms.brandStory       || {};
+  const journeyData       = cms.journey          || {};
+  const moreThanLoyalty   = cms.moreThanLoyalty  || {};
+  const vision            = cms.vision           || {};
+  const ourSolution       = cms.ourSolution      || {};
+  const impact            = cms.impact           || {};
+  const corePromise       = cms.corePromise      || {};
+  const closing           = cms.closing          || {};
+
+  const visible = (s: CmsSection) => (s as Record<string, unknown>)._visible !== false;
 
   return (
     <>
       {/* ── 1. HERO ── */}
-      <PageHero
+      {visible(hero) && <PageHero
         eyebrow={hero.eyebrow || "About KLR"}
         title={hero.title ? hero.title : <><span>We Are Central</span><br /><span className="text-[#F8AE01]">to Loyalty.</span></>}
         subtitle={hero.subtitle || "KLR was born from friendship — different cultures, shared ambitions, and a belief that loyalty is built on trust. Over ten years, we've grown from a three-person office in Koper to a 43-person international team delivering campaigns across 20+ European markets."}
         image={hero.image || images.teamwork}
         cta={{ label: "Meet the Team", href: "/team" }}
-      />
+      />}
 
       {/* ── 2. WHAT WE DO ── */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
+      {visible(whatWeDo) && <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <h2 className="tracking-[-0.04em] mb-10" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, fontStyle: "italic", color: "#2E2784" }}>
@@ -78,10 +82,10 @@ export function AboutClient() {
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section>}
 
       {/* ── 3. BRAND STORY ── */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
+      {visible(brandStory) && <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
         <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-[#2E2784]/08 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
@@ -110,10 +114,10 @@ export function AboutClient() {
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section>}
 
       {/* ── 4. OUR JOURNEY ── */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+      {visible(journeyData) && <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
         <div className="absolute -bottom-24 -left-20 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
@@ -181,10 +185,10 @@ export function AboutClient() {
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section>}
 
       {/* ── 5. MORE THAN A LOYALTY COMPANY ── */}
-      <section className="w-full">
+      {visible(moreThanLoyalty) && <section className="w-full">
         <img src="/fondo.png" alt="More Than a Loyalty Company" className="w-full h-auto block" />
         <div className="flex justify-center py-10" style={{ backgroundImage: "url('/back.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
           <Link
@@ -197,10 +201,10 @@ export function AboutClient() {
             </span>
           </Link>
         </div>
-      </section>
+      </section>}
 
       {/* ── 6. KLR VISION ── */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
+      {visible(vision) && <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
         <div className="absolute -top-24 right-0 w-[480px] h-[480px] rounded-full bg-[#2E2784]/06 blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-[320px] h-[320px] rounded-full bg-[#2E2784]/05 blur-3xl pointer-events-none" />
         <div className="max-w-6xl mx-auto px-8 relative z-10">
@@ -228,10 +232,10 @@ export function AboutClient() {
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section>}
 
       {/* ── 7. OUR SOLUTION (shopping bags) ── */}
-      <section className="relative pt-28 md:pt-32 pb-32 md:pb-40 overflow-hidden" style={{ background: G.blue }}>
+      {visible(ourSolution) && <section className="relative pt-28 md:pt-32 pb-32 md:pb-40 overflow-hidden" style={{ background: G.blue }}>
         <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
@@ -296,7 +300,7 @@ export function AboutClient() {
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section>}
 
       {/* ── 8. LOYALTY FRAMEWORK ── */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
@@ -357,7 +361,7 @@ export function AboutClient() {
       </section>
 
       {/* ── 8. THE IMPACT ── */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
+      {visible(impact) && <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
         <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-[#2E2784]/06 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
@@ -386,10 +390,10 @@ export function AboutClient() {
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section>}
 
       {/* ── 9. THIS ISN'T JUST LOYALTY + CTA SERVICES ── */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+      {visible(corePromise) && <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
         <div className="absolute -top-24 right-20 w-[380px] h-[380px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
@@ -426,10 +430,10 @@ export function AboutClient() {
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section>}
 
       {/* ── 10. CLOSING CTA ── */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
+      {visible(closing) && <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute -bottom-20 -right-20 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
@@ -456,7 +460,7 @@ export function AboutClient() {
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section>}
     </>
   );
 }

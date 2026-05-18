@@ -15,6 +15,7 @@ const gradients = {
 };
 
 type HeroData = {
+  _visible?: boolean;
   eyebrow?: string;
   titleLine1?: string;
   titleLine2?: string;
@@ -25,6 +26,7 @@ type HeroData = {
 };
 
 type StatsData = {
+  _visible?: boolean;
   eyebrow?: string;
   title?: string;
   ctaLabel?: string;
@@ -40,6 +42,7 @@ type StatsData = {
 };
 
 type SectionData = {
+  _visible?: boolean;
   eyebrow?: string;
   title?: string;
   subtitle?: string;
@@ -814,16 +817,16 @@ export function HomePage() {
 
   return (
     <div>
-      <Hero data={heroData} />
-      <StatsBar stats={stats} data={statsData} />
-      <LoyaltyFramework data={frameworkData} />
-      <OurBrands brands={brandPartners} data={brandPartnersData} />
-      <TwoSectors data={sectorsData} />
-      <InternationalPresence data={internationalData} />
-      <ClientLogos data={clientsData} />
-      <CaseStudies studies={studies} data={caseStudiesData} />
-      <BlogPreview data={blogData} />
-      <ClosingCta data={closingData} />
+      {heroData._visible !== false && <Hero data={heroData} />}
+      {statsData._visible !== false && <StatsBar stats={stats} data={statsData} />}
+      {frameworkData._visible !== false && <LoyaltyFramework data={frameworkData} />}
+      {brandPartnersData._visible !== false && <OurBrands brands={brandPartners} data={brandPartnersData} />}
+      {sectorsData._visible !== false && <TwoSectors data={sectorsData} />}
+      {internationalData._visible !== false && <InternationalPresence data={internationalData} />}
+      {clientsData._visible !== false && <ClientLogos data={clientsData} />}
+      {caseStudiesData._visible !== false && <CaseStudies studies={studies} data={caseStudiesData} />}
+      {blogData._visible !== false && <BlogPreview data={blogData} />}
+      {closingData._visible !== false && <ClosingCta data={closingData} />}
     </div>
   );
 }
