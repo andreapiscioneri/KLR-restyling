@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowUpRight, ArrowLeft, ArrowRight, Heart, Star, Award, Trophy, Globe, ShoppingCart, Clock, Users, Flag } from "lucide-react";
+import { ArrowUpRight, ArrowLeft, ArrowRight, Heart, Star, Award, Eye, Smile, Trophy, Globe, ShoppingCart, Clock, Users, Flag } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, useState, useEffect } from "react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
@@ -382,7 +382,7 @@ function LoyaltyFramework({ data = {} }: { data?: SectionData }) {
                 
                 {/* Top Circle - Desire — antracite */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] rounded-full border-[5px] flex justify-center pt-8 sm:pt-10 transition-transform hover:scale-105 duration-500" style={{ borderColor: "#2C2C34", background: "rgba(44,44,52,0.12)" }}>
-                  <Heart className="w-10 h-10 sm:w-14 sm:h-14" style={{ color: "#2C2C34" }} />
+                  <Eye className="w-10 h-10 sm:w-14 sm:h-14" style={{ color: "#2C2C34" }} />
                 </div>
 
                 {/* Bottom Left Circle - Experience — lilla */}
@@ -392,12 +392,12 @@ function LoyaltyFramework({ data = {} }: { data?: SectionData }) {
 
                 {/* Bottom Right Circle - Satisfaction — blu KLR */}
                 <div className="absolute bottom-4 right-0 w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] rounded-full border-[5px] flex items-end justify-end pb-10 pr-10 sm:pb-14 sm:pr-14 transition-transform hover:scale-105 duration-500" style={{ borderColor: "#2E2784", background: "rgba(46,39,132,0.10)" }}>
-                  <Award className="w-10 h-10 sm:w-14 sm:h-14" style={{ color: "#2E2784" }} />
+                  <Smile className="w-10 h-10 sm:w-14 sm:h-14" style={{ color: "#2E2784" }} />
                 </div>
 
                 {/* Center Core - Emotional Loyalty (Heart) */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mt-4 z-20 flex items-center justify-center w-20 h-20 sm:w-28 sm:h-28 rounded-full bg-[#2E2784] shadow-[0_0_40px_rgba(46,39,132,0.4)] animate-pulse">
-                  <Heart className="w-10 h-10 sm:w-14 sm:h-14 text-[#F8AE01] fill-[#F8AE01]" />
+                  <Heart className="w-12 h-12 sm:w-16 sm:h-16 text-[#F8AE01] fill-[#F8AE01]" />
                 </div>
               </div>
             </div>
