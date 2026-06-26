@@ -243,7 +243,7 @@ export function Klr10({ go, cms = {} }: { go: (r: Route) => void; cms?: TenYears
         <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-white/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
-            <Eyebrow>{text(cJourney, "eyebrow", "Timeline")}</Eyebrow>
+            <Eyebrow lineColor="#2E2784">{text(cJourney, "eyebrow", "Timeline")}</Eyebrow>
             <h2 className="text-[#2E2784] tracking-[-0.04em] mt-8" style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1, fontWeight: 800 }}>
               {text(cJourney, "title", "10 Years of Growth")}
             </h2>

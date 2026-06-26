@@ -21,13 +21,13 @@ export function openMailtoDraft(form: HTMLFormElement, to: string, subject: stri
   window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
-export function Eyebrow({ children, onDark = false }: { children: React.ReactNode; onDark?: boolean }) {
+export function Eyebrow({ children, onDark = false, lineColor = "#F8AE01" }: { children: React.ReactNode; onDark?: boolean; lineColor?: string }) {
   return (
     <div
       className={`tracking-[0.25em] uppercase flex items-center gap-3 ${onDark ? "text-white" : "text-[#2E2784]"}`}
       style={{ fontSize: "0.7rem" }}
     >
-      <span className="inline-block w-6 h-px bg-[#F8AE01]" />
+      <span className="inline-block w-6 h-px" style={{ background: lineColor }} />
       <span>{children}</span>
     </div>
   );
