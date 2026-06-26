@@ -6,7 +6,7 @@ import { ArrowUpRight, ArrowLeft, ArrowRight, Heart, Star, Award, Eye, Smile, Tr
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, useState, useEffect } from "react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { images, stats as defaultStats, brandPartners as defaultBrands, studies as defaultStudies, fallbackPosts, loyaltyFramework, sectors, retailers, locations } from "@/src/app/data";
+import { images, stats as defaultStats, brandPartners as defaultBrands, studies as defaultStudies, fallbackPosts, loyaltyFramework, sectors, retailers } from "@/src/app/data";
 
 const gradients = {
   blue:   "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
@@ -254,8 +254,8 @@ function StatsBar({ stats, data = {} }: { stats: typeof defaultStats; data?: Sta
 function InternationalPresence({ data = {} }: { data?: SectionData }) {
   const eyebrow  = data.eyebrow  || "Presence";
   const title    = data.title    || "We are truly international";
-  const subtitle = data.subtitle || "Based in Italy and Slovenia, we operate in 20+ countries in Europe and keep growing. Our network of local experts ensures campaigns are culturally relevant and operationally flawless.";
-  const mapImage = data.mapImage || images.map;
+  const subtitle = data.subtitle || "Based in Italy and Slovenia, we operate in 20+ European countries and keep growing. Our international network of local experts ensures campaigns are culturally relevant and operationally flawless.";
+  const mapImage = data.mapImage || "/1-Mappa-KLR.png";
 
   return (
     <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.blue }}>
@@ -275,36 +275,6 @@ function InternationalPresence({ data = {} }: { data?: SectionData }) {
 
           <div className="mt-10 flex justify-center">
             <img src={mapImage} alt="KLR European presence" className="w-full max-w-3xl h-auto" />
-          </div>
-
-          <p className="text-white/60 tracking-tight mt-10 max-w-2xl" style={{ fontSize: "0.95rem", lineHeight: 1.7 }}>
-            Our agents are present in following cities
-          </p>
-
-          {/* City grid — 5 col desktop, 2 col mobile */}
-          <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-            {locations.map((l, i) => {
-              const accents = ["#F8AE01","#C8B8F0","#F8AE01","#C8B8F0","#F8AE01","#C8B8F0","#F8AE01","#C8B8F0","#F8AE01","#C8B8F0"];
-              const acc = accents[i];
-              return (
-                <div
-                  key={l.city}
-                  className="rounded-[16px] overflow-hidden"
-                  style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)" }}
-                >
-                  {/* Colour bar top */}
-                  <div style={{ height: "4px", background: acc }} />
-                  <div className="px-4 py-3">
-                    <div className="tracking-[0.15em] uppercase" style={{ fontSize: "0.58rem", fontWeight: 700, color: acc, opacity: 0.85 }}>
-                      {l.country}
-                    </div>
-                    <div className="text-white tracking-tight mt-1" style={{ fontSize: "0.95rem", fontWeight: 700 }}>
-                      {l.city}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
           </div>
         </AnimatedSection>
       </div>
