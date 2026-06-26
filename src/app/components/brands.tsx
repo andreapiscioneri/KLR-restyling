@@ -111,7 +111,11 @@ type BrandsCmsData = {
   hero?: { eyebrow?: string; title?: string; subtitle?: string; image?: string; ctaLabel?: string; ctaHref?: string };
   partnerSection?: { eyebrow?: string; title?: string; subtitle?: string };
   featured?: { eyebrow?: string; title?: string };
-  closing?: { title?: string; ctaLabel?: string; ctaHref?: string; partnerEmail?: string };
+  closing?: {
+    brandEyebrow?: string; brandTitle?: string; brandSubtitle?: string; brandCtaLabel?: string;
+    retailerEyebrow?: string; retailerTitle?: string; retailerSubtitle?: string; retailerCtaLabel?: string;
+    ctaHref?: string;
+  };
 };
 
 export function Brands({ go }: { go: (r: Route) => void }) {
@@ -390,20 +394,20 @@ export function Brands({ go }: { go: (r: Route) => void }) {
             <div className="grid md:grid-cols-2 gap-6">
               <article className="rounded-[30px] p-8 border border-white/15 flex flex-col" style={{ background: "rgba(255,255,255,0.06)" }}>
                 <div className="tracking-[0.22em] uppercase text-[#F8AE01]/75" style={{ fontSize: "0.65rem", fontWeight: 700 }}>
-                  For Brand Partners
+                  {brandsCms.closing?.brandEyebrow || "For Brand Partners"}
                 </div>
                 <h3 className="text-white tracking-[-0.025em] mt-4" style={{ fontSize: "clamp(1.5rem, 2.4vw, 2.3rem)", lineHeight: 1.15, fontWeight: 800 }}>
-                  Interested in Reaching Millions of European Consumers Through Loyalty?
+                  {brandsCms.closing?.brandTitle || "Interested in Reaching Millions of European Consumers Through Loyalty?"}
                 </h3>
                 <p className="text-white/70 tracking-tight mt-4" style={{ fontSize: "0.95rem", lineHeight: 1.6 }}>
-                  We're always looking for exciting brands to bring into our loyalty ecosystem.
+                  {brandsCms.closing?.brandSubtitle || "We're always looking for exciting brands to bring into our loyalty ecosystem."}
                 </p>
                 <div className="mt-auto pt-6 flex flex-col items-start gap-4">
                   <button
                     onClick={() => go({ page: "contact" })}
                     className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-white hover:text-[#2E2784]"
                   >
-                    <span>Become a Brand Partner</span>
+                    <span>{brandsCms.closing?.brandCtaLabel || "Become a Brand Partner"}</span>
                     <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
                       <ArrowUpRight className="w-4 h-4" />
                     </span>
@@ -413,20 +417,20 @@ export function Brands({ go }: { go: (r: Route) => void }) {
 
               <article className="rounded-[30px] p-8 border border-white/15 flex flex-col" style={{ background: "rgba(255,255,255,0.06)" }}>
                 <div className="tracking-[0.22em] uppercase text-[#F8AE01]/75" style={{ fontSize: "0.65rem", fontWeight: 700 }}>
-                  For Retailers
+                  {brandsCms.closing?.retailerEyebrow || "For Retailers"}
                 </div>
                 <h3 className="text-white tracking-[-0.025em] mt-4" style={{ fontSize: "clamp(1.5rem, 2.4vw, 2.3rem)", lineHeight: 1.15, fontWeight: 800 }}>
-                  Looking for the Perfect Collection for Your Campaign?
+                  {brandsCms.closing?.retailerTitle || "Looking for the Perfect Collection for Your Campaign?"}
                 </h3>
                 <p className="text-white/70 tracking-tight mt-4" style={{ fontSize: "0.95rem", lineHeight: 1.6 }}>
-                  Tell us your goals and we'll shape the right brand mix for your market and audience.
+                  {brandsCms.closing?.retailerSubtitle || "Tell us your goals and we'll shape the right brand mix for your market and audience."}
                 </p>
                 <div className="mt-auto pt-6 flex flex-col items-start gap-4">
                   <button
                     onClick={() => go({ page: "contact" })}
                     className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-white hover:text-[#2E2784]"
                   >
-                    <span>Choose brand for your next loyalty campaign</span>
+                    <span>{brandsCms.closing?.retailerCtaLabel || "Choose brand for your next loyalty campaign"}</span>
                     <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
                       <ArrowUpRight className="w-4 h-4" />
                     </span>

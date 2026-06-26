@@ -539,7 +539,7 @@ function StatsEditor({ data, onSave }: { data:Record<string,string>|null; onSave
 type PagesDataLocal = Record<string, Record<string, unknown>>;
 
 const IMAGE_FIELDS    = ["image","mapImage","image1","image2","logoUrl","img","bannerImage","videoUrl"];
-const TEXTAREA_FIELDS = ["subtitle","mainText","text","bodyText","description","companyDesc","tagline","hq1","hq2","messagePlaceholder","item1","item2","item3","intro","closing","value1Desc","value2Desc","value3Desc","paragraph1","paragraph2","card1Text","card2Text","card3Text","card4Text","mapBody","point1","point2","point3","milestonesText"];
+const TEXTAREA_FIELDS = ["subtitle","mainText","text","bodyText","description","companyDesc","tagline","hq1","hq2","messagePlaceholder","item1","item2","item3","intro","closing","value1Desc","value2Desc","value3Desc","paragraph1","paragraph2","card1Text","card2Text","card3Text","card4Text","mapBody","point1","point2","point3","milestonesText","brandSubtitle","retailerSubtitle","badge3"];
 const COLOR_FIELDS    = ["primaryColor","accentColor"];
 
 const FIELD_LABELS: Record<string,string> = {
@@ -550,7 +550,9 @@ const FIELD_LABELS: Record<string,string> = {
   mainText:"Testo principale",text:"Testo",bodyText:"Corpo testo",tagline:"Tagline",description:"Descrizione",
   companyDesc:"Descrizione azienda",copyright:"Copyright",hqTitle:"Titolo sede",hq1:"Indirizzo 1",hq2:"Indirizzo 2",
   email:"Email",emailNote:"Nota email",linkedinUrl:"LinkedIn URL",youtubeUrl:"YouTube URL",
-  badge1:"Badge 1",badge2:"Badge 2",intro:"Intro",closing:"Chiusura",partnerEmail:"Email partner",
+  badge1:"Badge 1",badge2:"Badge 2",badge3:"Badge 3",intro:"Intro",closing:"Chiusura",partnerEmail:"Email partner",
+  brandEyebrow:"Brand - Eyebrow",brandTitle:"Brand - Titolo",brandSubtitle:"Brand - Sottotitolo",brandCtaLabel:"Brand - Testo CTA",
+  retailerEyebrow:"Retailer - Eyebrow",retailerTitle:"Retailer - Titolo",retailerSubtitle:"Retailer - Sottotitolo",retailerCtaLabel:"Retailer - Testo CTA",
   contactEmail:"Email contatti",submitLabel:"Testo pulsante invio",
   namePlaceholder:"Placeholder nome",emailPlaceholder:"Placeholder email",
   companyPlaceholder:"Placeholder azienda",rolePlaceholder:"Placeholder ruolo",messagePlaceholder:"Placeholder messaggio",

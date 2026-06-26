@@ -282,10 +282,15 @@
     },
     "closing": {
       "_visible": true,
-      "title": "Interested in becoming a brand partner?",
-      "ctaLabel": "Let's Talk",
-      "ctaHref": "/contact",
-      "partnerEmail": "brands@klr-europe.com"
+      "brandEyebrow": "For Brand Partners",
+      "brandTitle": "Interested in Reaching Millions of European Consumers Through Loyalty?",
+      "brandSubtitle": "We're always looking for exciting brands to bring into our loyalty ecosystem.",
+      "brandCtaLabel": "Become a Brand Partner",
+      "retailerEyebrow": "For Retailers",
+      "retailerTitle": "Looking for the Perfect Collection for Your Campaign?",
+      "retailerSubtitle": "Tell us your goals and we'll shape the right brand mix for your market and audience.",
+      "retailerCtaLabel": "Choose brand for your next loyalty campaign",
+      "ctaHref": "/contact"
     }
   },
   "caseStudies": {

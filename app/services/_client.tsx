@@ -290,7 +290,7 @@ export function ServicesClient() {
                   href={String(sClosing.ctaHref || "/contact")}
                   className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
                 >
-                  <span>{String(sClosing.ctaLabel || "Get in Touch")}</span>
+                  <span>{String(sClosing.ctaLabel || "Let's Talk")}</span>
                   <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
                     <ArrowUpRight className="w-4 h-4" />
                   </span>

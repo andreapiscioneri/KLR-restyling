@@ -1,9 +1,23 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { MapPin } from "lucide-react";
+
+type FooterCms = {
+  tagline?: string;
+  description?: string;
+  companyDesc?: string;
+  copyright?: string;
+  hqTitle?: string;
+  hq1?: string;
+  hq2?: string;
+  email?: string;
+  linkedinUrl?: string;
+  youtubeUrl?: string;
+};
 
 function LinkedInIcon({ className }: { className?: string }) {
   return (
@@ -48,10 +62,32 @@ const glassCard = {
 
 export function Footer() {
   const pathname = usePathname();
+  const [cms, setCms] = useState<FooterCms>({});
+
+  useEffect(() => {
+    fetch("/api/content?type=pages", { cache: "no-store" })
+      .then((r) => r.json())
+      .then((d) => { if (d?.data?.footer) setCms(d.data.footer as FooterCms); })
+      .catch(() => {});
+  }, []);
 
   if (pathname.startsWith("/admin")) {
     return null;
   }
+
+  const tagline = cms.tagline || "We Design Emotional Loyalty.";
+  const taglineWords = tagline.split(" ");
+  const taglineStart = taglineWords.slice(0, -2).join(" ");
+  const taglineEnd = taglineWords.slice(-2).join(" ");
+  const description = cms.description || "human centred loyalty marketing — transforming customer engagement into lasting loyalty across Europe and beyond.";
+  const companyDesc = cms.companyDesc || "KLR-EVROPA d.o.o. — Loyalty campaign design and full-cycle execution for grocery and petrol retailers across 20+ European markets.";
+  const copyright = cms.copyright || "© 2026 KLR-EVROPA d.o.o.";
+  const hqTitle = cms.hqTitle || "Headquarters";
+  const hq1 = (cms.hq1 || "Ulica 15. Maja 19 / SI-6000 Koper/Capodistria / +386 5 902 87 58").split(" / ");
+  const hq2 = (cms.hq2 || "Via XXV Aprile 66 / 25038 Rovato (BS), Italy / +39 030 52 81 427").split(" / ");
+  const email = cms.email || "info@klr-europe.com";
+  const linkedinUrl = cms.linkedinUrl || "https://www.linkedin.com/company/klr-key-to-loyalty-in-retail/";
+  const youtubeUrl = cms.youtubeUrl || "https://www.youtube.com/@klreurope";
 
   return (
     <footer className="relative overflow-hidden" style={{ background: "#06051C" }}>
@@ -97,13 +133,13 @@ export function Footer() {
             className="text-white tracking-[-0.04em] leading-none"
             style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", fontWeight: 800 }}
           >
-            We Design<br />
+            {taglineStart ? <>{taglineStart}<br /></> : null}
             <span style={{ color: "#F8AE01", textShadow: "0 0 60px rgba(248,174,1,0.35)" }}>
-              Emotional Loyalty.
+              {taglineEnd}
             </span>
           </h2>
           <p className="text-white/45 tracking-tight mt-5 max-w-sm text-[0.9rem] leading-relaxed">
-            human centred loyalty marketing — transforming customer engagement into lasting loyalty across Europe and beyond.
+            {description}
           </p>
         </div>
 
@@ -113,11 +149,11 @@ export function Footer() {
           {/* Socials + desc */}
           <div className="sm:col-span-2 lg:col-span-4">
             <p className="text-white/40 tracking-tight text-[0.88rem] leading-relaxed max-w-xs">
-              KLR-EVROPA d.o.o. — Loyalty campaign design and full-cycle execution for grocery and petrol retailers across 20+ European markets.
+              {companyDesc}
             </p>
             <div className="flex items-center gap-3 mt-8">
               <a
-                href="https://www.linkedin.com/company/klr-key-to-loyalty-in-retail/"
+                href={linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center w-9 h-9 rounded-xl transition-all hover:scale-105"
@@ -127,7 +163,7 @@ export function Footer() {
                 <LinkedInIcon className="w-4 h-4" />
               </a>
               <a
-                href="https://www.youtube.com/@klreurope"
+                href={youtubeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center w-9 h-9 rounded-xl transition-all hover:scale-105"
@@ -175,16 +211,16 @@ export function Footer() {
 
           {/* HQ */}
           <div className="sm:col-span-2 lg:col-span-3">
-            <div className="tracking-[0.22em] uppercase text-[#F8AE01]/70 mb-5 text-[0.63rem]">Headquarters</div>
+            <div className="tracking-[0.22em] uppercase text-[#F8AE01]/70 mb-5 text-[0.63rem]">{hqTitle}</div>
 
             <div className="space-y-5">
               <div className="flex gap-3">
                 <MapPin className="w-4 h-4 text-[#F8AE01]/60 shrink-0 mt-0.5" />
                 <div>
                   <p className="text-white/55 tracking-tight text-[0.88rem] leading-relaxed">
-                    Ulica 15. Maja 19<br />
-                    SI-6000 Koper/Capodistria<br />
-                    <span className="text-white/35">+386 5 902 87 58</span>
+                    {hq1[0]}<br />
+                    {hq1[1]}<br />
+                    <span className="text-white/35">{hq1[2]}</span>
                   </p>
                 </div>
               </div>
@@ -193,18 +229,18 @@ export function Footer() {
                 <MapPin className="w-4 h-4 text-[#F8AE01]/60 shrink-0 mt-0.5" />
                 <div>
                   <p className="text-white/55 tracking-tight text-[0.88rem] leading-relaxed">
-                    Via XXV Aprile 66<br />
-                    25038 Rovato (BS), Italy<br />
-                    <span className="text-white/35">+39 030 52 81 427</span>
+                    {hq2[0]}<br />
+                    {hq2[1]}<br />
+                    <span className="text-white/35">{hq2[2]}</span>
                   </p>
                 </div>
               </div>
 
               <a
-                href="mailto:info@klr-europe.com"
+                href={`mailto:${email}`}
                 className="text-[#F8AE01]/80 hover:text-[#F8AE01] tracking-tight block transition-colors text-[0.88rem]"
               >
-                info@klr-europe.com
+                {email}
               </a>
             </div>
           </div>
@@ -215,7 +251,7 @@ export function Footer() {
           className="flex items-center justify-between text-[#F8AE01]/50 tracking-tight pt-8 flex-wrap gap-4 text-[0.78rem]"
           style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
         >
-          <span>© 2026 KLR-EVROPA d.o.o.</span>
+          <span>{copyright}</span>
           <div className="flex items-center gap-4">
             <Link href="/copyright" className="text-[#F8AE01]/70 hover:text-[#F8AE01] transition-colors">Copyright</Link>
             <span className="text-[#F8AE01]/20">·</span>
