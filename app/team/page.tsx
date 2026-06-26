@@ -14,14 +14,14 @@ export const metadata: Metadata = {
     url: "https://klr-europe.com/team",
     title: "Team | The People Behind KLR Europe",
     description:
-      "43 people. 11 nationalities. 10 locations across Europe. One shared passion for designing loyalty experiences.",
+      "43 people. 11 nationalities. 11 locations across Europe. One shared passion for designing loyalty experiences.",
     siteName: "KLR Europe",
     images: [{ url: OG, width: 1200, height: 630, alt: "KLR Europe Team" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Team | The People Behind KLR Europe",
-    description: "43 people. 11 nationalities. 10 locations across Europe.",
+    description: "43 people. 11 nationalities. 11 locations across Europe.",
     images: [OG],
   },
 };

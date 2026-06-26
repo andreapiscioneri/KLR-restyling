@@ -126,13 +126,13 @@ export function Studies({ go }: { go: (r: Route) => void }) {
                 <button
                   key={s.id}
                   onClick={() => go({ page: "study-detail", id: s.id })}
-                  className="group rounded-[28px] overflow-hidden text-left border border-white/20 bg-[#2E2784]"
+                  className="group rounded-[28px] overflow-hidden text-left border border-white/20 bg-[#2E2784] h-full flex flex-col"
                   style={softShadow}
                 >
-                  <div className="aspect-[16/10] overflow-hidden">
+                  <div className="aspect-[16/10] overflow-hidden shrink-0">
                     <ImageWithFallback src={s.img} alt={s.title} className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[1200ms]" />
                   </div>
-                  <div className="p-6">
+                  <div className="p-6 flex flex-col flex-1">
                     <div className="text-[#F8AE01] tracking-[0.18em] uppercase" style={{ fontSize: "0.62rem", fontWeight: 700 }}>
                       {s.cat === "retail" ? "Grocery" : "Fuel"}
                     </div>
@@ -145,7 +145,7 @@ export function Studies({ go }: { go: (r: Route) => void }) {
                     <p className="text-white/75 tracking-tight mt-3" style={{ fontSize: "0.88rem", lineHeight: 1.55 }}>
                       {s.summary}
                     </p>
-                    <div className="mt-5 inline-flex items-center gap-2 text-[#F8AE01] group-hover:text-white transition-colors" style={{ fontSize: "0.86rem", fontWeight: 600 }}>
+                    <div className="mt-auto pt-5 inline-flex items-center gap-2 text-[#F8AE01] group-hover:text-white transition-colors" style={{ fontSize: "0.86rem", fontWeight: 600 }}>
                       Explore case study <ArrowUpRight className="w-4 h-4" />
                     </div>
                   </div>

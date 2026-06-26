@@ -562,6 +562,7 @@ export const locations = [
   { city: "Prague", country: "Czechia" },
   { city: "Belgrade", country: "Serbia" },
   { city: "Riga", country: "Latvia" },
+  { city: "Madrid", country: "Spain" },
 ];
 
 // Real offices — headquarters Koper, sales office Rovato

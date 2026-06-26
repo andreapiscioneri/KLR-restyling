@@ -72,9 +72,7 @@ const defaultMilestones: TenYearsMilestone[] = [
   { n: "05", year: "2017", title: "First 10 countries milestone reached" },
   { n: "06", year: "2017", title: "First multi-country campaign — Blaupunkt for MOL Group, 6 markets" },
   { n: "07", year: "2019", title: "First lottery & international retail chain campaign — Ducati Corse at Kaufland, Bulgaria" },
-  { n: "08", year: "2021", title: "Launch of KLR signature campaign management software" },
-  { n: "09", year: "2024", title: "Best Loyalty Campaign 2024 — Bugatti Primo at Lukoil, Bulgaria" },
-  { n: "10", year: "2025", title: "Celebrating 10 years in 20 countries" },
+  { n: "08", year: "2025", title: "Celebrating 10 years in 20 countries" },
 ];
 
 const defaultPageStats = [
@@ -247,8 +245,7 @@ export function Klr10({ go, cms = {} }: { go: (r: Route) => void; cms?: TenYears
           <AnimatedSection>
             <Eyebrow>{text(cJourney, "eyebrow", "Timeline")}</Eyebrow>
             <h2 className="text-[#2E2784] tracking-[-0.04em] mt-8" style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1, fontWeight: 800 }}>
-              {text(cJourney, "title", "10 years of KLR")}<br />
-              <em className="not-italic">in 10 milestones.</em>
+              {text(cJourney, "title", "10 Years of Growth")}
             </h2>
 
             <div className="mt-14 grid md:grid-cols-2 gap-4">

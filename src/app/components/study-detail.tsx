@@ -67,6 +67,10 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
     },
   ];
 
+  const titleWords = s.title.split(" ");
+  const titleStart = titleWords.slice(0, -2).join(" ");
+  const titleEnd = titleWords.slice(-2).join(" ");
+
   const quickFacts = [
     { label: "Client", value: s.client },
     { label: "Country", value: s.location },
@@ -80,13 +84,20 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
     <>
       <PageHero
         eyebrow={s.cat === "petrol" ? "Fuel · Case Study" : "Grocery · Case Study"}
-        title={<>{s.title}</>}
-        subtitle={`${s.client} · ${s.location} · ${s.year}`}
+        title={titleStart ? <>{titleStart} <span className="text-[#F8AE01]">{titleEnd}</span></> : <>{titleEnd}</>}
         image={s.img}
         cta={{ label: "All Case Studies", href: "/work" }}
       >
         <div className="mt-6 inline-flex items-center gap-3 rounded-full px-5 py-2 border border-[#F8AE01]/45 bg-[#F8AE01]/20 text-white tracking-tight" style={{ fontSize: "0.86rem" }}>
           <span className="text-[#F8AE01]" style={{ fontWeight: 700 }}>{s.client}</span>
+          <span className="text-white/55">|</span>
+          {!s.client.includes(s.location) && (
+            <>
+              <span>{s.location}</span>
+              <span className="text-white/55">|</span>
+            </>
+          )}
+          <span>{s.year}</span>
           <span className="text-white/55">|</span>
           <span>{s.brand}</span>
         </div>
@@ -420,9 +431,9 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
             <div className="grid md:grid-cols-2 gap-10 items-center">
               <div>
                 <h2 className="text-white tracking-[-0.035em]" style={{ fontSize: "clamp(1.9rem, 3.8vw, 3.8rem)", lineHeight: 1.05, fontWeight: 800 }}>
-                  Let's Talk About
+                  Let's Design
                   <br />
-                  <span className="text-[#F8AE01]">Your Goals</span>
+                  <span className="text-[#F8AE01]">Your Loyalty Campaign</span>
                 </h2>
               </div>
               <div className="md:text-right">
@@ -430,7 +441,7 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
                   onClick={() => go({ page: "contact" })}
                   className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-[#ffd95a] hover:text-[#2E2784]"
                 >
-                  <span>Let's Talk About Your Goals</span>
+                  <span>Book an Appointment</span>
                   <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
                     <ArrowUpRight className="w-4 h-4" />
                   </span>

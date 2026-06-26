@@ -26,6 +26,7 @@ const locationPhotoByCity: Record<string, string> = {
   Prague: "/team/Prague.png",
   Belgrade: "/team/Belgrade.png",
   Riga: "/team/Riga.png",
+  Madrid: "/team/Madrid.png",
 };
 
 const linkedinById: Record<string, string> = {
@@ -191,7 +192,7 @@ export function Team({ go }: { go: (r: Route) => void }) {
 
   const heroEyebrow = teamCms.hero?.eyebrow || "Team";
   const heroTitle = teamCms.hero?.title || "Loyalty Starts With Us";
-  const heroSubtitle = teamCms.hero?.subtitle || `A ${stats.people}-person team. ${stats.nationalities} nationalities. 10 locations across Europe. One shared passion: designing loyalty experiences that customers feel, trust, and value.`;
+  const heroSubtitle = teamCms.hero?.subtitle || `A ${stats.people}-person team. ${stats.nationalities} nationalities. ${locations.length} locations across Europe. One shared passion: designing loyalty experiences that customers feel, trust, and value.`;
   const heroImage = teamCms.hero?.image || images.recruiting;
   const intlEyebrow = teamCms.international?.eyebrow || "International Presence";
   const intlTitle = teamCms.international?.title || "We Are Truly International";
@@ -285,11 +286,11 @@ export function Team({ go }: { go: (r: Route) => void }) {
               ) : intlTitle}
             </h2>
             <p className="text-white/70 mt-5 tracking-tight" style={{ fontSize: "1rem", lineHeight: 1.6 }}>
-              10 locations across Europe, from Slovenia to Latvia — one connected team.
+              {locations.length} locations across Europe, from Slovenia to Latvia — one connected team.
             </p>
 
             {/* Location photos */}
-            <div className="mt-12 md:mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div className="mt-12 md:mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
               {locations.map((l) => {
                 return (
                   <div key={l.city} className="relative rounded-[12px] overflow-hidden" style={{ aspectRatio: "2000 / 2956" }}>
