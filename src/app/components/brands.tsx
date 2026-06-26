@@ -161,18 +161,18 @@ export function Brands({ go }: { go: (r: Route) => void }) {
         </div>
         <div className="relative overflow-hidden">
           <div
-            className="flex gap-12 items-center"
+            className="flex gap-8 sm:gap-10 md:gap-12 items-center"
             style={{
               animation: "marquee 28s linear infinite",
               width: "max-content",
             }}
           >
             {[...partnerLogos, ...partnerLogos].map((b, i) => (
-              <div key={i} className="flex items-center justify-center min-h-[56px] shrink-0">
+              <div key={i} className="flex items-center justify-center h-14 w-28 sm:w-32 md:w-36 shrink-0">
                 <img
                   src={b.logo!}
                   alt={b.name}
-                  className="max-h-10 w-auto object-contain"
+                  className="h-full w-full object-contain"
                   style={{ filter: "brightness(0) invert(1)", opacity: 0.6 }}
                 />
               </div>

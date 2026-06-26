@@ -1,5 +1,6 @@
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, hairline, softShadow } from "./ui-bits";
+import { PartnerLogosMarquee } from "./partner-logos-marquee";
 import { images, stats, loyaltyFramework, sectors, retailers, brandPartners, studies, fallbackPosts, locations } from "../data";
 import { ArrowUpRight } from "lucide-react";
 import type { Route } from "../App";
@@ -28,6 +29,8 @@ export function Home({ go }: { go: (r: Route) => void }) {
           </div>
         </div>
       </section>
+
+      <PartnerLogosMarquee />
 
       {/* HUMAN CENTERED */}
       <section className="px-8 md:px-12 pt-32 pb-0 mb-0">

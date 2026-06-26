@@ -2,7 +2,7 @@
 
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { ArrowUpRight, LucideLinkedin } from "lucide-react";
-import { softShadow } from "./ui-bits";
+import { softShadow, openMailtoDraft } from "./ui-bits";
 import { leadership as fallbackLeadership, locations, images, stats as fallbackStats } from "../data";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
@@ -396,16 +396,13 @@ export function Team({ go }: { go: (r: Route) => void }) {
 
               {/* CONTACT FORM */}
               <form
-                method="POST"
-                action="https://formsubmit.co/info@klr-europe.com"
-                encType="multipart/form-data"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  openMailtoDraft(e.currentTarget, "info@klr-europe.com", "KLR Team Application");
+                }}
                 className="rounded-[32px] p-7 md:p-10 grid gap-5"
                 style={{ background: "rgba(255,255,255,0.30)", border: "1px solid rgba(255,255,255,0.5)", ...softShadow }}
               >
-                <input type="hidden" name="_subject" value="KLR Team Application" />
-                <input type="hidden" name="_captcha" value="false" />
-                <input type="hidden" name="_template" value="table" />
-                <input type="hidden" name="_next" value="/thank-you" />
 
                 <div className="border-b border-[#2E2784]/20 pb-4">
                   <input

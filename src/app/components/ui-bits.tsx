@@ -4,6 +4,23 @@ import { ArrowUpRight } from "lucide-react";
 export const hairline = "border border-black/5";
 export const softShadow = { boxShadow: "0 40px 100px -40px rgba(46,39,132,0.18)" };
 
+// Opens the user's email client with a prefilled draft recapping a form's fields.
+// mailto: links can't carry file attachments — file inputs are listed by filename only,
+// with a note asking the sender to attach the file manually before sending.
+export function openMailtoDraft(form: HTMLFormElement, to: string, subject: string) {
+  const data = new FormData(form);
+  const lines: string[] = [];
+  for (const [key, value] of data.entries()) {
+    if (value instanceof File) {
+      if (value.name) lines.push(`${key}: ${value.name} (please attach this file manually)`);
+    } else if (value) {
+      lines.push(`${key}: ${value}`);
+    }
+  }
+  const body = lines.join("\n");
+  window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
 export function Eyebrow({ children, onDark = false }: { children: React.ReactNode; onDark?: boolean }) {
   return (
     <div

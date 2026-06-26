@@ -497,6 +497,50 @@ function ClientLogos({ data = {} }: { data?: SectionData }) {
   );
 }
 
+function PartnerLogosBand({ brands }: { brands: typeof defaultBrands }) {
+  const partnerLogos = brands.filter((b) => b.logo);
+  return (
+    <section className="relative py-14 overflow-hidden" style={{ background: "#06051C" }}>
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 80% at 50% 50%, rgba(46,39,132,0.25) 0%, transparent 70%)" }} />
+      <div className="max-w-6xl mx-auto px-8 mb-10">
+        <div className="tracking-[0.3em] uppercase text-[#F8AE01]/60 text-center" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
+          Our Brand Partners
+        </div>
+      </div>
+      <div className="relative overflow-hidden">
+        <div
+          className="flex gap-8 sm:gap-10 md:gap-12 items-center"
+          style={{ animation: "marquee 28s linear infinite", width: "max-content" }}
+        >
+          {[...partnerLogos, ...partnerLogos].map((b, i) => (
+            <div key={i} className="flex items-center justify-center h-14 w-28 sm:w-32 md:w-36 shrink-0">
+              <img
+                src={b.logo!}
+                alt={b.name}
+                className="h-full w-full object-contain"
+                style={{ filter: "brightness(0) invert(1)", opacity: 0.6 }}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }`}</style>
+
+      <div className="max-w-6xl mx-auto px-8 mt-12 flex justify-center">
+        <Link
+          href="/brands#why-partner"
+          className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-white"
+        >
+          <span>Become our next Partner</span>
+          <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
+            <ArrowUpRight className="w-4 h-4" />
+          </span>
+        </Link>
+      </div>
+    </section>
+  );
+}
+
 function OurBrands({ brands, data = {} }: { brands: typeof defaultBrands; data?: SectionData }) {
   const eyebrow  = data.eyebrow  || "Brand Partners";
   const title    = data.title    || "Global Brands That Power Our Campaigns";
@@ -818,6 +862,7 @@ export function HomePage() {
   return (
     <div>
       {heroData._visible !== false && <Hero data={heroData} />}
+      <PartnerLogosBand brands={brandPartners} />
       {statsData._visible !== false && <StatsBar stats={stats} data={statsData} />}
       {frameworkData._visible !== false && <LoyaltyFramework data={frameworkData} />}
       {brandPartnersData._visible !== false && <OurBrands brands={brandPartners} data={brandPartnersData} />}

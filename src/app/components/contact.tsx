@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { softShadow } from "./ui-bits";
+import { softShadow, openMailtoDraft } from "./ui-bits";
 import { PageHero } from "./page-hero";
 import { offices, images } from "../data";
 
@@ -43,15 +43,13 @@ function ContactFormSection({ cms }: { cms: ContactCmsData }) {
           </h2>
 
           <form
-            method="POST"
-            action="https://formsubmit.co/info@klr-europe.com"
+            onSubmit={(e) => {
+              e.preventDefault();
+              openMailtoDraft(e.currentTarget, "info@klr-europe.com", "KLR Contact Form");
+            }}
             className="mt-14 rounded-[40px] p-6 md:p-14 border border-[#2E2784]/10 grid md:grid-cols-2 gap-x-8 gap-y-8"
             style={{ background: "rgba(255,255,255,0.3)", ...softShadow }}
           >
-            <input type="hidden" name="_subject" value="KLR Contact Form" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_next" value="/thank-you" />
 
             {/* Full Name */}
             <div className="border-b border-[#2E2784]/20 pb-4">
