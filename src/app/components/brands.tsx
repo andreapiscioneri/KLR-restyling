@@ -354,7 +354,7 @@ export function Brands({ go }: { go: (r: Route) => void }) {
               How Brand Partnerships Work
             </div>
             <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-              From Licensing to In-Store:
+              From Brand Strategy to In-Store:
               <br />
               <span className="text-black">A Seamless Process</span>
             </h2>

@@ -543,8 +543,8 @@ export const whyBrandsPartner = [
 ];
 
 export const brandPartnershipProcess = [
-  { n: "01", title: "Licensing & Product Strategy", desc: "We define which product lines fit the loyalty format and handle licensing negotiations and product adaptation." },
-  { n: "02", title: "Collection Development", desc: "Our design team creates campaign-ready collections with premium packaging, photography, and video." },
+  { n: "01", title: "Brand Strategy", desc: "We define which product lines best fit both the brand strategy and the loyalty campaign and manage the full process of product adaptation, partner alignment, and execution." },
+  { n: "02", title: "Campaign POS Development", desc: "Our design team creates campaign-ready collections with premium packaging, photography, and video." },
   { n: "03", title: "Multi-Market Deployment", desc: "Through 150+ retail clients across 20+ countries, your collection reaches millions. We manage logistics and fulfilment." },
   { n: "04", title: "Campaign Integration", desc: "Your brand becomes the centrepiece: in-store displays, POSM, digital marketing, engagement mechanics." },
   { n: "05", title: "Performance Reporting", desc: "Full reports: redemption rates, engagement, geographic performance, media value analysis." },
