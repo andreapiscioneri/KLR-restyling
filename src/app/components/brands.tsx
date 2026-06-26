@@ -390,7 +390,7 @@ export function Brands({ go }: { go: (r: Route) => void }) {
             <div className="grid md:grid-cols-2 gap-6">
               <article className="rounded-[30px] p-8 border border-white/15 flex flex-col" style={{ background: "rgba(255,255,255,0.06)" }}>
                 <div className="tracking-[0.22em] uppercase text-[#F8AE01]/75" style={{ fontSize: "0.65rem", fontWeight: 700 }}>
-                  Brand CTA
+                  For Brand Partners
                 </div>
                 <h3 className="text-white tracking-[-0.025em] mt-4" style={{ fontSize: "clamp(1.5rem, 2.4vw, 2.3rem)", lineHeight: 1.15, fontWeight: 800 }}>
                   Interested in Reaching Millions of European Consumers Through Loyalty?
@@ -399,9 +399,6 @@ export function Brands({ go }: { go: (r: Route) => void }) {
                   We're always looking for exciting brands to bring into our loyalty ecosystem.
                 </p>
                 <div className="mt-auto pt-6 flex flex-col items-start gap-4">
-                  <a href="mailto:brands@klr-europe.com" className="text-[#F8AE01] hover:text-white transition-colors tracking-tight" style={{ fontSize: "0.9rem", fontWeight: 600 }}>
-                    brands@klr-europe.com
-                  </a>
                   <button
                     onClick={() => go({ page: "contact" })}
                     className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-white hover:text-[#2E2784]"
@@ -416,7 +413,7 @@ export function Brands({ go }: { go: (r: Route) => void }) {
 
               <article className="rounded-[30px] p-8 border border-white/15 flex flex-col" style={{ background: "rgba(255,255,255,0.06)" }}>
                 <div className="tracking-[0.22em] uppercase text-[#F8AE01]/75" style={{ fontSize: "0.65rem", fontWeight: 700 }}>
-                  Retailer CTA
+                  For Retailers
                 </div>
                 <h3 className="text-white tracking-[-0.025em] mt-4" style={{ fontSize: "clamp(1.5rem, 2.4vw, 2.3rem)", lineHeight: 1.15, fontWeight: 800 }}>
                   Looking for the Perfect Collection for Your Campaign?
@@ -429,7 +426,7 @@ export function Brands({ go }: { go: (r: Route) => void }) {
                     onClick={() => go({ page: "contact" })}
                     className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-white hover:text-[#2E2784]"
                   >
-                    <span>Get in Touch</span>
+                    <span>Choose brand for your next loyalty campaign</span>
                     <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
                       <ArrowUpRight className="w-4 h-4" />
                     </span>
