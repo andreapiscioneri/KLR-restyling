@@ -15,6 +15,19 @@ const G = {
   rosa: "radial-gradient(130% 130% at 10% 0%, #f0e8ff 0%, #C8B8F0 45%, #9d85d4 100%)",
 };
 
+const locationPhotoByCity: Record<string, string> = {
+  Koper: "/team/Koper.png",
+  Rovato: "/team/Rovato.png",
+  Milan: "/team/Milan.png",
+  Düsseldorf: "/team/dusseldorf.png",
+  Lille: "/team/Lille.png",
+  Budapest: "/team/Budapest.png",
+  Lublin: "/team/Lublin.png",
+  Prague: "/team/Prague.png",
+  Belgrade: "/team/Belgrade.png",
+  Riga: "/team/Riga.png",
+};
+
 const linkedinById: Record<string, string> = {
   "antonio-finazzi": "https://www.linkedin.com/search/results/all/?keywords=Antonio%20Finazzi%20KLR",
   "stefano-finazzi": "https://www.linkedin.com/search/results/all/?keywords=Stefano%20Finazzi%20KLR",
@@ -275,66 +288,25 @@ export function Team({ go }: { go: (r: Route) => void }) {
               10 locations across Europe, from Slovenia to Latvia — one connected team.
             </p>
 
-            {/* Postcard shelf */}
+            {/* Location photos */}
             <div className="mt-12 md:mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-              {locations.map((l, i) => {
-                const palettes = [
-                  { sky: "#C8E6FF", ground: "#E8DEFF", accent: "#2E2784", text: "#2E2784" },
-                  { sky: "#FFE8B0", ground: "#FFF3CC", accent: "#F8AE01", text: "#2E2784" },
-                  { sky: "#D4F0E0", ground: "#E8DEFF", accent: "#2E2784", text: "#2E2784" },
-                  { sky: "#FFD6D6", ground: "#FFE8CC", accent: "#C84040", text: "#2E2784" },
-                  { sky: "#C8E6FF", ground: "#E0F4FF", accent: "#2E2784", text: "#2E2784" },
-                  { sky: "#E8DEFF", ground: "#F0E8FF", accent: "#5b53bf", text: "#2E2784" },
-                  { sky: "#FFE8B0", ground: "#FFF8E0", accent: "#F8AE01", text: "#2E2784" },
-                  { sky: "#D4F0E0", ground: "#E8F8EE", accent: "#2E8A50", text: "#2E2784" },
-                  { sky: "#FFD6D6", ground: "#FFE8E8", accent: "#C84040", text: "#2E2784" },
-                  { sky: "#C8E6FF", ground: "#E8DEFF", accent: "#2E2784", text: "#2E2784" },
-                ];
-                const p = palettes[i % palettes.length];
-                const tilt = i % 2 === 0 ? "rotate-[-1.5deg]" : "rotate-[1.5deg]";
+              {locations.map((l) => {
                 return (
-                  <div
-                    key={l.city}
-                    className={`${tilt} hover:rotate-0 transition-transform duration-300`}
-                  >
-                    {/* Postcard */}
+                  <div key={l.city} className="relative rounded-[12px] overflow-hidden" style={{ aspectRatio: "2000 / 2956" }}>
+                    <ImageWithFallback
+                      src={locationPhotoByCity[l.city]}
+                      alt={`${l.city}, ${l.country}`}
+                      className="w-full h-full object-cover"
+                    />
                     <div
-                      className="rounded-[12px] overflow-hidden"
-                      style={{
-                        background: "white",
-                        boxShadow: "0 8px 32px rgba(0,0,0,0.28), 0 2px 8px rgba(0,0,0,0.15)",
-                        border: "3px solid white",
-                      }}
+                      className="absolute bottom-0 left-0 right-0 px-3 py-3"
+                      style={{ background: "linear-gradient(to top, rgba(0,0,0,0.65), transparent)" }}
                     >
-                      {/* Illustrated scene */}
-                      <div className="relative" style={{ height: "90px", background: p.sky }}>
-                        {/* Ground strip */}
-                        <div className="absolute bottom-0 left-0 right-0" style={{ height: "32px", background: p.ground }} />
-                        {/* Simple building silhouette */}
-                        <div className="absolute" style={{ bottom: "32px", left: "18px", width: "20px", height: "38px", background: p.accent, opacity: 0.75, borderRadius: "3px 3px 0 0" }} />
-                        <div className="absolute" style={{ bottom: "32px", left: "42px", width: "28px", height: "52px", background: p.accent, opacity: 0.6, borderRadius: "3px 3px 0 0" }} />
-                        <div className="absolute" style={{ bottom: "32px", left: "74px", width: "22px", height: "42px", background: p.accent, opacity: 0.8, borderRadius: "3px 3px 0 0" }} />
-                        <div className="absolute" style={{ bottom: "32px", left: "100px", width: "16px", height: "30px", background: p.accent, opacity: 0.55, borderRadius: "3px 3px 0 0" }} />
-                        {/* Windows */}
-                        <div className="absolute" style={{ bottom: "50px", left: "22px", width: "6px", height: "5px", background: "white", opacity: 0.7, borderRadius: "1px" }} />
-                        <div className="absolute" style={{ bottom: "50px", left: "47px", width: "6px", height: "5px", background: "white", opacity: 0.7, borderRadius: "1px" }} />
-                        <div className="absolute" style={{ bottom: "40px", left: "47px", width: "6px", height: "5px", background: "white", opacity: 0.7, borderRadius: "1px" }} />
-                        <div className="absolute" style={{ bottom: "50px", left: "78px", width: "6px", height: "5px", background: "white", opacity: 0.7, borderRadius: "1px" }} />
-                        {/* Sun */}
-                        <div className="absolute" style={{ top: "10px", right: "14px", width: "16px", height: "16px", borderRadius: "50%", background: p.accent, opacity: 0.4 }} />
+                      <div style={{ fontSize: "0.58rem", fontWeight: 700, color: "#fff", textTransform: "uppercase", letterSpacing: "0.12em", opacity: 0.8 }}>
+                        {l.country}
                       </div>
-                      {/* Text area */}
-                      <div className="px-3 py-2.5" style={{ background: "white" }}>
-                        <div style={{ fontSize: "0.58rem", fontWeight: 700, color: p.accent, textTransform: "uppercase", letterSpacing: "0.12em", opacity: 0.7 }}>
-                          {l.country}
-                        </div>
-                        <div style={{ fontSize: "0.9rem", fontWeight: 800, color: p.text, letterSpacing: "-0.02em", marginTop: "2px", lineHeight: 1.1 }}>
-                          {l.city}
-                        </div>
-                        {/* Stamp decoration */}
-                        <div className="flex justify-end mt-1">
-                          <div style={{ width: "18px", height: "22px", border: `1.5px solid ${p.accent}`, opacity: 0.35, borderRadius: "2px" }} />
-                        </div>
+                      <div style={{ fontSize: "0.9rem", fontWeight: 800, color: "#fff", letterSpacing: "-0.02em", marginTop: "2px", lineHeight: 1.1 }}>
+                        {l.city}
                       </div>
                     </div>
                   </div>
