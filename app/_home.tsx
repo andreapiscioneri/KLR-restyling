@@ -669,7 +669,7 @@ function BlogPreview({ data = {} }: { data?: SectionData }) {
 function ClosingCta({ data = {} }: { data?: SectionData }) {
   const title    = data.title    || "Ready to Design Your Next Loyalty Experience?";
   const subtitle = data.subtitle || "Let's talk about how we can help your customers come back more often, spend more, and feel great about it.";
-  const ctaLabel = data.ctaLabel || "Get in Touch";
+  const ctaLabel = data.ctaLabel || "Let's Talk";
   const ctaHref  = data.ctaHref  || "/contact";
 
   return (

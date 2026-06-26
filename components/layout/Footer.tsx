@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 
 function LinkedInIcon({ className }: { className?: string }) {
   return (
@@ -88,42 +88,23 @@ export function Footer() {
       <div className="relative pt-20 pb-10">
         <div className="max-w-6xl mx-auto px-8">
 
-        {/* ── Tagline glass panel ── */}
-        <div className="rounded-[32px] p-6 sm:p-8 md:px-14 md:py-14 mb-16 flex flex-wrap items-end justify-between gap-8" style={glassCard}>
-          <div>
-            <Link href="/" className="inline-block mb-8">
-              <Image src="/klr-logo.png" alt="KLR Europe" width={130} height={44} className="h-9 w-auto" />
-            </Link>
-            <h2
-              className="text-white tracking-[-0.04em] leading-none"
-              style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", fontWeight: 800 }}
-            >
-              We Design<br />
-              <span style={{ color: "#F8AE01", textShadow: "0 0 60px rgba(248,174,1,0.35)" }}>
-                Emotional Loyalty.
-              </span>
-            </h2>
-            <p className="text-white/45 tracking-tight mt-5 max-w-sm text-[0.9rem] leading-relaxed">
-              human centred loyalty marketing — transforming customer engagement into lasting loyalty across Europe and beyond.
-            </p>
-          </div>
-
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-3 pl-5 pr-2 py-2 rounded-2xl tracking-tight text-[0.9rem] font-medium shrink-0 transition-all hover:scale-[1.02]"
-            style={{
-              background: "#F8AE01",
-              color: "#000",
-              }}
-          >
-            <span>Get in Touch</span>
-            <span
-              className="w-8 h-8 rounded-xl flex items-center justify-center"
-              style={{ background: "rgba(0,0,0,0.12)" }}
-            >
-              <ArrowUpRight className="w-4 h-4" />
-            </span>
+        {/* ── Tagline ── */}
+        <div className="mb-16">
+          <Link href="/" className="inline-block mb-8">
+            <Image src="/klr-logo.png" alt="KLR Europe" width={130} height={44} className="h-9 w-auto" />
           </Link>
+          <h2
+            className="text-white tracking-[-0.04em] leading-none"
+            style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", fontWeight: 800 }}
+          >
+            We Design<br />
+            <span style={{ color: "#F8AE01", textShadow: "0 0 60px rgba(248,174,1,0.35)" }}>
+              Emotional Loyalty.
+            </span>
+          </h2>
+          <p className="text-white/45 tracking-tight mt-5 max-w-sm text-[0.9rem] leading-relaxed">
+            human centred loyalty marketing — transforming customer engagement into lasting loyalty across Europe and beyond.
+          </p>
         </div>
 
         {/* ── Columns ── */}
@@ -132,7 +113,7 @@ export function Footer() {
           {/* Socials + desc */}
           <div className="sm:col-span-2 lg:col-span-4">
             <p className="text-white/40 tracking-tight text-[0.88rem] leading-relaxed max-w-xs">
-              KLR Europe S.r.l. — Loyalty campaign design and full-cycle execution for grocery and petrol retailers across 20+ European markets.
+              KLR-EVROPA d.o.o. — Loyalty campaign design and full-cycle execution for grocery and petrol retailers across 20+ European markets.
             </p>
             <div className="flex items-center gap-3 mt-8">
               <a
