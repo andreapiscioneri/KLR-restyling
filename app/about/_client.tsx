@@ -78,6 +78,11 @@ export function AboutClient() {
                     {whatWeDo.badge2 || "Not just a rewards supplier. A strategic loyalty partner."}
                   </p>
                 </div>
+                <div className="rounded-[24px] p-8 flex items-center" style={{ background: "#2E2784" }}>
+                  <p className="text-white tracking-tight" style={{ fontSize: "1.05rem", fontWeight: 700, lineHeight: 1.55 }}>
+                    {whatWeDo.badge3 || "We make loyalty campaigns easy to run."}
+                  </p>
+                </div>
               </div>
             </div>
           </AnimatedSection>
@@ -314,7 +319,7 @@ export function AboutClient() {
                   The KLR Loyalty Framework
                 </div>
                 <h2 className="text-[#2E2784] tracking-[-0.035em] mb-10" style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", lineHeight: 1.05, fontWeight: 800 }}>
-                  Designing <br /><span className="text-black italic">Emotional Loyalty</span>
+                  Designing Emotional Loyalty
                 </h2>
                 <p className="text-[#2E2784]/80 tracking-tight mb-8" style={{ fontSize: "1.125rem", fontWeight: 500 }}>
                   Our 3 Pillars of Loyalty:
