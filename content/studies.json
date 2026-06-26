@@ -8,8 +8,89 @@
     "year": "2025",
     "img": "https://klr-europe.com/wp-content/uploads/2025/08/Spar-TZ_RedBull-cover-circle.jpg",
     "summary": "A 12-week national grocery campaign with experiential activations, premium Oracle Red Bull Racing rewards and a Porsche driving lottery.",
-    "results": [{ "k": "12", "v": "Weeks" }, { "k": "93", "v": "Supermarkets" }, { "k": "13", "v": "Exclusive products" }],
-    "brand": "Oracle Red Bull Racing"
+    "results": [
+      {
+        "k": "12",
+        "v": "Weeks"
+      },
+      {
+        "k": "93",
+        "v": "Supermarkets"
+      },
+      {
+        "k": "13",
+        "v": "Exclusive products"
+      }
+    ],
+    "brand": "Oracle Red Bull Racing",
+    "details": {
+      "sourceUrl": "https://klr-europe.com/oracle-red-bull-racing-adrenaline-for-spar-slovenia/",
+      "campaignTitle": "Fueling Loyalty with Oracle Red Bull Racing Adrenaline",
+      "challenge": "SPAR Slovenia wanted to energize customer engagement and drive store traffic across its national network, increasing spend per visit and building deeper loyalty through aspirational rewards.",
+      "rewardGroups": [
+        {
+          "title": "Travel & Mobility",
+          "subtitle": "Essentials designed for seamless movement and smart packing.",
+          "items": [
+            "Cabin Trolley",
+            "Check-in Trolley",
+            "Carry-on Backpack",
+            "Travel Pillow"
+          ]
+        },
+        {
+          "title": "Bags & Everyday Gear",
+          "subtitle": "Stylish and functional companions for daily use or short trips.",
+          "items": [
+            "Urban Backpack",
+            "Duffle Bag",
+            "Shoulder Bag",
+            "Ladies' Backpack",
+            "Ladies' Bag",
+            "Reversible Umbrella"
+          ]
+        },
+        {
+          "title": "Food & Drink On-the-Go",
+          "subtitle": "For staying refreshed and prepared wherever the journey leads.",
+          "items": [
+            "Water Flask",
+            "Thermo Bottle",
+            "Thermo Food Jar"
+          ]
+        }
+      ],
+      "activations": [
+        "In-store gaming activations in selected SPAR locations increased dwell time and campaign visibility.",
+        "Interactive branded touchpoints created shareable moments tied to the Oracle Red Bull Racing world."
+      ],
+      "mechanics": [
+        "Spend 10 EUR to 19.99 EUR to collect 1 loyalty point.",
+        "Spend 20 EUR or more to collect additional points based on basket value.",
+        "High-octane lottery: chance to win 1 of 5 Porsche 718 driving experiences at Red Bull Ring, Austria."
+      ],
+      "gallery": [
+        "https://klr-europe.com/wp-content/uploads/2025/08/redbull-spar-klr-display-loyalty.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/08/redbull-spar-klr-cashier-loyalty.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/08/redbull-spar-klr-gates-loyalty.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/08/redbull-spar-klr-leaflet-1-loyalty.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/08/redbull-spar-klr-leaflet-loyalty.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/08/redbull-spar-klr-leaflets-loyalty.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/08/redbull-spar-klr-rollup-loyalty.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/08/redbull-spar-klr-wobbler-loyalty.jpg"
+      ],
+      "social": [
+        "https://klr-europe.com/wp-content/uploads/2025/07/facebook-red-bull-6.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/07/facebook-red-bull-5.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/07/facebook-red-bull-4.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/07/facebook-red-bull-3.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/07/facebook-red-bull-2.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/07/facebook-red-bull-1.jpg"
+      ],
+      "videos": [
+        "https://klr-europe.com/wp-content/uploads/2025/07/08222.mov"
+      ]
+    }
   },
   {
     "id": "pintinox-bbq-for-mol-hungary",
@@ -20,8 +101,77 @@
     "year": "2025",
     "img": "https://klr-europe.com/wp-content/uploads/2025/10/pintinox-bbq-collection-cover-1.png",
     "summary": "An 11-week loyalty program across 370 stations built around the Pintinox Master The Grill collection and a digital stamp mechanic in MOL Move.",
-    "results": [{ "k": "11", "v": "Weeks" }, { "k": "370", "v": "Petrol stations" }, { "k": "13", "v": "Exclusive products" }],
-    "brand": "Pintinox"
+    "results": [
+      {
+        "k": "11",
+        "v": "Weeks"
+      },
+      {
+        "k": "370",
+        "v": "Petrol stations"
+      },
+      {
+        "k": "13",
+        "v": "Exclusive products"
+      }
+    ],
+    "brand": "Pintinox",
+    "details": {
+      "sourceUrl": "https://klr-europe.com/pintinox-bbq-for-mol-hungary/",
+      "campaignTitle": "Master the Grill - Loyalty Campaign for MOL Hungary",
+      "challenge": "MOL Hungary wanted to increase engagement and spending among MOL Move members with a seasonal loyalty concept that blended practical value and premium design.",
+      "rewardGroups": [
+        {
+          "title": "Grill Like a Pro",
+          "subtitle": "Performance-focused tools for serious BBQ sessions.",
+          "items": [
+            "Cast Iron Grill Pan",
+            "Cast Iron Pan",
+            "BBQ Tool Kit",
+            "BBQ Gloves",
+            "Carving Set (2 pcs)",
+            "Steak Knife Set (4 pcs)"
+          ]
+        },
+        {
+          "title": "Cool, Carry & Enjoy",
+          "subtitle": "Comfort and portability for outdoor summer moments.",
+          "items": [
+            "Picnic Blanket",
+            "Thermic Bag",
+            "Thermo Tumbler",
+            "Hip Flask"
+          ]
+        },
+        {
+          "title": "Adventure-Ready Essentials",
+          "subtitle": "Rugged tools for camping and outdoor exploration.",
+          "items": [
+            "Pro Axe",
+            "Pro Machete",
+            "9-in-1 Knife"
+          ]
+        }
+      ],
+      "mechanics": [
+        "1 digital stamp for every HUF 4,000 spent at participating stations.",
+        "Stamps credited automatically in MOL Move when loyalty card is scanned.",
+        "5 stamps unlock a digital coupon for one Pintinox item at promotional price.",
+        "Coupons redeemable in all 370 participating stations."
+      ],
+      "gallery": [
+        "https://klr-europe.com/wp-content/uploads/2025/10/MOL-HU-Pintinox-BBQ-display-3.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/10/MOL-HU-Pintinox-BBQ-display-5.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/10/MOL-HU-Pintinox-BBQ-display-closeup-scaled.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/10/MOL-HU-Pintinox-BBQ-leaflet-5.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/10/MOL-HU-Pintinox-BBQ-leaflet-6.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/10/MOL-HU-Pintinox-BBQ-leaflet-7.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/10/MOL-HU-Pintinox-BBQ-poster-refill.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/10/MOL-HU-Pintinox-BBQ-leaflet.jpg"
+      ],
+      "social": [],
+      "videos": []
+    }
   },
   {
     "id": "oracle-red-bull-racing-adrenaline-kaufland-bulgaria",
@@ -32,8 +182,101 @@
     "year": "2025",
     "img": "https://klr-europe.com/wp-content/uploads/2025/08/Spar-TZ_RedBull-cover-circle.jpg",
     "summary": "A 10-week campaign combining collectible Oracle Red Bull Racing rewards, in-store activations and a Porsche 718 Cayman S experience lottery.",
-    "results": [{ "k": "10", "v": "Weeks" }, { "k": "68", "v": "Supermarkets" }, { "k": "13", "v": "Exclusive products" }],
-    "brand": "Oracle Red Bull Racing"
+    "results": [
+      {
+        "k": "10",
+        "v": "Weeks"
+      },
+      {
+        "k": "68",
+        "v": "Supermarkets"
+      },
+      {
+        "k": "13",
+        "v": "Exclusive products"
+      }
+    ],
+    "brand": "Oracle Red Bull Racing",
+    "details": {
+      "sourceUrl": "https://klr-europe.com/oracle-red-bull-racing-adrenaline-kaufland-bulgaria/",
+      "campaignTitle": "Fueling Loyalty with Oracle Red Bull Racing Adrenaline",
+      "challenge": "Kaufland Bulgaria aimed to energize its summer calendar, attract new shoppers and increase repeat visits while delivering standout value to Kaufland Card users.",
+      "rewardGroups": [
+        {
+          "title": "Travel & Mobility",
+          "subtitle": "Essentials designed for seamless movement and smart packing.",
+          "items": [
+            "Cabin Trolley",
+            "Check-in Trolley",
+            "Carry-on Backpack",
+            "Travel Pillow"
+          ]
+        },
+        {
+          "title": "Bags & Everyday Gear",
+          "subtitle": "Stylish and functional companions for daily use or short trips.",
+          "items": [
+            "Urban Backpack",
+            "Duffle Bag",
+            "Shoulder Bag",
+            "Ladies' Backpack",
+            "Ladies' Bag",
+            "Reversible Umbrella"
+          ]
+        },
+        {
+          "title": "Food & Drink On-the-Go",
+          "subtitle": "For staying refreshed and prepared wherever the journey leads.",
+          "items": [
+            "Water Flask",
+            "Thermo Bottle",
+            "Thermo Food Jar"
+          ]
+        }
+      ],
+      "activations": [
+        "Pit Stop Challenge at Kaufland XOPark (24-25 May 2025) with real-time tire-change simulation.",
+        "F1 Racing Simulator at Kaufland Tsentralni Hali (17-18 May 2025).",
+        "F1 Real Show Car display at Sofia Izgrev hypermarket."
+      ],
+      "mechanics": [
+        "Shop & Earn: Kaufland Card users collected points and redeemed products with up to 70% discount.",
+        "Lottery #1: buy limited 4-pack Red Bull and register receipt to win 1 of 20 VIP Showrun tickets.",
+        "Lottery #2: spend over 59.99 BGN on campaign products to enter draw for 1 of 2 Porsche 718 Cayman S trips at Red Bull Ring."
+      ],
+      "gallery": [
+        "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-bg-car1.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-bulgaria-instore-2.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-simulator.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-bg-display-13.png",
+        "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-bg-display-2.png",
+        "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-bg-display-1.png",
+        "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-bg-display-6.png",
+        "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-bg-display-12.png",
+        "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-bg-display-15.png",
+        "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-bg-display-16.png",
+        "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-bg-display-20.png",
+        "https://klr-europe.com/wp-content/uploads/2025/10/poster.png",
+        "https://klr-europe.com/wp-content/uploads/2025/10/totem-2.png",
+        "https://klr-europe.com/wp-content/uploads/2025/10/totem.png",
+        "https://klr-europe.com/wp-content/uploads/2025/10/totem4.png",
+        "https://klr-europe.com/wp-content/uploads/2025/10/Porsche-experience.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/10/Porsche-experience-6.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/10/Porsche-experience-5.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/10/Porsche-experience-4.jpg"
+      ],
+      "social": [
+        "https://klr-europe.com/wp-content/uploads/2025/10/496771301_687714860573250_189562626517358206_n.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/10/496942026_692516116759791_9063172721858987488_n.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/10/499873973_694573736554029_2412641020266511867_n.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/10/502714798_702739432404126_7057416049188882066_n.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/10/505118924_708844875126915_2672801994694239722_n.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/10/505228304_708844878460248_3750810654154981548_n.jpg"
+      ],
+      "videos": [
+        "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-website.mov"
+      ]
+    }
   },
   {
     "id": "bugatti-primo-for-lukoil-bulgaria",
@@ -44,8 +287,60 @@
     "year": "2024",
     "img": "https://klr-europe.com/wp-content/uploads/2025/04/Primo-cover.png",
     "summary": "Awarded Best Loyalty Campaign 2024 at Lukoil Bulgaria, this 10-week program paired premium Bugatti kitchen rewards with a high-frequency points mechanic.",
-    "results": [{ "k": "10", "v": "Weeks" }, { "k": "215", "v": "Petrol stations" }, { "k": "11", "v": "Exclusive products" }],
-    "brand": "Bugatti"
+    "results": [
+      {
+        "k": "10",
+        "v": "Weeks"
+      },
+      {
+        "k": "215",
+        "v": "Petrol stations"
+      },
+      {
+        "k": "11",
+        "v": "Exclusive products"
+      }
+    ],
+    "brand": "Bugatti",
+    "details": {
+      "sourceUrl": "https://klr-europe.com/bugatti-primo-for-lukoil-bulgaria/",
+      "campaignTitle": "Awarded as the Best Loyalty Campaign 2024 by Lukoil Bulgaria",
+      "challenge": "Bring premium differentiation to forecourt loyalty by combining daily fuel purchases with aspirational, high-quality kitchen rewards.",
+      "rewardGroups": [
+        {
+          "title": "A Culinary Masterpiece",
+          "subtitle": "Bugatti Primo kitchen essentials blending Italian design and everyday performance.",
+          "items": [
+            "Paring Knife",
+            "Utility Knife",
+            "Slicing Knife",
+            "Chef's Knife",
+            "Santoku Knife",
+            "Filleting Knife",
+            "Cleaver",
+            "Knife Sharpener",
+            "Damascus Knife",
+            "Dough Essentials",
+            "Prestigio Knife Set"
+          ]
+        }
+      ],
+      "mechanics": [
+        "1 point for every 10 BGN spent on fuel or goods on a single receipt.",
+        "Double points with Lukoil Club loyalty card: 2 points for every 10 BGN.",
+        "Customers redeemed Bugatti Primo products with discounts up to 75%."
+      ],
+      "gallery": [
+        "https://klr-europe.com/wp-content/uploads/2025/04/Primo-cover.png",
+        "https://klr-europe.com/wp-content/uploads/2025/04/Best-Loyalty-Campaign-Award.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/04/display-lukoil-bugatti-2.jpg",
+        "https://klr-europe.com/wp-content/uploads/2025/04/lukoil-bugatti-primo.png"
+      ],
+      "social": [
+        "https://klr-europe.com/wp-content/uploads/2025/04/484966984_1052386520269048_7677509030285945663_n.jpg"
+      ],
+      "videos": []
+    }
   },
   {
     "id": "stardust-travel-for-omv-hungary",
@@ -56,8 +351,71 @@
     "year": "2024",
     "img": "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023.png",
     "summary": "A 12-week NASA-inspired forecourt loyalty campaign with 13 travel products and a lottery to win an Audi Q2.",
-    "results": [{ "k": "12", "v": "Weeks" }, { "k": "185", "v": "Gas stations" }, { "k": "Lottery", "v": "Audi Q2 prize" }],
-    "brand": "NASA Stardust"
+    "results": [
+      {
+        "k": "12",
+        "v": "Weeks"
+      },
+      {
+        "k": "185",
+        "v": "Gas stations"
+      },
+      {
+        "k": "Lottery",
+        "v": "Audi Q2 prize"
+      }
+    ],
+    "brand": "NASA Stardust",
+    "details": {
+      "sourceUrl": "https://klr-europe.com/stardust-travel-for-omv-hungary/",
+      "campaignTitle": "Stardust Travel for OMV Hungary",
+      "challenge": "Create a space-inspired loyalty journey with strong collectible appeal while increasing fuel and shop spend across OMV's national station network.",
+      "rewardGroups": [
+        {
+          "title": "Space-Inspired Travel Collection",
+          "subtitle": "Licensed bags, accessories and family-oriented items designed to boost participation.",
+          "items": [
+            "2 trolleys",
+            "Food container",
+            "Water bottle",
+            "Urban backpack",
+            "Cooler backpack",
+            "Travel bag",
+            "Bumbag",
+            "Umbrella",
+            "Cap",
+            "Kids Academy Set",
+            "Shuttle Seat Belt Toy",
+            "Outer Space Luminous Blanket"
+          ]
+        }
+      ],
+      "mechanics": [
+        "1 sticker for every HUF 4,000 spent.",
+        "Double stickers when buying MaxxMotion fuels.",
+        "After 10 stickers, customers could purchase Stardust products at discounted prices.",
+        "Lottery mechanic: buy at least 1 Stardust product and register receipt for chance to win an Audi Q2."
+      ],
+      "gallery": [
+        "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-Display-1-1-scaled.jpg",
+        "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-Display-2-1-scaled.jpg",
+        "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-Gas-Pump-2-1-scaled.jpg",
+        "https://klr-europe.com/wp-content/uploads/2024/03/431166283_800854798745210_3057804461490085269_n.jpg",
+        "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-outdoor-2-1-scaled.jpg",
+        "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-Poster-1-scaled.jpg",
+        "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-Gas-Pump-1-scaled.jpg",
+        "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-Poster-3-scaled.jpg"
+      ],
+      "social": [
+        "https://klr-europe.com/wp-content/uploads/2024/03/431259241_800854845411872_549706086835594963_n.jpg",
+        "https://klr-europe.com/wp-content/uploads/2024/03/431433057_800854738745216_1705443015695792399_n.jpg",
+        "https://klr-europe.com/wp-content/uploads/2024/03/431467934_800854712078552_1910311464717813433_n.jpg",
+        "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-social-2-1.jpeg",
+        "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-social-3-1.jpeg",
+        "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-social-1.jpeg"
+      ],
+      "videos": []
+    }
   },
   {
     "id": "pintinox-trust-forged-in-steel-for-petrom-romania",
@@ -68,7 +426,67 @@
     "year": "2024",
     "img": "https://klr-europe.com/wp-content/uploads/2024/07/petrom-pintinox-cover.png",
     "summary": "A 14-week sticker-based campaign across 389 stations, offering premium Pintinox kitchen and outdoor essentials with discounts up to 83%.",
-    "results": [{ "k": "14", "v": "Weeks" }, { "k": "389", "v": "Petrol stations" }, { "k": "10", "v": "Products" }],
-    "brand": "Pintinox"
+    "results": [
+      {
+        "k": "14",
+        "v": "Weeks"
+      },
+      {
+        "k": "389",
+        "v": "Petrol stations"
+      },
+      {
+        "k": "10",
+        "v": "Products"
+      }
+    ],
+    "brand": "Pintinox",
+    "details": {
+      "sourceUrl": "https://klr-europe.com/pintinox-trust-forged-in-steel-for-petrom-romania/",
+      "campaignTitle": "Pintinox Trust Forged In Steel for Petrom Romania",
+      "challenge": "Drive repeat forecourt visits with a versatile reward collection relevant both to home cooking and outdoor lifestyles.",
+      "rewardGroups": [
+        {
+          "title": "Kitchen & Outdoor Essentials",
+          "subtitle": "Designed for customers who are chefs by choice and adventurers by nature.",
+          "items": [
+            "Knife set 4 pcs (Sharpener, Paring, Chef's, Bread)",
+            "Knife set 3 pcs (Cleaver, Slicing, Tomato)",
+            "Knife set 3 pcs (Santoku, Utility, Scissors)",
+            "Knife set 6 pcs (Steak knives)",
+            "4 in 1 Carabiner",
+            "9 in 1 Knife",
+            "13 in 1 Plier",
+            "High performance flashlight",
+            "Hot and cold thermo flask 750ml",
+            "Daypack"
+          ]
+        }
+      ],
+      "mechanics": [
+        "Spend requirement: 25 LEI for 1 sticker.",
+        "Collect 15 stickers to unlock 1 product with up to 83% discount.",
+        "Time-limited special offers on selected products for loyal Petrom customers."
+      ],
+      "gallery": [
+        "https://klr-europe.com/wp-content/uploads/2024/07/petrom-pintinox-poster-loyalty-2.png",
+        "https://klr-europe.com/wp-content/uploads/2024/07/petrom-pintinox-cashier-loyalty-2.png",
+        "https://klr-europe.com/wp-content/uploads/2024/07/petrom-pintinox-display-3.png",
+        "https://klr-europe.com/wp-content/uploads/2024/07/petrom-pintinox-display-loyalty-1.png",
+        "https://klr-europe.com/wp-content/uploads/2024/07/petrom-pintinox-poster-loyalty-5.png",
+        "https://klr-europe.com/wp-content/uploads/2024/07/petrom-pintinox-display-2.png",
+        "https://klr-europe.com/wp-content/uploads/2024/07/petrom-pintinox-poster-video-screen-2.png",
+        "https://klr-europe.com/wp-content/uploads/2024/07/rompetrol-pintinox-billboard-3.png"
+      ],
+      "social": [
+        "https://klr-europe.com/wp-content/uploads/2024/07/petrom-fb-2.jpeg",
+        "https://klr-europe.com/wp-content/uploads/2024/07/petrom-fb-3.jpeg",
+        "https://klr-europe.com/wp-content/uploads/2024/07/petrom-fb-4.jpeg",
+        "https://klr-europe.com/wp-content/uploads/2024/07/petrom-fb-5.jpeg",
+        "https://klr-europe.com/wp-content/uploads/2024/07/petrom-fb-6.jpeg",
+        "https://klr-europe.com/wp-content/uploads/2024/07/petrom-fb-8.jpeg"
+      ],
+      "videos": []
+    }
   }
 ]

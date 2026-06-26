@@ -112,8 +112,8 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
               <div className="md:col-span-7">
                 <Eyebrow>Overview</Eyebrow>
                 <h2 className="text-[#2E2784] tracking-[-0.04em] mt-8" style={{ fontSize: "clamp(2rem, 5vw, 4.1rem)", lineHeight: 0.98, fontWeight: 800 }}>
-                  How this campaign<br />
-                  <em className="not-italic text-black">came to life</em>
+                  Campaign at<br />
+                  <em className="not-italic text-black">a Glance</em>
                 </h2>
                 <p className="text-[#2E2784] tracking-tight mt-6 max-w-3xl" style={{ fontSize: "clamp(1rem, 1.35vw, 1.15rem)", lineHeight: 1.65 }}>
                   {s.summary}
@@ -291,7 +291,7 @@ export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) 
             </h2>
 
             <div className="mt-12 grid md:grid-cols-2 xl:grid-cols-4 gap-4">
-              {gallery.slice(0, 8).map((img: string, i: number) => (
+              {gallery.map((img: string, i: number) => (
                 <div key={`${img}-${i}`} className="rounded-[24px] overflow-hidden border border-white/40" style={softShadow}>
                   <ImageWithFallback src={img} alt={`${s.title} gallery ${i + 1}`} className="w-full h-[220px] object-cover" />
                 </div>
