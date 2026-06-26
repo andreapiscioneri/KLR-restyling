@@ -79,9 +79,9 @@ const defaultMilestones: TenYearsMilestone[] = [
 
 const defaultPageStats = [
   { k: "30+", v: "Talented professionals who joined the KLR team and grew with us" },
-  { k: "300+", v: "Tailor-made loyalty campaigns launched across industries" },
+  { k: "340+", v: "Tailor-made loyalty campaigns launched across industries" },
   { k: "6M+", v: "Rewards delivered into the hands of happy customers" },
-  { k: "20", v: "Countries in which we operate — and counting" },
+  { k: "20+", v: "Countries in which we operate — and counting" },
 ];
 
 const insights = [
@@ -299,7 +299,7 @@ export function Klr10({ go, cms = {} }: { go: (r: Route) => void; cms?: TenYears
               </div>
               <div>
                 <p className="text-white/90 tracking-tight" style={{ fontSize: "clamp(1rem, 1.4vw, 1.2rem)", lineHeight: 1.65 }}>
-                  {text(cMap, "subtitle", "Based in Italy and Slovenia, we operate in 20 countries in Europe and keep growing. Having an international network of partners helps us to better serve our multinational clients by providing local expertise and understanding of different cultures and consumer behaviours.")}
+                  {text(cMap, "subtitle", "Based in Italy and Slovenia, we operate in 20+ countries in Europe and keep growing. Having an international network of partners helps us to better serve our multinational clients by providing local expertise and understanding of different cultures and consumer behaviours.")}
                 </p>
               </div>
             </div>

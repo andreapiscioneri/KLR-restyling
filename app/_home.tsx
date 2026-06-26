@@ -132,28 +132,28 @@ function Hero({ data = {} }: { data?: HeroData }) {
 }
 
 const cardStyles: Record<string, React.CSSProperties> = {
-  dark:  { background: "#2C2C34", borderColor: "transparent" },
-  lilac: { background: "#E8DEFF", borderColor: "transparent" },
+  yellow: { background: "#FFE8B0", borderColor: "transparent" },
+  lilac:  { background: "#E8DEFF", borderColor: "transparent" },
 };
 const numColor: Record<string, string> = {
-  dark:  "#F8AE01",
-  lilac: "#2E2784",
+  yellow: "#2E2784",
+  lilac:  "#2E2784",
 };
 const labelColor: Record<string, string> = {
-  dark:  "rgba(255,255,255,0.55)",
-  lilac: "rgba(46,39,132,0.65)",
+  yellow: "rgba(46,39,132,0.65)",
+  lilac:  "rgba(46,39,132,0.65)",
 };
 
 function StatsBar({ stats, data = {} }: { stats: typeof defaultStats; data?: StatsData }) {
   const L = data.labels || {};
   const statCards = [
-    { value: stats.campaigns,          label: L.campaigns          || "Campaigns Delivered Up to Now",        variant: "dark",  Icon: Trophy       },
-    { value: stats.countries,          label: L.countries          || "Countries Operating",                  variant: "lilac", Icon: Globe        },
-    { value: stats.retailers,          label: L.retailers          || "Retail Chains as Clients",             variant: "lilac", Icon: ShoppingCart },
-    { value: stats.combinedExperience, label: L.combinedExperience || "Years of Combined Loyalty Experience", variant: "dark",  Icon: Clock        },
-    { value: stats.nationalities,      label: L.nationalities      || "Nationalities In House",               variant: "dark",  Icon: Flag         },
-    { value: stats.people,             label: L.people             || "People In Our Team",                   variant: "lilac", Icon: Users        },
-  ];
+    { value: stats.campaigns,          label: L.campaigns          || "Campaigns Delivered Up to Now",        Icon: Trophy       },
+    { value: stats.countries,          label: L.countries          || "Countries Operating",                  Icon: Globe        },
+    { value: stats.retailers,          label: L.retailers          || "Retail Chains as Clients",             Icon: ShoppingCart },
+    { value: stats.combinedExperience, label: L.combinedExperience || "Years of Combined Loyalty Experience", Icon: Clock        },
+    { value: stats.nationalities,      label: L.nationalities      || "Nationalities In House",               Icon: Flag         },
+    { value: stats.people,             label: L.people             || "People In Our Team",                   Icon: Users        },
+  ].map((card, i) => ({ ...card, variant: i % 2 === 0 ? "yellow" : "lilac" }));
 
   const eyebrow  = data.eyebrow  || "KLR In Numbers";
   const title    = data.title    || "When Figures Matter…";
@@ -254,7 +254,7 @@ function StatsBar({ stats, data = {} }: { stats: typeof defaultStats; data?: Sta
 function InternationalPresence({ data = {} }: { data?: SectionData }) {
   const eyebrow  = data.eyebrow  || "Presence";
   const title    = data.title    || "We are truly international";
-  const subtitle = data.subtitle || "Based in Italy and Slovenia, we operate in 20 countries in Europe and keep growing. Our network of local experts ensures campaigns are culturally relevant and operationally flawless.";
+  const subtitle = data.subtitle || "Based in Italy and Slovenia, we operate in 20+ countries in Europe and keep growing. Our network of local experts ensures campaigns are culturally relevant and operationally flawless.";
   const mapImage = data.mapImage || images.map;
 
   return (
@@ -816,21 +816,18 @@ function ClosingCta({ data = {} }: { data?: SectionData }) {
 
 export function HomePage() {
   const [stats, setStats] = useState(defaultStats);
-  const [brandPartners, setBrandPartners] = useState(defaultBrands);
   const [studies, setStudies] = useState(defaultStudies);
   const [pages, setPages] = useState<Record<string, Record<string, unknown>>>({});
 
   const fetchData = async () => {
     try {
-      const [statsRes, brandsRes, studiesRes, pagesRes] = await Promise.all([
+      const [statsRes, studiesRes, pagesRes] = await Promise.all([
         fetch("/api/content?type=stats",   { cache: "no-store" }),
-        fetch("/api/content?type=brands",  { cache: "no-store" }),
         fetch("/api/content?type=studies", { cache: "no-store" }),
         fetch("/api/content?type=pages",   { cache: "no-store" }),
       ]);
 
       if (statsRes.ok)   { const d = await statsRes.json();   setStats(d.data || defaultStats); }
-      if (brandsRes.ok)  { const d = await brandsRes.json();  setBrandPartners(d.data || defaultBrands); }
       if (studiesRes.ok) { const d = await studiesRes.json(); setStudies(d.data || defaultStudies); }
       if (pagesRes.ok)   { const d = await pagesRes.json();   setPages(d.data || {}); }
     } catch (error) {
@@ -862,10 +859,10 @@ export function HomePage() {
   return (
     <div>
       {heroData._visible !== false && <Hero data={heroData} />}
-      <PartnerLogosBand brands={brandPartners} />
+      <PartnerLogosBand brands={defaultBrands} />
       {statsData._visible !== false && <StatsBar stats={stats} data={statsData} />}
       {frameworkData._visible !== false && <LoyaltyFramework data={frameworkData} />}
-      {brandPartnersData._visible !== false && <OurBrands brands={brandPartners} data={brandPartnersData} />}
+      {brandPartnersData._visible !== false && <OurBrands brands={defaultBrands} data={brandPartnersData} />}
       {sectorsData._visible !== false && <TwoSectors data={sectorsData} />}
       {internationalData._visible !== false && <InternationalPresence data={internationalData} />}
       {clientsData._visible !== false && <ClientLogos data={clientsData} />}

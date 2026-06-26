@@ -21,7 +21,7 @@ const values = [
 
 const stats = [
   { k: "150+", v: "Retail Chains" },
-  { k: "300+", v: "Successful Campaigns" },
+  { k: "340+", v: "Successful Campaigns" },
   { k: "20+", v: "Countries" },
   { k: "10+", v: "Years of Experience" },
 ];

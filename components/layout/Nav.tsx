@@ -106,7 +106,7 @@ export function Nav() {
                     <svg className="w-2.5 h-2.5 opacity-50" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
                   </Link>
                   <div className="absolute top-full left-0 pt-2 min-w-[140px] opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200">
-                    <div className="rounded-[14px] py-1.5" style={{ background: "rgba(10,7,46,0.95)", backdropFilter: "blur(60px)", border: "1px solid rgba(255,255,255,0.10)", boxShadow: "0 16px 48px -8px rgba(46,39,132,0.5)" }}>
+                    <div className="rounded-[14px] py-1.5" style={{ ...(scrolled ? glass.scrolled : glass.base), boxShadow: "0 16px 48px -8px rgba(46,39,132,0.5)" }}>
                       {l.sub.map((s) => (
                         <Link
                           key={s.href}
