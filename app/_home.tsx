@@ -6,7 +6,7 @@ import { ArrowUpRight, ArrowLeft, ArrowRight, Heart, Star, Award, Eye, Smile, Tr
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, useState, useEffect } from "react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { images, stats as defaultStats, brandPartners as defaultBrands, studies as defaultStudies, fallbackPosts, loyaltyFramework, sectors, retailers } from "@/src/app/data";
+import { images, stats as defaultStats, brandPartners as defaultBrands, studies as defaultStudies, fallbackPosts, loyaltyFramework, sectors, retailerLogos } from "@/src/app/data";
 
 const gradients = {
   blue:   "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
@@ -448,17 +448,25 @@ function ClientLogos({ data = {} }: { data?: SectionData }) {
               <div className="text-[#2E2784] tracking-[0.2em] uppercase font-bold border-b border-[#2E2784]/20 pb-3 mb-6" style={{ fontSize: "0.75rem" }}>
                 Grocery
               </div>
-              <p className="text-[#2E2784] tracking-tight leading-relaxed" style={{ fontSize: "1rem" }}>
-                {retailers.grocery.join(" · ")}
-              </p>
+              <div className="grid grid-cols-3 sm:flex sm:flex-wrap gap-3">
+                {retailerLogos.grocery.map((r) => (
+                  <div key={r.name} className="flex items-center justify-center h-16 w-full sm:w-28 rounded-xl bg-white/70 p-3" style={{ boxShadow: "0 4px 16px rgba(46,39,132,0.08)" }}>
+                    <img src={r.logo} alt={r.name} className="h-full w-full object-contain" />
+                  </div>
+                ))}
+              </div>
             </div>
             <div>
               <div className="text-[#2E2784] tracking-[0.2em] uppercase font-bold border-b border-[#2E2784]/20 pb-3 mb-6" style={{ fontSize: "0.75rem" }}>
                 Petrol
               </div>
-              <p className="text-[#2E2784] tracking-tight leading-relaxed" style={{ fontSize: "1rem" }}>
-                {retailers.petrol.join(" · ")}
-              </p>
+              <div className="grid grid-cols-3 sm:flex sm:flex-wrap gap-3">
+                {retailerLogos.petrol.map((r) => (
+                  <div key={r.name} className="flex items-center justify-center h-16 w-full sm:w-28 rounded-xl bg-white/70 p-3" style={{ boxShadow: "0 4px 16px rgba(46,39,132,0.08)" }}>
+                    <img src={r.logo} alt={r.name} className="h-full w-full object-contain" />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </AnimatedSection>

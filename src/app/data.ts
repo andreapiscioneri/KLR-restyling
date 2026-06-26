@@ -485,6 +485,38 @@ export const retailers = {
   petrol: ["Viada", "EKO", "BP", "Lukoil", "Makpetrol", "INA", "OMV", "Petrol", "MOL", "Circle K", "Petrom", "NIS", "Adria Oil", "Slovnaft", "SOCAR", "Baltic Petroleum"],
 };
 
+export const retailerLogos = {
+  grocery: [
+    { name: "Coop", logo: "/loghi_home/coop.png" },
+    { name: "Kaufland", logo: "/loghi_home/Kaufland.png" },
+    { name: "Carrefour", logo: "/loghi_home/Carrefour.png" },
+    { name: "Intermarché", logo: "/loghi_home/Intermarché.png" },
+    { name: "Esselunga", logo: "/loghi_home/esselunga.png" },
+    { name: "Maxima", logo: "/loghi_home/Maxima.png" },
+    { name: "Conad", logo: "/loghi_home/Conad.png" },
+    { name: "Fantastico", logo: "/loghi_home/Fantastico.png" },
+    { name: "Plodine", logo: "/loghi_home/Plodine.png" },
+    { name: "IKI", logo: "/loghi_home/iki.png" },
+    { name: "Spar", logo: "/loghi_home/SPAR.png" },
+    { name: "Mercator", logo: "/loghi_home/Mercator.png" },
+    { name: "Billa", logo: "/loghi_home/BILLA.png" },
+    { name: "Gadis", logo: "/loghi_home/Gadis.png" },
+    { name: "Konzum", logo: "/loghi_home/Konzum.png" },
+  ],
+  petrol: [
+    { name: "Viada", logo: "/loghi_home/Viada.png" },
+    { name: "EKO", logo: "/loghi_home/EKO.png" },
+    { name: "BP", logo: "/loghi_home/BP.png" },
+    { name: "OMV", logo: "/loghi_home/OMV.png" },
+    { name: "Petrol", logo: "/loghi_home/Petrol.png" },
+    { name: "MOL", logo: "/loghi_home/MOL.png" },
+    { name: "Circle K", logo: "/loghi_home/Circle K.png" },
+    { name: "Petrom", logo: "/loghi_home/Petrom.png" },
+    { name: "Slovnaft", logo: "/loghi_home/Slovnaft.png" },
+    { name: "SOCAR", logo: "/loghi_home/socar.png" },
+  ],
+};
+
 // Legacy alias for existing components
 export const partners = {
   petrol: retailers.petrol,
