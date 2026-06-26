@@ -45,7 +45,7 @@ export function AboutClient() {
       {/* ── 1. HERO ── */}
       {visible(hero) && <PageHero
         eyebrow={hero.eyebrow || "About KLR"}
-        title={hero.title ? hero.title : <><span>We Are Central</span><br /><span className="text-[#F8AE01]">to Loyalty.</span></>}
+        title={<><span>We Are Central</span><br /><span className="text-[#F8AE01]">to Loyalty.</span></>}
         subtitle={hero.subtitle || "KLR was born from friendship — different cultures, shared ambitions, and a belief that loyalty is built on trust. Over ten years, we've grown from a three-person office in Koper to a 43-person international team delivering campaigns across 20+ European markets."}
         image={hero.image || images.teamwork}
         cta={{ label: "Meet the Team", href: "/team" }}

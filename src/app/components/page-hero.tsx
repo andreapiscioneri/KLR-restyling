@@ -9,12 +9,13 @@ interface PageHeroProps {
   eyebrow: string;
   title: React.ReactNode;
   subtitle?: string;
-  image: string;
+  image?: string;
+  background?: string;
   cta?: { label: string; href: string };
   children?: React.ReactNode;
 }
 
-export function PageHero({ eyebrow, title, subtitle, image, cta, children }: PageHeroProps) {
+export function PageHero({ eyebrow, title, subtitle, image, background, cta, children }: PageHeroProps) {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
@@ -23,8 +24,14 @@ export function PageHero({ eyebrow, title, subtitle, image, cta, children }: Pag
   return (
     <section ref={ref} className="relative min-h-screen overflow-hidden">
       <motion.div className="absolute inset-0" style={{ y }}>
-        <img src={image} alt="" className="absolute inset-0 w-full h-full object-cover object-top" />
-        <div className="absolute inset-0 bg-[#2E2784]/65" />
+        {image ? (
+          <>
+            <img src={image} alt="" className="absolute inset-0 w-full h-full object-cover object-top" />
+            <div className="absolute inset-0 bg-[#2E2784]/65" />
+          </>
+        ) : (
+          <div className="absolute inset-0" style={{ background }} />
+        )}
       </motion.div>
 
       <motion.div

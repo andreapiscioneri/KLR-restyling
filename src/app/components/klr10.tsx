@@ -171,11 +171,16 @@ export function Klr10({ go, cms = {} }: { go: (r: Route) => void; cms?: TenYears
     person: leadership.find((p) => p.id === ins.id)!,
   })).filter((i) => Boolean(i.person));
 
+  const heroTitle = text(cHero, "title", "A decade built together.");
+  const heroTitleWords = heroTitle.split(" ");
+  const heroTitleLine1 = heroTitleWords.slice(0, -2).join(" ");
+  const heroTitleLine2 = heroTitleWords.slice(-2).join(" ");
+
   return (
     <div>
       {visible(cHero) && <PageHero
         eyebrow={text(cHero, "eyebrow", "KLR 10 Years")}
-        title={text(cHero, "title", "A decade built together.")}
+        title={heroTitleLine1 ? <>{heroTitleLine1}<br /><span className="text-[#F8AE01]">{heroTitleLine2}</span></> : heroTitle}
         subtitle={text(cHero, "subtitle", "From three founders in Koper to a 43-person international team delivering loyalty campaigns across 20+ European markets. This is our story.")}
         image={image(cHero, "image", images.anniversario)}
         cta={{ label: "Discover Our Journey", href: "#milestones" }}

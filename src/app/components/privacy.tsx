@@ -4,7 +4,6 @@ import { ArrowUpRight, Mail, Shield, Database, Cookie, Scale, Clock, UserCheck }
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { softShadow } from "./ui-bits";
-import { images } from "../data";
 import type { Route } from "../App";
 
 const G = {
@@ -76,7 +75,7 @@ export function Privacy({ go }: { go?: (r: Route) => void }) {
         eyebrow="Legal"
         title={<>Privacy<br /><span className="text-[#F8AE01]">Policy.</span></>}
         subtitle="At KLR Europe, we believe privacy is important. We want you to be aware of the data we collect, how we use it, and with whom we share it."
-        image={images.human}
+        background="linear-gradient(135deg, rgba(248,174,1,0.55) 0%, rgba(248,174,1,0.25) 55%, transparent 100%), #2E2784"
       />
 
       {/* INTRO & COMPANY — yellow */}

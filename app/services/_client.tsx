@@ -134,12 +134,17 @@ export function ServicesClient() {
 
   const visible = (s: Record<string, string | string[]>) => (s as Record<string, unknown>)._visible !== false;
 
+  const heroTitle = String(sHero.title || "360° Loyalty Campaign Design & Execution");
+  const heroTitleWords = heroTitle.split(" ");
+  const heroTitleLine1 = heroTitleWords.slice(0, -2).join(" ");
+  const heroTitleLine2 = heroTitleWords.slice(-2).join(" ");
+
   return (
     <>
       {/* HERO */}
       {visible(sHero) && <PageHero
         eyebrow={String(sHero.eyebrow || "Our Services")}
-        title={sHero.title ? String(sHero.title) : <>360° Loyalty<br /><span className="text-[#F8AE01]">Campaign Design & Execution</span></>}
+        title={heroTitleLine1 ? <>{heroTitleLine1}<br /><span className="text-[#F8AE01]">{heroTitleLine2}</span></> : heroTitle}
         subtitle={String(sHero.subtitle || "From the first strategic brief to the last reward delivered — we cover every stage, in every market.")}
         image={String(sHero.image || images.human)}
         cta={{ label: "Let's Talk", href: "/contact" }}

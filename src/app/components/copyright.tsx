@@ -4,7 +4,6 @@ import { ArrowUpRight, Mail, ExternalLink } from "lucide-react";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { softShadow } from "./ui-bits";
-import { images } from "../data";
 import type { Route } from "../App";
 
 const G = {
@@ -32,7 +31,7 @@ export function Copyright({ go }: { go?: (r: Route) => void }) {
         eyebrow="Legal"
         title={<>Copyright &amp;<br /><span className="text-[#F8AE01]">Terms of Use.</span></>}
         subtitle="All content, brands, and materials on this site are the exclusive property of KLR-EVROPA d.o.o. Please read these terms carefully before using our service."
-        image={images.teamwork}
+        background="linear-gradient(135deg, rgba(248,174,1,0.55) 0%, rgba(248,174,1,0.25) 55%, transparent 100%), #2E2784"
       />
 
       {/* APPLICABILITY — yellow */}

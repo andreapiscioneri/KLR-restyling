@@ -284,7 +284,13 @@ export function Contact() {
     <>
       {visible(cms.hero) && <PageHero
         eyebrow={heroEyebrow}
-        title={heroTitle.endsWith("!") ? <>{heroTitle.slice(0, -1)}<span className="text-[#F8AE01]">!</span></> : <>{heroTitle}</>}
+        title={(() => {
+          const words = heroTitle.split(" ");
+          const lastWord = words.pop();
+          return words.length > 0
+            ? <>{words.join(" ")} <span className="text-[#F8AE01]">{lastWord}</span></>
+            : <span className="text-[#F8AE01]">{lastWord}</span>;
+        })()}
         subtitle={heroSubtitle}
         image={heroImage}
         cta={{ label: "Get in Touch", href: "#contact-form" }}

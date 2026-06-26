@@ -502,8 +502,11 @@ function PartnerLogosBand({ brands }: { brands: typeof defaultBrands }) {
   return (
     <section className="relative py-14 overflow-hidden" style={{ background: "#06051C" }}>
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 80% at 50% 50%, rgba(46,39,132,0.25) 0%, transparent 70%)" }} />
-      <div className="max-w-6xl mx-auto px-8 mb-10">
-        <div className="tracking-[0.3em] uppercase text-[#F8AE01]/60 text-center" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
+      <div className="max-w-6xl mx-auto px-8 mb-10 text-center">
+        <h2 className="text-[#F8AE01] tracking-[-0.035em]" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
+          Global Brands That Power Our Campaigns
+        </h2>
+        <div className="tracking-[0.3em] uppercase text-[#F8AE01]/60 mt-4" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
           Our Brand Partners
         </div>
       </div>
@@ -536,92 +539,6 @@ function PartnerLogosBand({ brands }: { brands: typeof defaultBrands }) {
             <ArrowUpRight className="w-4 h-4" />
           </span>
         </Link>
-      </div>
-    </section>
-  );
-}
-
-function OurBrands({ brands, data = {} }: { brands: typeof defaultBrands; data?: SectionData }) {
-  const eyebrow  = data.eyebrow  || "Brand Partners";
-  const title    = data.title    || "Global Brands That Power Our Campaigns";
-  const ctaLabel = data.ctaLabel || "Discover Our Brand Portfolio";
-  const ctaHref  = data.ctaHref  || "/brands";
-
-  const logos = brands.filter((b) => b.logo);
-  const allRows = [logos.slice(0, 6), logos.slice(6, 12), logos.slice(12)].filter((r) => r.length > 0);
-  const durations = [28, 32, 30];
-
-  return (
-    <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.rosa }}>
-      <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-[#2E2784]/08 blur-3xl" />
-      <div className="max-w-6xl mx-auto px-8">
-        <AnimatedSection>
-          <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-            {eyebrow}
-          </div>
-          <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-            {title}
-          </h2>
-        </AnimatedSection>
-      </div>
-
-      <div className="max-w-6xl mx-auto px-8 mt-14 overflow-hidden">
-        {/* Mobile: single row with all logos */}
-        <div className="md:hidden logo-marquee">
-          <div className="logo-marquee-track" style={{ animationDuration: "28s" }}>
-            {[...logos, ...logos, ...logos].map((b, idx) => (
-              <div key={`${b.name}-${idx}`} className="shrink-0 flex items-center justify-center px-7 min-h-[52px]">
-                <img
-                  src={b.logo as string}
-                  alt={b.name}
-                  className="max-h-10 w-auto object-contain opacity-80"
-                  style={{ filter: "brightness(0) saturate(100%) invert(18%) sepia(21%) saturate(2500%) hue-rotate(222deg) brightness(88%) contrast(98%)" }}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-        {/* Desktop: 3 rows */}
-        <div className="hidden md:block space-y-8">
-          {allRows.map((row, rowIdx) => (
-            <div key={`brands-row-${rowIdx}`} className="logo-marquee">
-              <div
-                className="logo-marquee-track"
-                style={{
-                  animationDuration: `${durations[rowIdx % durations.length]}s`,
-                  animationDirection: rowIdx % 2 === 1 ? "reverse" : "normal",
-                }}
-              >
-                {[...row, ...row, ...row].map((b, idx) => (
-                  <div key={`${b.name}-${idx}`} className="shrink-0 flex items-center justify-center px-10 min-h-[52px]">
-                    <img
-                      src={b.logo as string}
-                      alt={b.name}
-                      className="max-h-12 w-auto object-contain opacity-80"
-                      style={{ filter: "brightness(0) saturate(100%) invert(18%) sepia(21%) saturate(2500%) hue-rotate(222deg) brightness(88%) contrast(98%)" }}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="max-w-6xl mx-auto px-8 mt-14">
-        <AnimatedSection>
-          <div className="flex">
-            <Link
-              href={ctaHref}
-              className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
-            >
-              <span>{ctaLabel}</span>
-              <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
-                <ArrowUpRight className="w-4 h-4" />
-              </span>
-            </Link>
-          </div>
-        </AnimatedSection>
       </div>
     </section>
   );
@@ -851,7 +768,6 @@ export function HomePage() {
   const sectorsData      = (home.sectors        as SectionData) || {};
   const internationalData= (home.international  as SectionData) || {};
   const clientsData      = (home.clients        as SectionData) || {};
-  const brandPartnersData= (home.brandPartners  as SectionData) || {};
   const caseStudiesData  = (home.caseStudies    as SectionData) || {};
   const blogData         = (home.blog           as SectionData) || {};
   const closingData      = (home.closing        as SectionData) || {};
@@ -859,10 +775,9 @@ export function HomePage() {
   return (
     <div>
       {heroData._visible !== false && <Hero data={heroData} />}
-      <PartnerLogosBand brands={defaultBrands} />
       {statsData._visible !== false && <StatsBar stats={stats} data={statsData} />}
       {frameworkData._visible !== false && <LoyaltyFramework data={frameworkData} />}
-      {brandPartnersData._visible !== false && <OurBrands brands={defaultBrands} data={brandPartnersData} />}
+      <PartnerLogosBand brands={defaultBrands} />
       {sectorsData._visible !== false && <TwoSectors data={sectorsData} />}
       {internationalData._visible !== false && <InternationalPresence data={internationalData} />}
       {clientsData._visible !== false && <ClientLogos data={clientsData} />}
