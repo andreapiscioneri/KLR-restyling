@@ -306,7 +306,7 @@ export function Copyright({ go }: { go?: (r: Route) => void }) {
                   </div>
                   <div className="flex-1">
                     <div className="tracking-[0.2em] uppercase text-[#F8AE01]" style={{ fontSize: "0.6rem", fontWeight: 700 }}>By visiting our website</div>
-                    <div className="text-white group-hover:text-[#F8AE01] transition-colors" style={{ fontSize: "1rem", fontWeight: 700 }}>klr-europe.com/contacts</div>
+                    <div className="text-white group-hover:text-[#F8AE01] transition-colors" style={{ fontSize: "1rem", fontWeight: 700 }}>klr-europe.com/contact</div>
                   </div>
                   <ArrowUpRight className="w-5 h-5 text-white/40 group-hover:text-[#F8AE01] transition-colors" />
                 </button>

@@ -309,7 +309,7 @@ export function Blog({ go }: { go: (r: Route) => void }) {
               </div>
               <div className="md:text-right">
                 <a
-                  href="/contacts/"
+                  href="/contact"
                   className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
                 >
                   <span>Keep in Touch!</span>
