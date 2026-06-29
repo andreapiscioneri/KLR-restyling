@@ -1,18 +1,22 @@
 import type { Metadata } from "next";
-import { legacyStudyIdMap, resolveStudyId, studies } from "@/src/app/data";
+import { legacyStudyIdMap, resolveStudyId, studies as fallbackStudies } from "@/src/app/data";
 import { permanentRedirect } from "next/navigation";
+import { getStudies } from "@/lib/content";
 import { StudyDetailClient } from "./_client";
 
-export const dynamicParams = false;
+export const dynamicParams = true;
+export const revalidate = 60;
 
 export async function generateStaticParams() {
-  const canonical = studies.map((s) => ({ id: s.id }));
+  const canonical = fallbackStudies.map((s) => ({ id: s.id }));
   const legacy = Object.keys(legacyStudyIdMap).map((id) => ({ id }));
   return [...canonical, ...legacy];
 }
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const resolvedId = resolveStudyId(params.id);
+  const cmsStudies = (await getStudies()) as typeof fallbackStudies | null;
+  const studies = cmsStudies?.length ? cmsStudies : fallbackStudies;
   const study = studies.find((s) => s.id === resolvedId);
   const title = study ? `${study.title} | Case Study` : "Case Study | KLR Europe";
   const description = study?.summary ?? "KLR Europe loyalty campaign case study.";

@@ -41,9 +41,9 @@ const collections = [
   { src: "https://klr-europe.com/wp-content/uploads/2025/02/waverely.jpg", label: "Waverley" },
 ];
 
-function CollectionsSlider() {
+function CollectionsSlider({ items }: { items: typeof collections }) {
   const [idx, setIdx] = useState(0);
-  const total = collections.length;
+  const total = items.length;
   const visible = 3;
   const max = total - visible;
 
@@ -58,7 +58,7 @@ function CollectionsSlider() {
             className="flex gap-6 transition-transform duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
             style={{ transform: `translateX(calc(-${idx} * (100% / ${visible} + 24px / ${visible} * (${visible} - 1) / ${visible})))` }}
           >
-            {collections.map((item) => (
+            {items.map((item) => (
               <div key={item.src} className="shrink-0 rounded-[24px] overflow-hidden" style={{ width: `calc((100% - ${(visible - 1) * 24}px) / ${visible})` }}>
                 <div className="aspect-square overflow-hidden">
                   <img src={item.src} alt={item.label} className="w-full h-full object-cover hover:scale-[1.03] transition-transform duration-500" />
@@ -116,7 +116,17 @@ type BrandsCmsData = {
     retailerEyebrow?: string; retailerTitle?: string; retailerSubtitle?: string; retailerCtaLabel?: string;
     ctaHref?: string;
   };
+  collections?: { eyebrow?: string; title?: string; subtitle?: string; itemsText?: string };
 };
+
+function parseCollectionsText(text: string | undefined): typeof collections {
+  if (!text) return collections;
+  const parsed = text.split("\n").map((line) => {
+    const [label, src] = line.split("|").map((s) => s.trim());
+    return label && src ? { label, src } : null;
+  }).filter((x): x is { label: string; src: string } => x !== null);
+  return parsed.length ? parsed : collections;
+}
 
 export function Brands({ go }: { go: (r: Route) => void }) {
   const [brands, setBrands] = useState(fallbackBrands);
@@ -301,18 +311,18 @@ export function Brands({ go }: { go: (r: Route) => void }) {
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              Exclusive Rewards
+              {brandsCms.collections?.eyebrow || "Exclusive Rewards"}
             </div>
             <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-              Our Collections
+              {brandsCms.collections?.title || "Our Collections"}
             </h2>
             <p className="text-[#2E2784]/70 tracking-tight mt-4 max-w-2xl" style={{ fontSize: "1rem", lineHeight: 1.6 }}>
-              Our partnerships with the world's leading brands guarantee that our rewards collections are tangible, sustainable and unique!
+              {brandsCms.collections?.subtitle || "Our partnerships with the world's leading brands guarantee that our rewards collections are tangible, sustainable and unique!"}
             </p>
           </AnimatedSection>
         </div>
 
-        <CollectionsSlider />
+        <CollectionsSlider items={parseCollectionsText(brandsCms.collections?.itemsText)} />
       </section>
 
       {/* WHY PARTNER — blue */}

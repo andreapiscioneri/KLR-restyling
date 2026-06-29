@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
@@ -6,11 +7,13 @@ import { LenisProvider } from "@/components/ui/LenisProvider";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { LogoLoader } from "@/components/ui/LogoLoader";
 import { PageTransition } from "@/components/ui/PageTransition";
-import { getColors } from "@/lib/content";
+import { getColors, getSettings } from "@/lib/content";
 
 const CDN = "https://klr-europe.com/wp-content/uploads";
 const SITE = "https://klr-europe.com";
 const DEFAULT_OG = `${CDN}/2022/12/KLR-HERO-HOME-scaled.jpg`;
+
+export const revalidate = 60;
 
 export const viewport: Viewport = {
   themeColor: "#2E2784",
@@ -19,7 +22,35 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export const metadata: Metadata = {
+type SiteSettings = {
+  siteDescription?: string;
+  siteKeywords?: string;
+  socialLinks?: Record<string, string>;
+  googleAnalyticsId?: string;
+  customCss?: string;
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = (await getSettings()) as SiteSettings;
+  const description = settings.siteDescription ||
+    "KLR Europe designs and delivers emotional loyalty campaigns for grocery and fuel retail chains across 20+ European markets. 340+ campaigns, 150+ clients, 10+ years.";
+  const keywords = settings.siteKeywords
+    ? settings.siteKeywords.split(",").map((k) => k.trim()).filter(Boolean)
+    : [
+        "loyalty marketing",
+        "retail loyalty",
+        "loyalty campaigns",
+        "grocery retail",
+        "petrol retail",
+        "KLR Europe",
+        "loyalty program Europe",
+        "emotional loyalty",
+        "reward campaigns",
+        "collectible campaigns",
+        "fuel loyalty",
+      ];
+
+  return {
   metadataBase: new URL(SITE),
   alternates: {
     canonical: SITE,
@@ -28,21 +59,8 @@ export const metadata: Metadata = {
     default: "KLR Europe | Key to Loyalty in Retail",
     template: "%s | KLR Europe",
   },
-  description:
-    "KLR Europe designs and delivers emotional loyalty campaigns for grocery and fuel retail chains across 20+ European markets. 340+ campaigns, 150+ clients, 10+ years.",
-  keywords: [
-    "loyalty marketing",
-    "retail loyalty",
-    "loyalty campaigns",
-    "grocery retail",
-    "petrol retail",
-    "KLR Europe",
-    "loyalty program Europe",
-    "emotional loyalty",
-    "reward campaigns",
-    "collectible campaigns",
-    "fuel loyalty",
-  ],
+  description,
+  keywords,
   authors: [{ name: "KLR Europe", url: SITE }],
   creator: "KLR Europe",
   publisher: "KLR-EVROPA d.o.o.",
@@ -91,9 +109,11 @@ export const metadata: Metadata = {
     shortcut: "/favicon.png",
   },
   manifest: "/site.webmanifest",
-};
+  };
+}
 
-const orgJsonLd = {
+function buildOrgJsonLd(extraSameAs: string[]) {
+  return {
   "@context": "https://schema.org",
   "@type": "Organization",
   "@id": `${SITE}/#organization`,
@@ -145,6 +165,7 @@ const orgJsonLd = {
   sameAs: [
     "https://www.linkedin.com/company/klr-key-to-loyalty-in-retail/",
     "https://www.youtube.com/@klreurope",
+    ...extraSameAs,
   ],
   areaServed: {
     "@type": "Place",
@@ -180,7 +201,8 @@ const orgJsonLd = {
       },
     ],
   },
-};
+  };
+}
 
 const websiteJsonLd = {
   "@context": "https://schema.org",
@@ -207,12 +229,20 @@ const SUPPORTED_FONTS = [
   "DM Sans","Plus Jakarta Sans","Playfair Display","Merriweather","Libre Baskerville","Source Sans 3",
 ];
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const colors = getColors() as { headingFont?: string; bodyFont?: string };
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const [colors, settings] = await Promise.all([
+    getColors() as Promise<{ headingFont?: string; bodyFont?: string; primaryColor?: string; accentColor?: string }>,
+    getSettings() as Promise<SiteSettings>,
+  ]);
   const headingFont = SUPPORTED_FONTS.includes(colors.headingFont ?? "") ? (colors.headingFont ?? "Inter") : "Inter";
   const bodyFont    = SUPPORTED_FONTS.includes(colors.bodyFont    ?? "") ? (colors.bodyFont    ?? "Inter") : "Inter";
   const uniqueFonts = [...new Set([headingFont, bodyFont])];
   const googleFontsUrl = `https://fonts.googleapis.com/css2?${uniqueFonts.map(f => `family=${f.replace(/ /g, "+")}:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400`).join("&")}&display=swap`;
+  const primaryColor = colors.primaryColor || "#2E2784";
+  const accentColor  = colors.accentColor  || "#F8AE01";
+  const sameAs = Object.values(settings.socialLinks || {}).filter(Boolean);
+  const gaId = settings.googleAnalyticsId?.trim();
+  const customCss = settings.customCss || "";
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -224,18 +254,34 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           :root {
             --font-heading: '${headingFont}', -apple-system, BlinkMacSystemFont, sans-serif;
             --font-body: '${bodyFont}', -apple-system, BlinkMacSystemFont, sans-serif;
+            --color-primary: ${primaryColor};
+            --color-accent: ${accentColor};
           }
           body { font-family: var(--font-body); }
           h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
         `}} />
+        {customCss && <style dangerouslySetInnerHTML={{ __html: customCss }} />}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildOrgJsonLd(sameAs)) }}
         />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
+        {gaId && (
+          <>
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(gaId)}`} strategy="afterInteractive" />
+            <Script id="ga-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', ${JSON.stringify(gaId)});
+              `}
+            </Script>
+          </>
+        )}
       </head>
       <body className="antialiased">
         <LenisProvider>

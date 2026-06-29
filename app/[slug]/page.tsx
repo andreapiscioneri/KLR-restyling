@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { getCustomPages } from "@/lib/content";
 import type { Metadata } from "next";
 
+export const revalidate = 60;
+
 type Block =
   | { type: "text";  title?: string; body: string }
   | { type: "image"; url: string; alt?: string; caption?: string }

@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
@@ -9,7 +10,26 @@ const gradients = {
   blue: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
 };
 
+type NotFoundCms = Record<string, unknown>;
+
 export default function NotFound() {
+  const [cms, setCms] = useState<NotFoundCms>({});
+
+  useEffect(() => {
+    fetch('/api/content?type=pages', { cache: 'no-store' })
+      .then(r => r.json())
+      .then(d => { if (d?.data?.notFound) setCms(d.data.notFound as NotFoundCms); })
+      .catch(() => {});
+  }, []);
+
+  const title       = String(cms.title       || 'Lost your Way?');
+  const paragraph1  = String(cms.paragraph1  || 'Oops, the page you were looking for is not here...');
+  const paragraph2  = String(cms.paragraph2  || "But don't worry – we have plenty of other places for you to explore!");
+  const ctaLabel    = String(cms.ctaLabel    || 'Visit Homepage');
+  const ctaHref     = String(cms.ctaHref     || '/');
+  const ctaLabel2   = String(cms.ctaLabel2   || 'Our Works');
+  const ctaHref2    = String(cms.ctaHref2    || '/work');
+
   return (
     <section className="relative min-h-screen overflow-hidden flex items-center justify-center px-4 py-16 md:px-8 md:pt-40 md:pb-24" style={{ background: gradients.blue }}>
       {/* Decorative gradient blob */}
@@ -78,7 +98,7 @@ export default function NotFound() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
             >
-              Lost your Way?
+              {title}
             </motion.h2>
 
             {/* Description */}
@@ -94,7 +114,7 @@ export default function NotFound() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
             >
-              Oops, the page you were looking for is not here...
+              {paragraph1}
             </motion.p>
 
             <motion.p
@@ -109,7 +129,7 @@ export default function NotFound() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
             >
-              But don't worry – we have plenty of other places for you to explore!
+              {paragraph2}
             </motion.p>
 
             {/* CTA Buttons */}
@@ -120,20 +140,20 @@ export default function NotFound() {
               transition={{ duration: 0.6, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
             >
               <Link
-                href="/"
+                href={ctaHref}
                 className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-white hover:text-[#2E2784]"
               >
-                <span>Visit Homepage</span>
+                <span>{ctaLabel}</span>
                 <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
                   <ArrowUpRight className="w-4 h-4" />
                 </span>
               </Link>
 
               <Link
-                href="/work"
+                href={ctaHref2}
                 className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 border-2 border-[#F8AE01] text-[#F8AE01] hover:bg-[#F8AE01] hover:text-black"
               >
-                <span>Our Works</span>
+                <span>{ctaLabel2}</span>
                 <span className="w-8 h-8 rounded-full bg-[#F8AE01]/20 flex items-center justify-center">
                   <ArrowUpRight className="w-4 h-4" />
                 </span>

@@ -4,6 +4,15 @@ import { ArrowUpRight } from "lucide-react";
 export const hairline = "border border-black/5";
 export const softShadow = { boxShadow: "0 40px 100px -40px rgba(46,39,132,0.18)" };
 
+export function hexToRgba(hex: string, alpha: number): string {
+  const clean = hex.replace("#", "");
+  const full = clean.length === 3 ? clean.split("").map(c => c + c).join("") : clean;
+  const r = parseInt(full.slice(0, 2), 16) || 0;
+  const g = parseInt(full.slice(2, 4), 16) || 0;
+  const b = parseInt(full.slice(4, 6), 16) || 0;
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
 // Opens the user's email client with a prefilled draft recapping a form's fields.
 // mailto: links can't carry file attachments — file inputs are listed by filename only,
 // with a note asking the sender to attach the file manually before sending.

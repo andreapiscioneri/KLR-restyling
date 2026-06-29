@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { isAdminRequest, canWrite, getAdminUserFromRequestAsync, hashNewPassword } from "@/lib/admin-auth";
 import { getStats, getBrands, getLeadership, getPages, getStudies, getPosts, getUsers, getColors, getSettings, getPositions, getCustomPages, writeJSON } from "@/lib/content";
+import { VALID_CONTENT_TYPES } from "@/lib/content-types";
 
-const VALID_TYPES = ["stats","brands","leadership","pages","studies","posts","users","colors","settings","positions","customPages"];
+const VALID_TYPES: string[] = VALID_CONTENT_TYPES;
 
 type RawUser = {
   id: string;
@@ -30,7 +31,7 @@ export async function GET(request: NextRequest) {
     pages:       getPages,
     studies:     getStudies,
     posts:       getPosts,
-    users:       async () => ((await getUsers()) as RawUser[]).map(({ id, name, email, role }) => ({ id, name, email, role })),
+    users:       async () => ((await getUsers()) as RawUser[]).map(({ id, name, email, role, password, passwordHash }) => ({ id, name, email, role, hasPassword: Boolean(password || passwordHash) })),
     colors:      getColors,
     settings:    getSettings,
     positions:   getPositions,
@@ -61,7 +62,9 @@ export async function PUT(request: NextRequest) {
 
   if (type === "users") {
     const existingUsers = (await getUsers()) as RawUser[];
-    body = (body as RawUser[]).map((u: RawUser) => {
+    body = (body as (RawUser & { hasPassword?: unknown })[]).map((raw) => {
+      // hasPassword is a derived, display-only flag computed by the GET loader — never persist it.
+      const { hasPassword: _hasPassword, ...u } = raw;
       const existing = existingUsers.find(e => e.id === u.id);
       if (u.password && u.password.length > 0) {
         const { passwordHash, passwordSalt } = hashNewPassword(u.password);

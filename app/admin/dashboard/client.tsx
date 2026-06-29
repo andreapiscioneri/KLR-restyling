@@ -39,7 +39,7 @@ const GOOGLE_FONTS = [
 type PageKey =
   | "site" | "nav" | "home" | "about" | "services" | "contact"
   | "team" | "brands" | "caseStudies" | "blog" | "work" | "footer"
-  | "career" | "tenYears" | "geo";
+  | "career" | "tenYears" | "geo" | "privacy" | "copyright" | "notFound";
 
 const TOP_NAV: { id: TopSection; label: string; icon: LucideIcon }[] = [
   { id: "overview",    label: "Overview",       icon: LayoutGrid },
@@ -49,7 +49,7 @@ const TOP_NAV: { id: TopSection; label: string; icon: LucideIcon }[] = [
   { id: "leadership",  label: "Team",           icon: Users      },
   { id: "studies",     label: "Case Studies",   icon: FolderOpen },
   { id: "posts",       label: "Insights",       icon: PenLine    },
-  { id: "positions",   label: "Posizioni",      icon: Award      },
+  { id: "positions",   label: "Posizioni Lavorative", icon: Award },
   { id: "customPages", label: "Pagine Custom",  icon: FileCode   },
   { id: "colors",      label: "Colori & Tema",  icon: Palette    },
   { id: "users",       label: "Utenti",         icon: Users      },
@@ -72,6 +72,9 @@ const PAGE_TABS: { id: PageKey; label: string; icon: LucideIcon }[] = [
   { id: "career",     label: "Career",       icon: Users      },
   { id: "tenYears",   label: "10 Years",     icon: Calendar   },
   { id: "geo",        label: "GEO Facts",    icon: MapPin     },
+  { id: "privacy",    label: "Privacy",      icon: FileText   },
+  { id: "copyright",  label: "Copyright",    icon: FileCode   },
+  { id: "notFound",   label: "Pagina 404",   icon: X          },
 ];
 
 /* ══════════════════════════════════════════════════
@@ -81,7 +84,7 @@ type BrandItem    = { id:string;name:string;tag:string;img:string;since:string;c
 type LeaderItem   = { id:string;name:string;role:string;img:string;bio:string;quote:string };
 type StudyItem    = { id:string;title:string;client:string;year:string;location:string;img:string;summary:string;cat:string;brand:string };
 type PostItem     = { id:number;slug:string;title:string;date:string;excerpt:string;img:string;category:string;contentHtml?:string };
-type UserItem     = { id:string;name:string;email:string;password?:string;role:string };
+type UserItem     = { id:string;name:string;email:string;password?:string;role:string;hasPassword?:boolean };
 type PositionItem = { id:string;role:string;loc:string;description:string };
 type NavLinkItem  = { href:string;label:string;sub?:{href:string;label:string}[] };
 type BlockType    = "text" | "image" | "cta";
@@ -300,7 +303,7 @@ function Overview() {
           ["Team",            "gestisci tutti i membri del team"],
           ["Case Studies",    "aggiungi e modifica le campagne"],
           ["Insights",        "gestisci gli articoli del blog con editor rich text"],
-          ["Posizioni",       "gestisci le posizioni aperte della pagina Career"],
+          ["Posizioni Lavorative", "gestisci le posizioni aperte della pagina Career"],
           ["Pagine Custom",   "crea nuove pagine dal CMS senza codice — URL personalizzato"],
         ].map(([k, v]) => (
           <div key={k} style={{ display:"flex",gap:8,marginBottom:10,fontSize:13,color:"#444",alignItems:"flex-start" }}>
@@ -539,8 +542,8 @@ function StatsEditor({ data, onSave }: { data:Record<string,string>|null; onSave
 type PagesDataLocal = Record<string, Record<string, unknown>>;
 
 const IMAGE_FIELDS    = ["image","mapImage","image1","image2","logoUrl","img","bannerImage","videoUrl"];
-const TEXTAREA_FIELDS = ["subtitle","mainText","text","bodyText","description","companyDesc","tagline","hq1","hq2","messagePlaceholder","item1","item2","item3","intro","closing","value1Desc","value2Desc","value3Desc","paragraph1","paragraph2","card1Text","card2Text","card3Text","card4Text","mapBody","point1","point2","point3","milestonesText","brandSubtitle","retailerSubtitle","badge3"];
-const COLOR_FIELDS    = ["primaryColor","accentColor"];
+const TEXTAREA_FIELDS = ["subtitle","mainText","text","bodyText","description","companyDesc","tagline","hq1","hq2","messagePlaceholder","item1","item2","item3","intro","closing","value1Desc","value2Desc","value3Desc","paragraph1","paragraph2","card1Text","card2Text","card3Text","card4Text","mapBody","point1","point2","point3","milestonesText","brandSubtitle","retailerSubtitle","badge3","companyAddress","what","how","out","itemsText","sourceMapLinksText"];
+const COLOR_FIELDS    = ["primaryColor","accentColor","bgColor","bgAccent"];
 
 const FIELD_LABELS: Record<string,string> = {
   primaryColor:"Colore primario",accentColor:"Colore accento",logoUrl:"URL Logo",siteUrl:"URL Sito",defaultEmail:"Email principale",
@@ -571,6 +574,12 @@ const FIELD_LABELS: Record<string,string> = {
   fact3:"Fatto 3",fact3Source:"Fonte 3",fact4:"Fatto 4",fact4Source:"Fonte 4",
   fact5:"Fatto 5",fact5Source:"Fonte 5",
   citationLine1:"Citazione 1",citationLine2:"Citazione 2",citationLine3:"Citazione 3",citationLine4:"Citazione 4",
+  companyName:"Ragione sociale",companyAddress:"Indirizzo",companyCity:"Città / Paese",vatNumber:"P.IVA / VAT",
+  lastUpdate:"Ultimo aggiornamento",ctaLabel2:"Testo CTA 2",ctaHref2:"Link CTA 2",
+  bgColor:"Colore sfondo Hero",bgAccent:"Colore sfumatura Hero",
+  what:"Cosa è",how:"Come funziona",out:"Cosa ottieni",titleEm:"Titolo (evidenziato)",
+  itemsText:"Elementi (un elemento per riga: etichetta|immagine URL)",
+  sourceMapLinksText:"Source Map (un link per riga: etichetta|URL)",
 };
 
 const PAGE_SECTION_LABELS: Record<string,string> = {
@@ -578,7 +587,36 @@ const PAGE_SECTION_LABELS: Record<string,string> = {
   services:"Pagina Services",contact:"Pagina Contact",team:"Pagina Team",brands:"Pagina Brands",
   caseStudies:"Case Studies",blog:"Insights / Blog",work:"Work / Portfolio",footer:"Footer",
   career:"Pagina Career",tenYears:"10 Years",geo:"GEO Facts",
+  privacy:"Privacy Policy",copyright:"Copyright & Termini",notFound:"Pagina 404",
 };
+
+/* ══════════════════════════════════════════════════
+   SECTION ORDER EDITOR (reorder home-page sections)
+══════════════════════════════════════════════════ */
+function SectionOrderEditor({ order, onChange }: { order: string[]; onChange: (next: string[]) => void }) {
+  function move(idx: number, dir: -1 | 1) {
+    const next = [...order];
+    const target = idx + dir;
+    if (target < 0 || target >= next.length) return;
+    [next[idx], next[target]] = [next[target], next[idx]];
+    onChange(next);
+  }
+  return (
+    <Panel title="Ordine Sezioni">
+      <div style={{ display:"grid", gap:8 }}>
+        {order.map((key, idx) => (
+          <div key={key} style={{ display:"flex", alignItems:"center", gap:10, background:"#F8F8FC", borderRadius:10, padding:"8px 12px" }}>
+            <span style={{ flex:1, fontSize:13, fontWeight:600, color:"#333" }}>{key.replace(/([A-Z])/g, " $1").replace(/^./, s => s.toUpperCase())}</span>
+            <button type="button" onClick={() => move(idx, -1)} disabled={idx === 0}
+              style={{ width:28,height:28,border:"none",borderRadius:7,cursor:idx===0?"not-allowed":"pointer",background:idx===0?"#eee":"#2E2784",color:idx===0?"#aaa":"#fff",fontSize:13 }}>↑</button>
+            <button type="button" onClick={() => move(idx, 1)} disabled={idx === order.length - 1}
+              style={{ width:28,height:28,border:"none",borderRadius:7,cursor:idx===order.length-1?"not-allowed":"pointer",background:idx===order.length-1?"#eee":"#2E2784",color:idx===order.length-1?"#aaa":"#fff",fontSize:13 }}>↓</button>
+          </div>
+        ))}
+      </div>
+    </Panel>
+  );
+}
 
 function PagesEditor({ data, onSave }: { data:PagesDataLocal|null; onSave:(d:unknown)=>void }) {
   const [form,       setForm]       = useState<PagesDataLocal>({});
@@ -635,6 +673,14 @@ function PagesEditor({ data, onSave }: { data:PagesDataLocal|null; onSave:(d:unk
             onChangeCtaLabel={v => updateTop(activePage, "ctaLabel", v)}
             onChangeCtaHref={v => updateTop(activePage, "ctaHref", v)}
             onChangeLinks={links => setForm(prev => ({...prev, nav: {...prev.nav, links}}))}
+          />
+        )}
+
+        {/* Section order (pages with an explicit _sectionOrder array, e.g. home) */}
+        {Array.isArray((pageData as Record<string, unknown>)._sectionOrder) && (
+          <SectionOrderEditor
+            order={(pageData as Record<string, unknown>)._sectionOrder as string[]}
+            onChange={next => setForm(prev => ({ ...prev, [activePage]: { ...prev[activePage], _sectionOrder: next } }))}
           />
         )}
 
@@ -904,7 +950,7 @@ function UsersEditor     ({ data, onSave }: { data:UserItem[]|null;     onSave:(
 function LeadershipEditor({ data, onSave }: { data:LeaderItem[]|null;   onSave:(d:LeaderItem[])=>void })   { return <ListEditor<LeaderItem>   title="Membro"      data={data} fields={LEADER_FIELDS}   nameKey="name"  imgKey="img" onSave={onSave} blank={{id:"",name:"",role:"",img:"",bio:"",quote:""}}/>; }
 function StudiesEditor   ({ data, onSave }: { data:StudyItem[]|null;    onSave:(d:StudyItem[])=>void })    { return <ListEditor<StudyItem>    title="Case Study"  data={data} fields={STUDY_FIELDS}    nameKey="title" imgKey="img" onSave={onSave} blank={{id:"",title:"",client:"",year:String(new Date().getFullYear()),location:"",img:"",summary:"",cat:"retail",brand:""}}/>; }
 function PostsEditor     ({ data, onSave }: { data:PostItem[]|null;     onSave:(d:PostItem[])=>void })     { return <ListEditor<PostItem>     title="Post"        data={data} fields={POST_FIELDS}     nameKey="title" imgKey="img" onSave={onSave} blank={{id:Date.now(),slug:"",title:"",date:new Date().toISOString().slice(0,10),excerpt:"",img:"",category:"Loyalty Marketing"}}/>; }
-function PositionsEditor ({ data, onSave }: { data:PositionItem[]|null; onSave:(d:PositionItem[])=>void }) { return <ListEditor<PositionItem> title="Posizione"   data={data} fields={POSITION_FIELDS} nameKey="role"  imgKey=""    onSave={onSave} blank={{id:String(Date.now()),role:"",loc:"",description:""}}/>; }
+function PositionsEditor ({ data, onSave }: { data:PositionItem[]|null; onSave:(d:PositionItem[])=>void }) { return <ListEditor<PositionItem> title="Posizione Lavorativa" data={data} fields={POSITION_FIELDS} nameKey="role"  imgKey=""    onSave={onSave} blank={{id:String(Date.now()),role:"",loc:"",description:""}}/>; }
 
 /* ══════════════════════════════════════════════════
    CUSTOM PAGES EDITOR
@@ -1061,6 +1107,36 @@ function CustomPagesEditor({ data, onSave }: { data:CustomPageItem[]|null; onSav
 }
 
 /* ══════════════════════════════════════════════════
+   PASSWORD INPUT (show/hide toggle + "already set" badge)
+══════════════════════════════════════════════════ */
+function PasswordInput({ value, onChange, hasExisting }: { value:string; onChange:(v:string)=>void; hasExisting:boolean }) {
+  const [show, setShow] = useState(false);
+  return (
+    <div>
+      <div style={{ display:"flex", gap:8, alignItems:"center" }}>
+        <input
+          type={show ? "text" : "password"}
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          placeholder={hasExisting ? "••••••••" : ""}
+          style={{ flex:1, padding:"9px 12px", border:"1px solid #ddd", borderRadius:9, fontSize:13, outline:"none" }}
+        />
+        <button type="button" onClick={() => setShow(s => !s)}
+          style={{ flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center", width:36, height:36, border:"1px solid #ddd", borderRadius:9, background:"#fff", cursor:"pointer", color:"#666" }}
+          title={show ? "Nascondi password" : "Mostra password"}>
+          {show ? <EyeOff size={15}/> : <Eye size={15}/>}
+        </button>
+      </div>
+      {hasExisting && !value && (
+        <div style={{ marginTop:6, fontSize:11, color:"#16a34a", fontWeight:600 }}>
+          ✓ Password già impostata — lascia vuoto per non cambiarla
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════
    GENERIC LIST EDITOR
 ══════════════════════════════════════════════════ */
 function ListEditor<T extends Record<string, unknown>>({
@@ -1127,6 +1203,12 @@ function ListEditor<T extends Record<string, unknown>>({
                     <ImageField value={form[f.key]||""} onChange={v => setForm(p => ({...p,[f.key]:v}))} label={f.label}/>
                   ) : f.type === "select" ? (
                     <FieldSelect value={form[f.key]||""} onChange={v => setForm(p => ({...p,[f.key]:v}))} options={f.options??[]}/>
+                  ) : f.type === "password" ? (
+                    <PasswordInput
+                      value={form[f.key]||""}
+                      onChange={v => setForm(p => ({...p,[f.key]:v}))}
+                      hasExisting={!isNew && form.hasPassword === "true"}
+                    />
                   ) : f.type.startsWith("textarea") ? (
                     <Textarea rows={f.type==="textarea-lg"?10:3} value={form[f.key]||""} onChange={v => setForm(p => ({...p,[f.key]:v}))}/>
                   ) : (

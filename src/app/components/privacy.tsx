@@ -1,10 +1,23 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import Link from "next/link";
 import { ArrowUpRight, Mail, Shield, Database, Cookie, Scale, Clock, UserCheck } from "lucide-react";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { softShadow } from "./ui-bits";
+import { softShadow, hexToRgba } from "./ui-bits";
 import type { Route } from "../App";
+
+type PrivacyCms = {
+  hero?: Record<string, unknown>;
+  company?: Record<string, unknown>;
+  cookies?: { intro?: string; manage?: string; typesText?: string };
+  legalBasis?: { intro?: string; itemsText?: string };
+  methods?: { text?: string };
+  storage?: { itemsText?: string };
+  rights?: { itemsText?: string };
+  closing?: Record<string, unknown>;
+};
 
 const G = {
   blue: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
@@ -29,14 +42,14 @@ const dataCategories = [
   },
 ];
 
-const cookieTypes = [
-  { name: "First Party", desc: "Set by the website you're visiting. Only that specific website can read them." },
-  { name: "Third Party", desc: "Set by websites other than the one you're visiting. Mainly used for tracking and marketing." },
-  { name: "Persistent", desc: "Stored on your computer even after you quit your browser." },
-  { name: "Session", desc: "Automatically deleted from your computer immediately after you quit your browser." },
+const defaultCookieTypes = [
+  { term: "First Party", desc: "Set by the website you're visiting. Only that specific website can read them." },
+  { term: "Third Party", desc: "Set by websites other than the one you're visiting. Mainly used for tracking and marketing." },
+  { term: "Persistent", desc: "Stored on your computer even after you quit your browser." },
+  { term: "Session", desc: "Automatically deleted from your computer immediately after you quit your browser." },
 ];
 
-const legalBases = [
+const defaultLegalBases = [
   {
     label: "Contract Performance",
     items: ["Fulfillment of any obligation arising from the pre-contractual or contractual relationship.", "Registration and authentication of the Data Subject.", "Support and contact to answer the Data Subject's requests."],
@@ -55,7 +68,7 @@ const legalBases = [
   },
 ];
 
-const rights = [
+const defaultRights = [
   "Be informed about the processing of their Personal Data",
   "Withdraw consent at any time",
   "Restrict the processing of Personal Data",
@@ -68,18 +81,98 @@ const rights = [
   "Take legal action",
 ];
 
+const defaultStorageItems = [
+  { term: "Contract", desc: "Entire duration of the contractual relationship + 10 years ordinary prescription period." },
+  { term: "Legal Disputes", desc: "Entire duration of disputes, until the time limit for appeals has expired." },
+  { term: "Legal Obligations", desc: "Relevant timeframes provided by applicable obligations, regulations, and laws." },
+  { term: "Consent-based", desc: "Until the consent is revoked by the Data Subject." },
+];
+
+function parseKeyValueLines(text: string) {
+  return text
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => {
+      const [key, ...rest] = line.split("|");
+      return { term: key.trim(), desc: rest.join("|").trim() };
+    });
+}
+
+function parseListLines(text: string) {
+  return text
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+}
+
 export function Privacy({ go }: { go?: (r: Route) => void }) {
+  const [cms, setCms] = useState<PrivacyCms>({});
+
+  useEffect(() => {
+    fetch("/api/content?type=pages", { cache: "no-store" })
+      .then(r => r.json())
+      .then(d => { if (d?.data?.privacy) setCms(d.data.privacy as PrivacyCms); })
+      .catch(() => {});
+  }, []);
+
+  const hero    = cms.hero    || {};
+  const company = cms.company || {};
+  const cookies = cms.cookies || {};
+  const legalBasis = cms.legalBasis || {};
+  const methods = cms.methods || {};
+  const storage = cms.storage || {};
+  const rights = cms.rights || {};
+  const closing = cms.closing || {};
+  const visible = (s: Record<string, unknown>) => s._visible !== false;
+
+  const heroTitleLine1 = String(hero.titleLine1 || "Privacy");
+  const heroTitleLine2 = String(hero.titleLine2 || "Policy.");
+  const heroSubtitle   = String(hero.subtitle || "At KLR Europe, we believe privacy is important. We want you to be aware of the data we collect, how we use it, and with whom we share it.");
+  const heroImage      = String(hero.image || "");
+  const heroBgColor    = String(hero.bgColor  || "#2E2784");
+  const heroBgAccent   = String(hero.bgAccent || "#F8AE01");
+  const heroBackground = `linear-gradient(135deg, ${hexToRgba(heroBgAccent, 0.55)} 0%, ${hexToRgba(heroBgAccent, 0.25)} 55%, transparent 100%), ${heroBgColor}`;
+
+  const companyName    = String(company.companyName    || "KLR-EVROPA D.O.O.");
+  const companyAddress = String(company.companyAddress  || "ULICA 15 MAJA 19");
+  const companyCity    = String(company.companyCity     || "6000 · KOPER, SLOVENIA");
+  const vatNumber      = String(company.vatNumber       || "SI 80583857");
+  const lastUpdate     = String(company.lastUpdate      || "11 / 01 / 2023");
+  const companyEmail   = String(company.email           || "info@klr-europe.com");
+  const companyTitle   = String(company.title           || "Privacy is\nimportant to us.");
+  const paragraph1     = String(company.paragraph1      || "At KLR-EVROPA D.O.O. (\"KLR Europe\"), we believe privacy is important. We want you to be aware about the data that we track and collect, how we use these data and with whom we share them. This privacy policy applies to all personal data we collect in connection with our corporate website, www.klr-europe.com.");
+  const paragraph2     = String(company.paragraph2      || "The purpose of this page is to inform the natural person (the \"Data Subject\") about the processing of personal data collected by KLR-EVROPA D.O.O. (the \"Data Controller\") via the website https://klr-europe.com/ (the \"Application\").");
+  const paragraph3     = String(company.paragraph3      || "");
+
+  const cookiesIntro   = String(cookies.intro          || "The Application uses cookies, web beacons, univocal identifiers and other similar technologies to collect Personal Data on visited pages and links. This data is stored and then used the next time the Data Subject browses the Application.");
+  const cookiesManage  = String(cookies.manage         || "You can refuse or accept performance and marketing cookies through our cookie banner or browser settings at any time. For more info: aboutcookies.org");
+  const cookieTypeItems = parseKeyValueLines(String(cookies.typesText || ""));
+
+  const legalBasisIntro = String(legalBasis.intro      || "Personal Data may be processed under several legal bases depending on the purpose of the processing.");
+  const legalBasisItems = parseKeyValueLines(String(legalBasis.itemsText || "")).map((item) => ({ label: item.term, items: item.desc ? [item.desc] : [] }));
+
+  const methodsText    = String(methods.text           || "Processing is performed via paper-based and computer tools with methods and logics strictly related to specified purposes, through adoption of appropriate security measures.");
+
+  const storageItems   = parseKeyValueLines(String(storage.itemsText || ""));
+
+  const rightsItems    = parseListLines(String(rights.itemsText || ""));
+
+  const closingEmail = String(closing.email   || "info@klr-europe.com");
+  const closingHref  = String(closing.ctaHref || "/contact");
+
   return (
     <>
-      <PageHero
-        eyebrow="Legal"
-        title={<>Privacy<br /><span className="text-[#F8AE01]">Policy.</span></>}
-        subtitle="At KLR Europe, we believe privacy is important. We want you to be aware of the data we collect, how we use it, and with whom we share it."
-        background="linear-gradient(135deg, rgba(248,174,1,0.55) 0%, rgba(248,174,1,0.25) 55%, transparent 100%), #2E2784"
-      />
+      {visible(hero) && <PageHero
+        eyebrow={String(hero.eyebrow || "Legal")}
+        title={<>{heroTitleLine1}<br /><span className="text-[#F8AE01]">{heroTitleLine2}</span></>}
+        subtitle={heroSubtitle}
+        image={heroImage || undefined}
+        background={heroBackground}
+      />}
 
       {/* INTRO & COMPANY — yellow */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
+      {visible(company) && <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
@@ -91,36 +184,36 @@ export function Privacy({ go }: { go?: (r: Route) => void }) {
                   className="mt-6 rounded-[28px] p-8 border border-[#2E2784]/15"
                   style={{ background: "#2E2784", ...softShadow }}
                 >
-                  <div className="text-[#F8AE01] tracking-[0.2em] uppercase mb-4" style={{ fontSize: "0.62rem", fontWeight: 800 }}>KLR-EVROPA D.O.O.</div>
+                  <div className="text-[#F8AE01] tracking-[0.2em] uppercase mb-4" style={{ fontSize: "0.62rem", fontWeight: 800 }}>{companyName}</div>
                   <div className="text-white space-y-1" style={{ fontSize: "0.9rem", lineHeight: 1.7 }}>
-                    <p>ULICA 15 MAJA 19</p>
-                    <p>6000 · KOPER, SLOVENIA</p>
+                    <p>{companyAddress}</p>
+                    <p>{companyCity}</p>
                     <p className="text-white/60 mt-3" style={{ fontSize: "0.8rem" }}>Tax Code / VAT No.</p>
-                    <p className="text-[#F8AE01]" style={{ fontWeight: 700 }}>SI 80583857</p>
+                    <p className="text-[#F8AE01]" style={{ fontWeight: 700 }}>{vatNumber}</p>
                     <a
-                      href="mailto:info@klr-europe.com"
+                      href={`mailto:${companyEmail}`}
                       className="block text-white/80 hover:text-white transition-colors mt-4 border-t border-white/15 pt-4"
                       style={{ fontSize: "0.88rem" }}
                     >
-                      info@klr-europe.com
+                      {companyEmail}
                     </a>
                   </div>
                 </div>
 
                 <div className="mt-5 rounded-[20px] p-6 border border-[#2E2784]/15" style={{ background: "rgba(255,255,255,0.35)", ...softShadow }}>
                   <div className="tracking-[0.2em] uppercase text-[#2E2784]/60 mb-2" style={{ fontSize: "0.6rem", fontWeight: 700 }}>Last Update</div>
-                  <div className="text-[#2E2784]" style={{ fontSize: "0.95rem", fontWeight: 700 }}>11 / 01 / 2023</div>
+                  <div className="text-[#2E2784]" style={{ fontSize: "0.95rem", fontWeight: 700 }}>{lastUpdate}</div>
                 </div>
               </div>
 
               {/* Intro text */}
               <div>
-                <h2 className="text-[#2E2784] tracking-[-0.035em]" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.0, fontWeight: 800 }}>
-                  Privacy is<br />important to us.
+                <h2 className="text-[#2E2784] tracking-[-0.035em]" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.0, fontWeight: 800, whiteSpace: "pre-line" }}>
+                  {companyTitle}
                 </h2>
                 <div className="mt-8 space-y-5 text-[#2E2784]" style={{ fontSize: "clamp(0.95rem, 1.3vw, 1.1rem)", lineHeight: 1.7 }}>
-                  <p>At KLR-EVROPA D.O.O. ("KLR Europe"), we believe privacy is important. We want you to be aware about the data that we track and collect, how we use these data and with whom we share them. This privacy policy applies to all personal data we collect in connection with our corporate website, www.klr-europe.com.</p>
-                  <p>The purpose of this page is to inform the natural person (the "Data Subject") about the processing of personal data collected by KLR-EVROPA D.O.O. (the "Data Controller") via the website https://klr-europe.com/ (the "Application").</p>
+                  <p>{paragraph1}</p>
+                  <p>{paragraph2}</p>
                 </div>
                 <div className="mt-8 rounded-[20px] p-6 border border-[#2E2784]/20" style={{ background: "rgba(255,255,255,0.4)", ...softShadow }}>
                   <div className="tracking-[0.2em] uppercase text-[#2E2784]/60 mb-3" style={{ fontSize: "0.6rem", fontWeight: 700 }}>Changes and Updates</div>
@@ -139,7 +232,7 @@ export function Privacy({ go }: { go?: (r: Route) => void }) {
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section>}
 
       {/* CATEGORIES OF DATA — blue */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
@@ -207,14 +300,14 @@ export function Privacy({ go }: { go?: (r: Route) => void }) {
               <div className="rounded-[28px] p-8 border border-[#2E2784]/15 md:col-span-2" style={{ background: "#2E2784", ...softShadow }}>
                 <div className="tracking-[0.2em] uppercase text-[#F8AE01]" style={{ fontSize: "0.62rem", fontWeight: 800 }}>What are cookies?</div>
                 <p className="text-white/80 mt-4" style={{ fontSize: "0.95rem", lineHeight: 1.7 }}>
-                  Cookies are small text files stored on a user's computer, designed to hold a modest amount of data specific to a particular user and website. They allow the server to deliver a website tailored to a particular user, or carry information from one visit to the next.
+                  {cookiesIntro}
                 </p>
               </div>
 
               {/* Cookie types */}
-              {cookieTypes.map((c) => (
-                <div key={c.name} className="rounded-[20px] p-7 border border-[#2E2784]/15" style={{ background: "rgba(255,255,255,0.4)", ...softShadow }}>
-                  <div className="text-[#2E2784]" style={{ fontSize: "0.95rem", fontWeight: 800, marginBottom: "0.5rem" }}>{c.name}</div>
+              {(cookieTypeItems.length ? cookieTypeItems : defaultCookieTypes).map((c) => (
+                <div key={c.term} className="rounded-[20px] p-7 border border-[#2E2784]/15" style={{ background: "rgba(255,255,255,0.4)", ...softShadow }}>
+                  <div className="text-[#2E2784]" style={{ fontSize: "0.95rem", fontWeight: 800, marginBottom: "0.5rem" }}>{c.term}</div>
                   <p className="text-[#2E2784]/70" style={{ fontSize: "0.85rem", lineHeight: 1.65 }}>{c.desc}</p>
                 </div>
               ))}
@@ -225,7 +318,7 @@ export function Privacy({ go }: { go?: (r: Route) => void }) {
               <div className="tracking-[0.2em] uppercase text-[#2E2784]/60 mb-4" style={{ fontSize: "0.62rem", fontWeight: 700 }}>How to Manage Cookies</div>
               <div className="grid md:grid-cols-2 gap-6 text-[#2E2784]" style={{ fontSize: "0.88rem", lineHeight: 1.65 }}>
                 <p><strong>Delete cookies:</strong> You can delete cookies by clearing your browsing history. Note that deleting cookies may cause loss of some valuable information (login details, site preferences, etc.).</p>
-                <p><strong>Manage or block cookies:</strong> You can refuse or accept performance and marketing cookies through our cookie banner or browser settings at any time. For more info: <span className="underline">aboutcookies.org</span></p>
+                <p><strong>Manage or block cookies:</strong> {cookiesManage}</p>
               </div>
             </div>
           </AnimatedSection>
@@ -247,8 +340,9 @@ export function Privacy({ go }: { go?: (r: Route) => void }) {
               Why we process<br /><span className="text-[#F8AE01]">your data.</span>
             </h2>
 
+            <p className="text-white/70 mt-8 max-w-3xl" style={{ fontSize: "0.95rem", lineHeight: 1.7 }}>{legalBasisIntro}</p>
             <div className="mt-14 grid md:grid-cols-2 gap-5">
-              {legalBases.map((basis, i) => (
+              {(legalBasisItems.length ? legalBasisItems : defaultLegalBases).map((basis, i) => (
                 <div key={basis.label} className="rounded-[28px] p-8 border border-white/10" style={{ background: i % 2 === 0 ? "rgba(255,255,255,0.09)" : "rgba(248,174,1,0.08)", borderColor: i % 2 === 0 ? "rgba(255,255,255,0.1)" : "rgba(248,174,1,0.2)", ...softShadow }}>
                   <div className="tracking-[0.2em] uppercase text-[#F8AE01]" style={{ fontSize: "0.62rem", fontWeight: 800 }}>
                     {basis.label}
@@ -292,7 +386,7 @@ export function Privacy({ go }: { go?: (r: Route) => void }) {
                   How we handle<br />your data.
                 </h2>
                 <p className="text-[#2E2784] mt-6" style={{ fontSize: "0.95rem", lineHeight: 1.7 }}>
-                  Processing is performed via paper-based and computer tools with methods and logics strictly related to specified purposes, through adoption of appropriate security measures.
+                  {methodsText}
                 </p>
                 <div className="mt-6 space-y-3">
                   {[
@@ -322,14 +416,9 @@ export function Privacy({ go }: { go?: (r: Route) => void }) {
                 </h2>
 
                 <div className="mt-6 rounded-[28px] overflow-hidden border border-[#2E2784]/15" style={{ background: "#2E2784", ...softShadow }}>
-                  {[
-                    { label: "Contract", desc: "Entire duration of the contractual relationship + 10 years ordinary prescription period." },
-                    { label: "Legal Disputes", desc: "Entire duration of disputes, until the time limit for appeals has expired." },
-                    { label: "Legal Obligations", desc: "Relevant timeframes provided by applicable obligations, regulations, and laws." },
-                    { label: "Consent-based", desc: "Until the consent is revoked by the Data Subject." },
-                  ].map((item, i) => (
-                    <div key={item.label} className={`p-6 flex gap-4 ${i > 0 ? "border-t border-white/10" : ""}`}>
-                      <div className="text-[#F8AE01] w-28 flex-shrink-0" style={{ fontSize: "0.8rem", fontWeight: 800 }}>{item.label}</div>
+                  {(storageItems.length ? storageItems : defaultStorageItems).map((item, i) => (
+                    <div key={item.term} className={`p-6 flex gap-4 ${i > 0 ? "border-t border-white/10" : ""}`}>
+                      <div className="text-[#F8AE01] w-28 flex-shrink-0" style={{ fontSize: "0.8rem", fontWeight: 800 }}>{item.term}</div>
                       <p className="text-white/75" style={{ fontSize: "0.85rem", lineHeight: 1.6 }}>{item.desc}</p>
                     </div>
                   ))}
@@ -364,7 +453,7 @@ export function Privacy({ go }: { go?: (r: Route) => void }) {
                 </h2>
 
                 <div className="mt-10 space-y-2">
-                  {rights.map((right, i) => (
+                  {(rightsItems.length ? rightsItems : defaultRights).map((right, i) => (
                     <div key={i} className="flex items-start gap-3 py-3 border-b border-white/10">
                       <span
                         className="w-6 h-6 rounded-full bg-[#F8AE01] flex items-center justify-center flex-shrink-0 mt-0.5"
@@ -390,7 +479,7 @@ export function Privacy({ go }: { go?: (r: Route) => void }) {
                   </p>
 
                   <a
-                    href="mailto:info@klr-europe.com"
+                    href={`mailto:${closingEmail}`}
                     className="mt-8 flex items-center gap-3 group"
                   >
                     <div className="w-10 h-10 rounded-full bg-[#F8AE01] flex items-center justify-center flex-shrink-0">
@@ -400,15 +489,16 @@ export function Privacy({ go }: { go?: (r: Route) => void }) {
                       className="text-white group-hover:text-[#F8AE01] transition-colors"
                       style={{ fontSize: "1.05rem", fontWeight: 700 }}
                     >
-                      info@klr-europe.com
+                      {closingEmail}
                     </span>
                     <ArrowUpRight className="w-4 h-4 text-white/30 group-hover:text-[#F8AE01] transition-colors" />
                   </a>
                 </div>
 
-                <button
+                <Link
+                  href={closingHref}
                   onClick={() => go?.({ page: "contact" })}
-                  className="w-full rounded-[28px] p-8 border border-white/10 text-left group transition-all hover:border-[#F8AE01]/30"
+                  className="w-full rounded-[28px] p-8 border border-white/10 text-left group transition-all hover:border-[#F8AE01]/30 block"
                   style={{ background: "rgba(255,255,255,0.07)", ...softShadow }}
                 >
                   <div className="tracking-[0.2em] uppercase text-[#F8AE01]" style={{ fontSize: "0.62rem", fontWeight: 700 }}>Contact Us</div>
@@ -418,7 +508,7 @@ export function Privacy({ go }: { go?: (r: Route) => void }) {
                     </span>
                     <ArrowUpRight className="w-5 h-5 text-white/30 group-hover:text-[#F8AE01] transition-colors" />
                   </div>
-                </button>
+                </Link>
               </div>
             </div>
 

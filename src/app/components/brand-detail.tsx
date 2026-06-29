@@ -1,7 +1,8 @@
 "use client";
+import { useState, useEffect } from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, softShadow } from "./ui-bits";
-import { brands, studies } from "../data";
+import { brands as fallbackBrands, studies as fallbackStudies } from "../data";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import type { Route } from "../App";
@@ -12,6 +13,20 @@ const G = {
 };
 
 export function BrandDetail({ id, go }: { id: string; go: (r: Route) => void }) {
+  const [brands, setBrands] = useState(fallbackBrands);
+  const [studies, setStudies] = useState(fallbackStudies);
+
+  useEffect(() => {
+    fetch("/api/content?type=brands", { cache: "no-store" })
+      .then(r => r.json())
+      .then(j => { if (j.data?.length) setBrands(j.data); })
+      .catch(() => {});
+    fetch("/api/content?type=studies", { cache: "no-store" })
+      .then(r => r.json())
+      .then(j => { if (j.data?.length) setStudies(j.data); })
+      .catch(() => {});
+  }, []);
+
   const brand = brands.find((b) => b.id === id) || brands[0];
   const related = studies.filter((s) => s.brand === brand.name).slice(0, 3);
   const more = brands.filter((b) => b.id !== brand.id).slice(0, 3);

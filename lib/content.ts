@@ -1,4 +1,5 @@
 import { readContent, writeContent } from "./storage";
+import { CONTENT_TYPES } from "./content-types";
 
 export async function writeJSON(file: string, data: unknown): Promise<void> {
   const key = file.replace(/\.json$/, "");
@@ -6,79 +7,45 @@ export async function writeJSON(file: string, data: unknown): Promise<void> {
 }
 
 export async function getStats() {
-  return readContent("stats", {
-    campaigns: "340+", retailers: "150+", countries: "20+", years: "10+",
-    combinedExperience: "275", people: "43", nationalities: "11",
-  });
+  return readContent("stats", CONTENT_TYPES.stats.default);
 }
 
 export async function getBrands() {
-  return readContent("brands", []);
+  return readContent("brands", CONTENT_TYPES.brands.default);
 }
 
 export async function getLeadership() {
-  return readContent("leadership", []);
+  return readContent("leadership", CONTENT_TYPES.leadership.default);
 }
 
 export async function getPages() {
-  return readContent("pages", {});
+  return readContent("pages", CONTENT_TYPES.pages.default);
 }
 
 export async function getColors() {
-  return readContent("colors", {
-    primaryColor: "#2E2784",
-    accentColor: "#F8AE01",
-    logoUrl: "/klr-logo.png",
-    siteUrl: "https://klr-europe.com",
-    defaultEmail: "info@klr-europe.com",
-  });
+  return readContent("colors", CONTENT_TYPES.colors.default);
 }
 
 export async function getSettings() {
-  return readContent("settings", {
-    siteName: "KLR Europe",
-    siteDescription: "Loyalty campaigns that excite and engage customers.",
-    siteKeywords: "loyalty, retail, campaigns, marketing",
-    siteUrl: "https://klr-europe.com",
-    defaultEmail: "info@klr-europe.com",
-    supportEmail: "support@klr-europe.com",
-    phone: "+386 1 620 2600",
-    socialLinks: {},
-    hq: {},
-    googleAnalyticsId: "",
-    customCss: "",
-  });
+  return readContent("settings", CONTENT_TYPES.settings.default);
 }
 
 export async function getStudies() {
-  return readContent("studies", null);
+  return readContent("studies", CONTENT_TYPES.studies.default);
 }
 
 export async function getPosts() {
-  return readContent("posts", null);
+  return readContent("posts", CONTENT_TYPES.posts.default);
 }
 
 export async function getUsers() {
-  return readContent("users", [
-    {
-      id: "admin",
-      name: "Admin",
-      email: "andrea.piscioneri@denani.it",
-      password: "denani",
-      role: "admin",
-    },
-  ]);
+  return readContent("users", CONTENT_TYPES.users.default);
 }
 
 export async function getPositions() {
-  return readContent("positions", [
-    { id: "1", role: "Loyalty Program Manager", loc: "Milan · IT", description: "" },
-    { id: "2", role: "Account Executive — Petrol", loc: "Ljubljana · SI", description: "" },
-    { id: "3", role: "Creative Copywriter", loc: "Remote · EU", description: "" },
-    { id: "4", role: "Supply Chain Coordinator", loc: "Milan · IT", description: "" },
-  ]);
+  return readContent("positions", CONTENT_TYPES.positions.default);
 }
 
 export async function getCustomPages() {
-  return readContent("customPages", []);
+  return readContent("customPages", CONTENT_TYPES.customPages.default);
 }

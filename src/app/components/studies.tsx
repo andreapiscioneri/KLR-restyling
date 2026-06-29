@@ -22,6 +22,12 @@ export function Studies({ go }: { go: (r: Route) => void }) {
   const [heroTitle, setHeroTitle] = useState("Real Results for Real Retail Chains");
   const [heroSubtitle, setHeroSubtitle] = useState("340+ campaigns across 20+ countries. Explore how we've helped grocery and fuel retail chains increase visits, grow basket size, and build lasting customer relationships.");
   const [heroVisible, setHeroVisible] = useState(true);
+  const [closing, setClosing] = useState({
+    title: "Let's Talk About",
+    titleEm: "Your Goals",
+    subtitle: "Tell us your targets and we will craft the next campaign story for your retail chain.",
+    ctaLabel: "Let's Talk About Your Goals",
+  });
 
   useEffect(() => {
     fetch("/api/content?type=studies", { cache: "no-store" }).then(r => r.json()).then(j => { if (j.data?.length) setStudies(j.data); }).catch(() => {});
@@ -35,6 +41,8 @@ export function Studies({ go }: { go: (r: Route) => void }) {
           if (cs.subtitle) setHeroSubtitle(cs.subtitle);
           if (cs._visible === false) setHeroVisible(false);
         }
+        const cl = j.data?.caseStudies?.closing;
+        if (cl) setClosing(prev => ({ ...prev, ...cl }));
       })
       .catch(() => {});
   }, []);
@@ -172,12 +180,12 @@ export function Studies({ go }: { go: (r: Route) => void }) {
             <div className="grid md:grid-cols-2 gap-10 items-center">
               <div>
                 <h3 className="text-[#2E2784] tracking-[-0.04em]" style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)", lineHeight: 1, fontWeight: 800 }}>
-                  Let's Talk About
+                  {closing.title}
                   <br />
-                  <span className="text-black">Your Goals</span>
+                  <span className="text-black">{closing.titleEm}</span>
                 </h3>
                 <p className="text-[#2E2784] tracking-tight mt-6" style={{ fontSize: "clamp(1rem, 1.4vw, 1.2rem)", lineHeight: 1.55 }}>
-                  Tell us your targets and we will craft the next campaign story for your retail chain.
+                  {closing.subtitle}
                 </p>
               </div>
               <div className="md:text-right">
@@ -185,7 +193,7 @@ export function Studies({ go }: { go: (r: Route) => void }) {
                   onClick={() => go({ page: "contact" })}
                   className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
                 >
-                  <span>Let's Talk About Your Goals</span>
+                  <span>{closing.ctaLabel}</span>
                   <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
                     <ArrowUpRight className="w-4 h-4" />
                   </span>

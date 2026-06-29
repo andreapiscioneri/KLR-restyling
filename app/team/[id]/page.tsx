@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
-import { leadership } from "@/src/app/data";
+import { leadership as fallbackLeadership } from "@/src/app/data";
+import { getLeadership } from "@/lib/content";
 import { TeamDetailClient } from "./_client";
 
-export const dynamicParams = false;
+export const dynamicParams = true;
+export const revalidate = 60;
 
 export async function generateStaticParams() {
-  return leadership.map((p) => ({ id: p.id }));
+  return fallbackLeadership.map((p) => ({ id: p.id }));
 }
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  const cmsLeadership = (await getLeadership()) as typeof fallbackLeadership | null;
+  const leadership = cmsLeadership?.length ? cmsLeadership : fallbackLeadership;
   const person = leadership.find((p) => p.id === params.id);
   const title = person ? `${person.name} — ${person.role} | KLR Europe` : "Team Member | KLR Europe";
   const description = person?.bio ?? "KLR Europe team member.";

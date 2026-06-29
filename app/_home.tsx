@@ -136,8 +136,8 @@ const cardStyles: Record<string, React.CSSProperties> = {
   lilac:  { background: "#E8DEFF", borderColor: "transparent" },
 };
 const numColor: Record<string, string> = {
-  yellow: "#2E2784",
-  lilac:  "#2E2784",
+  yellow: "var(--color-primary, #2E2784)",
+  lilac:  "var(--color-primary, #2E2784)",
 };
 const labelColor: Record<string, string> = {
   yellow: "rgba(46,39,132,0.65)",
@@ -313,8 +313,8 @@ function LoyaltyFramework({ data = {} }: { data?: SectionData }) {
               <div className="space-y-4">
                 {/* 1. Desire — antracite */}
                 <div className="rounded-[24px] p-6" style={{ background: "#2C2C34" }}>
-                  <Heart className="w-7 h-7 mb-3" style={{ color: "#F8AE01" }} />
-                  <div className="inline-block font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style={{ fontSize: "0.72rem", background: "#F8AE01", color: "#2C2C34" }}>
+                  <Heart className="w-7 h-7 mb-3" style={{ color: "var(--color-accent, #F8AE01)" }} />
+                  <div className="inline-block font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style={{ fontSize: "0.72rem", background: "var(--color-accent, #F8AE01)", color: "#2C2C34" }}>
                     Desire
                   </div>
                   <p className="text-white/80 leading-snug" style={{ fontSize: "0.95rem" }}>
@@ -324,8 +324,8 @@ function LoyaltyFramework({ data = {} }: { data?: SectionData }) {
 
                 {/* 2. Experience — lilla */}
                 <div className="rounded-[24px] p-6" style={{ background: "#C8B8F0" }}>
-                  <Star className="w-7 h-7 mb-3" style={{ color: "#2E2784" }} fill="currentColor" />
-                  <div className="inline-block font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style={{ fontSize: "0.72rem", background: "#2E2784", color: "#C8B8F0" }}>
+                  <Star className="w-7 h-7 mb-3" style={{ color: "var(--color-primary, #2E2784)" }} fill="currentColor" />
+                  <div className="inline-block font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style={{ fontSize: "0.72rem", background: "var(--color-primary, #2E2784)", color: "#C8B8F0" }}>
                     Experience
                   </div>
                   <p className="text-[#2E2784] leading-snug" style={{ fontSize: "0.95rem" }}>
@@ -334,9 +334,9 @@ function LoyaltyFramework({ data = {} }: { data?: SectionData }) {
                 </div>
 
                 {/* 3. Satisfaction — blu KLR */}
-                <div className="rounded-[24px] p-6" style={{ background: "#2E2784" }}>
-                  <Award className="w-7 h-7 mb-3" style={{ color: "#F8AE01" }} />
-                  <div className="inline-block font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style={{ fontSize: "0.72rem", background: "#F8AE01", color: "#2E2784" }}>
+                <div className="rounded-[24px] p-6" style={{ background: "var(--color-primary, #2E2784)" }}>
+                  <Award className="w-7 h-7 mb-3" style={{ color: "var(--color-accent, #F8AE01)" }} />
+                  <div className="inline-block font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style={{ fontSize: "0.72rem", background: "var(--color-accent, #F8AE01)", color: "#2E2784" }}>
                     Satisfaction
                   </div>
                   <p className="text-white/80 leading-snug" style={{ fontSize: "0.95rem" }}>
@@ -361,8 +361,8 @@ function LoyaltyFramework({ data = {} }: { data?: SectionData }) {
                 </div>
 
                 {/* Bottom Right Circle - Satisfaction — blu KLR */}
-                <div className="absolute bottom-4 right-0 w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] rounded-full border-[5px] flex items-end justify-end pb-10 pr-10 sm:pb-14 sm:pr-14 transition-transform hover:scale-105 duration-500" style={{ borderColor: "#2E2784", background: "rgba(46,39,132,0.10)" }}>
-                  <Smile className="w-10 h-10 sm:w-14 sm:h-14" style={{ color: "#2E2784" }} />
+                <div className="absolute bottom-4 right-0 w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] rounded-full border-[5px] flex items-end justify-end pb-10 pr-10 sm:pb-14 sm:pr-14 transition-transform hover:scale-105 duration-500" style={{ borderColor: "var(--color-primary, #2E2784)", background: "rgba(46,39,132,0.10)" }}>
+                  <Smile className="w-10 h-10 sm:w-14 sm:h-14" style={{ color: "var(--color-primary, #2E2784)" }} />
                 </div>
 
                 {/* Center Core - Emotional Loyalty (Heart) */}
@@ -709,21 +709,32 @@ function ClosingCta({ data = {} }: { data?: SectionData }) {
   );
 }
 
+// Default render order for Home sections — mirrors the order the page has
+// always rendered in. content/pages.json -> home._sectionOrder can override
+// it (the admin SectionsEditor writes this array when reordering).
+const HOME_SECTION_ORDER = [
+  "hero", "stats", "framework", "brandPartners", "sectors",
+  "international", "clients", "caseStudies", "blog", "closing",
+] as const;
+
 export function HomePage() {
   const [stats, setStats] = useState(defaultStats);
   const [studies, setStudies] = useState(defaultStudies);
+  const [brands, setBrands] = useState(defaultBrands);
   const [pages, setPages] = useState<Record<string, Record<string, unknown>>>({});
 
   const fetchData = async () => {
     try {
-      const [statsRes, studiesRes, pagesRes] = await Promise.all([
+      const [statsRes, studiesRes, brandsRes, pagesRes] = await Promise.all([
         fetch("/api/content?type=stats",   { cache: "no-store" }),
         fetch("/api/content?type=studies", { cache: "no-store" }),
+        fetch("/api/content?type=brands",  { cache: "no-store" }),
         fetch("/api/content?type=pages",   { cache: "no-store" }),
       ]);
 
       if (statsRes.ok)   { const d = await statsRes.json();   setStats(d.data || defaultStats); }
       if (studiesRes.ok) { const d = await studiesRes.json(); setStudies(d.data || defaultStudies); }
+      if (brandsRes.ok)  { const d = await brandsRes.json();  if (d.data?.length) setBrands(d.data); }
       if (pagesRes.ok)   { const d = await pagesRes.json();   setPages(d.data || {}); }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -746,22 +757,31 @@ export function HomePage() {
   const sectorsData      = (home.sectors        as SectionData) || {};
   const internationalData= (home.international  as SectionData) || {};
   const clientsData      = (home.clients        as SectionData) || {};
+  const brandPartnersData= (home.brandPartners  as SectionData) || {};
   const caseStudiesData  = (home.caseStudies    as SectionData) || {};
   const blogData         = (home.blog           as SectionData) || {};
   const closingData      = (home.closing        as SectionData) || {};
 
+  const sectionElements: Record<string, React.ReactNode> = {
+    hero:           heroData._visible          !== false && <Hero data={heroData} />,
+    stats:          statsData._visible         !== false && <StatsBar stats={stats} data={statsData} />,
+    framework:      frameworkData._visible     !== false && <LoyaltyFramework data={frameworkData} />,
+    brandPartners:  brandPartnersData._visible !== false && <PartnerLogosBand brands={brands} />,
+    sectors:        sectorsData._visible       !== false && <TwoSectors data={sectorsData} />,
+    international:  internationalData._visible !== false && <InternationalPresence data={internationalData} />,
+    clients:        clientsData._visible       !== false && <ClientLogos data={clientsData} />,
+    caseStudies:    caseStudiesData._visible   !== false && <CaseStudies studies={studies} data={caseStudiesData} />,
+    blog:           blogData._visible          !== false && <BlogPreview data={blogData} />,
+    closing:        closingData._visible       !== false && <ClosingCta data={closingData} />,
+  };
+
+  const order = Array.isArray(home._sectionOrder) && (home._sectionOrder as string[]).length
+    ? (home._sectionOrder as string[])
+    : HOME_SECTION_ORDER;
+
   return (
     <div>
-      {heroData._visible !== false && <Hero data={heroData} />}
-      {statsData._visible !== false && <StatsBar stats={stats} data={statsData} />}
-      {frameworkData._visible !== false && <LoyaltyFramework data={frameworkData} />}
-      <PartnerLogosBand brands={defaultBrands} />
-      {sectorsData._visible !== false && <TwoSectors data={sectorsData} />}
-      {internationalData._visible !== false && <InternationalPresence data={internationalData} />}
-      {clientsData._visible !== false && <ClientLogos data={clientsData} />}
-      {caseStudiesData._visible !== false && <CaseStudies studies={studies} data={caseStudiesData} />}
-      {blogData._visible !== false && <BlogPreview data={blogData} />}
-      {closingData._visible !== false && <ClosingCta data={closingData} />}
+      {order.map(key => <React.Fragment key={key}>{sectionElements[key]}</React.Fragment>)}
     </div>
   );
 }

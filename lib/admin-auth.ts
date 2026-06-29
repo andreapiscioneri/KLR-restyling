@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
 import crypto from "crypto";
 import { getUsers, writeJSON } from "@/lib/content";
+import { canWriteType } from "@/lib/content-types";
 
 const TOKEN = "klr-admin-v1-secure-token-2025";
 const COOKIE_NAME = "klr_admin_session";
@@ -30,15 +31,8 @@ export const ROLE_SECTIONS: Record<string, string[]> = {
   editor:     ["overview","studies","posts"],
 };
 
-// Content types writable per role
-const WRITE_PERMISSIONS: Record<string, string[]> = {
-  superadmin: ["stats","brands","leadership","pages","studies","posts","users","colors","settings","positions","customPages"],
-  admin:      ["stats","brands","leadership","pages","studies","posts","colors","settings","positions","customPages"],
-  editor:     ["studies","posts"],
-};
-
 export function canWrite(role: string, type: string): boolean {
-  return (WRITE_PERMISSIONS[role] ?? []).includes(type);
+  return canWriteType(role, type);
 }
 
 // PBKDF2 password hashing (no external deps)

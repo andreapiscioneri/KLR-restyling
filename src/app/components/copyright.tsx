@@ -1,10 +1,18 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import Link from "next/link";
 import { ArrowUpRight, Mail, ExternalLink } from "lucide-react";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { softShadow } from "./ui-bits";
+import { softShadow, hexToRgba } from "./ui-bits";
 import type { Route } from "../App";
+
+type CopyrightCms = {
+  hero?: Record<string, unknown>;
+  applicability?: Record<string, unknown>;
+  closing?: Record<string, unknown>;
+};
 
 const G = {
   blue: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
@@ -25,40 +33,71 @@ const definitions = [
 ];
 
 export function Copyright({ go }: { go?: (r: Route) => void }) {
+  const [cms, setCms] = useState<CopyrightCms>({});
+
+  useEffect(() => {
+    fetch("/api/content?type=pages", { cache: "no-store" })
+      .then(r => r.json())
+      .then(d => { if (d?.data?.copyright) setCms(d.data.copyright as CopyrightCms); })
+      .catch(() => {});
+  }, []);
+
+  const hero          = cms.hero          || {};
+  const applicability = cms.applicability || {};
+  const closing       = cms.closing       || {};
+  const visible = (s: Record<string, unknown>) => s._visible !== false;
+
+  const heroTitleLine1 = String(hero.titleLine1 || "Copyright &");
+  const heroTitleLine2 = String(hero.titleLine2 || "Terms of Use.");
+  const heroSubtitle   = String(hero.subtitle || "All content, brands, and materials on this site are the exclusive property of KLR-EVROPA d.o.o. Please read these terms carefully before using our service.");
+  const heroImage      = String(hero.image || "");
+  const heroBgColor    = String(hero.bgColor  || "#2E2784");
+  const heroBgAccent   = String(hero.bgAccent || "#F8AE01");
+  const heroBackground = `linear-gradient(135deg, ${hexToRgba(heroBgAccent, 0.55)} 0%, ${hexToRgba(heroBgAccent, 0.25)} 55%, transparent 100%), ${heroBgColor}`;
+
+  const lastUpdate = String(applicability.lastUpdate || "January 12, 2023");
+  const appTitle    = String(applicability.title       || "Copyright &\nGeneral\nConditions");
+  const paragraph1  = String(applicability.paragraph1  || "These conditions apply to all persons who visit the website of KLR Europe (KLR-EVROPA D.O.O.) and to all information and services that can be consulted on or via this Website.");
+  const paragraph2  = String(applicability.paragraph2  || "Please read these conditions carefully. When accessing and using this Website you agree to be bound to these conditions and all applicable laws and regulations within the jurisdiction from which you are accessing this Website. Please do not access or use this site if you do not agree to these conditions. We may change these conditions at any time. This will take immediate effect.");
+
+  const closingEmail = String(closing.email   || "info@klr-europe.com");
+  const closingHref  = String(closing.ctaHref || "/contact");
+
   return (
     <>
-      <PageHero
-        eyebrow="Legal"
-        title={<>Copyright &amp;<br /><span className="text-[#F8AE01]">Terms of Use.</span></>}
-        subtitle="All content, brands, and materials on this site are the exclusive property of KLR-EVROPA d.o.o. Please read these terms carefully before using our service."
-        background="linear-gradient(135deg, rgba(248,174,1,0.55) 0%, rgba(248,174,1,0.25) 55%, transparent 100%), #2E2784"
-      />
+      {visible(hero) && <PageHero
+        eyebrow={String(hero.eyebrow || "Legal")}
+        title={<>{heroTitleLine1}<br /><span className="text-[#F8AE01]">{heroTitleLine2}</span></>}
+        subtitle={heroSubtitle}
+        image={heroImage || undefined}
+        background={heroBackground}
+      />}
 
       {/* APPLICABILITY — yellow */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
+      {visible(applicability) && <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="inline-flex items-center gap-3 mb-10 px-4 py-2 rounded-full border border-[#2E2784]/20" style={{ background: "rgba(255,255,255,0.35)" }}>
               <span className="tracking-[0.25em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.62rem", fontWeight: 700 }}>Last updated</span>
-              <span className="text-[#2E2784]" style={{ fontSize: "0.85rem", fontWeight: 700 }}>January 12, 2023</span>
+              <span className="text-[#2E2784]" style={{ fontSize: "0.85rem", fontWeight: 700 }}>{lastUpdate}</span>
             </div>
 
             <div className="grid md:grid-cols-[1fr_2fr] gap-10 md:gap-16">
               <div>
-                <h2 className="text-[#2E2784] tracking-[-0.035em]" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.0, fontWeight: 800 }}>
-                  Copyright &amp;<br />General<br />Conditions
+                <h2 className="text-[#2E2784] tracking-[-0.035em]" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.0, fontWeight: 800, whiteSpace: "pre-line" }}>
+                  {appTitle}
                 </h2>
               </div>
               <div className="space-y-6 text-[#2E2784]" style={{ fontSize: "clamp(0.95rem, 1.3vw, 1.1rem)", lineHeight: 1.7 }}>
                 <h3 className="tracking-[0.2em] uppercase text-[#2E2784]/60 mb-2" style={{ fontSize: "0.65rem", fontWeight: 700 }}>Applicability</h3>
-                <p>These conditions apply to all persons who visit the website of KLR Europe (KLR-EVROPA D.O.O.) and to all information and services that can be consulted on or via this Website.</p>
-                <p>Please read these conditions carefully. When accessing and using this Website you agree to be bound to these conditions and all applicable laws and regulations within the jurisdiction from which you are accessing this Website. Please do not access or use this site if you do not agree to these conditions. We may change these conditions at any time. This will take immediate effect.</p>
+                <p>{paragraph1}</p>
+                <p>{paragraph2}</p>
               </div>
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section>}
 
       {/* DEFINITIONS — blue */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
@@ -282,7 +321,7 @@ export function Copyright({ go }: { go?: (r: Route) => void }) {
 
               <div className="space-y-4">
                 <a
-                  href="mailto:info@klr-europe.com"
+                  href={`mailto:${closingEmail}`}
                   className="flex items-center gap-4 rounded-[20px] p-7 border border-white/10 group transition-all hover:border-[#F8AE01]/40"
                   style={{ background: "rgba(255,255,255,0.07)", ...softShadow }}
                 >
@@ -291,13 +330,14 @@ export function Copyright({ go }: { go?: (r: Route) => void }) {
                   </div>
                   <div>
                     <div className="tracking-[0.2em] uppercase text-[#F8AE01]" style={{ fontSize: "0.6rem", fontWeight: 700 }}>By email</div>
-                    <div className="text-white group-hover:text-[#F8AE01] transition-colors" style={{ fontSize: "1rem", fontWeight: 700 }}>info@klr-europe.com</div>
+                    <div className="text-white group-hover:text-[#F8AE01] transition-colors" style={{ fontSize: "1rem", fontWeight: 700 }}>{closingEmail}</div>
                   </div>
                 </a>
 
-                <button
+                <Link
+                  href={closingHref}
                   onClick={() => go?.({ page: "contact" })}
-                  className="w-full flex items-center gap-4 rounded-[20px] p-7 border border-white/10 group transition-all hover:border-[#F8AE01]/40 text-left"
+                  className="w-full flex items-center gap-4 rounded-[20px] p-7 border border-white/10 group transition-all hover:border-[#F8AE01]/40 text-left block"
                   style={{ background: "rgba(255,255,255,0.07)", ...softShadow }}
                 >
                   <div className="w-10 h-10 rounded-full bg-[#F8AE01] flex items-center justify-center flex-shrink-0">
@@ -308,7 +348,7 @@ export function Copyright({ go }: { go?: (r: Route) => void }) {
                     <div className="text-white group-hover:text-[#F8AE01] transition-colors" style={{ fontSize: "1rem", fontWeight: 700 }}>klr-europe.com/contact</div>
                   </div>
                   <ArrowUpRight className="w-5 h-5 text-white/40 group-hover:text-[#F8AE01] transition-colors" />
-                </button>
+                </Link>
               </div>
             </div>
 

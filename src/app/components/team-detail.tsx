@@ -1,12 +1,22 @@
 "use client";
+import { useState, useEffect } from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, hairline, softShadow } from "./ui-bits";
-import { leadership } from "../data";
+import { leadership as fallbackLeadership } from "../data";
 import { PageHero } from "./page-hero";
 import { ArrowLeft, Linkedin, Mail } from "lucide-react";
 import type { Route } from "../App";
 
 export function TeamDetail({ id, go }: { id: string; go: (r: Route) => void }) {
+  const [leadership, setLeadership] = useState(fallbackLeadership);
+
+  useEffect(() => {
+    fetch("/api/content?type=leadership", { cache: "no-store" })
+      .then(r => r.json())
+      .then(j => { if (j.data?.length) setLeadership(j.data); })
+      .catch(() => {});
+  }, []);
+
   const p = leadership.find((x) => x.id === id) || leadership[0];
   const others = leadership.filter((x) => x.id !== p.id).slice(0, 4);
 

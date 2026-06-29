@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getStats, getBrands, getLeadership, getStudies, getPosts, getPages, getPositions, getCustomPages } from "@/lib/content";
+import { VALID_CONTENT_TYPES } from "@/lib/content-types";
 
-const VALID_TYPES = ["stats", "brands", "leadership", "studies", "posts", "pages", "positions", "customPages"];
+// Public endpoint: never exposes "users", "settings" or "colors" — only the
+// content types referenced in the loaders map below are reachable, even
+// though VALID_CONTENT_TYPES (shared with the admin API) includes more.
+const VALID_TYPES = (VALID_CONTENT_TYPES as string[]).filter(t =>
+  ["stats", "brands", "leadership", "studies", "posts", "pages", "positions", "customPages"].includes(t)
+);
 
 export async function GET(request: NextRequest) {
   const type = request.nextUrl.searchParams.get("type");

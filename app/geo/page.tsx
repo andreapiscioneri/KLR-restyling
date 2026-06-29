@@ -36,6 +36,10 @@ export default async function Page() {
     `${SITE}/llms.txt`, `${SITE}/llms-full.txt`,
   ];
 
+  const sourcePages = g.sourceMapLinksText
+    ? g.sourceMapLinksText.split("\n").map(line => line.split("|")[1]?.trim() || line.trim()).filter(Boolean)
+    : defaultSourcePages;
+
   const webPageJsonLd = {
     "@context": "https://schema.org", "@type": "WebPage", "@id": `${SITE}/geo#webpage`,
     url: `${SITE}/geo`, name: "KLR Europe GEO Facts",
@@ -99,7 +103,7 @@ export default async function Page() {
       <section className="mt-8 rounded-[28px] border border-black/10 bg-white p-8">
         <h2 className="text-[#2E2784]" style={{ fontSize: "1.5rem", fontWeight: 700 }}>{g.sourceMapTitle || "Source Map"}</h2>
         <ul className="mt-5 space-y-2" style={{ lineHeight: 1.65 }}>
-          {defaultSourcePages.map((url) => (
+          {sourcePages.map((url) => (
             <li key={url}>
               <a href={url} className="text-[#2E2784] underline underline-offset-4">{url}</a>
             </li>

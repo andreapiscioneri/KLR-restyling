@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
-import { brands } from "@/src/app/data";
+import { brands as fallbackBrands } from "@/src/app/data";
+import { getBrands } from "@/lib/content";
 import { BrandDetailClient } from "./_client";
 
-export const dynamicParams = false;
+export const dynamicParams = true;
+export const revalidate = 60;
 
 export async function generateStaticParams() {
-  return brands.map((b) => ({ id: b.id }));
+  return fallbackBrands.map((b) => ({ id: b.id }));
 }
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  const cmsBrands = (await getBrands()) as typeof fallbackBrands | null;
+  const brands = cmsBrands?.length ? cmsBrands : fallbackBrands;
   const brand = brands.find((b) => b.id === params.id);
   const title = brand ? `${brand.name} | Brand Partner — KLR Europe` : "Brand Partner | KLR Europe";
   const description = brand

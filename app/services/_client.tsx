@@ -131,6 +131,11 @@ export function ServicesClient() {
   const sOverview= cms.overview|| {};
   const sNext    = cms.nextChallenge || {};
   const sClosing = cms.closing || {};
+  const sPillars = (cms.pillars || {}) as unknown as Record<string, Record<string, string>>;
+  const mergedPillars = pillars.map((p, i) => {
+    const o = sPillars[`pillar${i + 1}`] || {};
+    return { ...p, title: o.title || p.title, what: o.what || p.what, how: o.how || p.how, out: o.out || p.out };
+  });
 
   const visible = (s: Record<string, string | string[]>) => (s as Record<string, unknown>)._visible !== false;
 
@@ -172,7 +177,7 @@ export function ServicesClient() {
             </h2>
 
             <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {pillars.map((p) => (
+              {mergedPillars.map((p) => (
                 <div key={p.n} className="rounded-[28px] p-8" style={{ background: "rgba(255,255,255,0.18)", border: "1px solid rgba(255,255,255,0.4)" }}>
                   <div className="text-[#2E2784]/40 tracking-[0.1em]" style={{ fontSize: "0.75rem", fontWeight: 700 }}>
                     {p.n}
@@ -191,7 +196,7 @@ export function ServicesClient() {
       </section>}
 
       {/* PILLAR SECTIONS */}
-      {pillars.map((p, i) => (
+      {mergedPillars.map((p, i) => (
         <PillarSection
           key={p.n}
           pillar={p}

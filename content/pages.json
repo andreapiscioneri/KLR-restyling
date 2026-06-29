@@ -10,15 +10,51 @@
     "ctaLabel": "Get in Touch",
     "ctaHref": "/contact",
     "links": [
-      { "href": "/about", "label": "About", "sub": [{ "href": "/10-years", "label": "10 Years" }] },
-      { "href": "/services", "label": "Services" },
-      { "href": "/brands", "label": "Brands" },
-      { "href": "/work", "label": "Case Studies" },
-      { "href": "/blog", "label": "Insights" },
-      { "href": "/team", "label": "Team" }
+      {
+        "href": "/about",
+        "label": "About",
+        "sub": [
+          {
+            "href": "/10-years",
+            "label": "10 Years"
+          }
+        ]
+      },
+      {
+        "href": "/services",
+        "label": "Services"
+      },
+      {
+        "href": "/brands",
+        "label": "Brands"
+      },
+      {
+        "href": "/work",
+        "label": "Case Studies"
+      },
+      {
+        "href": "/blog",
+        "label": "Insights"
+      },
+      {
+        "href": "/team",
+        "label": "Team"
+      }
     ]
   },
   "home": {
+    "_sectionOrder": [
+      "hero",
+      "stats",
+      "framework",
+      "brandPartners",
+      "sectors",
+      "international",
+      "clients",
+      "caseStudies",
+      "blog",
+      "closing"
+    ],
     "hero": {
       "_visible": true,
       "eyebrow": "Key to Loyalty in Retail",
@@ -197,6 +233,26 @@
       "subtitle": "Whether you're launching your first loyalty programme or optimising an existing one — we'd love to hear from you.",
       "ctaLabel": "Let's Talk",
       "ctaHref": "/contact"
+    },
+    "pillars": {
+      "pillar1": {
+        "title": "Loyalty Marketing Strategy",
+        "what": "We develop loyalty strategies rooted in behavioural insight and local market understanding, tailored to your goals, competitive landscape, and customers' real motivations.",
+        "how": "Market analysis, customer segmentation, campaign concept design, mechanics selection (collectibles, instant rewards, tiered programmes), reward strategy.",
+        "out": "A fully developed campaign concept with defined mechanics, reward selection, visual direction, and projected KPIs."
+      },
+      "pillar2": {
+        "title": "Full Campaign Management",
+        "what": "End-to-end execution across multiple markets. Creative production, POSM, logistics, stock management, staff training, daily support.",
+        "how": "Our network across 10 European locations handles procurement, warehousing, distribution. Proprietary software with weekly performance monitoring.",
+        "out": "Stress-free rollout with dedicated project management, real-time reporting, single point of contact."
+      },
+      "pillar3": {
+        "title": "Measurement & Analytics",
+        "what": "Data-driven campaign evaluation. Period sales uplift, ROI, brand equity, CRR, RPR, redemption patterns, basket size impact.",
+        "how": "Quantitative data + qualitative insights from discovery workshops and social media audits. Custom metrics.",
+        "out": "Actionable reports with optimisation recommendations. Compounding knowledge base."
+      }
     }
   },
   "contact": {
@@ -291,6 +347,12 @@
       "retailerSubtitle": "Tell us your goals and we'll shape the right brand mix for your market and audience.",
       "retailerCtaLabel": "Choose brand for your next loyalty campaign",
       "ctaHref": "/contact"
+    },
+    "collections": {
+      "eyebrow": "Exclusive Rewards",
+      "title": "Our Collections",
+      "subtitle": "Our partnerships with the world's leading brands guarantee that our rewards collections are tangible, sustainable and unique!",
+      "itemsText": "Zanussi — Cooking Easy|https://klr-europe.com/wp-content/uploads/2023/04/ZAnussi-Cooking-Easy-KLR-Europe-1.jpg\nZanussi — SuperGrip|https://klr-europe.com/wp-content/uploads/2023/04/ZAnussi-SUPERGRIP-KLR-Europe.jpg\nZanussi — Zmart Move|https://klr-europe.com/wp-content/uploads/2024/01/ZAnussi-ZmartMove-KLR-Europe.jpg\nPintinox — Trust|https://klr-europe.com/wp-content/uploads/2024/01/Pintinox-Trust-Forged-In-Steel.jpg\nPintinox — Barbeque|https://klr-europe.com/wp-content/uploads/2025/02/pintinox-barbeque.jpg\nPintinox — Hexacore|https://klr-europe.com/wp-content/uploads/2025/02/pintinox-hexacore.jpg\nPintinox — Virtuoso|https://klr-europe.com/wp-content/uploads/2025/02/virtuoso.jpg\nBugatti — Spezia|https://klr-europe.com/wp-content/uploads/2024/01/Bugatti-Spezia-KLR-Europe.jpg\nBugatti — Ergo Pakka|https://klr-europe.com/wp-content/uploads/2023/01/Bugatti-Ergo-Pakka-KLR-Europe.jpg\nBugatti — Prestigio|https://klr-europe.com/wp-content/uploads/2023/01/Bugatti-Prestigio-KLR-Europe.jpg\nBugatti — Buono Cookiez|https://klr-europe.com/wp-content/uploads/2023/01/Bugatti-Buono-Cookiez-KLR-Europe.jpg\nBugatti — Buono Bakeware|https://klr-europe.com/wp-content/uploads/2023/01/Bugatti-Buono-Bakeware-KLR-Europe.jpg\nSpear & Jackson — Best Sellers|https://klr-europe.com/wp-content/uploads/2023/04/Spear-and-Jackson-The-Best-Sellers-KLR-Europe.jpg\nSpear & Jackson — Adventure|https://klr-europe.com/wp-content/uploads/2023/01/Spear-and-Jackson-Sense-of-Adventure-KLR-Europe-1.jpg\nSpear & Jackson — Nature|https://klr-europe.com/wp-content/uploads/2023/01/Spear-and-Jackson-Sense-of-Nature-KLR-Europe.jpg\nPolice|https://klr-europe.com/wp-content/uploads/2025/02/police.jpg\nEurosport — Champions|https://klr-europe.com/wp-content/uploads/2024/04/Eurosport-Champions.jpg\nNEWME — Food Containers|https://klr-europe.com/wp-content/uploads/2023/04/NEWME-Food-Containers-KLR-Europe.jpg\nWastebusters|https://klr-europe.com/wp-content/uploads/2023/01/Wastebusters-KLR-Europe-1.jpg\nNASA Stardust|https://klr-europe.com/wp-content/uploads/2024/04/NASA-STARDUST-black-KLR-Europe.jpg\nGuzzini — Chefline|https://klr-europe.com/wp-content/uploads/2025/02/Guzzini-Chefline.jpg\nWaverley|https://klr-europe.com/wp-content/uploads/2025/02/waverely.jpg"
     }
   },
   "caseStudies": {
@@ -299,6 +361,12 @@
       "eyebrow": "Case Studies",
       "title": "Real Results for Real Retail Chains",
       "subtitle": "340+ campaigns across 20+ countries. Explore how we've helped grocery and fuel retail chains increase visits, grow basket size, and build lasting customer relationships."
+    },
+    "closing": {
+      "title": "Let's Talk About",
+      "titleEm": "Your Goals",
+      "subtitle": "Tell us your targets and we will craft the next campaign story for your retail chain.",
+      "ctaLabel": "Let's Talk About Your Goals"
     }
   },
   "blog": {
@@ -461,6 +529,84 @@
     "citationLine1": "Use canonical URLs on klr-europe.com.",
     "citationLine2": "Prefer page-level sources over social channels.",
     "citationLine3": "Keep numerical claims aligned with the values listed above.",
-    "citationLine4": "When uncertain, use cautious wording and include a source URL."
+    "citationLine4": "When uncertain, use cautious wording and include a source URL.",
+    "sourceMapLinksText": "Home|https://klr-europe.com/\nAbout|https://klr-europe.com/about\nServices|https://klr-europe.com/services\nWork|https://klr-europe.com/work\nBrands|https://klr-europe.com/brands\nTeam|https://klr-europe.com/team\nBlog|https://klr-europe.com/blog\nContact|https://klr-europe.com/contact\nLLMs.txt|https://klr-europe.com/llms.txt\nLLMs-full.txt|https://klr-europe.com/llms-full.txt"
+  },
+  "privacy": {
+    "hero": {
+      "_visible": true,
+      "eyebrow": "Legal",
+      "titleLine1": "Privacy",
+      "titleLine2": "Policy.",
+      "subtitle": "At KLR Europe, we believe privacy is important. We want you to be aware of the data we collect, how we use it, and with whom we share it.",
+      "image": "",
+      "bgColor": "#2E2784",
+      "bgAccent": "#F8AE01"
+    },
+    "company": {
+      "_visible": true,
+      "title": "Privacy is\nimportant to us.",
+      "companyName": "KLR-EVROPA D.O.O.",
+      "companyAddress": "ULICA 15 MAJA 19",
+      "companyCity": "6000 · KOPER, SLOVENIA",
+      "vatNumber": "SI 80583857",
+      "lastUpdate": "11 / 01 / 2023",
+      "email": "info@klr-europe.com",
+      "paragraph1": "At KLR-EVROPA D.O.O. (\"KLR Europe\"), we believe privacy is important. We want you to be aware about the data that we track and collect, how we use these data and with whom we share them. This privacy policy applies to all personal data we collect in connection with our corporate website, www.klr-europe.com.",
+      "paragraph2": "The purpose of this page is to inform the natural person (the \"Data Subject\") about the processing of personal data collected by KLR-EVROPA D.O.O. (the \"Data Controller\") via the website https://klr-europe.com/ (the \"Application\")."
+    },
+    "cookies": {
+      "intro": "The Application uses cookies, web beacons, univocal identifiers and other similar technologies to collect Personal Data on visited pages and links. This data is stored and then used the next time the Data Subject browses the Application.",
+      "typesText": "First Party|Set by the website you're visiting. Only that specific website can read them.\nThird Party|Set by websites other than the one you're visiting. Mainly used for tracking and marketing.\nPersistent|Stored on your computer even after you quit your browser.\nSession|Automatically deleted from your computer immediately after you quit your browser.",
+      "manage": "You can refuse or accept performance and marketing cookies through our cookie banner or browser settings at any time. For more info: aboutcookies.org"
+    },
+    "legalBasis": {
+      "intro": "Personal Data may be processed under several legal bases depending on the purpose of the processing.",
+      "itemsText": "Contract Performance|Fulfillment of any obligation arising from the pre-contractual or contractual relationship.\nLegal Obligations|Fulfilment of any obligation provided for by the applicable norms, laws and regulations, in particular on tax and fiscal matters.\nLegitimate Interest|Marketing purposes by e-mail for products/services similar to those sold.\nConsent|Profiling for marketing purposes via automated processing to predict the Data Subject's preferences."
+    },
+    "storage": {
+      "itemsText": "Contract|Entire duration of the contractual relationship + 10 years ordinary prescription period.\nLegal Disputes|Entire duration of disputes, until the time limit for appeals has expired.\nLegal Obligations|Relevant timeframes provided by applicable obligations, regulations, and laws.\nConsent-based|Until the consent is revoked by the Data Subject."
+    },
+    "rights": {
+      "itemsText": "Be informed about the processing of their Personal Data\nWithdraw consent at any time\nRestrict the processing of Personal Data\nObject to the processing of Personal Data\nAccess their Personal Data\nVerify and request the rectification of Personal Data\nObtain the erasure of Personal Data\nTransfer Personal Data to another data controller\nFile a complaint with the Personal Data protection supervisory authority\nTake legal action"
+    },
+    "closing": {
+      "_visible": true,
+      "email": "info@klr-europe.com",
+      "ctaHref": "/contact"
+    }
+  },
+  "copyright": {
+    "hero": {
+      "_visible": true,
+      "titleLine1": "Copyright &",
+      "titleLine2": "Terms of Use.",
+      "subtitle": "All content, brands, and materials on this site are the exclusive property of KLR-EVROPA d.o.o. Please read these terms carefully before using our service.",
+      "image": "",
+      "bgColor": "#2E2784",
+      "bgAccent": "#F8AE01"
+    },
+    "applicability": {
+      "_visible": true,
+      "lastUpdate": "January 12, 2023",
+      "title": "Copyright &\nGeneral\nConditions",
+      "paragraph1": "These conditions apply to all persons who visit the website of KLR Europe (KLR-EVROPA D.O.O.) and to all information and services that can be consulted on or via this Website.",
+      "paragraph2": "Please read these conditions carefully. When accessing and using this Website you agree to be bound to these conditions and all applicable laws and regulations within the jurisdiction from which you are accessing this Website. Please do not access or use this site if you do not agree to these conditions. We may change these conditions at any time. This will take immediate effect."
+    },
+    "closing": {
+      "_visible": true,
+      "email": "info@klr-europe.com",
+      "ctaHref": "/contact"
+    }
+  },
+  "notFound": {
+    "_visible": true,
+    "title": "Lost your Way?",
+    "paragraph1": "Oops, the page you were looking for is not here...",
+    "paragraph2": "But don't worry – we have plenty of other places for you to explore!",
+    "ctaLabel": "Visit Homepage",
+    "ctaHref": "/",
+    "ctaLabel2": "Our Works",
+    "ctaHref2": "/work"
   }
 }

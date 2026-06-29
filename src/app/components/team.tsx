@@ -181,14 +181,19 @@ export function Team({ go }: { go: (r: Route) => void }) {
   const row1 = row1Ids.map(get);
   const row2 = row2Ids.map(get);
 
-  const testimonials = [
-    { id: "sebastjan-kocjancic", text: "At KLR, everyone contributes. We solve complex multi-market challenges as one team." },
-    { id: "marta-marga", text: "You have freedom to create, support to grow, and space to bring your perspective." },
-    { id: "jan-sahbaz-pergar", text: "People here care about quality, speed, and helping each other get better every day." },
-    { id: "nina-bjelivuk", text: "Different cultures, one rhythm. That's what makes this team strong." },
-  ]
-    .map((t) => ({ ...t, person: leadership.find((p) => p.id === t.id)! }))
-    .filter((t) => Boolean(t.person));
+  const testimonialsData = [
+    { id: "sebastjan-kocjancic", fallback: "At KLR, everyone contributes. We solve complex multi-market challenges as one team." },
+    { id: "marta-marga", fallback: "You have freedom to create, support to grow, and space to bring your perspective." },
+    { id: "jan-sahbaz-pergar", fallback: "People here care about quality, speed, and helping each other get better every day." },
+    { id: "nina-bjelivuk", fallback: "Different cultures, one rhythm. That's what makes this team strong." },
+  ];
+
+  const testimonials = testimonialsData
+    .map((t) => {
+      const person = leadership.find((p) => p.id === t.id);
+      return person ? { id: t.id, person, text: String(person.quote || t.fallback) } : null;
+    })
+    .filter((t): t is { id: string; person: (typeof fallbackLeadership)[number]; text: string } => Boolean(t));
 
   const heroEyebrow = teamCms.hero?.eyebrow || "Team";
   const heroTitle = teamCms.hero?.title || "Loyalty Starts With Us";
