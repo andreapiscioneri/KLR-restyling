@@ -84,13 +84,25 @@ export async function PUT(request: NextRequest) {
     });
   }
 
-  await writeJSON(`${type}.json`, body);
+  try {
+    await writeJSON(`${type}.json`, body);
+  } catch (err) {
+    console.error("Failed to save admin content:", err);
+    return NextResponse.json(
+      { error: "Errore durante il salvataggio del contenuto", details: err instanceof Error ? err.message : String(err) },
+      { status: 500 }
+    );
+  }
 
   const pathsToRevalidate = [
     "/","/about","/services","/team","/brands","/work",
     "/blog","/10-years","/career","/contact","/privacy","/copyright","/geo",
   ];
-  pathsToRevalidate.forEach(p => revalidatePath(p));
+  try {
+    pathsToRevalidate.forEach(p => revalidatePath(p));
+  } catch (err) {
+    console.error("Failed to revalidate paths after admin save:", err);
+  }
 
   return NextResponse.json({ ok: true });
 }

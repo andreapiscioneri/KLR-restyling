@@ -113,6 +113,7 @@ export function AdminDashboardClient({ currentUser }: { currentUser: AdminUser }
   const [saving,      setSaving]      = useState(false);
   const [saved,       setSaved]       = useState(false);
   const [saveError,   setSaveError]   = useState(false);
+  const [saveErrorMessage, setSaveErrorMessage] = useState<string | null>(null);
 
   const load = useCallback(async (type: string) => {
     const res  = await fetch(`/api/admin/content?type=${type}`);
@@ -146,17 +147,31 @@ export function AdminDashboardClient({ currentUser }: { currentUser: AdminUser }
   }, [section, stats, brands, leadership, studies, posts, pages, load, colors, users, settings, positions, customPages]);
 
   async function save(type: string, payload: unknown) {
-    setSaving(true); setSaved(false); setSaveError(false);
+    setSaving(true); setSaved(false); setSaveError(false); setSaveErrorMessage(null);
     try {
       const res = await fetch(`/api/admin/content?type=${type}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) { setSaveError(true); setSaving(false); setTimeout(() => setSaveError(false), 4000); return; }
+      if (!res.ok) {
+        const json = await res.json().catch(() => null);
+        const message = json?.error || json?.details || `HTTP ${res.status}`;
+        console.error("Admin save failed:", message, json);
+        setSaveErrorMessage(String(message));
+        setSaveError(true);
+        setSaving(false);
+        setTimeout(() => setSaveError(false), 4000);
+        return;
+      }
       setSaving(false); setSaved(true);
       setTimeout(() => setSaved(false), 3000);
-    } catch { setSaveError(true); setSaving(false); }
+    } catch (err) {
+      console.error("Admin save exception:", err);
+      setSaveErrorMessage(err instanceof Error ? err.message : String(err));
+      setSaveError(true);
+      setSaving(false);
+    }
   }
 
   async function logout() {
@@ -173,7 +188,12 @@ export function AdminDashboardClient({ currentUser }: { currentUser: AdminUser }
     <>
       {saving    && <span style={{ fontSize: 12, color: "#F8AE01", fontWeight: 600, background: "rgba(248,174,1,0.1)", padding: "4px 12px", borderRadius: 20 }}>Salvataggio…</span>}
       {saved     && <span style={{ display:"flex",alignItems:"center",gap:4,fontSize:12,color:"#16a34a",fontWeight:600,background:"rgba(22,163,74,0.1)",padding:"4px 12px",borderRadius:20 }}><CheckCircle size={12}/>Salvato</span>}
-      {saveError && <span style={{ fontSize: 12, color: "#dc2626", fontWeight: 600, background: "rgba(220,38,38,0.1)", padding: "4px 12px", borderRadius: 20 }}>✗ Errore salvataggio</span>}
+      {saveError && (
+        <span style={{ display:"flex",flexDirection:"column",gap:4,fontSize:12,color:"#dc2626",fontWeight:600,background:"rgba(220,38,38,0.1)",padding:"8px 12px",borderRadius:20,maxWidth:360 }}>
+          <span>✗ Errore salvataggio</span>
+          {saveErrorMessage && <span style={{ fontSize:11,color:"#881111",opacity:0.9 }}>{saveErrorMessage}</span>}
+        </span>
+      )}
     </>
   );
 
