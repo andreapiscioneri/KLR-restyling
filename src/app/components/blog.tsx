@@ -241,24 +241,29 @@ export function Blog({ go }: { go: (r: Route) => void }) {
             </div>
           </AnimatedSection>
 
-          {/* Grid — outside AnimatedSection so state updates don't re-trigger animation */}
-          <div className="mt-12 grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {/* Grid */}
+          <div className="mt-12 grid md:grid-cols-2 xl:grid-cols-3 gap-6 items-stretch">
             {feed.slice(0, visible).map((p) => (
               <button
                 key={p.id}
                 type="button"
                 onClick={() => go({ page: "blog-detail", slug: p.slug })}
-                className="group rounded-[28px] overflow-hidden border border-white/20 text-left cursor-pointer"
+                className="group rounded-[28px] overflow-hidden border border-white/20 text-left cursor-pointer flex flex-col h-full"
                 style={{ background: "rgba(255,255,255,0.07)", touchAction: "manipulation", ...softShadow }}
               >
-                <div className="aspect-[16/10] overflow-hidden">
+                {/* Fixed aspect ratio container for images */}
+                <div className="aspect-[16/10] w-full overflow-hidden flex-shrink-0">
                   <ImageWithFallback src={p.img} alt={p.title} className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[1200ms]" />
                 </div>
-                <div className="p-6">
+                
+                {/* Flex column container for details */}
+                <div className="p-6 flex-1 flex flex-col">
                   <div className="text-[#F8AE01] tracking-[0.18em] uppercase" style={{ fontSize: "0.62rem", fontWeight: 700 }}>
                     {p.normalizedCategory}
                   </div>
-                  <div className="text-white tracking-[-0.02em] mt-3" style={{ fontSize: "1rem", fontWeight: 700, lineHeight: 1.35 }}>{p.title}</div>
+                  <div className="text-white tracking-[-0.02em] mt-3 line-clamp-2" style={{ fontSize: "1rem", fontWeight: 700, lineHeight: 1.35 }}>
+                    {p.title}
+                  </div>
 
                   <div className="mt-4 flex items-center gap-3">
                     <img src={p.authorAvatar} alt={p.authorName} className="w-8 h-8 rounded-full object-cover border border-white/15" />
@@ -269,7 +274,9 @@ export function Blog({ go }: { go: (r: Route) => void }) {
 
                   <div className="text-white/55 tracking-tight mt-3" style={{ fontSize: "0.78rem" }}>{p.date}</div>
                   <p className="text-white/75 tracking-tight mt-3 line-clamp-3" style={{ fontSize: "0.85rem", lineHeight: 1.55 }}>{p.excerpt}…</p>
-                  <div className="text-[#F8AE01] tracking-tight font-semibold mt-4 group-hover:text-white transition-colors inline-flex items-center gap-2" style={{ fontSize: "0.85rem" }}>
+                  
+                  {/* Read More pulled perfectly to the bottom */}
+                  <div className="text-[#F8AE01] tracking-tight font-semibold mt-auto pt-4 group-hover:text-white transition-colors inline-flex items-center gap-2" style={{ fontSize: "0.85rem" }}>
                     Read More <ArrowUpRight className="w-4 h-4" />
                   </div>
                 </div>
@@ -312,7 +319,7 @@ export function Blog({ go }: { go: (r: Route) => void }) {
                   href="/contact"
                   className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
                 >
-                  <span>Keep in Touch!</span>
+                  <span>Let's talk</span>
                   <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
                     <ArrowUpRight className="w-4 h-4" />
                   </span>
