@@ -720,21 +720,18 @@ const HOME_SECTION_ORDER = [
 export function HomePage() {
   const [stats, setStats] = useState(defaultStats);
   const [studies, setStudies] = useState(defaultStudies);
-  const [brands, setBrands] = useState(defaultBrands);
   const [pages, setPages] = useState<Record<string, Record<string, unknown>>>({});
 
   const fetchData = async () => {
     try {
-      const [statsRes, studiesRes, brandsRes, pagesRes] = await Promise.all([
+      const [statsRes, studiesRes, pagesRes] = await Promise.all([
         fetch("/api/content?type=stats",   { cache: "no-store" }),
         fetch("/api/content?type=studies", { cache: "no-store" }),
-        fetch("/api/content?type=brands",  { cache: "no-store" }),
         fetch("/api/content?type=pages",   { cache: "no-store" }),
       ]);
 
       if (statsRes.ok)   { const d = await statsRes.json();   setStats(d.data || defaultStats); }
       if (studiesRes.ok) { const d = await studiesRes.json(); setStudies(d.data || defaultStudies); }
-      if (brandsRes.ok)  { const d = await brandsRes.json();  if (d.data?.length) setBrands(d.data); }
       if (pagesRes.ok)   { const d = await pagesRes.json();   setPages(d.data || {}); }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -766,7 +763,7 @@ export function HomePage() {
     hero:           heroData._visible          !== false && <Hero data={heroData} />,
     stats:          statsData._visible         !== false && <StatsBar stats={stats} data={statsData} />,
     framework:      frameworkData._visible     !== false && <LoyaltyFramework data={frameworkData} />,
-    brandPartners:  brandPartnersData._visible !== false && <PartnerLogosBand brands={brands} />,
+    brandPartners:  brandPartnersData._visible !== false && <PartnerLogosBand brands={defaultBrands} />,
     sectors:        sectorsData._visible       !== false && <TwoSectors data={sectorsData} />,
     international:  internationalData._visible !== false && <InternationalPresence data={internationalData} />,
     clients:        clientsData._visible       !== false && <ClientLogos data={clientsData} />,
