@@ -313,7 +313,7 @@ function LoyaltyFramework({ data = {} }: { data?: SectionData }) {
               <div className="space-y-4">
                 {/* 1. Desire — antracite */}
                 <div className="rounded-[24px] p-6" style={{ background: "#2C2C34" }}>
-                  <Heart className="w-7 h-7 mb-3" style={{ color: "var(--color-accent, #F8AE01)" }} />
+                  <Eye className="w-7 h-7 mb-3" style={{ color: "var(--color-accent, #F8AE01)" }} />
                   <div className="inline-block font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style={{ fontSize: "0.72rem", background: "var(--color-accent, #F8AE01)", color: "#2C2C34" }}>
                     Desire
                   </div>
@@ -335,7 +335,7 @@ function LoyaltyFramework({ data = {} }: { data?: SectionData }) {
 
                 {/* 3. Satisfaction — blu KLR */}
                 <div className="rounded-[24px] p-6" style={{ background: "var(--color-primary, #2E2784)" }}>
-                  <Award className="w-7 h-7 mb-3" style={{ color: "var(--color-accent, #F8AE01)" }} />
+                  <Smile className="w-7 h-7 mb-3" style={{ color: "var(--color-accent, #F8AE01)" }} />
                   <div className="inline-block font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style={{ fontSize: "0.72rem", background: "var(--color-accent, #F8AE01)", color: "#2E2784" }}>
                     Satisfaction
                   </div>

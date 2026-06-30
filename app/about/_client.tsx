@@ -326,7 +326,7 @@ export function AboutClient() {
                 </p>
                 <div className="space-y-4">
                   <div className="rounded-[24px] p-6" style={{ background: "#2C2C34" }}>
-                    <Heart className="w-7 h-7 mb-3" style={{ color: "#F8AE01" }} />
+                    <Eye className="w-7 h-7 mb-3" style={{ color: "#F8AE01" }} />
                     <div className="inline-block font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style={{ fontSize: "0.72rem", background: "#F8AE01", color: "#2C2C34" }}>Desire</div>
                     <p className="text-white/80 leading-snug" style={{ fontSize: "0.95rem" }}>"Dream" High-Quality <span className="font-black text-white">Rewards</span> that Money Can't Buy</p>
                   </div>
@@ -336,7 +336,7 @@ export function AboutClient() {
                     <p className="text-[#2E2784] leading-snug" style={{ fontSize: "0.95rem" }}>High Participation is The Key to <span className="font-black italic">Real Engagement</span></p>
                   </div>
                   <div className="rounded-[24px] p-6" style={{ background: "#2E2784" }}>
-                    <Award className="w-7 h-7 mb-3" style={{ color: "#F8AE01" }} />
+                    <Smile className="w-7 h-7 mb-3" style={{ color: "#F8AE01" }} />
                     <div className="inline-block font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style={{ fontSize: "0.72rem", background: "#F8AE01", color: "#2E2784" }}>Satisfaction</div>
                     <p className="text-white/80 leading-snug" style={{ fontSize: "0.95rem" }}>High Perceived Value Rewards — <span className="font-black italic text-white block mt-1">Long Positive Memory Effect</span></p>
                   </div>
