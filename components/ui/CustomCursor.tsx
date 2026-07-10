@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
 
 type CursorState = "default" | "explore" | "cta" | "link";
-type CursorTheme = "default" | "yellow";
+type CursorTheme = "default" | "yellow" | "purple";
 
 export function CustomCursor() {
   const mouseX = useMotionValue(-200);
@@ -13,7 +13,8 @@ export function CustomCursor() {
   const [visible, setVisible] = useState(false);
   const [theme, setTheme] = useState<CursorTheme>(() => {
     if (typeof document === "undefined") return "default";
-    return document.body.dataset.cursorTheme === "yellow" ? "yellow" : "default";
+    const t = document.body.dataset.cursorTheme;
+    return t === "yellow" || t === "purple" ? t : "default";
   });
 
   const smoothX = useSpring(mouseX, { damping: 28, stiffness: 350, mass: 0.5 });
@@ -22,7 +23,10 @@ export function CustomCursor() {
   const dotY = useSpring(mouseY, { damping: 40, stiffness: 500, mass: 0.3 });
 
   useEffect(() => {
-    const readTheme = () => (document.body.dataset.cursorTheme === "yellow" ? "yellow" : "default");
+    const readTheme = (): CursorTheme => {
+      const t = document.body.dataset.cursorTheme;
+      return t === "yellow" || t === "purple" ? t : "default";
+    };
 
     const onMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
@@ -63,19 +67,26 @@ export function CustomCursor() {
 
   const size = state === "explore" ? 80 : state === "cta" ? 64 : state === "link" ? 44 : 32;
 
-  const ringColor = theme === "yellow" ? "rgba(248,174,1,0.95)" : "rgba(255,255,255,0.9)";
-  const dotColor = theme === "yellow" ? "#F8AE01" : "#ffffff";
+  const ringColor =
+    theme === "yellow" ? "rgba(248,174,1,0.95)" :
+    theme === "purple" ? "rgba(46,39,132,0.9)" :
+    "rgba(255,255,255,0.9)";
+  const dotColor =
+    theme === "yellow" ? "#F8AE01" :
+    theme === "purple" ? "#2E2784" :
+    "#ffffff";
 
   const bg =
     theme === "yellow" && state === "cta" ? "rgba(248,174,1,0.9)" :
-    state === "explore" ? "rgba(255,255,255,0.15)" :
+    theme === "purple" && state === "cta" ? "#2E2784" :
+    state === "explore" ? (theme === "purple" ? "rgba(46,39,132,0.12)" : "rgba(255,255,255,0.15)") :
     state === "cta"     ? "#F8AE01" :
-    state === "link"    ? "rgba(255,255,255,0.15)" :
+    state === "link"    ? (theme === "purple" ? "rgba(46,39,132,0.12)" : "rgba(255,255,255,0.15)") :
     "transparent";
 
   const border =
     state === "default" ? `2px solid ${ringColor}` :
-    state === "link"    ? `2px solid ${theme === "yellow" ? "rgba(248,174,1,0.85)" : "rgba(255,255,255,0.8)"}` : "none";
+    state === "link"    ? `2px solid ${theme === "yellow" ? "rgba(248,174,1,0.85)" : theme === "purple" ? "rgba(46,39,132,0.85)" : "rgba(255,255,255,0.8)"}` : "none";
 
   const labelColor = state === "explore" ? "#ffffff" : "#000000";
 

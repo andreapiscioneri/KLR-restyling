@@ -1,0 +1,18 @@
+[
+  {
+    "id": "6177963b-e74a-4925-ab22-75373eb65d78",
+    "level": "silver",
+    "duration": "1m",
+    "categories": {
+      "basic": true,
+      "content": false,
+      "optimization": false,
+      "ads": false
+    },
+    "consentedAt": "2026-07-10T14:04:22.434Z",
+    "expiresAt": "2026-08-10T14:04:22.434Z",
+    "path": "/admin/login",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
+    "loggedAt": "2026-07-10T14:04:22.587Z"
+  }
+]

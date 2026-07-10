@@ -8,7 +8,7 @@ import {
   Home, Info, Wrench, Phone, Footprints, Star, Palette, Settings,
   Lightbulb, Paperclip, ArrowRight, CheckCircle, Folder, MapPin,
   Link as LinkIcon, Calendar, MessageSquare, BookOpen, Briefcase,
-  Eye, EyeOff, Upload, Plus, Trash2, GripVertical, Navigation, Award, FileCode
+  Eye, EyeOff, Upload, Plus, Trash2, GripVertical, Navigation, Award, FileCode, Cookie, RefreshCw
 } from "lucide-react";
 import type { AdminUser } from "@/lib/admin-auth";
 import type { LucideIcon } from "lucide-react";
@@ -17,11 +17,11 @@ import klrLogo from "@/src/imports/KLR-Logosito.png";
 type TopSection =
   | "overview" | "pages" | "stats" | "brands" | "leadership"
   | "studies" | "posts" | "colors" | "users" | "settings"
-  | "positions" | "customPages";
+  | "positions" | "customPages" | "cookies";
 
 const ROLE_SECTIONS: Record<string, TopSection[]> = {
-  superadmin: ["overview","pages","stats","brands","leadership","studies","posts","colors","users","settings","positions","customPages"],
-  admin:      ["overview","pages","stats","brands","leadership","studies","posts","colors","settings","positions","customPages"],
+  superadmin: ["overview","pages","stats","brands","leadership","studies","posts","colors","users","settings","positions","customPages","cookies"],
+  admin:      ["overview","pages","stats","brands","leadership","studies","posts","colors","settings","positions","customPages","cookies"],
   editor:     ["overview","studies","posts"],
 };
 
@@ -52,6 +52,7 @@ const TOP_NAV: { id: TopSection; label: string; icon: LucideIcon }[] = [
   { id: "positions",   label: "Posizioni Lavorative", icon: Award },
   { id: "customPages", label: "Pagine Custom",  icon: FileCode   },
   { id: "colors",      label: "Colori & Tema",  icon: Palette    },
+  { id: "cookies",     label: "Cookie & Privacy", icon: Cookie   },
   { id: "users",       label: "Utenti",         icon: Users      },
   { id: "settings",    label: "Impostazioni",   icon: Settings   },
 ];
@@ -110,6 +111,7 @@ export function AdminDashboardClient({ currentUser }: { currentUser: AdminUser }
   const [users,       setUsers]       = useState<UserItem[]|null>(null);
   const [positions,   setPositions]   = useState<PositionItem[]|null>(null);
   const [customPages, setCustomPages] = useState<CustomPageItem[]|null>(null);
+  const [cookieBanner, setCookieBanner] = useState<Record<string,unknown>|null>(null);
   const [saving,      setSaving]      = useState(false);
   const [saved,       setSaved]       = useState(false);
   const [saveError,   setSaveError]   = useState(false);
@@ -130,6 +132,7 @@ export function AdminDashboardClient({ currentUser }: { currentUser: AdminUser }
     if (type === "settings")    setSettings(json.data);
     if (type === "positions")   setPositions(json.data);
     if (type === "customPages") setCustomPages(json.data);
+    if (type === "cookieBanner") setCookieBanner(json.data);
   }, []);
 
   useEffect(() => {
@@ -144,7 +147,8 @@ export function AdminDashboardClient({ currentUser }: { currentUser: AdminUser }
     if (section === "pages"       && !pages)        load("pages");
     if (section === "positions"   && !positions)    load("positions");
     if (section === "customPages" && !customPages)  load("customPages");
-  }, [section, stats, brands, leadership, studies, posts, pages, load, colors, users, settings, positions, customPages]);
+    if (section === "cookies"     && !cookieBanner) load("cookieBanner");
+  }, [section, stats, brands, leadership, studies, posts, pages, load, colors, users, settings, positions, customPages, cookieBanner]);
 
   async function save(type: string, payload: unknown) {
     setSaving(true); setSaved(false); setSaveError(false); setSaveErrorMessage(null);
@@ -284,6 +288,12 @@ export function AdminDashboardClient({ currentUser }: { currentUser: AdminUser }
           {section === "positions"   && <PositionsEditor  data={positions}   onSave={d => { setPositions(d);                      save("positions",   d); }} />}
           {section === "customPages" && <CustomPagesEditor data={customPages} onSave={d => { setCustomPages(d);                   save("customPages", d); }} />}
           {section === "pages"       && <PagesEditor      data={pages}       onSave={d => { setPages(d as PagesData);             save("pages",       d); }} />}
+          {section === "cookies"     && (
+            <>
+              <CookieBannerEditor data={cookieBanner} onSave={d => { setCookieBanner(d as Record<string,unknown>); save("cookieBanner", d); }} />
+              <ConsentLogPanel />
+            </>
+          )}
         </div>
       </main>
     </div>
@@ -526,6 +536,221 @@ function SettingsEditor({ data, onSave }: { data:Record<string,unknown>|null; on
         </Grid>
       </Panel>
       <FooterBar><SaveBtn onClick={() => onSave(form)}/></FooterBar>
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════
+   COOKIE BANNER
+══════════════════════════════════════════════════ */
+type CookieLevelKey = "silver" | "gold" | "platinum";
+type CookieCategoryKey = "content" | "optimization" | "ads";
+const COOKIE_LEVEL_LABELS: Record<CookieLevelKey, string> = { silver: "Silver", gold: "Gold", platinum: "Platinum" };
+const COOKIE_CATEGORY_LABELS: Record<CookieCategoryKey, string> = { content: "Content Personalization", optimization: "Site Optimization", ads: "Ad Personalization" };
+
+function CookieBannerEditor({ data, onSave }: { data: Record<string,unknown>|null; onSave: (d: unknown) => void }) {
+  const [form, setForm] = useState<Record<string,unknown>>({});
+  useEffect(() => { if (data) setForm(data); }, [data]);
+  if (!data) return <Loader/>;
+
+  const up  = (key: string, value: unknown) => setForm(p => ({...p,[key]:value}));
+  const upLevel = (level: CookieLevelKey, value: string) =>
+    setForm(p => ({...p, levelDescriptions: {...(p.levelDescriptions as Record<string,unknown>), [level]: value}}));
+  const upCategory = (cat: CookieCategoryKey, key: "title"|"description", value: string) =>
+    setForm(p => ({...p, categories: {...(p.categories as Record<string,unknown>), [cat]: {...((p.categories as Record<string,unknown>)?.[cat] as Record<string,unknown>), [key]: value}}}));
+
+  const levelDescriptions = (form.levelDescriptions as Record<string,string>) || {};
+  const categories = (form.categories as Record<string, {title?:string; description?:string}>) || {};
+  const enabled = form.enabled !== false;
+
+  return (
+    <div>
+      <Panel title="Banner Cookie" rightAction={
+        <label style={{ display:"flex",alignItems:"center",gap:8,fontSize:12,fontWeight:600,color: enabled ? "#16a34a" : "#999",cursor:"pointer" }}>
+          <input type="checkbox" checked={enabled} onChange={e => up("enabled", e.target.checked)} style={{ width:16,height:16,cursor:"pointer" }}/>
+          {enabled ? "Banner attivo" : "Banner disattivato"}
+        </label>
+      }>
+        <Grid>
+          <Field label="Titolo principale" full><Textarea value={String(form.headline||"")} onChange={v=>up("headline",v)} rows={2}/></Field>
+          <Field label="Sottotitolo" full><Textarea value={String(form.subheadline||"")} onChange={v=>up("subheadline",v)} rows={2}/></Field>
+          <Field label="Durata predefinita">
+            <FieldSelect value={String(form.defaultDuration||"1m")} onChange={v=>up("defaultDuration",v)} options={["1m","6m","12m"]}/>
+          </Field>
+        </Grid>
+      </Panel>
+
+      <Panel title="Descrizioni per livello">
+        <Grid>
+          {(["silver","gold","platinum"] as CookieLevelKey[]).map(lvl => (
+            <Field key={lvl} label={COOKIE_LEVEL_LABELS[lvl]} full>
+              <Textarea value={levelDescriptions[lvl]||""} onChange={v=>upLevel(lvl,v)} rows={2}/>
+            </Field>
+          ))}
+        </Grid>
+      </Panel>
+
+      <Panel title="Categorie di consenso (Basic Operations è sempre obbligatoria e non modificabile)">
+        <Grid>
+          {(["content","optimization","ads"] as CookieCategoryKey[]).map(cat => (
+            <Field key={cat} label={COOKIE_CATEGORY_LABELS[cat]} full>
+              <Input value={categories[cat]?.title||""} onChange={v=>upCategory(cat,"title",v)}/>
+              <div style={{ height:8 }}/>
+              <Textarea value={categories[cat]?.description||""} onChange={v=>upCategory(cat,"description",v)} rows={2}/>
+            </Field>
+          ))}
+        </Grid>
+      </Panel>
+
+      <FooterBar><SaveBtn onClick={() => onSave(form)}/></FooterBar>
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════
+   CONSENT LOG
+══════════════════════════════════════════════════ */
+type ConsentLogRecord = {
+  id: string;
+  level: string;
+  duration: string;
+  categories: { basic:boolean; content:boolean; optimization:boolean; ads:boolean };
+  consentedAt: string;
+  expiresAt: string;
+  path?: string;
+  userAgent?: string;
+  loggedAt: string;
+};
+
+const LEVEL_BADGE_COLOR: Record<string,string> = { silver:"#8b8b98", gold:"#b8860b", platinum:"#6f5fae", custom:"#2E2784" };
+
+function ConsentLogPanel() {
+  const [log, setLog]         = useState<ConsentLogRecord[]|null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError]     = useState<string|null>(null);
+
+  const load = useCallback(async () => {
+    setLoading(true); setError(null);
+    try {
+      const res = await fetch("/api/admin/consent", { cache: "no-store" });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json?.error || `HTTP ${res.status}`);
+      setLog(json.data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => { load(); }, [load]);
+
+  async function removeOne(id: string) {
+    if (!confirm("Eliminare questo record di consenso?")) return;
+    await fetch(`/api/admin/consent?id=${encodeURIComponent(id)}`, { method: "DELETE" });
+    load();
+  }
+
+  async function removeAll() {
+    if (!confirm("Eliminare TUTTI i record di consenso registrati? Questa azione non è reversibile.")) return;
+    await fetch(`/api/admin/consent?id=all`, { method: "DELETE" });
+    load();
+  }
+
+  const now = Date.now();
+  const total   = log?.length ?? 0;
+  const active  = log?.filter(r => new Date(r.expiresAt).getTime() > now).length ?? 0;
+  const last24h = log?.filter(r => now - new Date(r.loggedAt).getTime() < 86400000).length ?? 0;
+  const byLevel: Record<string, number> = {};
+  log?.forEach(r => { byLevel[r.level] = (byLevel[r.level]||0) + 1; });
+
+  return (
+    <div>
+      <Panel title="Registro Consensi" rightAction={
+        <div style={{ display:"flex",gap:8 }}>
+          <button onClick={load} title="Aggiorna"
+            style={{ display:"flex",alignItems:"center",gap:6,padding:"7px 12px",background:"#F5F5FA",color:"#555",border:"none",borderRadius:9,fontSize:12,fontWeight:600,cursor:"pointer" }}>
+            <RefreshCw size={13}/> Aggiorna
+          </button>
+          {total > 0 && (
+            <button onClick={removeAll}
+              style={{ display:"flex",alignItems:"center",gap:6,padding:"7px 12px",background:"rgba(220,38,38,0.08)",color:"#dc2626",border:"none",borderRadius:9,fontSize:12,fontWeight:600,cursor:"pointer" }}>
+              <Trash2 size={13}/> Cancella tutto
+            </button>
+          )}
+        </div>
+      }>
+        {loading && !log && <Loader/>}
+        {error && <div style={{ color:"#dc2626",fontSize:13,padding:"12px 0" }}>Errore: {error}</div>}
+
+        {log && (
+          <>
+            <div style={{ display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(140px,1fr))",gap:10,marginBottom:18 }}>
+              <MiniStat label="Consensi totali" value={String(total)} color="#2E2784"/>
+              <MiniStat label="Attivi (non scaduti)" value={String(active)} color="#16a34a"/>
+              <MiniStat label="Ultime 24h" value={String(last24h)} color="#F8AE01"/>
+              {(["silver","gold","platinum","custom"] as const).filter(l => byLevel[l]).map(l => (
+                <MiniStat key={l} label={COOKIE_LEVEL_LABELS[l as CookieLevelKey] ?? "Custom"} value={String(byLevel[l])} color={LEVEL_BADGE_COLOR[l]}/>
+              ))}
+            </div>
+
+            {log.length === 0 ? (
+              <div style={{ padding:"30px 0",textAlign:"center",color:"#999",fontSize:13 }}>Nessun consenso registrato finora.</div>
+            ) : (
+              <div style={{ overflowX:"auto" }}>
+                <table style={{ width:"100%",borderCollapse:"collapse",fontSize:12.5 }}>
+                  <thead>
+                    <tr style={{ textAlign:"left",color:"#888",textTransform:"uppercase",fontSize:10.5,letterSpacing:"0.04em" }}>
+                      <th style={{ padding:"8px 10px" }}>Data</th>
+                      <th style={{ padding:"8px 10px" }}>Livello</th>
+                      <th style={{ padding:"8px 10px" }}>Categorie attive</th>
+                      <th style={{ padding:"8px 10px" }}>Durata</th>
+                      <th style={{ padding:"8px 10px" }}>Scadenza</th>
+                      <th style={{ padding:"8px 10px" }}>Pagina</th>
+                      <th style={{ padding:"8px 10px" }}>Consent ID</th>
+                      <th style={{ padding:"8px 10px" }}></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {log.map(r => {
+                      const cats = (["basic","content","optimization","ads"] as const).filter(k => r.categories?.[k]);
+                      const expired = new Date(r.expiresAt).getTime() < now;
+                      return (
+                        <tr key={r.id} style={{ borderTop:"1px solid #F0F0F6" }}>
+                          <td style={{ padding:"9px 10px",color:"#444",whiteSpace:"nowrap" }}>{new Date(r.consentedAt).toLocaleString("it-IT")}</td>
+                          <td style={{ padding:"9px 10px" }}>
+                            <span style={{ padding:"3px 9px",borderRadius:20,fontSize:11,fontWeight:700,color:"#fff",background:LEVEL_BADGE_COLOR[r.level]||"#888",textTransform:"capitalize" }}>{r.level}</span>
+                          </td>
+                          <td style={{ padding:"9px 10px",color:"#666" }}>{cats.join(", ")}</td>
+                          <td style={{ padding:"9px 10px",color:"#666" }}>{r.duration}</td>
+                          <td style={{ padding:"9px 10px",color: expired ? "#dc2626" : "#666" }}>{new Date(r.expiresAt).toLocaleDateString("it-IT")}{expired ? " (scaduto)" : ""}</td>
+                          <td style={{ padding:"9px 10px",color:"#666" }}>{r.path||"—"}</td>
+                          <td style={{ padding:"9px 10px",color:"#999",fontFamily:"monospace",fontSize:11 }}>{r.id.slice(0,8)}…</td>
+                          <td style={{ padding:"9px 10px" }}>
+                            <button onClick={() => removeOne(r.id)} title="Elimina"
+                              style={{ background:"none",border:"none",color:"#bbb",cursor:"pointer",display:"flex" }}>
+                              <Trash2 size={14}/>
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </>
+        )}
+      </Panel>
+    </div>
+  );
+}
+
+function MiniStat({ label, value, color }: { label:string; value:string; color:string }) {
+  return (
+    <div style={{ background:"#FAFAFC",borderRadius:12,padding:"12px 14px",borderLeft:`3px solid ${color}` }}>
+      <div style={{ fontSize:20,fontWeight:800,color,lineHeight:1 }}>{value}</div>
+      <div style={{ fontSize:10.5,color:"#888",marginTop:5 }}>{label}</div>
     </div>
   );
 }

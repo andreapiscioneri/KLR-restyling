@@ -49,3 +49,7 @@ export async function getPositions() {
 export async function getCustomPages() {
   return readContent("customPages", CONTENT_TYPES.customPages.default);
 }
+
+export async function getCookieBanner() {
+  return readContent("cookieBanner", CONTENT_TYPES.cookieBanner.default);
+}

@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { MapPin } from "lucide-react";
+import { openCookiePreferences } from "@/components/layout/CookieConsent";
 
 type FooterCms = {
   tagline?: string;
@@ -256,6 +257,14 @@ export function Footer() {
             <Link href="/copyright" className="text-[#F8AE01]/70 hover:text-[#F8AE01] transition-colors">Copyright</Link>
             <span className="text-[#F8AE01]/20">·</span>
             <Link href="/privacy" className="text-[#F8AE01]/70 hover:text-[#F8AE01] transition-colors">Privacy Policy</Link>
+            <span className="text-[#F8AE01]/20">·</span>
+            <button
+              type="button"
+              onClick={openCookiePreferences}
+              className="text-[#F8AE01]/70 hover:text-[#F8AE01] transition-colors"
+            >
+              Cookie Preferences
+            </button>
           </div>
         </div>
 

@@ -91,6 +91,37 @@ export const CONTENT_TYPES = {
     default: [] as unknown[],
     writableRoles: ["superadmin", "admin"],
   },
+  cookieBanner: {
+    default: {
+      enabled: true,
+      headline: "We believe your data is your property and support your right to privacy and transparency.",
+      subheadline: "Select a Data Access Level and Duration to choose how we use and share your data.",
+      levelDescriptions: {
+        silver:
+          "Highest level of privacy. Data accessed for necessary basic operations only. Data shared with 3rd parties to ensure the site is secure and works on your device.",
+        gold:
+          "Balanced experience. Data accessed for content personalisation and site optimisation. Data shared with 3rd parties may be used to track you and store your preferences for this site.",
+        platinum:
+          "Highest level of personalisation. Data accessed to make ads and media more relevant. Data shared with 3rd parties may be use to track you on this site and other sites you visit.",
+      },
+      categories: {
+        content: {
+          title: "Content Personalization",
+          description: "When enabled, you allow us to save your preferences and create a profile about you so we can deliver personalized content.",
+        },
+        optimization: {
+          title: "Site Optimization",
+          description: "When enabled, you allow us to monitor your behavior so we can analyze and improve the services on our website for all visitors.",
+        },
+        ads: {
+          title: "Ad Personalization",
+          description: "When enabled, you allow us access to share data with our advertising partners that build profiles about you across multiple websites.",
+        },
+      },
+      defaultDuration: "1m",
+    },
+    writableRoles: ["superadmin", "admin"],
+  },
 } as const satisfies Record<string, ContentTypeDef>;
 
 export type ContentTypeKey = keyof typeof CONTENT_TYPES;

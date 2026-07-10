@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import "./globals.css";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
+import { CookieConsent } from "@/components/layout/CookieConsent";
+import { GoogleAnalyticsLoader } from "@/components/layout/GoogleAnalyticsLoader";
 import { LenisProvider } from "@/components/ui/LenisProvider";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { LogoLoader } from "@/components/ui/LogoLoader";
@@ -269,19 +270,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
-        {gaId && (
-          <>
-            <Script src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(gaId)}`} strategy="afterInteractive" />
-            <Script id="ga-init" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', ${JSON.stringify(gaId)});
-              `}
-            </Script>
-          </>
-        )}
+        {gaId && !gaId.includes("XXXXXXXXX") && <GoogleAnalyticsLoader gaId={gaId} />}
       </head>
       <body className="antialiased">
         <LenisProvider>
@@ -292,6 +281,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <PageTransition>{children}</PageTransition>
           </main>
           <Footer />
+          <CookieConsent />
         </LenisProvider>
       </body>
     </html>

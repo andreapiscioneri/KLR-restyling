@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { isAdminRequest, canWrite, getAdminUserFromRequestAsync, hashNewPassword } from "@/lib/admin-auth";
-import { getStats, getBrands, getLeadership, getPages, getStudies, getPosts, getUsers, getColors, getSettings, getPositions, getCustomPages, writeJSON } from "@/lib/content";
+import { getStats, getBrands, getLeadership, getPages, getStudies, getPosts, getUsers, getColors, getSettings, getPositions, getCustomPages, getCookieBanner, writeJSON } from "@/lib/content";
 import { VALID_CONTENT_TYPES } from "@/lib/content-types";
 
 const VALID_TYPES: string[] = VALID_CONTENT_TYPES;
@@ -36,6 +36,7 @@ export async function GET(request: NextRequest) {
     settings:    getSettings,
     positions:   getPositions,
     customPages: getCustomPages,
+    cookieBanner: getCookieBanner,
   };
   const data = await loaders[type]?.();
   const response = NextResponse.json({ data });
