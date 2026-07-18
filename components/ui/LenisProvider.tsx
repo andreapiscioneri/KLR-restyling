@@ -1,27 +1,18 @@
 "use client";
 
 import { useEffect } from "react";
-import Lenis from "lenis";
+import { usePathname } from "next/navigation";
 
+// Scroll is native (no scroll-hijacking library): on macOS/trackpad in
+// particular, JS-reimplemented momentum scrolling (e.g. Lenis smoothWheel)
+// fights the OS's own already-smooth scroll physics and reads as stutter.
+// The only thing we still need on route change is resetting to the top.
 export function LenisProvider({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    });
-
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    const rafId = requestAnimationFrame(raf);
-    return () => {
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
-    };
-  }, []);
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return <>{children}</>;
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Users, Star, TrendingUp, CheckCircle, LayoutTemplate, Rocket, Heart, Award, Eye, Smile, Lightbulb, Globe, Handshake } from "lucide-react";
 import { motion } from "motion/react";
@@ -17,15 +16,8 @@ const G = {
 type CmsSection = Record<string, string>;
 type AboutCms = Record<string, CmsSection>;
 
-export function AboutClient() {
-  const [cms, setCms] = useState<AboutCms>({});
-
-  useEffect(() => {
-    fetch("/api/content?type=pages", { cache: "no-store" })
-      .then((r) => r.json())
-      .then((d) => { if (d?.data?.about) setCms(d.data.about as AboutCms); })
-      .catch(() => {});
-  }, []);
+export function AboutClient({ initialCms }: { initialCms?: AboutCms }) {
+  const cms = initialCms ?? {};
 
   const hero              = cms.hero             || {};
   const whatWeDo          = cms.whatWeDo         || {};

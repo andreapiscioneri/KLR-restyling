@@ -23,10 +23,10 @@ export function PageHero({ eyebrow, title, subtitle, image, background, cta, chi
 
   return (
     <section ref={ref} className="relative min-h-screen overflow-hidden">
-      <motion.div className="absolute inset-0" style={{ y }}>
+      <motion.div className="absolute inset-0" style={{ y, willChange: "transform" }}>
         {image ? (
           <>
-            <img src={image} alt="" className="absolute inset-0 w-full h-full object-cover object-top" />
+            <img src={image} alt="" decoding="async" fetchPriority="high" className="absolute inset-0 w-full h-full object-cover object-top" />
             <div className="absolute inset-0 bg-[#2E2784]/65" />
           </>
         ) : (

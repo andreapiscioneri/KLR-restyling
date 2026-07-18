@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   const person = leadership.find((p) => p.id === params.id);
   const title = person ? `${person.name} — ${person.role} | KLR Europe` : "Team Member | KLR Europe";
   const description = person?.bio ?? "KLR Europe team member.";
-  const image = person?.img ?? "https://klr-europe.com/wp-content/uploads/2025/09/KLR10-14-e1758293512394.jpg";
+  const image = person?.img ?? "/api/media/wp-4569";
   return {
     title,
     description,
@@ -38,6 +38,8 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   };
 }
 
-export default function Page({ params }: { params: { id: string } }) {
-  return <TeamDetailClient id={params.id} />;
+export default async function Page({ params }: { params: { id: string } }) {
+  const cmsLeadership = (await getLeadership()) as typeof fallbackLeadership | null;
+  const leadership = cmsLeadership?.length ? cmsLeadership : fallbackLeadership;
+  return <TeamDetailClient id={params.id} initialLeadership={leadership} />;
 }

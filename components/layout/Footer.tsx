@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { MapPin } from "lucide-react";
 import { openCookiePreferences } from "@/components/layout/CookieConsent";
+
+type FooterLink = { href: string; label: string };
 
 type FooterCms = {
   tagline?: string;
@@ -18,35 +19,34 @@ type FooterCms = {
   email?: string;
   linkedinUrl?: string;
   youtubeUrl?: string;
+  exploreLinks?: FooterLink[];
+  moreLinks?: FooterLink[];
 };
 
 function LinkedInIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-      <rect x="2" y="9" width="4" height="12" />
-      <circle cx="4" cy="4" r="2" />
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667h-3.554V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zM7.119 20.452H3.554V9h3.565v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
     </svg>
   );
 }
 
 function YouTubeIcon({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58a2.78 2.78 0 0 0 1.95 1.97C5.12 20 12 20 12 20s6.88 0 8.59-.45a2.78 2.78 0 0 0 1.95-1.97A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
-      <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white" />
+    <svg viewBox="0 0 24 24" fill="currentColor" fillRule="evenodd" className={className}>
+      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58a2.78 2.78 0 0 0 1.95 1.97C5.12 20 12 20 12 20s6.88 0 8.59-.45a2.78 2.78 0 0 0 1.95-1.97A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z" />
     </svg>
   );
 }
 
-const explore = [
+const defaultExplore = [
   { href: "/",          label: "Home",     indent: false },
   { href: "/about",     label: "About",    indent: false },
   { href: "/10-years",  label: "10 Years", indent: true  },
   { href: "/services",  label: "Services", indent: false },
   { href: "/brands",    label: "Brands",   indent: false },
 ];
-const more = [
+const defaultMore = [
   { href: "/work",     label: "Case Studies" },
   { href: "/blog",     label: "Insights" },
   { href: "/team",     label: "Team" },
@@ -61,16 +61,14 @@ const glassCard = {
   boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06)",
 };
 
-export function Footer() {
-  const pathname = usePathname();
-  const [cms, setCms] = useState<FooterCms>({});
+type FooterProps = {
+  initialData?: FooterCms;
+  logoUrl?: string;
+};
 
-  useEffect(() => {
-    fetch("/api/content?type=pages", { cache: "no-store" })
-      .then((r) => r.json())
-      .then((d) => { if (d?.data?.footer) setCms(d.data.footer as FooterCms); })
-      .catch(() => {});
-  }, []);
+export function Footer({ initialData, logoUrl }: FooterProps = {}) {
+  const pathname = usePathname();
+  const cms = initialData || {};
 
   if (pathname.startsWith("/admin")) {
     return null;
@@ -89,6 +87,8 @@ export function Footer() {
   const email = cms.email || "info@klr-europe.com";
   const linkedinUrl = cms.linkedinUrl || "https://www.linkedin.com/company/klr-key-to-loyalty-in-retail/";
   const youtubeUrl = cms.youtubeUrl || "https://www.youtube.com/@klreurope";
+  const explore = cms.exploreLinks?.length ? cms.exploreLinks.map(l => ({ ...l, indent: false })) : defaultExplore;
+  const more = cms.moreLinks?.length ? cms.moreLinks : defaultMore;
 
   return (
     <footer className="relative overflow-hidden" style={{ background: "#06051C" }}>
@@ -128,7 +128,7 @@ export function Footer() {
         {/* ── Tagline ── */}
         <div className="mb-16">
           <Link href="/" className="inline-block mb-8">
-            <Image src="/klr-logo.png" alt="KLR Europe" width={130} height={44} className="h-9 w-auto" />
+            <Image src={logoUrl || "/klr-logo.png"} alt="KLR Europe" width={130} height={44} className="h-9 w-auto" />
           </Link>
           <h2
             className="text-white tracking-[-0.04em] leading-none"

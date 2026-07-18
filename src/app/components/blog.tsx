@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { softShadow } from "./ui-bits";
@@ -48,95 +48,42 @@ function toInsightPost(p: Post): InsightPost {
   };
 }
 
-export function Blog({ go }: { go: (r: Route) => void }) {
-  const [posts, setPosts] = useState<InsightPost[]>(fallbackPosts.map(toInsightPost));
-  const [loading, setLoading] = useState(true);
+type BlogHeroData = { eyebrow?: string; title?: string; subtitle?: string; _visible?: boolean };
+type RawPost = { id: number | string; slug: string; title: string; date: string; excerpt?: string; img?: string; category?: string; contentHtml?: string };
+
+function toInsightPostFromCms(p: RawPost): InsightPost {
+  return {
+    id: typeof p.id === "number" ? p.id : Number(p.id) || 0,
+    slug: p.slug,
+    title: p.title,
+    date: p.date,
+    excerpt: p.excerpt || "",
+    img: p.img || images.human,
+    link: `/blog/${p.slug}`,
+    category: p.category || "KLR Life",
+    normalizedCategory: normalizeCategory(p.category || ""),
+    authorName: "KLR Editorial Team",
+    authorAvatar: images.teamPhoto,
+    readingTime: estimateReadingTime(p.contentHtml || p.excerpt || ""),
+  };
+}
+
+type BlogProps = {
+  go: (r: Route) => void;
+  initialPosts?: RawPost[];
+  initialHero?: BlogHeroData;
+};
+
+export function Blog({ go, initialPosts, initialHero }: BlogProps) {
+  const posts: InsightPost[] = initialPosts?.length
+    ? initialPosts.map(toInsightPostFromCms)
+    : fallbackPosts.map(toInsightPost);
   const [cat, setCat] = useState<InsightCategory>("All");
   const [visible, setVisible] = useState(PAGE_SIZE);
-  const [heroEyebrow, setHeroEyebrow] = useState("Insights");
-  const [heroTitle, setHeroTitle] = useState("Ideas, Trends & Stories from KLR hands on experience");
-  const [heroSubtitle, setHeroSubtitle] = useState("Fresh perspectives on loyalty marketing, retail innovation, and the people behind our work.");
-  const [heroVisible, setHeroVisible] = useState(true);
-
-  useEffect(() => {
-    fetch("/api/content?type=pages", { cache: "no-store" })
-      .then(r => r.json())
-      .then(j => {
-        const bh = j.data?.blog?.hero;
-        if (bh) {
-          if (bh.eyebrow) setHeroEyebrow(bh.eyebrow);
-          if (bh.title) setHeroTitle(bh.title);
-          if (bh.subtitle) setHeroSubtitle(bh.subtitle);
-          if (bh._visible === false) setHeroVisible(false);
-        }
-      })
-      .catch(() => {});
-  }, []);
-
-  useEffect(() => {
-    const ctrl = new AbortController();
-    (async () => {
-      try {
-        const r = await fetch("https://klr-europe.com/wp-json/wp/v2/posts?per_page=100&_embed", { signal: ctrl.signal });
-        if (!r.ok) throw new Error("fetch failed");
-        const data = await r.json();
-        const strip = (s: string) =>
-          s.replace(/<[^>]+>/g, "").replace(/&#8217;/g, "'").replace(/&#8216;/g, "'").replace(/&amp;/g, "&").replace(/&#8220;|&#8221;/g, '"').replace(/&nbsp;/g, " ");
-        const normalized: InsightPost[] = data.map((p: any) => {
-          const excerpt = strip(p.excerpt.rendered).trim().slice(0, 220);
-          const author = p._embedded?.author?.[0];
-          const authorName = author?.name || "KLR Editorial Team";
-          const authorAvatar = author?.avatar_urls?.["96"] || images.teamPhoto;
-          const contentText = strip(p.content?.rendered || excerpt);
-          const category = p._embedded?.["wp:term"]?.[0]?.[0]?.name || "KLR Life";
-
-          return {
-            id: p.id,
-            slug: p.slug,
-            title: strip(p.title.rendered),
-            date: String(p.date).slice(0, 10),
-            excerpt,
-            img: p._embedded?.["wp:featuredmedia"]?.[0]?.source_url || images.human,
-            link: `/blog/${p.slug}`,
-            category,
-            normalizedCategory: normalizeCategory(category),
-            authorName,
-            authorAvatar,
-            readingTime: estimateReadingTime(contentText),
-          };
-        });
-        if (normalized.length) setPosts(normalized);
-      } catch {
-        // WordPress non disponibile — usa i post del CMS locale
-        try {
-          const localRes = await fetch("/api/content?type=posts");
-          if (localRes.ok) {
-            const localData = await localRes.json();
-            const localPosts: InsightPost[] = (localData.data || []).map((p: any) => ({
-              id: p.id ?? p.slug,
-              slug: p.slug,
-              title: p.title,
-              date: p.date,
-              excerpt: p.excerpt || "",
-              img: p.img || images.human,
-              link: `/blog/${p.slug}`,
-              category: p.category || "KLR Life",
-              normalizedCategory: normalizeCategory(p.category || ""),
-              authorName: "KLR Editorial Team",
-              authorAvatar: images.teamPhoto,
-              readingTime: "5 min read",
-            }));
-            if (localPosts.length) setPosts(localPosts);
-          }
-        } catch {
-          /* usa fallbackPosts già in stato */
-        }
-      } finally {
-        setLoading(false);
-      }
-    })();
-    return () => ctrl.abort();
-  }, []);
+  const heroEyebrow = initialHero?.eyebrow || "Insights";
+  const heroTitle = initialHero?.title || "Ideas, Trends & Stories from KLR hands on experience";
+  const heroSubtitle = initialHero?.subtitle || "Fresh perspectives on loyalty marketing, retail innovation, and the people behind our work.";
+  const heroVisible = initialHero?._visible !== false;
 
   const filtered = cat === "All" ? posts : posts.filter((p) => p.normalizedCategory === cat);
   const featured = filtered[0] || posts[0];
@@ -217,10 +164,6 @@ export function Blog({ go }: { go: (r: Route) => void }) {
             <h2 className="text-white tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.05, fontWeight: 800 }}>
               Insights Feed
             </h2>
-
-            {loading && (
-              <div className="text-white/55 tracking-tight mt-4" style={{ fontSize: "0.85rem" }}>Loading latest articles…</div>
-            )}
 
             {/* Category filter */}
             <div className="flex flex-wrap gap-3 mt-10">

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { brands as fallbackBrands } from "@/src/app/data";
-import { getBrands } from "@/lib/content";
+import { brands as fallbackBrands, studies as fallbackStudies } from "@/src/app/data";
+import { getBrands, getStudies } from "@/lib/content";
 import { BrandDetailClient } from "./_client";
 
 export const dynamicParams = true;
@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   const description = brand
     ? `${brand.desc} ${brand.campaigns} campaigns across ${brand.countries} countries — partnered with KLR Europe since ${brand.since}.`
     : "KLR Europe brand partner details.";
-  const image = brand?.img ?? "https://klr-europe.com/wp-content/uploads/2022/12/KLR_TailorMade-.png";
+  const image = brand?.img ?? "/api/media/wp-916";
   return {
     title,
     description,
@@ -40,6 +40,12 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   };
 }
 
-export default function Page({ params }: { params: { id: string } }) {
-  return <BrandDetailClient id={params.id} />;
+export default async function Page({ params }: { params: { id: string } }) {
+  const [cmsBrands, cmsStudies] = await Promise.all([
+    getBrands() as Promise<typeof fallbackBrands | null>,
+    getStudies() as Promise<typeof fallbackStudies | null>,
+  ]);
+  const brands = cmsBrands?.length ? cmsBrands : fallbackBrands;
+  const studies = cmsStudies?.length ? cmsStudies : fallbackStudies;
+  return <BrandDetailClient id={params.id} initialBrands={brands} initialStudies={studies} />;
 }

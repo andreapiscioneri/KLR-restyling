@@ -67,15 +67,9 @@ export const CONTENT_TYPES = {
     writableRoles: ["superadmin", "admin", "editor"],
   },
   users: {
-    default: [
-      {
-        id: "admin",
-        name: "Admin",
-        email: "andrea.piscioneri@denani.it",
-        password: "denani",
-        role: "admin",
-      },
-    ] as unknown[],
+    // No default seed user: an empty admin store must not grant access via a
+    // known credential. Users are provisioned explicitly in content/users.json.
+    default: [] as unknown[],
     writableRoles: ["superadmin"],
   },
   positions: {

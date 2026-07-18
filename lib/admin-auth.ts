@@ -24,13 +24,6 @@ type RawUser = {
   role: string;
 };
 
-// Sections visible per role
-export const ROLE_SECTIONS: Record<string, string[]> = {
-  superadmin: ["overview","pages","stats","brands","leadership","studies","posts","colors","users","settings"],
-  admin:      ["overview","pages","stats","brands","leadership","studies","posts","colors","settings"],
-  editor:     ["overview","studies","posts"],
-};
-
 export function canWrite(role: string, type: string): boolean {
   return canWriteType(role, type);
 }

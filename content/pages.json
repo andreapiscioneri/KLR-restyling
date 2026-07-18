@@ -63,7 +63,7 @@
       "subtitle": "Loyalty campaigns that excite and engage customers of all targets. Deliver real impact to your stores with measurable KPIs. Easy to run for retailers and their marketing teams.",
       "ctaLabel": "Discover How We Work",
       "ctaHref": "/work",
-      "image": "https://klr-europe.com/wp-content/uploads/2025/04/Petrol-couple2.jpg"
+      "image": "/api/media/wp-3694"
     },
     "stats": {
       "_visible": true,
@@ -97,8 +97,8 @@
       "_visible": true,
       "eyebrow": "Expertise",
       "title": "Two Sectors. Deep Expertise.",
-      "image1": "https://klr-europe.com/wp-content/uploads/2022/12/KLR-cheering-family-scaled.jpg",
-      "image2": "https://klr-europe.com/wp-content/uploads/2022/12/KLR-HERO-HOME-scaled.jpg"
+      "image1": "/api/media/wp-1760",
+      "image2": "/api/media/wp-1010"
     },
     "clients": {
       "_visible": true,
@@ -132,6 +132,10 @@
       "subtitle": "Let's talk about how we can help your customers come back more often, spend more, and feel great about it.",
       "ctaLabel": "Let's Talk",
       "ctaHref": "/contact"
+    },
+    "seo": {
+      "title": "KLR Europe | Key to Loyalty in Retail",
+      "description": "KLR Europe designs emotional loyalty campaigns for grocery and fuel retail chains. 340+ campaigns delivered across 20+ European countries. Built on trust and teamwork."
     }
   },
   "about": {
@@ -140,7 +144,7 @@
       "eyebrow": "About KLR",
       "title": "We Are Central to Loyalty.",
       "subtitle": "KLR was born from friendship — different cultures, shared ambitions, and a belief that loyalty is built on trust. Over ten years, we've grown from a three-person office in Koper to a 43-person international team delivering campaigns across 20+ European markets.",
-      "image": "https://klr-europe.com/wp-content/uploads/2022/12/KLR-TEAMWORK-scaled.jpg"
+      "image": "/api/media/wp-909"
     },
     "whatWeDo": {
       "_visible": true,
@@ -149,7 +153,7 @@
       "badge1": "Years of Expertise",
       "badge2": "Not just a rewards supplier. A strategic loyalty partner.",
       "badge3": "We make loyalty campaigns easy to run.",
-      "image": "https://klr-europe.com/wp-content/uploads/2025/09/KLR10-14-e1758293512394.jpg"
+      "image": "/api/media/wp-4569"
     },
     "brandStory": {
       "_visible": true,
@@ -199,6 +203,10 @@
       "subtitle": "Whether you're a retailer looking for your next campaign or a brand wanting to reach millions — we'd love to hear from you.",
       "ctaLabel": "Let's Talk",
       "ctaHref": "/contact"
+    },
+    "seo": {
+      "title": "About | People First to Deliver the Best Results",
+      "description": "KLR Europe is a human-centered loyalty marketing company: 10+ years, 340+ campaigns, 150+ retail clients, 43 people from 11 nationalities across 20+ European markets."
     }
   },
   "services": {
@@ -207,7 +215,7 @@
       "eyebrow": "Our Services",
       "title": "360° Loyalty Campaign Design & Execution",
       "subtitle": "From the first strategic brief to the last reward delivered — we cover every stage, in every market.",
-      "image": "https://klr-europe.com/wp-content/uploads/2022/12/KLR-HUMAN-CENTERED-scaled-e1674495532538.jpg"
+      "image": "/api/media/wp-991"
     },
     "overview": {
       "_visible": true,
@@ -253,6 +261,10 @@
         "how": "Quantitative data + qualitative insights from discovery workshops and social media audits. Custom metrics.",
         "out": "Actionable reports with optimisation recommendations. Compounding knowledge base."
       }
+    },
+    "seo": {
+      "title": "Services | 360° Loyalty Campaign Design & Execution",
+      "description": "KLR Europe offers 360° loyalty marketing services: strategy, full campaign management, and analytics. Proven across 340+ campaigns in 20+ European countries."
     }
   },
   "contact": {
@@ -261,7 +273,7 @@
       "eyebrow": "Contact",
       "title": "Keep in Touch!",
       "subtitle": "Whether you're ready to launch a campaign, exploring ideas, looking for a brand partnership, or simply curious — we'd love to hear from you.",
-      "image": "https://klr-europe.com/wp-content/uploads/2022/12/KLR-CONTACTS-scaled.jpg"
+      "image": "/api/media/wp-1024"
     },
     "form": {
       "_visible": true,
@@ -290,6 +302,10 @@
       "eyebrow": "Offices",
       "title": "Find Us",
       "emailNote": "— for any inquiry, from anywhere in Europe"
+    },
+    "seo": {
+      "title": "Contact | We Operate in Almost 20 Countries",
+      "description": "Get in touch with KLR Europe. Headquartered in Koper, Slovenia, with offices in Italy and a partner network across 20 European markets. info@klr-europe.com"
     }
   },
   "team": {
@@ -298,7 +314,7 @@
       "eyebrow": "Team",
       "title": "The People Behind KLR.",
       "subtitle": "43 people. 11 nationalities. 11 locations across Europe. One shared passion for designing loyalty experiences that work.",
-      "image": "https://klr-europe.com/wp-content/uploads/2025/09/KLR10-14-e1758293512394.jpg"
+      "image": "/api/media/wp-4569"
     },
     "international": {
       "_visible": true,
@@ -313,6 +329,10 @@
       "contactEmail": "careers@klr-europe.com",
       "ctaLabel": "Send Your Application",
       "ctaHref": "mailto:careers@klr-europe.com"
+    },
+    "seo": {
+      "title": "Team | The People Behind KLR Europe",
+      "description": "Meet the 43-person international team behind KLR Europe's loyalty campaigns. Leadership, operations, and creative talent from 11 nationalities working across 20+ European markets."
     }
   },
   "brands": {
@@ -321,7 +341,7 @@
       "eyebrow": "Brands",
       "title": "Exceptional Brands. Unforgettable Rewards.",
       "subtitle": "We partner with world-class brands to create exclusive reward collections that inspire desire, deliver satisfaction, and elevate retail loyalty campaigns across Europe.",
-      "image": "https://klr-europe.com/wp-content/uploads/2022/12/KLR_TailorMade-.png",
+      "image": "/api/media/wp-916",
       "ctaLabel": "Explore Brand Partners",
       "ctaHref": "#featured-brands"
     },
@@ -352,7 +372,11 @@
       "eyebrow": "Exclusive Rewards",
       "title": "Our Collections",
       "subtitle": "Our partnerships with the world's leading brands guarantee that our rewards collections are tangible, sustainable and unique!",
-      "itemsText": "Zanussi — Cooking Easy|https://klr-europe.com/wp-content/uploads/2023/04/ZAnussi-Cooking-Easy-KLR-Europe-1.jpg\nZanussi — SuperGrip|https://klr-europe.com/wp-content/uploads/2023/04/ZAnussi-SUPERGRIP-KLR-Europe.jpg\nZanussi — Zmart Move|https://klr-europe.com/wp-content/uploads/2024/01/ZAnussi-ZmartMove-KLR-Europe.jpg\nPintinox — Trust|https://klr-europe.com/wp-content/uploads/2024/01/Pintinox-Trust-Forged-In-Steel.jpg\nPintinox — Barbeque|https://klr-europe.com/wp-content/uploads/2025/02/pintinox-barbeque.jpg\nPintinox — Hexacore|https://klr-europe.com/wp-content/uploads/2025/02/pintinox-hexacore.jpg\nPintinox — Virtuoso|https://klr-europe.com/wp-content/uploads/2025/02/virtuoso.jpg\nBugatti — Spezia|https://klr-europe.com/wp-content/uploads/2024/01/Bugatti-Spezia-KLR-Europe.jpg\nBugatti — Ergo Pakka|https://klr-europe.com/wp-content/uploads/2023/01/Bugatti-Ergo-Pakka-KLR-Europe.jpg\nBugatti — Prestigio|https://klr-europe.com/wp-content/uploads/2023/01/Bugatti-Prestigio-KLR-Europe.jpg\nBugatti — Buono Cookiez|https://klr-europe.com/wp-content/uploads/2023/01/Bugatti-Buono-Cookiez-KLR-Europe.jpg\nBugatti — Buono Bakeware|https://klr-europe.com/wp-content/uploads/2023/01/Bugatti-Buono-Bakeware-KLR-Europe.jpg\nSpear & Jackson — Best Sellers|https://klr-europe.com/wp-content/uploads/2023/04/Spear-and-Jackson-The-Best-Sellers-KLR-Europe.jpg\nSpear & Jackson — Adventure|https://klr-europe.com/wp-content/uploads/2023/01/Spear-and-Jackson-Sense-of-Adventure-KLR-Europe-1.jpg\nSpear & Jackson — Nature|https://klr-europe.com/wp-content/uploads/2023/01/Spear-and-Jackson-Sense-of-Nature-KLR-Europe.jpg\nPolice|https://klr-europe.com/wp-content/uploads/2025/02/police.jpg\nEurosport — Champions|https://klr-europe.com/wp-content/uploads/2024/04/Eurosport-Champions.jpg\nNEWME — Food Containers|https://klr-europe.com/wp-content/uploads/2023/04/NEWME-Food-Containers-KLR-Europe.jpg\nWastebusters|https://klr-europe.com/wp-content/uploads/2023/01/Wastebusters-KLR-Europe-1.jpg\nNASA Stardust|https://klr-europe.com/wp-content/uploads/2024/04/NASA-STARDUST-black-KLR-Europe.jpg\nGuzzini — Chefline|https://klr-europe.com/wp-content/uploads/2025/02/Guzzini-Chefline.jpg\nWaverley|https://klr-europe.com/wp-content/uploads/2025/02/waverely.jpg"
+      "itemsText": "Zanussi — Cooking Easy|/api/media/wp-2755\nZanussi — SuperGrip|/api/media/wp-2754\nZanussi — Zmart Move|/api/media/wp-2930\nPintinox — Trust|/api/media/wp-2932\nPintinox — Barbeque|/api/media/wp-3468\nPintinox — Hexacore|/api/media/wp-3445\nPintinox — Virtuoso|/api/media/wp-3449\nBugatti — Spezia|/api/media/wp-2936\nBugatti — Ergo Pakka|/api/media/wp-1920\nBugatti — Prestigio|/api/media/wp-1924\nBugatti — Buono Cookiez|/api/media/wp-1916\nBugatti — Buono Bakeware|/api/media/wp-1940\nSpear & Jackson — Best Sellers|/api/media/wp-2741\nSpear & Jackson — Adventure|/api/media/wp-1910\nSpear & Jackson — Nature|/api/media/wp-1914\nPolice|/api/media/wp-3485\nEurosport — Champions|/api/media/wp-3117\nNEWME — Food Containers|/api/media/wp-2742\nWastebusters|/api/media/wp-1904\nNASA Stardust|/api/media/wp-3121\nGuzzini — Chefline|/api/media/wp-3440\nWaverley|/api/media/wp-3441"
+    },
+    "seo": {
+      "title": "Brands | Exceptional Rewards for Retail Loyalty",
+      "description": "KLR Europe partners with world-class brands — Oracle Red Bull Racing, NASA, Bugatti, Pintinox, Zanussi and more — to create exclusive reward collections for retail loyalty campaigns across Europe."
     }
   },
   "caseStudies": {
@@ -367,6 +391,10 @@
       "titleEm": "Your Goals",
       "subtitle": "Tell us your targets and we will craft the next campaign story for your retail chain.",
       "ctaLabel": "Let's Talk About Your Goals"
+    },
+    "seo": {
+      "title": "Case Studies | Loyalty Campaigns that Drive Success",
+      "description": "340+ loyalty campaigns across 20+ European countries. Explore how KLR Europe helped grocery and fuel retail chains increase visits, grow basket size, and build lasting customer relationships."
     }
   },
   "blog": {
@@ -375,6 +403,10 @@
       "eyebrow": "Insights",
       "title": "Ideas, Trends & Stories from KLR hands on experience",
       "subtitle": "Fresh perspectives on loyalty marketing, retail innovation, and the people behind our work."
+    },
+    "seo": {
+      "title": "Insights | Loyalty Marketing Trends & Stories",
+      "description": "Your go-to spot for fresh takes on loyalty marketing, industry trends, and the people behind KLR's success. Expert insights on grocery and fuel retail loyalty across Europe."
     }
   },
   "work": {
@@ -396,8 +428,48 @@
     "hq1": "Ulica 15. Maja 19 / SI-6000 Koper/Capodistria / +386 5 902 87 58",
     "hq2": "Via XXV Aprile 66 / 25038 Rovato (BS), Italy / +39 030 52 81 427",
     "email": "info@klr-europe.com",
-    "linkedinUrl": "https://www.linkedin.com/company/klr-europe/",
-    "youtubeUrl": "https://www.youtube.com/@klr-europe"
+    "linkedinUrl": "https://www.linkedin.com/company/klr-key-to-loyalty-in-retail/",
+    "youtubeUrl": "https://www.youtube.com/@klreurope",
+    "exploreLinks": [
+      {
+        "href": "/",
+        "label": "Home"
+      },
+      {
+        "href": "/about",
+        "label": "About"
+      },
+      {
+        "href": "/10-years",
+        "label": "10 Years"
+      },
+      {
+        "href": "/services",
+        "label": "Services"
+      },
+      {
+        "href": "/brands",
+        "label": "Brands"
+      }
+    ],
+    "moreLinks": [
+      {
+        "href": "/work",
+        "label": "Case Studies"
+      },
+      {
+        "href": "/blog",
+        "label": "Insights"
+      },
+      {
+        "href": "/team",
+        "label": "Team"
+      },
+      {
+        "href": "/contact",
+        "label": "Contact"
+      }
+    ]
   },
   "career": {
     "hero": {
@@ -405,13 +477,13 @@
       "eyebrow": "Career",
       "title": "A Loyal Team of Professionals.",
       "subtitle": "Loyalty starts within our team. We are open-minded professionals of different nationalities, united by trust, mutual respect, and a passion for loyalty marketing.",
-      "image": "https://klr-europe.com/wp-content/uploads/2022/12/KLR-RECRUITING-scaled.jpg",
+      "image": "/api/media/wp-1014",
       "ctaLabel": "See Open Positions",
       "ctaHref": "#positions"
     },
     "teamBanner": {
       "_visible": true,
-      "image": "https://klr-europe.com/wp-content/uploads/2025/09/KLR10-14-e1758293512394.jpg",
+      "image": "/api/media/wp-4569",
       "title": "Be part of our International Team."
     },
     "values": {
@@ -435,6 +507,10 @@
       "subtitle": "Send us your CV and we'll keep you in mind for future opportunities.",
       "ctaLabel": "Send Your Application",
       "ctaHref": "mailto:careers@klr-europe.com"
+    },
+    "seo": {
+      "title": "Career | A Loyal Team of Professionals",
+      "description": "Join KLR Europe — a team of professionals of different nationalities, beliefs and cultures united by cohesion, trust and mutual respect. Be part of our international loyalty marketing team."
     }
   },
   "tenYears": {
@@ -443,7 +519,7 @@
       "eyebrow": "10 Years",
       "title": "A Decade of Trust and Teamwork",
       "subtitle": "10 years. 340+ campaigns. 20+ countries. From Koper to Europe.",
-      "image": "https://klr-europe.com/wp-content/uploads/2025/05/KLR-anniverarsio-10-anni-def.png"
+      "image": "/api/media/wp-4231"
     },
     "intro": {
       "_visible": true,
@@ -453,7 +529,7 @@
       "subtitle": "KLR was born from friendship — different cultures, shared ambitions, and a belief that loyalty is built on trust.",
       "paragraph1": "Over the past 10 years, we've grown not just as a business, but as individuals, adapting, learning, and pushing boundaries together.",
       "paragraph2": "Our success isn't just measured in numbers but in the strong partnerships we've built across Europe, the milestones we've reached, and the people who've shaped our journey.",
-      "image": "https://klr-europe.com/wp-content/uploads/2025/09/KLR10-14-e1758293512394.jpg"
+      "image": "/api/media/wp-4569"
     },
     "stats": {
       "_visible": true,
@@ -507,6 +583,10 @@
       "subtitle": "The best campaigns are still ahead.",
       "ctaLabel": "Let's Work Together",
       "ctaHref": "/contact"
+    },
+    "seo": {
+      "title": "KLR 10 Years | A Decade of Trust and Teamwork",
+      "description": "KLR Europe celebrates 10 years of commitment, teamwork and growth. From a single office in Koper in 2015 to 43 professionals across 20+ European markets."
     }
   },
   "geo": {

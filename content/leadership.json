@@ -1,15 +1,98 @@
 [
-  { "id": "antonio-finazzi", "name": "Antonio Finazzi", "role": "CEO & Founder", "img": "/team/KLR-Antonio-fondo-giallo.png", "bio": "Antonio founded KLR in 2015 with a vision to design emotional loyalty across Europe. Three decades of retail and petrol strategy built on relationships.", "quote": "Loyalty is never transactional. It's human." },
-  { "id": "stefano-finazzi", "name": "Stefano Finazzi", "role": "CMO & Founder", "img": "/team/Stefano-FINAZZI.png", "bio": "Stefano shapes the creative and marketing vision of KLR — from campaign concept through every retail touchpoint.", "quote": "We deliver 6 million moments of joy a year — every single one matters." },
-  { "id": "sebastjan-kocjancic", "name": "Sebastjan Kocjančič", "role": "COO", "img": "/team/Sebstjan-Kocjancic.png", "bio": "Sebastjan runs operations across 10 European locations. Procurement, warehousing, distribution — the backbone behind every flawless rollout.", "quote": "Every shopper deserves a reason to come back." },
-  { "id": "marcello-leonardi", "name": "Marcello Leonardi", "role": "Managing Director, New Markets", "img": "/team/Marcello-LEONARDI.png", "bio": "Marcello leads KLR's expansion into new markets across Western and Central Europe.", "quote": "New markets need new stories — built on old-school trust." },
-  { "id": "olga-wojcik", "name": "Olga Wojcik", "role": "Head of Corporate Sales", "img": "/team/Olga-WOJCIK.png", "bio": "Olga drives corporate sales across the KLR client portfolio, turning ambitious briefs into long-term partnerships.", "quote": "Sales is listening before selling." },
-  { "id": "marta-marga", "name": "Marta Marga", "role": "Head of Marketing", "img": "/team/Marta-MARGA.png", "bio": "Marta leads marketing, content and communications — the voice of KLR across every channel.", "quote": "Good marketing feels like good storytelling." },
-  { "id": "jan-sahbaz-pergar", "name": "Jan Šahbaz Pergar", "role": "Head of Development", "img": "/team/Jan-SAHBAZ-PERGAR.png", "bio": "Jan leads product and technology development, including KLR's proprietary campaign management software.", "quote": "Great software makes complex things feel simple." },
-  { "id": "riccardo-fogazzi", "name": "Riccardo Fogazzi", "role": "Head of Campaigns & Stock Management", "img": "/team/Riccardo-FOGAZZI.png", "bio": "Riccardo oversees campaign execution and stock management across 20+ markets.", "quote": "Plan for the edge cases — delight lives in the details." },
-  { "id": "nina-bjelivuk", "name": "Nina Bjelivuk", "role": "Head of Logistics", "img": "/team/Nina-BJELIVUK.png", "bio": "Nina orchestrates logistics across Europe — from port to pallet to final store.", "quote": "Loyalty only works when the reward arrives on time." },
-  { "id": "natalia-molchanova", "name": "Natalia Molchanova", "role": "Head of Corporate Communication", "img": "/team/Natalia-MOLCHANOVA.png", "bio": "Natalia shapes KLR's corporate voice, partnerships and external communications.", "quote": "Clear words build loyal relationships." },
-  { "id": "team-design", "name": "Design Studio", "role": "Creative & Product Design", "img": "https://klr-europe.com/wp-content/uploads/2022/12/KLR_TailorMade-.png", "bio": "Our in-house design studio develops packaging, POSM and campaign identities tailored to every retailer and brand.", "quote": "Design is how people fall in love with a campaign." },
-  { "id": "team-analytics", "name": "Analytics Team", "role": "Measurement & Insight", "img": "https://klr-europe.com/wp-content/uploads/2023/02/KLR-Infographic-Services_website_Tavola-disegno-1-scaled.jpg", "bio": "KLR's analytics team delivers custom metrics, KPI dashboards and post-campaign insights.", "quote": "Numbers tell us what worked — and what to try next." },
-  { "id": "team-account", "name": "Account Management", "role": "Client Partnership", "img": "https://klr-europe.com/wp-content/uploads/2022/12/KLR-TEAMWORK-scaled.jpg", "bio": "Dedicated account managers serve as the single point of contact for every KLR retail and petrol client.", "quote": "We answer the phone — always." }
+  {
+    "id": "antonio-finazzi",
+    "name": "Antonio Finazzi",
+    "role": "CEO & Founder",
+    "img": "/team/KLR-Antonio-fondo-giallo.png",
+    "bio": "Antonio founded KLR in 2015 with a vision to design emotional loyalty across Europe. Three decades of retail and petrol strategy built on relationships.",
+    "quote": "Loyalty is never transactional. It's human."
+  },
+  {
+    "id": "stefano-finazzi",
+    "name": "Stefano Finazzi",
+    "role": "CMO & Founder",
+    "img": "/team/Stefano-FINAZZI.png",
+    "bio": "Stefano shapes the creative and marketing vision of KLR — from campaign concept through every retail touchpoint.",
+    "quote": "We deliver 6 million moments of joy a year — every single one matters."
+  },
+  {
+    "id": "sebastjan-kocjancic",
+    "name": "Sebastjan Kocjančič",
+    "role": "COO",
+    "img": "/team/Sebstjan-Kocjancic.png",
+    "bio": "Sebastjan runs operations across 10 European locations. Procurement, warehousing, distribution — the backbone behind every flawless rollout.",
+    "quote": "Every shopper deserves a reason to come back."
+  },
+  {
+    "id": "olga-wojcik",
+    "name": "Olga Wojcik",
+    "role": "Head of Corporate Sales",
+    "img": "/team/Olga-WOJCIK.png",
+    "bio": "Olga drives corporate sales across the KLR client portfolio, turning ambitious briefs into long-term partnerships.",
+    "quote": "Sales is listening before selling."
+  },
+  {
+    "id": "marta-marga",
+    "name": "Marta Marga",
+    "role": "Head of Marketing",
+    "img": "/team/Marta-MARGA.png",
+    "bio": "Marta leads marketing, content and communications — the voice of KLR across every channel.",
+    "quote": "Good marketing feels like good storytelling."
+  },
+  {
+    "id": "jan-sahbaz-pergar",
+    "name": "Jan Šahbaz Pergar",
+    "role": "Head of Development",
+    "img": "/team/Jan-SAHBAZ-PERGAR.png",
+    "bio": "Jan leads product and technology development, including KLR's proprietary campaign management software.",
+    "quote": "Great software makes complex things feel simple."
+  },
+  {
+    "id": "riccardo-fogazzi",
+    "name": "Riccardo Fogazzi",
+    "role": "Head of Campaigns & Stock Management",
+    "img": "/team/Riccardo-FOGAZZI.png",
+    "bio": "Riccardo oversees campaign execution and stock management across 20+ markets.",
+    "quote": "Plan for the edge cases — delight lives in the details."
+  },
+  {
+    "id": "nina-bjelivuk",
+    "name": "Nina Bjelivuk",
+    "role": "Head of Logistics",
+    "img": "/team/Nina-BJELIVUK.png",
+    "bio": "Nina orchestrates logistics across Europe — from port to pallet to final store.",
+    "quote": "Loyalty only works when the reward arrives on time."
+  },
+  {
+    "id": "natalia-molchanova",
+    "name": "Natalia Molchanova",
+    "role": "Head of Corporate Communication",
+    "img": "/team/Natalia-MOLCHANOVA.png",
+    "bio": "Natalia shapes KLR's corporate voice, partnerships and external communications.",
+    "quote": "Clear words build loyal relationships."
+  },
+  {
+    "id": "team-design",
+    "name": "Design Studio",
+    "role": "Creative & Product Design",
+    "img": "/api/media/wp-916",
+    "bio": "Our in-house design studio develops packaging, POSM and campaign identities tailored to every retailer and brand.",
+    "quote": "Design is how people fall in love with a campaign."
+  },
+  {
+    "id": "team-analytics",
+    "name": "Analytics Team",
+    "role": "Measurement & Insight",
+    "img": "/api/media/wp-2663",
+    "bio": "KLR's analytics team delivers custom metrics, KPI dashboards and post-campaign insights.",
+    "quote": "Numbers tell us what worked — and what to try next."
+  },
+  {
+    "id": "team-account",
+    "name": "Account Management",
+    "role": "Client Partnership",
+    "img": "/api/media/wp-909",
+    "bio": "Dedicated account managers serve as the single point of contact for every KLR retail and petrol client.",
+    "quote": "We answer the phone — always."
+  }
 ]

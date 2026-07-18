@@ -8,7 +8,8 @@ import {
   Home, Info, Wrench, Phone, Footprints, Star, Palette, Settings,
   Lightbulb, Paperclip, ArrowRight, CheckCircle, Folder, MapPin,
   Link as LinkIcon, Calendar, MessageSquare, BookOpen, Briefcase,
-  Eye, EyeOff, Upload, Plus, Trash2, GripVertical, Navigation, Award, FileCode, Cookie, RefreshCw
+  Eye, EyeOff, Upload, Plus, Trash2, GripVertical, Navigation, Award, FileCode, Cookie, RefreshCw,
+  Images, Search, Copy, FileVideo, FileAudio, File as FileIcon, Pencil
 } from "lucide-react";
 import type { AdminUser } from "@/lib/admin-auth";
 import type { LucideIcon } from "lucide-react";
@@ -17,12 +18,12 @@ import klrLogo from "@/src/imports/KLR-Logosito.png";
 type TopSection =
   | "overview" | "pages" | "stats" | "brands" | "leadership"
   | "studies" | "posts" | "colors" | "users" | "settings"
-  | "positions" | "customPages" | "cookies";
+  | "positions" | "customPages" | "cookies" | "media";
 
 const ROLE_SECTIONS: Record<string, TopSection[]> = {
-  superadmin: ["overview","pages","stats","brands","leadership","studies","posts","colors","users","settings","positions","customPages","cookies"],
-  admin:      ["overview","pages","stats","brands","leadership","studies","posts","colors","settings","positions","customPages","cookies"],
-  editor:     ["overview","studies","posts"],
+  superadmin: ["overview","pages","stats","brands","leadership","studies","posts","colors","users","settings","positions","customPages","cookies","media"],
+  admin:      ["overview","pages","stats","brands","leadership","studies","posts","colors","settings","positions","customPages","cookies","media"],
+  editor:     ["overview","studies","posts","media"],
 };
 
 const ROLE_LABELS: Record<string, string> = {
@@ -51,6 +52,7 @@ const TOP_NAV: { id: TopSection; label: string; icon: LucideIcon }[] = [
   { id: "posts",       label: "Insights",       icon: PenLine    },
   { id: "positions",   label: "Posizioni Lavorative", icon: Award },
   { id: "customPages", label: "Pagine Custom",  icon: FileCode   },
+  { id: "media",       label: "Media Library",  icon: Images     },
   { id: "colors",      label: "Colori & Tema",  icon: Palette    },
   { id: "cookies",     label: "Cookie & Privacy", icon: Cookie   },
   { id: "users",       label: "Utenti",         icon: Users      },
@@ -116,6 +118,7 @@ export function AdminDashboardClient({ currentUser }: { currentUser: AdminUser }
   const [saved,       setSaved]       = useState(false);
   const [saveError,   setSaveError]   = useState(false);
   const [saveErrorMessage, setSaveErrorMessage] = useState<string | null>(null);
+  const [changePasswordOpen, setChangePasswordOpen] = useState(false);
 
   const load = useCallback(async (type: string) => {
     const res  = await fetch(`/api/admin/content?type=${type}`);
@@ -231,10 +234,14 @@ export function AdminDashboardClient({ currentUser }: { currentUser: AdminUser }
           <div style={{ width:34,height:34,borderRadius:"50%",background:"linear-gradient(135deg,#F8AE01,#f59e0b)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:13,fontWeight:800,color:"#000",flexShrink:0,boxShadow:"0 2px 8px rgba(248,174,1,0.4)" }}>
             {currentUser.name.charAt(0).toUpperCase()}
           </div>
-          <div>
+          <div style={{ flex:1,minWidth:0 }}>
             <div style={{ color:"#fff",fontSize:13,fontWeight:600,lineHeight:1.2 }}>{currentUser.name}</div>
             <div style={{ color:"rgba(255,255,255,0.38)",fontSize:10,marginTop:2,textTransform:"uppercase",letterSpacing:"0.07em" }}>{ROLE_LABELS[currentUser.role] ?? currentUser.role}</div>
           </div>
+          <button type="button" onClick={() => setChangePasswordOpen(true)} title="Cambia password"
+            style={{ width:28,height:28,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",background:"rgba(255,255,255,0.08)",border:"none",borderRadius:8,color:"rgba(255,255,255,0.6)",cursor:"pointer" }}>
+            <Settings size={13}/>
+          </button>
         </div>
         <nav style={{ flex:1,padding:"10px 10px",overflowY:"auto" }}>
           {TOP_NAV.filter(item => (ROLE_SECTIONS[currentUser.role] ?? ROLE_SECTIONS.editor).includes(item.id)).map(item => {
@@ -294,8 +301,101 @@ export function AdminDashboardClient({ currentUser }: { currentUser: AdminUser }
               <ConsentLogPanel />
             </>
           )}
+          {section === "media"       && <MediaLibraryPanel />}
         </div>
       </main>
+      {changePasswordOpen && <ChangePasswordModal onClose={() => setChangePasswordOpen(false)} />}
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════
+   CHANGE PASSWORD MODAL (self-service, any role)
+══════════════════════════════════════════════════ */
+function ChangePasswordModal({ onClose }: { onClose: () => void }) {
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword,     setNewPassword]     = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [submitting,      setSubmitting]      = useState(false);
+  const [error,           setError]           = useState<string | null>(null);
+  const [success,         setSuccess]         = useState(false);
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    setError(null);
+
+    if (newPassword.length < 8) {
+      setError("La nuova password deve avere almeno 8 caratteri");
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setError("Le due password non coincidono");
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/admin/account/password", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ currentPassword, newPassword }),
+      });
+      const json = await res.json().catch(() => null);
+      if (!res.ok) {
+        setError(json?.error || `Errore (HTTP ${res.status})`);
+        setSubmitting(false);
+        return;
+      }
+      setSuccess(true);
+      setSubmitting(false);
+      setTimeout(onClose, 1500);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+      setSubmitting(false);
+    }
+  }
+
+  return (
+    <div style={{ position:"fixed",inset:0,background:"rgba(10,7,30,0.55)",backdropFilter:"blur(4px)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:100,padding:20 }}
+      onClick={onClose}>
+      <form onClick={e => e.stopPropagation()} onSubmit={submit}
+        style={{ background:"#fff",borderRadius:16,padding:24,width:"100%",maxWidth:380,boxShadow:"0 24px 64px rgba(0,0,0,0.3)" }}>
+        <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:18 }}>
+          <h3 style={{ margin:0,fontSize:16,fontWeight:700,color:"#111" }}>Cambia password</h3>
+          <button type="button" onClick={onClose}
+            style={{ width:26,height:26,display:"flex",alignItems:"center",justifyContent:"center",background:"#F2F2F6",border:"none",borderRadius:7,cursor:"pointer",color:"#666" }}>
+            <X size={14}/>
+          </button>
+        </div>
+
+        <div style={{ display:"flex",flexDirection:"column",gap:12 }}>
+          <Field label="Password attuale">
+            <Input type="password" value={currentPassword} onChange={setCurrentPassword}/>
+          </Field>
+          <Field label="Nuova password">
+            <Input type="password" value={newPassword} onChange={setNewPassword}/>
+          </Field>
+          <Field label="Conferma nuova password">
+            <Input type="password" value={confirmPassword} onChange={setConfirmPassword}/>
+          </Field>
+        </div>
+
+        {error && (
+          <div style={{ marginTop:12,padding:"8px 12px",background:"rgba(220,38,38,0.08)",color:"#dc2626",borderRadius:8,fontSize:12,fontWeight:600 }}>
+            {error}
+          </div>
+        )}
+        {success && (
+          <div style={{ marginTop:12,padding:"8px 12px",background:"rgba(22,163,74,0.1)",color:"#16a34a",borderRadius:8,fontSize:12,fontWeight:600 }}>
+            Password aggiornata
+          </div>
+        )}
+
+        <button type="submit" disabled={submitting || success}
+          style={{ marginTop:16,width:"100%",padding:"11px",background:submitting||success?"#eee":"#F8AE01",color:submitting||success?"#999":"#000",border:"none",borderRadius:10,fontSize:13,fontWeight:700,cursor:submitting||success?"not-allowed":"pointer" }}>
+          {submitting ? "Salvataggio…" : success ? "Fatto" : "Aggiorna password"}
+        </button>
+      </form>
     </div>
   );
 }
@@ -756,6 +856,268 @@ function MiniStat({ label, value, color }: { label:string; value:string; color:s
 }
 
 /* ══════════════════════════════════════════════════
+   MEDIA LIBRARY
+══════════════════════════════════════════════════ */
+type MediaRecord = {
+  id: string; filename: string; title: string; alt: string; caption: string; description: string;
+  mimeType: string; filesize?: number; width?: number; height?: number; sourceUrl?: string;
+  uploadedAt: string; updatedAt: string; url: string;
+};
+
+const MEDIA_PAGE_SIZE = 24;
+
+function formatBytes(n?: number) {
+  if (!n) return "—";
+  if (n < 1024) return `${n} B`;
+  if (n < 1024 * 1024) return `${(n / 1024).toFixed(0)} KB`;
+  return `${(n / 1024 / 1024).toFixed(1)} MB`;
+}
+
+function MediaThumb({ item, size = 64 }: { item: MediaRecord; size?: number }) {
+  const style: React.CSSProperties = { width: size, height: size, borderRadius: 10, objectFit: "cover", background: "#F0F0F6", flexShrink: 0 };
+  if (item.mimeType.startsWith("image/")) {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img src={item.url} alt={item.alt || item.filename} style={style} />;
+  }
+  const Icon = item.mimeType.startsWith("video/") ? FileVideo : item.mimeType.startsWith("audio/") ? FileAudio : FileIcon;
+  return (
+    <div style={{ ...style, display: "flex", alignItems: "center", justifyContent: "center", color: "#999" }}>
+      <Icon size={Math.round(size * 0.4)} />
+    </div>
+  );
+}
+
+function MediaLibraryPanel() {
+  const [items, setItems]         = useState<MediaRecord[] | null>(null);
+  const [total, setTotal]         = useState(0);
+  const [loading, setLoading]     = useState(false);
+  const [query, setQuery]         = useState("");
+  const [typeFilter, setTypeFilter] = useState("all");
+  const [visible, setVisible]     = useState(MEDIA_PAGE_SIZE);
+  const [uploading, setUploading] = useState(false);
+  const [uploadMsg, setUploadMsg] = useState("");
+  const [editing, setEditing]     = useState<MediaRecord | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const load = useCallback(async (q: string, type: string) => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams();
+      if (q) params.set("q", q);
+      if (type !== "all") params.set("type", type);
+      const res = await fetch(`/api/admin/media?${params.toString()}`, { cache: "no-store" });
+      const json = await res.json();
+      setItems(json.data || []);
+      setTotal(json.total ?? (json.data || []).length);
+    } catch {
+      setItems([]);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    const t = setTimeout(() => { setVisible(MEDIA_PAGE_SIZE); load(query, typeFilter); }, 300);
+    return () => clearTimeout(t);
+  }, [query, typeFilter, load]);
+
+  async function handleUpload(files: FileList | null) {
+    if (!files || files.length === 0) return;
+    setUploading(true);
+    let ok = 0, fail = 0;
+    for (const file of Array.from(files)) {
+      const fd = new FormData();
+      fd.append("file", file);
+      try {
+        const res = await fetch("/api/admin/media", { method: "POST", body: fd });
+        if (res.ok) ok++; else fail++;
+      } catch { fail++; }
+    }
+    setUploading(false);
+    setUploadMsg(`${ok} caricati${fail ? `, ${fail} falliti` : ""}`);
+    setTimeout(() => setUploadMsg(""), 4000);
+    load(query, typeFilter);
+  }
+
+  async function saveEdit(record: MediaRecord, replaceFile?: File) {
+    let res: Response;
+    if (replaceFile) {
+      const fd = new FormData();
+      fd.append("file", replaceFile);
+      fd.append("title", record.title);
+      fd.append("alt", record.alt);
+      fd.append("caption", record.caption);
+      fd.append("description", record.description);
+      res = await fetch(`/api/admin/media/${record.id}`, { method: "PUT", body: fd });
+    } else {
+      res = await fetch(`/api/admin/media/${record.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: record.title, alt: record.alt, caption: record.caption, description: record.description }),
+      });
+    }
+    if (res.ok) {
+      setEditing(null);
+      load(query, typeFilter);
+    }
+  }
+
+  async function remove(id: string) {
+    const res = await fetch(`/api/admin/media/${id}`, { method: "DELETE" });
+    if (res.status === 409) {
+      const json = await res.json();
+      if (confirm(`${json.message}\n\nEliminare comunque?`)) {
+        await fetch(`/api/admin/media/${id}?force=true`, { method: "DELETE" });
+        setEditing(null);
+        load(query, typeFilter);
+      }
+      return;
+    }
+    setEditing(null);
+    load(query, typeFilter);
+  }
+
+  function copyUrl(url: string) {
+    const full = typeof window !== "undefined" ? `${window.location.origin}${url}` : url;
+    navigator.clipboard?.writeText(full).catch(() => {});
+  }
+
+  const visibleItems = (items || []).slice(0, visible);
+
+  return (
+    <div>
+      <Panel title={`Media Library (${total} asset)`} rightAction={
+        <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+          {uploadMsg && <span style={{ fontSize: 12, color: "#16a34a", fontWeight: 600 }}>{uploadMsg}</span>}
+          <input ref={fileInputRef} type="file" multiple style={{ display: "none" }}
+            onChange={e => { handleUpload(e.target.files); e.target.value = ""; }} />
+          <button onClick={() => fileInputRef.current?.click()} disabled={uploading}
+            style={{ display: "flex", alignItems: "center", gap: 7, padding: "9px 16px", background: uploading ? "#ddd" : "#2E2784", color: "#fff", border: "none", borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: uploading ? "not-allowed" : "pointer" }}>
+            <Upload size={14} /> {uploading ? "Caricamento…" : "Carica file"}
+          </button>
+        </div>
+      }>
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 18 }}>
+          <div style={{ position: "relative", flex: "1 1 240px" }}>
+            <Search size={14} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "#bbb" }} />
+            <input value={query} onChange={e => setQuery(e.target.value)} placeholder="Cerca per nome, alt, caption…"
+              style={{ width: "100%", boxSizing: "border-box", padding: "9px 12px 9px 34px", border: "1.5px solid #E8E8F0", borderRadius: 9, fontSize: 13, background: "#FAFAFA", outline: "none" }} />
+          </div>
+          <FieldSelect value={typeFilter} onChange={setTypeFilter} options={["all", "image", "video", "application"]} />
+        </div>
+
+        {loading && !items && <Loader />}
+
+        {items && items.length === 0 && (
+          <div style={{ padding: "40px 0", textAlign: "center", color: "#999", fontSize: 13 }}>
+            Nessun asset trovato.
+          </div>
+        )}
+
+        {items && items.length > 0 && (
+          <>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(220px,1fr))", gap: 12 }}>
+              {visibleItems.map(item => (
+                <button key={item.id} onClick={() => setEditing(item)}
+                  style={{ display: "flex", gap: 10, alignItems: "center", padding: 10, background: "#fff", border: "1px solid #EEEEF3", borderRadius: 12, cursor: "pointer", textAlign: "left" }}>
+                  <MediaThumb item={item} />
+                  <div style={{ minWidth: 0, flex: 1 }}>
+                    <div style={{ fontSize: 12.5, fontWeight: 600, color: "#222", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{item.title || item.filename}</div>
+                    <div style={{ fontSize: 11, color: "#999", marginTop: 2 }}>{item.mimeType} · {formatBytes(item.filesize)}</div>
+                  </div>
+                  <Pencil size={13} style={{ color: "#bbb", flexShrink: 0 }} />
+                </button>
+              ))}
+            </div>
+            {visible < items.length && (
+              <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
+                <button onClick={() => setVisible(v => v + MEDIA_PAGE_SIZE)}
+                  style={{ padding: "9px 20px", background: "#F5F5FA", color: "#555", border: "none", borderRadius: 10, fontSize: 12.5, fontWeight: 600, cursor: "pointer" }}>
+                  Carica altri ({items.length - visible} rimanenti)
+                </button>
+              </div>
+            )}
+          </>
+        )}
+      </Panel>
+
+      {editing && (
+        <div onClick={() => setEditing(null)}
+          style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
+          <div onClick={e => e.stopPropagation()}
+            style={{ background: "#fff", borderRadius: 16, padding: 24, maxWidth: 480, width: "100%", maxHeight: "85vh", overflowY: "auto" }}>
+            <MediaEditForm item={editing} onCancel={() => setEditing(null)} onSave={saveEdit} onDelete={remove} onCopyUrl={copyUrl} />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function MediaEditForm({ item, onCancel, onSave, onDelete, onCopyUrl }: {
+  item: MediaRecord;
+  onCancel: () => void;
+  onSave: (record: MediaRecord, replaceFile?: File) => void;
+  onDelete: (id: string) => void;
+  onCopyUrl: (url: string) => void;
+}) {
+  const [form, setForm] = useState(item);
+  const [replaceFile, setReplaceFile] = useState<File | null>(null);
+  const replaceRef = useRef<HTMLInputElement>(null);
+
+  return (
+    <div>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 16 }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: "#111" }}>Modifica asset</div>
+        <button onClick={onCancel} style={{ background: "none", border: "none", cursor: "pointer", color: "#999" }}><X size={18} /></button>
+      </div>
+
+      <MediaThumb item={item} size={140} />
+
+      <div style={{ marginTop: 14 }}>
+        <Field label="Titolo"><Input value={form.title} onChange={v => setForm(p => ({ ...p, title: v }))} /></Field>
+      </div>
+      <div style={{ marginTop: 10 }}>
+        <Field label="Alt Text"><Input value={form.alt} onChange={v => setForm(p => ({ ...p, alt: v }))} /></Field>
+      </div>
+      <div style={{ marginTop: 10 }}>
+        <Field label="Caption"><Input value={form.caption} onChange={v => setForm(p => ({ ...p, caption: v }))} /></Field>
+      </div>
+      <div style={{ marginTop: 10 }}>
+        <Field label="Description"><Textarea value={form.description} onChange={v => setForm(p => ({ ...p, description: v }))} rows={3} /></Field>
+      </div>
+
+      <div style={{ marginTop: 14, padding: "10px 12px", background: "#FAFAFC", borderRadius: 10, fontSize: 11.5, color: "#888" }}>
+        <div>File: {item.filename}</div>
+        <div>Tipo: {item.mimeType} · Peso: {formatBytes(item.filesize)}</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 6 }}>
+          <code style={{ flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{item.url}</code>
+          <button onClick={() => onCopyUrl(item.url)} style={{ background: "none", border: "none", cursor: "pointer", color: "#2E2784", display: "flex" }}>
+            <Copy size={13} />
+          </button>
+        </div>
+      </div>
+
+      <input ref={replaceRef} type="file" style={{ display: "none" }} onChange={e => setReplaceFile(e.target.files?.[0] || null)} />
+      <button onClick={() => replaceRef.current?.click()}
+        style={{ marginTop: 12, width: "100%", padding: "9px 12px", background: "#F5F5FA", color: "#555", border: "1px dashed #ddd", borderRadius: 10, fontSize: 12.5, fontWeight: 600, cursor: "pointer" }}>
+        {replaceFile ? `Sostituirà con: ${replaceFile.name}` : "Sostituisci file…"}
+      </button>
+
+      <div style={{ display: "flex", gap: 8, marginTop: 18 }}>
+        <button onClick={() => onDelete(item.id)}
+          style={{ display: "flex", alignItems: "center", gap: 6, padding: "9px 14px", background: "rgba(220,38,38,0.08)", color: "#dc2626", border: "none", borderRadius: 10, fontSize: 12.5, fontWeight: 600, cursor: "pointer" }}>
+          <Trash2 size={13} /> Elimina
+        </button>
+        <div style={{ flex: 1 }} />
+        <SecBtn onClick={onCancel}>Annulla</SecBtn>
+        <SaveBtn onClick={() => onSave(form, replaceFile || undefined)} />
+      </div>
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════
    STATS
 ══════════════════════════════════════════════════ */
 const STATS_LABELS: Record<string,string> = {
@@ -918,6 +1280,16 @@ function PagesEditor({ data, onSave }: { data:PagesDataLocal|null; onSave:(d:unk
             onChangeCtaLabel={v => updateTop(activePage, "ctaLabel", v)}
             onChangeCtaHref={v => updateTop(activePage, "ctaHref", v)}
             onChangeLinks={links => setForm(prev => ({...prev, nav: {...prev.nav, links}}))}
+          />
+        )}
+
+        {/* Special: Footer link lists editor */}
+        {activePage === "footer" && (
+          <FooterLinksEditor
+            exploreLinks={(pageData as Record<string,unknown>).exploreLinks as NavLinkItem[] | undefined || []}
+            moreLinks={(pageData as Record<string,unknown>).moreLinks as NavLinkItem[] | undefined || []}
+            onChangeExploreLinks={links => setForm(prev => ({...prev, footer: {...prev.footer, exploreLinks: links}}))}
+            onChangeMoreLinks={links => setForm(prev => ({...prev, footer: {...prev.footer, moreLinks: links}}))}
           />
         )}
 
@@ -1148,6 +1520,76 @@ function NavLinksEditor({ ctaLabel, ctaHref, links, onChangeCtaLabel, onChangeCt
           + Aggiungi Link
         </button>
       </Panel>
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════
+   FOOTER LINK LISTS EDITOR
+══════════════════════════════════════════════════ */
+function SimpleLinkListEditor({ title, hint, links, onChange }: {
+  title: string; hint: string;
+  links: { href: string; label: string }[];
+  onChange: (l: { href: string; label: string }[]) => void;
+}) {
+  function add() {
+    onChange([...links, { href: "/", label: "Nuovo Link" }]);
+  }
+  function remove(i: number) {
+    onChange(links.filter((_, idx) => idx !== i));
+  }
+  function update(i: number, key: "href" | "label", value: string) {
+    onChange(links.map((l, idx) => idx === i ? { ...l, [key]: value } : l));
+  }
+  return (
+    <Panel title={title}>
+      <div style={{ fontSize:12,color:"#666",marginBottom:14,lineHeight:1.5 }}>{hint}</div>
+      {links.map((link, i) => (
+        <div key={i} style={{ display:"flex",alignItems:"center",gap:8,background:"#F5F5FA",borderRadius:12,padding:"14px 16px",marginBottom:10,border:"1px solid #E8E8F0" }}>
+          <GripVertical size={14} style={{ color:"#bbb",flexShrink:0 }}/>
+          <div style={{ flex:1,display:"grid",gridTemplateColumns:"1fr 1fr",gap:8 }}>
+            <div>
+              <div style={{ fontSize:10,fontWeight:700,color:"#666",textTransform:"uppercase",marginBottom:4 }}>Label</div>
+              <Input value={link.label} onChange={v => update(i, "label", v)}/>
+            </div>
+            <div>
+              <div style={{ fontSize:10,fontWeight:700,color:"#666",textTransform:"uppercase",marginBottom:4 }}>Href</div>
+              <Input value={link.href} onChange={v => update(i, "href", v)}/>
+            </div>
+          </div>
+          <button type="button" onClick={() => remove(i)}
+            style={{ padding:"6px",background:"#FEE2E2",color:"#DC2626",border:"none",borderRadius:7,cursor:"pointer",flexShrink:0 }}>
+            <Trash2 size={13}/>
+          </button>
+        </div>
+      ))}
+      <button type="button" onClick={add}
+        style={{ marginTop:8,padding:"9px 18px",background:"#F8AE01",color:"#000",border:"none",borderRadius:10,fontSize:13,fontWeight:700,cursor:"pointer" }}>
+        + Aggiungi Link
+      </button>
+    </Panel>
+  );
+}
+
+function FooterLinksEditor({ exploreLinks, moreLinks, onChangeExploreLinks, onChangeMoreLinks }: {
+  exploreLinks: NavLinkItem[]; moreLinks: NavLinkItem[];
+  onChangeExploreLinks: (l: NavLinkItem[]) => void;
+  onChangeMoreLinks: (l: NavLinkItem[]) => void;
+}) {
+  return (
+    <div>
+      <SimpleLinkListEditor
+        title="Footer — Colonna Explore"
+        hint="Link mostrati nella colonna 'Explore' del footer."
+        links={exploreLinks}
+        onChange={onChangeExploreLinks}
+      />
+      <SimpleLinkListEditor
+        title="Footer — Colonna Pages"
+        hint="Link mostrati nella colonna 'Pages' del footer."
+        links={moreLinks}
+        onChange={onChangeMoreLinks}
+      />
     </div>
   );
 }

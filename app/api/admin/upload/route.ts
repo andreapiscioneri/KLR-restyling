@@ -1,16 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { randomUUID } from "crypto";
 import { isAdminRequest } from "@/lib/admin-auth";
-import { getFirebaseBucket } from "@/lib/firebase-admin";
+import { readMediaManifest, writeMediaManifest, putMediaBlob, mediaUrl, type MediaRecord } from "@/lib/media-storage";
 
-const VALID_TYPES: Record<string, string> = {
-  "image/jpeg":   "jpg",
-  "image/jpg":    "jpg",
-  "image/png":    "png",
-  "image/gif":    "gif",
-  "image/webp":   "webp",
-  "image/svg+xml":"svg",
-};
+const VALID_TYPES = new Set([
+  "image/jpeg", "image/jpg", "image/png", "image/gif", "image/webp", "image/svg+xml", "image/avif", "image/heic",
+  "video/mp4", "video/quicktime", "video/webm",
+  "application/pdf",
+]);
 
 export async function POST(request: NextRequest) {
   if (!isAdminRequest(request)) {
@@ -29,39 +25,44 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Nessun file fornito" }, { status: 400 });
   }
 
-  const ext = VALID_TYPES[file.type];
-  if (!ext) {
-    return NextResponse.json({ error: "Tipo file non supportato. Usa JPG, PNG, GIF, WebP o SVG." }, { status: 400 });
+  if (!VALID_TYPES.has(file.type)) {
+    return NextResponse.json({ error: "Tipo file non supportato. Usa immagini, video (mp4/mov/webm) o PDF." }, { status: 400 });
   }
 
-  if (file.size > 10 * 1024 * 1024) {
-    return NextResponse.json({ error: "File troppo grande. Massimo 10MB." }, { status: 400 });
+  if (file.size > 50 * 1024 * 1024) {
+    return NextResponse.json({ error: "File troppo grande. Massimo 50MB dall'interfaccia admin (per file più grandi usa lo script di migrazione)." }, { status: 400 });
   }
 
-  let bucket;
-  try {
-    bucket = getFirebaseBucket();
-  } catch (e) {
-    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
-  }
-
-  const arrayBuffer = await file.arrayBuffer();
-  const buffer      = Buffer.from(arrayBuffer);
-  const fileName    = `klr-cms/${randomUUID()}.${ext}`;
-  const fileRef     = bucket.file(fileName);
+  const id = crypto.randomUUID();
+  const ext = file.name.includes(".") ? file.name.split(".").pop() : "";
+  const blobKey = `${id}${ext ? `.${ext}` : ""}`;
+  const buffer = await file.arrayBuffer();
 
   try {
-    await fileRef.save(buffer, {
-      contentType: file.type,
-      metadata: { cacheControl: "public, max-age=31536000" },
-    });
-    await fileRef.makePublic();
-
-    const bucketName = bucket.name;
-    const url = `https://storage.googleapis.com/${bucketName}/${fileName}`;
-    return NextResponse.json({ url });
+    await putMediaBlob(blobKey, buffer, file.type);
   } catch (err) {
     const msg = err instanceof Error ? err.message : "Upload fallito";
     return NextResponse.json({ error: msg }, { status: 500 });
   }
+
+  const now = new Date().toISOString();
+  const record: MediaRecord = {
+    id,
+    blobKey,
+    filename: file.name,
+    title: file.name,
+    alt: "",
+    caption: "",
+    description: "",
+    mimeType: file.type,
+    filesize: file.size,
+    uploadedAt: now,
+    updatedAt: now,
+  };
+
+  const manifest = await readMediaManifest();
+  manifest.push(record);
+  await writeMediaManifest(manifest);
+
+  return NextResponse.json({ url: mediaUrl(id) });
 }

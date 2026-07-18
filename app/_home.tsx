@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { ArrowUpRight, ArrowLeft, ArrowRight, Heart, Star, Award, Eye, Smile, Trophy, Globe, ShoppingCart, Clock, Users, Flag } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { images, stats as defaultStats, brandPartners as defaultBrands, studies as defaultStudies, fallbackPosts, loyaltyFramework, sectors, retailerLogos } from "@/src/app/data";
 
@@ -69,8 +69,8 @@ function Hero({ data = {} }: { data?: HeroData }) {
 
   return (
     <section ref={ref} className="relative min-h-screen overflow-hidden">
-      <motion.div className="absolute inset-0" style={{ y }}>
-        <img src={bg} alt="KLR Hero" className="absolute inset-0 w-full h-full object-cover object-center" />
+      <motion.div className="absolute inset-0" style={{ y, willChange: "transform" }}>
+        <img src={bg} alt="KLR Hero" decoding="async" fetchPriority="high" className="absolute inset-0 w-full h-full object-cover object-center" />
         <div className="absolute inset-0 bg-[#2E2784]/70" />
       </motion.div>
 
@@ -717,35 +717,19 @@ const HOME_SECTION_ORDER = [
   "international", "clients", "caseStudies", "blog", "closing",
 ] as const;
 
-export function HomePage() {
-  const [stats, setStats] = useState(defaultStats);
-  const [studies, setStudies] = useState(defaultStudies);
-  const [pages, setPages] = useState<Record<string, Record<string, unknown>>>({});
+export type HomeStats = typeof defaultStats;
+export type HomeStudies = typeof defaultStudies;
 
-  const fetchData = async () => {
-    try {
-      const [statsRes, studiesRes, pagesRes] = await Promise.all([
-        fetch("/api/content?type=stats",   { cache: "no-store" }),
-        fetch("/api/content?type=studies", { cache: "no-store" }),
-        fetch("/api/content?type=pages",   { cache: "no-store" }),
-      ]);
+type HomePageProps = {
+  initialStats?: HomeStats;
+  initialStudies?: HomeStudies;
+  initialPages?: Record<string, Record<string, unknown>>;
+};
 
-      if (statsRes.ok)   { const d = await statsRes.json();   setStats(d.data || defaultStats); }
-      if (studiesRes.ok) { const d = await studiesRes.json(); setStudies(d.data || defaultStudies); }
-      if (pagesRes.ok)   { const d = await pagesRes.json();   setPages(d.data || {}); }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible") fetchData();
-    };
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
-  }, []);
+export function HomePage({ initialStats, initialStudies, initialPages }: HomePageProps = {}) {
+  const stats = initialStats ?? defaultStats;
+  const studies = initialStudies ?? defaultStudies;
+  const pages = initialPages ?? {};
 
   const home = (pages.home as Record<string, unknown>) || {};
   const heroData         = (home.hero          as HeroData)    || {};

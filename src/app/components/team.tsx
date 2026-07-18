@@ -7,7 +7,6 @@ import { leadership as fallbackLeadership, locations, images, stats as fallbackS
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import type { Route } from "../App";
-import { useState, useEffect } from "react";
 
 const G = {
   blue: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
@@ -19,7 +18,6 @@ const locationPhotoByCity: Record<string, string> = {
   Koper: "/team/Koper.png",
   Rovato: "/team/Rovato.png",
   Milan: "/team/Milan.png",
-  Düsseldorf: "/team/dusseldorf.png",
   Lille: "/team/Lille.png",
   Budapest: "/team/Budapest.png",
   Lublin: "/team/Lublin.png",
@@ -33,7 +31,6 @@ const linkedinById: Record<string, string> = {
   "antonio-finazzi": "https://www.linkedin.com/search/results/all/?keywords=Antonio%20Finazzi%20KLR",
   "stefano-finazzi": "https://www.linkedin.com/search/results/all/?keywords=Stefano%20Finazzi%20KLR",
   "sebastjan-kocjancic": "https://www.linkedin.com/search/results/all/?keywords=Sebastjan%20Kocjan%C4%8Di%C4%8D%20KLR",
-  "marcello-leonardi": "https://www.linkedin.com/search/results/all/?keywords=Marcello%20Leonardi%20KLR",
   "olga-wojcik": "https://www.linkedin.com/search/results/all/?keywords=Olga%20Wojcik%20KLR",
   "marta-marga": "https://www.linkedin.com/search/results/all/?keywords=Marta%20Marga%20KLR",
   "jan-sahbaz-pergar": "https://www.linkedin.com/search/results/all/?keywords=Jan%20Sahbaz%20Pergar%20KLR",
@@ -43,7 +40,7 @@ const linkedinById: Record<string, string> = {
 };
 
 // Row 1: founder Antonio + 4 leads
-const row1Ids = ["antonio-finazzi", "sebastjan-kocjancic", "marcello-leonardi", "marta-marga", "natalia-molchanova"];
+const row1Ids = ["antonio-finazzi", "sebastjan-kocjancic", "marta-marga", "natalia-molchanova"];
 // Row 2: founder Stefano + 4 leads
 const row2Ids = ["stefano-finazzi", "olga-wojcik", "jan-sahbaz-pergar", "riccardo-fogazzi", "nina-bjelivuk"];
 
@@ -165,18 +162,17 @@ type TeamCmsData = {
   joinUs?: { eyebrow?: string; title?: string; subtitle?: string; contactEmail?: string; ctaLabel?: string; ctaHref?: string };
 };
 
-export function Team({ go }: { go: (r: Route) => void }) {
-  const [leadership, setLeadership] = useState(fallbackLeadership);
-  const [stats, setStats] = useState(fallbackStats);
-  const [teamCms, setTeamCms] = useState<TeamCmsData>({});
-  useEffect(() => {
-    fetch("/api/content?type=leadership", { cache: "no-store" }).then(r => r.json()).then(j => { if (j.data?.length) setLeadership(j.data); }).catch(() => {});
-    fetch("/api/content?type=stats", { cache: "no-store" }).then(r => r.json()).then(j => { if (j.data) setStats(j.data); }).catch(() => {});
-    fetch("/api/content?type=pages", { cache: "no-store" })
-      .then(r => r.json())
-      .then(j => { if (j.data?.team) setTeamCms(j.data.team); })
-      .catch(() => {});
-  }, []);
+type TeamProps = {
+  go: (r: Route) => void;
+  initialLeadership?: typeof fallbackLeadership;
+  initialStats?: typeof fallbackStats;
+  initialTeamCms?: TeamCmsData;
+};
+
+export function Team({ go, initialLeadership, initialStats, initialTeamCms }: TeamProps) {
+  const leadership = initialLeadership?.length ? initialLeadership : fallbackLeadership;
+  const stats = initialStats ?? fallbackStats;
+  const teamCms = initialTeamCms ?? {};
   const get = (id: string) => leadership.find((p) => p.id === id)!;
   const row1 = row1Ids.map(get);
   const row2 = row2Ids.map(get);

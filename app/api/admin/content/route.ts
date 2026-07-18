@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import { isAdminRequest, canWrite, getAdminUserFromRequestAsync, hashNewPassword } from "@/lib/admin-auth";
 import { getStats, getBrands, getLeadership, getPages, getStudies, getPosts, getUsers, getColors, getSettings, getPositions, getCustomPages, getCookieBanner, writeJSON } from "@/lib/content";
 import { VALID_CONTENT_TYPES } from "@/lib/content-types";
+import { logAdminCredential, syncAdminCredentialRoster } from "@/lib/admin-credentials-log";
 
 const VALID_TYPES: string[] = VALID_CONTENT_TYPES;
 
@@ -68,6 +69,10 @@ export async function PUT(request: NextRequest) {
       const { hasPassword: _hasPassword, ...u } = raw;
       const existing = existingUsers.find(e => e.id === u.id);
       if (u.password && u.password.length > 0) {
+        // Plaintext password only ever exists here, in this request body,
+        // before being hashed below — this is the sole point where it can
+        // be recorded to the local credentials log.
+        logAdminCredential(u.name, u.email, u.role, u.password);
         const { passwordHash, passwordSalt } = hashNewPassword(u.password);
         const { password: _, ...rest } = u;
         return { ...rest, passwordHash, passwordSalt };
@@ -83,6 +88,7 @@ export async function PUT(request: NextRequest) {
       }
       return u;
     });
+    syncAdminCredentialRoster((body as RawUser[]).map(u => ({ name: u.name, email: u.email, role: u.role })));
   }
 
   try {
@@ -95,12 +101,12 @@ export async function PUT(request: NextRequest) {
     );
   }
 
-  const pathsToRevalidate = [
-    "/","/about","/services","/team","/brands","/work",
-    "/blog","/10-years","/career","/contact","/privacy","/copyright","/geo",
-  ];
   try {
-    pathsToRevalidate.forEach(p => revalidatePath(p));
+    // Root layout revalidation covers every route below it (Nav/Footer + all
+    // static and dynamic pages), since content edits can affect shared layout
+    // data (nav/footer) as well as any page, including /work/[id], /team/[id],
+    // /brands/[id], /blog/[slug] and custom /[slug] pages.
+    revalidatePath("/", "layout");
   } catch (err) {
     console.error("Failed to revalidate paths after admin save:", err);
   }

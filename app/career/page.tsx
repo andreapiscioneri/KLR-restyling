@@ -1,31 +1,40 @@
 import type { Metadata } from "next";
 import { CareerClient } from "./_client";
+import { getPages, getPositions } from "@/lib/content";
 
-const CDN = "https://klr-europe.com/wp-content/uploads";
-const OG = `${CDN}/2022/12/KLR-CAREER-SUPERHERO-1024x1024.jpg`;
+export const revalidate = 60;
 
-export const metadata: Metadata = {
-  title: "Career | A Loyal Team of Professionals",
-  description:
-    "Join KLR Europe — a team of professionals of different nationalities, beliefs and cultures united by cohesion, trust and mutual respect. Be part of our international loyalty marketing team.",
-  alternates: { canonical: "https://klr-europe.com/career" },
-  openGraph: {
-    type: "website",
-    url: "https://klr-europe.com/career",
-    title: "Career at KLR Europe | A Loyal Team of Professionals",
-    description:
-      "Join a team of 43 professionals from 11 nationalities. Freedom to contribute, support to grow, recognition for the value you bring.",
-    siteName: "KLR Europe",
-    images: [{ url: OG, width: 1200, height: 630, alt: "KLR Europe Career" }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Career at KLR Europe",
-    description: "43 professionals, 11 nationalities. Freedom to contribute, support to grow.",
-    images: [OG],
-  },
-};
+const OG = "/api/media/wp-1064";
 
-export default function Page() {
-  return <CareerClient />;
+export async function generateMetadata(): Promise<Metadata> {
+  const pages = await getPages() as Record<string, { seo?: { title?: string; description?: string } }>;
+  const seo = pages.career?.seo;
+  const title = seo?.title || "Career | A Loyal Team of Professionals";
+  const description = seo?.description ||
+    "Join KLR Europe — a team of professionals of different nationalities, beliefs and cultures united by cohesion, trust and mutual respect. Be part of our international loyalty marketing team.";
+  return {
+    title,
+    description,
+    alternates: { canonical: "https://klr-europe.com/career" },
+    openGraph: {
+      type: "website",
+      url: "https://klr-europe.com/career",
+      title,
+      description,
+      siteName: "KLR Europe",
+      images: [{ url: OG, width: 1200, height: 630, alt: "KLR Europe Career" }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [OG],
+    },
+  };
+}
+
+export default async function Page() {
+  const [pages, positions] = await Promise.all([getPages(), getPositions()]);
+  const careerCms = (pages as Record<string, unknown>)?.career as Parameters<typeof CareerClient>[0]["initialCms"];
+  return <CareerClient initialCms={careerCms} initialPositions={positions as Parameters<typeof CareerClient>[0]["initialPositions"]} />;
 }

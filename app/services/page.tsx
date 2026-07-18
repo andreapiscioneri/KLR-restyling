@@ -1,34 +1,42 @@
 import type { Metadata } from "next";
 import { ServicesClient } from "./_client";
+import { getPages } from "@/lib/content";
 
-const CDN = "https://klr-europe.com/wp-content/uploads";
-const OG = `${CDN}/2022/12/KLR-SERVICES-scaled.jpg`;
+export const revalidate = 60;
+
+const OG = "/api/media/wp-934";
 const SITE = "https://klr-europe.com";
 
-export const metadata: Metadata = {
-  title: "Services | 360° Loyalty Campaign Design & Execution",
-  description:
-    "KLR Europe offers 360° loyalty marketing services: strategy, full campaign management, and analytics. Proven across 340+ campaigns in 20+ European countries.",
-  alternates: { canonical: "https://klr-europe.com/services" },
-  openGraph: {
-    type: "website",
-    url: "https://klr-europe.com/services",
-    title: "Services | 360° Loyalty Campaign Design & Execution",
-    description:
-      "From strategy to delivery, we handle every stage of your loyalty campaign. Emotional design, exceptional rewards, memorable moments.",
-    siteName: "KLR Europe",
-    images: [{ url: OG, width: 1200, height: 630, alt: "KLR Europe Services" }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Services | 360° Loyalty Campaign Design & Execution",
-    description:
-      "From strategy to delivery, proven in 340+ campaigns across 20+ European countries.",
-    images: [OG],
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const pages = await getPages() as Record<string, { seo?: { title?: string; description?: string } }>;
+  const seo = pages.services?.seo;
+  const title = seo?.title || "Services | 360° Loyalty Campaign Design & Execution";
+  const description = seo?.description ||
+    "KLR Europe offers 360° loyalty marketing services: strategy, full campaign management, and analytics. Proven across 340+ campaigns in 20+ European countries.";
+  return {
+    title,
+    description,
+    alternates: { canonical: "https://klr-europe.com/services" },
+    openGraph: {
+      type: "website",
+      url: "https://klr-europe.com/services",
+      title,
+      description,
+      siteName: "KLR Europe",
+      images: [{ url: OG, width: 1200, height: 630, alt: "KLR Europe Services" }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [OG],
+    },
+  };
+}
 
-export default function Page() {
+export default async function Page() {
+  const pages = await getPages();
+  const servicesCms = (pages as Record<string, unknown>)?.services as Parameters<typeof ServicesClient>[0]["initialCms"];
   const serviceJsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -133,7 +141,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <ServicesClient />
+      <ServicesClient initialCms={servicesCms} />
     </>
   );
 }

@@ -1,10 +1,18 @@
 [
   {
     "id": "admin",
-    "name": "Andrea",
+    "name": "Denani",
     "email": "andrea.piscioneri@denani.it",
     "role": "superadmin",
     "passwordHash": "c112e0a06e18665c612f758699590eb104398fa23a39a9c5eddf8e821780b3b8",
     "passwordSalt": "4676b3852c672780178fada7144680fd"
+  },
+  {
+    "id": "natalia",
+    "name": "Natalia",
+    "email": "natalia@klr-europe.com",
+    "role": "superadmin",
+    "passwordHash": "182bf9c1fcbf98498d1b4272ffd0ddc08ba9d9cbbdd44b6a7a2af489fa1ec1b3",
+    "passwordSalt": "67e79f4f0b11c98d476302648779d48d"
   }
 ]

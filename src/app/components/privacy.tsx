@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Mail, Shield, Database, Cookie, Scale, Clock, UserCheck } from "lucide-react";
 import { PageHero } from "./page-hero";
@@ -106,15 +105,8 @@ function parseListLines(text: string) {
     .filter(Boolean);
 }
 
-export function Privacy({ go }: { go?: (r: Route) => void }) {
-  const [cms, setCms] = useState<PrivacyCms>({});
-
-  useEffect(() => {
-    fetch("/api/content?type=pages", { cache: "no-store" })
-      .then(r => r.json())
-      .then(d => { if (d?.data?.privacy) setCms(d.data.privacy as PrivacyCms); })
-      .catch(() => {});
-  }, []);
+export function Privacy({ go, initialCms }: { go?: (r: Route) => void; initialCms?: PrivacyCms }) {
+  const cms = initialCms ?? {};
 
   const hero    = cms.hero    || {};
   const company = cms.company || {};

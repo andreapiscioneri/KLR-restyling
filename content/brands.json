@@ -1,11 +1,92 @@
 [
-  { "id": "bugatti", "name": "Bugatti", "tag": "Kitchenware", "img": "https://klr-europe.com/wp-content/uploads/2023/01/Bugatti-Prestigio-KLR-Europe.jpg", "since": "2020", "campaigns": "32", "countries": "17", "desc": "Iconic Italian design for the modern kitchen — a collection synonymous with craftsmanship and style." },
-  { "id": "pintinox", "name": "Pintinox", "tag": "Cookware & BBQ", "img": "https://klr-europe.com/wp-content/uploads/2024/01/Pintinox-Trust-Forged-In-Steel.jpg", "since": "2024", "campaigns": "25", "countries": "15", "desc": "Since 1919, Pintinox has defined the art of Italian stainless steel — cutlery, tabletop and cookware." },
-  { "id": "nasa", "name": "NASA Stardust", "tag": "Family & Kids", "img": "https://klr-europe.com/wp-content/uploads/2024/04/NASA-STARDUST-black-KLR-Europe.jpg", "since": "2023", "campaigns": "15", "countries": "14", "desc": "Exclusive NASA-licensed collectibles — a cosmic collection engineered for ambitious loyalty programs." },
-  { "id": "red-bull", "name": "Oracle Red Bull Racing", "tag": "Lifestyle", "img": "https://klr-europe.com/wp-content/uploads/2025/08/Spar-TZ_RedBull-cover-circle.jpg", "since": "2025", "campaigns": "5", "countries": "5", "desc": "Exclusive F1 merchandise — speed, precision and adrenaline for loyal shoppers." },
-  { "id": "eurosport", "name": "Eurosport", "tag": "Sports", "img": "https://klr-europe.com/wp-content/uploads/2022/12/KLR-TEAMWORK-scaled.jpg", "since": "2022", "campaigns": "12", "countries": "8", "desc": "Multi-market sports campaigns across the Baltics & CEE — the Eurosport brand meets loyalty." },
-  { "id": "spear-jackson", "name": "Spear & Jackson", "tag": "Outdoor", "img": "https://klr-europe.com/wp-content/uploads/2023/04/Spear-and-Jackson-The-Best-Sellers-KLR-Europe.jpg", "since": "2021", "campaigns": "18", "countries": "11", "desc": "British garden heritage since 1760 — tools that bring shoppers closer to the outdoors." },
-  { "id": "zanussi", "name": "Zanussi", "tag": "Kitchenware", "img": "https://klr-europe.com/wp-content/uploads/2023/04/ZAnussi-Cooking-Easy-KLR-Europe-1.jpg", "since": "2019", "campaigns": "22", "countries": "12", "desc": "A European household name reimagined for loyalty — kitchen tools that simplify everyday life." },
-  { "id": "guzzini", "name": "Guzzini Chefline", "tag": "Kitchenware", "img": "https://klr-europe.com/wp-content/uploads/2025/02/Guzzini-Chefline.jpg", "since": "2023", "campaigns": "9", "countries": "6", "desc": "Colorful, contemporary Italian design for the table and kitchen." },
-  { "id": "police", "name": "Police", "tag": "Lifestyle", "img": "https://klr-europe.com/wp-content/uploads/2025/02/police.jpg", "since": "2022", "campaigns": "7", "countries": "5", "desc": "Attitude, design and heritage. The Police lifestyle brand brings identity to retail and petrol loyalty." }
+  {
+    "id": "bugatti",
+    "name": "Bugatti",
+    "tag": "Kitchenware",
+    "img": "/api/media/wp-1924",
+    "since": "2020",
+    "campaigns": "32",
+    "countries": "17",
+    "desc": "Iconic Italian design for the modern kitchen — a collection synonymous with craftsmanship and style."
+  },
+  {
+    "id": "pintinox",
+    "name": "Pintinox",
+    "tag": "Cookware & BBQ",
+    "img": "/api/media/wp-2932",
+    "since": "2024",
+    "campaigns": "25",
+    "countries": "15",
+    "desc": "Since 1919, Pintinox has defined the art of Italian stainless steel — cutlery, tabletop and cookware."
+  },
+  {
+    "id": "nasa",
+    "name": "NASA Stardust",
+    "tag": "Family & Kids",
+    "img": "/api/media/wp-3121",
+    "since": "2023",
+    "campaigns": "15",
+    "countries": "14",
+    "desc": "Exclusive NASA-licensed collectibles — a cosmic collection engineered for ambitious loyalty programs."
+  },
+  {
+    "id": "red-bull",
+    "name": "Oracle Red Bull Racing",
+    "tag": "Lifestyle",
+    "img": "/api/media/wp-4522",
+    "since": "2025",
+    "campaigns": "5",
+    "countries": "5",
+    "desc": "Exclusive F1 merchandise — speed, precision and adrenaline for loyal shoppers."
+  },
+  {
+    "id": "eurosport",
+    "name": "Eurosport",
+    "tag": "Sports",
+    "img": "/api/media/wp-909",
+    "since": "2022",
+    "campaigns": "12",
+    "countries": "8",
+    "desc": "Multi-market sports campaigns across the Baltics & CEE — the Eurosport brand meets loyalty."
+  },
+  {
+    "id": "spear-jackson",
+    "name": "Spear & Jackson",
+    "tag": "Outdoor",
+    "img": "/api/media/wp-2741",
+    "since": "2021",
+    "campaigns": "18",
+    "countries": "11",
+    "desc": "British garden heritage since 1760 — tools that bring shoppers closer to the outdoors."
+  },
+  {
+    "id": "zanussi",
+    "name": "Zanussi",
+    "tag": "Kitchenware",
+    "img": "/api/media/wp-2755",
+    "since": "2019",
+    "campaigns": "22",
+    "countries": "12",
+    "desc": "A European household name reimagined for loyalty — kitchen tools that simplify everyday life."
+  },
+  {
+    "id": "guzzini",
+    "name": "Guzzini Chefline",
+    "tag": "Kitchenware",
+    "img": "/api/media/wp-3440",
+    "since": "2023",
+    "campaigns": "9",
+    "countries": "6",
+    "desc": "Colorful, contemporary Italian design for the table and kitchen."
+  },
+  {
+    "id": "police",
+    "name": "Police",
+    "tag": "Lifestyle",
+    "img": "/api/media/wp-3485",
+    "since": "2022",
+    "campaigns": "7",
+    "countries": "5",
+    "desc": "Attitude, design and heritage. The Police lifestyle brand brings identity to retail and petrol loyalty."
+  }
 ]

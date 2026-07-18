@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { ArrowUpRight, Target } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow } from "./ui-bits";
@@ -22,64 +21,22 @@ type FullPost = Post & {
   authorAvatar?: string;
 };
 
-export function BlogDetail({ slug, go, initialPost }: { slug: string; go: (r: Route) => void; initialPost?: FullPost }) {
+type BlogDetailProps = {
+  slug: string;
+  go: (r: Route) => void;
+  initialPost?: FullPost;
+  initialOthers?: FullPost[];
+};
+
+export function BlogDetail({ slug, go, initialPost, initialOthers }: BlogDetailProps) {
   const baseInitial: FullPost = initialPost || fallbackPosts.find((p) => p.slug === slug) || fallbackPosts[0];
-  const [post, setPost] = useState<FullPost>({ ...baseInitial, link: `/blog/${baseInitial.slug}` });
+  const post: FullPost = {
+    ...baseInitial,
+    link: `/blog/${baseInitial.slug}`,
+    authorName: baseInitial.authorName || "KLR Editorial Team",
+  };
 
-  useEffect(() => {
-    const ctrl = new AbortController();
-    (async () => {
-      try {
-        const r = await fetch(`https://klr-europe.com/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&_embed`, { signal: ctrl.signal });
-        if (!r.ok) return;
-        const data = await r.json();
-        if (!data?.length) return;
-        const p = data[0];
-        const author = p._embedded?.author?.[0];
-        
-        setPost({
-          id: p.id,
-          slug: p.slug,
-          title: p.title.rendered.replace(/<[^>]+>/g, ""),
-          date: String(p.date).slice(0, 10),
-          excerpt: p.excerpt.rendered.replace(/<[^>]+>/g, "").trim(),
-          link: `/blog/${p.slug}`,
-          img: p._embedded?.["wp:featuredmedia"]?.[0]?.source_url || baseInitial.img,
-          category: p._embedded?.["wp:term"]?.[0]?.[0]?.name || "KLR Insights",
-          // Pulisce le classi spazzatura e mantiene pulito l'HTML
-          contentHtml: p.content.rendered.replace(/class="[^"]*"/g, ""), 
-          authorName: author?.name || "Nina Bjelivuk",
-          authorAvatar: author?.avatar_urls?.['96']
-        });
-      } catch (e) {
-        try {
-          const r2 = await fetch(`/api/content?type=posts`, { cache: "no-store" });
-          if (r2.ok) {
-            const d2 = await r2.json();
-            const found = (d2.data || []).find((p: any) => p.slug === slug);
-            if (found) {
-              setPost({
-                id: found.id ?? found.slug,
-                slug: found.slug,
-                title: found.title,
-                date: found.date,
-                excerpt: found.excerpt || "",
-                link: `/blog/${found.slug}`,
-                img: found.img || baseInitial.img,
-                category: found.category || "KLR Insights",
-                contentHtml: found.contentHtml || found.excerpt || "",
-                authorName: "KLR Editorial Team",
-                authorAvatar: undefined,
-              });
-            }
-          }
-        } catch {}
-      }
-    })();
-    return () => ctrl.abort();
-  }, [slug]);
-
-  const others = fallbackPosts.filter((p) => p.slug !== post.slug).slice(0, 3);
+  const others = (initialOthers?.length ? initialOthers : fallbackPosts).filter((p) => p.slug !== post.slug).slice(0, 3);
 
   // LOGICA DEL TITOLO HERO: Dividiamo le parole per colorarle
   const titleWords = post.title ? post.title.split(" ") : [];
@@ -237,7 +194,7 @@ export function BlogDetail({ slug, go, initialPost }: { slug: string; go: (r: Ro
             {/* Left: Author Profilo */}
             <div className="lg:w-1/3 p-10 md:p-14 flex flex-col items-center justify-center text-center" style={{ background: COLORS.purpleBox }}>
               <div className="w-32 h-32 rounded-full border-4 border-[#F8AE01] overflow-hidden mb-6">
-                <img src={post.authorAvatar || "https://klr-europe.com/wp-content/uploads/2023/01/logo-klr.png"} alt={post.authorName} className="w-full h-full object-cover" />
+                <img src={post.authorAvatar || "/klr-logo.png"} alt={post.authorName} className="w-full h-full object-cover" />
               </div>
               <div className="text-white/50 font-bold tracking-[0.2em] uppercase text-xs mb-2">Author</div>
               {/* MODIFICA: Nome Autore Giallo Oro */}

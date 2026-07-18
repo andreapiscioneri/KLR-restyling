@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
@@ -117,15 +116,8 @@ function PillarSection({
 
 type ServicesCms = Record<string, Record<string, string | string[]>>;
 
-export function ServicesClient() {
-  const [cms, setCms] = useState<ServicesCms>({});
-
-  useEffect(() => {
-    fetch("/api/content?type=pages", { cache: "no-store" })
-      .then((r) => r.json())
-      .then((d) => { if (d?.data?.services) setCms(d.data.services as ServicesCms); })
-      .catch(() => {});
-  }, []);
+export function ServicesClient({ initialCms }: { initialCms?: ServicesCms }) {
+  const cms = initialCms ?? {};
 
   const sHero    = cms.hero    || {};
   const sOverview= cms.overview|| {};

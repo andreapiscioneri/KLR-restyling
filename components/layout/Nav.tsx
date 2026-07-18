@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X, ArrowUpRight, UserCircle } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
-type NavSub  = { href: string; label: string };
-type NavLink = { href: string; label: string; sub?: NavSub[] };
+export type NavSub  = { href: string; label: string };
+export type NavLink = { href: string; label: string; sub?: NavSub[] };
 
 const DEFAULT_LINKS: NavLink[] = [
   { href: "/about",    label: "About", sub: [{ href: "/10-years", label: "10 Years" }] },
@@ -20,42 +20,39 @@ const DEFAULT_LINKS: NavLink[] = [
 ];
 
 const glass = {
+  // Blur radius kept modest on purpose: this bar is `position: fixed` and
+  // repaints on every scroll frame, so a heavy backdrop-filter (was 60-80px)
+  // was a major source of scroll jank across every page.
   base: {
-    background: "rgba(12,9,52,0.55)",
-    backdropFilter: "blur(60px) saturate(180%)",
-    WebkitBackdropFilter: "blur(60px) saturate(180%)",
+    background: "rgba(12,9,52,0.72)",
+    backdropFilter: "blur(20px) saturate(180%)",
+    WebkitBackdropFilter: "blur(20px) saturate(180%)",
     border: "1px solid rgba(255,255,255,0.10)",
     boxShadow: "0 8px 40px -12px rgba(46,39,132,0.28), inset 0 1px 0 rgba(255,255,255,0.08)",
   },
   scrolled: {
-    background: "rgba(10,7,46,0.82)",
-    backdropFilter: "blur(80px) saturate(200%)",
-    WebkitBackdropFilter: "blur(80px) saturate(200%)",
+    background: "rgba(10,7,46,0.92)",
+    backdropFilter: "blur(24px) saturate(200%)",
+    WebkitBackdropFilter: "blur(24px) saturate(200%)",
     border: "1px solid rgba(255,255,255,0.12)",
     boxShadow: "0 24px 80px -16px rgba(46,39,132,0.55), inset 0 1px 0 rgba(255,255,255,0.12)",
   },
 };
 
-export function Nav() {
+type NavProps = {
+  initialLinks?: NavLink[];
+  initialCtaLabel?: string;
+  initialCtaHref?: string;
+  logoUrl?: string;
+};
+
+export function Nav({ initialLinks, initialCtaLabel, initialCtaHref, logoUrl }: NavProps = {}) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [links, setLinks] = useState<NavLink[]>(DEFAULT_LINKS);
-  const [ctaLabel, setCtaLabel] = useState("Get in Touch");
-  const [ctaHref, setCtaHref] = useState("/contact");
-
-  useEffect(() => {
-    fetch("/api/content?type=pages", { cache: "no-store" })
-      .then(r => r.json())
-      .then(d => {
-        const nav = d?.data?.nav;
-        if (!nav) return;
-        if (Array.isArray(nav.links) && nav.links.length > 0) setLinks(nav.links);
-        if (nav.ctaLabel) setCtaLabel(nav.ctaLabel);
-        if (nav.ctaHref) setCtaHref(nav.ctaHref);
-      })
-      .catch(() => {});
-  }, []);
+  const links = initialLinks && initialLinks.length > 0 ? initialLinks : DEFAULT_LINKS;
+  const ctaLabel = initialCtaLabel || "Get in Touch";
+  const ctaHref = initialCtaHref || "/contact";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -77,7 +74,7 @@ export function Nav() {
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0" data-cursor="default">
           <Image
-            src="/klr-logo.png"
+            src={logoUrl || "/klr-logo.png"}
             alt="KLR Europe"
             width={100}
             height={30}
@@ -142,6 +139,16 @@ export function Nav() {
         {/* CTA + burger */}
         <div className="flex items-center gap-2">
           <Link
+            href="/admin"
+            className="p-2 rounded-xl transition-all text-white/40 hover:text-white/70"
+            style={{ background: "rgba(255,255,255,0.04)" }}
+            aria-label="Admin"
+            title="Accedi al pannello admin"
+          >
+            <UserCircle className="w-4 h-4" />
+          </Link>
+
+          <Link
             href={ctaHref}
             data-cursor="cta"
             className="hidden lg:inline-flex items-center gap-2 pl-4 pr-1.5 py-1.5 rounded-xl tracking-tight text-[0.85rem] font-medium transition-all"
@@ -174,9 +181,9 @@ export function Nav() {
             transition={{ duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
             className="lg:hidden mt-2 rounded-2xl p-2.5 flex flex-col gap-0.5"
             style={{
-              background: "rgba(10,7,46,0.90)",
-              backdropFilter: "blur(80px)",
-              WebkitBackdropFilter: "blur(80px)",
+              background: "rgba(10,7,46,0.95)",
+              backdropFilter: "blur(24px)",
+              WebkitBackdropFilter: "blur(24px)",
               border: "1px solid rgba(255,255,255,0.10)",
               boxShadow: "0 32px 80px -16px rgba(46,39,132,0.65), inset 0 1px 0 rgba(255,255,255,0.10)",
             }}

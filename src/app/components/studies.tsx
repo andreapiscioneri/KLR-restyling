@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { ArrowUpRight } from "lucide-react";
 import { softShadow } from "./ui-bits";
@@ -14,38 +14,36 @@ const G = {
   yellow: "radial-gradient(130% 130% at 15% 0%, #ffd95a 0%, #F8AE01 50%, #de9800 100%)",
 };
 
-export function Studies({ go }: { go: (r: Route) => void }) {
+const PAGE_SIZE = 9;
+
+type CaseStudiesPageData = {
+  hero?: { eyebrow?: string; title?: string; subtitle?: string; _visible?: boolean };
+  closing?: { title?: string; titleEm?: string; subtitle?: string; ctaLabel?: string };
+};
+
+type StudiesProps = {
+  go: (r: Route) => void;
+  initialStudies?: typeof fallbackStudies;
+  initialPageData?: CaseStudiesPageData;
+};
+
+export function Studies({ go, initialStudies, initialPageData }: StudiesProps) {
   const [sector, setSector] = useState<"all" | "retail" | "petrol">("all");
   const [brand, setBrand] = useState<string>("all");
-  const [studies, setStudies] = useState(fallbackStudies);
-  const [heroEyebrow, setHeroEyebrow] = useState("Case Studies");
-  const [heroTitle, setHeroTitle] = useState("Real Results for Real Retail Chains");
-  const [heroSubtitle, setHeroSubtitle] = useState("340+ campaigns across 20+ countries. Explore how we've helped grocery and fuel retail chains increase visits, grow basket size, and build lasting customer relationships.");
-  const [heroVisible, setHeroVisible] = useState(true);
-  const [closing, setClosing] = useState({
+  const [visible, setVisible] = useState(PAGE_SIZE);
+  const studies = initialStudies?.length ? initialStudies : fallbackStudies;
+  const hero = initialPageData?.hero;
+  const heroEyebrow = hero?.eyebrow || "Case Studies";
+  const heroTitle = hero?.title || "Real Results for Real Retail Chains";
+  const heroSubtitle = hero?.subtitle || "340+ campaigns across 20+ countries. Explore how we've helped grocery and fuel retail chains increase visits, grow basket size, and build lasting customer relationships.";
+  const heroVisible = hero?._visible !== false;
+  const closing = {
     title: "Let's Talk About",
     titleEm: "Your Goals",
     subtitle: "Tell us your targets and we will craft the next campaign story for your retail chain.",
     ctaLabel: "Let's Talk About Your Goals",
-  });
-
-  useEffect(() => {
-    fetch("/api/content?type=studies", { cache: "no-store" }).then(r => r.json()).then(j => { if (j.data?.length) setStudies(j.data); }).catch(() => {});
-    fetch("/api/content?type=pages", { cache: "no-store" })
-      .then(r => r.json())
-      .then(j => {
-        const cs = j.data?.caseStudies?.hero;
-        if (cs) {
-          if (cs.eyebrow) setHeroEyebrow(cs.eyebrow);
-          if (cs.title) setHeroTitle(cs.title);
-          if (cs.subtitle) setHeroSubtitle(cs.subtitle);
-          if (cs._visible === false) setHeroVisible(false);
-        }
-        const cl = j.data?.caseStudies?.closing;
-        if (cl) setClosing(prev => ({ ...prev, ...cl }));
-      })
-      .catch(() => {});
-  }, []);
+    ...initialPageData?.closing,
+  };
 
   const brands = Array.from(new Set(studies.map((s) => s.brand))).sort((a, b) => a.localeCompare(b));
 
@@ -90,7 +88,7 @@ export function Studies({ go }: { go: (r: Route) => void }) {
                   ].map((item) => (
                     <button
                       key={item.id}
-                      onClick={() => setSector(item.id as "all" | "retail" | "petrol")}
+                      onClick={() => { setSector(item.id as "all" | "retail" | "petrol"); setVisible(PAGE_SIZE); }}
                       className={`px-4 py-2 rounded-full transition-all tracking-tight text-[0.85rem] ${
                         sector === item.id ? "bg-[#F8AE01] text-black" : "bg-white/10 text-white hover:bg-white/20"
                       }`}
@@ -107,7 +105,7 @@ export function Studies({ go }: { go: (r: Route) => void }) {
                 </div>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <button
-                    onClick={() => setBrand("all")}
+                    onClick={() => { setBrand("all"); setVisible(PAGE_SIZE); }}
                     className={`px-4 py-2 rounded-full transition-all tracking-tight text-[0.85rem] ${
                       brand === "all" ? "bg-[#F8AE01] text-black" : "bg-white/10 text-white hover:bg-white/20"
                     }`}
@@ -117,7 +115,7 @@ export function Studies({ go }: { go: (r: Route) => void }) {
                   {brands.map((b) => (
                     <button
                       key={b}
-                      onClick={() => setBrand(b)}
+                      onClick={() => { setBrand(b); setVisible(PAGE_SIZE); }}
                       className={`px-4 py-2 rounded-full transition-all tracking-tight text-[0.85rem] ${
                         brand === b ? "bg-[#F8AE01] text-black" : "bg-white/10 text-white hover:bg-white/20"
                       }`}
@@ -130,7 +128,7 @@ export function Studies({ go }: { go: (r: Route) => void }) {
             </div>
 
             <div className="mt-14 grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {filtered.map((s) => (
+              {filtered.slice(0, visible).map((s) => (
                 <button
                   key={s.id}
                   onClick={() => go({ page: "study-detail", id: s.id })}
@@ -160,6 +158,19 @@ export function Studies({ go }: { go: (r: Route) => void }) {
                 </button>
               ))}
             </div>
+
+            {visible < filtered.length && (
+              <div className="mt-14 pb-2 flex justify-center relative z-10">
+                <button
+                  type="button"
+                  onClick={() => setVisible((v) => v + PAGE_SIZE)}
+                  className="rounded-full px-10 py-4 bg-[#F8AE01] text-black tracking-tight transition-all active:scale-95 cursor-pointer"
+                  style={{ fontSize: "0.9rem", fontWeight: 600, touchAction: "manipulation", WebkitTapHighlightColor: "transparent" }}
+                >
+                  Load More
+                </button>
+              </div>
+            )}
 
             {filtered.length === 0 && (
               <div className="mt-10 rounded-[24px] p-8 border border-white/15" style={{ background: "rgba(255,255,255,0.07)" }}>

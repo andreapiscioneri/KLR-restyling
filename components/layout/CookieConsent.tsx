@@ -86,7 +86,7 @@ const LEVEL_COPY: Record<Exclude<ConsentLevel, "custom">, string> = {
     "Highest level of personalisation. Data accessed to make ads and media more relevant. Data shared with 3rd parties may be used to track you on this site and other sites you visit.",
 };
 
-type BannerConfig = {
+export type BannerConfig = {
   enabled?: boolean;
   headline?: string;
   subheadline?: string;
@@ -156,25 +156,17 @@ function LevelPill({
   );
 }
 
-export function CookieConsent() {
+export function CookieConsent({ initialConfig }: { initialConfig?: BannerConfig | null } = {}) {
   const [visible, setVisible] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [durationOpen, setDurationOpen] = useState(false);
   const [categories, setCategories] = useState<ConsentCategories>(LEVEL_PRESETS.silver);
-  const [duration, setDuration] = useState<ConsentDuration>("1m");
+  const [duration, setDuration] = useState<ConsentDuration>(initialConfig?.defaultDuration || "1m");
   const [savedRecord, setSavedRecord] = useState<ConsentRecord | null>(null);
-  const [config, setConfig] = useState<BannerConfig | null>(null);
+  const [config] = useState<BannerConfig | null>(initialConfig ?? null);
 
   useEffect(() => {
-    fetch("/api/content?type=cookieBanner", { cache: "no-store" })
-      .then((r) => r.json())
-      .then((d) => {
-        const cfg = (d?.data ?? null) as BannerConfig | null;
-        setConfig(cfg);
-        if (cfg?.defaultDuration) setDuration((prev) => (readConsent() ? prev : cfg.defaultDuration!));
-        if (cfg?.enabled === false) setVisible(false);
-      })
-      .catch(() => {});
+    if (initialConfig?.enabled === false) setVisible(false);
 
     const existing = readConsent();
     setSavedRecord(existing);

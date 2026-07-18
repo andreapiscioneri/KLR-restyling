@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Mail, ExternalLink } from "lucide-react";
 import { PageHero } from "./page-hero";
@@ -32,15 +31,8 @@ const definitions = [
   { term: "You", def: "The individual accessing or using the Service, or the company on behalf of which such individual is accessing or using the Service." },
 ];
 
-export function Copyright({ go }: { go?: (r: Route) => void }) {
-  const [cms, setCms] = useState<CopyrightCms>({});
-
-  useEffect(() => {
-    fetch("/api/content?type=pages", { cache: "no-store" })
-      .then(r => r.json())
-      .then(d => { if (d?.data?.copyright) setCms(d.data.copyright as CopyrightCms); })
-      .catch(() => {});
-  }, []);
+export function Copyright({ go, initialCms }: { go?: (r: Route) => void; initialCms?: CopyrightCms }) {
+  const cms = initialCms ?? {};
 
   const hero          = cms.hero          || {};
   const applicability = cms.applicability || {};

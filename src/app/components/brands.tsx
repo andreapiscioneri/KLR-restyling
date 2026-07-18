@@ -2,7 +2,7 @@
 
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { ArrowUpRight, ArrowDown, Baby, ChefHat, Dumbbell, Plane, Sparkles, Trees, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { softShadow } from "./ui-bits";
 import { brandPartners, brandPartnershipProcess, brands as fallbackBrands, images, productCategories, whyBrandsPartner } from "../data";
 import { PageHero } from "./page-hero";
@@ -17,28 +17,28 @@ const G = {
 };
 
 const collections = [
-  { src: "https://klr-europe.com/wp-content/uploads/2023/04/ZAnussi-Cooking-Easy-KLR-Europe-1.jpg", label: "Zanussi — Cooking Easy" },
-  { src: "https://klr-europe.com/wp-content/uploads/2023/04/ZAnussi-SUPERGRIP-KLR-Europe.jpg", label: "Zanussi — SuperGrip" },
-  { src: "https://klr-europe.com/wp-content/uploads/2024/01/ZAnussi-ZmartMove-KLR-Europe.jpg", label: "Zanussi — Zmart Move" },
-  { src: "https://klr-europe.com/wp-content/uploads/2024/01/Pintinox-Trust-Forged-In-Steel.jpg", label: "Pintinox — Trust" },
-  { src: "https://klr-europe.com/wp-content/uploads/2025/02/pintinox-barbeque.jpg", label: "Pintinox — Barbeque" },
-  { src: "https://klr-europe.com/wp-content/uploads/2025/02/pintinox-hexacore.jpg", label: "Pintinox — Hexacore" },
-  { src: "https://klr-europe.com/wp-content/uploads/2025/02/virtuoso.jpg", label: "Pintinox — Virtuoso" },
-  { src: "https://klr-europe.com/wp-content/uploads/2024/01/Bugatti-Spezia-KLR-Europe.jpg", label: "Bugatti — Spezia" },
-  { src: "https://klr-europe.com/wp-content/uploads/2023/01/Bugatti-Ergo-Pakka-KLR-Europe.jpg", label: "Bugatti — Ergo Pakka" },
-  { src: "https://klr-europe.com/wp-content/uploads/2023/01/Bugatti-Prestigio-KLR-Europe.jpg", label: "Bugatti — Prestigio" },
-  { src: "https://klr-europe.com/wp-content/uploads/2023/01/Bugatti-Buono-Cookiez-KLR-Europe.jpg", label: "Bugatti — Buono Cookiez" },
-  { src: "https://klr-europe.com/wp-content/uploads/2023/01/Bugatti-Buono-Bakeware-KLR-Europe.jpg", label: "Bugatti — Buono Bakeware" },
-  { src: "https://klr-europe.com/wp-content/uploads/2023/04/Spear-and-Jackson-The-Best-Sellers-KLR-Europe.jpg", label: "Spear & Jackson — Best Sellers" },
-  { src: "https://klr-europe.com/wp-content/uploads/2023/01/Spear-and-Jackson-Sense-of-Adventure-KLR-Europe-1.jpg", label: "Spear & Jackson — Adventure" },
-  { src: "https://klr-europe.com/wp-content/uploads/2023/01/Spear-and-Jackson-Sense-of-Nature-KLR-Europe.jpg", label: "Spear & Jackson — Nature" },
-  { src: "https://klr-europe.com/wp-content/uploads/2025/02/police.jpg", label: "Police" },
-  { src: "https://klr-europe.com/wp-content/uploads/2024/04/Eurosport-Champions.jpg", label: "Eurosport — Champions" },
-  { src: "https://klr-europe.com/wp-content/uploads/2023/04/NEWME-Food-Containers-KLR-Europe.jpg", label: "NEWME — Food Containers" },
-  { src: "https://klr-europe.com/wp-content/uploads/2023/01/Wastebusters-KLR-Europe-1.jpg", label: "Wastebusters" },
-  { src: "https://klr-europe.com/wp-content/uploads/2024/04/NASA-STARDUST-black-KLR-Europe.jpg", label: "NASA Stardust" },
-  { src: "https://klr-europe.com/wp-content/uploads/2025/02/Guzzini-Chefline.jpg", label: "Guzzini — Chefline" },
-  { src: "https://klr-europe.com/wp-content/uploads/2025/02/waverely.jpg", label: "Waverley" },
+  { src: "/api/media/wp-2755", label: "Zanussi — Cooking Easy" },
+  { src: "/api/media/wp-2754", label: "Zanussi — SuperGrip" },
+  { src: "/api/media/wp-2930", label: "Zanussi — Zmart Move" },
+  { src: "/api/media/wp-2932", label: "Pintinox — Trust" },
+  { src: "/api/media/wp-3468", label: "Pintinox — Barbeque" },
+  { src: "/api/media/wp-3445", label: "Pintinox — Hexacore" },
+  { src: "/api/media/wp-3449", label: "Pintinox — Virtuoso" },
+  { src: "/api/media/wp-2936", label: "Bugatti — Spezia" },
+  { src: "/api/media/wp-1920", label: "Bugatti — Ergo Pakka" },
+  { src: "/api/media/wp-1924", label: "Bugatti — Prestigio" },
+  { src: "/api/media/wp-1916", label: "Bugatti — Buono Cookiez" },
+  { src: "/api/media/wp-1940", label: "Bugatti — Buono Bakeware" },
+  { src: "/api/media/wp-2741", label: "Spear & Jackson — Best Sellers" },
+  { src: "/api/media/wp-1910", label: "Spear & Jackson — Adventure" },
+  { src: "/api/media/wp-1914", label: "Spear & Jackson — Nature" },
+  { src: "/api/media/wp-3485", label: "Police" },
+  { src: "/api/media/wp-3117", label: "Eurosport — Champions" },
+  { src: "/api/media/wp-2742", label: "NEWME — Food Containers" },
+  { src: "/api/media/wp-1904", label: "Wastebusters" },
+  { src: "/api/media/wp-3121", label: "NASA Stardust" },
+  { src: "/api/media/wp-3440", label: "Guzzini — Chefline" },
+  { src: "/api/media/wp-3441", label: "Waverley" },
 ];
 
 function CollectionsSlider({ items }: { items: typeof collections }) {
@@ -128,16 +128,15 @@ function parseCollectionsText(text: string | undefined): typeof collections {
   return parsed.length ? parsed : collections;
 }
 
-export function Brands({ go }: { go: (r: Route) => void }) {
-  const [brands, setBrands] = useState(fallbackBrands);
-  const [brandsCms, setBrandsCms] = useState<BrandsCmsData>({});
-  useEffect(() => {
-    fetch("/api/content?type=brands", { cache: "no-store" }).then(r => r.json()).then(j => { if (j.data?.length) setBrands(j.data); }).catch(() => {});
-    fetch("/api/content?type=pages", { cache: "no-store" })
-      .then(r => r.json())
-      .then(j => { if (j.data?.brands) setBrandsCms(j.data.brands); })
-      .catch(() => {});
-  }, []);
+type BrandsProps = {
+  go: (r: Route) => void;
+  initialBrands?: typeof fallbackBrands;
+  initialBrandsCms?: BrandsCmsData;
+};
+
+export function Brands({ go, initialBrands, initialBrandsCms }: BrandsProps) {
+  const brands = initialBrands?.length ? initialBrands : fallbackBrands;
+  const brandsCms = initialBrandsCms ?? {};
   const featured = brands.slice(0, 4);
   const categoryIcons = [ChefHat, Trees, Plane, Sparkles, Baby, Dumbbell] as const;
   const partnerLogos = brandPartners.filter((b) => b.logo);

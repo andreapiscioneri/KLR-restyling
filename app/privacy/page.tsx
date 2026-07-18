@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Privacy } from "@/src/app/components/privacy";
+import { getPages } from "@/lib/content";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -8,6 +11,8 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 
-export default function Page() {
-  return <Privacy />;
+export default async function Page() {
+  const pages = await getPages();
+  const privacyCms = (pages as Record<string, unknown>)?.privacy as Parameters<typeof Privacy>[0]["initialCms"];
+  return <Privacy initialCms={privacyCms} />;
 }

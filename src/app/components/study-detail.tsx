@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, softShadow } from "./ui-bits";
@@ -15,15 +14,8 @@ const G = {
   rosa: "radial-gradient(130% 130% at 10% 0%, #f0e8ff 0%, #C8B8F0 45%, #9d85d4 100%)",
 };
 
-export function StudyDetail({ id, go }: { id: string; go: (r: Route) => void }) {
-  const [studies, setStudies] = useState(fallbackStudies);
-
-  useEffect(() => {
-    fetch("/api/content?type=studies", { cache: "no-store" })
-      .then(r => r.json())
-      .then(j => { if (j.data?.length) setStudies(j.data); })
-      .catch(() => {});
-  }, []);
+export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Route) => void; initialStudies?: typeof fallbackStudies }) {
+  const studies = initialStudies?.length ? initialStudies : fallbackStudies;
 
   const s = studies.find((x) => x.id === id) || studies[0];
   const brand = fallbackBrands.find((b) => b.name === s.brand);

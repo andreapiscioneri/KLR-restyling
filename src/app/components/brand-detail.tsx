@@ -1,5 +1,4 @@
 "use client";
-import { useState, useEffect } from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, softShadow } from "./ui-bits";
 import { brands as fallbackBrands, studies as fallbackStudies } from "../data";
@@ -12,20 +11,16 @@ const G = {
   yellow: "radial-gradient(130% 130% at 15% 0%, #ffd95a 0%, #F8AE01 50%, #de9800 100%)",
 };
 
-export function BrandDetail({ id, go }: { id: string; go: (r: Route) => void }) {
-  const [brands, setBrands] = useState(fallbackBrands);
-  const [studies, setStudies] = useState(fallbackStudies);
+type BrandDetailProps = {
+  id: string;
+  go: (r: Route) => void;
+  initialBrands?: typeof fallbackBrands;
+  initialStudies?: typeof fallbackStudies;
+};
 
-  useEffect(() => {
-    fetch("/api/content?type=brands", { cache: "no-store" })
-      .then(r => r.json())
-      .then(j => { if (j.data?.length) setBrands(j.data); })
-      .catch(() => {});
-    fetch("/api/content?type=studies", { cache: "no-store" })
-      .then(r => r.json())
-      .then(j => { if (j.data?.length) setStudies(j.data); })
-      .catch(() => {});
-  }, []);
+export function BrandDetail({ id, go, initialBrands, initialStudies }: BrandDetailProps) {
+  const brands = initialBrands?.length ? initialBrands : fallbackBrands;
+  const studies = initialStudies?.length ? initialStudies : fallbackStudies;
 
   const brand = brands.find((b) => b.id === id) || brands[0];
   const related = studies.filter((s) => s.brand === brand.name).slice(0, 3);

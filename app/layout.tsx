@@ -1,18 +1,17 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { Nav } from "@/components/layout/Nav";
+import { Nav, type NavLink } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
-import { CookieConsent } from "@/components/layout/CookieConsent";
+import { CookieConsent, type BannerConfig } from "@/components/layout/CookieConsent";
 import { GoogleAnalyticsLoader } from "@/components/layout/GoogleAnalyticsLoader";
 import { LenisProvider } from "@/components/ui/LenisProvider";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { LogoLoader } from "@/components/ui/LogoLoader";
 import { PageTransition } from "@/components/ui/PageTransition";
-import { getColors, getSettings } from "@/lib/content";
+import { getColors, getSettings, getPages, getCookieBanner } from "@/lib/content";
 
-const CDN = "https://klr-europe.com/wp-content/uploads";
 const SITE = "https://klr-europe.com";
-const DEFAULT_OG = `${CDN}/2022/12/KLR-HERO-HOME-scaled.jpg`;
+const DEFAULT_OG = "/api/media/wp-1010";
 
 export const revalidate = 60;
 
@@ -113,7 +112,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-function buildOrgJsonLd(extraSameAs: string[]) {
+function buildOrgJsonLd(extraSameAs: string[], logoUrl: string) {
   return {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -123,7 +122,7 @@ function buildOrgJsonLd(extraSameAs: string[]) {
   url: SITE,
   logo: {
     "@type": "ImageObject",
-    url: "https://klr-europe.com/wp-content/uploads/2022/10/KLR-Logosito.png",
+    url: logoUrl,
     width: 400,
     height: 135,
   },
@@ -231,9 +230,11 @@ const SUPPORTED_FONTS = [
 ];
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const [colors, settings] = await Promise.all([
-    getColors() as Promise<{ headingFont?: string; bodyFont?: string; primaryColor?: string; accentColor?: string }>,
+  const [colors, settings, pages, cookieBanner] = await Promise.all([
+    getColors() as Promise<{ headingFont?: string; bodyFont?: string; primaryColor?: string; accentColor?: string; logoUrl?: string }>,
     getSettings() as Promise<SiteSettings>,
+    getPages() as Promise<Record<string, Record<string, unknown>>>,
+    getCookieBanner() as Promise<BannerConfig | null>,
   ]);
   const headingFont = SUPPORTED_FONTS.includes(colors.headingFont ?? "") ? (colors.headingFont ?? "Inter") : "Inter";
   const bodyFont    = SUPPORTED_FONTS.includes(colors.bodyFont    ?? "") ? (colors.bodyFont    ?? "Inter") : "Inter";
@@ -244,6 +245,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const sameAs = Object.values(settings.socialLinks || {}).filter(Boolean);
   const gaId = settings.googleAnalyticsId?.trim();
   const customCss = settings.customCss || "";
+  const logoUrl = colors.logoUrl || "/klr-logo.png";
+  const absoluteLogoUrl = logoUrl.startsWith("http") ? logoUrl : `${SITE}${logoUrl}`;
+  const nav = (pages.nav as { links?: NavLink[]; ctaLabel?: string; ctaHref?: string }) || {};
+  const footer = (pages.footer as Record<string, unknown>) || {};
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -264,7 +269,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         {customCss && <style dangerouslySetInnerHTML={{ __html: customCss }} />}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildOrgJsonLd(sameAs)) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildOrgJsonLd(sameAs, absoluteLogoUrl)) }}
         />
         <script
           type="application/ld+json"
@@ -276,12 +281,17 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <LenisProvider>
           <CustomCursor />
           <LogoLoader />
-          <Nav />
+          <Nav
+            initialLinks={nav.links}
+            initialCtaLabel={nav.ctaLabel}
+            initialCtaHref={nav.ctaHref}
+            logoUrl={logoUrl}
+          />
           <main className="relative z-10">
             <PageTransition>{children}</PageTransition>
           </main>
-          <Footer />
-          <CookieConsent />
+          <Footer initialData={footer} logoUrl={logoUrl} />
+          <CookieConsent initialConfig={cookieBanner} />
         </LenisProvider>
       </body>
     </html>

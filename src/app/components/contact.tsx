@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { softShadow, openMailtoDraft } from "./ui-bits";
@@ -264,15 +263,8 @@ function Offices({ cms }: { cms: ContactCmsData }) {
   );
 }
 
-export function Contact() {
-  const [cms, setCms] = useState<ContactCmsData>({});
-
-  useEffect(() => {
-    fetch("/api/content?type=pages", { cache: "no-store" })
-      .then(r => r.json())
-      .then(j => { if (j.data?.contact) setCms(j.data.contact); })
-      .catch(() => {});
-  }, []);
+export function Contact({ initialCms }: { initialCms?: ContactCmsData }) {
+  const cms = initialCms ?? {};
 
   const heroEyebrow = cms.hero?.eyebrow || "Contact";
   const heroTitle = cms.hero?.title || "Keep in Touch!";

@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   const study = studies.find((s) => s.id === resolvedId);
   const title = study ? `${study.title} | Case Study` : "Case Study | KLR Europe";
   const description = study?.summary ?? "KLR Europe loyalty campaign case study.";
-  const image = study?.img ?? "https://klr-europe.com/wp-content/uploads/2025/08/Spar-TZ_RedBull-cover-circle.jpg";
+  const image = study?.img ?? "/api/media/wp-4522";
   return {
     title,
     description,
@@ -42,10 +42,12 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   };
 }
 
-export default function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }: { params: { id: string } }) {
   const resolvedId = resolveStudyId(params.id);
   if (resolvedId !== params.id) {
     permanentRedirect(`/work/${resolvedId}`);
   }
-  return <StudyDetailClient id={resolvedId} />;
+  const cmsStudies = (await getStudies()) as typeof fallbackStudies | null;
+  const studies = cmsStudies?.length ? cmsStudies : fallbackStudies;
+  return <StudyDetailClient id={resolvedId} initialStudies={studies} />;
 }
