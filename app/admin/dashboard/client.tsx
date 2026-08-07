@@ -85,8 +85,15 @@ const PAGE_TABS: { id: PageKey; label: string; icon: LucideIcon }[] = [
 ══════════════════════════════════════════════════ */
 type BrandItem    = { id:string;name:string;tag:string;img:string;since:string;campaigns:string;countries:string;desc:string };
 type LeaderItem   = { id:string;name:string;role:string;img:string;bio:string;quote:string };
-type StudyItem    = { id:string;title:string;client:string;year:string;location:string;img:string;summary:string;cat:string;brand:string };
-type PostItem     = { id:number;slug:string;title:string;date:string;excerpt:string;img:string;category:string;contentHtml?:string };
+type StudyResult  = { k:string;v:string };
+type StudyRewardGroup = { title:string;subtitle:string;items:string[] };
+type StudyDetails = {
+  sourceUrl:string;campaignTitle:string;challenge:string;
+  rewardGroups:StudyRewardGroup[];activations:string[];mechanics:string[];
+  gallery:string[];social:string[];videos:string[];
+};
+type StudyItem    = { id:string;title:string;client:string;year:string;location:string;img:string;summary:string;cat:string;brand:string;results:StudyResult[];details:StudyDetails };
+type PostItem     = { id:number;slug:string;title:string;date:string;excerpt:string;img:string;category:string;contentHtml?:string;authorName?:string;authorAvatar?:string };
 type UserItem     = { id:string;name:string;email:string;password?:string;role:string;hasPassword?:boolean };
 type PositionItem = { id:string;role:string;loc:string;description:string };
 type NavLinkItem  = { href:string;label:string;sub?:{href:string;label:string}[] };
@@ -501,9 +508,92 @@ function ImageField({ value, onChange, label }: { value: string; onChange: (v: s
       </div>
       {uploadError && <div style={{ fontSize:11,color:"#dc2626",marginTop:4 }}>{uploadError}</div>}
       {value && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={value} alt="" style={{ marginTop:8,height:60,objectFit:"cover",borderRadius:8,border:"1px solid #eee",maxWidth:"100%" }}/>
+        <div style={{ display:"flex",alignItems:"center",gap:8,marginTop:8 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={value} alt="" style={{ height:60,objectFit:"cover",borderRadius:8,border:"1px solid #eee",maxWidth:"100%" }}/>
+          <button type="button" onClick={() => onChange("")} title="Rimuovi immagine"
+            style={{ flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",width:24,height:24,background:"#fff",color:"#dc2626",border:"1px solid #eee",borderRadius:999,cursor:"pointer" }}>
+            <X size={13}/>
+          </button>
+        </div>
       )}
+    </Field>
+  );
+}
+
+/* ══════════════════════════════════════════════════
+   DYNAMIC LIST FIELDS (per contenuti strutturati case study)
+══════════════════════════════════════════════════ */
+const listRowBtn: React.CSSProperties = { flexShrink:0,padding:8,background:"#FEE2E2",color:"#DC2626",border:"none",borderRadius:8,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" };
+const listAddBtn: React.CSSProperties = { padding:"8px 14px",background:"#EEF0FB",color:"#2E2784",border:"none",borderRadius:8,fontSize:12,fontWeight:600,cursor:"pointer",display:"inline-flex",alignItems:"center",gap:6 };
+
+function StringListField({ label, value, onChange, placeholder, image }: { label:string; value:string[]; onChange:(v:string[])=>void; placeholder?:string; image?:boolean }) {
+  const items = value ?? [];
+  function update(i:number, v:string) { const next=[...items]; next[i]=v; onChange(next); }
+  function remove(i:number) { onChange(items.filter((_,idx)=>idx!==i)); }
+  function add() { onChange([...items, ""]); }
+  return (
+    <Field label={label} full>
+      <div style={{ display:"flex",flexDirection:"column",gap:8 }}>
+        {items.map((v, i) => (
+          <div key={i} style={{ display:"flex",gap:8,alignItems:image?"flex-start":"center" }}>
+            <div style={{ flex:1 }}>
+              {image
+                ? <ImageField value={v} onChange={(nv)=>update(i,nv)} label=""/>
+                : <Input value={v} placeholder={placeholder} onChange={(nv)=>update(i,nv)}/>}
+            </div>
+            <button type="button" onClick={()=>remove(i)} style={listRowBtn}><Trash2 size={13}/></button>
+          </div>
+        ))}
+        <button type="button" onClick={add} style={listAddBtn}><Plus size={13}/>Aggiungi</button>
+      </div>
+    </Field>
+  );
+}
+
+function KVListField({ label, value, onChange, kLabel, vLabel }: { label:string; value:{k:string;v:string}[]; onChange:(v:{k:string;v:string}[])=>void; kLabel:string; vLabel:string }) {
+  const items = value ?? [];
+  function update(i:number, key:"k"|"v", v:string) { const next=items.map((it,idx)=>idx===i?{...it,[key]:v}:it); onChange(next); }
+  function remove(i:number) { onChange(items.filter((_,idx)=>idx!==i)); }
+  function add() { onChange([...items, { k:"", v:"" }]); }
+  return (
+    <Field label={label} full>
+      <div style={{ display:"flex",flexDirection:"column",gap:8 }}>
+        {items.map((it, i) => (
+          <div key={i} style={{ display:"flex",gap:8,alignItems:"center" }}>
+            <div style={{ flex:1 }}><Input value={it.k} placeholder={kLabel} onChange={(v)=>update(i,"k",v)}/></div>
+            <div style={{ flex:1 }}><Input value={it.v} placeholder={vLabel} onChange={(v)=>update(i,"v",v)}/></div>
+            <button type="button" onClick={()=>remove(i)} style={listRowBtn}><Trash2 size={13}/></button>
+          </div>
+        ))}
+        <button type="button" onClick={add} style={listAddBtn}><Plus size={13}/>Aggiungi</button>
+      </div>
+    </Field>
+  );
+}
+
+function RewardGroupsField({ label, value, onChange }: { label:string; value:{title:string;subtitle:string;items:string[]}[]; onChange:(v:{title:string;subtitle:string;items:string[]}[])=>void }) {
+  const groups = value ?? [];
+  function update(i:number, patch:Partial<{title:string;subtitle:string;items:string[]}>) {
+    onChange(groups.map((g,idx)=>idx===i?{...g,...patch}:g));
+  }
+  function remove(i:number) { onChange(groups.filter((_,idx)=>idx!==i)); }
+  function add() { onChange([...groups, { title:"", subtitle:"", items:[] }]); }
+  return (
+    <Field label={label} full>
+      <div style={{ display:"flex",flexDirection:"column",gap:14 }}>
+        {groups.map((g, i) => (
+          <div key={i} style={{ border:"1px solid #eee",borderRadius:12,padding:14,display:"flex",flexDirection:"column",gap:10 }}>
+            <div style={{ display:"flex",gap:8,alignItems:"center" }}>
+              <div style={{ flex:1 }}><Input value={g.title} placeholder="Titolo gruppo" onChange={(v)=>update(i,{title:v})}/></div>
+              <button type="button" onClick={()=>remove(i)} style={listRowBtn}><Trash2 size={13}/></button>
+            </div>
+            <Input value={g.subtitle} placeholder="Sottotitolo" onChange={(v)=>update(i,{subtitle:v})}/>
+            <StringListField label="Elementi" value={g.items||[]} onChange={(items)=>update(i,{items})} placeholder="Elemento"/>
+          </div>
+        ))}
+        <button type="button" onClick={add} style={listAddBtn}><Plus size={13}/>Aggiungi gruppo reward</button>
+      </div>
     </Field>
   );
 }
@@ -1619,6 +1709,7 @@ const POST_FIELDS:     FieldDef[] = [
   {key:"slug",label:"Slug (URL)",type:"text"},{key:"title",label:"Titolo",type:"text"},
   {key:"date",label:"Data (YYYY-MM-DD)",type:"text"},{key:"category",label:"Categoria",type:"text"},
   {key:"img",label:"Immagine (URL)",type:"url"},{key:"excerpt",label:"Estratto",type:"textarea"},
+  {key:"authorName",label:"Autore",type:"text"},{key:"authorAvatar",label:"Avatar autore (URL)",type:"url"},
   {key:"contentHtml",label:"Contenuto Articolo",type:"richtext"},
 ];
 const USER_FIELDS:     FieldDef[] = [
@@ -1635,7 +1726,34 @@ const POSITION_FIELDS: FieldDef[] = [
 function BrandsEditor    ({ data, onSave }: { data:BrandItem[]|null;    onSave:(d:BrandItem[])=>void })    { return <ListEditor<BrandItem>    title="Brand"       data={data} fields={BRAND_FIELDS}    nameKey="name"  imgKey="img" onSave={onSave} blank={{id:"",name:"",tag:"",img:"",since:"",campaigns:"",countries:"",desc:""}}/>; }
 function UsersEditor     ({ data, onSave }: { data:UserItem[]|null;     onSave:(d:UserItem[])=>void })     { return <ListEditor<UserItem>     title="Utente"      data={data} fields={USER_FIELDS}     nameKey="name"  imgKey=""    onSave={onSave} blank={{id:"",name:"",email:"",password:"",role:"editor"}}/>; }
 function LeadershipEditor({ data, onSave }: { data:LeaderItem[]|null;   onSave:(d:LeaderItem[])=>void })   { return <ListEditor<LeaderItem>   title="Membro"      data={data} fields={LEADER_FIELDS}   nameKey="name"  imgKey="img" onSave={onSave} blank={{id:"",name:"",role:"",img:"",bio:"",quote:""}}/>; }
-function StudiesEditor   ({ data, onSave }: { data:StudyItem[]|null;    onSave:(d:StudyItem[])=>void })    { return <ListEditor<StudyItem>    title="Case Study"  data={data} fields={STUDY_FIELDS}    nameKey="title" imgKey="img" onSave={onSave} blank={{id:"",title:"",client:"",year:String(new Date().getFullYear()),location:"",img:"",summary:"",cat:"retail",brand:""}}/>; }
+const STUDY_BLANK_DETAILS: StudyDetails = { sourceUrl:"",campaignTitle:"",challenge:"",rewardGroups:[],activations:[],mechanics:[],gallery:[],social:[],videos:[] };
+function StudiesEditor   ({ data, onSave }: { data:StudyItem[]|null;    onSave:(d:StudyItem[])=>void })    {
+  return <ListEditor<StudyItem>
+    title="Case Study" data={data} fields={STUDY_FIELDS} nameKey="title" imgKey="img" onSave={onSave}
+    blank={{id:"",title:"",client:"",year:String(new Date().getFullYear()),location:"",img:"",summary:"",cat:"retail",brand:"",results:[],details:STUDY_BLANK_DETAILS}}
+    extra={(form, setForm) => {
+      const results: StudyResult[] = form.results ?? [];
+      const details: StudyDetails  = { ...STUDY_BLANK_DETAILS, ...(form.details ?? {}) };
+      const setDetails = (patch: Partial<StudyDetails>) => setForm((p:any) => ({ ...p, details: { ...details, ...patch } }));
+      return (
+        <div style={{ display:"flex",flexDirection:"column",gap:18,marginTop:8,paddingTop:18,borderTop:"1px solid #f0f0f6" }}>
+          <div style={{ fontSize:11,fontWeight:700,color:"#2E2784",textTransform:"uppercase",letterSpacing:"0.07em" }}>Dettaglio Case Study</div>
+          <Grid>
+            <KVListField label="Risultati (numero + etichetta)" value={results} kLabel="Valore (es. 12 Weeks)" vLabel="Etichetta" onChange={v => setForm((p:any) => ({...p, results: v}))}/>
+            <Field label="Titolo Campagna"><Input value={details.campaignTitle} onChange={v => setDetails({campaignTitle:v})}/></Field>
+            <Field label="Challenge / Sfida" full><Textarea rows={3} value={details.challenge} onChange={v => setDetails({challenge:v})}/></Field>
+            <StringListField label="Attivazioni" value={details.activations} onChange={v => setDetails({activations:v})} placeholder="Attivazione"/>
+            <StringListField label="Meccaniche" value={details.mechanics} onChange={v => setDetails({mechanics:v})} placeholder="Meccanica"/>
+            <RewardGroupsField label="Gruppi Reward" value={details.rewardGroups} onChange={v => setDetails({rewardGroups:v})}/>
+            <StringListField label="Galleria immagini" value={details.gallery} onChange={v => setDetails({gallery:v})} image/>
+            <StringListField label="Social (embed/URL)" value={details.social} onChange={v => setDetails({social:v})} placeholder="URL post social"/>
+            <StringListField label="Video (URL)" value={details.videos} onChange={v => setDetails({videos:v})} placeholder="URL video"/>
+          </Grid>
+        </div>
+      );
+    }}
+  />;
+}
 function PostsEditor     ({ data, onSave }: { data:PostItem[]|null;     onSave:(d:PostItem[])=>void })     { return <ListEditor<PostItem>     title="Post"        data={data} fields={POST_FIELDS}     nameKey="title" imgKey="img" onSave={onSave} blank={{id:Date.now(),slug:"",title:"",date:new Date().toISOString().slice(0,10),excerpt:"",img:"",category:"Loyalty Marketing"}}/>; }
 function PositionsEditor ({ data, onSave }: { data:PositionItem[]|null; onSave:(d:PositionItem[])=>void }) { return <ListEditor<PositionItem> title="Posizione Lavorativa" data={data} fields={POSITION_FIELDS} nameKey="role"  imgKey=""    onSave={onSave} blank={{id:String(Date.now()),role:"",loc:"",description:""}}/>; }
 
@@ -1827,36 +1945,52 @@ function PasswordInput({ value, onChange, hasExisting }: { value:string; onChang
    GENERIC LIST EDITOR
 ══════════════════════════════════════════════════ */
 function ListEditor<T extends Record<string, unknown>>({
-  title, data, fields, nameKey, imgKey, onSave, blank,
+  title, data, fields, nameKey, imgKey, onSave, blank, extra,
 }: {
   title:string; data:T[]|null; fields:FieldDef[]; nameKey:string; imgKey:string;
   onSave:(d:T[])=>void; blank:T;
+  extra?: (form:Record<string,any>, setForm:React.Dispatch<React.SetStateAction<Record<string,any>>>) => React.ReactNode;
 }) {
   const [items,   setItems]   = useState<T[]>([]);
   const [editing, setEditing] = useState<number|null>(null);
-  const [form,    setForm]    = useState<Record<string,string>>({});
+  const [form,    setForm]    = useState<Record<string,any>>({});
   const [isNew,   setIsNew]   = useState(false);
 
   useEffect(() => { if (data) setItems(data); }, [data]);
   if (!data) return <Loader/>;
 
+  function toFormValue(v: unknown): any {
+    return v !== null && typeof v === "object" ? JSON.parse(JSON.stringify(v)) : String(v ?? "");
+  }
+
   function open(idx: number) {
     setIsNew(false); setEditing(idx);
-    setForm(Object.fromEntries(Object.entries(items[idx]).map(([k,v]) => [k,String(v ?? "")])));
+    setForm(Object.fromEntries(Object.entries(items[idx]).map(([k,v]) => [k,toFormValue(v)])));
   }
   function commit() {
     if (editing === null) return;
     if (isNew) {
       const newItem = { ...blank, id: typeof blank.id === "number" ? Date.now() : "" } as T;
       const m = { ...newItem };
-      for (const [k,v] of Object.entries(form)) (m as Record<string,unknown>)[k] = typeof newItem[k] === "number" ? Number(v) : v;
+      for (const [k,v] of Object.entries(form)) {
+        const ref = (newItem as Record<string,unknown>)[k];
+        (m as Record<string,unknown>)[k] = typeof ref === "number" ? Number(v) : v;
+      }
+      if (typeof (m as Record<string,unknown>).id === "string" && !(m as Record<string,unknown>).id) {
+        const base = String((m as Record<string,unknown>)[nameKey] ?? "").toLowerCase().trim()
+          .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+        (m as Record<string,unknown>).id = base || String(Date.now());
+      }
       const updated = [...items, m];
       setItems(updated); setEditing(null); setIsNew(false); onSave(updated);
     } else {
       const updated = items.map((item, i) => {
         if (i !== editing) return item;
         const m = { ...item };
-        for (const [k,v] of Object.entries(form)) (m as Record<string,unknown>)[k] = typeof item[k] === "number" ? Number(v) : v;
+        for (const [k,v] of Object.entries(form)) {
+          const ref = (item as Record<string,unknown>)[k];
+          (m as Record<string,unknown>)[k] = typeof ref === "number" ? Number(v) : v;
+        }
         return m;
       });
       setItems(updated); setEditing(null); onSave(updated);
@@ -1869,25 +2003,26 @@ function ListEditor<T extends Record<string, unknown>>({
   }
   function add() {
     setIsNew(true); setEditing(items.length);
-    setForm(Object.fromEntries(Object.entries(blank).map(([k,v]) => [k,String(v ?? "")])));
+    setForm(Object.fromEntries(Object.entries(blank).map(([k,v]) => [k,toFormValue(v)])));
   }
 
   return (
     <div>
       {editing !== null && (
         <div style={{ position:"fixed",inset:0,background:"rgba(0,0,0,0.55)",zIndex:200,display:"flex",alignItems:"center",justifyContent:"center",padding:16 }}>
-          <div style={{ background:"#fff",borderRadius:20,padding:28,width:"100%",maxWidth:640,maxHeight:"88vh",overflowY:"auto",boxShadow:"0 24px 60px rgba(0,0,0,0.25)" }}>
+          <div style={{ background:"#fff",borderRadius:20,padding:28,width:"100%",maxWidth:extra?760:640,maxHeight:"88vh",overflowY:"auto",boxShadow:"0 24px 60px rgba(0,0,0,0.25)" }}>
             <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:20 }}>
               <h3 style={{ margin:0,fontSize:16,fontWeight:700,color:"#111" }}>{isNew ? `Nuovo ${title}` : `Modifica ${title}`}</h3>
               <button onClick={() => { setEditing(null); setIsNew(false); }} style={{ background:"none",border:"none",cursor:"pointer",color:"#999",padding:4 }}><X size={18}/></button>
             </div>
             <Grid>
               {fields.map(f => (
+                f.type === "url" ? (
+                  <ImageField key={f.key} value={form[f.key]||""} onChange={v => setForm(p => ({...p,[f.key]:v}))} label={f.label}/>
+                ) :
                 <Field key={f.key} label={f.label} full={f.type === "richtext" || f.type.startsWith("textarea")}>
                   {f.type === "richtext" ? (
                     <RichTextEditor value={form[f.key]||""} onChange={v => setForm(p => ({...p,[f.key]:v}))}/>
-                  ) : f.type === "url" ? (
-                    <ImageField value={form[f.key]||""} onChange={v => setForm(p => ({...p,[f.key]:v}))} label={f.label}/>
                   ) : f.type === "select" ? (
                     <FieldSelect value={form[f.key]||""} onChange={v => setForm(p => ({...p,[f.key]:v}))} options={f.options??[]}/>
                   ) : f.type === "password" ? (
@@ -1904,6 +2039,7 @@ function ListEditor<T extends Record<string, unknown>>({
                 </Field>
               ))}
             </Grid>
+            {extra && <div style={{ marginTop:8 }}>{extra(form, setForm)}</div>}
             <div style={{ display:"flex",gap:10,marginTop:20 }}>
               <SaveBtn onClick={commit}/>
               <SecBtn onClick={() => { setEditing(null); setIsNew(false); }}>Annulla</SecBtn>
@@ -2014,9 +2150,9 @@ function Field({ label, children, full }: { label:string; children:React.ReactNo
     </div>
   );
 }
-function Input({ value, onChange, type="text" }: { value:string; onChange:(v:string)=>void; type?:string }) {
+function Input({ value, onChange, type="text", placeholder }: { value:string; onChange:(v:string)=>void; type?:string; placeholder?:string }) {
   return (
-    <input type={type} value={value} onChange={e=>onChange(e.target.value)}
+    <input type={type} value={value} placeholder={placeholder} onChange={e=>onChange(e.target.value)}
       style={{ width:"100%",boxSizing:"border-box",padding:"9px 12px",border:"1.5px solid #E8E8F0",borderRadius:9,fontSize:13,color:"#111",background:"#FAFAFA",outline:"none",fontFamily:"inherit",transition:"border 0.15s" }}
       onFocus={e=>e.target.style.borderColor="#2E2784"}
       onBlur={e=>e.target.style.borderColor="#E8E8F0"}

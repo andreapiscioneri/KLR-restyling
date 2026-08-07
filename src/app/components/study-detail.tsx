@@ -40,6 +40,7 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
   const gallery = details?.gallery ?? [s.img];
   const social = details?.social ?? [];
   const videos = details?.videos ?? [];
+  const results = (s as any).results ?? [];
   const informationBlocks = [
     {
       label: "Client Objective",
@@ -114,7 +115,7 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
 
               <div className="md:col-span-5">
                 <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-1 gap-4">
-                  {s.results.map((r) => (
+                  {results.map((r: { k: string; v: string }) => (
                     <article key={`${r.k}-${r.v}`} className="rounded-[24px] p-6 border-2 border-[#2E2784]/35 bg-[#F8AE01]/35" style={softShadow}>
                       <div className="text-[#2E2784]/55 tracking-[0.16em] uppercase" style={{ fontSize: "0.62rem", fontWeight: 700 }}>
                         {r.v}

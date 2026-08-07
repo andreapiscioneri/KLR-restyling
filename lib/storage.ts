@@ -6,13 +6,25 @@ const IS_NETLIFY_CLOUD = Boolean(process.env.NETLIFY && !process.env.NETLIFY_LOC
 const IS_NETLIFY_LOCAL = Boolean(process.env.NETLIFY_LOCAL);
 const HAS_NETLIFY_BLOBS = Boolean(process.env.NETLIFY_BLOBS_CONTEXT || (globalThis as any)?.netlifyBlobsContext);
 
+function manualCredentials() {
+  const siteID = process.env.NETLIFY_SITE_ID;
+  const token = process.env.NETLIFY_API_TOKEN || process.env.NETLIFY_TOKEN;
+  return siteID && token ? { siteID, token } : null;
+}
+
+const USE_BLOBS = IS_NETLIFY_CLOUD || IS_NETLIFY_LOCAL || HAS_NETLIFY_BLOBS || Boolean(manualCredentials());
+
 async function initBlobStore() {
   const { getStore } = await import("@netlify/blobs");
+  const manual = manualCredentials();
+  if (manual) {
+    return getStore({ name: "cms-content", ...manual, consistency: "strong" });
+  }
   return getStore({ name: "cms-content", consistency: "strong" });
 }
 
 export async function readContent<T>(key: string, fallback: T): Promise<T> {
-  if (IS_NETLIFY_CLOUD || IS_NETLIFY_LOCAL || HAS_NETLIFY_BLOBS) {
+  if (USE_BLOBS) {
     try {
       const store = await initBlobStore();
       const data = await store.get(key, { type: "json" });
@@ -34,7 +46,7 @@ export async function readContent<T>(key: string, fallback: T): Promise<T> {
 }
 
 export async function writeContent(key: string, data: unknown): Promise<void> {
-  if (IS_NETLIFY_CLOUD || HAS_NETLIFY_BLOBS) {
+  if (USE_BLOBS) {
     try {
       const store = await initBlobStore();
       await store.setJSON(key, data);
@@ -44,7 +56,7 @@ export async function writeContent(key: string, data: unknown): Promise<void> {
       if (IS_NETLIFY_CLOUD) {
         throw err;
       }
-      // falling back to a local filesystem write in Netlify local/dev mode only
+      // falling back to a local filesystem write only when blobs are unreachable outside prod
     }
   }
   const filePath = path.join(CONTENT_DIR, key + ".json");
