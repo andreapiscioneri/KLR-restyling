@@ -1689,6 +1689,7 @@ function FooterLinksEditor({ exploreLinks, moreLinks, onChangeExploreLinks, onCh
 ══════════════════════════════════════════════════ */
 type FieldDef = { key:string; label:string; type:string; options?:string[] };
 const SECTOR_OPTIONS = ["retail", "petrol"];
+const SECTOR_LABELS: Record<string,string> = { retail: "Grocery", petrol: "Fuel" };
 
 const BRAND_FIELDS:    FieldDef[] = [
   {key:"id",label:"ID Slug",type:"text"},{key:"name",label:"Nome",type:"text"},{key:"tag",label:"Categoria",type:"text"},
@@ -2198,7 +2199,7 @@ function FieldSelect({ value, onChange, options }: { value:string; onChange:(v:s
   );
 }
 const NEW_OPTION = "__new__";
-function ComboField({ value, onChange, options, newLabel="+ Aggiungi nuova…" }: { value:string; onChange:(v:string)=>void; options:string[]; newLabel?:string }) {
+function ComboField({ value, onChange, options, labels, newLabel="+ Aggiungi nuova…" }: { value:string; onChange:(v:string)=>void; options:string[]; labels?:Record<string,string>; newLabel?:string }) {
   const [adding, setAdding] = useState(false);
   if (adding || (value && !options.includes(value))) {
     return (
@@ -2219,7 +2220,7 @@ function ComboField({ value, onChange, options, newLabel="+ Aggiungi nuova…" }
       onFocus={e=>e.target.style.borderColor="#2E2784"}
       onBlur={e=>e.target.style.borderColor="#E8E8F0"}>
       {!value && <option value="">— Seleziona —</option>}
-      {options.map(opt=><option key={opt} value={opt}>{opt}</option>)}
+      {options.map(opt=><option key={opt} value={opt}>{labels?.[opt] ?? opt}</option>)}
       <option value={NEW_OPTION}>{newLabel}</option>
     </select>
   );
@@ -2240,7 +2241,7 @@ function CategoryFields({ cat, brand, sectorOptions, brandOptions, onChangeCat, 
         </label>
       </div>
       {mode === "cat"
-        ? <ComboField value={cat} onChange={onChangeCat} options={sectorOptions}/>
+        ? <ComboField value={cat} onChange={onChangeCat} options={sectorOptions} labels={SECTOR_LABELS}/>
         : <ComboField value={brand} onChange={onChangeBrand} options={brandOptions}/>}
     </Field>
   );
