@@ -148,3 +148,15 @@ html.lenis, html.lenis body {
 @media (min-width: 768px) {
   .admin-mobile-bar { display: none !important; }
 }
+
+/* Admin panel — visible keyboard focus on every interactive element (accessibilità) */
+main:has(.admin-mobile-bar) button:focus-visible,
+main:has(.admin-mobile-bar) a:focus-visible,
+main:has(.admin-mobile-bar) input:focus-visible,
+main:has(.admin-mobile-bar) textarea:focus-visible,
+main:has(.admin-mobile-bar) select:focus-visible,
+aside:has(+ main .admin-mobile-bar) button:focus-visible {
+  outline: 2px solid #F8AE01;
+  outline-offset: 2px;
+  border-radius: 6px;
+}

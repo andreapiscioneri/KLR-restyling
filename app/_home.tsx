@@ -724,12 +724,19 @@ type HomePageProps = {
   initialStats?: HomeStats;
   initialStudies?: HomeStudies;
   initialPages?: Record<string, Record<string, unknown>>;
+  initialBrands?: { name: string; img?: string }[];
 };
 
-export function HomePage({ initialStats, initialStudies, initialPages }: HomePageProps = {}) {
+export function HomePage({ initialStats, initialStudies, initialPages, initialBrands }: HomePageProps = {}) {
   const stats = initialStats ?? defaultStats;
   const studies = initialStudies ?? defaultStudies;
   const pages = initialPages ?? {};
+  // Brand Partners gestiti dal CMS (admin → Brand Partners); fallback ai loghi di default
+  // solo se l'admin non ha ancora nessun brand con immagine impostata.
+  const cmsBrandLogos = (initialBrands ?? [])
+    .filter(b => b.img)
+    .map(b => ({ name: b.name, logo: b.img as string }));
+  const brands = cmsBrandLogos.length > 0 ? cmsBrandLogos : defaultBrands;
 
   const home = (pages.home as Record<string, unknown>) || {};
   const heroData         = (home.hero          as HeroData)    || {};
@@ -747,7 +754,7 @@ export function HomePage({ initialStats, initialStudies, initialPages }: HomePag
     hero:           heroData._visible          !== false && <Hero data={heroData} />,
     stats:          statsData._visible         !== false && <StatsBar stats={stats} data={statsData} />,
     framework:      frameworkData._visible     !== false && <LoyaltyFramework data={frameworkData} />,
-    brandPartners:  brandPartnersData._visible !== false && <PartnerLogosBand brands={defaultBrands} />,
+    brandPartners:  brandPartnersData._visible !== false && <PartnerLogosBand brands={brands} />,
     sectors:        sectorsData._visible       !== false && <TwoSectors data={sectorsData} />,
     international:  internationalData._visible !== false && <InternationalPresence data={internationalData} />,
     clients:        clientsData._visible       !== false && <ClientLogos data={clientsData} />,

@@ -42,22 +42,68 @@ type PageKey =
   | "team" | "brands" | "caseStudies" | "blog" | "work" | "footer"
   | "career" | "tenYears" | "geo" | "privacy" | "copyright" | "notFound";
 
-const TOP_NAV: { id: TopSection; label: string; icon: LucideIcon }[] = [
-  { id: "overview",    label: "Overview",       icon: LayoutGrid },
-  { id: "pages",       label: "Pagine & Testi", icon: FileText   },
-  { id: "stats",       label: "Statistiche",    icon: BarChart3  },
-  { id: "brands",      label: "Brand Partners", icon: Tags       },
-  { id: "leadership",  label: "Team",           icon: Users      },
-  { id: "studies",     label: "Case Studies",   icon: FolderOpen },
-  { id: "posts",       label: "Insights",       icon: PenLine    },
-  { id: "positions",   label: "Posizioni Lavorative", icon: Award },
-  { id: "customPages", label: "Pagine Custom",  icon: FileCode   },
-  { id: "media",       label: "Media Library",  icon: Images     },
-  { id: "colors",      label: "Colori & Tema",  icon: Palette    },
-  { id: "cookies",     label: "Cookie & Privacy", icon: Cookie   },
-  { id: "users",       label: "Utenti",         icon: Users      },
-  { id: "settings",    label: "Impostazioni",   icon: Settings   },
+type NavGroup = "principale" | "contenuti" | "media" | "configurazione" | "sistema";
+
+const TOP_NAV: { id: TopSection; label: string; icon: LucideIcon; group: NavGroup }[] = [
+  { id: "overview",    label: "Overview",       icon: LayoutGrid, group: "principale" },
+  { id: "pages",       label: "Pagine & Testi", icon: FileText,   group: "contenuti" },
+  { id: "brands",      label: "Brand Partners", icon: Tags,       group: "contenuti" },
+  { id: "leadership",  label: "Team",           icon: Users,      group: "contenuti" },
+  { id: "studies",     label: "Case Studies",   icon: FolderOpen, group: "contenuti" },
+  { id: "posts",       label: "Insights",       icon: PenLine,    group: "contenuti" },
+  { id: "positions",   label: "Posizioni Lavorative", icon: Award, group: "contenuti" },
+  { id: "customPages", label: "Pagine Custom",  icon: FileCode,   group: "contenuti" },
+  { id: "media",       label: "Media Library",  icon: Images,     group: "media" },
+  { id: "colors",      label: "Colori & Tema",  icon: Palette,    group: "configurazione" },
+  { id: "stats",       label: "Statistiche",    icon: BarChart3,  group: "configurazione" },
+  { id: "cookies",     label: "Cookie & Privacy", icon: Cookie,   group: "configurazione" },
+  { id: "users",       label: "Utenti",         icon: Users,      group: "sistema" },
+  { id: "settings",    label: "Impostazioni",   icon: Settings,   group: "sistema" },
 ];
+
+const NAV_GROUP_LABELS: Record<NavGroup, string> = {
+  principale: "",
+  contenuti: "Contenuti",
+  media: "Media",
+  configurazione: "Design & Configurazione",
+  sistema: "Sistema",
+};
+const NAV_GROUP_ORDER: NavGroup[] = ["principale", "contenuti", "media", "configurazione", "sistema"];
+
+const SECTION_DESCRIPTIONS: Record<TopSection, string> = {
+  overview:    "Panoramica generale del pannello: numeri chiave e guida rapida a tutte le sezioni.",
+  pages:       "Modifica i testi, i titoli, le immagini e la visibilità delle sezioni di ogni pagina del sito. Ogni scheda in alto corrisponde a una pagina.",
+  stats:       "I numeri mostrati nelle sezioni statistiche del sito (es. anni di attività, campagne realizzate, paesi).",
+  brands:      "I brand partner mostrati nella sezione dedicata del sito, con logo, descrizione e dati.",
+  leadership:  "I membri del team mostrati nella pagina About/Team, con foto, ruolo e biografia.",
+  studies:     "I case study/campagne pubblicati sul sito: dati generali, risultati, reward e galleria immagini.",
+  posts:       "Gli articoli del blog/Insights, con testo formattato, immagine di copertina e autore.",
+  positions:   "Le posizioni lavorative aperte mostrate nella pagina Career.",
+  customPages: "Crea pagine aggiuntive con URL personalizzato, senza scrivere codice, componendo blocchi di testo, immagini e CTA.",
+  media:       "Tutte le immagini caricate nel sito: cercale, copiane l'URL o eliminale.",
+  colors:      "Colori, logo e font usati in tutto il sito.",
+  cookies:     "Testi del banner cookie e registro dei consensi raccolti dagli utenti.",
+  users:       "Account con accesso a questo pannello admin e relativi permessi.",
+  settings:    "Impostazioni generali del sito: nome, contatti, sede, social, SEO e script avanzati.",
+};
+
+/** "Quando usarla / chi la usa" — mostrato nel PageIntro sotto la descrizione principale. */
+const SECTION_USAGE: Record<TopSection, string[]> = {
+  overview:    ["Punto di partenza: da qui vedi cosa manca o va completato.", "Utile a chiunque acceda al pannello, di qualsiasi ruolo."],
+  pages:       ["Usala quando devi cambiare un testo, un titolo o un'immagine già presente sul sito.", "Le modifiche sono visibili subito dopo il salvataggio, senza bisogno di deploy."],
+  stats:       ["Aggiorna questi numeri solo quando i dati aziendali cambiano davvero (es. nuovo anno, nuova campagna conclusa)."],
+  brands:      ["Aggiungi un brand quando firmi una nuova partnership; modificalo se cambiano i dati del cliente."],
+  leadership:  ["Aggiorna quando un membro del team entra, esce o cambia ruolo/foto."],
+  studies:     ["Pubblica un nuovo case study a campagna conclusa; usa i campi 'Dettaglio' per la pagina completa del progetto."],
+  posts:       ["Pubblica un nuovo articolo o correggi un testo esistente del blog."],
+  positions:   ["Apri una posizione quando c'è una ricerca attiva; rimuovila quando la posizione si chiude."],
+  customPages: ["Usala per pagine che non rientrano nella struttura standard del sito (es. landing page, promo)."],
+  media:       ["Usa questa libreria come archivio centrale: carica un'immagine una volta e riusala in più punti del sito."],
+  colors:      ["Modifica solo se stai facendo un restyling grafico: l'effetto è immediato su tutto il sito."],
+  cookies:     ["I testi del banner vanno cambiati se cambia la policy privacy; il registro serve per audit e conformità."],
+  users:       ["Gestita di norma da un superadmin: crea un account per ogni persona che deve accedere al pannello."],
+  settings:    ["Configurazione impostata all'inizio del progetto; da rivedere solo per cambi di contatti, SEO o tracking."],
+};
 
 const PAGE_TABS: { id: PageKey; label: string; icon: LucideIcon }[] = [
   { id: "site",       label: "Globale",      icon: Globe      },
@@ -232,7 +278,7 @@ export function AdminDashboardClient({ currentUser }: { currentUser: AdminUser }
       >
         <div style={{ padding:"22px 20px 18px",borderBottom:"1px solid rgba(255,255,255,0.08)",display:"flex",alignItems:"center",justifyContent:"space-between" }}>
           <Image src={klrLogo} alt="KLR" width={96} height={30} style={{ height:24,width:"auto" }} />
-          <button className="admin-mobile-bar" onClick={() => setSidebarOpen(false)}
+          <button className="admin-mobile-bar" onClick={() => setSidebarOpen(false)} aria-label="Chiudi menu"
             style={{ background:"rgba(255,255,255,0.1)",border:"none",borderRadius:7,color:"rgba(255,255,255,0.7)",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",width:30,height:30,flexShrink:0 }}>
             <X size={16}/>
           </button>
@@ -251,15 +297,28 @@ export function AdminDashboardClient({ currentUser }: { currentUser: AdminUser }
           </button>
         </div>
         <nav style={{ flex:1,padding:"10px 10px",overflowY:"auto" }}>
-          {TOP_NAV.filter(item => (ROLE_SECTIONS[currentUser.role] ?? ROLE_SECTIONS.editor).includes(item.id)).map(item => {
-            const active = section === item.id;
+          {NAV_GROUP_ORDER.map(group => {
+            const items = TOP_NAV.filter(item => item.group === group && (ROLE_SECTIONS[currentUser.role] ?? ROLE_SECTIONS.editor).includes(item.id));
+            if (items.length === 0) return null;
             return (
-              <button key={item.id} onClick={() => { setSection(item.id); setSidebarOpen(false); }}
-                style={{ display:"flex",alignItems:"center",gap:10,width:"100%",padding:"10px 12px",marginBottom:2,border:"none",borderRadius:10,background:active?"rgba(248,174,1,0.15)":"transparent",color:active?"#F8AE01":"rgba(255,255,255,0.55)",fontSize:13,fontWeight:active?600:400,cursor:"pointer",textAlign:"left",transition:"all 0.15s" }}>
-                <item.icon size={15}/>
-                <span style={{ flex:1 }}>{item.label}</span>
-                {active && <ChevronRight size={13} style={{ opacity:0.6 }}/>}
-              </button>
+              <div key={group} style={{ marginBottom:6 }}>
+                {NAV_GROUP_LABELS[group] && (
+                  <div style={{ padding:"12px 12px 6px",fontSize:10,fontWeight:700,color:"rgba(255,255,255,0.32)",textTransform:"uppercase",letterSpacing:"0.08em" }}>
+                    {NAV_GROUP_LABELS[group]}
+                  </div>
+                )}
+                {items.map(item => {
+                  const active = section === item.id;
+                  return (
+                    <button key={item.id} onClick={() => { setSection(item.id); setSidebarOpen(false); }}
+                      style={{ display:"flex",alignItems:"center",gap:10,width:"100%",padding:"10px 12px",marginBottom:2,border:"none",borderRadius:10,background:active?"rgba(248,174,1,0.15)":"transparent",color:active?"#F8AE01":"rgba(255,255,255,0.55)",fontSize:13,fontWeight:active?600:400,cursor:"pointer",textAlign:"left",transition:"all 0.15s" }}>
+                      <item.icon size={15}/>
+                      <span style={{ flex:1 }}>{item.label}</span>
+                      {active && <ChevronRight size={13} style={{ opacity:0.6 }}/>}
+                    </button>
+                  );
+                })}
+              </div>
             );
           })}
         </nav>
@@ -275,7 +334,7 @@ export function AdminDashboardClient({ currentUser }: { currentUser: AdminUser }
       <main className="md:ml-[230px]" style={{ flex:1,minWidth:0 }}>
         <div className="admin-mobile-bar" style={{ position:"sticky",top:0,zIndex:20,background:"rgba(245,245,250,0.95)",backdropFilter:"blur(12px)",borderBottom:"1px solid rgba(0,0,0,0.07)",padding:"0 20px",height:52,display:"flex",alignItems:"center",justifyContent:"space-between" }}>
           <div style={{ display:"flex",alignItems:"center",gap:12 }}>
-            <button className="md:hidden" onClick={() => setSidebarOpen(v => !v)}
+            <button className="md:hidden" onClick={() => setSidebarOpen(v => !v)} aria-label={sidebarOpen ? "Chiudi menu" : "Apri menu"}
               style={{ width:36,height:36,background:"#2E2784",border:"none",borderRadius:8,color:"#fff",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>
               {sidebarOpen ? <X size={17}/> : <Menu size={17}/>}
             </button>
@@ -285,10 +344,12 @@ export function AdminDashboardClient({ currentUser }: { currentUser: AdminUser }
         </div>
 
         <div style={{ padding:"24px" }}>
-          <div className="hidden md:flex" style={{ alignItems:"center",justifyContent:"space-between",marginBottom:24 }}>
+          <div className="hidden md:flex" style={{ alignItems:"flex-start",justifyContent:"space-between",marginBottom:16,gap:16 }}>
             <h1 style={{ margin:0,fontSize:20,fontWeight:700,color:"#111" }}>{TOP_NAV.find(n => n.id === section)?.label}</h1>
-            <div style={{ display:"flex",gap:8 }}><StatusBadge/></div>
+            <div style={{ display:"flex",gap:8,flexShrink:0 }}><StatusBadge/></div>
           </div>
+          <div className="admin-mobile-bar" style={{ marginBottom:4,fontSize:15,fontWeight:700,color:"#111" }}>{TOP_NAV.find(n => n.id === section)?.label}</div>
+          <PageIntro description={SECTION_DESCRIPTIONS[section]} usage={SECTION_USAGE[section]}/>
 
           {section === "overview"    && <Overview />}
           {section === "colors"      && <ColorsEditor     data={colors}      onSave={d => { setColors(d);                         save("colors",      d); }} />}
@@ -369,8 +430,8 @@ function ChangePasswordModal({ onClose }: { onClose: () => void }) {
         style={{ background:"#fff",borderRadius:16,padding:24,width:"100%",maxWidth:380,boxShadow:"0 24px 64px rgba(0,0,0,0.3)" }}>
         <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:18 }}>
           <h3 style={{ margin:0,fontSize:16,fontWeight:700,color:"#111" }}>Cambia password</h3>
-          <button type="button" onClick={onClose}
-            style={{ width:26,height:26,display:"flex",alignItems:"center",justifyContent:"center",background:"#F2F2F6",border:"none",borderRadius:7,cursor:"pointer",color:"#666" }}>
+          <button type="button" onClick={onClose} aria-label="Chiudi"
+            style={{ width:32,height:32,display:"flex",alignItems:"center",justifyContent:"center",background:"#F2F2F6",border:"none",borderRadius:7,cursor:"pointer",color:"#666" }}>
             <X size={14}/>
           </button>
         </div>
@@ -450,9 +511,10 @@ function Overview() {
           </div>
         ))}
       </div>
-      <div style={{ marginTop:16,padding:"14px 18px",background:"rgba(22,163,74,0.07)",borderRadius:12,border:"1px solid rgba(22,163,74,0.2)",fontSize:12,color:"#16a34a",display:"flex",gap:8,alignItems:"center" }}>
-        <CheckCircle size={14} style={{ flexShrink:0 }}/>
-        <span><strong>Tutte le limitazioni risolte:</strong> Upload immagini Firebase Storage, navbar da CMS, pagine mancanti, sezioni visibili/nascoste, deploy Netlify, pagine custom.</span>
+      <div style={{ marginTop:16 }}>
+        <Callout variant="success">
+          <strong>Tutte le limitazioni risolte:</strong> Upload immagini Firebase Storage, navbar da CMS, pagine mancanti, sezioni visibili/nascoste, deploy Netlify, pagine custom.
+        </Callout>
       </div>
     </div>
   );
@@ -511,8 +573,8 @@ function ImageField({ value, onChange, label }: { value: string; onChange: (v: s
         <div style={{ display:"flex",alignItems:"center",gap:8,marginTop:8 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={value} alt="" style={{ height:60,objectFit:"cover",borderRadius:8,border:"1px solid #eee",maxWidth:"100%" }}/>
-          <button type="button" onClick={() => onChange("")} title="Rimuovi immagine"
-            style={{ flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",width:24,height:24,background:"#fff",color:"#dc2626",border:"1px solid #eee",borderRadius:999,cursor:"pointer" }}>
+          <button type="button" onClick={() => onChange("")} title="Rimuovi immagine" aria-label="Rimuovi immagine"
+            style={{ flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",width:32,height:32,background:"#fff",color:"#dc2626",border:"1px solid #eee",borderRadius:999,cursor:"pointer" }}>
             <X size={13}/>
           </button>
         </div>
@@ -524,7 +586,7 @@ function ImageField({ value, onChange, label }: { value: string; onChange: (v: s
 /* ══════════════════════════════════════════════════
    DYNAMIC LIST FIELDS (per contenuti strutturati case study)
 ══════════════════════════════════════════════════ */
-const listRowBtn: React.CSSProperties = { flexShrink:0,padding:8,background:"#FEE2E2",color:"#DC2626",border:"none",borderRadius:8,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" };
+const listRowBtn: React.CSSProperties = { flexShrink:0,padding:8,minWidth:32,minHeight:32,background:"#FEE2E2",color:"#DC2626",border:"none",borderRadius:8,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" };
 const listAddBtn: React.CSSProperties = { padding:"8px 14px",background:"#EEF0FB",color:"#2E2784",border:"none",borderRadius:8,fontSize:12,fontWeight:600,cursor:"pointer",display:"inline-flex",alignItems:"center",gap:6 };
 
 function StringListField({ label, value, onChange, placeholder, image }: { label:string; value:string[]; onChange:(v:string[])=>void; placeholder?:string; image?:boolean }) {
@@ -542,7 +604,7 @@ function StringListField({ label, value, onChange, placeholder, image }: { label
                 ? <ImageField value={v} onChange={(nv)=>update(i,nv)} label=""/>
                 : <Input value={v} placeholder={placeholder} onChange={(nv)=>update(i,nv)}/>}
             </div>
-            <button type="button" onClick={()=>remove(i)} style={listRowBtn}><Trash2 size={13}/></button>
+            <button type="button" onClick={()=>remove(i)} aria-label="Rimuovi elemento" style={listRowBtn}><Trash2 size={13}/></button>
           </div>
         ))}
         <button type="button" onClick={add} style={listAddBtn}><Plus size={13}/>Aggiungi</button>
@@ -563,7 +625,7 @@ function KVListField({ label, value, onChange, kLabel, vLabel }: { label:string;
           <div key={i} style={{ display:"flex",gap:8,alignItems:"center" }}>
             <div style={{ flex:1 }}><Input value={it.k} placeholder={kLabel} onChange={(v)=>update(i,"k",v)}/></div>
             <div style={{ flex:1 }}><Input value={it.v} placeholder={vLabel} onChange={(v)=>update(i,"v",v)}/></div>
-            <button type="button" onClick={()=>remove(i)} style={listRowBtn}><Trash2 size={13}/></button>
+            <button type="button" onClick={()=>remove(i)} aria-label="Rimuovi elemento" style={listRowBtn}><Trash2 size={13}/></button>
           </div>
         ))}
         <button type="button" onClick={add} style={listAddBtn}><Plus size={13}/>Aggiungi</button>
@@ -586,7 +648,7 @@ function RewardGroupsField({ label, value, onChange }: { label:string; value:{ti
           <div key={i} style={{ border:"1px solid #eee",borderRadius:12,padding:14,display:"flex",flexDirection:"column",gap:10 }}>
             <div style={{ display:"flex",gap:8,alignItems:"center" }}>
               <div style={{ flex:1 }}><Input value={g.title} placeholder="Titolo gruppo" onChange={(v)=>update(i,{title:v})}/></div>
-              <button type="button" onClick={()=>remove(i)} style={listRowBtn}><Trash2 size={13}/></button>
+              <button type="button" onClick={()=>remove(i)} aria-label="Rimuovi elemento" style={listRowBtn}><Trash2 size={13}/></button>
             </div>
             <Input value={g.subtitle} placeholder="Sottotitolo" onChange={(v)=>update(i,{subtitle:v})}/>
             <StringListField label="Elementi" value={g.items||[]} onChange={(items)=>update(i,{items})} placeholder="Elemento"/>
@@ -617,7 +679,7 @@ function ColorsEditor({ data, onSave }: { data: Record<string,string>|null; onSa
   if (!data) return <Loader/>;
   return (
     <div>
-      <Panel title="Colori e Impostazioni Globali">
+      <Panel title="Colori e Impostazioni Globali" info="Colori primario/accento usati in bottoni, link e accenti grafici in tutto il sito, più logo e dati globali. Le modifiche si vedono su tutte le pagine dopo il salvataggio.">
         <Grid>
           {Object.entries(COLORS_LABELS).map(([key, lbl]) => {
             const value = form[key] || "";
@@ -655,13 +717,15 @@ function ColorsEditor({ data, onSave }: { data: Record<string,string>|null; onSa
           </div>
         </div>
       </Panel>
-      <Panel title="Tipografia — Font Google">
-        <Grid>
-          <Field label="Font Titoli"><FontSelect value={form.headingFont||"Inter"} onChange={v => setForm(p => ({...p,headingFont:v}))}/></Field>
-          <Field label="Font Testi"><FontSelect value={form.bodyFont||"Inter"} onChange={v => setForm(p => ({...p,bodyFont:v}))}/></Field>
-        </Grid>
-      </Panel>
-      <FooterBar><SaveBtn onClick={() => onSave(form)}/></FooterBar>
+      <div style={{ marginBottom:14 }}>
+        <Accordion title="Tipografia — Font Google" subtitle="Opzionale: personalizza i font di titoli e testi (default: Inter)">
+          <Grid>
+            <Field label="Font Titoli" hint="Usato per tutti i titoli del sito (h1, h2…)."><FontSelect value={form.headingFont||"Inter"} onChange={v => setForm(p => ({...p,headingFont:v}))}/></Field>
+            <Field label="Font Testi" hint="Usato per paragrafi e testi correnti."><FontSelect value={form.bodyFont||"Inter"} onChange={v => setForm(p => ({...p,bodyFont:v}))}/></Field>
+          </Grid>
+        </Accordion>
+      </div>
+      <FooterBar><Button icon={Save} onClick={() => onSave(form)}>Salva</Button></FooterBar>
     </div>
   );
 }
@@ -687,45 +751,51 @@ function SettingsEditor({ data, onSave }: { data:Record<string,unknown>|null; on
     setForm(p => ({...p,[sec]:{...(p[sec] as Record<string,unknown>),[key]:value}}));
   const socialLinks = form.socialLinks as Record<string,string> || {};
   const hq = form.hq as Record<string,string> || {};
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailError = form.defaultEmail && !emailPattern.test(String(form.defaultEmail)) ? "Formato email non valido" : undefined;
   return (
     <div>
-      <Panel title="Informazioni Sito">
+      <Panel title="Informazioni Sito" info="Nome e descrizione usati nel tag <title>, nei motori di ricerca e nelle anteprime social. Le keyword aiutano il SEO.">
         <Grid>
-          <Field label="Nome Sito"><Input value={String(form.siteName||"")} onChange={v=>up("siteName",v)}/></Field>
-          <Field label="URL Sito"><Input value={String(form.siteUrl||"")} onChange={v=>up("siteUrl",v)}/></Field>
-          <Field label="Descrizione Sito" full><Textarea value={String(form.siteDescription||"")} onChange={v=>up("siteDescription",v)} rows={3}/></Field>
-          <Field label="Keywords" full><Textarea value={String(form.siteKeywords||"")} onChange={v=>up("siteKeywords",v)} rows={2}/></Field>
+          <Field label="Nome Sito" required hint="Mostrato nel tab del browser e nei risultati di ricerca."><Input value={String(form.siteName||"")} onChange={v=>up("siteName",v)} placeholder="Es. KLR Marketing"/></Field>
+          <Field label="URL Sito" hint="Indirizzo completo del sito online, es. https://www.klr.it"><Input value={String(form.siteUrl||"")} onChange={v=>up("siteUrl",v)} placeholder="https://www.tuosito.com"/></Field>
+          <Field label="Descrizione Sito" full hint="Testo mostrato sotto il titolo nei risultati Google (150-160 caratteri consigliati)."><Textarea value={String(form.siteDescription||"")} onChange={v=>up("siteDescription",v)} rows={3} placeholder="Breve descrizione dell'attività per i motori di ricerca…"/></Field>
+          <Field label="Keywords" full hint="Parole chiave separate da virgola, utili per il SEO."><Textarea value={String(form.siteKeywords||"")} onChange={v=>up("siteKeywords",v)} rows={2} placeholder="es. loyalty marketing, retail, engagement"/></Field>
         </Grid>
       </Panel>
-      <Panel title="Contatti">
+      <Panel title="Contatti" info="Email e telefono mostrati nella pagina Contact e nel footer del sito.">
         <Grid>
-          <Field label="Email Principale"><Input type="email" value={String(form.defaultEmail||"")} onChange={v=>up("defaultEmail",v)}/></Field>
-          <Field label="Email Support"><Input type="email" value={String(form.supportEmail||"")} onChange={v=>up("supportEmail",v)}/></Field>
-          <Field label="Telefono"><Input value={String(form.phone||"")} onChange={v=>up("phone",v)}/></Field>
+          <Field label="Email Principale" required error={emailError}><Input type="email" value={String(form.defaultEmail||"")} onChange={v=>up("defaultEmail",v)} placeholder="info@tuosito.com"/></Field>
+          <Field label="Email Support" hint="Usata per richieste di assistenza, se diversa da quella principale."><Input type="email" value={String(form.supportEmail||"")} onChange={v=>up("supportEmail",v)} placeholder="support@tuosito.com"/></Field>
+          <Field label="Telefono"><Input value={String(form.phone||"")} onChange={v=>up("phone",v)} placeholder="+39 02 1234567"/></Field>
         </Grid>
       </Panel>
-      <Panel title="Sede Principale">
+      <Panel title="Sede Principale" info="Indirizzo dell'headquarter mostrato nella pagina Contact e nei dati strutturati SEO.">
         <Grid>
-          <Field label="Indirizzo" full><Input value={String(hq.address||"")} onChange={v=>upN("hq","address",v)}/></Field>
-          <Field label="Città"><Input value={String(hq.city||"")} onChange={v=>upN("hq","city",v)}/></Field>
-          <Field label="Paese"><Input value={String(hq.country||"")} onChange={v=>upN("hq","country",v)}/></Field>
+          <Field label="Indirizzo" full><Input value={String(hq.address||"")} onChange={v=>upN("hq","address",v)} placeholder="Via Roma 1"/></Field>
+          <Field label="Città"><Input value={String(hq.city||"")} onChange={v=>upN("hq","city",v)} placeholder="Milano"/></Field>
+          <Field label="Paese"><Input value={String(hq.country||"")} onChange={v=>upN("hq","country",v)} placeholder="Italia"/></Field>
         </Grid>
       </Panel>
-      <Panel title="Social Media">
+      <Panel title="Social Media" info="Link ai profili social mostrati nel footer e nella pagina Contact. Lascia vuoto un campo per nascondere quell'icona.">
         <Grid>
-          <Field label="LinkedIn"><Input value={String(socialLinks.linkedin||"")} onChange={v=>upN("socialLinks","linkedin",v)}/></Field>
-          <Field label="Instagram"><Input value={String(socialLinks.instagram||"")} onChange={v=>upN("socialLinks","instagram",v)}/></Field>
-          <Field label="Twitter"><Input value={String(socialLinks.twitter||"")} onChange={v=>upN("socialLinks","twitter",v)}/></Field>
-          <Field label="Facebook"><Input value={String(socialLinks.facebook||"")} onChange={v=>upN("socialLinks","facebook",v)}/></Field>
+          <Field label="LinkedIn"><Input value={String(socialLinks.linkedin||"")} onChange={v=>upN("socialLinks","linkedin",v)} placeholder="https://linkedin.com/company/…"/></Field>
+          <Field label="Instagram"><Input value={String(socialLinks.instagram||"")} onChange={v=>upN("socialLinks","instagram",v)} placeholder="https://instagram.com/…"/></Field>
+          <Field label="Twitter"><Input value={String(socialLinks.twitter||"")} onChange={v=>upN("socialLinks","twitter",v)} placeholder="https://x.com/…"/></Field>
+          <Field label="Facebook"><Input value={String(socialLinks.facebook||"")} onChange={v=>upN("socialLinks","facebook",v)} placeholder="https://facebook.com/…"/></Field>
         </Grid>
       </Panel>
-      <Panel title="Avanzate">
-        <Grid>
-          <Field label="Google Analytics ID"><Input value={String(form.googleAnalyticsId||"")} onChange={v=>up("googleAnalyticsId",v)}/></Field>
-          <Field label="Custom CSS" full><Textarea value={String(form.customCss||"")} onChange={v=>up("customCss",v)} rows={6}/></Field>
-        </Grid>
-      </Panel>
-      <FooterBar><SaveBtn onClick={() => onSave(form)}/></FooterBar>
+      <div style={{ marginBottom:14 }}>
+        <Accordion title="Configurazione avanzata" subtitle="Analytics e CSS personalizzato — modifica solo se sai cosa stai facendo">
+          <Callout variant="warning">Il CSS personalizzato si applica a <strong>tutte</strong> le pagine del sito subito dopo il salvataggio: un errore di sintassi può alterare la grafica pubblica. Fai un salvataggio di prova e verifica il sito prima di lasciarlo attivo.</Callout>
+          <div style={{ height:14 }}/>
+          <Grid>
+            <Field label="Google Analytics ID" hint="Se attivo, il sito invia i dati di visita a questo account Google Analytics (formato G-XXXXXXX)."><Input value={String(form.googleAnalyticsId||"")} onChange={v=>up("googleAnalyticsId",v)} placeholder="G-XXXXXXXXXX"/></Field>
+            <Field label="Custom CSS" full hint="Stili CSS aggiuntivi applicati in coda a tutto il sito."><Textarea value={String(form.customCss||"")} onChange={v=>up("customCss",v)} rows={6} placeholder="/* es. .hero { padding-top: 40px; } */"/></Field>
+          </Grid>
+        </Accordion>
+      </div>
+      <FooterBar><Button icon={Save} onClick={() => onSave(form)}>Salva</Button></FooterBar>
     </div>
   );
 }
@@ -755,7 +825,7 @@ function CookieBannerEditor({ data, onSave }: { data: Record<string,unknown>|nul
 
   return (
     <div>
-      <Panel title="Banner Cookie" rightAction={
+      <Panel title="Banner Cookie" info="Testi mostrati nel banner di consenso cookie che appare ai visitatori. Disattivalo solo se il sito non usa cookie non essenziali." rightAction={
         <label style={{ display:"flex",alignItems:"center",gap:8,fontSize:12,fontWeight:600,color: enabled ? "#16a34a" : "#999",cursor:"pointer" }}>
           <input type="checkbox" checked={enabled} onChange={e => up("enabled", e.target.checked)} style={{ width:16,height:16,cursor:"pointer" }}/>
           {enabled ? "Banner attivo" : "Banner disattivato"}
@@ -770,7 +840,7 @@ function CookieBannerEditor({ data, onSave }: { data: Record<string,unknown>|nul
         </Grid>
       </Panel>
 
-      <Panel title="Descrizioni per livello">
+      <Panel title="Descrizioni per livello" info="Testo mostrato per ciascun livello di consenso (Silver/Gold/Platinum) che l'utente può scegliere nel banner cookie.">
         <Grid>
           {(["silver","gold","platinum"] as CookieLevelKey[]).map(lvl => (
             <Field key={lvl} label={COOKIE_LEVEL_LABELS[lvl]} full>
@@ -780,7 +850,7 @@ function CookieBannerEditor({ data, onSave }: { data: Record<string,unknown>|nul
         </Grid>
       </Panel>
 
-      <Panel title="Categorie di consenso (Basic Operations è sempre obbligatoria e non modificabile)">
+      <Panel title="Categorie di consenso" info="Titolo e descrizione di ogni categoria opzionale di tracciamento (Content, Optimization, Ads) che l'utente può attivare/disattivare singolarmente. 'Basic Operations' è sempre attiva e non è modificabile qui perché necessaria al funzionamento del sito.">
         <Grid>
           {(["content","optimization","ads"] as CookieCategoryKey[]).map(cat => (
             <Field key={cat} label={COOKIE_CATEGORY_LABELS[cat]} full>
@@ -834,17 +904,24 @@ function ConsentLogPanel() {
   }, []);
 
   useEffect(() => { load(); }, [load]);
+  const { ask, dialog } = useConfirm();
 
-  async function removeOne(id: string) {
-    if (!confirm("Eliminare questo record di consenso?")) return;
-    await fetch(`/api/admin/consent?id=${encodeURIComponent(id)}`, { method: "DELETE" });
-    load();
+  function removeOne(id: string) {
+    ask({
+      title: "Eliminare questo consenso?",
+      message: "Il record verrà rimosso definitivamente dal registro. Non è possibile recuperarlo dopo l'eliminazione.",
+      confirmLabel: "Elimina",
+      onConfirm: async () => { await fetch(`/api/admin/consent?id=${encodeURIComponent(id)}`, { method: "DELETE" }); load(); },
+    });
   }
 
-  async function removeAll() {
-    if (!confirm("Eliminare TUTTI i record di consenso registrati? Questa azione non è reversibile.")) return;
-    await fetch(`/api/admin/consent?id=all`, { method: "DELETE" });
-    load();
+  function removeAll() {
+    ask({
+      title: "Cancellare tutto il registro?",
+      message: `Verranno eliminati definitivamente tutti i ${log?.length ?? 0} record di consenso raccolti finora. Questa azione non è reversibile e può avere impatto sulla conformità privacy se richiesti in un audit.`,
+      confirmLabel: "Elimina tutto",
+      onConfirm: async () => { await fetch(`/api/admin/consent?id=all`, { method: "DELETE" }); load(); },
+    });
   }
 
   const now = Date.now();
@@ -856,18 +933,10 @@ function ConsentLogPanel() {
 
   return (
     <div>
-      <Panel title="Registro Consensi" rightAction={
+      <Panel title="Registro Consensi" info="Elenco di tutti i consensi cookie raccolti dai visitatori, con data, livello scelto e categorie attive. Utile per dimostrare la conformità privacy." rightAction={
         <div style={{ display:"flex",gap:8 }}>
-          <button onClick={load} title="Aggiorna"
-            style={{ display:"flex",alignItems:"center",gap:6,padding:"7px 12px",background:"#F5F5FA",color:"#555",border:"none",borderRadius:9,fontSize:12,fontWeight:600,cursor:"pointer" }}>
-            <RefreshCw size={13}/> Aggiorna
-          </button>
-          {total > 0 && (
-            <button onClick={removeAll}
-              style={{ display:"flex",alignItems:"center",gap:6,padding:"7px 12px",background:"rgba(220,38,38,0.08)",color:"#dc2626",border:"none",borderRadius:9,fontSize:12,fontWeight:600,cursor:"pointer" }}>
-              <Trash2 size={13}/> Cancella tutto
-            </button>
-          )}
+          <Button variant="ghost" icon={RefreshCw} onClick={load}>Aggiorna</Button>
+          {total > 0 && <Button variant="danger" icon={Trash2} onClick={removeAll}>Cancella tutto</Button>}
         </div>
       }>
         {loading && !log && <Loader/>}
@@ -885,7 +954,7 @@ function ConsentLogPanel() {
             </div>
 
             {log.length === 0 ? (
-              <div style={{ padding:"30px 0",textAlign:"center",color:"#999",fontSize:13 }}>Nessun consenso registrato finora.</div>
+              <EmptyState icon={Cookie} title="Nessun consenso registrato" description="Qui apparirà un record ogni volta che un visitatore accetta o personalizza il banner cookie del sito. Se il banner è attivo, i primi record arriveranno automaticamente."/>
             ) : (
               <div style={{ overflowX:"auto" }}>
                 <table style={{ width:"100%",borderCollapse:"collapse",fontSize:12.5 }}>
@@ -917,8 +986,8 @@ function ConsentLogPanel() {
                           <td style={{ padding:"9px 10px",color:"#666" }}>{r.path||"—"}</td>
                           <td style={{ padding:"9px 10px",color:"#999",fontFamily:"monospace",fontSize:11 }}>{r.id.slice(0,8)}…</td>
                           <td style={{ padding:"9px 10px" }}>
-                            <button onClick={() => removeOne(r.id)} title="Elimina"
-                              style={{ background:"none",border:"none",color:"#bbb",cursor:"pointer",display:"flex" }}>
+                            <button onClick={() => removeOne(r.id)} title="Elimina" aria-label="Elimina record di consenso"
+                              style={{ background:"none",border:"none",color:"#bbb",cursor:"pointer",display:"flex",padding:6,minWidth:28,minHeight:28,alignItems:"center",justifyContent:"center" }}>
                               <Trash2 size={14}/>
                             </button>
                           </td>
@@ -932,6 +1001,7 @@ function ConsentLogPanel() {
           </>
         )}
       </Panel>
+      {dialog}
     </div>
   );
 }
@@ -1052,15 +1122,18 @@ function MediaLibraryPanel() {
     }
   }
 
+  const { ask, dialog } = useConfirm();
+
   async function remove(id: string) {
     const res = await fetch(`/api/admin/media/${id}`, { method: "DELETE" });
     if (res.status === 409) {
       const json = await res.json();
-      if (confirm(`${json.message}\n\nEliminare comunque?`)) {
-        await fetch(`/api/admin/media/${id}?force=true`, { method: "DELETE" });
-        setEditing(null);
-        load(query, typeFilter);
-      }
+      ask({
+        title: "Asset attualmente in uso",
+        message: `${json.message} Eliminandolo comunque, i punti del sito che lo usano potrebbero mostrare un'immagine mancante.`,
+        confirmLabel: "Elimina comunque",
+        onConfirm: async () => { await fetch(`/api/admin/media/${id}?force=true`, { method: "DELETE" }); setEditing(null); load(query, typeFilter); },
+      });
       return;
     }
     setEditing(null);
@@ -1076,15 +1149,12 @@ function MediaLibraryPanel() {
 
   return (
     <div>
-      <Panel title={`Media Library (${total} asset)`} rightAction={
+      <Panel title={`Media Library (${total} asset)`} info="Tutte le immagini caricate finora nel sito. Clicca un'immagine per copiarne l'URL da incollare in qualsiasi campo immagine." rightAction={
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
           {uploadMsg && <span style={{ fontSize: 12, color: "#16a34a", fontWeight: 600 }}>{uploadMsg}</span>}
           <input ref={fileInputRef} type="file" multiple style={{ display: "none" }}
             onChange={e => { handleUpload(e.target.files); e.target.value = ""; }} />
-          <button onClick={() => fileInputRef.current?.click()} disabled={uploading}
-            style={{ display: "flex", alignItems: "center", gap: 7, padding: "9px 16px", background: uploading ? "#ddd" : "#2E2784", color: "#fff", border: "none", borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: uploading ? "not-allowed" : "pointer" }}>
-            <Upload size={14} /> {uploading ? "Caricamento…" : "Carica file"}
-          </button>
+          <Button icon={Upload} disabled={uploading} onClick={() => fileInputRef.current?.click()}>{uploading ? "Caricamento…" : "Carica file"}</Button>
         </div>
       }>
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 18 }}>
@@ -1099,9 +1169,15 @@ function MediaLibraryPanel() {
         {loading && !items && <Loader />}
 
         {items && items.length === 0 && (
-          <div style={{ padding: "40px 0", textAlign: "center", color: "#999", fontSize: 13 }}>
-            Nessun asset trovato.
-          </div>
+          query || typeFilter !== "all" ? (
+            <div style={{ padding: "40px 0", textAlign: "center", color: "#999", fontSize: 13 }}>
+              Nessun asset trovato per questa ricerca/filtro.
+            </div>
+          ) : (
+            <EmptyState icon={Images} title="Nessun file caricato ancora"
+              description="Carica la prima immagine o video con il pulsante 'Carica file' in alto: potrai poi riusarlo in qualsiasi campo immagine del sito."
+              actionLabel="Carica file" onAction={() => fileInputRef.current?.click()}/>
+          )
         )}
 
         {items && items.length > 0 && (
@@ -1121,15 +1197,13 @@ function MediaLibraryPanel() {
             </div>
             {visible < items.length && (
               <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
-                <button onClick={() => setVisible(v => v + MEDIA_PAGE_SIZE)}
-                  style={{ padding: "9px 20px", background: "#F5F5FA", color: "#555", border: "none", borderRadius: 10, fontSize: 12.5, fontWeight: 600, cursor: "pointer" }}>
-                  Carica altri ({items.length - visible} rimanenti)
-                </button>
+                <Button variant="secondary" onClick={() => setVisible(v => v + MEDIA_PAGE_SIZE)}>Carica altri ({items.length - visible} rimanenti)</Button>
               </div>
             )}
           </>
         )}
       </Panel>
+      {dialog}
 
       {editing && (
         <div onClick={() => setEditing(null)}
@@ -1159,7 +1233,7 @@ function MediaEditForm({ item, onCancel, onSave, onDelete, onCopyUrl }: {
     <div>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 16 }}>
         <div style={{ fontSize: 15, fontWeight: 700, color: "#111" }}>Modifica asset</div>
-        <button onClick={onCancel} style={{ background: "none", border: "none", cursor: "pointer", color: "#999" }}><X size={18} /></button>
+        <button onClick={onCancel} aria-label="Chiudi" style={{ background: "none", border: "none", cursor: "pointer", color: "#999", padding: 6, minWidth: 30, minHeight: 30 }}><X size={18} /></button>
       </div>
 
       <MediaThumb item={item} size={140} />
@@ -1182,7 +1256,8 @@ function MediaEditForm({ item, onCancel, onSave, onDelete, onCopyUrl }: {
         <div>Tipo: {item.mimeType} · Peso: {formatBytes(item.filesize)}</div>
         <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 6 }}>
           <code style={{ flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{item.url}</code>
-          <button onClick={() => onCopyUrl(item.url)} style={{ background: "none", border: "none", cursor: "pointer", color: "#2E2784", display: "flex" }}>
+          <button onClick={() => onCopyUrl(item.url)} aria-label="Copia URL" title="Copia URL"
+            style={{ background: "none", border: "none", cursor: "pointer", color: "#2E2784", display: "flex", padding: 6, minWidth: 28, minHeight: 28, alignItems: "center", justifyContent: "center" }}>
             <Copy size={13} />
           </button>
         </div>
@@ -1195,13 +1270,10 @@ function MediaEditForm({ item, onCancel, onSave, onDelete, onCopyUrl }: {
       </button>
 
       <div style={{ display: "flex", gap: 8, marginTop: 18 }}>
-        <button onClick={() => onDelete(item.id)}
-          style={{ display: "flex", alignItems: "center", gap: 6, padding: "9px 14px", background: "rgba(220,38,38,0.08)", color: "#dc2626", border: "none", borderRadius: 10, fontSize: 12.5, fontWeight: 600, cursor: "pointer" }}>
-          <Trash2 size={13} /> Elimina
-        </button>
+        <Button variant="danger" icon={Trash2} onClick={() => onDelete(item.id)}>Elimina</Button>
         <div style={{ flex: 1 }} />
-        <SecBtn onClick={onCancel}>Annulla</SecBtn>
-        <SaveBtn onClick={() => onSave(form, replaceFile || undefined)} />
+        <Button variant="secondary" onClick={onCancel}>Annulla</Button>
+        <Button icon={Save} onClick={() => onSave(form, replaceFile || undefined)}>Salva</Button>
       </div>
     </div>
   );
@@ -1214,21 +1286,30 @@ const STATS_LABELS: Record<string,string> = {
   campaigns:"Campagne",retailers:"Retailer / Catene",countries:"Paesi",years:"Anni attività",
   combinedExperience:"Anni Esperienza Combinata",people:"Persone nel Team",nationalities:"Nazionalità",
 };
+const STATS_HINTS: Record<string,string> = {
+  campaigns:"Numero totale di campagne realizzate, es. \"120+\"",
+  retailers:"Numero di catene/retailer con cui si è collaborato, es. \"35\"",
+  countries:"Numero di paesi in cui KLR ha operato, es. \"12\"",
+  years:"Anni di attività dell'azienda, es. \"15\"",
+  combinedExperience:"Somma degli anni di esperienza di tutto il team, es. \"80+\"",
+  people:"Numero di persone che compongono il team, es. \"25\"",
+  nationalities:"Numero di nazionalità rappresentate nel team, es. \"8\"",
+};
 
 function StatsEditor({ data, onSave }: { data:Record<string,string>|null; onSave:(d:Record<string,string>)=>void }) {
   const [form,setForm] = useState<Record<string,string>>({});
   useEffect(() => { if (data) setForm(data); },[data]);
   if (!data) return <Loader/>;
   return (
-    <Panel title="Numeri KLR">
+    <Panel title="Numeri KLR" info="I numeri chiave mostrati nelle sezioni statistiche del sito (es. anni di attività, campagne, paesi). Cambiali quando i dati aziendali si aggiornano.">
       <Grid>
         {Object.entries(STATS_LABELS).map(([key,lbl]) => (
-          <Field key={key} label={lbl}>
-            <Input value={form[key]||""} onChange={v=>setForm(p=>({...p,[key]:v}))}/>
+          <Field key={key} label={lbl} hint={STATS_HINTS[key]}>
+            <Input value={form[key]||""} onChange={v=>setForm(p=>({...p,[key]:v}))} placeholder={STATS_HINTS[key]?.match(/"([^"]+)"/)?.[1] ?? ""}/>
           </Field>
         ))}
       </Grid>
-      <FooterBar><SaveBtn onClick={() => onSave(form)}/></FooterBar>
+      <FooterBar><Button icon={Save} onClick={() => onSave(form)}>Salva</Button></FooterBar>
     </Panel>
   );
 }
@@ -1299,15 +1380,15 @@ function SectionOrderEditor({ order, onChange }: { order: string[]; onChange: (n
     onChange(next);
   }
   return (
-    <Panel title="Ordine Sezioni">
+    <Panel title="Ordine Sezioni" info="Trascina per riordinare le sezioni della pagina, o nascondile temporaneamente senza eliminarne il contenuto.">
       <div style={{ display:"grid", gap:8 }}>
         {order.map((key, idx) => (
           <div key={key} style={{ display:"flex", alignItems:"center", gap:10, background:"#F8F8FC", borderRadius:10, padding:"8px 12px" }}>
             <span style={{ flex:1, fontSize:13, fontWeight:600, color:"#333" }}>{key.replace(/([A-Z])/g, " $1").replace(/^./, s => s.toUpperCase())}</span>
-            <button type="button" onClick={() => move(idx, -1)} disabled={idx === 0}
-              style={{ width:28,height:28,border:"none",borderRadius:7,cursor:idx===0?"not-allowed":"pointer",background:idx===0?"#eee":"#2E2784",color:idx===0?"#aaa":"#fff",fontSize:13 }}>↑</button>
-            <button type="button" onClick={() => move(idx, 1)} disabled={idx === order.length - 1}
-              style={{ width:28,height:28,border:"none",borderRadius:7,cursor:idx===order.length-1?"not-allowed":"pointer",background:idx===order.length-1?"#eee":"#2E2784",color:idx===order.length-1?"#aaa":"#fff",fontSize:13 }}>↓</button>
+            <button type="button" onClick={() => move(idx, -1)} disabled={idx === 0} aria-label="Sposta su"
+              style={{ width:32,height:32,border:"none",borderRadius:7,cursor:idx===0?"not-allowed":"pointer",background:idx===0?"#eee":"#2E2784",color:idx===0?"#aaa":"#fff",fontSize:13 }}>↑</button>
+            <button type="button" onClick={() => move(idx, 1)} disabled={idx === order.length - 1} aria-label="Sposta giù"
+              style={{ width:32,height:32,border:"none",borderRadius:7,cursor:idx===order.length-1?"not-allowed":"pointer",background:idx===order.length-1?"#eee":"#2E2784",color:idx===order.length-1?"#aaa":"#fff",fontSize:13 }}>↓</button>
           </div>
         ))}
       </div>
@@ -1342,11 +1423,12 @@ function PagesEditor({ data, onSave }: { data:PagesDataLocal|null; onSave:(d:unk
   return (
     <div style={{ display:"flex",gap:18,alignItems:"flex-start" }}>
       {/* Page tab list */}
-      <div style={{ width:145,flexShrink:0,background:"#fff",borderRadius:14,padding:8,boxShadow:"0 1px 4px rgba(0,0,0,0.06)" }}>
+      <div style={{ width:155,flexShrink:0,background:"#fff",borderRadius:14,padding:8,boxShadow:"0 1px 4px rgba(0,0,0,0.06)" }}>
+        <div style={{ padding:"6px 10px 8px",fontSize:10,fontWeight:700,color:"#999",textTransform:"uppercase",letterSpacing:"0.06em" }}>Scegli una pagina</div>
         {PAGE_TABS.map(tab => {
           const active = activePage === tab.id;
           return (
-            <button key={tab.id} onClick={() => setActivePage(tab.id)}
+            <button key={tab.id} onClick={() => setActivePage(tab.id)} aria-current={active}
               style={{ display:"flex",alignItems:"center",gap:7,width:"100%",padding:"9px 10px",marginBottom:2,background:active?"#2E2784":"transparent",color:active?"#fff":"#555",border:"none",borderRadius:9,fontSize:12,fontWeight:active?600:400,cursor:"pointer",textAlign:"left",transition:"all 0.15s" }}>
               <tab.icon size={12}/>{tab.label}
             </button>
@@ -1356,10 +1438,11 @@ function PagesEditor({ data, onSave }: { data:PagesDataLocal|null; onSave:(d:unk
 
       {/* Fields */}
       <div style={{ flex:1,minWidth:0 }}>
-        <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16 }}>
+        <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:4 }}>
           <h2 style={{ margin:0,fontSize:15,fontWeight:700,color:"#111" }}>{PAGE_SECTION_LABELS[activePage]}</h2>
-          <SaveBtn onClick={() => onSave(form)}/>
+          <Button icon={Save} onClick={() => onSave(form)}>Salva</Button>
         </div>
+        <p style={{ margin:"0 0 16px",fontSize:12,color:"#999" }}>Ogni riquadro qui sotto è una sezione della pagina: usa &quot;Visibile/Nascosta&quot; per mostrarla o toglierla dal sito senza perdere il testo.</p>
 
         {/* Special: Navbar links editor */}
         {activePage === "nav" && (
@@ -1396,7 +1479,7 @@ function PagesEditor({ data, onSave }: { data:PagesDataLocal|null; onSave:(d:unk
           const topStrings = Object.entries(pageData).filter(([k, v]) => typeof v === "string" && k !== "_visible");
           if (!topStrings.length) return null;
           return (
-            <Panel title="Generali">
+            <Panel title="Generali" info="Testi semplici della pagina selezionata (titoli, sottotitoli, descrizioni). Ogni campo corrisponde a un testo visibile sul sito.">
               <Grid>
                 {topStrings.map(([fieldKey, fieldVal]) => renderField(
                   fieldKey, String(fieldVal),
@@ -1551,13 +1634,13 @@ function NavLinksEditor({ ctaLabel, ctaHref, links, onChangeCtaLabel, onChangeCt
 
   return (
     <div>
-      <Panel title="Bottone CTA Navbar">
+      <Panel title="Bottone CTA Navbar" info="Il pulsante di call-to-action mostrato in alto a destra nella navbar del sito su ogni pagina.">
         <Grid>
           <Field label="Testo CTA"><Input value={ctaLabel} onChange={onChangeCtaLabel}/></Field>
           <Field label="Link CTA"><Input value={ctaHref} onChange={onChangeCtaHref}/></Field>
         </Grid>
       </Panel>
-      <Panel title="Link Navigazione">
+      <Panel title="Link Navigazione" info="I link del menu principale del sito, nell'ordine in cui appaiono. Ogni link può avere sotto-voci per creare un menu a tendina.">
         <div style={{ fontSize:12,color:"#666",marginBottom:14,lineHeight:1.5 }}>
           Gestisci i link della navbar. Ogni link può avere sotto-voci (dropdown).
         </div>
@@ -1575,8 +1658,8 @@ function NavLinksEditor({ ctaLabel, ctaHref, links, onChangeCtaLabel, onChangeCt
                   <Input value={link.href} onChange={v => updateLink(i, "href", v)}/>
                 </div>
               </div>
-              <button type="button" onClick={() => removeLink(i)}
-                style={{ padding:"6px",background:"#FEE2E2",color:"#DC2626",border:"none",borderRadius:7,cursor:"pointer",flexShrink:0 }}>
+              <button type="button" onClick={() => removeLink(i)} aria-label="Rimuovi link"
+                style={{ padding:"6px",minWidth:28,minHeight:28,background:"#FEE2E2",color:"#DC2626",border:"none",borderRadius:7,cursor:"pointer",flexShrink:0 }}>
                 <Trash2 size={13}/>
               </button>
             </div>
@@ -1593,8 +1676,8 @@ function NavLinksEditor({ ctaLabel, ctaHref, links, onChangeCtaLabel, onChangeCt
                     <Input value={sub.href} onChange={v => updateSub(i, j, "href", v)}/>
                   </div>
                 </div>
-                <button type="button" onClick={() => removeSub(i, j)}
-                  style={{ padding:"6px",background:"#FEE2E2",color:"#DC2626",border:"none",borderRadius:7,cursor:"pointer",flexShrink:0 }}>
+                <button type="button" onClick={() => removeSub(i, j)} aria-label="Rimuovi sotto-voce"
+                  style={{ padding:"6px",minWidth:28,minHeight:28,background:"#FEE2E2",color:"#DC2626",border:"none",borderRadius:7,cursor:"pointer",flexShrink:0 }}>
                   <X size={12}/>
                 </button>
               </div>
@@ -1605,6 +1688,11 @@ function NavLinksEditor({ ctaLabel, ctaHref, links, onChangeCtaLabel, onChangeCt
             </button>
           </div>
         ))}
+        {links.length === 0 && (
+          <div style={{ marginBottom:10 }}>
+            <Callout variant="info">Nessun link in navbar: il menu del sito apparirà vuoto finché non aggiungi almeno una voce.</Callout>
+          </div>
+        )}
         <button type="button" onClick={addLink}
           style={{ marginTop:8,padding:"9px 18px",background:"#F8AE01",color:"#000",border:"none",borderRadius:10,fontSize:13,fontWeight:700,cursor:"pointer" }}>
           + Aggiungi Link
@@ -1632,8 +1720,12 @@ function SimpleLinkListEditor({ title, hint, links, onChange }: {
     onChange(links.map((l, idx) => idx === i ? { ...l, [key]: value } : l));
   }
   return (
-    <Panel title={title}>
-      <div style={{ fontSize:12,color:"#666",marginBottom:14,lineHeight:1.5 }}>{hint}</div>
+    <Panel title={title} info={hint}>
+      {links.length === 0 && (
+        <div style={{ marginBottom:10 }}>
+          <Callout variant="info">Nessun link in questa colonna del footer: resterà vuota finché non ne aggiungi almeno una.</Callout>
+        </div>
+      )}
       {links.map((link, i) => (
         <div key={i} style={{ display:"flex",alignItems:"center",gap:8,background:"#F5F5FA",borderRadius:12,padding:"14px 16px",marginBottom:10,border:"1px solid #E8E8F0" }}>
           <GripVertical size={14} style={{ color:"#bbb",flexShrink:0 }}/>
@@ -1647,8 +1739,8 @@ function SimpleLinkListEditor({ title, hint, links, onChange }: {
               <Input value={link.href} onChange={v => update(i, "href", v)}/>
             </div>
           </div>
-          <button type="button" onClick={() => remove(i)}
-            style={{ padding:"6px",background:"#FEE2E2",color:"#DC2626",border:"none",borderRadius:7,cursor:"pointer",flexShrink:0 }}>
+          <button type="button" onClick={() => remove(i)} aria-label="Rimuovi link"
+            style={{ padding:"6px",minWidth:28,minHeight:28,background:"#FEE2E2",color:"#DC2626",border:"none",borderRadius:7,cursor:"pointer",flexShrink:0 }}>
             <Trash2 size={13}/>
           </button>
         </div>
@@ -1777,10 +1869,13 @@ function PositionsEditor ({ data, onSave }: { data:PositionItem[]|null; onSave:(
 /* ══════════════════════════════════════════════════
    CUSTOM PAGES EDITOR
 ══════════════════════════════════════════════════ */
+const SLUG_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+
 function CustomPagesEditor({ data, onSave }: { data:CustomPageItem[]|null; onSave:(d:CustomPageItem[])=>void }) {
   const [items,   setItems]   = useState<CustomPageItem[]>([]);
   const [editing, setEditing] = useState<number|null>(null);
   const [form,    setForm]    = useState<Omit<CustomPageItem,"id">>({ slug:"", title:"", description:"", blocks:[] });
+  const { ask, dialog } = useConfirm();
 
   useEffect(() => { if (data) setItems(data); }, [data]);
   if (!data) return <Loader/>;
@@ -1795,11 +1890,18 @@ function CustomPagesEditor({ data, onSave }: { data:CustomPageItem[]|null; onSav
     setForm({ ...rest });
   }
   function del(i: number) {
-    if (!confirm("Eliminare questa pagina?")) return;
-    const updated = items.filter((_, idx) => idx !== i);
-    setItems(updated); onSave(updated);
+    ask({
+      title: `Eliminare "${items[i].title}"?`,
+      message: `La pagina /${items[i].slug} non sarà più raggiungibile e il contenuto andrà perso. L'azione non è reversibile.`,
+      confirmLabel: "Elimina",
+      onConfirm: () => { const updated = items.filter((_, idx) => idx !== i); setItems(updated); onSave(updated); },
+    });
   }
+  const titleMissing = editing !== null && !form.title.trim();
+  const slugInvalid = editing !== null && !!form.slug && !SLUG_PATTERN.test(form.slug);
+  const canSave = editing !== null && !titleMissing && !!form.slug && !slugInvalid;
   function commit() {
+    if (!canSave) return;
     let updated: CustomPageItem[];
     if (editing === -1) {
       updated = [...items, { ...form, id: String(Date.now()) }];
@@ -1829,17 +1931,18 @@ function CustomPagesEditor({ data, onSave }: { data:CustomPageItem[]|null; onSav
           <div style={{ background:"#fff",borderRadius:20,padding:28,width:"100%",maxWidth:720,boxShadow:"0 24px 60px rgba(0,0,0,0.25)" }}>
             <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:20 }}>
               <h3 style={{ margin:0,fontSize:16,fontWeight:700,color:"#111" }}>{editing === -1 ? "Nuova Pagina" : "Modifica Pagina"}</h3>
-              <button onClick={() => setEditing(null)} style={{ background:"none",border:"none",cursor:"pointer",color:"#999" }}><X size={18}/></button>
+              <button onClick={() => setEditing(null)} aria-label="Chiudi" style={{ background:"none",border:"none",cursor:"pointer",color:"#999" }}><X size={18}/></button>
             </div>
             <Grid>
-              <Field label="Titolo Pagina">
-                <Input value={form.title} onChange={v => setForm(p => ({...p,title:v}))}/>
+              <Field label="Titolo Pagina" required error={titleMissing ? "Campo obbligatorio" : undefined}>
+                <Input value={form.title} onChange={v => setForm(p => ({...p,title:v}))} placeholder="Es. Chi Siamo"/>
               </Field>
-              <Field label="Slug URL (es: chi-siamo)">
-                <Input value={form.slug} onChange={v => setForm(p => ({...p,slug:v.toLowerCase().replace(/\s+/g,"-")}))}/>
+              <Field label="Slug URL" required hint="Solo lettere minuscole, numeri e trattini: definisce l'indirizzo della pagina."
+                error={slugInvalid ? "Usa solo lettere minuscole, numeri e trattini (es. chi-siamo)" : undefined}>
+                <Input value={form.slug} onChange={v => setForm(p => ({...p,slug:v.toLowerCase().replace(/\s+/g,"-")}))} placeholder="chi-siamo"/>
               </Field>
-              <Field label="Descrizione (SEO)" full>
-                <Textarea value={form.description||""} onChange={v => setForm(p => ({...p,description:v}))} rows={2}/>
+              <Field label="Descrizione (SEO)" full hint="Mostrata nei risultati dei motori di ricerca sotto il titolo.">
+                <Textarea value={form.description||""} onChange={v => setForm(p => ({...p,description:v}))} rows={2} placeholder="Breve descrizione della pagina per Google…"/>
               </Field>
             </Grid>
 
@@ -1852,8 +1955,8 @@ function CustomPagesEditor({ data, onSave }: { data:CustomPageItem[]|null; onSav
                     <span style={{ fontSize:11,fontWeight:700,textTransform:"uppercase",color:"#2E2784" }}>
                       {block.type === "text" ? "Blocco Testo" : block.type === "image" ? "Immagine" : "Pulsante CTA"}
                     </span>
-                    <button type="button" onClick={() => removeBlock(i)}
-                      style={{ padding:"5px",background:"#FEE2E2",color:"#DC2626",border:"none",borderRadius:7,cursor:"pointer" }}>
+                    <button type="button" onClick={() => removeBlock(i)} aria-label="Rimuovi blocco"
+                      style={{ padding:"5px",minWidth:28,minHeight:28,background:"#FEE2E2",color:"#DC2626",border:"none",borderRadius:7,cursor:"pointer" }}>
                       <Trash2 size={13}/>
                     </button>
                   </div>
@@ -1884,17 +1987,22 @@ function CustomPagesEditor({ data, onSave }: { data:CustomPageItem[]|null; onSav
                 </div>
               ))}
               <div style={{ display:"flex",gap:8,marginTop:10 }}>
-                <button type="button" onClick={() => addBlock("text")}  style={{ padding:"7px 14px",background:"#2E2784",color:"#fff",border:"none",borderRadius:9,fontSize:12,fontWeight:600,cursor:"pointer" }}>+ Testo</button>
-                <button type="button" onClick={() => addBlock("image")} style={{ padding:"7px 14px",background:"#2E2784",color:"#fff",border:"none",borderRadius:9,fontSize:12,fontWeight:600,cursor:"pointer" }}>+ Immagine</button>
-                <button type="button" onClick={() => addBlock("cta")}   style={{ padding:"7px 14px",background:"#F8AE01",color:"#000",border:"none",borderRadius:9,fontSize:12,fontWeight:600,cursor:"pointer" }}>+ CTA</button>
+                <Button icon={Plus} onClick={() => addBlock("text")}>Testo</Button>
+                <Button icon={Plus} onClick={() => addBlock("image")}>Immagine</Button>
+                <Button variant="secondary" icon={Plus} onClick={() => addBlock("cta")}>CTA</Button>
               </div>
+              {form.blocks.length === 0 && (
+                <div style={{ marginTop:10 }}>
+                  <Callout variant="info">La pagina non ha ancora contenuto: aggiungi almeno un blocco Testo, Immagine o CTA con i pulsanti sopra prima di salvare.</Callout>
+                </div>
+              )}
             </div>
 
             <div style={{ display:"flex",gap:10,marginTop:20 }}>
-              <SaveBtn onClick={commit}/>
-              <SecBtn onClick={() => setEditing(null)}>Annulla</SecBtn>
+              <Button icon={Save} onClick={commit} disabled={!canSave}>Salva</Button>
+              <Button variant="secondary" onClick={() => setEditing(null)}>Annulla</Button>
             </div>
-            {form.slug && (
+            {form.slug && !slugInvalid && (
               <div style={{ marginTop:12,fontSize:11,color:"#888" }}>
                 La pagina sarà disponibile su: <strong>/{form.slug}</strong>
               </div>
@@ -1903,27 +2011,30 @@ function CustomPagesEditor({ data, onSave }: { data:CustomPageItem[]|null; onSav
         </div>
       )}
 
-      <div style={{ marginBottom:16,padding:"14px 18px",background:"rgba(46,39,132,0.06)",borderRadius:12,fontSize:12,color:"#2E2784",lineHeight:1.6 }}>
-        <strong>Pagine Custom</strong> — Crea pagine completamente nuove senza scrivere codice. Ogni pagina ha un URL personalizzato e può contenere blocchi di testo, immagini e pulsanti CTA.
-      </div>
-
-      <div style={{ display:"grid",gap:10,marginBottom:16 }}>
-        {items.map((item, idx) => (
-          <div key={item.id} style={{ background:"#fff",borderRadius:14,padding:"14px 18px",boxShadow:"0 1px 4px rgba(0,0,0,0.06)",display:"flex",alignItems:"center",gap:14 }}>
-            <div style={{ flex:1,minWidth:0 }}>
-              <div style={{ fontWeight:600,color:"#111",fontSize:14 }}>{item.title}</div>
-              <div style={{ color:"#aaa",fontSize:11,marginTop:2 }}>/{item.slug} · {item.blocks.length} blocchi</div>
-            </div>
-            <div style={{ display:"flex",gap:8 }}>
-              <button onClick={() => openEdit(idx)} style={{ padding:"7px 16px",background:"#2E2784",color:"#fff",border:"none",borderRadius:8,fontSize:12,fontWeight:600,cursor:"pointer" }}>Modifica</button>
-              <button onClick={() => del(idx)}       style={{ padding:"7px 14px",background:"#FEE2E2",color:"#DC2626",border:"none",borderRadius:8,fontSize:12,cursor:"pointer" }}>Elimina</button>
-            </div>
+      {items.length === 0 ? (
+        <EmptyState icon={FileCode} title="Nessuna pagina custom ancora"
+          description="Crea pagine aggiuntive con URL personalizzato, senza scrivere codice, componendo blocchi di testo, immagini e pulsanti CTA — utile per landing page o promo."
+          actionLabel="Nuova Pagina Custom" onAction={openNew}/>
+      ) : (
+        <>
+          <div style={{ display:"grid",gap:10,marginBottom:16 }}>
+            {items.map((item, idx) => (
+              <div key={item.id} style={{ background:"#fff",borderRadius:14,padding:"14px 18px",boxShadow:"0 1px 4px rgba(0,0,0,0.06)",display:"flex",alignItems:"center",gap:14 }}>
+                <div style={{ flex:1,minWidth:0 }}>
+                  <div style={{ fontWeight:600,color:"#111",fontSize:14 }}>{item.title}</div>
+                  <div style={{ color:"#aaa",fontSize:11,marginTop:2 }}>/{item.slug} · {item.blocks.length} blocchi</div>
+                </div>
+                <div style={{ display:"flex",gap:8 }}>
+                  <Button variant="secondary" onClick={() => openEdit(idx)}>Modifica</Button>
+                  <Button variant="danger" icon={Trash2} onClick={() => del(idx)}>Elimina</Button>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <button onClick={openNew} style={{ padding:"10px 20px",background:"#F8AE01",color:"#000",border:"none",borderRadius:10,fontSize:13,fontWeight:700,cursor:"pointer" }}>
-        + Nuova Pagina Custom
-      </button>
+          <Button icon={Plus} onClick={openNew}>Nuova Pagina Custom</Button>
+        </>
+      )}
+      {dialog}
     </div>
   );
 }
@@ -1973,6 +2084,8 @@ function ListEditor<T extends Record<string, unknown>>({
   const [editing, setEditing] = useState<number|null>(null);
   const [form,    setForm]    = useState<Record<string,any>>({});
   const [isNew,   setIsNew]   = useState(false);
+  const [query,   setQuery]   = useState("");
+  const { ask, dialog } = useConfirm();
 
   useEffect(() => { if (data) setItems(data); }, [data]);
   if (!data) return <Loader/>;
@@ -1985,8 +2098,10 @@ function ListEditor<T extends Record<string, unknown>>({
     setIsNew(false); setEditing(idx);
     setForm(Object.fromEntries(Object.entries(items[idx]).map(([k,v]) => [k,toFormValue(v)])));
   }
+  const nameMissing = isNew || editing !== null ? !String(form[nameKey] ?? "").trim() : false;
   function commit() {
     if (editing === null) return;
+    if (nameMissing) return;
     if (isNew) {
       const newItem = { ...blank, id: typeof blank.id === "number" ? Date.now() : "" } as T;
       const m = { ...newItem };
@@ -2015,14 +2130,21 @@ function ListEditor<T extends Record<string, unknown>>({
     }
   }
   function del(idx: number) {
-    if (!confirm(`Eliminare questo ${title}?`)) return;
-    const updated = items.filter((_, i) => i !== idx);
-    setItems(updated); onSave(updated);
+    ask({
+      title: `Eliminare "${String(items[idx][nameKey] || title)}"?`,
+      message: `Questo ${title.toLowerCase()} verrà rimosso definitivamente e non sarà più visibile sul sito. L'azione non è reversibile.`,
+      confirmLabel: "Elimina",
+      onConfirm: () => { const updated = items.filter((_, i) => i !== idx); setItems(updated); onSave(updated); },
+    });
   }
   function add() {
     setIsNew(true); setEditing(items.length);
     setForm(Object.fromEntries(Object.entries(blank).map(([k,v]) => [k,toFormValue(v)])));
   }
+
+  const filtered = query.trim()
+    ? items.filter(item => String(item[nameKey] || "").toLowerCase().includes(query.toLowerCase()))
+    : items;
 
   return (
     <div>
@@ -2031,14 +2153,15 @@ function ListEditor<T extends Record<string, unknown>>({
           <div style={{ background:"#fff",borderRadius:20,padding:28,width:"100%",maxWidth:extra?760:640,maxHeight:"88vh",overflowY:"auto",boxShadow:"0 24px 60px rgba(0,0,0,0.25)" }}>
             <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:20 }}>
               <h3 style={{ margin:0,fontSize:16,fontWeight:700,color:"#111" }}>{isNew ? `Nuovo ${title}` : `Modifica ${title}`}</h3>
-              <button onClick={() => { setEditing(null); setIsNew(false); }} style={{ background:"none",border:"none",cursor:"pointer",color:"#999",padding:4 }}><X size={18}/></button>
+              <button onClick={() => { setEditing(null); setIsNew(false); }} aria-label="Chiudi" style={{ background:"none",border:"none",cursor:"pointer",color:"#999",padding:4 }}><X size={18}/></button>
             </div>
             <Grid>
-              {fields.map(f => (
+              {fields.map((f,i) => (
                 f.type === "url" ? (
                   <ImageField key={f.key} value={form[f.key]||""} onChange={v => setForm(p => ({...p,[f.key]:v}))} label={f.label}/>
                 ) :
-                <Field key={f.key} label={f.label} full={f.type === "richtext" || f.type.startsWith("textarea")}>
+                <Field key={f.key} label={f.label} full={f.type === "richtext" || f.type.startsWith("textarea")}
+                  required={i === 0} error={i === 0 && nameMissing ? "Campo obbligatorio" : undefined}>
                   {f.type === "richtext" ? (
                     <RichTextEditor value={form[f.key]||""} onChange={v => setForm(p => ({...p,[f.key]:v}))}/>
                   ) : f.type === "select" ? (
@@ -2061,33 +2184,54 @@ function ListEditor<T extends Record<string, unknown>>({
             </Grid>
             {extra && <div style={{ marginTop:8 }}>{extra(form, setForm)}</div>}
             <div style={{ display:"flex",gap:10,marginTop:20 }}>
-              <SaveBtn onClick={commit}/>
-              <SecBtn onClick={() => { setEditing(null); setIsNew(false); }}>Annulla</SecBtn>
+              <Button icon={Save} onClick={commit} disabled={nameMissing}>Salva</Button>
+              <Button variant="secondary" onClick={() => { setEditing(null); setIsNew(false); }}>Annulla</Button>
             </div>
           </div>
         </div>
       )}
-      <div style={{ display:"grid",gap:10,marginBottom:16 }}>
-        {items.map((item, idx) => (
-          <div key={idx} style={{ background:"#fff",borderRadius:14,padding:"14px 18px",boxShadow:"0 1px 4px rgba(0,0,0,0.06)",display:"flex",alignItems:"center",gap:14 }}>
-            {imgKey && item[imgKey]
-              ? <img src={String(item[imgKey])} alt="" style={{ width:52,height:52,objectFit:"cover",borderRadius:10,flexShrink:0 }}/>
-              : imgKey ? <div style={{ width:52,height:52,background:"#F5F5FA",borderRadius:10,flexShrink:0 }}/> : null
-            }
-            <div style={{ flex:1,minWidth:0 }}>
-              <div style={{ fontWeight:600,color:"#111",fontSize:14,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap" }}>{String(item[nameKey]||"(vuoto)")}</div>
-              <div style={{ color:"#aaa",fontSize:11,marginTop:2 }}>{String(item.id||"")}</div>
+
+      {items.length === 0 ? (
+        <EmptyState icon={Plus} title={`Nessun ${title.toLowerCase()} ancora`}
+          description={`Questa lista è vuota: aggiungi il primo ${title.toLowerCase()} per farlo comparire sul sito.`}
+          actionLabel={`Aggiungi ${title}`} onAction={add}/>
+      ) : (
+        <>
+          {items.length > 8 && (
+            <div style={{ position:"relative",marginBottom:14,maxWidth:320 }}>
+              <Search size={14} style={{ position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",color:"#bbb" }}/>
+              <input value={query} onChange={e => setQuery(e.target.value)} placeholder={`Cerca per nome…`}
+                style={{ width:"100%",boxSizing:"border-box",padding:"9px 12px 9px 34px",border:"1.5px solid #E8E8F0",borderRadius:9,fontSize:13,background:"#FAFAFA",outline:"none" }}/>
             </div>
-            <div style={{ display:"flex",gap:8 }}>
-              <button onClick={() => open(idx)} style={{ padding:"7px 16px",background:"#2E2784",color:"#fff",border:"none",borderRadius:8,fontSize:12,fontWeight:600,cursor:"pointer" }}>Modifica</button>
-              <button onClick={() => del(idx)}  style={{ padding:"7px 14px",background:"#FEE2E2",color:"#DC2626",border:"none",borderRadius:8,fontSize:12,cursor:"pointer" }}>Elimina</button>
-            </div>
+          )}
+          <div style={{ display:"grid",gap:10,marginBottom:16 }}>
+            {filtered.map((item) => {
+              const idx = items.indexOf(item);
+              return (
+                <div key={idx} style={{ background:"#fff",borderRadius:14,padding:"14px 18px",boxShadow:"0 1px 4px rgba(0,0,0,0.06)",display:"flex",alignItems:"center",gap:14 }}>
+                  {imgKey && item[imgKey]
+                    ? <img src={String(item[imgKey])} alt="" style={{ width:52,height:52,objectFit:"cover",borderRadius:10,flexShrink:0 }}/>
+                    : imgKey ? <div style={{ width:52,height:52,background:"#F5F5FA",borderRadius:10,flexShrink:0 }}/> : null
+                  }
+                  <div style={{ flex:1,minWidth:0 }}>
+                    <div style={{ fontWeight:600,color:"#111",fontSize:14,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap" }}>{String(item[nameKey]||"(vuoto)")}</div>
+                    <div style={{ color:"#aaa",fontSize:11,marginTop:2 }}>{String(item.id||"")}</div>
+                  </div>
+                  <div style={{ display:"flex",gap:8 }}>
+                    <Button variant="secondary" onClick={() => open(idx)}>Modifica</Button>
+                    <Button variant="danger" icon={Trash2} onClick={() => del(idx)}>Elimina</Button>
+                  </div>
+                </div>
+              );
+            })}
+            {items.length > 8 && filtered.length === 0 && (
+              <div style={{ padding:"20px 0",textAlign:"center",color:"#999",fontSize:13 }}>Nessun risultato per &quot;{query}&quot;.</div>
+            )}
           </div>
-        ))}
-      </div>
-      <button onClick={add} style={{ padding:"10px 20px",background:"#F8AE01",color:"#000",border:"none",borderRadius:10,fontSize:13,fontWeight:700,cursor:"pointer" }}>
-        + Aggiungi {title}
-      </button>
+          <Button icon={Plus} onClick={add}>Aggiungi {title}</Button>
+        </>
+      )}
+      {dialog}
     </div>
   );
 }
@@ -2143,13 +2287,211 @@ function RichTextEditor({ value, onChange }: { value:string; onChange:(v:string)
 }
 
 /* ══════════════════════════════════════════════════
-   SHARED UI
+   SHARED UI — design tokens & primitive di base
 ══════════════════════════════════════════════════ */
-function Panel({ title, children, rightAction }: { title:string; children:React.ReactNode; rightAction?:React.ReactNode }) {
+const theme = {
+  primary: "#2E2784",
+  primaryDark: "#231e72",
+  accent: "#F8AE01",
+  success: "#16a34a",
+  successBg: "rgba(22,163,74,0.08)",
+  warning: "#b45309",
+  warningBg: "rgba(245,158,11,0.1)",
+  danger: "#dc2626",
+  dangerBg: "rgba(220,38,38,0.08)",
+  info: "#2E2784",
+  infoBg: "rgba(46,39,132,0.06)",
+  border: "#E8E8F0",
+  text: "#111",
+  textMuted: "#666",
+  textFaint: "#999",
+  bg: "#F5F5FA",
+  radius: 12,
+  radiusLg: 16,
+};
+
+/**
+ * Blocco introduttivo mostrato in cima a ogni sezione: cosa contiene + quando/chi la usa.
+ * Rende ogni pagina autoesplicativa senza dover consultare documentazione esterna.
+ */
+function PageIntro({ description, usage }: { description: string; usage?: string[] }) {
+  return (
+    <div style={{ marginBottom:20,padding:"14px 18px",background:"#fff",borderRadius:theme.radius,border:`1px solid ${theme.border}`,display:"flex",gap:12,alignItems:"flex-start" }}>
+      <Info size={16} style={{ color:theme.primary,flexShrink:0,marginTop:2 }}/>
+      <div style={{ minWidth:0 }}>
+        <p style={{ margin:0,fontSize:13,color:"#444",lineHeight:1.55 }}>{description}</p>
+        {usage && usage.length > 0 && (
+          <ul style={{ margin:"8px 0 0",padding:0,listStyle:"none",display:"flex",flexDirection:"column",gap:4 }}>
+            {usage.map((u,i) => (
+              <li key={i} style={{ fontSize:12,color:"#888",display:"flex",gap:7,lineHeight:1.5 }}>
+                <span style={{ color:theme.accent,flexShrink:0 }}>›</span>{u}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Bottone unico con varianti coerenti in tutto l'admin: primary=Salva/azione principale,
+ * secondary=Annulla/azione neutra, danger=Elimina/azioni distruttive, ghost=azioni minori.
+ */
+function Button({ children, onClick, variant = "primary", icon: Icon, disabled, type = "button" }: {
+  children: React.ReactNode; onClick?: () => void; variant?: "primary"|"secondary"|"danger"|"ghost";
+  icon?: LucideIcon; disabled?: boolean; type?: "button"|"submit";
+}) {
+  const styles: Record<string, React.CSSProperties> = {
+    primary:   { background: disabled ? "#ddd" : theme.primary, color: disabled ? "#999" : "#fff" },
+    secondary: { background: "#F5F5FA", color: "#555" },
+    danger:    { background: theme.dangerBg, color: theme.danger },
+    ghost:     { background: "transparent", color: "#666", border: `1px solid ${theme.border}` },
+  };
+  return (
+    <button type={type} onClick={onClick} disabled={disabled}
+      style={{ display:"inline-flex",alignItems:"center",gap:7,padding:"10px 18px",border:"none",borderRadius:10,fontSize:13,fontWeight:700,cursor:disabled?"not-allowed":"pointer",transition:"opacity 0.15s",...styles[variant] }}>
+      {Icon && <Icon size={14}/>}{children}
+    </button>
+  );
+}
+
+/** Banner informativo per stati/avvisi/errori — usalo invece di ricreare un div colorato ad-hoc. */
+function Callout({ variant, children }: { variant: "info"|"success"|"warning"|"danger"; children: React.ReactNode }) {
+  const map = {
+    info:    { bg: theme.infoBg,    color: theme.info,    Icon: Info },
+    success: { bg: theme.successBg, color: theme.success, Icon: CheckCircle },
+    warning: { bg: theme.warningBg, color: theme.warning, Icon: Info },
+    danger:  { bg: theme.dangerBg,  color: theme.danger,  Icon: X },
+  } as const;
+  const { bg, color, Icon } = map[variant];
+  return (
+    <div style={{ display:"flex",gap:9,alignItems:"flex-start",padding:"12px 16px",background:bg,borderRadius:theme.radius,fontSize:12.5,color,lineHeight:1.55 }}>
+      <Icon size={14} style={{ flexShrink:0,marginTop:1 }}/>
+      <div>{children}</div>
+    </div>
+  );
+}
+
+/**
+ * Stato vuoto per liste senza elementi: spiega perché è vuota e offre l'azione per iniziare,
+ * invece di mostrare solo una tabella/griglia vuota senza contesto.
+ */
+function EmptyState({ icon: Icon, title, description, actionLabel, onAction }: {
+  icon: LucideIcon; title: string; description: string; actionLabel?: string; onAction?: () => void;
+}) {
+  return (
+    <div style={{ textAlign:"center",padding:"48px 24px",background:"#FAFAFC",borderRadius:theme.radius,border:`1px dashed ${theme.border}` }}>
+      <div style={{ width:44,height:44,borderRadius:"50%",background:"#EEF0FB",color:theme.primary,display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 14px" }}>
+        <Icon size={20}/>
+      </div>
+      <div style={{ fontSize:14,fontWeight:700,color:"#222",marginBottom:6 }}>{title}</div>
+      <div style={{ fontSize:12.5,color:"#888",maxWidth:360,margin:"0 auto",lineHeight:1.55 }}>{description}</div>
+      {actionLabel && onAction && (
+        <div style={{ marginTop:16 }}><Button onClick={onAction} icon={Plus}>{actionLabel}</Button></div>
+      )}
+    </div>
+  );
+}
+
+/** Sezione collassabile per impostazioni opzionali/avanzate, chiusa di default per ridurre il carico cognitivo. */
+function Accordion({ title, subtitle, children, defaultOpen = false }: { title: string; subtitle?: string; children: React.ReactNode; defaultOpen?: boolean }) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <div style={{ border:`1px solid ${theme.border}`,borderRadius:theme.radius,overflow:"hidden" }}>
+      <button type="button" onClick={() => setOpen(v => !v)}
+        style={{ width:"100%",display:"flex",alignItems:"center",justifyContent:"space-between",gap:12,padding:"13px 16px",background:open?"#FAFAFC":"#fff",border:"none",cursor:"pointer",textAlign:"left" }}>
+        <div>
+          <div style={{ fontSize:13,fontWeight:700,color:"#222" }}>{title}</div>
+          {subtitle && <div style={{ fontSize:11.5,color:"#999",marginTop:2 }}>{subtitle}</div>}
+        </div>
+        <ChevronRight size={16} style={{ color:"#999",flexShrink:0,transform:open?"rotate(90deg)":"none",transition:"transform 0.15s" }}/>
+      </button>
+      {open && <div style={{ padding:"16px",borderTop:`1px solid ${theme.border}` }}>{children}</div>}
+    </div>
+  );
+}
+
+/**
+ * Modale di conferma per azioni distruttive/irreversibili: usala al posto di window.confirm() per
+ * spiegare chiaramente cosa succede, invece di un alert generico del browser.
+ */
+function ConfirmDialog({ open, title, message, confirmLabel = "Conferma", danger = true, onConfirm, onCancel }: {
+  open: boolean; title: string; message: string; confirmLabel?: string; danger?: boolean;
+  onConfirm: () => void; onCancel: () => void;
+}) {
+  if (!open) return null;
+  return (
+    <div onClick={onCancel} style={{ position:"fixed",inset:0,background:"rgba(10,7,30,0.55)",backdropFilter:"blur(4px)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:300,padding:20 }}>
+      <div onClick={e => e.stopPropagation()} style={{ background:"#fff",borderRadius:16,padding:24,width:"100%",maxWidth:400,boxShadow:"0 24px 64px rgba(0,0,0,0.3)" }}>
+        <div style={{ display:"flex",gap:12,alignItems:"flex-start",marginBottom:18 }}>
+          <div style={{ width:36,height:36,borderRadius:"50%",background:danger?theme.dangerBg:theme.infoBg,color:danger?theme.danger:theme.info,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}>
+            {danger ? <Trash2 size={16}/> : <Info size={16}/>}
+          </div>
+          <div>
+            <div style={{ fontSize:15,fontWeight:700,color:"#111" }}>{title}</div>
+            <p style={{ margin:"6px 0 0",fontSize:12.5,color:"#666",lineHeight:1.55 }}>{message}</p>
+          </div>
+        </div>
+        <div style={{ display:"flex",gap:8,justifyContent:"flex-end" }}>
+          <Button variant="secondary" onClick={onCancel}>Annulla</Button>
+          <Button variant={danger?"danger":"primary"} onClick={onConfirm} icon={danger?Trash2:undefined}>{confirmLabel}</Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Hook per azioni che richiedono conferma esplicita prima di eseguirsi (sostituisce window.confirm). */
+function useConfirm() {
+  const [state, setState] = useState<{ title:string; message:string; confirmLabel?:string; danger?:boolean; onConfirm:()=>void } | null>(null);
+  const ask = (opts: { title:string; message:string; confirmLabel?:string; danger?:boolean; onConfirm:()=>void }) => setState(opts);
+  const dialog = state && (
+    <ConfirmDialog open title={state.title} message={state.message} confirmLabel={state.confirmLabel} danger={state.danger}
+      onConfirm={() => { state.onConfirm(); setState(null); }} onCancel={() => setState(null)}/>
+  );
+  return { ask, dialog };
+}
+
+/**
+ * Icona "i" con popover di aiuto contestuale. Click/tap per aprire (funziona anche su touch),
+ * si chiude cliccando altrove. Usata accanto a titoli di Panel e label di Field.
+ */
+function InfoTooltip({ text }: { text: string }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function onDocClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener("mousedown", onDocClick);
+    return () => document.removeEventListener("mousedown", onDocClick);
+  }, [open]);
+
+  return (
+    <span ref={ref} style={{ position:"relative",display:"inline-flex",verticalAlign:"middle" }}>
+      <button type="button" onClick={() => setOpen(v => !v)} aria-label="Informazioni"
+        style={{ display:"inline-flex",alignItems:"center",justifyContent:"center",width:16,height:16,borderRadius:"50%",border:"1px solid #C9C9E8",background:open?"#EEF0FB":"transparent",color:"#7A72C4",fontSize:10,fontWeight:700,cursor:"pointer",lineHeight:1,padding:0 }}>
+        i
+      </button>
+      {open && (
+        <div role="tooltip" style={{ position:"absolute",zIndex:50,top:"calc(100% + 6px)",left:0,width:240,background:"#1e1a3e",color:"#fff",fontSize:12,fontWeight:400,lineHeight:1.5,padding:"10px 12px",borderRadius:10,boxShadow:"0 8px 24px rgba(0,0,0,0.25)",textTransform:"none",letterSpacing:"normal" }}>
+          {text}
+        </div>
+      )}
+    </span>
+  );
+}
+function Panel({ title, children, rightAction, info }: { title:string; children:React.ReactNode; rightAction?:React.ReactNode; info?:string }) {
   return (
     <div style={{ background:"#fff",borderRadius:16,padding:"20px 22px",boxShadow:"0 1px 4px rgba(0,0,0,0.06)",marginBottom:14 }}>
       <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16 }}>
-        <div style={{ fontSize:11,fontWeight:700,color:"#2E2784",textTransform:"uppercase",letterSpacing:"0.07em" }}>{title}</div>
+        <div style={{ display:"flex",alignItems:"center",gap:7 }}>
+          <div style={{ fontSize:11,fontWeight:700,color:"#2E2784",textTransform:"uppercase",letterSpacing:"0.07em" }}>{title}</div>
+          {info && <InfoTooltip text={info}/>}
+        </div>
         {rightAction}
       </div>
       {children}
@@ -2162,11 +2504,16 @@ function Grid({ children }: { children:React.ReactNode }) {
 function FooterBar({ children }: { children:React.ReactNode }) {
   return <div style={{ marginTop:18,paddingTop:16,borderTop:"1px solid #f0f0f6" }}>{children}</div>;
 }
-function Field({ label, children, full }: { label:string; children:React.ReactNode; full?:boolean }) {
+function Field({ label, children, full, hint, required, error }: { label:string; children:React.ReactNode; full?:boolean; hint?:string; required?:boolean; error?:string }) {
   return (
     <div style={{ gridColumn:full?"1 / -1":undefined }}>
-      <label style={{ display:"block",fontSize:11,fontWeight:700,color:"#666",marginBottom:5,textTransform:"uppercase",letterSpacing:"0.05em" }}>{label}</label>
+      <label style={{ display:"flex",alignItems:"center",gap:6,fontSize:11,fontWeight:700,color:"#666",marginBottom:5,textTransform:"uppercase",letterSpacing:"0.05em" }}>
+        {label}
+        {required && <span style={{ color:theme.danger,fontWeight:800 }}>*</span>}
+        {hint && <InfoTooltip text={hint}/>}
+      </label>
       {children}
+      {error && <div style={{ display:"flex",alignItems:"center",gap:5,marginTop:5,fontSize:11.5,color:theme.danger,fontWeight:600 }}><X size={11}/>{error}</div>}
     </div>
   );
 }
@@ -2179,9 +2526,9 @@ function Input({ value, onChange, type="text", placeholder }: { value:string; on
     />
   );
 }
-function Textarea({ value, onChange, rows=3 }: { value:string; onChange:(v:string)=>void; rows?:number }) {
+function Textarea({ value, onChange, rows=3, placeholder }: { value:string; onChange:(v:string)=>void; rows?:number; placeholder?:string }) {
   return (
-    <textarea value={value} onChange={e=>onChange(e.target.value)} rows={rows}
+    <textarea value={value} onChange={e=>onChange(e.target.value)} rows={rows} placeholder={placeholder}
       style={{ width:"100%",boxSizing:"border-box",padding:"9px 12px",border:"1.5px solid #E8E8F0",borderRadius:9,fontSize:13,color:"#111",background:"#FAFAFA",outline:"none",fontFamily:"inherit",resize:"vertical",transition:"border 0.15s" }}
       onFocus={e=>e.target.style.borderColor="#2E2784"}
       onBlur={e=>e.target.style.borderColor="#E8E8F0"}
@@ -2255,18 +2602,8 @@ function Loader() {
   );
 }
 function SaveBtn({ onClick }: { onClick:()=>void }) {
-  return (
-    <button onClick={onClick}
-      style={{ display:"inline-flex",alignItems:"center",gap:7,padding:"10px 20px",background:"#2E2784",color:"#fff",border:"none",borderRadius:10,fontSize:13,fontWeight:700,cursor:"pointer" }}>
-      <Save size={14}/> Salva
-    </button>
-  );
+  return <Button icon={Save} onClick={onClick}>Salva</Button>;
 }
 function SecBtn({ onClick, children }: { onClick:()=>void; children:React.ReactNode }) {
-  return (
-    <button onClick={onClick}
-      style={{ padding:"10px 18px",background:"#F5F5FA",color:"#555",border:"none",borderRadius:10,fontSize:13,fontWeight:600,cursor:"pointer" }}>
-      {children}
-    </button>
-  );
+  return <Button variant="secondary" onClick={onClick}>{children}</Button>;
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { HomePage, type HomeStats, type HomeStudies } from "./_home";
-import { getStats, getStudies, getPages } from "@/lib/content";
+import { getStats, getStudies, getPages, getBrands } from "@/lib/content";
 
 export const revalidate = 60;
 
@@ -34,12 +34,13 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  const [stats, studies, pages] = await Promise.all([getStats(), getStudies(), getPages()]);
+  const [stats, studies, pages, brands] = await Promise.all([getStats(), getStudies(), getPages(), getBrands()]);
   return (
     <HomePage
       initialStats={stats as HomeStats | undefined}
       initialStudies={(studies ?? undefined) as HomeStudies | undefined}
       initialPages={pages as Record<string, Record<string, unknown>>}
+      initialBrands={brands as { name: string; img?: string }[] | undefined}
     />
   );
 }
