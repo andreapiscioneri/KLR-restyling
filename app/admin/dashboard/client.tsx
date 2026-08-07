@@ -297,7 +297,7 @@ export function AdminDashboardClient({ currentUser }: { currentUser: AdminUser }
           {section === "stats"       && <StatsEditor      data={stats}       onSave={d => { setStats(d);                          save("stats",       d); }} />}
           {section === "brands"      && <BrandsEditor     data={brands}      onSave={d => { setBrands(d);                         save("brands",      d); }} />}
           {section === "leadership"  && <LeadershipEditor data={leadership}  onSave={d => { setLeadership(d);                     save("leadership",  d); }} />}
-          {section === "studies"     && <StudiesEditor    data={studies}     onSave={d => { setStudies(d);                        save("studies",     d); }} />}
+          {section === "studies"     && <StudiesEditor    data={studies}     brands={brands} onSave={d => { setStudies(d);                        save("studies",     d); }} />}
           {section === "posts"       && <PostsEditor      data={posts}       onSave={d => { setPosts(d);                          save("posts",       d); }} />}
           {section === "positions"   && <PositionsEditor  data={positions}   onSave={d => { setPositions(d);                      save("positions",   d); }} />}
           {section === "customPages" && <CustomPagesEditor data={customPages} onSave={d => { setCustomPages(d);                   save("customPages", d); }} />}
@@ -1688,6 +1688,7 @@ function FooterLinksEditor({ exploreLinks, moreLinks, onChangeExploreLinks, onCh
    LIST EDITORS
 ══════════════════════════════════════════════════ */
 type FieldDef = { key:string; label:string; type:string; options?:string[] };
+const SECTOR_OPTIONS = ["retail", "petrol"];
 
 const BRAND_FIELDS:    FieldDef[] = [
   {key:"id",label:"ID Slug",type:"text"},{key:"name",label:"Nome",type:"text"},{key:"tag",label:"Categoria",type:"text"},
@@ -1701,8 +1702,8 @@ const LEADER_FIELDS:   FieldDef[] = [
 ];
 const STUDY_FIELDS:    FieldDef[] = [
   {key:"id",label:"ID Slug",type:"text"},{key:"title",label:"Titolo",type:"text"},{key:"client",label:"Cliente",type:"text"},
-  {key:"brand",label:"Brand",type:"text"},{key:"year",label:"Anno",type:"text"},{key:"location",label:"Paese",type:"text"},
-  {key:"cat",label:"Categoria (retail/petrol)",type:"text"},{key:"img",label:"Immagine (URL)",type:"url"},
+  {key:"year",label:"Anno",type:"text"},{key:"location",label:"Paese",type:"text"},
+  {key:"img",label:"Immagine (URL)",type:"url"},
   {key:"summary",label:"Sommario",type:"textarea"},
 ];
 const POST_FIELDS:     FieldDef[] = [
@@ -1727,16 +1728,30 @@ function BrandsEditor    ({ data, onSave }: { data:BrandItem[]|null;    onSave:(
 function UsersEditor     ({ data, onSave }: { data:UserItem[]|null;     onSave:(d:UserItem[])=>void })     { return <ListEditor<UserItem>     title="Utente"      data={data} fields={USER_FIELDS}     nameKey="name"  imgKey=""    onSave={onSave} blank={{id:"",name:"",email:"",password:"",role:"editor"}}/>; }
 function LeadershipEditor({ data, onSave }: { data:LeaderItem[]|null;   onSave:(d:LeaderItem[])=>void })   { return <ListEditor<LeaderItem>   title="Membro"      data={data} fields={LEADER_FIELDS}   nameKey="name"  imgKey="img" onSave={onSave} blank={{id:"",name:"",role:"",img:"",bio:"",quote:""}}/>; }
 const STUDY_BLANK_DETAILS: StudyDetails = { sourceUrl:"",campaignTitle:"",challenge:"",rewardGroups:[],activations:[],mechanics:[],gallery:[],social:[],videos:[] };
-function StudiesEditor   ({ data, onSave }: { data:StudyItem[]|null;    onSave:(d:StudyItem[])=>void })    {
+function StudiesEditor   ({ data, brands, onSave }: { data:StudyItem[]|null; brands:BrandItem[]|null; onSave:(d:StudyItem[])=>void })    {
+  const sectorOptions = Array.from(new Set([...SECTOR_OPTIONS, ...(data ?? []).map(s => s.cat).filter(Boolean)]));
+  const brandOptions = Array.from(new Set([
+    ...(brands ?? []).map(b => b.name),
+    ...(data ?? []).map(s => s.brand),
+  ].filter(Boolean)));
   return <ListEditor<StudyItem>
     title="Case Study" data={data} fields={STUDY_FIELDS} nameKey="title" imgKey="img" onSave={onSave}
+    optionsMap={{ cat: sectorOptions, brand: brandOptions }}
     blank={{id:"",title:"",client:"",year:String(new Date().getFullYear()),location:"",img:"",summary:"",cat:"retail",brand:"",results:[],details:STUDY_BLANK_DETAILS}}
     extra={(form, setForm) => {
       const results: StudyResult[] = form.results ?? [];
       const details: StudyDetails  = { ...STUDY_BLANK_DETAILS, ...(form.details ?? {}) };
       const setDetails = (patch: Partial<StudyDetails>) => setForm((p:any) => ({ ...p, details: { ...details, ...patch } }));
       return (
-        <div style={{ display:"flex",flexDirection:"column",gap:18,marginTop:8,paddingTop:18,borderTop:"1px solid #f0f0f6" }}>
+        <div style={{ display:"flex",flexDirection:"column",gap:18 }}>
+          <CategoryFields
+            key={form.id || "new"}
+            cat={form.cat || ""} brand={form.brand || ""}
+            sectorOptions={sectorOptions} brandOptions={brandOptions}
+            onChangeCat={v => setForm((p:any) => ({...p, cat:v}))}
+            onChangeBrand={v => setForm((p:any) => ({...p, brand:v}))}
+          />
+          <div style={{ display:"flex",flexDirection:"column",gap:18,paddingTop:18,borderTop:"1px solid #f0f0f6" }}>
           <div style={{ fontSize:11,fontWeight:700,color:"#2E2784",textTransform:"uppercase",letterSpacing:"0.07em" }}>Dettaglio Case Study</div>
           <Grid>
             <KVListField label="Risultati (numero + etichetta)" value={results} kLabel="Valore (es. 12 Weeks)" vLabel="Etichetta" onChange={v => setForm((p:any) => ({...p, results: v}))}/>
@@ -1749,6 +1764,7 @@ function StudiesEditor   ({ data, onSave }: { data:StudyItem[]|null;    onSave:(
             <StringListField label="Social (embed/URL)" value={details.social} onChange={v => setDetails({social:v})} placeholder="URL post social"/>
             <StringListField label="Video (URL)" value={details.videos} onChange={v => setDetails({videos:v})} placeholder="URL video"/>
           </Grid>
+          </div>
         </div>
       );
     }}
@@ -1945,11 +1961,12 @@ function PasswordInput({ value, onChange, hasExisting }: { value:string; onChang
    GENERIC LIST EDITOR
 ══════════════════════════════════════════════════ */
 function ListEditor<T extends Record<string, unknown>>({
-  title, data, fields, nameKey, imgKey, onSave, blank, extra,
+  title, data, fields, nameKey, imgKey, onSave, blank, extra, optionsMap,
 }: {
   title:string; data:T[]|null; fields:FieldDef[]; nameKey:string; imgKey:string;
   onSave:(d:T[])=>void; blank:T;
   extra?: (form:Record<string,any>, setForm:React.Dispatch<React.SetStateAction<Record<string,any>>>) => React.ReactNode;
+  optionsMap?: Record<string,string[]>;
 }) {
   const [items,   setItems]   = useState<T[]>([]);
   const [editing, setEditing] = useState<number|null>(null);
@@ -2025,6 +2042,8 @@ function ListEditor<T extends Record<string, unknown>>({
                     <RichTextEditor value={form[f.key]||""} onChange={v => setForm(p => ({...p,[f.key]:v}))}/>
                   ) : f.type === "select" ? (
                     <FieldSelect value={form[f.key]||""} onChange={v => setForm(p => ({...p,[f.key]:v}))} options={f.options??[]}/>
+                  ) : f.type === "combo" ? (
+                    <ComboField value={form[f.key]||""} onChange={v => setForm(p => ({...p,[f.key]:v}))} options={optionsMap?.[f.key]??[]}/>
                   ) : f.type === "password" ? (
                     <PasswordInput
                       value={form[f.key]||""}
@@ -2176,6 +2195,54 @@ function FieldSelect({ value, onChange, options }: { value:string; onChange:(v:s
       onBlur={e=>e.target.style.borderColor="#E8E8F0"}>
       {options.map(opt=><option key={opt} value={opt}>{opt}</option>)}
     </select>
+  );
+}
+const NEW_OPTION = "__new__";
+function ComboField({ value, onChange, options, newLabel="+ Aggiungi nuova…" }: { value:string; onChange:(v:string)=>void; options:string[]; newLabel?:string }) {
+  const [adding, setAdding] = useState(false);
+  if (adding || (value && !options.includes(value))) {
+    return (
+      <div style={{ display:"flex",gap:8,alignItems:"center" }}>
+        <Input value={value} onChange={onChange}/>
+        {options.length > 0 && (
+          <button type="button" onClick={() => { setAdding(false); onChange(options[0]); }}
+            style={{ flexShrink:0,padding:"9px 12px",background:"#F5F5FA",color:"#111",border:"1.5px solid #E8E8F0",borderRadius:9,fontSize:12,fontWeight:600,cursor:"pointer",whiteSpace:"nowrap" }}>
+            Scegli esistente
+          </button>
+        )}
+      </div>
+    );
+  }
+  return (
+    <select value={value} onChange={e => { if (e.target.value === NEW_OPTION) { setAdding(true); onChange(""); } else { onChange(e.target.value); } }}
+      style={{ width:"100%",boxSizing:"border-box",padding:"9px 12px",border:"1.5px solid #E8E8F0",borderRadius:9,fontSize:13,color:"#111",background:"#FAFAFA",outline:"none",fontFamily:"inherit",cursor:"pointer" }}
+      onFocus={e=>e.target.style.borderColor="#2E2784"}
+      onBlur={e=>e.target.style.borderColor="#E8E8F0"}>
+      {!value && <option value="">— Seleziona —</option>}
+      {options.map(opt=><option key={opt} value={opt}>{opt}</option>)}
+      <option value={NEW_OPTION}>{newLabel}</option>
+    </select>
+  );
+}
+function CategoryFields({ cat, brand, sectorOptions, brandOptions, onChangeCat, onChangeBrand }: {
+  cat:string; brand:string; sectorOptions:string[]; brandOptions:string[];
+  onChangeCat:(v:string)=>void; onChangeBrand:(v:string)=>void;
+}) {
+  const [mode, setMode] = useState<"cat"|"brand">(brand && !cat ? "brand" : "cat");
+  return (
+    <Field label="Categorizzazione" full>
+      <div style={{ display:"flex",gap:16,marginBottom:8 }}>
+        <label style={{ display:"flex",alignItems:"center",gap:6,fontSize:13,color:"#111",cursor:"pointer" }}>
+          <input type="radio" checked={mode==="cat"} onChange={() => setMode("cat")}/> Per Settore
+        </label>
+        <label style={{ display:"flex",alignItems:"center",gap:6,fontSize:13,color:"#111",cursor:"pointer" }}>
+          <input type="radio" checked={mode==="brand"} onChange={() => setMode("brand")}/> Per Brand
+        </label>
+      </div>
+      {mode === "cat"
+        ? <ComboField value={cat} onChange={onChangeCat} options={sectorOptions}/>
+        : <ComboField value={brand} onChange={onChangeBrand} options={brandOptions}/>}
+    </Field>
   );
 }
 function Loader() {
