@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ArrowDownUp } from "lucide-react";
 import { softShadow } from "./ui-bits";
 import { studies as fallbackStudies, images } from "../data";
 import { PageHero } from "./page-hero";
@@ -30,6 +30,7 @@ type StudiesProps = {
 export function Studies({ go, initialStudies, initialPageData }: StudiesProps) {
   const [sector, setSector] = useState<"all" | "retail" | "petrol">("all");
   const [brand, setBrand] = useState<string>("all");
+  const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
   const [visible, setVisible] = useState(PAGE_SIZE);
   const studies = initialStudies?.length ? initialStudies : fallbackStudies;
   const hero = initialPageData?.hero;
@@ -47,11 +48,16 @@ export function Studies({ go, initialStudies, initialPageData }: StudiesProps) {
 
   const brands = Array.from(new Set(studies.map((s) => s.brand))).sort((a, b) => a.localeCompare(b));
 
-  const filtered = studies.filter((s) => {
-    const sectorMatch = sector === "all" || s.cat === sector;
-    const brandMatch = brand === "all" || s.brand === brand;
-    return sectorMatch && brandMatch;
-  });
+  const filtered = studies
+    .filter((s) => {
+      const sectorMatch = sector === "all" || s.cat === sector;
+      const brandMatch = brand === "all" || s.brand === brand;
+      return sectorMatch && brandMatch;
+    })
+    .sort((a, b) => {
+      const diff = (parseInt(a.year, 10) || 0) - (parseInt(b.year, 10) || 0);
+      return sortOrder === "newest" ? -diff : diff;
+    });
 
   return (
     <>
@@ -71,9 +77,20 @@ export function Studies({ go, initialStudies, initialPageData }: StudiesProps) {
             <div className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
               Filters
             </div>
-            <h2 className="text-white tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-              Find the Right <span className="text-[#F8AE01]">Campaign Story</span>
-            </h2>
+            <div className="flex flex-wrap items-end justify-between gap-4 mt-4">
+              <h2 className="text-white tracking-[-0.035em]" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
+                Find the Right <span className="text-[#F8AE01]">Campaign Story</span>
+              </h2>
+              <button
+                type="button"
+                onClick={() => { setSortOrder((s) => (s === "newest" ? "oldest" : "newest")); setVisible(PAGE_SIZE); }}
+                className="inline-flex items-center gap-2 rounded-full px-5 py-2 tracking-tight bg-white/10 text-white hover:bg-white/20 transition-all"
+                style={{ fontSize: "0.85rem" }}
+              >
+                <ArrowDownUp className="w-3.5 h-3.5" />
+                {sortOrder === "newest" ? "Newest first" : "Oldest first"}
+              </button>
+            </div>
 
             <div className="mt-10 grid lg:grid-cols-2 gap-6">
               <div className="rounded-[24px] p-6 border border-white/15" style={{ background: "rgba(255,255,255,0.07)" }}>

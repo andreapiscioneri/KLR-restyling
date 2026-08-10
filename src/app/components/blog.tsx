@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ArrowDownUp } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { softShadow } from "./ui-bits";
 import { fallbackPosts, images, type Post } from "../data";
@@ -79,13 +79,18 @@ export function Blog({ go, initialPosts, initialHero }: BlogProps) {
     ? initialPosts.map(toInsightPostFromCms)
     : fallbackPosts.map(toInsightPost);
   const [cat, setCat] = useState<InsightCategory>("All");
+  const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
   const [visible, setVisible] = useState(PAGE_SIZE);
   const heroEyebrow = initialHero?.eyebrow || "Insights";
   const heroTitle = initialHero?.title || "Ideas, Trends & Stories from KLR hands on experience";
   const heroSubtitle = initialHero?.subtitle || "Fresh perspectives on loyalty marketing, retail innovation, and the people behind our work.";
   const heroVisible = initialHero?._visible !== false;
 
-  const filtered = cat === "All" ? posts : posts.filter((p) => p.normalizedCategory === cat);
+  const byCategory = cat === "All" ? posts : posts.filter((p) => p.normalizedCategory === cat);
+  const filtered = [...byCategory].sort((a, b) => {
+    const diff = new Date(a.date).getTime() - new Date(b.date).getTime();
+    return sortOrder === "newest" ? -diff : diff;
+  });
   const featured = filtered[0] || posts[0];
   const feed = filtered.filter((p) => p.id !== featured?.id);
 
@@ -165,22 +170,33 @@ export function Blog({ go, initialPosts, initialHero }: BlogProps) {
               Insights Feed
             </h2>
 
-            {/* Category filter */}
-            <div className="flex flex-wrap gap-3 mt-10">
-              {CATEGORIES.map((c) => (
-                <button
-                  key={c}
-                  onClick={() => { setCat(c); setVisible(PAGE_SIZE); }}
-                  className={`rounded-full px-5 py-2 tracking-tight transition-all ${
-                    cat === c
-                      ? "bg-[#F8AE01] text-black font-semibold"
-                      : "bg-white/10 text-white hover:bg-white/20"
-                  }`}
-                  style={{ fontSize: "0.85rem" }}
-                >
-                  {c}
-                </button>
-              ))}
+            {/* Category filter + sort by date */}
+            <div className="flex flex-wrap items-center justify-between gap-4 mt-10">
+              <div className="flex flex-wrap gap-3">
+                {CATEGORIES.map((c) => (
+                  <button
+                    key={c}
+                    onClick={() => { setCat(c); setVisible(PAGE_SIZE); }}
+                    className={`rounded-full px-5 py-2 tracking-tight transition-all ${
+                      cat === c
+                        ? "bg-[#F8AE01] text-black font-semibold"
+                        : "bg-white/10 text-white hover:bg-white/20"
+                    }`}
+                    style={{ fontSize: "0.85rem" }}
+                  >
+                    {c}
+                  </button>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={() => { setSortOrder((s) => (s === "newest" ? "oldest" : "newest")); setVisible(PAGE_SIZE); }}
+                className="inline-flex items-center gap-2 rounded-full px-5 py-2 tracking-tight bg-white/10 text-white hover:bg-white/20 transition-all"
+                style={{ fontSize: "0.85rem" }}
+              >
+                <ArrowDownUp className="w-3.5 h-3.5" />
+                {sortOrder === "newest" ? "Newest first" : "Oldest first"}
+              </button>
             </div>
           </AnimatedSection>
 
