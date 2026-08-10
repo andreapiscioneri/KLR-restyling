@@ -188,13 +188,21 @@ export function BlogDetail({ slug, go, initialPost, initialOthers }: BlogDetailP
       <div className="max-w-6xl mx-auto px-6 md:px-8 py-20 space-y-16">
         
         {/* 2. OVERVIEW & AUTHOR */}
+        {post.excerpt && post.excerpt.trim() && (
         <AnimatedSection>
           <div className="rounded-[40px] border border-white/10 overflow-hidden flex flex-col lg:flex-row">
             
             {/* Left: Author Profilo */}
             <div className="lg:w-1/3 p-10 md:p-14 flex flex-col items-center justify-center text-center" style={{ background: COLORS.purpleBox }}>
-              <div className="w-32 h-32 rounded-full border-4 border-[#F8AE01] overflow-hidden mb-6">
-                <img src={post.authorAvatar || "/klr-logo.png"} alt={post.authorName} className="w-full h-full object-cover" />
+              <div
+                className="w-32 h-32 rounded-full border-4 border-[#F8AE01] overflow-hidden mb-6 flex items-center justify-center"
+                style={!post.authorAvatar ? { background: COLORS.navy } : undefined}
+              >
+                <img
+                  src={post.authorAvatar || "/klr-logo.png"}
+                  alt={post.authorName}
+                  className={post.authorAvatar ? "w-full h-full object-cover" : "w-[70%] h-[70%] object-contain"}
+                />
               </div>
               <div className="text-white/50 font-bold tracking-[0.2em] uppercase text-xs mb-2">Author</div>
               {/* MODIFICA: Nome Autore Giallo Oro */}
@@ -220,18 +228,21 @@ export function BlogDetail({ slug, go, initialPost, initialOthers }: BlogDetailP
 
           </div>
         </AnimatedSection>
+        )}
 
         {/* 3. CONTENUTO INTERNO: Tutti gli h3/h4 nel contenuto saranno gialli grazie all'iniezione CSS */}
-        <AnimatedSection>
-          <div className="rounded-[50px] border border-white/10 py-16 md:py-24 px-6 md:px-12" style={{ background: COLORS.purpleBox }}>
-            <div className="max-w-3xl mx-auto">
-              <div 
-                className="klr-editorial-content"
-                dangerouslySetInnerHTML={{ __html: post.contentHtml || "" }} 
-              />
+        {post.contentHtml && post.contentHtml.trim() && (
+          <AnimatedSection>
+            <div className="rounded-[50px] border border-white/10 py-16 md:py-24 px-6 md:px-12" style={{ background: COLORS.purpleBox }}>
+              <div className="max-w-3xl mx-auto">
+                <div
+                  className="klr-editorial-content"
+                  dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+                />
+              </div>
             </div>
-          </div>
-        </AnimatedSection>
+          </AnimatedSection>
+        )}
       </div>
 
       {/* 4. RELATED ARTICLES */}

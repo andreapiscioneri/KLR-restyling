@@ -731,12 +731,9 @@ export function HomePage({ initialStats, initialStudies, initialPages, initialBr
   const stats = initialStats ?? defaultStats;
   const studies = initialStudies ?? defaultStudies;
   const pages = initialPages ?? {};
-  // Brand Partners gestiti dal CMS (admin → Brand Partners); fallback ai loghi di default
-  // solo se l'admin non ha ancora nessun brand con immagine impostata.
-  const cmsBrandLogos = (initialBrands ?? [])
-    .filter(b => b.img)
-    .map(b => ({ name: b.name, logo: b.img as string }));
-  const brands = cmsBrandLogos.length > 0 ? cmsBrandLogos : defaultBrands;
+  // Marquee loghi: usa sempre i loghi trasparenti statici (come su /brands),
+  // non le foto prodotto caricate in "Brand Partners" nel CMS.
+  const brands = defaultBrands;
 
   const home = (pages.home as Record<string, unknown>) || {};
   const heroData         = (home.hero          as HeroData)    || {};
