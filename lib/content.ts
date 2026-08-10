@@ -38,6 +38,19 @@ export async function getPosts() {
   return readContent("posts", CONTENT_TYPES.posts.default);
 }
 
+// Public-facing pages must never show drafts or soft-deleted items; the
+// admin dashboard uses getStudies()/getPosts() directly so editors can see
+// and manage all of them (including the trash).
+export async function getPublishedStudies() {
+  const studies = await getStudies();
+  return (studies as { status?: string }[])?.filter((s) => s.status !== "draft" && s.status !== "deleted") ?? studies;
+}
+
+export async function getPublishedPosts() {
+  const posts = await getPosts();
+  return (posts as { status?: string }[])?.filter((p) => p.status !== "draft" && p.status !== "deleted") ?? posts;
+}
+
 export async function getUsers() {
   return readContent("users", CONTENT_TYPES.users.default);
 }

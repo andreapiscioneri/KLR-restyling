@@ -1,9 +1,11 @@
+import { Suspense } from "react";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Nav, type NavLink } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { CookieConsent, type BannerConfig } from "@/components/layout/CookieConsent";
 import { GoogleAnalyticsLoader } from "@/components/layout/GoogleAnalyticsLoader";
+import { SiteAnalytics } from "@/components/layout/SiteAnalytics";
 import { LenisProvider } from "@/components/ui/LenisProvider";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { LogoLoader } from "@/components/ui/LogoLoader";
@@ -292,6 +294,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           </main>
           <Footer initialData={footer} logoUrl={logoUrl} />
           <CookieConsent initialConfig={cookieBanner} />
+          <Suspense fallback={null}>
+            <SiteAnalytics />
+          </Suspense>
         </LenisProvider>
       </body>
     </html>

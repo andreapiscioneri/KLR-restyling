@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { brands as fallbackBrands, studies as fallbackStudies } from "@/src/app/data";
-import { getBrands, getStudies } from "@/lib/content";
+import { getBrands, getPublishedStudies } from "@/lib/content";
 import { BrandDetailClient } from "./_client";
 
 export const dynamicParams = true;
@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 export default async function Page({ params }: { params: { id: string } }) {
   const [cmsBrands, cmsStudies] = await Promise.all([
     getBrands() as Promise<typeof fallbackBrands | null>,
-    getStudies() as Promise<typeof fallbackStudies | null>,
+    getPublishedStudies() as Promise<typeof fallbackStudies | null>,
   ]);
   const brands = cmsBrands?.length ? cmsBrands : fallbackBrands;
   const studies = cmsStudies?.length ? cmsStudies : fallbackStudies;

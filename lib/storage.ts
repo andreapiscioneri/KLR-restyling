@@ -12,7 +12,12 @@ function manualCredentials() {
   return siteID && token ? { siteID, token } : null;
 }
 
-const USE_BLOBS = IS_NETLIFY_CLOUD || IS_NETLIFY_LOCAL || HAS_NETLIFY_BLOBS || Boolean(manualCredentials());
+// Manual credentials (.env.local) exist for one-off scripts that construct
+// their own store directly — they must NOT flip plain `npm run dev` into
+// talking to production Netlify Blobs. Cold-start requests firing many
+// concurrent reads against Blobs have been seen to 403 and crash the first
+// render; local dev should just read/write content/*.json on disk.
+const USE_BLOBS = IS_NETLIFY_CLOUD || IS_NETLIFY_LOCAL || HAS_NETLIFY_BLOBS;
 
 async function initBlobStore() {
   const { getStore } = await import("@netlify/blobs");

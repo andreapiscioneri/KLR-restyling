@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { ArrowUpRight, ArrowDownUp } from "lucide-react";
+import { ArrowUpRight, ArrowDownUp, Search, X } from "lucide-react";
 import { softShadow } from "./ui-bits";
 import { studies as fallbackStudies, images } from "../data";
 import { PageHero } from "./page-hero";
@@ -31,6 +31,7 @@ export function Studies({ go, initialStudies, initialPageData }: StudiesProps) {
   const [sector, setSector] = useState<"all" | "retail" | "petrol">("all");
   const [brand, setBrand] = useState<string>("all");
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
+  const [query, setQuery] = useState("");
   const [visible, setVisible] = useState(PAGE_SIZE);
   const studies = initialStudies?.length ? initialStudies : fallbackStudies;
   const hero = initialPageData?.hero;
@@ -48,11 +49,13 @@ export function Studies({ go, initialStudies, initialPageData }: StudiesProps) {
 
   const brands = Array.from(new Set(studies.map((s) => s.brand))).sort((a, b) => a.localeCompare(b));
 
+  const q = query.trim().toLowerCase();
   const filtered = studies
     .filter((s) => {
       const sectorMatch = sector === "all" || s.cat === sector;
       const brandMatch = brand === "all" || s.brand === brand;
-      return sectorMatch && brandMatch;
+      const searchMatch = !q || [s.title, s.client, s.brand, s.location, s.summary].some((v) => v.toLowerCase().includes(q));
+      return sectorMatch && brandMatch && searchMatch;
     })
     .sort((a, b) => {
       const diff = (parseInt(a.year, 10) || 0) - (parseInt(b.year, 10) || 0);
@@ -90,6 +93,29 @@ export function Studies({ go, initialStudies, initialPageData }: StudiesProps) {
                 <ArrowDownUp className="w-3.5 h-3.5" />
                 {sortOrder === "newest" ? "Newest first" : "Oldest first"}
               </button>
+            </div>
+
+            {/* Search */}
+            <div className="relative mt-8 max-w-md">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40 pointer-events-none" />
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => { setQuery(e.target.value); setVisible(PAGE_SIZE); }}
+                placeholder="Search case studies…"
+                className="w-full rounded-full pl-11 pr-10 py-3 bg-white/10 text-white placeholder-white/40 border border-white/15 outline-none focus:border-[#F8AE01]/60 transition-colors tracking-tight"
+                style={{ fontSize: "0.9rem" }}
+              />
+              {query && (
+                <button
+                  type="button"
+                  onClick={() => { setQuery(""); setVisible(PAGE_SIZE); }}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors"
+                  aria-label="Clear search"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
             </div>
 
             <div className="mt-10 grid lg:grid-cols-2 gap-6">

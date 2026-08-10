@@ -3,6 +3,7 @@
 import { ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { softShadow, openMailtoDraft } from "./ui-bits";
+import { getAttribution } from "@/components/layout/SiteAnalytics";
 import { PageHero } from "./page-hero";
 import { offices, images } from "../data";
 
@@ -44,7 +45,21 @@ function ContactFormSection({ cms }: { cms: ContactCmsData }) {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              openMailtoDraft(e.currentTarget, "info@klr-europe.com", "KLR Contact Form");
+              const form = e.currentTarget;
+              const data = new FormData(form);
+              fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  name: data.get("name"),
+                  email: data.get("email"),
+                  company: data.get("company"),
+                  jobTitle: data.get("job_title"),
+                  message: data.get("message"),
+                  ...getAttribution(),
+                }),
+              }).catch(() => {});
+              openMailtoDraft(form, "info@klr-europe.com", "KLR Contact Form");
             }}
             className="mt-14 rounded-[40px] p-6 md:p-14 border border-[#2E2784]/10 grid md:grid-cols-2 gap-x-8 gap-y-8"
             style={{ background: "rgba(255,255,255,0.3)", ...softShadow }}

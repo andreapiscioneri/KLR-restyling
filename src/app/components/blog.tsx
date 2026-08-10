@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight, ArrowDownUp } from "lucide-react";
+import { ArrowUpRight, ArrowDownUp, Search, X } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { softShadow } from "./ui-bits";
 import { fallbackPosts, images, type Post } from "../data";
@@ -80,6 +80,7 @@ export function Blog({ go, initialPosts, initialHero }: BlogProps) {
     : fallbackPosts.map(toInsightPost);
   const [cat, setCat] = useState<InsightCategory>("All");
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
+  const [query, setQuery] = useState("");
   const [visible, setVisible] = useState(PAGE_SIZE);
   const heroEyebrow = initialHero?.eyebrow || "Insights";
   const heroTitle = initialHero?.title || "Ideas, Trends & Stories from KLR hands on experience";
@@ -87,12 +88,20 @@ export function Blog({ go, initialPosts, initialHero }: BlogProps) {
   const heroVisible = initialHero?._visible !== false;
 
   const byCategory = cat === "All" ? posts : posts.filter((p) => p.normalizedCategory === cat);
-  const filtered = [...byCategory].sort((a, b) => {
+  const q = query.trim().toLowerCase();
+  const bySearch = q
+    ? byCategory.filter((p) => p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q))
+    : byCategory;
+  const filtered = [...bySearch].sort((a, b) => {
     const diff = new Date(a.date).getTime() - new Date(b.date).getTime();
     return sortOrder === "newest" ? -diff : diff;
   });
-  const featured = filtered[0] || posts[0];
-  const feed = filtered.filter((p) => p.id !== featured?.id);
+  // While searching, show every match in the plain grid — no separate
+  // "Featured" card, so a single match doesn't appear to vanish from the list.
+  const featured = q ? undefined : (filtered[0] || posts[0]);
+  // The featured article also appears in the grid below (it's simply the
+  // most recently published one), it isn't removed from the feed anymore.
+  const feed = filtered;
 
   return (
     <>
@@ -170,8 +179,31 @@ export function Blog({ go, initialPosts, initialHero }: BlogProps) {
               Insights Feed
             </h2>
 
+            {/* Search */}
+            <div className="relative mt-10 max-w-md">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40 pointer-events-none" />
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => { setQuery(e.target.value); setVisible(PAGE_SIZE); }}
+                placeholder="Search articles…"
+                className="w-full rounded-full pl-11 pr-10 py-3 bg-white/10 text-white placeholder-white/40 border border-white/15 outline-none focus:border-[#F8AE01]/60 transition-colors tracking-tight"
+                style={{ fontSize: "0.9rem" }}
+              />
+              {query && (
+                <button
+                  type="button"
+                  onClick={() => { setQuery(""); setVisible(PAGE_SIZE); }}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors"
+                  aria-label="Clear search"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+
             {/* Category filter + sort by date */}
-            <div className="flex flex-wrap items-center justify-between gap-4 mt-10">
+            <div className="flex flex-wrap items-center justify-between gap-4 mt-6">
               <div className="flex flex-wrap gap-3">
                 {CATEGORIES.map((c) => (
                   <button
@@ -201,6 +233,13 @@ export function Blog({ go, initialPosts, initialHero }: BlogProps) {
           </AnimatedSection>
 
           {/* Grid */}
+          {filtered.length === 0 ? (
+            <div className="mt-10 rounded-[24px] p-8 border border-white/15" style={{ background: "rgba(255,255,255,0.07)" }}>
+              <p className="text-white/70 tracking-tight" style={{ fontSize: "1rem" }}>
+                No articles match your search.
+              </p>
+            </div>
+          ) : (
           <div className="mt-12 grid md:grid-cols-2 xl:grid-cols-3 gap-6 items-stretch">
             {feed.slice(0, visible).map((p) => (
               <button
@@ -242,6 +281,7 @@ export function Blog({ go, initialPosts, initialHero }: BlogProps) {
               </button>
             ))}
           </div>
+          )}
 
           {/* Load More */}
           {visible < feed.length && (

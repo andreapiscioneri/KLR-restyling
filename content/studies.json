@@ -90,7 +90,9 @@
       "videos": [
         "/api/media/wp-4492"
       ]
-    }
+    },
+    "publicPreview": false,
+    "cornerstone": false
   },
   {
     "id": "pintinox-bbq-for-mol-hungary",
@@ -171,7 +173,9 @@
       ],
       "social": [],
       "videos": []
-    }
+    },
+    "publicPreview": false,
+    "cornerstone": false
   },
   {
     "id": "oracle-red-bull-racing-adrenaline-kaufland-bulgaria",
@@ -276,7 +280,9 @@
       "videos": [
         "/api/media/wp-4692"
       ]
-    }
+    },
+    "publicPreview": false,
+    "cornerstone": false
   },
   {
     "id": "bugatti-primo-for-lukoil-bulgaria",
@@ -340,7 +346,9 @@
         "/api/media/wp-3684"
       ],
       "videos": []
-    }
+    },
+    "publicPreview": false,
+    "cornerstone": false
   },
   {
     "id": "stardust-travel-for-omv-hungary",
@@ -415,7 +423,9 @@
         "/api/media/wp-3075"
       ],
       "videos": []
-    }
+    },
+    "publicPreview": false,
+    "cornerstone": false
   },
   {
     "id": "pintinox-trust-forged-in-steel-for-petrom-romania",
@@ -487,7 +497,9 @@
         "/api/media/wp-3231"
       ],
       "videos": []
-    }
+    },
+    "publicPreview": false,
+    "cornerstone": false
   },
   {
     "id": "police-for-mol-hungary",
@@ -561,7 +573,9 @@
       "videos": [
         "/api/media/wp-4363"
       ]
-    }
+    },
+    "publicPreview": false,
+    "cornerstone": false
   },
   {
     "id": "pintinox-for-viada-latvia",
@@ -630,7 +644,9 @@
       "videos": [
         "/api/media/wp-3643"
       ]
-    }
+    },
+    "publicPreview": false,
+    "cornerstone": false
   },
   {
     "id": "zanussi-zmart-move-for-carrefour-poland",
@@ -704,7 +720,9 @@
         "/api/media/wp-3505",
         "/api/media/wp-3498"
       ]
-    }
+    },
+    "publicPreview": false,
+    "cornerstone": false
   },
   {
     "id": "space-collection-for-petrol-slovenia-croatia-bosnia-herzegovina",
@@ -765,7 +783,9 @@
         "/api/media/wp-3394",
         "/api/media/wp-3364"
       ]
-    }
+    },
+    "publicPreview": false,
+    "cornerstone": false
   },
   {
     "id": "eurosport-champions-for-viada-latvia-lithuania",
@@ -830,7 +850,9 @@
         "/api/media/wp-3305",
         "/api/media/wp-3303"
       ]
-    }
+    },
+    "publicPreview": false,
+    "cornerstone": false
   },
   {
     "id": "bugatti-spezia-for-maxima-latvia",
@@ -888,7 +910,9 @@
         "/api/media/wp-3130",
         "/api/media/wp-3139"
       ]
-    }
+    },
+    "publicPreview": false,
+    "cornerstone": false
   },
   {
     "id": "zanussi-supergrip-for-iki-latvia",
@@ -943,7 +967,9 @@
         "/api/media/wp-3028",
         "/api/media/wp-3084"
       ]
-    }
+    },
+    "publicPreview": false,
+    "cornerstone": false
   },
   {
     "id": "bugatti-buono-loyalty-campaign-for-billa-bulgaria",
@@ -1015,7 +1041,9 @@
         "/api/media/wp-2968",
         "/api/media/wp-2964"
       ]
-    }
+    },
+    "publicPreview": false,
+    "cornerstone": false
   },
   {
     "id": "stardust-travel-slovnaft-slovakia",
@@ -1065,7 +1093,9 @@
       "gallery": [
         "/api/media/wp-2858"
       ]
-    }
+    },
+    "publicPreview": false,
+    "cornerstone": false
   },
   {
     "id": "newme-food-for-longer-for-tropic-and-crvena-jabuka-bosnia-and-herzegovina",
@@ -1110,7 +1140,9 @@
       "gallery": [
         "/api/media/wp-2777"
       ]
-    }
+    },
+    "publicPreview": false,
+    "cornerstone": false
   },
   {
     "id": "alfa-romeo-gran-turismo-for-rompetrol-romania",
@@ -1168,7 +1200,9 @@
         "/api/media/wp-2602",
         "/api/media/wp-2564"
       ]
-    }
+    },
+    "publicPreview": false,
+    "cornerstone": false
   },
   {
     "id": "alfa-romeo-gran-turismo-for-omv-slovenia",
@@ -1222,7 +1256,9 @@
         "/api/media/wp-2546",
         "/api/media/wp-2524"
       ]
-    }
+    },
+    "publicPreview": false,
+    "cornerstone": true
   },
   {
     "id": "blaupunkt-hi-fidelity-mego-latvia",
@@ -1260,7 +1296,9 @@
       "gallery": [
         "/api/media/wp-2383"
       ]
-    }
+    },
+    "publicPreview": false,
+    "cornerstone": false
   },
   {
     "id": "spearjackson-sense-of-adventure-for-maxima-estonia-2022",
@@ -1298,7 +1336,9 @@
       "gallery": [
         "/api/media/wp-2343"
       ]
-    }
+    },
+    "publicPreview": false,
+    "cornerstone": false
   },
   {
     "id": "viada-latvia-bugatti-prestigio-2022",
@@ -1335,6 +1375,112 @@
       "gallery": [
         "/api/media/wp-1956"
       ]
-    }
+    },
+    "publicPreview": false,
+    "cornerstone": false
+  },
+  {
+    "id": "horizon-travel-collection-for-circle-k-poland",
+    "title": "Horizon Travel Collection for Circle K – Poland",
+    "client": "Circle K Poland",
+    "year": "2026",
+    "location": "Poland",
+    "img": "/api/media/wp-5107",
+    "summary": "Bozza importata da WordPress — contenuto da completare (titolo e tag recuperati, testo e immagini da inserire manualmente).",
+    "cat": "petrol",
+    "brand": "NASA Stardust",
+    "results": [],
+    "details": {
+      "sourceUrl": "",
+      "campaignTitle": "",
+      "challenge": "",
+      "rewardGroups": [],
+      "activations": [],
+      "mechanics": [],
+      "gallery": [],
+      "social": [],
+      "videos": []
+    },
+    "status": "draft",
+    "publicPreview": false,
+    "cornerstone": false
+  },
+  {
+    "id": "bugatti-buono-cookware-for-coop-morava-czech-republic",
+    "title": "Bugatti Buono Cookware for COOP MORAVA – Czech Republic",
+    "client": "COOP MORAVA",
+    "year": "2026",
+    "location": "Czech Republic",
+    "img": "/api/media/wp-5098",
+    "summary": "Bozza importata da WordPress — contenuto da completare (titolo e tag recuperati, testo e immagini da inserire manualmente).",
+    "cat": "retail",
+    "brand": "Bugatti",
+    "results": [],
+    "details": {
+      "sourceUrl": "",
+      "campaignTitle": "",
+      "challenge": "",
+      "rewardGroups": [],
+      "activations": [],
+      "mechanics": [],
+      "gallery": [],
+      "social": [],
+      "videos": []
+    },
+    "status": "draft",
+    "publicPreview": true,
+    "cornerstone": false
+  },
+  {
+    "id": "pintinox-trust-forged-in-steel-for-orlen-slovakia",
+    "title": "Pintinox Trust Forged In Steel For Orlen Slovakia",
+    "client": "Orlen Slovakia",
+    "year": "2026",
+    "location": "Slovakia",
+    "img": "/api/media/wp-3199",
+    "summary": "Bozza importata da WordPress — contenuto da completare (titolo e tag recuperati, testo e immagini da inserire manualmente).",
+    "cat": "petrol",
+    "brand": "Pintinox",
+    "results": [],
+    "details": {
+      "sourceUrl": "",
+      "campaignTitle": "",
+      "challenge": "",
+      "rewardGroups": [],
+      "activations": [],
+      "mechanics": [],
+      "gallery": [],
+      "social": [],
+      "videos": []
+    },
+    "status": "draft",
+    "publicPreview": true,
+    "cornerstone": false
+  },
+  {
+    "id": "oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "title": "Oracle Red Bull Racing Travel Like a Champion for Intermarché Poland",
+    "client": "Intermarché Poland",
+    "year": "2026",
+    "location": "Poland",
+    "img": "/api/media/wp-4522",
+    "summary": "Bozza importata da WordPress — contenuto da completare (titolo e tag recuperati, testo e immagini da inserire manualmente).",
+    "cat": "retail",
+    "brand": "Oracle Red Bull Racing",
+    "results": [],
+    "details": {
+      "sourceUrl": "",
+      "campaignTitle": "",
+      "challenge": "",
+      "rewardGroups": [],
+      "activations": [],
+      "mechanics": [],
+      "gallery": [],
+      "social": [],
+      "videos": []
+    },
+    "status": "draft",
+    "publicPreview": true,
+    "cornerstone": false
   }
 ]

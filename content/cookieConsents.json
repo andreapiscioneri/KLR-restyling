@@ -46,5 +46,69 @@
     "path": "/",
     "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
     "loggedAt": "2026-07-18T13:17:48.390Z"
+  },
+  {
+    "id": "1fa84492-724e-4337-ac41-ebe8befb52ef",
+    "level": "silver",
+    "duration": "1m",
+    "categories": {
+      "basic": true,
+      "content": false,
+      "optimization": false,
+      "ads": false
+    },
+    "consentedAt": "2026-08-10T13:35:00.167Z",
+    "expiresAt": "2026-09-10T13:35:00.168Z",
+    "path": "/admin/login",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
+    "loggedAt": "2026-08-10T13:35:00.296Z"
+  },
+  {
+    "id": "7096b308-1803-4d1b-9048-c26a3303fcc2",
+    "level": "silver",
+    "duration": "1m",
+    "categories": {
+      "basic": true,
+      "content": false,
+      "optimization": false,
+      "ads": false
+    },
+    "consentedAt": "2026-08-10T14:09:37.154Z",
+    "expiresAt": "2026-09-10T14:09:37.154Z",
+    "path": "/admin/dashboard",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+    "loggedAt": "2026-08-10T14:09:37.321Z"
+  },
+  {
+    "id": "e438b455-14c0-411a-9615-f77e1d1063fd",
+    "level": "silver",
+    "duration": "1m",
+    "categories": {
+      "basic": true,
+      "content": false,
+      "optimization": false,
+      "ads": false
+    },
+    "consentedAt": "2026-08-10T18:47:37.327Z",
+    "expiresAt": "2026-09-10T18:47:37.328Z",
+    "path": "/admin/login",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
+    "loggedAt": "2026-08-10T18:47:37.454Z"
+  },
+  {
+    "id": "2c9b9921-841a-442a-891a-344dd4862734",
+    "level": "silver",
+    "duration": "1m",
+    "categories": {
+      "basic": true,
+      "content": false,
+      "optimization": false,
+      "ads": false
+    },
+    "consentedAt": "2026-08-10T18:48:25.335Z",
+    "expiresAt": "2026-09-10T18:48:25.336Z",
+    "path": "/admin/login",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
+    "loggedAt": "2026-08-10T18:48:25.352Z"
   }
 ]

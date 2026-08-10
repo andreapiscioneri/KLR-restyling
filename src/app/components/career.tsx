@@ -1,11 +1,85 @@
 "use client";
+import { useState } from "react";
+import { X } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, hairline, softShadow } from "./ui-bits";
+import { getAttribution } from "@/components/layout/SiteAnalytics";
 import { images, careerValues, offices } from "../data";
 import { PageHero } from "./page-hero";
 import type { Route } from "../App";
 
 type Position = { id: string; role: string; loc: string; description?: string };
+
+function ApplyModal({ position, onClose }: { position: Position; onClose: () => void }) {
+  const [status, setStatus] = useState<"idle" | "sent">("idle");
+
+  return (
+    <div className="fixed inset-0 z-[999] flex items-center justify-center p-4" style={{ background: "rgba(20,17,60,0.55)" }} onClick={onClose}>
+      <div
+        className="w-full max-w-lg rounded-[28px] bg-white p-8 md:p-10 relative"
+        style={softShadow}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button onClick={onClose} aria-label="Chiudi" className="absolute top-6 right-6 text-[#2E2784]/50 hover:text-[#2E2784]">
+          <X className="w-5 h-5" />
+        </button>
+
+        {status === "sent" ? (
+          <div className="py-6">
+            <h3 className="text-[#2E2784] tracking-[-0.02em]" style={{ fontSize: "1.4rem", fontWeight: 700 }}>Candidatura inviata!</h3>
+            <p className="text-black/70 tracking-tight mt-3" style={{ fontSize: "0.95rem", lineHeight: 1.6 }}>
+              Grazie per esserti candidato per <strong>{position.role}</strong>. Ti risponderemo al più presto.
+            </p>
+          </div>
+        ) : (
+          <>
+            <div className="tracking-[0.2em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.62rem", fontWeight: 700 }}>Candidati per</div>
+            <h3 className="text-[#2E2784] tracking-[-0.02em] mt-2" style={{ fontSize: "1.4rem", fontWeight: 700 }}>{position.role}</h3>
+
+            <form
+              className="mt-6 space-y-5"
+              onSubmit={(e) => {
+                e.preventDefault();
+                const data = new FormData(e.currentTarget);
+                const payload = {
+                  positionId: position.id,
+                  positionRole: position.role,
+                  name: data.get("name"),
+                  email: data.get("email"),
+                  message: data.get("message"),
+                  ...getAttribution(),
+                };
+                fetch("/api/apply", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(payload),
+                }).catch(() => {});
+                window.location.href = `mailto:info@klr-europe.com?subject=${encodeURIComponent(`Candidatura: ${position.role}`)}&body=${encodeURIComponent(`Nome: ${payload.name}\nEmail: ${payload.email}\n\n${payload.message || ""}`)}`;
+                setStatus("sent");
+              }}
+            >
+              <div className="border-b border-[#2E2784]/20 pb-3">
+                <label className="tracking-[0.2em] uppercase text-[#2E2784]/60 block mb-2" style={{ fontSize: "0.6rem", fontWeight: 700 }}>Nome e Cognome *</label>
+                <input name="name" required className="w-full bg-transparent outline-none text-[#2E2784] font-medium" style={{ fontSize: "0.95rem" }} />
+              </div>
+              <div className="border-b border-[#2E2784]/20 pb-3">
+                <label className="tracking-[0.2em] uppercase text-[#2E2784]/60 block mb-2" style={{ fontSize: "0.6rem", fontWeight: 700 }}>Email *</label>
+                <input name="email" type="email" required className="w-full bg-transparent outline-none text-[#2E2784] font-medium" style={{ fontSize: "0.95rem" }} />
+              </div>
+              <div className="border-b border-[#2E2784]/20 pb-3">
+                <label className="tracking-[0.2em] uppercase text-[#2E2784]/60 block mb-2" style={{ fontSize: "0.6rem", fontWeight: 700 }}>Messaggio</label>
+                <textarea name="message" rows={3} className="w-full bg-transparent outline-none text-[#2E2784] font-medium resize-none" style={{ fontSize: "0.95rem" }} />
+              </div>
+              <button type="submit" className="inline-flex items-center gap-2.5 rounded-full tracking-tight text-[0.9rem] px-6 py-3 bg-[#2E2784] text-white hover:bg-black transition-colors">
+                Invia candidatura
+              </button>
+            </form>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
 
 type CmsCareer = {
   hero?: Record<string, string>;
@@ -42,6 +116,8 @@ export function Career({ go, cms, positionsList }: {
   const bannerImg   = banner.image || images.teamPhoto;
   const bannerTitle = banner.title || "Be part of our International Team.";
   const visible = (section?: Record<string, string>) => (section as Record<string, unknown> | undefined)?._visible !== false;
+
+  const [applyingTo, setApplyingTo] = useState<Position | null>(null);
 
   const positions = positionsList ?? [
     { id: "1", role: "Loyalty Program Manager", loc: "Milan · IT" },
@@ -97,7 +173,11 @@ export function Career({ go, cms, positionsList }: {
             </h2>
             <div className="mt-12 divide-y divide-white/10">
               {positions.map((p) => (
-                <div key={p.id} className="py-6 flex items-center justify-between gap-4 group cursor-pointer">
+                <button
+                  key={p.id}
+                  onClick={() => setApplyingTo(p)}
+                  className="w-full text-left py-6 flex items-center justify-between gap-4 group cursor-pointer"
+                >
                   <div>
                     <div className="text-white tracking-[-0.02em]" style={{ fontSize: "1.25rem", fontWeight: 600 }}>{p.role}</div>
                     <div className="text-white tracking-tight mt-1" style={{ fontSize: "0.85rem", opacity: 0.6 }}>{p.loc}</div>
@@ -108,7 +188,7 @@ export function Career({ go, cms, positionsList }: {
                   <span className="text-[#F8AE01] tracking-tight group-hover:translate-x-2 transition-transform duration-500" style={{ fontSize: "0.9rem" }}>
                     Apply →
                   </span>
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -137,6 +217,8 @@ export function Career({ go, cms, positionsList }: {
           <CTA label={closing.ctaLabel || "Get in Touch"} variant="yellow" onClick={() => go({ page: "contact" })} />
         </section>}
       </div>
+
+      {applyingTo && <ApplyModal position={applyingTo} onClose={() => setApplyingTo(null)} />}
     </div>
   );
 }

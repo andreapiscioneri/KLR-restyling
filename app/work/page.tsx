@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { WorkClient } from "./_client";
-import { getStudies, getPages } from "@/lib/content";
+import { getPublishedStudies, getPages } from "@/lib/content";
 import { studies as fallbackStudies } from "@/src/app/data";
 
 export const revalidate = 60;
@@ -36,7 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Page() {
   const [cmsStudies, pages] = await Promise.all([
-    getStudies() as Promise<typeof fallbackStudies | null>,
+    getPublishedStudies() as Promise<typeof fallbackStudies | null>,
     getPages(),
   ]);
   const pageData = (pages as Record<string, unknown>)?.caseStudies;

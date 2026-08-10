@@ -16754,5 +16754,37 @@
     "sourceUrl": "https://klr-europe.com/wp-content/uploads/elementor/thumbs/teaam-rqilc07igukn0oczoscrvo1ppeczrp90cyxqo6lmgs.png",
     "uploadedAt": "2026-07-18T12:58:24.692Z",
     "updatedAt": "2026-07-18T12:58:24.692Z"
+  },
+  {
+    "id": "wp-5107",
+    "blobKey": "wp-5107.png",
+    "filename": "Screenshot-2026-08-06-at-15.02.17.png",
+    "title": "Screenshot 2026-08-06 at 15.02.17",
+    "alt": "",
+    "caption": "",
+    "description": "",
+    "mimeType": "image/png",
+    "width": 956,
+    "height": 1196,
+    "filesize": 1693766,
+    "sourceUrl": "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-06-at-15.02.17.png",
+    "uploadedAt": "2026-08-06T14:03:01",
+    "updatedAt": "2026-08-10T13:09:49.849Z"
+  },
+  {
+    "id": "wp-5098",
+    "blobKey": "wp-5098.png",
+    "filename": "bugatti-3.png",
+    "title": "bugatti-3",
+    "alt": "",
+    "caption": "",
+    "description": "",
+    "mimeType": "image/png",
+    "width": 2000,
+    "height": 1999,
+    "filesize": 4234289,
+    "sourceUrl": "https://klr-europe.com/wp-content/uploads/2026/08/bugatti-3.png",
+    "uploadedAt": "2026-08-06T12:25:10",
+    "updatedAt": "2026-08-10T13:09:51.855Z"
   }
 ]

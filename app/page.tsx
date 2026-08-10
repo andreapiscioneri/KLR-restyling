@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { HomePage, type HomeStats, type HomeStudies } from "./_home";
-import { getStats, getStudies, getPages, getBrands } from "@/lib/content";
+import { getStats, getPublishedStudies, getPages, getBrands } from "@/lib/content";
 
 export const revalidate = 60;
 
@@ -34,7 +34,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  const [stats, studies, pages, brands] = await Promise.all([getStats(), getStudies(), getPages(), getBrands()]);
+  const [stats, studies, pages, brands] = await Promise.all([getStats(), getPublishedStudies(), getPages(), getBrands()]);
   return (
     <HomePage
       initialStats={stats as HomeStats | undefined}

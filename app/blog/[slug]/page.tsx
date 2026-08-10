@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPosts, getColors } from "@/lib/content";
+import { getAdminSessionUser } from "@/lib/admin-auth";
 import { BlogDetailClient } from "./_client";
 
 export const dynamicParams = true;
@@ -20,11 +21,22 @@ type BlogPost = {
   contentHtml?: string;
   authorName?: string;
   authorAvatar?: string;
+  status?: string;
+  publicPreview?: boolean;
 };
 
-async function loadPosts(): Promise<BlogPost[]> {
-  const posts = (await getPosts()) as BlogPost[] | null;
-  return posts ?? [];
+// Drafts are visible via ?preview=1 either to a logged-in admin, or to
+// anyone when the item's own "public preview" flag is enabled (a
+// shareable review link, matching the old WordPress workflow).
+async function loadPosts(preview = false): Promise<BlogPost[]> {
+  const all = ((await getPosts()) as BlogPost[] | null) ?? [];
+  if (!preview) return all.filter((p) => p.status !== "draft" && p.status !== "deleted");
+  const isAdmin = Boolean(await getAdminSessionUser());
+  return all.filter((p) => {
+    if (p.status === "deleted") return false;
+    if (p.status !== "draft") return true;
+    return isAdmin || p.publicPreview === true;
+  });
 }
 
 export async function generateStaticParams() {
@@ -32,8 +44,8 @@ export async function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const posts = await loadPosts();
+export async function generateMetadata({ params, searchParams }: { params: { slug: string }; searchParams: { preview?: string } }): Promise<Metadata> {
+  const posts = await loadPosts(searchParams.preview === "1");
   const post = posts.find((p) => p.slug === params.slug);
   if (!post) {
     notFound();
@@ -64,8 +76,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const posts = await loadPosts();
+export default async function Page({ params, searchParams }: { params: { slug: string }; searchParams: { preview?: string } }) {
+  const posts = await loadPosts(searchParams.preview === "1");
   const post = posts.find((p) => p.slug === params.slug);
   if (!post) {
     notFound();

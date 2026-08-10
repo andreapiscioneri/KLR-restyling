@@ -1,5 +1,6 @@
 "use client";
 import { ArrowUpRight } from "lucide-react";
+import { trackEvent } from "@/components/layout/SiteAnalytics";
 
 export const hairline = "border border-black/5";
 export const softShadow = { boxShadow: "0 40px 100px -40px rgba(46,39,132,0.18)" };
@@ -59,7 +60,7 @@ export function CTA({
       : { bg: "bg-[#2E2784] text-white hover:bg-[#F8AE01] hover:text-black", chip: "bg-white/15" };
   return (
     <button
-      onClick={onClick}
+      onClick={() => { trackEvent("cta_click", label); onClick?.(); }}
       className={`group inline-flex items-center gap-3 ${cfg.bg} rounded-full pl-5 pr-2 py-2 transition-all duration-500 tracking-tight`}
       style={{ fontSize: "0.9rem" }}
     >

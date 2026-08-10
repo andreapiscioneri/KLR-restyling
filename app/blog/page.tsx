@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { BlogClient } from "./_client";
-import { getPosts, getPages } from "@/lib/content";
+import { getPublishedPosts, getPages } from "@/lib/content";
 
 export const revalidate = 60;
 
@@ -34,7 +34,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  const [posts, pages] = await Promise.all([getPosts(), getPages()]);
+  const [posts, pages] = await Promise.all([getPublishedPosts(), getPages()]);
   const hero = (pages as Record<string, unknown>)?.blog as { hero?: unknown } | undefined;
   return (
     <BlogClient
