@@ -110,5 +110,117 @@
     "path": "/admin/login",
     "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
     "loggedAt": "2026-08-10T18:48:25.352Z"
+  },
+  {
+    "id": "dd709908-958f-4b35-be14-8720e38ebe68",
+    "level": "silver",
+    "duration": "1m",
+    "categories": {
+      "basic": true,
+      "content": false,
+      "optimization": false,
+      "ads": false
+    },
+    "consentedAt": "2026-08-10T22:12:56.998Z",
+    "expiresAt": "2026-09-10T22:12:56.998Z",
+    "path": "/",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
+    "loggedAt": "2026-08-10T22:12:57.245Z"
+  },
+  {
+    "id": "f61ed192-ff20-42bf-a0af-9fbad80fd3fc",
+    "level": "silver",
+    "duration": "1m",
+    "categories": {
+      "basic": true,
+      "content": false,
+      "optimization": false,
+      "ads": false
+    },
+    "consentedAt": "2026-08-10T22:17:03.244Z",
+    "expiresAt": "2026-09-10T22:17:03.244Z",
+    "path": "/admin/login",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
+    "loggedAt": "2026-08-10T22:17:03.399Z"
+  },
+  {
+    "id": "65c54f20-ffb1-4019-aff0-ef5af4f9fc36",
+    "level": "silver",
+    "duration": "1m",
+    "categories": {
+      "basic": true,
+      "content": false,
+      "optimization": false,
+      "ads": false
+    },
+    "consentedAt": "2026-08-10T22:18:52.042Z",
+    "expiresAt": "2026-09-10T22:18:52.042Z",
+    "path": "/admin/dashboard",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
+    "loggedAt": "2026-08-10T22:18:52.169Z"
+  },
+  {
+    "id": "793f900b-75d3-4bf2-b855-eb1808a4088f",
+    "level": "silver",
+    "duration": "1m",
+    "categories": {
+      "basic": true,
+      "content": false,
+      "optimization": false,
+      "ads": false
+    },
+    "consentedAt": "2026-08-10T22:22:58.979Z",
+    "expiresAt": "2026-09-10T22:22:58.980Z",
+    "path": "/admin/dashboard",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
+    "loggedAt": "2026-08-10T22:22:58.998Z"
+  },
+  {
+    "id": "9df9d086-c246-4e60-b0a3-f40ec25431ca",
+    "level": "silver",
+    "duration": "1m",
+    "categories": {
+      "basic": true,
+      "content": false,
+      "optimization": false,
+      "ads": false
+    },
+    "consentedAt": "2026-08-10T22:23:06.293Z",
+    "expiresAt": "2026-09-10T22:23:06.293Z",
+    "path": "/admin/dashboard",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
+    "loggedAt": "2026-08-10T22:23:06.310Z"
+  },
+  {
+    "id": "450cea6c-0bd6-4cb6-bb73-d0d18a556c6a",
+    "level": "silver",
+    "duration": "1m",
+    "categories": {
+      "basic": true,
+      "content": false,
+      "optimization": false,
+      "ads": false
+    },
+    "consentedAt": "2026-08-10T22:23:13.611Z",
+    "expiresAt": "2026-09-10T22:23:13.611Z",
+    "path": "/admin/dashboard",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
+    "loggedAt": "2026-08-10T22:23:13.628Z"
+  },
+  {
+    "id": "54bfae29-766d-4bf4-812b-feaebb3a1f25",
+    "level": "silver",
+    "duration": "1m",
+    "categories": {
+      "basic": true,
+      "content": false,
+      "optimization": false,
+      "ads": false
+    },
+    "consentedAt": "2026-08-10T22:23:20.876Z",
+    "expiresAt": "2026-09-10T22:23:20.876Z",
+    "path": "/admin/dashboard",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
+    "loggedAt": "2026-08-10T22:23:20.890Z"
   }
 ]
