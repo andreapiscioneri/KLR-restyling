@@ -2436,7 +2436,7 @@ function StudiesEditor   ({ data, brands, users, currentUser, onSave }: { data:S
       ].filter(Boolean).map(txt => `<p>${txt}</p>`).join(""),
     })}
     optionsMap={{ cat: sectorOptions, brand: brandOptions }}
-    blank={{id:"",title:"",client:"",year:String(new Date().getFullYear()),location:"",img:"",summary:"",cat:"retail",brand:"",results:[],details:STUDY_BLANK_DETAILS,status:"published",publicPreview:false,cornerstone:false,authorName:author?.name ?? currentUser.name,authorAvatar:author?.avatar ?? "",publishedAt:new Date().toISOString().slice(0,10)}}
+    blank={{id:"",title:"",client:"",year:String(new Date().getFullYear()),location:"",img:"",summary:"",cat:"retail",brand:"",results:[],details:STUDY_BLANK_DETAILS,status:"draft",publicPreview:false,cornerstone:false,authorName:author?.name ?? currentUser.name,authorAvatar:author?.avatar ?? "",publishedAt:new Date().toISOString().slice(0,10)}}
     extra={(form, setForm) => {
       const results: StudyResult[] = form.results ?? [];
       const details: StudyDetails  = { ...STUDY_BLANK_DETAILS, ...(form.details ?? {}) };
@@ -3025,6 +3025,10 @@ function ListEditor<T extends Record<string, unknown>>({
     const updated = items.map((item, i) => i === idx ? { ...item, status: "published" } : item);
     setItems(updated); onSave(updated);
   }
+  function publish(idx: number) {
+    const updated = items.map((item, i) => i === idx ? { ...item, status: "published" } : item);
+    setItems(updated); onSave(updated);
+  }
   function permanentlyDelete(idx: number) {
     ask({
       title: `Eliminare definitivamente "${String(items[idx][nameKey] || title)}"?`,
@@ -3152,19 +3156,23 @@ function ListEditor<T extends Record<string, unknown>>({
         <EmptyState icon={Plus} title={`Nessun ${title.toLowerCase()} ancora`}
           description={`Questa lista è vuota: aggiungi il primo ${title.toLowerCase()} per farlo comparire sul sito.`}
           actionLabel={t.common.addItem.replace("{item}", title)} onAction={add}/>
-      ) : filtered.length === 0 ? (
-        <div style={{ padding:"32px 0",textAlign:"center",color:"#999",fontSize:13 }}>
-          {query.trim() ? <>Nessun risultato per &quot;{query}&quot;.</> : `Nessun elemento in questa scheda.`}
-        </div>
       ) : (
         <>
-          {items.length > 8 && (
-            <div style={{ position:"relative",marginBottom:14,maxWidth:320 }}>
-              <Search size={14} style={{ position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",color:"#bbb" }}/>
-              <input value={query} onChange={e => setQuery(e.target.value)} placeholder={t.common.searchByName}
-                style={{ width:"100%",boxSizing:"border-box",padding:"9px 12px 9px 34px",border:"1.5px solid #E8E8F0",borderRadius:9,fontSize:13,background:"#FAFAFA",outline:"none" }}/>
+          <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",gap:12,marginBottom:14,flexWrap:"wrap" }}>
+            {items.length > 8 ? (
+              <div style={{ position:"relative",maxWidth:320,flex:1,minWidth:200 }}>
+                <Search size={14} style={{ position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",color:"#bbb" }}/>
+                <input value={query} onChange={e => setQuery(e.target.value)} placeholder={t.common.searchByName}
+                  style={{ width:"100%",boxSizing:"border-box",padding:"9px 12px 9px 34px",border:"1.5px solid #E8E8F0",borderRadius:9,fontSize:13,background:"#FAFAFA",outline:"none" }}/>
+              </div>
+            ) : <div/>}
+            <Button icon={Plus} onClick={add}>{t.common.addItem.replace("{item}", title)}</Button>
+          </div>
+          {filtered.length === 0 ? (
+            <div style={{ padding:"32px 0",textAlign:"center",color:"#999",fontSize:13 }}>
+              {query.trim() ? <>Nessun risultato per &quot;{query}&quot;.</> : `Nessun elemento in questa scheda.`}
             </div>
-          )}
+          ) : (
           <div style={{ display:"grid",gap:10,marginBottom:16 }}>
             {filtered.map((item) => {
               const idx = items.indexOf(item);
@@ -3200,6 +3208,9 @@ function ListEditor<T extends Record<string, unknown>>({
                             <Eye size={14}/>{t.common.preview}
                           </a>
                         )}
+                        {item.status === "draft" && (
+                          <Button variant="secondary" icon={CheckCircle} onClick={() => publish(idx)}>{t.common.publish ?? "Pubblica"}</Button>
+                        )}
                         <Button variant="secondary" onClick={() => open(idx)}>{t.common.edit}</Button>
                         <Button variant="danger" icon={Trash2} onClick={() => del(idx)}>{t.common.delete}</Button>
                       </>
@@ -3209,7 +3220,7 @@ function ListEditor<T extends Record<string, unknown>>({
               );
             })}
           </div>
-          <Button icon={Plus} onClick={add}>{t.common.addItem.replace("{item}", title)}</Button>
+          )}
         </>
       )}
       {dialog}
