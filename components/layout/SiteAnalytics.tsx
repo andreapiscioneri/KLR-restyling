@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { useConsentCategories } from "@/components/layout/CookieConsent";
 import { readConsent } from "@/lib/cookie-consent";
 
 const SESSION_KEY = "klr_analytics_sid";
@@ -76,14 +75,15 @@ export function trackEvent(type: "cta_click", label: string) {
   }
 }
 
+// Basic pageview counting runs regardless of cookie consent: it uses a
+// per-tab sessionStorage id (not a persistent cookie) and no cross-site
+// identifiers, so it isn't gated behind the "optimization" consent category.
 export function SiteAnalytics() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const categories = useConsentCategories();
   const lastTracked = useRef<string | null>(null);
 
   useEffect(() => {
-    if (!categories?.optimization) return;
     captureAttribution(searchParams);
     const query = searchParams?.toString();
     const path = query ? `${pathname}?${query}` : pathname;
@@ -101,7 +101,7 @@ export function SiteAnalytics() {
       }),
       keepalive: true,
     }).catch(() => {});
-  }, [pathname, searchParams, categories?.optimization]);
+  }, [pathname, searchParams]);
 
   return null;
 }
