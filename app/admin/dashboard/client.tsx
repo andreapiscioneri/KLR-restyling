@@ -18,6 +18,7 @@ import klrLogo from "@/src/imports/KLR-Logosito.png";
 import { analyzeContent, analyzeAccessibility, trafficLight, TRAFFIC_LIGHT_COLOR, TRAFFIC_LIGHT_LABEL, type ContentCheck, type AnalyzeInput } from "@/lib/seo-analyzer";
 import { AdminI18nProvider, useAdminI18n } from "@/lib/admin-i18n";
 import { LanguageSwitcher } from "@/components/admin/LanguageSwitcher";
+import { AuthorAvatar } from "@/src/app/components/author-avatar";
 
 const ADMIN_INTL_LOCALE: Record<"it" | "en" | "ru", string> = {
   it: "it-IT",
@@ -160,9 +161,9 @@ type StudyDetails = {
   rewardGroups:StudyRewardGroup[];activations:string[];mechanics:string[];
   gallery:string[];social:string[];videos:string[];
 };
-type StudyItem    = { id:string;title:string;client:string;year:string;location:string;img:string;summary:string;cat:string;brand:string;results:StudyResult[];details:StudyDetails;status?:"published"|"draft"|"deleted";publicPreview?:boolean;cornerstone?:boolean;focusKeyword?:string };
+type StudyItem    = { id:string;title:string;client:string;year:string;location:string;img:string;summary:string;cat:string;brand:string;results:StudyResult[];details:StudyDetails;status?:"published"|"draft"|"deleted";publicPreview?:boolean;cornerstone?:boolean;focusKeyword?:string;authorName?:string;authorAvatar?:string;publishedAt?:string };
 type PostItem     = { id:number;slug:string;title:string;date:string;excerpt:string;img:string;category:string;contentHtml?:string;authorName?:string;authorAvatar?:string;status?:"published"|"draft"|"deleted";publicPreview?:boolean;cornerstone?:boolean;focusKeyword?:string };
-type UserItem     = { id:string;name:string;email:string;password?:string;role:string;hasPassword?:boolean };
+type UserItem     = { id:string;name:string;email:string;password?:string;role:string;hasPassword?:boolean;avatar?:string };
 type PositionItem = { id:string;role:string;loc:string;description:string };
 type NavLinkItem  = { href:string;label:string;sub?:{href:string;label:string}[] };
 type BlockType    = "text" | "image" | "cta";
@@ -394,8 +395,8 @@ function AdminDashboardInner({ currentUser }: { currentUser: AdminUser }) {
           {section === "stats"       && <StatsEditor      data={stats}       onSave={d => { setStats(d);                          save("stats",       d); }} />}
           {section === "brands"      && <BrandsEditor     data={brands}      onSave={d => { setBrands(d);                         save("brands",      d); }} />}
           {section === "leadership"  && <LeadershipEditor data={leadership}  onSave={d => { setLeadership(d);                     save("leadership",  d); }} />}
-          {section === "studies"     && <StudiesEditor    data={studies}     brands={brands} onSave={d => { setStudies(d);                        save("studies",     d); }} />}
-          {section === "posts"       && <PostsEditor      data={posts}       onSave={d => { setPosts(d);                          save("posts",       d); }} />}
+          {section === "studies"     && <StudiesEditor    data={studies}     brands={brands} users={users} currentUser={currentUser} onSave={d => { setStudies(d);                        save("studies",     d); }} />}
+          {section === "posts"       && <PostsEditor      data={posts}       users={users} currentUser={currentUser} onSave={d => { setPosts(d);                          save("posts",       d); }} />}
           {section === "positions"   && <PositionsEditor  data={positions}   onSave={d => { setPositions(d);                      save("positions",   d); }} />}
           {section === "customPages" && <CustomPagesEditor data={customPages} onSave={d => { setCustomPages(d);                   save("customPages", d); }} />}
           {section === "pages"       && <PagesEditor      data={pages}       onSave={d => { setPages(d as PagesData);             save("pages",       d); }} />}
@@ -592,13 +593,14 @@ function useImageUpload(onUrl: (url: string) => void) {
 /* ══════════════════════════════════════════════════
    IMAGE FIELD with UPLOAD BUTTON
 ══════════════════════════════════════════════════ */
-function ImageField({ value, onChange, label }: { value: string; onChange: (v: string) => void; label: string }) {
+function ImageField({ value, onChange, label, avatarName }: { value: string; onChange: (v: string) => void; label: string; avatarName?: string }) {
   const { open, uploading, uploadError, inputEl } = useImageUpload(onChange);
   const { t } = useAdminI18n();
   return (
     <Field label={label} full>
       {inputEl}
       <div style={{ display:"flex",gap:8,alignItems:"center" }}>
+        {avatarName !== undefined && !value && <AuthorAvatar name={avatarName} size={40}/>}
         <Input value={value} onChange={onChange} />
         <button type="button" onClick={open}
           style={{ flexShrink:0,display:"flex",alignItems:"center",gap:6,padding:"9px 14px",background:uploading?"#ddd":"#2E2784",color:"#fff",border:"none",borderRadius:9,fontSize:12,fontWeight:600,cursor:uploading?"not-allowed":"pointer",whiteSpace:"nowrap",transition:"all 0.15s" }}
@@ -2379,6 +2381,8 @@ const STUDY_FIELDS:    FieldDef[] = [
   {key:"year",label:"Anno",type:"text"},{key:"location",label:"Paese",type:"text"},
   {key:"img",label:"Immagine (URL)",type:"url"},
   {key:"summary",label:"Sommario",type:"textarea"},
+  {key:"publishedAt",label:"Data pubblicazione (YYYY-MM-DD)",type:"text"},
+  {key:"authorName",label:"Autore",type:"text"},{key:"authorAvatar",label:"Avatar autore (URL)",type:"url"},
   {key:"focusKeyword",label:"Parola chiave SEO (focus keyword)",type:"text"},
   {key:"status",label:"Stato",type:"select",options:["published","draft"]},
   {key:"publicPreview",label:"Anteprima pubblica",type:"checkbox",checkboxLabel:"Consenti anteprima senza login (link condivisibile per revisione bozza)"},
@@ -2398,6 +2402,7 @@ const POST_FIELDS:     FieldDef[] = [
 const USER_FIELDS:     FieldDef[] = [
   {key:"id",label:"Username / ID",type:"text"},{key:"name",label:"Nome Completo",type:"text"},
   {key:"email",label:"Email",type:"email"},
+  {key:"avatar",label:"Foto Profilo (URL)",type:"url"},
   {key:"password",label:"Password (lascia vuoto per non cambiare)",type:"password"},
   {key:"role",label:"Ruolo",type:"select",options:["superadmin","admin","editor"]},
 ];
@@ -2407,10 +2412,10 @@ const POSITION_FIELDS: FieldDef[] = [
 ];
 
 function BrandsEditor    ({ data, onSave }: { data:BrandItem[]|null;    onSave:(d:BrandItem[])=>void })    { const { t } = useAdminI18n(); return <ListEditor<BrandItem>    title={t.entityName.brand}  data={data} fields={translateFields(BRAND_FIELDS, t.itemField.brand)}    nameKey="name"  imgKey="img" onSave={onSave} blank={{id:"",name:"",tag:"",img:"",since:"",campaigns:"",countries:"",desc:""}}/>; }
-function UsersEditor     ({ data, onSave }: { data:UserItem[]|null;     onSave:(d:UserItem[])=>void })     { const { t } = useAdminI18n(); return <ListEditor<UserItem>     title={t.entityName.user}   data={data} fields={translateFields(USER_FIELDS, t.itemField.user)}     nameKey="name"  imgKey=""    onSave={onSave} blank={{id:"",name:"",email:"",password:"",role:"editor"}}/>; }
+function UsersEditor     ({ data, onSave }: { data:UserItem[]|null;     onSave:(d:UserItem[])=>void })     { const { t } = useAdminI18n(); return <ListEditor<UserItem>     title={t.entityName.user}   data={data} fields={translateFields(USER_FIELDS, t.itemField.user)}     nameKey="name"  imgKey="avatar" avatarFallback onSave={onSave} blank={{id:"",name:"",email:"",avatar:"",password:"",role:"editor"}}/>; }
 function LeadershipEditor({ data, onSave }: { data:LeaderItem[]|null;   onSave:(d:LeaderItem[])=>void })   { const { t } = useAdminI18n(); return <ListEditor<LeaderItem>   title={t.entityName.leader} data={data} fields={translateFields(LEADER_FIELDS, t.itemField.leader)}   nameKey="name"  imgKey="img" onSave={onSave} blank={{id:"",name:"",role:"",img:"",bio:"",quote:""}}/>; }
 const STUDY_BLANK_DETAILS: StudyDetails = { sourceUrl:"",campaignTitle:"",challenge:"",rewardGroups:[],activations:[],mechanics:[],gallery:[],social:[],videos:[] };
-function StudiesEditor   ({ data, brands, onSave }: { data:StudyItem[]|null; brands:BrandItem[]|null; onSave:(d:StudyItem[])=>void })    {
+function StudiesEditor   ({ data, brands, users, currentUser, onSave }: { data:StudyItem[]|null; brands:BrandItem[]|null; users:UserItem[]|null; currentUser:AdminUser; onSave:(d:StudyItem[])=>void })    {
   const { t } = useAdminI18n();
   const sd = t.studyDetail;
   const sectorOptions = Array.from(new Set([...SECTOR_OPTIONS, ...(data ?? []).map(s => s.cat).filter(Boolean)]));
@@ -2418,6 +2423,7 @@ function StudiesEditor   ({ data, brands, onSave }: { data:StudyItem[]|null; bra
     ...(brands ?? []).map(b => b.name),
     ...(data ?? []).map(s => s.brand),
   ].filter(Boolean)));
+  const author = users?.find(u => u.id === currentUser.id || u.email === currentUser.email);
   return <ListEditor<StudyItem>
     title={t.entityName.study} data={data} fields={translateFields(STUDY_FIELDS, t.itemField.study)} nameKey="title" imgKey="img" onSave={onSave}
     withStatusTabs dateKey="year" previewUrl={s => `/work/${s.id}?preview=1`}
@@ -2430,7 +2436,7 @@ function StudiesEditor   ({ data, brands, onSave }: { data:StudyItem[]|null; bra
       ].filter(Boolean).map(txt => `<p>${txt}</p>`).join(""),
     })}
     optionsMap={{ cat: sectorOptions, brand: brandOptions }}
-    blank={{id:"",title:"",client:"",year:String(new Date().getFullYear()),location:"",img:"",summary:"",cat:"retail",brand:"",results:[],details:STUDY_BLANK_DETAILS,status:"published",publicPreview:false,cornerstone:false}}
+    blank={{id:"",title:"",client:"",year:String(new Date().getFullYear()),location:"",img:"",summary:"",cat:"retail",brand:"",results:[],details:STUDY_BLANK_DETAILS,status:"published",publicPreview:false,cornerstone:false,authorName:author?.name ?? currentUser.name,authorAvatar:author?.avatar ?? "",publishedAt:new Date().toISOString().slice(0,10)}}
     extra={(form, setForm) => {
       const results: StudyResult[] = form.results ?? [];
       const details: StudyDetails  = { ...STUDY_BLANK_DETAILS, ...(form.details ?? {}) };
@@ -2465,9 +2471,12 @@ function StudiesEditor   ({ data, brands, onSave }: { data:StudyItem[]|null; bra
     }}
   />;
 }
-function PostsEditor     ({ data, onSave }: { data:PostItem[]|null;     onSave:(d:PostItem[])=>void })     { const { t } = useAdminI18n(); return <ListEditor<PostItem>     title={t.entityName.post} data={data} fields={translateFields(POST_FIELDS, t.itemField.post)}     nameKey="title" imgKey="img" onSave={onSave} withStatusTabs dateKey="date" previewUrl={p => `/blog/${p.slug}?preview=1`}
+function PostsEditor     ({ data, users, currentUser, onSave }: { data:PostItem[]|null; users:UserItem[]|null; currentUser:AdminUser; onSave:(d:PostItem[])=>void })     {
+  const { t } = useAdminI18n();
+  const author = users?.find(u => u.id === currentUser.id || u.email === currentUser.email);
+  return <ListEditor<PostItem>     title={t.entityName.post} data={data} fields={translateFields(POST_FIELDS, t.itemField.post)}     nameKey="title" imgKey="img" onSave={onSave} withStatusTabs dateKey="date" previewUrl={p => `/blog/${p.slug}?preview=1`}
     seoInput={p => ({ title:p.title, description:p.excerpt, slug:p.slug, hasImage:Boolean(p.img), contentHtml:p.contentHtml||"", focusKeyword:p.focusKeyword })}
-    blank={{id:Date.now(),slug:"",title:"",date:new Date().toISOString().slice(0,10),excerpt:"",img:"",category:"Loyalty Marketing",status:"published",publicPreview:false,cornerstone:false}}
+    blank={{id:Date.now(),slug:"",title:"",date:new Date().toISOString().slice(0,10),excerpt:"",img:"",category:"Loyalty Marketing",status:"draft",publicPreview:false,cornerstone:false,authorName:author?.name ?? currentUser.name,authorAvatar:author?.avatar ?? ""}}
   extra={(form, setForm) => <SeoScorePanel title={form.title||""} description={form.excerpt||""} contentHtml={form.contentHtml||""} slug={form.slug||""} hasImage={Boolean(form.img)}
     focusKeyword={form.focusKeyword||""} onChangeFocusKeyword={v => setForm((p:any) => ({...p, focusKeyword:v}))} urlPrefix="blog/"/>}
 />; }
@@ -2928,7 +2937,7 @@ function AccessibilityPanel({ posts, studies }: { posts: PostItem[]|null; studie
 }
 
 function ListEditor<T extends Record<string, unknown>>({
-  title, data, fields, nameKey, imgKey, onSave, blank, extra, optionsMap, withStatusTabs, dateKey, previewUrl, seoInput,
+  title, data, fields, nameKey, imgKey, onSave, blank, extra, optionsMap, withStatusTabs, dateKey, previewUrl, seoInput, avatarFallback,
 }: {
   title:string; data:T[]|null; fields:FieldDef[]; nameKey:string; imgKey:string;
   onSave:(d:T[])=>void; blank:T;
@@ -2938,6 +2947,7 @@ function ListEditor<T extends Record<string, unknown>>({
   dateKey?: string;
   previewUrl?: (item:T) => string;
   seoInput?: (item:T) => AnalyzeInput;
+  avatarFallback?: boolean;
 }) {
   const [items,   setItems]   = useState<T[]>([]);
   const [editing, setEditing] = useState<number|null>(null);
@@ -3042,10 +3052,11 @@ function ListEditor<T extends Record<string, unknown>>({
   // Most recently added first (new items are appended to the array), or by
   // an explicit date field when provided, honoring the newest/oldest toggle.
   const sorted = !withStatusTabs ? bySearch : dateKey
-    ? [...bySearch].sort((a, b) => {
-        const diff = new Date(String(a[dateKey] ?? "")).getTime() - new Date(String(b[dateKey] ?? "")).getTime();
-        return sortOrder === "newest" ? -diff : diff;
-      })
+    ? bySearch.map((item, i) => ({ item, i })).sort((a, b) => {
+        const diff = new Date(String(a.item[dateKey] ?? "")).getTime() - new Date(String(b.item[dateKey] ?? "")).getTime();
+        if (diff !== 0) return sortOrder === "newest" ? -diff : diff;
+        return sortOrder === "newest" ? b.i - a.i : a.i - b.i;
+      }).map(({ item }) => item)
     : sortOrder === "newest" ? [...bySearch].reverse() : bySearch;
   const filtered = sorted;
   const counts = !withStatusTabs ? null : {
@@ -3069,7 +3080,8 @@ function ListEditor<T extends Record<string, unknown>>({
             <Grid>
               {fields.map((f,i) => (
                 f.type === "url" ? (
-                  <ImageField key={f.key} value={form[f.key]||""} onChange={v => setForm(p => ({...p,[f.key]:v}))} label={f.label}/>
+                  <ImageField key={f.key} value={form[f.key]||""} onChange={v => setForm(p => ({...p,[f.key]:v}))} label={f.label}
+                    avatarName={avatarFallback && f.key === imgKey ? String(form[nameKey]||"") : undefined}/>
                 ) :
                 <Field key={f.key} label={f.label} full={f.type === "richtext" || f.type.startsWith("textarea")}
                   required={i === 0} error={i === 0 && nameMissing ? t.common.requiredField : undefined}>
@@ -3158,7 +3170,9 @@ function ListEditor<T extends Record<string, unknown>>({
               const idx = items.indexOf(item);
               return (
                 <div key={idx} style={{ background:"#fff",borderRadius:14,padding:"14px 18px",boxShadow:"0 1px 4px rgba(0,0,0,0.06)",display:"flex",alignItems:"center",gap:14,flexWrap:"wrap" }}>
-                  {imgKey && item[imgKey]
+                  {avatarFallback
+                    ? <AuthorAvatar src={imgKey ? String(item[imgKey]||"") : ""} name={String(item[nameKey]||"")} size={52}/>
+                    : imgKey && item[imgKey]
                     ? <img src={String(item[imgKey])} alt="" style={{ width:52,height:52,objectFit:"cover",borderRadius:10,flexShrink:0 }}/>
                     : imgKey ? <div style={{ width:52,height:52,background:"#F5F5FA",borderRadius:10,flexShrink:0 }}/> : null
                   }

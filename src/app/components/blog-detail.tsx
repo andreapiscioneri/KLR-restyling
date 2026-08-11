@@ -2,6 +2,7 @@
 
 import { ArrowUpRight, Target } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { AuthorAvatar } from "./author-avatar";
 import { Eyebrow } from "./ui-bits";
 import { fallbackPosts, type Post } from "../data";
 import { PageHero } from "./page-hero";
@@ -194,19 +195,13 @@ export function BlogDetail({ slug, go, initialPost, initialOthers }: BlogDetailP
             
             {/* Left: Author Profilo */}
             <div className="lg:w-1/3 p-10 md:p-14 flex flex-col items-center justify-center text-center" style={{ background: COLORS.purpleBox }}>
-              <div
-                className="w-32 h-32 rounded-full border-4 border-[#F8AE01] overflow-hidden mb-6 flex items-center justify-center"
-                style={!post.authorAvatar ? { background: COLORS.navy } : undefined}
-              >
-                <img
-                  src={post.authorAvatar || "/klr-logo.png"}
-                  alt={post.authorName}
-                  className={post.authorAvatar ? "w-full h-full object-cover" : "w-[70%] h-[70%] object-contain"}
-                />
+              <div className="w-32 h-32 rounded-full border-4 border-[#F8AE01] overflow-hidden mb-6 flex items-center justify-center">
+                <AuthorAvatar src={post.authorAvatar} name={post.authorName} size={128} />
               </div>
               <div className="text-white/50 font-bold tracking-[0.2em] uppercase text-xs mb-2">Author</div>
               {/* MODIFICA: Nome Autore Giallo Oro */}
               <h3 className="text-[#F8AE01] text-xl md:text-3xl font-black tracking-tight leading-none mb-4">{post.authorName}</h3>
+              {post.date && <div className="text-white/60 text-sm tracking-tight">{post.date}</div>}
             </div>
 
             {/* Right: Overview/Estratto (Giallo) */}

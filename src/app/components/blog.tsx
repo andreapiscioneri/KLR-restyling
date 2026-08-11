@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ArrowUpRight, ArrowDownUp, Search, X } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { AuthorAvatar } from "./author-avatar";
 import { softShadow } from "./ui-bits";
 import { fallbackPosts, images, type Post } from "../data";
 import { PageHero } from "./page-hero";
@@ -49,7 +50,7 @@ function toInsightPost(p: Post): InsightPost {
 }
 
 type BlogHeroData = { eyebrow?: string; title?: string; subtitle?: string; _visible?: boolean };
-type RawPost = { id: number | string; slug: string; title: string; date: string; excerpt?: string; img?: string; category?: string; contentHtml?: string };
+type RawPost = { id: number | string; slug: string; title: string; date: string; excerpt?: string; img?: string; category?: string; contentHtml?: string; authorName?: string; authorAvatar?: string };
 
 function toInsightPostFromCms(p: RawPost): InsightPost {
   return {
@@ -58,12 +59,12 @@ function toInsightPostFromCms(p: RawPost): InsightPost {
     title: p.title,
     date: p.date,
     excerpt: p.excerpt || "",
-    img: p.img || images.human,
+    img: p.img || "",
     link: `/blog/${p.slug}`,
     category: p.category || "KLR Life",
     normalizedCategory: normalizeCategory(p.category || ""),
-    authorName: "KLR Editorial Team",
-    authorAvatar: images.teamPhoto,
+    authorName: p.authorName || "KLR Editorial Team",
+    authorAvatar: p.authorAvatar || "",
     readingTime: estimateReadingTime(p.contentHtml || p.excerpt || ""),
   };
 }
@@ -146,7 +147,7 @@ export function Blog({ go, initialPosts, initialHero }: BlogProps) {
                   </p>
 
                   <div className="mt-6 flex items-center gap-3">
-                    <img src={featured.authorAvatar} alt={featured.authorName} className="w-9 h-9 rounded-full object-cover border border-[#2E2784]/20" />
+                    <AuthorAvatar src={featured.authorAvatar} name={featured.authorName} size={36} />
                     <div className="text-[#2E2784]/70 tracking-tight" style={{ fontSize: "0.82rem" }}>
                       {featured.authorName} · {featured.readingTime} · {featured.date}
                     </div>
@@ -264,7 +265,7 @@ export function Blog({ go, initialPosts, initialHero }: BlogProps) {
                   </div>
 
                   <div className="mt-4 flex items-center gap-3">
-                    <img src={p.authorAvatar} alt={p.authorName} className="w-8 h-8 rounded-full object-cover border border-white/15" />
+                    <AuthorAvatar src={p.authorAvatar} name={p.authorName} size={32} />
                     <div className="text-white/65 tracking-tight" style={{ fontSize: "0.78rem" }}>
                       {p.authorName} · {p.readingTime}
                     </div>

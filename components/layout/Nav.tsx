@@ -140,6 +140,11 @@ export function Nav({ initialLinks, initialCtaLabel, initialCtaHref, logoUrl }: 
         <div className="flex items-center gap-2">
           <Link
             href="/admin"
+            prefetch={false}
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = "/admin";
+            }}
             className="p-2 rounded-xl transition-all text-white/40 hover:text-white/70"
             style={{ background: "rgba(255,255,255,0.04)" }}
             aria-label="Admin"

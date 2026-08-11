@@ -57,10 +57,13 @@ export function Studies({ go, initialStudies, initialPageData }: StudiesProps) {
       const searchMatch = !q || [s.title, s.client, s.brand, s.location, s.summary].some((v) => v.toLowerCase().includes(q));
       return sectorMatch && brandMatch && searchMatch;
     })
+    .map((s, i) => ({ s, i }))
     .sort((a, b) => {
-      const diff = (parseInt(a.year, 10) || 0) - (parseInt(b.year, 10) || 0);
-      return sortOrder === "newest" ? -diff : diff;
-    });
+      const diff = (parseInt(a.s.year, 10) || 0) - (parseInt(b.s.year, 10) || 0);
+      if (diff !== 0) return sortOrder === "newest" ? -diff : diff;
+      return sortOrder === "newest" ? b.i - a.i : a.i - b.i;
+    })
+    .map(({ s }) => s);
 
   return (
     <>

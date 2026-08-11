@@ -2,6 +2,7 @@
 
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { AuthorAvatar } from "./author-avatar";
 import { Eyebrow, softShadow } from "./ui-bits";
 import { studies as fallbackStudies, brands as fallbackBrands } from "../data";
 import { PageHero } from "./page-hero";
@@ -94,6 +95,14 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
           <span className="text-white/55">|</span>
           <span>{s.brand}</span>
         </div>
+        {(s as any).authorName && (
+          <div className="mt-4 flex items-center gap-3">
+            <AuthorAvatar src={(s as any).authorAvatar} name={(s as any).authorName} size={36} />
+            <div className="text-white/70 tracking-tight" style={{ fontSize: "0.82rem" }}>
+              {(s as any).authorName}{(s as any).publishedAt ? ` · ${(s as any).publishedAt}` : ""}
+            </div>
+          </div>
+        )}
       </PageHero>
 
       {/* OVERVIEW + KPI — yellow */}
