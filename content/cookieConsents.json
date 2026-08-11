@@ -222,5 +222,53 @@
     "path": "/admin/dashboard",
     "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
     "loggedAt": "2026-08-10T22:23:20.890Z"
+  },
+  {
+    "id": "a5e302d9-7eb9-4606-adb9-3f8fd9f29bd8",
+    "level": "silver",
+    "duration": "1m",
+    "categories": {
+      "basic": true,
+      "content": false,
+      "optimization": false,
+      "ads": false
+    },
+    "consentedAt": "2026-08-11T12:57:59.281Z",
+    "expiresAt": "2026-09-11T12:57:59.281Z",
+    "path": "/admin/dashboard",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
+    "loggedAt": "2026-08-11T12:57:59.445Z"
+  },
+  {
+    "id": "9b628c69-22ac-4ae4-ba6a-acbc5852bdc0",
+    "level": "silver",
+    "duration": "1m",
+    "categories": {
+      "basic": true,
+      "content": false,
+      "optimization": false,
+      "ads": false
+    },
+    "consentedAt": "2026-08-11T13:01:00.184Z",
+    "expiresAt": "2026-09-11T13:01:00.186Z",
+    "path": "/admin/dashboard",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
+    "loggedAt": "2026-08-11T13:01:00.204Z"
+  },
+  {
+    "id": "3c8f2b3b-3c65-4cca-9fa8-5341f52e0b59",
+    "level": "silver",
+    "duration": "1m",
+    "categories": {
+      "basic": true,
+      "content": false,
+      "optimization": false,
+      "ads": false
+    },
+    "consentedAt": "2026-08-11T13:03:01.943Z",
+    "expiresAt": "2026-09-11T13:03:01.945Z",
+    "path": "/admin/dashboard",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
+    "loggedAt": "2026-08-11T13:03:01.959Z"
   }
 ]
