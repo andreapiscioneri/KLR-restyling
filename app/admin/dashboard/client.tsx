@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import {
   LayoutGrid, FileText, BarChart3, Tags, Users, FolderOpen,
   PenLine, LogOut, Menu, X, Save, ChevronRight, Globe,
@@ -313,7 +314,9 @@ function AdminDashboardInner({ currentUser }: { currentUser: AdminUser }) {
         }}
       >
         <div style={{ padding:"22px 20px 18px",borderBottom:"1px solid rgba(255,255,255,0.08)",display:"flex",alignItems:"center",justifyContent:"space-between" }}>
-          <Image src={klrLogo} alt="KLR" width={96} height={30} style={{ height:24,width:"auto" }} />
+          <Link href="/" aria-label="Torna alla home">
+            <Image src={klrLogo} alt="KLR" width={96} height={30} style={{ height:24,width:"auto" }} />
+          </Link>
           <button className="admin-mobile-bar" onClick={() => setSidebarOpen(false)} aria-label={t.common.closeMenu}
             style={{ background:"rgba(255,255,255,0.1)",border:"none",borderRadius:7,color:"rgba(255,255,255,0.7)",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",width:30,height:30,flexShrink:0 }}>
             <X size={16}/>

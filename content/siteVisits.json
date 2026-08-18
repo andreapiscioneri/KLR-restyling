@@ -1415,5 +1415,44 @@
     "browser": "Chrome",
     "visitedAt": "2026-08-18T11:29:10.341Z",
     "eventType": "pageview"
+  },
+  {
+    "id": "801de3df-2ba1-49a4-bd7f-614161876a68",
+    "path": "/",
+    "sessionId": "1addd893-ed44-439b-9308-0f11f70bc9ce",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T11:34:35.923Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "8dcdb0b3-7f41-48ee-8743-ac02fa5d7519",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "1addd893-ed44-439b-9308-0f11f70bc9ce",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T11:34:38.975Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "d6e27fcc-36e7-466c-8dac-7cea81c5fb09",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/admin/dashboard",
+    "sessionId": "1addd893-ed44-439b-9308-0f11f70bc9ce",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T11:34:43.077Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "a5ea1891-1cb3-4508-8941-41fc37ea1827",
+    "path": "/",
+    "referrer": "http://localhost:3000/admin/dashboard",
+    "sessionId": "1addd893-ed44-439b-9308-0f11f70bc9ce",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T11:34:45.693Z",
+    "eventType": "pageview"
   }
 ]
