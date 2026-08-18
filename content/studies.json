@@ -7,7 +7,7 @@
     "location": "Slovenia",
     "year": "2025",
     "img": "/api/media/wp-4522",
-    "summary": "A 12-week national grocery campaign with experiential activations, premium Oracle Red Bull Racing rewards and a Porsche driving lottery.",
+    "summary": "Discover how SPAR Slovenia and KLR turned everyday grocery shopping into an adrenaline-charged experience. With exclusive rewards, in-store activations, and a Porsche driving experience up for grabs, this 12-week campaign put loyalty in the fast lane.",
     "results": [
       {
         "k": "12",
@@ -72,7 +72,9 @@
       "gallery": [],
       "social": [],
       "videos": [
-        "/api/media/wp-4492"
+        "https://klr-europe.com/wp-content/uploads/2025/07/08222.mov",
+        "https://www.youtube.com/watch?v=tBPr9uuDKxY",
+        "https://www.instagram.com/reel/DKKnLTHqXCH/"
       ],
       "galleryGroups": [
         {
@@ -95,7 +97,8 @@
             "/api/media/wp-4507",
             "/api/media/wp-4508",
             "/api/media/wp-4510",
-            "/api/media/wp-4511"
+            "/api/media/wp-4511",
+            "https://klr-europe.com/wp-content/uploads/2025/07/cover-picture-spar-slovenia-red-bull-klr-europe.png"
           ]
         },
         {
@@ -121,9 +124,13 @@
       ],
       "collectionImage": "/api/media/wp-4485",
       "videoCaptions": [
-        "Website"
+        "Website",
+        "",
+        ""
       ],
       "videoPositions": [
+        "gallery",
+        "opening",
         "gallery"
       ]
     },
@@ -199,7 +206,9 @@
       ],
       "gallery": [],
       "social": [],
-      "videos": [],
+      "videos": [
+        "https://www.instagram.com/p/DM0YEQ2KGw9/"
+      ],
       "galleryGroups": [
         {
           "id": "g5",
@@ -213,7 +222,8 @@
             "/api/media/wp-4663",
             "/api/media/wp-4665",
             "/api/media/wp-4664",
-            "/api/media/wp-4667"
+            "/api/media/wp-4667",
+            "https://klr-europe.com/wp-content/uploads/2025/10/pintinox-bbq-collection-feat-pic.png"
           ]
         },
         {
@@ -232,6 +242,12 @@
           ],
           "feature": true
         }
+      ],
+      "videoPositions": [
+        "gallery"
+      ],
+      "videoCaptions": [
+        ""
       ]
     },
     "publicPreview": false,
@@ -245,7 +261,7 @@
     "location": "Bulgaria",
     "year": "2025",
     "img": "/api/media/wp-4522",
-    "summary": "A 10-week campaign combining collectible Oracle Red Bull Racing rewards, in-store activations and a Porsche 718 Cayman S experience lottery.",
+    "summary": "Discover how KAUFLAND Bulgaria and KLR turned everyday grocery shopping into an adrenaline-charged experience. With exclusive rewards, in-store activations, and a Porsche driving experience up for grabs, this 10-week campaign put loyalty in the fast lane.",
     "results": [
       {
         "k": "10",
@@ -311,9 +327,9 @@
       "gallery": [],
       "social": [],
       "videos": [
+        "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-website.mov",
         "https://youtu.be/3NK17OZW4go",
-        "https://youtu.be/XS2xXQSBc5s",
-        "/api/media/wp-4692"
+        "https://youtu.be/XS2xXQSBc5s"
       ],
       "galleryGroups": [
         {
@@ -372,18 +388,25 @@
             "/api/media/wp-4708",
             "/api/media/wp-4709"
           ]
+        },
+        {
+          "id": "g462238",
+          "title": "Gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2025/07/redbull-spar-collection-loyalty.png"
+          ]
         }
       ],
       "videoCaptions": [
+        "Website",
         "",
-        "",
-        "Website"
+        ""
       ],
       "collectionImage": "/api/media/wp-4501",
       "videoPositions": [
+        "gallery",
         "opening",
-        "opening",
-        "gallery"
+        "opening"
       ],
       "headings": {
         "rewards_title": "Premium Travel Lifestyle Rewards"
@@ -471,6 +494,13 @@
             "/api/media/wp-4421",
             "/api/media/wp-3684"
           ]
+        },
+        {
+          "id": "g514259",
+          "title": "Gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2025/04/Best-Loyalty-Campaign-Award.jpg"
+          ]
         }
       ],
       "collectionImage": "/api/media/wp-3667"
@@ -538,14 +568,6 @@
         "https://youtu.be/MkFQXDXXt6U"
       ],
       "galleryGroups": [
-        {
-          "id": "g11",
-          "title": "LOTTERY",
-          "images": [
-            "/api/media/wp-3336"
-          ],
-          "feature": true
-        },
         {
           "id": "g12",
           "title": "Campaign",
@@ -771,7 +793,7 @@
       ],
       "gallery": [],
       "videos": [
-        "/api/media/wp-4363"
+        "https://klr-europe.com/wp-content/uploads/2025/06/website-police-mol-hu.mov"
       ],
       "galleryGroups": [
         {
@@ -875,7 +897,7 @@
       ],
       "gallery": [],
       "videos": [
-        "/api/media/wp-3643"
+        "https://klr-europe.com/wp-content/uploads/2025/03/0822.mov"
       ],
       "galleryGroups": [
         {
@@ -1027,7 +1049,8 @@
           "feature": true
         }
       ],
-      "social": []
+      "social": [],
+      "videos": []
     },
     "publicPreview": false,
     "cornerstone": false
@@ -1089,14 +1112,6 @@
       "gallery": [],
       "galleryGroups": [
         {
-          "id": "g29",
-          "title": "3 COUNTRIES",
-          "images": [
-            "/api/media/wp-3342"
-          ],
-          "feature": true
-        },
-        {
           "id": "g30",
           "title": "Campaign",
           "images": [
@@ -1139,13 +1154,19 @@
       ],
       "social": [],
       "videos": [
-        "https://youtu.be/D-52xNRWfNo"
+        "https://youtu.be/D-52xNRWfNo",
+        "https://www.instagram.com/reel/C87hwxUomJi/",
+        "https://www.instagram.com/reel/C86yHRPNcqS/"
       ],
       "videoCaptions": [
+        "",
+        "",
         ""
       ],
       "videoPositions": [
-        "opening"
+        "opening",
+        "gallery",
+        "gallery"
       ]
     },
     "publicPreview": false,
@@ -1474,7 +1495,8 @@
           ]
         }
       ],
-      "social": []
+      "social": [],
+      "videos": []
     },
     "publicPreview": false,
     "cornerstone": false
@@ -1543,14 +1565,6 @@
       "gallery": [],
       "galleryGroups": [
         {
-          "id": "g46",
-          "title": "WEEKLY LOTTERY",
-          "images": [
-            "/api/media/wp-2951"
-          ],
-          "feature": true
-        },
-        {
           "id": "g47",
           "title": "Gallery",
           "images": [
@@ -1559,7 +1573,9 @@
             "/api/media/wp-2960",
             "/api/media/wp-2953",
             "/api/media/wp-2962",
-            "/api/media/wp-2963"
+            "/api/media/wp-2963",
+            "https://klr-europe.com/wp-content/uploads/2024/01/Screenshot-2024-01-24-at-11.36.05-1024x532.png",
+            "https://klr-europe.com/wp-content/uploads/2024/01/Billa-Bugatti-Buono-Lottery-1-1024x381.png"
           ]
         },
         {
@@ -1607,13 +1623,19 @@
       ],
       "social": [],
       "videos": [
-        "https://youtu.be/G9U5NTABPYI"
+        "https://youtu.be/G9U5NTABPYI",
+        "https://www.facebook.com/BillaBulgaria/videos/867686565081125/",
+        "https://www.facebook.com/BillaBulgaria/videos/6803080033119367/"
       ],
       "videoCaptions": [
+        "",
+        "",
         ""
       ],
       "videoPositions": [
-        "opening"
+        "opening",
+        "gallery",
+        "gallery"
       ]
     },
     "publicPreview": false,
@@ -1667,14 +1689,6 @@
       "gallery": [],
       "galleryGroups": [
         {
-          "id": "g52",
-          "title": "LOTTERY",
-          "images": [
-            "/api/media/wp-2858"
-          ],
-          "feature": true
-        },
-        {
           "id": "g53",
           "title": "Gallery",
           "images": [
@@ -1702,12 +1716,15 @@
       ],
       "social": [],
       "videos": [
+        "https://klr-europe.com/wp-content/uploads/2023/12/6607874329838369662.mp4?_=1",
         "https://youtu.be/MkFQXDXXt6U"
       ],
       "videoCaptions": [
+        "",
         ""
       ],
       "videoPositions": [
+        "opening",
         "opening"
       ]
     },
@@ -1757,14 +1774,6 @@
       "gallery": [],
       "galleryGroups": [
         {
-          "id": "g55",
-          "title": "SPECIAL MECHANICS",
-          "images": [
-            "/api/media/wp-2777"
-          ],
-          "feature": true
-        },
-        {
           "id": "g56",
           "title": "Gallery",
           "images": [
@@ -1783,10 +1792,10 @@
         "https://youtu.be/bX7tS8FefxM"
       ],
       "videoCaptions": [
-        "Promotional Video"
+        ""
       ],
       "videoPositions": [
-        "gallery"
+        "opening"
       ]
     },
     "publicPreview": false,
@@ -1847,14 +1856,6 @@
       "gallery": [],
       "galleryGroups": [
         {
-          "id": "g57",
-          "title": "LOTTERY",
-          "images": [
-            "/api/media/wp-2602"
-          ],
-          "feature": true
-        },
-        {
           "id": "g58",
           "title": "Lottery",
           "images": [
@@ -1877,13 +1878,16 @@
       ],
       "social": [],
       "videos": [
+        "https://klr-europe.com/wp-content/uploads/2023/01/Rompetrol.mp4",
         "https://youtu.be/HQVWdIB6F5o"
       ],
       "videoCaptions": [
-        "Promotional Video"
+        "Promotional Video",
+        ""
       ],
       "videoPositions": [
-        "gallery"
+        "opening",
+        "opening"
       ]
     },
     "publicPreview": false,
@@ -1940,14 +1944,6 @@
       "gallery": [],
       "galleryGroups": [
         {
-          "id": "g60",
-          "title": "SPECIAL MECHANICS",
-          "images": [
-            "/api/media/wp-2546"
-          ],
-          "feature": true
-        },
-        {
           "id": "g61",
           "title": "Lottery",
           "images": [
@@ -1971,7 +1967,16 @@
           ]
         }
       ],
-      "social": []
+      "social": [],
+      "videos": [
+        "https://www.youtube.com/watch?v=ScUljIBbhCE&list=PLkHb3uWjLzFWP6VmAqtpH_WUZ8dRQgMQP&index=7"
+      ],
+      "videoPositions": [
+        "opening"
+      ],
+      "videoCaptions": [
+        ""
+      ]
     },
     "publicPreview": false,
     "cornerstone": true
@@ -2024,7 +2029,8 @@
           ]
         }
       ],
-      "social": []
+      "social": [],
+      "videos": []
     },
     "publicPreview": false,
     "cornerstone": false
@@ -2068,7 +2074,6 @@
           "id": "g64",
           "title": "Gallery",
           "images": [
-            "/api/media/wp-2343",
             "/api/media/wp-2350",
             "/api/media/wp-2191",
             "/api/media/wp-2195",
@@ -2078,7 +2083,8 @@
           ]
         }
       ],
-      "social": []
+      "social": [],
+      "videos": []
     },
     "publicPreview": false,
     "cornerstone": false
@@ -2124,12 +2130,12 @@
             "/api/media/wp-1960",
             "/api/media/wp-1961",
             "/api/media/wp-1962",
-            "/api/media/wp-1984",
-            "/api/media/wp-1963"
+            "/api/media/wp-1984"
           ]
         }
       ],
-      "social": []
+      "social": [],
+      "videos": []
     },
     "publicPreview": false,
     "cornerstone": false
@@ -2140,21 +2146,85 @@
     "client": "Circle K Poland",
     "year": "2026",
     "location": "Poland",
-    "img": "/api/media/wp-5107",
-    "summary": "Bozza importata da WordPress — contenuto da completare (titolo e tag recuperati, testo e immagini da inserire manualmente).",
+    "img": "https://klr-europe.com/wp-content/uploads/2026/08/2White-space-hallway-copia.png",
+    "summary": "Circle K Polska and KLR invited customers to explore further with a Horizon loyalty campaign inspired by contemporary space travel. Available exclusively at participating Circle K stations across Poland, the campaign rewarded everyday purchases with access to a collection of NASA-branded travel and lifestyle accessories.",
     "cat": "petrol",
     "brand": "NASA Stardust",
-    "results": [],
+    "results": [
+      {
+        "k": "11",
+        "v": "Weeks"
+      },
+      {
+        "k": "326",
+        "v": "Petrol Stations"
+      },
+      {
+        "k": "10",
+        "v": "Exclusive Travel Products"
+      }
+    ],
     "details": {
       "sourceUrl": "",
-      "campaignTitle": "",
-      "challenge": "",
+      "campaignTitle": "Inspired by Space. Ready for Every Journey.",
+      "challenge": "The Horizon campaign combined the excitement of space exploration with products designed for real journeys on Earth. Launched at a time of renewed public interest in crewed space missions, the campaign used NASA and Artemis Mission inspired branding to create a distinctive promotional world centred on discovery, technology and movement. The concept connected naturally with Circle K and its role in customers’ everyday journeys. Whether customers were commuting to work, preparing for a winter getaway or planning a city break, every visit brought them closer to a practical travel reward. Running throughout the winter season, the campaign gave customers a reason return to Circle K stations, consolidate their spending and engage with the Circle K EXTRA loyalty programme. The campaign featured a versatile collection of bags, travel essentials and everyday accessories: Urban Backpack Slim Backpack Travel Backpack Duffle Bag 2-in-1 Sling Pack Snail Travel Pillow Thermo Tumbler Starlight Blanket Passport Wallet Pop-Up Card Holder The collection balanced premium hero products with smaller and more accessible accessories. Customers could choose rewards suited to commuting, air travel, weekend trips, winter holidays and everyday driving. The Horizon collection was developed with a strong focus on sustainability, durability and everyday quality. The expandable Travel Backpack offers flexible capacity from 14 to 20 litres, making it suitable for daily use and short trips. Designed with recycled materials and water-resistant zips , it combines long-lasting quality with practical protection for life on the move. The 50-litre Duffle Bag 2-in-1 can be used as both a travel bag and a backpack. Made from durable rPET fabric , it is built to withstand frequent travel while supporting more responsible material choices. For everyday convenience, the 800 ml Thermo Tumbler is designed for use in the car and on the go, with reliable temperature retention for both hot and cold drinks. Across the collection, recycled rPET fabric and robust construction ensure long-term use , reducing the need for frequent replacement and supporting a more sustainable way of travelling.",
       "rewardGroups": [],
       "activations": [],
-      "mechanics": [],
+      "mechanics": [
+        "Customers received one loyalty sticker for every PLN 50 spent on qualifying purchases at participating Circle K stations. After collecting 10 stickers , customers unlocked reduced prices on selected Horizon products. Circle K EXTRA members could receive an additional discount by presenting their membership card when purchasing a reward. Customers placed their stickers on a campaign leaflet. Once the required number had been collected, they selected their preferred product and presented the completed leaflet at the checkout. Designed Around Real Journeys The Horizon collection was developed around practical situations customers could immediately recognise. The expandable Travel Backpack increased its capacity from 14 to 20 litres, making it suitable for everyday use and short trips. Its dimensions were designed to meet commonly used cabin-baggage requirements, while water-resistant zips, the ZipClip anti-theft system and a protected laptop compartment added functionality for customers travelling through busy airports and cities. The 50-litre Duffle Bag 2-in-1 could be carried as either a traditional travel bag or a backpack. Made from durable rPET fabric, it also featured water-resistant zips, reflective details and the ZipClip system to help protect customers’ belongings. For everyday journeys by car, the 800 ml Thermo Tumbler was designed to fit conveniently into a vehicle and included a practical handle and straw. Campaign communication highlighted temperature retention of up to six hours for hot drinks and eight hours for cold drinks. Across the bag collection, recycled rPET fabric supported a more responsible material choice while maintaining the durability required for regular travel. Instagram View this post on Instagram A post shared by Circle K Polska (@circlek_polska) Facebook"
+      ],
       "gallery": [],
       "social": [],
-      "videos": []
+      "videos": [
+        "https://youtu.be/7MOEHoQzjM8"
+      ],
+      "videoPositions": [
+        "opening"
+      ],
+      "videoCaptions": [
+        ""
+      ],
+      "galleryGroups": [
+        {
+          "id": "g229737",
+          "title": "Space-Inspired Design for Everyday Travel",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-06-at-15.02.17-240x300.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-06-at-15.02.07-240x300.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-06-at-15.01.47-240x300.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-06-at-15.01.39-244x300.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-06-at-15.01.31-240x300.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-06-at-15.01.23-239x300.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-06-at-15.01.08-239x300.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-06-at-15.01.58-240x300.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-06-at-15.04.42-245x300.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-06-at-15.04.17-239x300.png"
+          ]
+        },
+        {
+          "id": "g566090",
+          "title": "In Store Experience",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-17-at-15.46.50.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/poster-1-scaled.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/poster-2-scaled.png"
+          ]
+        },
+        {
+          "id": "g465695",
+          "title": "Designed Around Real Journeys with Sustainability in mind",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2026/08/NASA-Horizons-12.25-2025.001.jpeg"
+          ]
+        },
+        {
+          "id": "g294950",
+          "title": "Mechanics",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2026/08/NASA-Horizons-2025.001.jpeg"
+          ]
+        }
+      ]
     },
     "status": "draft",
     "publicPreview": false,
@@ -2166,21 +2236,102 @@
     "client": "COOP MORAVA",
     "year": "2026",
     "location": "Czech Republic",
-    "img": "/api/media/wp-5098",
-    "summary": "Bozza importata da WordPress — contenuto da completare (titolo e tag recuperati, testo e immagini da inserire manualmente).",
+    "img": "https://klr-europe.com/wp-content/uploads/2026/08/cover-case-study.png",
+    "summary": "COOP MORAVA and KLR brought Italian style to Czech kitchens with a 13-week Bugatti Buono loyalty campaign. Customers collected points while shopping and unlocked exclusive prices on limited edition collection of cookware, bakeware and kitchen accessories.",
     "cat": "retail",
     "brand": "Bugatti",
-    "results": [],
+    "results": [
+      {
+        "k": "13",
+        "v": "Weeks"
+      },
+      {
+        "k": "750",
+        "v": "Supermarkets"
+      },
+      {
+        "k": "10",
+        "v": "Bugatti Exclusive Products"
+      }
+    ],
     "details": {
       "sourceUrl": "",
-      "campaignTitle": "",
-      "challenge": "",
+      "campaignTitle": "Cooking with Love Tastes BUONO!",
+      "challenge": "The Bugatti Buono campaign combined practical everyday rewards with the appeal of Italian design. Timed to run throughout the autumn and Christmas shopping period , the campaign gave customers an additional reason to visit participating COOP MORAVA stores, consolidate their spending with desirable products for their kitchens. The reward collection was built around cooking, baking and sharing food—activities closely connected with family life and the festive season. This made the campaign relevant not only as a promotional offer, but also as an opportunity for customers to find useful gifts for themselves or their loved ones . The campaign featured a versatile premium collection of cookware, bakeware and kitchen accessories designed for both everyday meals and special occasions: Ceramic baking dish Springform cake pan Cast-iron casserole and grill pan 2-in-1 Baking pan Pot with lid Crêpe pan Three-piece stainless-steel knife set Kitchen whisk Flexible spatula Kitchen turner The collection balanced premium hero products with accessible kitchen essentials. Customers could choose from products suitable for baking, stovetop cooking, food preparation and serving, helping the campaign appeal to a broad range of households and cooking habits. A Century of Italian Design Excellence Founded in 1923 in Lumezzane, near Brescia, Bugatti is an Italian family brand with more than a century of expertise in creating products for the kitchen, table and home. Its distinctive approach combines aesthetic research, technical know-how and everyday functionality, transforming practical objects into memorable expressions of contemporary Italian design. The Bugatti Buono collection reflects this philosophy through refined forms, carefully considered details and versatile products created to make cooking more enjoyable. By featuring Bugatti as the campaign reward, COOP MORAVA offered customers more than an attractive cookware collection—it gave them access to a brand experience built around quality, style and the pleasure of preparing and sharing food.",
       "rewardGroups": [],
       "activations": [],
-      "mechanics": [],
+      "mechanics": [
+        "Customers received one loyalty point for every CZK 300 spent in participating stores. Points could also be awarded for specially marked partner products. After collecting 20 points , customers unlocked exclusive loyalty prices on selected Bugatti Buono products. The kitchen whisk, flexible spatula and turner could also be purchased without collecting points for a special loyalty price of CZK 99 , providing an immediate and accessible entry point into the collection. Customers collected their points on a physical campaign card. Once they had reached the required threshold, they selected their preferred product and presented the completed card at the checkout. Recipe Inspiration Selected products marked with a chef icon included access to additional recipe content. By scanning a QR code, customers could download recipes in Czech and discover ideas for using their new Bugatti Buono cookware. This extended the customer experience from the supermarket into the home, transforming the rewards from promotional products into tools for creating new meals and shared moments."
+      ],
       "gallery": [],
       "social": [],
-      "videos": []
+      "videos": [
+        "https://klr-europe.com/wp-content/uploads/2026/08/laptop_scroll_coop_bugatti.mp4",
+        "https://youtu.be/tWSrL2gRnjg",
+        "https://www.instagram.com/p/DQvthUYkklS/",
+        "https://www.facebook.com/COOPaci/posts/pfbid02UVdE4Cviq45USUhSFdgaJbmheacKcT4MGdJ38xsQQ9kgxknCW6CESZqe13C2Eqwal",
+        "https://www.facebook.com/COOPUherskyOstroh/videos/794830366620772/"
+      ],
+      "videoPositions": [
+        "gallery",
+        "gallery",
+        "gallery",
+        "gallery",
+        "gallery"
+      ],
+      "videoCaptions": [
+        "Website",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "galleryGroups": [
+        {
+          "id": "g375858",
+          "title": "The Brand",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2026/08/bugatti-3-300x300.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/bugatti-4-300x300.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/bugatti-5-300x300.png"
+          ]
+        },
+        {
+          "id": "g398797",
+          "title": "In Store Experience",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-display-6.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-totem-indoor-2.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-leaflet.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-totem-big.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-door-standing-poster.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-door-poster-2.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-display-5.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-poster-3.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-window-poster.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-wobblers-2-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-product-basket.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-outdoor-poster.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-totem.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-display-3.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-door-poster.jpg"
+          ]
+        },
+        {
+          "id": "g620963",
+          "title": "Cooking with Love Tastes BUONO!",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2026/08/products-still-life.png"
+          ]
+        },
+        {
+          "id": "g351077",
+          "title": "Mechanics",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2026/08/bugatti-1.png"
+          ]
+        }
+      ]
     },
     "status": "draft",
     "publicPreview": true,
@@ -2192,22 +2343,40 @@
     "client": "Orlen Slovakia",
     "year": "2026",
     "location": "Slovakia",
-    "img": "/api/media/study-orlen-kv-final",
-    "summary": "Bozza importata da WordPress — contenuto da completare (titolo e tag recuperati, testo e immagini da inserire manualmente).",
+    "img": "https://klr-europe.com/wp-content/uploads/2026/08/ORLEN-KV-FINAL.jpg",
+    "summary": "KLR developed a collect-and-redeem loyalty campaign for ORLEN Slovakia featuring the PINTINOX Trust Forged in Steel collection. By combining simple sticker mechanics with practical, high-value rewards, the campaign turned everyday fuel and shop purchases into a compelling reason for customers to return.",
     "cat": "petrol",
     "brand": "Pintinox",
-    "results": [],
+    "results": [
+      {
+        "k": "9",
+        "v": "Weeks"
+      },
+      {
+        "k": "80",
+        "v": "Petrol Stations"
+      },
+      {
+        "k": "9",
+        "v": "Pintinox Exclusive Products"
+      }
+    ],
     "details": {
       "sourceUrl": "https://klr-europe.com/pintinox-for-orlen-slovakia/",
-      "campaignTitle": "",
-      "challenge": "",
+      "campaignTitle": "Forged for loyalty: Pintinox Collection for ORLEN Slovakia",
+      "challenge": "Turning everyday petrol station visits into progress towards premium, practical rewards. For ORLEN Slovakia, KLR developed a collect-and-redeem loyalty campaign featuring the PINTINOX Trust – Forged in Steel collection. The promotion combines a sticker mechanic with a versatile assortment of kitchen essentials, multifunctional tools and products for life on the road. By connecting everyday fuel and shop purchases with attractive promotional prices, the campaign gives customers an additional reason to choose ORLEN—and another reason to return. The challenge After a strong start to the year, ORLEN faced a sudden shift in market conditions. Fuel prices increased in early March, followed by government interventions later that month, putting pressure on customer traffic, spending and overall sales performance. The challenge was to protect basket value, encourage customers to complete their purchases and give them a compelling reason to return. At the same time, the campaign needed to support both customer acquisition and retention without adding complexity to the forecourt experience.",
       "rewardGroups": [],
       "activations": [],
-      "mechanics": [],
+      "mechanics": [
+        "KLR created a sticker-based loyalty promotion centred around the PINTINOX Trust – Forged in Steel collection . Customers receive one sticker for every €10 spent on fuel or eligible purchases at ORLEN. After collecting 10 stickers, they can purchase their chosen PINTINOX product at an exclusive promotional price, with discounts reaching up to 80%. The mechanic makes every qualifying transaction feel like visible progress. Instead of offering an abstract future benefit, the campaign gives customers a clear goal and a tangible reward they can select according to their needs. A collection built for different lifestyles The nine-product assortment was designed to extend the campaign’s relevance beyond the kitchen. For customers interested in cooking, the collection includes: a four-piece knife set with a paring knife, chef’s knife, bread knife and sharpener; a three-piece set featuring a cleaver, slicing knife and tomato knife; a six-piece steak knife set; a two-piece carving set. The knives combine stainless-steel blades with practical features such as long-lasting sharpness, easy maintenance and secure handling. The collection also includes practical products for travel, work and everyday use : a 4-in-1 carabiner; a 9-in-1 multifunctional knife; 13-in-1 multifunctional pliers; a high-performance flashlight; a 750 ml hot-and-cold thermal flask. The multifunctional products were selected for their versatility, durability and everyday usefulness."
+      ],
       "gallery": [],
       "social": [],
       "videos": [
-        "https://youtu.be/o0gl7R4rqAc"
+        "https://youtu.be/o0gl7R4rqAc",
+        "https://www.instagram.com/p/DXHUHzal2OU/",
+        "https://www.facebook.com/reel/972216605288403/",
+        "https://www.facebook.com/reel/2771073759920029/"
       ],
       "galleryGroups": [
         {
@@ -2240,13 +2409,19 @@
         }
       ],
       "videoCaptions": [
+        "",
+        "",
+        "",
         ""
       ],
       "videoPositions": [
+        "gallery",
+        "gallery",
+        "gallery",
         "gallery"
       ]
     },
-    "status": "draft",
+    "status": "published",
     "publicPreview": true,
     "cornerstone": false
   },
@@ -2256,21 +2431,43 @@
     "client": "Intermarché Poland",
     "year": "2026",
     "location": "Poland",
-    "img": "/api/media/wp-4522",
-    "summary": "Bozza importata da WordPress — contenuto da completare (titolo e tag recuperati, testo e immagini da inserire manualmente).",
+    "img": "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-PL-ORBR-KV-cover-articolo-2.png",
+    "summary": "Intermarché’s “Travel Like a Champion” campaign turned everyday shopping into an engaging loyalty journey. Customers collected stickers and unlocked discounts on a practical range of Oracle Red Bull Racing travel products, creating a simple and rewarding experience across the Intermarché network.",
     "cat": "retail",
     "brand": "Oracle Red Bull Racing",
-    "results": [],
+    "results": [
+      {
+        "k": "13",
+        "v": "Weeks"
+      },
+      {
+        "k": "180",
+        "v": "Supermarkets"
+      },
+      {
+        "k": "13",
+        "v": "Oracle Red Bull Racing Exclusive Products"
+      }
+    ],
     "details": {
       "sourceUrl": "https://klr-europe.com/oracle-red-bull-racing-adrenaline-for-intermarche-poland/",
-      "campaignTitle": "",
-      "challenge": "",
+      "campaignTitle": "TRAVEL LIKE A CHAMPION WITH ORACLE RED BULL RACING",
+      "challenge": "Adrenaline of collecting stickers and unlocking discounts. A strong loyalty campaign does more than offer a lower price. It transforms everyday purchases into visible progress towards a reward customers genuinely want. For Intermarché Poland, KLR created “Travel Like a Champion”—a sticker-based loyalty campaign featuring a limited collection of Oracle Red Bull Racing travel and lifestyle products. The campaign combined a simple promotional mechanic, a highly recognisable international brand and a practical assortment designed for everyday journeys.\n\nThe reward assortment translated the energy, performance and distinctive style of Oracle Red Bull Racing into a coherent collection of 13 functional travel products.\n\nTravel & Mobility Essentials — designed for seamless movement and smart packing: Cabin Trolley, Check-in Trolley, Carry-on Backpack, Travel Pillow. Bags & Everyday Gear — stylish and functional companions for daily use or short trips: Urban Backpack, Duffle Bag, Shoulder Bag, Ladies’ Backpack, Ladies’ Bag, Reversible Umbrella. Food & Drink On-the-Go — for staying refreshed and prepared wherever the journey leads: Water Flask, Thermo Bottle, Thermo Food Jar.\n\nThe Challenge. The objective was to encourage customers to consolidate more of their regular grocery purchases within the Intermarché network. At the same time, the reward proposition had to be attractive enough to maintain interest throughout the campaign and motivate customers to complete their collector’s cards.",
       "rewardGroups": [],
       "activations": [],
-      "mechanics": [],
+      "mechanics": [
+        "A simple path from purchase to reward. Customers received promotional stickers for qualifying purchases at participating Intermarché stores. Customers earned: one sticker for every PLN 50 spent in-store; some additional products are given for the purchase of selected partner products. The key element of the campaign was the use of extra stickers on selected partner products. This mechanic helped drive sales for participating brands while giving the retailer access to additional partner investment, which could be used to strengthen promotional visibility and increase the campaign’s overall reach and impact. After collecting 10 stickers on a collector’s card, the customer could purchase one selected product from the promotional collection at a significantly reduced price. Collector’s cards were available in Intermarché stores and could also be downloaded and printed from the dedicated campaign website. Promotional products could be purchased until 31 July 2026, while stocks lasted.",
+        "Lottery. To further strengthen customer engagement, Intermarché complemented the sticker campaign with a promotional lottery running from 23 March to 3 June 2026. For every PLN 70 spent, customers received a unique code and the chance to win 1 of 1000 shopping vouchers or the ultimate prize: 1 of 8 tickets to attend the 2026 Spanish Formula 1 Grand Prix at MADRING in Madrid. By combining accessible instant participation with a highly aspirational final reward, the lottery helped encourage higher basket values, generate excitement and build momentum ahead of the main loyalty campaign.",
+        "The campaign journey connected supermarkets, checkout communication, printed collector’s materials, social media and a dedicated website. At every stage, customers received a clear message: shop, collect, choose and save. The straightforward mechanic minimised barriers to participation, while the online campaign hub provided easy access to the collector’s card, product information, frequently asked questions and the full promotional terms."
+      ],
       "gallery": [],
       "social": [],
-      "videos": [],
+      "videos": [
+        "https://klr-europe.com/wp-content/uploads/2026/08/VIDEO-INTERMARCHe.mp4",
+        "https://klr-europe.com/wp-content/uploads/2026/08/laptop_scroll_generated-2.mp4",
+        "https://www.instagram.com/reel/DYUA8bcFXe7/",
+        "https://www.instagram.com/reel/DXdx9vFE9mK/"
+      ],
       "galleryGroups": [
         {
           "id": "g69",
@@ -2326,9 +2523,21 @@
             "/api/media/study-intermarche-pl-orbr-carosello-1080x13505-scaled"
           ]
         }
+      ],
+      "videoPositions": [
+        "opening",
+        "gallery",
+        "gallery",
+        "gallery"
+      ],
+      "videoCaptions": [
+        "",
+        "Website",
+        "",
+        ""
       ]
     },
-    "status": "draft",
+    "status": "published",
     "publicPreview": true,
     "cornerstone": false
   }

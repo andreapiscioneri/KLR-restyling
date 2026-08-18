@@ -1454,5 +1454,182 @@
     "browser": "Chrome",
     "visitedAt": "2026-08-18T11:34:45.693Z",
     "eventType": "pageview"
+  },
+  {
+    "id": "1717a923-5b62-477e-9361-1933526ab8b0",
+    "path": "/",
+    "sessionId": "7626bb7c-3d7e-44d1-831d-2b6b274b50ba",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T20:11:07.732Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "87782f0c-fb02-4af7-a6e2-2d33892d5886",
+    "path": "/work",
+    "sessionId": "7626bb7c-3d7e-44d1-831d-2b6b274b50ba",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T20:25:35.544Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "b5c4b866-4aec-4cd7-89c1-81f4001d110e",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "7626bb7c-3d7e-44d1-831d-2b6b274b50ba",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T20:25:44.372Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "51dcd6eb-a13a-4e34-98fc-6cf82b7ec269",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "7626bb7c-3d7e-44d1-831d-2b6b274b50ba",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T20:27:08.115Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "82175e2a-a911-4492-81e4-0b001be5efc6",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "7626bb7c-3d7e-44d1-831d-2b6b274b50ba",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T20:34:18.997Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "8408e1e0-1787-477d-bc2d-d1f7a8b4a003",
+    "path": "/",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "7626bb7c-3d7e-44d1-831d-2b6b274b50ba",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T20:34:26.376Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "3c23a247-e627-4ad4-a7a0-6f6033e210c0",
+    "path": "/work",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "7626bb7c-3d7e-44d1-831d-2b6b274b50ba",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T20:34:28.701Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "cb95f4c0-c69f-4afe-907f-222baf66a7d3",
+    "path": "/work/pintinox-trust-forged-in-steel-for-orlen-slovakia",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "7626bb7c-3d7e-44d1-831d-2b6b274b50ba",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T20:34:37.029Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "529096ec-b7b2-414c-990c-c17b66133bc0",
+    "path": "/work/pintinox-trust-forged-in-steel-for-orlen-slovakia",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "7626bb7c-3d7e-44d1-831d-2b6b274b50ba",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T20:41:02.177Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "466709da-af5d-40a3-a2c0-052260e9bd97",
+    "path": "/work/pintinox-trust-forged-in-steel-for-orlen-slovakia",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "7626bb7c-3d7e-44d1-831d-2b6b274b50ba",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T20:57:50.813Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "01133081-9b23-4b98-8c5e-3716256ddc5c",
+    "path": "/work/pintinox-trust-forged-in-steel-for-orlen-slovakia",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "7626bb7c-3d7e-44d1-831d-2b6b274b50ba",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T20:59:44.603Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "6c9f2a6d-1657-4a2d-b547-700761b88439",
+    "path": "/work/pintinox-trust-forged-in-steel-for-orlen-slovakia",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "7626bb7c-3d7e-44d1-831d-2b6b274b50ba",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T21:01:04.410Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "f283a039-f10c-47bb-b413-31025abece60",
+    "path": "/work/pintinox-trust-forged-in-steel-for-orlen-slovakia",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "7626bb7c-3d7e-44d1-831d-2b6b274b50ba",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T21:02:09.506Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "7fef9d7c-9662-4b2c-b9cf-fcbee3574faa",
+    "path": "/work/pintinox-trust-forged-in-steel-for-orlen-slovakia",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "7626bb7c-3d7e-44d1-831d-2b6b274b50ba",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T21:10:13.036Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "cd1aae7a-3677-4946-ba6b-9461a90fb96c",
+    "path": "/work/pintinox-trust-forged-in-steel-for-orlen-slovakia",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "7626bb7c-3d7e-44d1-831d-2b6b274b50ba",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T21:21:19.390Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "b3e19614-490c-406d-ad9c-299c6ac69514",
+    "path": "/work/pintinox-trust-forged-in-steel-for-orlen-slovakia?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/pintinox-trust-forged-in-steel-for-orlen-slovakia",
+    "sessionId": "7626bb7c-3d7e-44d1-831d-2b6b274b50ba",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T21:26:01.480Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "416d625f-6c58-4a7a-a6a8-71b1ea3fd072",
+    "path": "/work/pintinox-trust-forged-in-steel-for-orlen-slovakia?preview=1",
+    "referrer": "http://localhost:3000/work/pintinox-trust-forged-in-steel-for-orlen-slovakia?preview=1&edit=1",
+    "sessionId": "7626bb7c-3d7e-44d1-831d-2b6b274b50ba",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T21:26:10.299Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "ad1e96f3-c2d9-4b07-8fa0-46b4dc9fc79e",
+    "path": "/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "referrer": "http://localhost:3000/work/pintinox-trust-forged-in-steel-for-orlen-slovakia?preview=1&edit=1",
+    "sessionId": "7626bb7c-3d7e-44d1-831d-2b6b274b50ba",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T21:27:56.617Z",
+    "eventType": "pageview"
   }
 ]
