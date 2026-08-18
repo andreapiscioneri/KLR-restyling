@@ -1,13 +1,23 @@
 "use client";
 
-import { ArrowUpRight, Target } from "lucide-react";
+import { useRef, useState } from "react";
+import { ArrowUpRight, Target, Trash2 } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { AuthorAvatar } from "./author-avatar";
 import { Eyebrow } from "./ui-bits";
 import { fallbackPosts, type Post } from "../data";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
+import {
+  useEditMode, useCollectionEditor, EditableText, EditableImage, EditToolbar,
+  type CustomBlock, newBlockId, blankBlock, InsertBlockButton, BlockShell, EditableVideoUrl,
+} from "./inline-edit";
+import { VideoEmbed } from "./video-embed";
+import { Lightbox, type LightboxState } from "./lightbox";
 import type { Route } from "../App";
+
+const BLOCK_LABELS: Record<string, string> = { text: "Testo", image: "Immagine", gallery: "Galleria", video: "Video" };
+const BLOCK_BG = ["#241f69", "#F8AE01", "#1a1752"];
 
 const COLORS = {
   navy: "#1a1752",       // Sfondo pagina profondo
@@ -31,11 +41,47 @@ type BlogDetailProps = {
 
 export function BlogDetail({ slug, go, initialPost, initialOthers }: BlogDetailProps) {
   const baseInitial: FullPost = initialPost || fallbackPosts.find((p) => p.slug === slug) || fallbackPosts[0];
+  const editMode = useEditMode();
+  const editor = useCollectionEditor<any>("posts", "slug", baseInitial.slug, editMode);
+  const editing = editMode && editor.ready;
+  const [openImageEditor, setOpenImageEditor] = useState<"hero" | "avatar" | null>(null);
+  const [lightbox, setLightbox] = useState<LightboxState>(null);
+  const openLightbox = (images: string[], index: number) => setLightbox({ images, index });
   const post: FullPost = {
     ...baseInitial,
+    ...(editor.current ?? {}),
     link: `/blog/${baseInitial.slug}`,
-    authorName: baseInitial.authorName || "KLR Editorial Team",
+    authorName: (editor.current ?? baseInitial).authorName || "KLR Editorial Team",
   };
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  const layoutMode: "default" | "custom" = (post as any).layoutMode === "custom" ? "custom" : "default";
+  const customBlocks: CustomBlock[] = Array.isArray((post as any).layoutBlocks) ? (post as any).layoutBlocks : [];
+  function switchToCustomLayout() {
+    if (customBlocks.length > 0) { editor.patch({ layoutMode: "custom" }); return; }
+    const seeded: CustomBlock[] = [
+      { id: newBlockId(), type: "text", text: post.excerpt || "" },
+      { id: newBlockId(), type: "text", text: "" },
+    ];
+    editor.patch({ layoutMode: "custom", layoutBlocks: seeded });
+  }
+  function switchToDefaultLayout() { editor.patch({ layoutMode: "default" }); }
+  function updateBlock(idx: number, patch: Partial<CustomBlock>) {
+    editor.patch({ layoutBlocks: customBlocks.map((b, i) => (i === idx ? ({ ...b, ...patch } as CustomBlock) : b)) });
+  }
+  function removeBlock(idx: number) { editor.patch({ layoutBlocks: customBlocks.filter((_, i) => i !== idx) }); }
+  function insertBlockAt(idx: number, type: CustomBlock["type"]) {
+    const next = customBlocks.slice();
+    next.splice(idx, 0, blankBlock(type));
+    editor.patch({ layoutBlocks: next });
+  }
+  function moveBlockIdx(idx: number, dir: -1 | 1) {
+    const next = customBlocks.slice();
+    const j = idx + dir;
+    if (j < 0 || j >= next.length) return;
+    [next[idx], next[j]] = [next[j], next[idx]];
+    editor.patch({ layoutBlocks: next });
+  }
 
   const others = (initialOthers?.length ? initialOthers : fallbackPosts).filter((p) => p.slug !== post.slug).slice(0, 3);
 
@@ -174,25 +220,43 @@ export function BlogDetail({ slug, go, initialPost, initialOthers }: BlogDetailP
 
       {/* 1. HERO */}
       <PageHero
-        eyebrow={post.category}
-        title={
+        eyebrow={editing ? (
+          <EditableText as="span" editing value={post.category || ""} onCommit={(v) => editor.patch({ category: v })} />
+        ) : post.category}
+        title={editing ? (
+          <EditableText as="span" editing value={post.title || ""} onCommit={(v) => editor.patch({ title: v })}
+            className="font-black tracking-tighter leading-[0.9]"/>
+        ) : (
           <span className="font-black tracking-tighter leading-[0.9]">
             <span className="text-white">{titleFirstPart} </span>
             {titleSecondPart && <span className="text-[#F8AE01]">{titleSecondPart}</span>}
           </span>
-        }
+        )}
         subtitle={post.excerpt}
         image={post.img}
+        editingImage={editing}
+        onImageChange={(v) => editor.patch({ img: v })}
+        imageEditorOpen={openImageEditor === "hero"}
+        onImageEditorOpenChange={(o) => setOpenImageEditor(o ? "hero" : null)}
+        ctaEditing={editing}
         cta={{ label: "Back to Insights", href: "/blog" }}
+        extraCornerControls={editing && (
+          <EditableImage editing variant="corner" cornerTopRem={11} label="Cambia avatar autore"
+            src={post.authorAvatar || ""} onCommit={(v) => editor.patch({ authorAvatar: v })}
+            openControlled={openImageEditor === "avatar"} onOpenChange={(o) => setOpenImageEditor(o ? "avatar" : null)}
+            alt="" className="hidden"/>
+        )}
       />
 
       <div className="max-w-6xl mx-auto px-6 md:px-8 py-20 space-y-16">
-        
+
+        {layoutMode === "default" && (
+          <>
         {/* 2. OVERVIEW & AUTHOR */}
         {post.excerpt && post.excerpt.trim() && (
         <AnimatedSection>
           <div className="rounded-[40px] border border-white/10 overflow-hidden flex flex-col lg:flex-row">
-            
+
             {/* Left: Author Profilo */}
             <div className="lg:w-1/3 p-10 md:p-14 flex flex-col items-center justify-center text-center" style={{ background: COLORS.purpleBox }}>
               <div className="w-32 h-32 rounded-full border-4 border-[#F8AE01] overflow-hidden mb-6 flex items-center justify-center">
@@ -212,13 +276,13 @@ export function BlogDetail({ slug, go, initialPost, initialOthers }: BlogDetailP
                 </div>
                 <div className="text-[#2E2784] font-bold tracking-[0.2em] uppercase text-xs">Executive Summary</div>
               </div>
-              
+
               <h2 className="text-[#2E2784] text-2xl md:text-5xl font-black tracking-tighter mb-6 leading-none italic">
                 The core concept.
               </h2>
-              <p className="text-[#1a1752] text-base md:text-3xl font-medium leading-snug tracking-tight border-l-4 border-[#2E2784] pl-5 md:pl-8 opacity-90">
-                "{post.excerpt}"
-              </p>
+              <EditableText as="p" editing={editing} value={post.excerpt || ""} multiline outlineColor="#2E2784"
+                onCommit={(v) => editor.patch({ excerpt: v })}
+                className="text-[#1a1752] text-base md:text-3xl font-medium leading-snug tracking-tight border-l-4 border-[#2E2784] pl-5 md:pl-8 opacity-90"/>
             </div>
 
           </div>
@@ -226,17 +290,124 @@ export function BlogDetail({ slug, go, initialPost, initialOthers }: BlogDetailP
         )}
 
         {/* 3. CONTENUTO INTERNO: Tutti gli h3/h4 nel contenuto saranno gialli grazie all'iniezione CSS */}
-        {post.contentHtml && post.contentHtml.trim() && (
+        {(post.contentHtml && post.contentHtml.trim()) || editing ? (
           <AnimatedSection>
             <div className="rounded-[50px] border border-white/10 py-16 md:py-24 px-6 md:px-12" style={{ background: COLORS.purpleBox }}>
               <div className="max-w-3xl mx-auto">
                 <div
+                  ref={contentRef}
                   className="klr-editorial-content"
-                  dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+                  contentEditable={editing}
+                  suppressContentEditableWarning={editing}
+                  onBlur={editing ? () => editor.patch({ contentHtml: contentRef.current?.innerHTML ?? "" }) : undefined}
+                  style={editing ? { outline: "2px dashed rgba(248,174,1,0.5)", outlineOffset: 8, borderRadius: 12, minHeight: 80 } : undefined}
+                  dangerouslySetInnerHTML={{ __html: post.contentHtml || "" }}
                 />
               </div>
             </div>
           </AnimatedSection>
+        ) : null}
+          </>
+        )}
+
+        {layoutMode === "custom" && (
+          <div>
+            {editing && (
+              <div className="flex justify-center py-3">
+                <InsertBlockButton onInsert={(t) => insertBlockAt(0, t)} />
+              </div>
+            )}
+            {customBlocks.map((block, idx) => {
+              const bg = BLOCK_BG[idx % BLOCK_BG.length];
+              const controls = editing ? {
+                onUp: () => moveBlockIdx(idx, -1), onDown: () => moveBlockIdx(idx, 1), onDelete: () => removeBlock(idx),
+                disabledUp: idx === 0, disabledDown: idx === customBlocks.length - 1,
+              } : null;
+              let content: React.ReactNode = null;
+              if (block.type === "text") {
+                content = (
+                  <AnimatedSection>
+                    <div className="rounded-[40px] border border-white/10 py-14 px-6 md:px-14" style={{ background: bg }}>
+                      <div className="max-w-3xl mx-auto">
+                        <EditableText as="p" editing={editing} multiline value={block.text}
+                          onCommit={(v) => updateBlock(idx, { text: v })}
+                          className="text-white/90 tracking-tight" style={{ fontSize: "clamp(1.05rem, 1.8vw, 1.35rem)", lineHeight: 1.7 }}/>
+                      </div>
+                    </div>
+                  </AnimatedSection>
+                );
+              } else if (block.type === "image") {
+                content = (
+                  <AnimatedSection>
+                    <div className="max-w-4xl mx-auto">
+                      <div className={`rounded-[40px] overflow-hidden ${!editing ? "cursor-zoom-in" : ""}`}
+                        onClick={() => !editing && block.imageUrl && openLightbox([block.imageUrl], 0)}>
+                        <EditableImage editing={editing} src={block.imageUrl} onCommit={(v) => updateBlock(idx, { imageUrl: v })}
+                          className="w-full h-[420px] object-cover rounded-[40px]" alt={post.title}/>
+                      </div>
+                      {(block.caption || editing) && (
+                        <EditableText as="p" editing={editing} value={block.caption || ""} onCommit={(v) => updateBlock(idx, { caption: v })}
+                          className="text-white/60 tracking-tight mt-3 text-center" style={{ fontSize: "0.82rem" }}/>
+                      )}
+                    </div>
+                  </AnimatedSection>
+                );
+              } else if (block.type === "gallery") {
+                content = (
+                  <AnimatedSection>
+                    <div className="max-w-5xl mx-auto">
+                      {(block.title || editing) && (
+                        <EditableText as="div" editing={editing} value={block.title || ""} onCommit={(v) => updateBlock(idx, { title: v })}
+                          className="tracking-[0.3em] uppercase text-white/50 mb-6" style={{ fontSize: "0.65rem", fontWeight: 600 }}/>
+                      )}
+                      <div className="grid sm:grid-cols-2 gap-4">
+                      {block.images.map((img, i) => (
+                        <div key={`${img}-${i}`} className={`relative rounded-[24px] ${!editing ? "cursor-zoom-in" : ""}`}
+                          onClick={() => !editing && openLightbox(block.images, i)}>
+                          <EditableImage editing={editing} src={img} className="w-full h-[220px] object-cover rounded-[24px]" alt={`${post.title} ${i + 1}`}
+                            onCommit={(v) => updateBlock(idx, { images: block.images.map((x, xi) => xi === i ? v : x) })}/>
+                          {editing && (
+                            <button type="button" onClick={() => updateBlock(idx, { images: block.images.filter((_, xi) => xi !== i) })}
+                              className="absolute top-2 left-2 z-20 w-6 h-6 rounded-full bg-red-600/80 text-white flex items-center justify-center" aria-label="Rimuovi immagine">
+                              <Trash2 size={12}/>
+                            </button>
+                          )}
+                        </div>
+                      ))}
+                      {editing && (
+                        <button type="button" onClick={() => updateBlock(idx, { images: [...block.images, ""] })}
+                          className="rounded-[24px] border-2 border-dashed border-white/30 flex items-center justify-center h-[220px] text-white/60 text-sm font-semibold">
+                          + Aggiungi immagine
+                        </button>
+                      )}
+                      </div>
+                    </div>
+                  </AnimatedSection>
+                );
+              } else if (block.type === "video") {
+                content = (
+                  <div className="bg-black">
+                    <div className="relative w-full aspect-video max-h-[85vh] mx-auto">
+                      {block.videoUrl
+                        ? <VideoEmbed url={block.videoUrl} className="w-full h-full" style={{ border: 0 }}/>
+                        : <div className="w-full h-full flex items-center justify-center text-white/50 text-sm">Nessun video — aggiungine uno</div>}
+                      <EditableVideoUrl editing={editing} url={block.videoUrl} onCommit={(v) => updateBlock(idx, { videoUrl: v })}/>
+                    </div>
+                    {(block.caption || editing) && (
+                      <EditableText as="p" editing={editing} value={block.caption || ""} onCommit={(v) => updateBlock(idx, { caption: v })}
+                        className="text-white/60 tracking-tight text-center py-4 px-8" style={{ fontSize: "0.82rem" }}/>
+                    )}
+                  </div>
+                );
+              }
+              return (
+                <div key={block.id}>
+                  {controls ? <BlockShell label={BLOCK_LABELS[block.type]} {...controls}>{content}</BlockShell> : content}
+                  {editing && <div className="flex justify-center py-1"><InsertBlockButton onInsert={(t) => insertBlockAt(idx + 1, t)} /></div>}
+                </div>
+              );
+            })}
+          </div>
         )}
       </div>
 
@@ -294,6 +465,23 @@ export function BlogDetail({ slug, go, initialPost, initialOthers }: BlogDetailP
           </button>
         </AnimatedSection>
       </section>
+      <EditToolbar active={editMode} ready={editor.ready} dirty={editor.dirty} saving={editor.saving} error={editor.error}
+        onSave={editor.save} onDiscard={editor.discard}
+        layoutControls={editing && (
+          <div className="fixed top-14 left-1/2 -translate-x-1/2 z-[100] flex items-center gap-1 rounded-full bg-[#1a1752] text-white p-1 shadow-2xl border border-white/10">
+            <button type="button" onClick={switchToDefaultLayout}
+              className="rounded-full text-[11px] font-bold px-3 py-1.5"
+              style={{ background: layoutMode === "default" ? "#F8AE01" : "transparent", color: layoutMode === "default" ? "#2E2784" : "#fff" }}>
+              Struttura predefinita
+            </button>
+            <button type="button" onClick={switchToCustomLayout}
+              className="rounded-full text-[11px] font-bold px-3 py-1.5"
+              style={{ background: layoutMode === "custom" ? "#F8AE01" : "transparent", color: layoutMode === "custom" ? "#2E2784" : "#fff" }}>
+              Struttura personalizzata
+            </button>
+          </div>
+        )}/>
+      <Lightbox state={lightbox} onClose={() => setLightbox(null)} onNavigate={(i) => setLightbox((l) => l && { ...l, index: i })}/>
     </div>
   );
 }

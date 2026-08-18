@@ -5,6 +5,7 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { ArrowUpRight, ArrowDownUp, Search, X } from "lucide-react";
 import { softShadow } from "./ui-bits";
 import { studies as fallbackStudies, images } from "../data";
+import { AuthorAvatar } from "./author-avatar";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import type { Route } from "../App";
@@ -181,7 +182,7 @@ export function Studies({ go, initialStudies, initialPageData }: StudiesProps) {
                   className="group rounded-[28px] overflow-hidden text-left border border-white/20 bg-[#2E2784] h-full flex flex-col"
                   style={softShadow}
                 >
-                  <div className="aspect-[16/10] overflow-hidden shrink-0">
+                  <div className="aspect-[4/3] overflow-hidden shrink-0">
                     <ImageWithFallback src={s.img} alt={s.title} className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[1200ms]" />
                   </div>
                   <div className="p-6 flex flex-col flex-1">
@@ -197,6 +198,14 @@ export function Studies({ go, initialStudies, initialPageData }: StudiesProps) {
                     <p className="text-white/75 tracking-tight mt-3" style={{ fontSize: "0.88rem", lineHeight: 1.55 }}>
                       {s.summary}
                     </p>
+                    {(s as any).authorName && (
+                      <div className="mt-4 flex items-center gap-2.5">
+                        <AuthorAvatar src={(s as any).authorAvatar} name={(s as any).authorName} size={26} />
+                        <div className="text-white/65 tracking-tight" style={{ fontSize: "0.78rem" }}>
+                          {(s as any).authorName}
+                        </div>
+                      </div>
+                    )}
                     <div className="mt-auto pt-5 inline-flex items-center gap-2 text-[#F8AE01] group-hover:text-white transition-colors" style={{ fontSize: "0.86rem", fontWeight: 600 }}>
                       Explore case study <ArrowUpRight className="w-4 h-4" />
                     </div>

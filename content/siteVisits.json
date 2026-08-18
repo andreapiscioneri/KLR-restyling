@@ -1,0 +1,1351 @@
+[
+  {
+    "id": "67cfd988-e52e-4236-bc4a-f7bc42b12b6c",
+    "path": "/",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:25:12.778Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "f858519e-521e-47d9-bd72-db381a4e220f",
+    "path": "/admin/login",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:28:00.567Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "2a11dfc6-ffbe-433d-ac3c-0b10394271be",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:28:02.989Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "35fd7ebd-ec63-417d-8ced-7501be3494e3",
+    "path": "/",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:28:12.994Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "5814f429-3e9a-4cd0-9bce-f3a0ee9b5190",
+    "path": "/work",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:28:14.854Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "4528241e-3d2e-4d60-bc23-1851a52626ed",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:28:29.655Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "884c54c7-69e0-44b8-8422-d447f8cd6cf5",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:30:37.816Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "2d6f787b-2984-477a-b680-cd9e20d9ee0c",
+    "path": "/blog",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:30:56.878Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "3fee6400-0096-4b70-bb48-0e2dc89549c1",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/blog",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:31:01.161Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "b2d4bdab-02e9-44a1-9303-533d32d4421c",
+    "path": "/blog",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:31:03.264Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "ea41e597-191b-4df6-8057-d8ef2f6f9e5e",
+    "path": "/work",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:31:04.430Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "6b1d515b-995f-4d86-b27d-4db6fea0a58c",
+    "path": "/work/pintinox-for-viada-latvia",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:31:07.428Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "004eb92d-2262-4378-891b-232d26358784",
+    "path": "/work",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:31:10.761Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "05939c2f-8ab5-4114-9d12-5fa3cb6b8b9a",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:31:12.020Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "65915e05-8dc6-4d76-bc8e-1cd2b1674ea6",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:31:51.530Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "70f669c1-d5ae-4ea8-9cbd-0a1e82648f7b",
+    "path": "/",
+    "sessionId": "0e4f8cf9-5160-4808-9370-fb5d7508aaac",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:32:44.489Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "e88ead77-8e94-434e-a216-e21c804b6a53",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "0e4f8cf9-5160-4808-9370-fb5d7508aaac",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:32:59.079Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "4c7a0b04-5a92-4fb9-a99b-1b4e3b7f8138",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "b64b301e-4de6-4c46-a3ba-13a80840ac0b",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:33:03.936Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "35869862-031b-4379-8d89-ffdcc71b4f1f",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:35:50.893Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "bbd530d3-0114-43f7-b209-9a970efbc8ad",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:35:55.052Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "1adb3129-e235-4a23-bb77-5b3bae3bf025",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "0e4f8cf9-5160-4808-9370-fb5d7508aaac",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:35:56.258Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "61e80c3b-e0f5-49c6-b3ab-3410c339c533",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "600f36c6-f368-47d9-8abf-8e00e1b99d75",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:36:00.188Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "ce21c15d-6d81-4d1e-95f7-53528dd74980",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "600f36c6-f368-47d9-8abf-8e00e1b99d75",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:36:19.503Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "aa9c4452-f9da-4295-be16-a98595411d07",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "0e4f8cf9-5160-4808-9370-fb5d7508aaac",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:36:19.520Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "a6cb4317-e2f8-4a68-9006-2325af52338e",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "600f36c6-f368-47d9-8abf-8e00e1b99d75",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:36:24.648Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "68a242fa-0d6a-4581-8e23-cda28a9d4da4",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/admin/dashboard",
+    "sessionId": "0e4f8cf9-5160-4808-9370-fb5d7508aaac",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:36:24.805Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "c8a397e6-0fe8-42cc-9adc-2da2bb0c801f",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:37:30.252Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "9176bfa2-267e-41d5-905e-6d414a4bc402",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "600f36c6-f368-47d9-8abf-8e00e1b99d75",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:38:25.223Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "aa4b8f6f-19db-4040-bfdf-64b173e8ffa5",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "600f36c6-f368-47d9-8abf-8e00e1b99d75",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:38:27.074Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "e5b85546-3132-4c57-a542-134ee8b6757a",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "600f36c6-f368-47d9-8abf-8e00e1b99d75",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:39:49.103Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "6074252c-ff43-4c8a-8823-53da0e659a26",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1",
+    "sessionId": "600f36c6-f368-47d9-8abf-8e00e1b99d75",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:39:54.086Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "c22f9094-4342-4963-bb86-8b99598ac2d5",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "600f36c6-f368-47d9-8abf-8e00e1b99d75",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:40:15.484Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "fc73373f-ecc3-4bf4-896b-206804719132",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1",
+    "sessionId": "600f36c6-f368-47d9-8abf-8e00e1b99d75",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:40:18.901Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "8670ab86-2a84-437c-b335-d24c1c48e86d",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:42:04.690Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "c70eb236-9d9b-42a0-a9d5-6b544b9ce0c6",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:45:35.473Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "0952a6ec-2414-4b22-a0ba-41594f513b65",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "600f36c6-f368-47d9-8abf-8e00e1b99d75",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:45:37.555Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "0deef128-a890-4014-8e9a-58211df2c91d",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:47:18.758Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "85456abd-406d-484a-83df-c149bc4f8303",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:48:15.309Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "3c6c631a-b517-4db3-b162-79aadac6bbec",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:50:59.489Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "ec76b10b-1f52-4935-b5ca-961d9f3012be",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:51:20.892Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "7f0e02a6-2a66-4123-bbe8-1c84770b60f9",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:53:02.880Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "1bcd90e3-6eeb-409a-9288-ee9cf4ef0a3c",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:54:34.100Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "d3727989-d71f-42bd-98ef-b01d1d00babd",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:57:57.168Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "55a27539-bd78-4175-9621-c9c6032678d0",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:58:04.658Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "e7f0136c-0088-450a-ab12-8458c6c251a3",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:58:09.268Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "a71aac12-f3d7-4f56-a766-e6dd55c71d4d",
+    "path": "/blog",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:58:13.967Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "c2229e41-9a4c-4458-a38f-901152352ce2",
+    "path": "/blog/driving-retail-growth-through-loyalty-in-latin-america",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:58:17.657Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "4cf20e53-6410-49db-bbe4-924f17f49bef",
+    "path": "/blog/driving-retail-growth-through-loyalty-in-latin-america?preview=1&edit=1",
+    "referrer": "http://localhost:3000/blog/driving-retail-growth-through-loyalty-in-latin-america",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:58:19.426Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "5bddd7b3-e69e-439d-aec5-dfc4515eade6",
+    "path": "/work",
+    "referrer": "http://localhost:3000/blog/driving-retail-growth-through-loyalty-in-latin-america",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:58:23.980Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "cf0e4899-293b-4433-8023-d96609ca99ce",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland",
+    "referrer": "http://localhost:3000/blog/driving-retail-growth-through-loyalty-in-latin-america",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T08:58:28.741Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "f6829258-56cb-4bd6-bc52-22ab37683b03",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:00:21.811Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "02af57dc-70e0-4aed-ba92-ebf2e34c9571",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:16:52.769Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "c84d9e25-5e6d-49e1-8361-4b901e79fcdc",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:16:55.918Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "f9bd8ac0-a873-463d-86fb-fe32a1d4378f",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:18:17.281Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "3484d8ed-f52e-4225-b349-b6fdfd2f6303",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:18:27.099Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "f5515461-01e8-4515-9324-7eed5d52c4f1",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:24:07.486Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "a6df99fa-44a2-4650-87e6-6adce93bda0f",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:24:32.379Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "76f13b2c-8f0b-4866-ac3f-c4160ec51cc2",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:29:02.944Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "b1814367-c68d-4eb7-903e-7bfe94d111b6",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:29:48.280Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "d487c1cf-ccbb-441f-b0ee-a0dc1b750c55",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:30:48.649Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "4518002f-6eb2-4b81-bc7f-de2eddb54e0e",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:33:10.651Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "61fe207c-29d9-4d42-a076-a631f58f688e",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:33:17.718Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "b40a99b2-c808-4a5c-905b-bb33102802e7",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:39:22.648Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "34509c2a-f784-4b4c-83d3-c8a59bbbc4d2",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:16.854Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "6074c648-b0aa-48bb-b4a2-d1205751308a",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:17.449Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "658995b6-d157-417e-b8d3-91b461569b98",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:17.801Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "ff785c58-fadd-4b60-b6be-7f4222a45ae8",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:18.153Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "e704c4cd-2969-45bc-a57c-4f238c3d5cc9",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:18.499Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "1be17d7b-9b75-4999-8efc-283b3b430a62",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:18.866Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "5d9a9d77-7a70-4d6e-a0bd-1cebc47d27d6",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:19.209Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "5d395510-6d1b-4365-97e6-380c6bc8b440",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:19.551Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "edf0ae05-9c06-4251-b9d8-bd875f8b5731",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:19.903Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "ce1a53bb-c138-4bd9-a069-980c41eda135",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:20.222Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "b088cef9-07bc-4211-8203-6958569a9fd8",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:20.569Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "04b22b3e-76c9-4256-b2f7-58c72ed53680",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:20.899Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "437afa68-2b39-441d-847c-1931d63dc53a",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:21.243Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "96c73ab9-e710-43a0-ac4c-ba80880574a1",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:21.599Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "97e7680d-52f4-4369-be9f-3725843042d9",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:21.927Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "1935fbb4-c0d4-4bb4-bcbc-0f965b78df68",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:22.279Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "189ee1f8-e542-4e56-b9b4-426a07556e98",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:22.625Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "032ada0f-ebe6-4c57-a874-2e3db0958ebe",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:22.937Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "ff8b464c-7d32-4dc1-a470-419fedaecf8e",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:23.297Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "a2f49446-c470-407f-ab86-643e4b6025b6",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:23.670Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "f092bd08-9c08-4c9d-8d79-55657ed02400",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:24.010Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "93b829fb-392b-46b5-99c3-c7a4bf4ddb00",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:24.351Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "c9a6eb09-0030-4b55-992d-2fe6b67312fa",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:24.689Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "9ef7ede3-3b39-4e50-b2d2-8ea455d8f8fa",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:25.020Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "e3af0eed-9964-4937-b36b-6c163c464e41",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:25.365Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "24e18793-1000-450e-a930-1052d8c23087",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:25.698Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "277fce78-0f45-4c0b-bd98-e3ef8f94a047",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:26.048Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "f4a6a7e6-db15-45da-9088-2bc4909fbd97",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:26.396Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "64bba2cc-0cb5-4703-94aa-ff56e06e2392",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:26.736Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "3a287d4f-0e2c-42f7-9b39-6f6a0626731d",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:27.077Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "c61bbc17-9d5f-401f-9b9e-152a8a87aaa3",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:27.428Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "cfd47987-bb33-4c6c-9d5b-18563a741707",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:27.760Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "0aa2b46f-ed3f-4ffd-9566-fcf32d1c9ab6",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:28.104Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "dfa336c8-f74b-4dfc-a198-31ab1683e015",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:28.437Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "af3531a4-79e7-490d-9378-0110a1a5a03b",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:28.799Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "c9357a2f-34fa-4866-80b6-acf6a1c57331",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:29.165Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "ec3a589e-0fb6-4ffc-a15b-bfd8536ed51a",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:29.498Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "930b6bbe-48b1-4dac-b447-ff9efbcf235d",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:41:30.096Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "07e511d6-ad7c-4c0e-bd23-33ae9b72325e",
+    "path": "/",
+    "sessionId": "15936e70-cfcc-43d8-8755-05e694b098c6",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:48:56.387Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "10bec5f1-0712-440f-85ff-ca6ce863d6ce",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "15936e70-cfcc-43d8-8755-05e694b098c6",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:48:58.567Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "8ce9d194-11cf-4e2b-b589-219d150815f3",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:50:24.568Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "2d36eba9-6a29-491e-9b7b-130d410d783b",
+    "path": "/blog/nuovo-articolo-1787046792519?preview=1&edit=1",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "15936e70-cfcc-43d8-8755-05e694b098c6",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:53:13.382Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "13dd2db1-e672-45f9-8111-83ff38f0b46e",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "15936e70-cfcc-43d8-8755-05e694b098c6",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:53:18.692Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "526e49a9-7e13-49a8-a95c-230c82e6480d",
+    "path": "/blog",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:56:37.182Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "e4dba748-82aa-4e73-bf72-e9e4bddb60a4",
+    "path": "/blog",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T09:59:00.394Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "5a3d7f05-fc4d-43b2-98bd-c2f71e91d012",
+    "path": "/work",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:02:27.426Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "8343f601-fb73-45f8-a138-5e55c0bf16ce",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:02:30.829Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "cfeb72ad-e15a-4df7-ad79-d6343103b338",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "15936e70-cfcc-43d8-8755-05e694b098c6",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:04:01.531Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "878ba3df-b0e8-499e-ab37-2798cd82c92a",
+    "path": "/work",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:05:03.551Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "d3de225d-86fe-44a5-8b76-257be8d1af82",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:16:06.590Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "0e9338b0-e08e-40a1-af8a-1077faf6e4f4",
+    "path": "/work",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:17:00.378Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "a22c197b-d41a-4fee-a4a1-d8a63cba252a",
+    "path": "/work/oracle-red-bull-racing-adrenaline-kaufland-bulgaria",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:17:12.223Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "7756cd98-ffcf-471d-ad96-a4935cc0ccdc",
+    "path": "/work/oracle-red-bull-racing-adrenaline-kaufland-bulgaria",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:20:12.455Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "ebfd20a2-5fb3-4df2-99ad-b1eff5208a50",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/admin/dashboard",
+    "sessionId": "15936e70-cfcc-43d8-8755-05e694b098c6",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:21:20.182Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "98967c45-3d11-41f3-bab1-e9cd0584ec72",
+    "path": "/work/oracle-red-bull-racing-adrenaline-kaufland-bulgaria",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:24:17.277Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "f6ceaaff-9d22-4363-ae2c-96e454d71c2f",
+    "path": "/work/oracle-red-bull-racing-adrenaline-kaufland-bulgaria?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/oracle-red-bull-racing-adrenaline-kaufland-bulgaria",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:27:50.886Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "0eb60691-e592-4a73-9f6a-b42cf6a81e4b",
+    "path": "/work/oracle-red-bull-racing-adrenaline-kaufland-bulgaria?preview=1",
+    "referrer": "http://localhost:3000/work/oracle-red-bull-racing-adrenaline-kaufland-bulgaria?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:28:13.227Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "48140cd5-725c-4643-b948-a7f2a5c21520",
+    "path": "/work",
+    "referrer": "http://localhost:3000/work/oracle-red-bull-racing-adrenaline-kaufland-bulgaria?preview=1&edit=1",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:36:08.746Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "5bf60352-08cc-4429-b56f-712e0e0814ea",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/work",
+    "sessionId": "5b8ea404-c6a1-4176-b39c-917ed944aad1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:39:00.187Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "b8862f0f-9d4e-4c5d-b307-224822d15071",
+    "path": "/work/pintinox-trust-forged-in-steel-for-orlen-slovakia?preview=1&edit=1",
+    "sessionId": "c08bea54-c8ac-4b06-a39b-9421fcf96379",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:39:09.965Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "3ed421cb-30f2-49a0-acdb-76b6a7903dac",
+    "path": "/work/pintinox-trust-forged-in-steel-for-orlen-slovakia?preview=1&edit=1",
+    "sessionId": "c08bea54-c8ac-4b06-a39b-9421fcf96379",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:42:06.762Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "f07af945-04c6-4d22-b127-67f2c9060545",
+    "path": "/work/pintinox-trust-forged-in-steel-for-orlen-slovakia?preview=1",
+    "referrer": "http://localhost:3000/work/pintinox-trust-forged-in-steel-for-orlen-slovakia?preview=1&edit=1",
+    "sessionId": "c08bea54-c8ac-4b06-a39b-9421fcf96379",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:44:24.366Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "bc6e17b4-70ab-4eb8-ad43-756665e8cfb4",
+    "path": "/work",
+    "referrer": "http://localhost:3000/work/pintinox-trust-forged-in-steel-for-orlen-slovakia?preview=1&edit=1",
+    "sessionId": "c08bea54-c8ac-4b06-a39b-9421fcf96379",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:44:53.515Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "bbf2046c-3c29-40e6-a0b8-6fd7ccfff490",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland",
+    "referrer": "http://localhost:3000/work/pintinox-trust-forged-in-steel-for-orlen-slovakia?preview=1&edit=1",
+    "sessionId": "c08bea54-c8ac-4b06-a39b-9421fcf96379",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:44:57.119Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "03827d33-d54c-4974-8eff-c8bcc2169ddc",
+    "path": "/work",
+    "referrer": "http://localhost:3000/work/pintinox-trust-forged-in-steel-for-orlen-slovakia?preview=1&edit=1",
+    "sessionId": "c08bea54-c8ac-4b06-a39b-9421fcf96379",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:45:04.002Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "8c40a594-0302-488f-9b2a-5ad5afc05c36",
+    "path": "/work/pintinox-for-viada-latvia",
+    "referrer": "http://localhost:3000/work/pintinox-trust-forged-in-steel-for-orlen-slovakia?preview=1&edit=1",
+    "sessionId": "c08bea54-c8ac-4b06-a39b-9421fcf96379",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:45:07.600Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "d14114b9-a544-4009-aace-75c28448b851",
+    "path": "/work",
+    "referrer": "http://localhost:3000/work/pintinox-trust-forged-in-steel-for-orlen-slovakia?preview=1&edit=1",
+    "sessionId": "c08bea54-c8ac-4b06-a39b-9421fcf96379",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:45:08.613Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "3f6a0b84-6d04-46ae-abfb-d7fc4d1eeb34",
+    "path": "/work/oracle-red-bull-racing-adrenaline-kaufland-bulgaria",
+    "referrer": "http://localhost:3000/work/pintinox-trust-forged-in-steel-for-orlen-slovakia?preview=1&edit=1",
+    "sessionId": "c08bea54-c8ac-4b06-a39b-9421fcf96379",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:45:10.812Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "c1292bd3-cde9-40f6-8827-20b3be8a36ae",
+    "path": "/work/oracle-red-bull-racing-adrenaline-kaufland-bulgaria",
+    "referrer": "http://localhost:3000/work/pintinox-trust-forged-in-steel-for-orlen-slovakia?preview=1&edit=1",
+    "sessionId": "c08bea54-c8ac-4b06-a39b-9421fcf96379",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:47:31.462Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "eab32e65-9444-447c-99d5-65e36a91e0da",
+    "path": "/work/oracle-red-bull-racing-adrenaline-kaufland-bulgaria",
+    "referrer": "http://localhost:3000/work/pintinox-trust-forged-in-steel-for-orlen-slovakia?preview=1&edit=1",
+    "sessionId": "c08bea54-c8ac-4b06-a39b-9421fcf96379",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:48:49.604Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "a5e9c9ea-cbe6-4f55-a199-e80ff10d6c1f",
+    "path": "/work/oracle-red-bull-racing-adrenaline-kaufland-bulgaria",
+    "referrer": "http://localhost:3000/work/pintinox-trust-forged-in-steel-for-orlen-slovakia?preview=1&edit=1",
+    "sessionId": "c08bea54-c8ac-4b06-a39b-9421fcf96379",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:53:26.553Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "215bf3b5-f9e4-4fc6-be85-121abfeda967",
+    "path": "/work/oracle-red-bull-racing-adrenaline-kaufland-bulgaria",
+    "referrer": "http://localhost:3000/work/pintinox-trust-forged-in-steel-for-orlen-slovakia?preview=1&edit=1",
+    "sessionId": "c08bea54-c8ac-4b06-a39b-9421fcf96379",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:53:53.490Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "d8b1d1c7-db6d-414a-9b49-35ccfad1ec84",
+    "path": "/work/oracle-red-bull-racing-adrenaline-kaufland-bulgaria",
+    "referrer": "http://localhost:3000/work/pintinox-trust-forged-in-steel-for-orlen-slovakia?preview=1&edit=1",
+    "sessionId": "c08bea54-c8ac-4b06-a39b-9421fcf96379",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T10:56:55.322Z",
+    "eventType": "pageview"
+  }
+]

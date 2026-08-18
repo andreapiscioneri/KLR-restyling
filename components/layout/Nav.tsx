@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu, X, ArrowUpRight, UserCircle } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { useAdminBarVisible } from "./AdminBar";
 
 export type NavSub  = { href: string; label: string };
 export type NavLink = { href: string; label: string; sub?: NavSub[] };
@@ -50,6 +51,7 @@ export function Nav({ initialLinks, initialCtaLabel, initialCtaHref, logoUrl }: 
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const adminBarVisible = useAdminBarVisible();
   const links = initialLinks && initialLinks.length > 0 ? initialLinks : DEFAULT_LINKS;
   const ctaLabel = initialCtaLabel || "Get in Touch";
   const ctaHref = initialCtaHref || "/contact";
@@ -65,7 +67,7 @@ export function Nav({ initialLinks, initialCtaLabel, initialCtaHref, logoUrl }: 
   if (pathname.startsWith("/admin")) return null;
 
   return (
-    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[96%] max-w-6xl">
+    <nav className={`fixed ${adminBarVisible ? "top-[52px]" : "top-4"} left-1/2 -translate-x-1/2 z-50 w-[96%] max-w-6xl transition-[top] duration-200`}>
       <motion.div
         className="rounded-[20px] pl-4 pr-2.5 py-2 flex items-center justify-between transition-all duration-500"
         style={scrolled ? glass.scrolled : glass.base}

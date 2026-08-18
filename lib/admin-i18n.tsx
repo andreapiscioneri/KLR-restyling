@@ -167,6 +167,10 @@ const it: Dict = {
   common: {
     save: "Salva", cancel: "Annulla", confirm: "Conferma", delete: "Elimina", deleteAll: "Cancella tutto",
     deletePermanently: "Elimina definitivamente", edit: "Modifica", add: "Aggiungi", addItem: "Aggiungi {item}",
+    createChoiceTitle: "Come vuoi creare questo {item}?",
+    createChoiceDesc: "Puoi partire dal template classico (compili i campi qui, poi pubblichi), oppure costruire la pagina da zero direttamente sul sito, scegliendo tu struttura, testi, immagini e colori.",
+    createDefaultTitle: "Struttura predefinita", createDefaultDesc: "Compili il form classico con i campi già pronti (titolo, cliente, immagini, testo…).",
+    createCustomTitle: "Struttura personalizzata", createCustomDesc: "Ti porta direttamente sulla pagina vuota, per costruirla a blocchi liberi: testo, immagini, gallerie, video, nell'ordine che vuoi.",
     preview: "Anteprima", refresh: "Aggiorna", restore: "Ripristina", close: "Chiudi",
     searchByName: "Cerca per nome...", requiredField: "Campo obbligatorio", empty: "(vuoto)", draft: "Bozza",
     all: "Tutti", published: "Pubblicati", drafts: "Bozze", deleted: "Eliminati",
@@ -397,6 +401,10 @@ const en: Dict = {
   common: {
     save: "Save", cancel: "Cancel", confirm: "Confirm", delete: "Delete", deleteAll: "Delete all",
     deletePermanently: "Delete permanently", edit: "Edit", add: "Add", addItem: "Add {item}",
+    createChoiceTitle: "How do you want to create this {item}?",
+    createChoiceDesc: "You can start from the classic template (fill in the fields here, then publish), or build the page from scratch directly on the site, choosing the structure, text, images and colors yourself.",
+    createDefaultTitle: "Default structure", createDefaultDesc: "Fill in the classic form with ready-made fields (title, client, images, text…).",
+    createCustomTitle: "Custom structure", createCustomDesc: "Takes you straight to the blank live page, to build it with free blocks: text, images, galleries, video, in whatever order you want.",
     preview: "Preview", refresh: "Refresh", restore: "Restore", close: "Close",
     searchByName: "Search by name...", requiredField: "Required field", empty: "(empty)", draft: "Draft",
     all: "All", published: "Published", drafts: "Drafts", deleted: "Deleted",
@@ -627,6 +635,10 @@ const ru: Dict = {
   common: {
     save: "Сохранить", cancel: "Отмена", confirm: "Подтвердить", delete: "Удалить", deleteAll: "Удалить всё",
     deletePermanently: "Удалить навсегда", edit: "Изменить", add: "Добавить", addItem: "Добавить {item}",
+    createChoiceTitle: "Как вы хотите создать этот {item}?",
+    createChoiceDesc: "Вы можете начать с классического шаблона (заполнить поля здесь, затем опубликовать) или создать страницу с нуля прямо на сайте, самостоятельно выбирая структуру, тексты, изображения и цвета.",
+    createDefaultTitle: "Стандартная структура", createDefaultDesc: "Заполните классическую форму с готовыми полями (заголовок, клиент, изображения, текст…).",
+    createCustomTitle: "Персонализированная структура", createCustomDesc: "Сразу переносит вас на пустую живую страницу, чтобы собрать её из свободных блоков: текст, изображения, галереи, видео — в любом порядке.",
     preview: "Просмотр", refresh: "Обновить", restore: "Восстановить", close: "Закрыть",
     searchByName: "Поиск по названию...", requiredField: "Обязательное поле", empty: "(пусто)", draft: "Черновик",
     all: "Все", published: "Опубликованные", drafts: "Черновики", deleted: "Удалённые",

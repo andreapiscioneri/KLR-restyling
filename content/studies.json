@@ -69,26 +69,62 @@
         "Spend 20 EUR or more to collect additional points based on basket value.",
         "High-octane lottery: chance to win 1 of 5 Porsche 718 driving experiences at Red Bull Ring, Austria."
       ],
-      "gallery": [
-        "/api/media/wp-4503",
-        "/api/media/wp-4502",
-        "/api/media/wp-4504",
-        "/api/media/wp-4505",
-        "/api/media/wp-4507",
-        "/api/media/wp-4508",
-        "/api/media/wp-4510",
-        "/api/media/wp-4511"
-      ],
-      "social": [
-        "/api/media/wp-4486",
-        "/api/media/wp-4487",
-        "/api/media/wp-4488",
-        "/api/media/wp-4489",
-        "/api/media/wp-4490",
-        "/api/media/wp-4491"
-      ],
+      "gallery": [],
+      "social": [],
       "videos": [
         "/api/media/wp-4492"
+      ],
+      "galleryGroups": [
+        {
+          "id": "g1",
+          "title": "Campaign",
+          "images": [
+            "/api/media/wp-4501",
+            "/api/media/wp-4513",
+            "/api/media/wp-4514"
+          ]
+        },
+        {
+          "id": "g2",
+          "title": "Gallery",
+          "images": [
+            "/api/media/wp-4503",
+            "/api/media/wp-4502",
+            "/api/media/wp-4504",
+            "/api/media/wp-4505",
+            "/api/media/wp-4507",
+            "/api/media/wp-4508",
+            "/api/media/wp-4510",
+            "/api/media/wp-4511"
+          ]
+        },
+        {
+          "id": "g3",
+          "title": "Mechanics",
+          "images": [
+            "/api/media/wp-4506"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g4",
+          "title": "Influencer Marketing",
+          "images": [
+            "/api/media/wp-4486",
+            "/api/media/wp-4487",
+            "/api/media/wp-4488",
+            "/api/media/wp-4489",
+            "/api/media/wp-4490",
+            "/api/media/wp-4491"
+          ]
+        }
+      ],
+      "collectionImage": "/api/media/wp-4485",
+      "videoCaptions": [
+        "Website"
+      ],
+      "videoPositions": [
+        "gallery"
       ]
     },
     "publicPreview": false,
@@ -161,18 +197,42 @@
         "5 stamps unlock a digital coupon for one Pintinox item at promotional price.",
         "Coupons redeemable in all 370 participating stations."
       ],
-      "gallery": [
-        "/api/media/wp-4652",
-        "/api/media/wp-4653",
-        "/api/media/wp-4656",
-        "/api/media/wp-4661",
-        "/api/media/wp-4662",
-        "/api/media/wp-4663",
-        "/api/media/wp-4665",
-        "/api/media/wp-4664"
-      ],
+      "gallery": [],
       "social": [],
-      "videos": []
+      "videos": [],
+      "galleryGroups": [
+        {
+          "id": "g5",
+          "title": "Gallery",
+          "images": [
+            "/api/media/wp-4652",
+            "/api/media/wp-4653",
+            "/api/media/wp-4656",
+            "/api/media/wp-4661",
+            "/api/media/wp-4662",
+            "/api/media/wp-4663",
+            "/api/media/wp-4665",
+            "/api/media/wp-4664",
+            "/api/media/wp-4667"
+          ]
+        },
+        {
+          "id": "g6",
+          "title": "Collection Overview",
+          "images": [
+            "/api/media/wp-4669"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g7",
+          "title": "Mechanics",
+          "images": [
+            "/api/media/wp-4668"
+          ],
+          "feature": true
+        }
+      ]
     },
     "publicPreview": false,
     "cornerstone": false
@@ -203,8 +263,8 @@
     "brand": "Oracle Red Bull Racing",
     "details": {
       "sourceUrl": "https://klr-europe.com/oracle-red-bull-racing-adrenaline-kaufland-bulgaria/",
-      "campaignTitle": "Fueling Loyalty with Oracle Red Bull Racing Adrenaline",
-      "challenge": "Kaufland Bulgaria aimed to energize its summer calendar, attract new shoppers and increase repeat visits while delivering standout value to Kaufland Card users.",
+      "campaignTitle": "Igniting Retail Loyalty Through Speed, Style, and Strategy",
+      "challenge": "Kaufland Bulgaria sought to energize its summer marketing calendar with a campaign that would attract new customers, increase repeat visits and to reinforce its position as a modern, dynamic retailer. The campaign needed to stand out in a competitive landscape while delivering real value and excitement to Kaufland Card users.",
       "rewardGroups": [
         {
           "title": "Travel & Mobility",
@@ -248,38 +308,86 @@
         "Lottery #1: buy limited 4-pack Red Bull and register receipt to win 1 of 20 VIP Showrun tickets.",
         "Lottery #2: spend over 59.99 BGN on campaign products to enter draw for 1 of 2 Porsche 718 Cayman S trips at Red Bull Ring."
       ],
-      "gallery": [
-        "/api/media/wp-4755",
-        "/api/media/wp-4756",
-        "/api/media/wp-4757",
-        "/api/media/wp-4734",
-        "/api/media/wp-4723",
-        "/api/media/wp-4722",
-        "/api/media/wp-4727",
-        "/api/media/wp-4733",
-        "/api/media/wp-4736",
-        "/api/media/wp-4737",
-        "/api/media/wp-4740",
-        "/api/media/wp-4745",
-        "/api/media/wp-4746",
-        "/api/media/wp-4747",
-        "/api/media/wp-4749",
-        "/api/media/wp-4767",
-        "/api/media/wp-4768",
-        "/api/media/wp-4769",
-        "/api/media/wp-4770"
-      ],
-      "social": [
-        "/api/media/wp-4693",
-        "/api/media/wp-4694",
-        "/api/media/wp-4695",
-        "/api/media/wp-4697",
-        "/api/media/wp-4698",
-        "/api/media/wp-4699"
-      ],
+      "gallery": [],
+      "social": [],
       "videos": [
+        "https://youtu.be/3NK17OZW4go",
+        "https://youtu.be/XS2xXQSBc5s",
         "/api/media/wp-4692"
-      ]
+      ],
+      "galleryGroups": [
+        {
+          "id": "instore",
+          "title": "In-Store Experience",
+          "images": [
+            "/api/media/wp-4755",
+            "/api/media/wp-4756",
+            "/api/media/wp-4757",
+            "/api/media/wp-4722",
+            "/api/media/wp-4723",
+            "/api/media/wp-4727",
+            "/api/media/wp-4733",
+            "/api/media/wp-4734",
+            "/api/media/wp-4736",
+            "/api/media/wp-4737",
+            "/api/media/wp-4740",
+            "/api/media/wp-4745",
+            "/api/media/wp-4747",
+            "/api/media/wp-4746",
+            "/api/media/wp-4749"
+          ]
+        },
+        {
+          "id": "lottery",
+          "title": "Lottery: Porsche Experience",
+          "images": [
+            "/api/media/wp-4767",
+            "/api/media/wp-4770",
+            "/api/media/wp-4769",
+            "/api/media/wp-4768"
+          ]
+        },
+        {
+          "id": "leaflet",
+          "title": "Campaign Leaflet",
+          "images": [
+            "/api/media/wp-4744"
+          ],
+          "feature": true
+        },
+        {
+          "id": "social",
+          "title": "Social Media",
+          "images": [
+            "/api/media/wp-4693",
+            "/api/media/wp-4694",
+            "/api/media/wp-4695",
+            "/api/media/wp-4697",
+            "/api/media/wp-4698",
+            "/api/media/wp-4699",
+            "/api/media/wp-4700",
+            "/api/media/wp-4702",
+            "/api/media/wp-4703",
+            "/api/media/wp-4707",
+            "/api/media/wp-4708",
+            "/api/media/wp-4709"
+          ]
+        }
+      ],
+      "videoCaptions": [
+        "",
+        "",
+        "Website"
+      ],
+      "collectionImage": "/api/media/wp-4501",
+      "videoPositions": [
+        "opening",
+        "opening",
+        "gallery"
+      ],
+      "headings": {
+        "rewards_title": "Premium Travel Lifestyle Rewards"
+      }
     },
     "publicPreview": false,
     "cornerstone": false
@@ -336,16 +444,36 @@
         "Double points with Lukoil Club loyalty card: 2 points for every 10 BGN.",
         "Customers redeemed Bugatti Primo products with discounts up to 75%."
       ],
-      "gallery": [
-        "/api/media/wp-3665",
-        "/api/media/wp-3667",
-        "/api/media/wp-3683",
-        "/api/media/wp-4421"
+      "gallery": [],
+      "social": [],
+      "videos": [],
+      "galleryGroups": [
+        {
+          "id": "g8",
+          "title": "Campaign",
+          "images": [
+            "/api/media/wp-3671"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g9",
+          "title": "Assortment",
+          "images": [
+            "/api/media/wp-3683"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g10",
+          "title": "Mechanics",
+          "images": [
+            "/api/media/wp-4421",
+            "/api/media/wp-3684"
+          ]
+        }
       ],
-      "social": [
-        "/api/media/wp-3684"
-      ],
-      "videos": []
+      "collectionImage": "/api/media/wp-3667"
     },
     "publicPreview": false,
     "cornerstone": false
@@ -404,25 +532,65 @@
         "After 10 stickers, customers could purchase Stardust products at discounted prices.",
         "Lottery mechanic: buy at least 1 Stardust product and register receipt for chance to win an Audi Q2."
       ],
-      "gallery": [
-        "/api/media/wp-3053",
-        "/api/media/wp-3054",
-        "/api/media/wp-3060",
-        "/api/media/wp-3065",
-        "/api/media/wp-3052",
-        "/api/media/wp-3057",
-        "/api/media/wp-3061",
-        "/api/media/wp-3109"
+      "gallery": [],
+      "social": [],
+      "videos": [
+        "https://youtu.be/MkFQXDXXt6U"
       ],
-      "social": [
-        "/api/media/wp-3066",
-        "/api/media/wp-3068",
-        "/api/media/wp-3069",
-        "/api/media/wp-3071",
-        "/api/media/wp-3072",
-        "/api/media/wp-3075"
+      "galleryGroups": [
+        {
+          "id": "g11",
+          "title": "LOTTERY",
+          "images": [
+            "/api/media/wp-3336"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g12",
+          "title": "Campaign",
+          "images": [
+            "/api/media/wp-3064"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g13",
+          "title": "Lottery",
+          "images": [
+            "/api/media/wp-3063",
+            "/api/media/wp-3065",
+            "/api/media/wp-3066",
+            "/api/media/wp-3068",
+            "/api/media/wp-3069"
+          ]
+        },
+        {
+          "id": "g14",
+          "title": "Gallery",
+          "images": [
+            "/api/media/wp-3053",
+            "/api/media/wp-3054",
+            "/api/media/wp-3052",
+            "/api/media/wp-3057",
+            "/api/media/wp-3060",
+            "/api/media/wp-3061",
+            "/api/media/wp-3055",
+            "/api/media/wp-3108",
+            "/api/media/wp-3109",
+            "/api/media/wp-3071",
+            "/api/media/wp-3072",
+            "/api/media/wp-3075",
+            "/api/media/wp-3107"
+          ]
+        }
       ],
-      "videos": []
+      "videoCaptions": [
+        ""
+      ],
+      "videoPositions": [
+        "opening"
+      ]
     },
     "publicPreview": false,
     "cornerstone": false
@@ -478,25 +646,61 @@
         "Collect 15 stickers to unlock 1 product with up to 83% discount.",
         "Time-limited special offers on selected products for loyal Petrom customers."
       ],
-      "gallery": [
-        "/api/media/wp-3211",
-        "/api/media/wp-3208",
-        "/api/media/wp-3223",
-        "/api/media/wp-3209",
-        "/api/media/wp-3214",
-        "/api/media/wp-3222",
-        "/api/media/wp-3217",
-        "/api/media/wp-3224"
+      "gallery": [],
+      "social": [],
+      "videos": [
+        "https://youtu.be/HQYZTw1nVjU",
+        "https://youtu.be/3dpdf9gqTHg"
       ],
-      "social": [
-        "/api/media/wp-3226",
-        "/api/media/wp-3227",
-        "/api/media/wp-3228",
-        "/api/media/wp-3229",
-        "/api/media/wp-3230",
-        "/api/media/wp-3231"
+      "galleryGroups": [
+        {
+          "id": "g15",
+          "title": "Campaign",
+          "images": [
+            "/api/media/wp-3236"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g16",
+          "title": "Gallery",
+          "images": [
+            "/api/media/wp-3211",
+            "/api/media/wp-3208",
+            "/api/media/wp-3214",
+            "/api/media/wp-3223",
+            "/api/media/wp-3222",
+            "/api/media/wp-3209",
+            "/api/media/wp-3217",
+            "/api/media/wp-3216",
+            "/api/media/wp-3224"
+          ]
+        },
+        {
+          "id": "g17",
+          "title": "Social Media",
+          "images": [
+            "/api/media/wp-3226",
+            "/api/media/wp-3227",
+            "/api/media/wp-3228",
+            "/api/media/wp-3229",
+            "/api/media/wp-3230",
+            "/api/media/wp-3231",
+            "/api/media/wp-3232",
+            "/api/media/wp-3233",
+            "/api/media/wp-3234",
+            "/api/media/wp-3235"
+          ]
+        }
       ],
-      "videos": []
+      "videoCaptions": [
+        "",
+        "Website"
+      ],
+      "videoPositions": [
+        "opening",
+        "gallery"
+      ]
     },
     "publicPreview": false,
     "cornerstone": false
@@ -565,13 +769,46 @@
         "Get Rewarded: collect 5 stickers to unlock at least 50% off any item in the exclusive POLICE collection.",
         "Boost Benefits: scanning the MOL Move loyalty card enabled deeper discounts and smoother redemption."
       ],
-      "gallery": [
-        "/api/media/wp-4354",
-        "/api/media/wp-4364",
-        "/api/media/wp-4356"
-      ],
+      "gallery": [],
       "videos": [
         "/api/media/wp-4363"
+      ],
+      "galleryGroups": [
+        {
+          "id": "g18",
+          "title": "Choose Yourself Every Day – POLICE “Audacity Wanted” Loyalty Campaign for MOL Hungary",
+          "images": [
+            "/api/media/wp-4364"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g19",
+          "title": "Gallery",
+          "images": [
+            "/api/media/wp-4358",
+            "/api/media/wp-4362",
+            "/api/media/wp-4360",
+            "/api/media/wp-4361",
+            "/api/media/wp-4359",
+            "/api/media/wp-4357"
+          ]
+        },
+        {
+          "id": "g20",
+          "title": "Mechanics",
+          "images": [
+            "/api/media/wp-4356"
+          ],
+          "feature": true
+        }
+      ],
+      "social": [],
+      "videoCaptions": [
+        "Website"
+      ],
+      "videoPositions": [
+        "gallery"
       ]
     },
     "publicPreview": false,
@@ -636,13 +873,53 @@
         "Stickers were collected in a promotional booklet, available at the petrol station goods stand or cash desks.",
         "Once the required number of stickers was collected, customers could redeem them for Pintinox products at a discounted price. Up to 50% of the payment could also be covered using VIADA PLUS discount card accumulated money."
       ],
-      "gallery": [
-        "/api/media/wp-3629",
-        "/api/media/wp-3639",
-        "/api/media/wp-3647"
-      ],
+      "gallery": [],
       "videos": [
         "/api/media/wp-3643"
+      ],
+      "galleryGroups": [
+        {
+          "id": "g21",
+          "title": "Pintinox Trust Forged In Steel - Ready for Every Challenge",
+          "images": [
+            "/api/media/wp-3639"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g22",
+          "title": "Gallery",
+          "images": [
+            "/api/media/wp-4277",
+            "/api/media/wp-4276",
+            "/api/media/wp-4278"
+          ]
+        },
+        {
+          "id": "g23",
+          "title": "Mechanics",
+          "images": [
+            "/api/media/wp-3647"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g24",
+          "title": "Social Media",
+          "images": [
+            "/api/media/wp-4272",
+            "/api/media/wp-4273",
+            "/api/media/wp-4274",
+            "/api/media/wp-4275"
+          ]
+        }
+      ],
+      "social": [],
+      "videoCaptions": [
+        "Website"
+      ],
+      "videoPositions": [
+        "gallery"
       ]
     },
     "publicPreview": false,
@@ -714,12 +991,43 @@
         "Spend requirement: 20 zł for 1 sticker.",
         "5 stickers to get 1 product with up to 50% discount."
       ],
-      "gallery": [
-        "/api/media/wp-3496",
-        "/api/media/wp-3497",
-        "/api/media/wp-3505",
-        "/api/media/wp-3498"
-      ]
+      "gallery": [],
+      "galleryGroups": [
+        {
+          "id": "g25",
+          "title": "ZANUSSI Zmart Move Loyalty Campaign for Carrefour - Poland",
+          "images": [
+            "/api/media/wp-3497"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g26",
+          "title": "Campaign",
+          "images": [
+            "/api/media/wp-3505"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g27",
+          "title": "Gallery",
+          "images": [
+            "/api/media/wp-3504",
+            "/api/media/wp-3502",
+            "/api/media/wp-3503"
+          ]
+        },
+        {
+          "id": "g28",
+          "title": "Mechanics",
+          "images": [
+            "/api/media/wp-3498"
+          ],
+          "feature": true
+        }
+      ],
+      "social": []
     },
     "publicPreview": false,
     "cornerstone": false
@@ -778,10 +1086,66 @@
         "Petrol Klub members needed fewer stickers to collect the products.",
         "Stickers were collectable both with the Petrol GO app and/or with a collection card."
       ],
-      "gallery": [
-        "/api/media/wp-3342",
-        "/api/media/wp-3394",
-        "/api/media/wp-3364"
+      "gallery": [],
+      "galleryGroups": [
+        {
+          "id": "g29",
+          "title": "3 COUNTRIES",
+          "images": [
+            "/api/media/wp-3342"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g30",
+          "title": "Campaign",
+          "images": [
+            "/api/media/wp-3394"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g31",
+          "title": "Gallery",
+          "images": [
+            "/api/media/wp-3347",
+            "/api/media/wp-3384",
+            "/api/media/wp-3385",
+            "/api/media/wp-3386",
+            "/api/media/wp-3383",
+            "/api/media/wp-3348",
+            "/api/media/wp-3354",
+            "/api/media/wp-3346",
+            "/api/media/wp-3355"
+          ]
+        },
+        {
+          "id": "g32",
+          "title": "Mechanics",
+          "images": [
+            "/api/media/wp-3364"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g33",
+          "title": "Social Media",
+          "images": [
+            "/api/media/wp-3381",
+            "/api/media/wp-3382",
+            "/api/media/wp-3371"
+          ]
+        }
+      ],
+      "social": [],
+      "videos": [
+        "https://youtu.be/D-52xNRWfNo"
+      ],
+      "videoCaptions": [
+        ""
+      ],
+      "videoPositions": [
+        "opening"
       ]
     },
     "publicPreview": false,
@@ -843,12 +1207,78 @@
         "Special time-limited offers on selected Eurosport products for the most loyal VIADA customers.",
         "Lottery: a trip for two people from each country to the Olympic Games in Paris to attend the Bronze medal basketball match, with flights and accommodation provided."
       ],
-      "gallery": [
-        "/api/media/wp-3257",
-        "/api/media/wp-3264",
-        "/api/media/wp-3304",
-        "/api/media/wp-3305",
-        "/api/media/wp-3303"
+      "gallery": [],
+      "galleryGroups": [
+        {
+          "id": "g34",
+          "title": "Campaign",
+          "images": [
+            "/api/media/wp-3264"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g35",
+          "title": "Sustainability",
+          "images": [
+            "/api/media/wp-3304"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g36",
+          "title": "Gallery",
+          "images": [
+            "/api/media/wp-3265",
+            "/api/media/wp-3284",
+            "/api/media/wp-3281",
+            "/api/media/wp-3267",
+            "/api/media/wp-3288",
+            "/api/media/wp-3290",
+            "/api/media/wp-3274",
+            "/api/media/wp-3280",
+            "/api/media/wp-3283"
+          ]
+        },
+        {
+          "id": "g37",
+          "title": "Mechanics",
+          "images": [
+            "/api/media/wp-3305"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g38",
+          "title": "Lottery",
+          "images": [
+            "/api/media/wp-3303"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g39",
+          "title": "Social Media",
+          "images": [
+            "/api/media/wp-3298",
+            "/api/media/wp-3299",
+            "/api/media/wp-3300",
+            "/api/media/wp-3302"
+          ]
+        }
+      ],
+      "social": [],
+      "videos": [
+        "https://youtu.be/yk1VhmRF_zE",
+        "https://youtu.be/75-bHhEx_Vo"
+      ],
+      "videoCaptions": [
+        "",
+        "Website"
+      ],
+      "videoPositions": [
+        "opening",
+        "gallery"
       ]
     },
     "publicPreview": false,
@@ -906,9 +1336,64 @@
         "5 stickers to get 1 product with up to 70% discount.",
         "Special time-limited offers on selected products for most-loyal MAXIMA customers."
       ],
-      "gallery": [
-        "/api/media/wp-3130",
-        "/api/media/wp-3139"
+      "gallery": [],
+      "galleryGroups": [
+        {
+          "id": "g40",
+          "title": "Campaign",
+          "images": [
+            "/api/media/wp-3139"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g41",
+          "title": "Gallery",
+          "images": [
+            "/api/media/wp-3167",
+            "/api/media/wp-3154",
+            "/api/media/wp-3166",
+            "/api/media/wp-3145",
+            "/api/media/wp-3146",
+            "/api/media/wp-3147",
+            "/api/media/wp-3156",
+            "/api/media/wp-3165",
+            "/api/media/wp-3169"
+          ]
+        },
+        {
+          "id": "g42",
+          "title": "Social Media",
+          "images": [
+            "/api/media/wp-3170",
+            "/api/media/wp-3173",
+            "/api/media/wp-3172",
+            "/api/media/wp-3171",
+            "/api/media/wp-3174",
+            "/api/media/wp-3175",
+            "/api/media/wp-3176",
+            "/api/media/wp-3177"
+          ]
+        },
+        {
+          "id": "g43",
+          "title": "In Store Video Screens",
+          "images": [
+            "/api/media/wp-3163",
+            "/api/media/wp-3162",
+            "/api/media/wp-3161"
+          ]
+        }
+      ],
+      "social": [],
+      "videos": [
+        "https://youtu.be/UIE-iJ-KFQg"
+      ],
+      "videoCaptions": [
+        ""
+      ],
+      "videoPositions": [
+        "opening"
       ]
     },
     "publicPreview": false,
@@ -963,10 +1448,33 @@
       "mechanics": [
         "Customers had to shop in stores for at least 15€ to get a 60% discount on Zanussi products."
       ],
-      "gallery": [
-        "/api/media/wp-3028",
-        "/api/media/wp-3084"
-      ]
+      "gallery": [],
+      "galleryGroups": [
+        {
+          "id": "g44",
+          "title": "ZANUSSI SUPERGRIP Loyalty Campaign for IKI - Lithuania",
+          "images": [
+            "/api/media/wp-3084"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g45",
+          "title": "Gallery",
+          "images": [
+            "/api/media/wp-3096",
+            "/api/media/wp-3089",
+            "/api/media/wp-3093",
+            "/api/media/wp-3095",
+            "/api/media/wp-3092",
+            "/api/media/wp-3094",
+            "/api/media/wp-3097",
+            "/api/media/wp-3098",
+            "/api/media/wp-3099"
+          ]
+        }
+      ],
+      "social": []
     },
     "publicPreview": false,
     "cornerstone": false
@@ -1032,14 +1540,80 @@
         "A QR code inside product packaging unlocked exclusive recipes on a dedicated website.",
         "Weekly lottery: customers who purchased Bugatti Buono! products with their BILLA Card could register the receipt for a chance to win a Bugatti Blender, with a final raffle for a Bugatti coffee machine."
       ],
-      "gallery": [
-        "/api/media/wp-2951",
-        "/api/media/wp-2997",
-        "/api/media/wp-2973",
-        "/api/media/wp-2956",
-        "/api/media/wp-2969",
-        "/api/media/wp-2968",
-        "/api/media/wp-2964"
+      "gallery": [],
+      "galleryGroups": [
+        {
+          "id": "g46",
+          "title": "WEEKLY LOTTERY",
+          "images": [
+            "/api/media/wp-2951"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g47",
+          "title": "Gallery",
+          "images": [
+            "/api/media/wp-2961",
+            "/api/media/wp-2952",
+            "/api/media/wp-2960",
+            "/api/media/wp-2953",
+            "/api/media/wp-2962",
+            "/api/media/wp-2963"
+          ]
+        },
+        {
+          "id": "g48",
+          "title": "Recipe Book",
+          "images": [
+            "/api/media/wp-2997"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g49",
+          "title": "Lottery",
+          "images": [
+            "/api/media/wp-2969",
+            "/api/media/wp-2968"
+          ]
+        },
+        {
+          "id": "g50",
+          "title": "Mechanics",
+          "images": [
+            "/api/media/wp-2964"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g51",
+          "title": "SOCIAL MEDIA",
+          "images": [
+            "/api/media/wp-2974",
+            "/api/media/wp-2980",
+            "/api/media/wp-2979",
+            "/api/media/wp-2978",
+            "/api/media/wp-2976",
+            "/api/media/wp-2975",
+            "/api/media/wp-2982",
+            "/api/media/wp-2977",
+            "/api/media/wp-2981",
+            "/api/media/wp-2983",
+            "/api/media/wp-2984",
+            "/api/media/wp-2985"
+          ]
+        }
+      ],
+      "social": [],
+      "videos": [
+        "https://youtu.be/G9U5NTABPYI"
+      ],
+      "videoCaptions": [
+        ""
+      ],
+      "videoPositions": [
+        "opening"
       ]
     },
     "publicPreview": false,
@@ -1090,8 +1664,51 @@
         "Slovnaft Move members could purchase loyalty products at an even better price (at least 60%) after presenting and scanning their card.",
         "Lottery: after purchasing any product from the STARDUST collection, customers could register their receipt for a chance to win a family trip to the Kennedy Space Center in Florida, worth €10,000."
       ],
-      "gallery": [
-        "/api/media/wp-2858"
+      "gallery": [],
+      "galleryGroups": [
+        {
+          "id": "g52",
+          "title": "LOTTERY",
+          "images": [
+            "/api/media/wp-2858"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g53",
+          "title": "Gallery",
+          "images": [
+            "/api/media/wp-2860",
+            "/api/media/wp-2863",
+            "/api/media/wp-2864",
+            "/api/media/wp-2865",
+            "/api/media/wp-2862",
+            "/api/media/wp-2866",
+            "/api/media/wp-2867",
+            "/api/media/wp-2872",
+            "/api/media/wp-2873"
+          ]
+        },
+        {
+          "id": "g54",
+          "title": "Mechanics",
+          "images": [
+            "/api/media/wp-2910",
+            "/api/media/wp-2911",
+            "/api/media/wp-2912",
+            "/api/media/wp-2913"
+          ]
+        }
+      ],
+      "social": [],
+      "videos": [
+        "https://youtu.be/MkFQXDXXt6U"
+      ],
+      "videoCaptions": [
+        ""
+      ],
+      "videoPositions": [
+        "opening"
       ]
     },
     "publicPreview": false,
@@ -1137,8 +1754,39 @@
         "With 10 stickers, products come with up to 70% discount.",
         "For \"Klub Osmijeha\" members, only 7 stickers were needed."
       ],
-      "gallery": [
-        "/api/media/wp-2777"
+      "gallery": [],
+      "galleryGroups": [
+        {
+          "id": "g55",
+          "title": "SPECIAL MECHANICS",
+          "images": [
+            "/api/media/wp-2777"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g56",
+          "title": "Gallery",
+          "images": [
+            "/api/media/wp-2787",
+            "/api/media/wp-2785",
+            "/api/media/wp-2784",
+            "/api/media/wp-2786",
+            "/api/media/wp-2790",
+            "/api/media/wp-2788",
+            "/api/media/wp-2789"
+          ]
+        }
+      ],
+      "social": [],
+      "videos": [
+        "https://youtu.be/bX7tS8FefxM"
+      ],
+      "videoCaptions": [
+        "Promotional Video"
+      ],
+      "videoPositions": [
+        "gallery"
       ]
     },
     "publicPreview": false,
@@ -1196,9 +1844,46 @@
         "10 sticker points allowed purchase of limited edition Alfa Romeo products with a 68% discount.",
         "Lottery: chance to win an Alfa Romeo Tonale Hybrid car as the main prize and 8 Rompetrol Fuel Cards (one year value) as weekly prizes for purchases of at least 150 lei. Rompetrol Go members had double chances to win."
       ],
-      "gallery": [
-        "/api/media/wp-2602",
-        "/api/media/wp-2564"
+      "gallery": [],
+      "galleryGroups": [
+        {
+          "id": "g57",
+          "title": "LOTTERY",
+          "images": [
+            "/api/media/wp-2602"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g58",
+          "title": "Lottery",
+          "images": [
+            "/api/media/wp-2564"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g59",
+          "title": "Gallery",
+          "images": [
+            "/api/media/wp-2569",
+            "/api/media/wp-2608",
+            "/api/media/wp-2607",
+            "/api/media/wp-2609",
+            "/api/media/wp-2611",
+            "/api/media/wp-2610"
+          ]
+        }
+      ],
+      "social": [],
+      "videos": [
+        "https://youtu.be/HQVWdIB6F5o"
+      ],
+      "videoCaptions": [
+        "Promotional Video"
+      ],
+      "videoPositions": [
+        "gallery"
       ]
     },
     "publicPreview": false,
@@ -1252,10 +1937,41 @@
         "OMV SMILE & DRIVE Club members had a more convenient bonus system, earning golden stickers for MaxxMotion 100plus and MaxxMotion Diesel purchases for even better prices.",
         "Lottery: chance to win an Alfa Romeo Tonale Hybrid car and 30 OMV €100 Value Cards for fuel."
       ],
-      "gallery": [
-        "/api/media/wp-2546",
-        "/api/media/wp-2524"
-      ]
+      "gallery": [],
+      "galleryGroups": [
+        {
+          "id": "g60",
+          "title": "SPECIAL MECHANICS",
+          "images": [
+            "/api/media/wp-2546"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g61",
+          "title": "Lottery",
+          "images": [
+            "/api/media/wp-2524"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g62",
+          "title": "Gallery",
+          "images": [
+            "/api/media/wp-2512",
+            "/api/media/wp-2513",
+            "/api/media/wp-2522",
+            "/api/media/wp-2552",
+            "/api/media/wp-2538",
+            "/api/media/wp-2539",
+            "/api/media/wp-2514",
+            "/api/media/wp-2521",
+            "/api/media/wp-2519"
+          ]
+        }
+      ],
+      "social": []
     },
     "publicPreview": false,
     "cornerstone": true
@@ -1293,9 +2009,22 @@
         "With every 5 or 10 points collected, customers could purchase a wide range of products with a 60% discount.",
         "An extra sticker was given for each purchased item of the partner brand, regardless of the total purchase amount."
       ],
-      "gallery": [
-        "/api/media/wp-2383"
-      ]
+      "gallery": [],
+      "galleryGroups": [
+        {
+          "id": "g63",
+          "title": "Gallery",
+          "images": [
+            "/api/media/wp-2405",
+            "/api/media/wp-2406",
+            "/api/media/wp-2407",
+            "/api/media/wp-2408",
+            "/api/media/wp-2409",
+            "/api/media/wp-2410"
+          ]
+        }
+      ],
+      "social": []
     },
     "publicPreview": false,
     "cornerstone": false
@@ -1333,9 +2062,23 @@
         "5 points collected allowed customers to purchase Spear&Jackson products with a 60% discount.",
         "Lottery: 16 exclusive prizes including 1 GoPro H10, 1 iPhone 12, 1 Apple Watch 7 (GPS, 45mm) and 13 Spear&Jackson 19L trekking backpacks."
       ],
-      "gallery": [
-        "/api/media/wp-2343"
-      ]
+      "gallery": [],
+      "galleryGroups": [
+        {
+          "id": "g64",
+          "title": "Gallery",
+          "images": [
+            "/api/media/wp-2343",
+            "/api/media/wp-2350",
+            "/api/media/wp-2191",
+            "/api/media/wp-2195",
+            "/api/media/wp-2192",
+            "/api/media/wp-2193",
+            "/api/media/wp-2186"
+          ]
+        }
+      ],
+      "social": []
     },
     "publicPreview": false,
     "cornerstone": false
@@ -1372,9 +2115,21 @@
         "Customers earned points for each 10€ spent in VIADA petrol stations.",
         "5 or 10 points collected allowed VIADA customers to purchase Bugatti products with a 60% discount."
       ],
-      "gallery": [
-        "/api/media/wp-1956"
-      ]
+      "gallery": [],
+      "galleryGroups": [
+        {
+          "id": "g65",
+          "title": "Gallery",
+          "images": [
+            "/api/media/wp-1960",
+            "/api/media/wp-1961",
+            "/api/media/wp-1962",
+            "/api/media/wp-1984",
+            "/api/media/wp-1963"
+          ]
+        }
+      ],
+      "social": []
     },
     "publicPreview": false,
     "cornerstone": false
@@ -1437,13 +2192,13 @@
     "client": "Orlen Slovakia",
     "year": "2026",
     "location": "Slovakia",
-    "img": "/api/media/wp-3199",
+    "img": "/api/media/study-orlen-kv-final",
     "summary": "Bozza importata da WordPress — contenuto da completare (titolo e tag recuperati, testo e immagini da inserire manualmente).",
     "cat": "petrol",
     "brand": "Pintinox",
     "results": [],
     "details": {
-      "sourceUrl": "",
+      "sourceUrl": "https://klr-europe.com/pintinox-for-orlen-slovakia/",
       "campaignTitle": "",
       "challenge": "",
       "rewardGroups": [],
@@ -1451,7 +2206,45 @@
       "mechanics": [],
       "gallery": [],
       "social": [],
-      "videos": []
+      "videos": [
+        "https://youtu.be/o0gl7R4rqAc"
+      ],
+      "galleryGroups": [
+        {
+          "id": "g66",
+          "title": "Forged for loyalty: Pintinox Collection for ORLEN Slovakia",
+          "images": [
+            "/api/media/study-pintinox-multitools"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g67",
+          "title": "Gallery",
+          "images": [
+            "/api/media/study-orlen-pintinox-display-2",
+            "/api/media/study-a3d097dd6465b2223bca4cc94ab9ee08-3e12244c-2be2-4e97-9646-92be3c63e57d-scaled",
+            "/api/media/study-orlen-pintinox-display",
+            "/api/media/study-dc2727d1510e09be5b94835493458831-571eb4fa-1d63-4dfa-962b-ef5a46e72dd0-2-scaled",
+            "/api/media/study-orlen-pintinox-display-4-scaled",
+            "/api/media/study-39ccdc880225fcf282db5eece2c0975f-594db796-a447-4ae0-9b92-4324333f713b-scaled"
+          ]
+        },
+        {
+          "id": "g68",
+          "title": "Mechanics",
+          "images": [
+            "/api/media/study-hf-20260804-143648-6d36efff-0385-479c-a2f7-e8debcbce712"
+          ],
+          "feature": true
+        }
+      ],
+      "videoCaptions": [
+        ""
+      ],
+      "videoPositions": [
+        "gallery"
+      ]
     },
     "status": "draft",
     "publicPreview": true,
@@ -1469,7 +2262,7 @@
     "brand": "Oracle Red Bull Racing",
     "results": [],
     "details": {
-      "sourceUrl": "",
+      "sourceUrl": "https://klr-europe.com/oracle-red-bull-racing-adrenaline-for-intermarche-poland/",
       "campaignTitle": "",
       "challenge": "",
       "rewardGroups": [],
@@ -1477,7 +2270,63 @@
       "mechanics": [],
       "gallery": [],
       "social": [],
-      "videos": []
+      "videos": [],
+      "galleryGroups": [
+        {
+          "id": "g69",
+          "title": "Campaign",
+          "images": [
+            "/api/media/study-background-pilotiprodotti"
+          ],
+          "feature": true
+        },
+        {
+          "id": "g70",
+          "title": "In Store Experience",
+          "images": [
+            "/api/media/study-intermarche-poland-rb-display-1",
+            "/api/media/study-intermarche-poland-rb-poster1",
+            "/api/media/study-intermarche-poland-rb-totem",
+            "/api/media/study-intermarche-poland-rb-totem-2",
+            "/api/media/study-intermarche-poland-rb-shop",
+            "/api/media/study-intermarche-poland-rb-cashier",
+            "/api/media/study-intermarche-poland-rb-display-3",
+            "/api/media/study-intermarche-poland-rb-display-detail",
+            "/api/media/study-intermarche-poland-rb-display-2",
+            "/api/media/study-intermarche-poland-rb-display",
+            "/api/media/study-intermarche-poland-rb-trolley-2",
+            "/api/media/study-67c18076d11b6613e3746c8ada43432f-bc8e9d3a-e893-485f-b56c-00428c95b464-scaled"
+          ]
+        },
+        {
+          "id": "g71",
+          "title": "Mechanics",
+          "images": [
+            "/api/media/study-screenshot-2026-08-05-at-11-58-06",
+            "/api/media/study-hf-20260804-115643-4e749fa9-dd4e-4620-a7c0-b670cdad3db8",
+            "/api/media/study-intermarche-poland-rb-leaflet"
+          ]
+        },
+        {
+          "id": "g72",
+          "title": "Social Media",
+          "images": [
+            "/api/media/study-intermarche-pl-orbr-carosello-1080x135012-scaled",
+            "/api/media/study-intermarche-pl-orbr-carosello-1080x13504-scaled",
+            "/api/media/study-intermarche-pl-orbr-carosello-1080x135013-scaled",
+            "/api/media/study-intermarche-pl-orbr-carosello-1080x13509-scaled",
+            "/api/media/study-intermarche-pl-orbr-carosello-1080x13507-scaled",
+            "/api/media/study-intermarche-pl-orbr-carosello-1080x135010-scaled",
+            "/api/media/study-intermarche-pl-orbr-carosello-1080x1350-scaled",
+            "/api/media/study-intermarche-pl-orbr-carosello-1080x135011-scaled",
+            "/api/media/study-intermarche-pl-orbr-carosello-1080x13508-scaled",
+            "/api/media/study-intermarche-pl-orbr-carosello-1080x13503-scaled",
+            "/api/media/study-intermarche-pl-orbr-carosello-1080x13502-scaled",
+            "/api/media/study-intermarche-pl-orbr-carosello-1080x13506-scaled",
+            "/api/media/study-intermarche-pl-orbr-carosello-1080x13505-scaled"
+          ]
+        }
+      ]
     },
     "status": "draft",
     "publicPreview": true,

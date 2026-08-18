@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Nav, type NavLink } from "@/components/layout/Nav";
+import { AdminBar } from "@/components/layout/AdminBar";
 import { Footer } from "@/components/layout/Footer";
 import { CookieConsent, type BannerConfig } from "@/components/layout/CookieConsent";
 import { GoogleAnalyticsLoader } from "@/components/layout/GoogleAnalyticsLoader";
@@ -281,6 +282,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body className="antialiased">
         <LenisProvider>
+          <AdminBar />
           <CustomCursor />
           <LogoLoader />
           <Nav

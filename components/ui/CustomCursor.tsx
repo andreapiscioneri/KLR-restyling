@@ -11,6 +11,15 @@ export function CustomCursor() {
   const mouseY = useMotionValue(-200);
   const [state, setState] = useState<CursorState>("default");
   const [visible, setVisible] = useState(false);
+  // The decorative ring cursor gets in the way while an admin is editing
+  // inline ("?edit=1") — switched off there in favor of the plain cursor.
+  const [editMode, setEditMode] = useState(false);
+  useEffect(() => {
+    const active = new URLSearchParams(window.location.search).get("edit") === "1";
+    setEditMode(active);
+    if (active) document.body.style.cursor = "auto";
+    return () => { document.body.style.cursor = ""; };
+  }, []);
   const [theme, setTheme] = useState<CursorTheme>(() => {
     if (typeof document === "undefined") return "default";
     const t = document.body.dataset.cursorTheme;
@@ -64,6 +73,8 @@ export function CustomCursor() {
       window.removeEventListener("mouseover", onMouseOver);
     };
   }, [mouseX, mouseY, visible, theme]);
+
+  if (editMode) return null;
 
   const size = state === "explore" ? 80 : state === "cta" ? 64 : state === "link" ? 44 : 32;
 

@@ -2382,7 +2382,7 @@ const STUDY_FIELDS:    FieldDef[] = [
   {key:"img",label:"Immagine (URL)",type:"url"},
   {key:"summary",label:"Sommario",type:"textarea"},
   {key:"publishedAt",label:"Data pubblicazione (YYYY-MM-DD)",type:"text"},
-  {key:"authorName",label:"Autore",type:"text"},{key:"authorAvatar",label:"Avatar autore (URL)",type:"url"},
+  {key:"authorName",label:"Autore",type:"combo"},{key:"authorAvatar",label:"Avatar autore (URL)",type:"url"},
   {key:"focusKeyword",label:"Parola chiave SEO (focus keyword)",type:"text"},
   {key:"status",label:"Stato",type:"select",options:["published","draft"]},
   {key:"publicPreview",label:"Anteprima pubblica",type:"checkbox",checkboxLabel:"Consenti anteprima senza login (link condivisibile per revisione bozza)"},
@@ -2392,7 +2392,7 @@ const POST_FIELDS:     FieldDef[] = [
   {key:"slug",label:"Slug (URL)",type:"text"},{key:"title",label:"Titolo",type:"text"},
   {key:"date",label:"Data (YYYY-MM-DD)",type:"text"},{key:"category",label:"Categoria",type:"text"},
   {key:"img",label:"Immagine (URL)",type:"url"},{key:"excerpt",label:"Estratto",type:"textarea"},
-  {key:"authorName",label:"Autore",type:"text"},{key:"authorAvatar",label:"Avatar autore (URL)",type:"url"},
+  {key:"authorName",label:"Autore",type:"combo"},{key:"authorAvatar",label:"Avatar autore (URL)",type:"url"},
   {key:"focusKeyword",label:"Parola chiave SEO (focus keyword)",type:"text"},
   {key:"status",label:"Stato",type:"select",options:["published","draft"]},
   {key:"publicPreview",label:"Anteprima pubblica",type:"checkbox",checkboxLabel:"Consenti anteprima senza login (link condivisibile per revisione bozza)"},
@@ -2417,6 +2417,7 @@ function LeadershipEditor({ data, onSave }: { data:LeaderItem[]|null;   onSave:(
 const STUDY_BLANK_DETAILS: StudyDetails = { sourceUrl:"",campaignTitle:"",challenge:"",rewardGroups:[],activations:[],mechanics:[],gallery:[],social:[],videos:[] };
 function StudiesEditor   ({ data, brands, users, currentUser, onSave }: { data:StudyItem[]|null; brands:BrandItem[]|null; users:UserItem[]|null; currentUser:AdminUser; onSave:(d:StudyItem[])=>void })    {
   const { t } = useAdminI18n();
+  const router = useRouter();
   const sd = t.studyDetail;
   const sectorOptions = Array.from(new Set([...SECTOR_OPTIONS, ...(data ?? []).map(s => s.cat).filter(Boolean)]));
   const brandOptions = Array.from(new Set([
@@ -2424,7 +2425,24 @@ function StudiesEditor   ({ data, brands, users, currentUser, onSave }: { data:S
     ...(data ?? []).map(s => s.brand),
   ].filter(Boolean)));
   const author = users?.find(u => u.id === currentUser.id || u.email === currentUser.email);
+  const authorAvatarByName: Record<string,string> = {};
+  for (const u of users ?? []) if (u.name) authorAvatarByName[u.name] = u.avatar ?? "";
+  for (const s of data ?? []) if (s.authorName) authorAvatarByName[s.authorName] = s.authorAvatar || authorAvatarByName[s.authorName] || "";
+  const authorOptions = Array.from(new Set([...(users ?? []).map(u => u.name), ...(data ?? []).map(s => s.authorName)].filter(Boolean))) as string[];
+  function createCustomStudy() {
+    const id = `nuovo-case-study-${Date.now()}`;
+    const newItem: StudyItem = {
+      id, title:"Nuovo Case Study", client:"", year:String(new Date().getFullYear()), location:"", img:"",
+      summary:"", cat:"retail", brand:"", results:[],
+      details:{ ...STUDY_BLANK_DETAILS, layoutMode:"custom", blocks:[] } as any,
+      status:"draft", publicPreview:false, cornerstone:false,
+      authorName: author?.name ?? currentUser.name, authorAvatar: author?.avatar ?? "", publishedAt: new Date().toISOString().slice(0,10),
+    };
+    onSave([...(data ?? []), newItem]);
+    router.push(`/work/${id}?preview=1&edit=1`);
+  }
   return <ListEditor<StudyItem>
+    onCustomCreate={createCustomStudy}
     title={t.entityName.study} data={data} fields={translateFields(STUDY_FIELDS, t.itemField.study)} nameKey="title" imgKey="img" onSave={onSave}
     withStatusTabs dateKey="year" previewUrl={s => `/work/${s.id}?preview=1`}
     seoInput={s => ({
@@ -2435,7 +2453,8 @@ function StudiesEditor   ({ data, brands, users, currentUser, onSave }: { data:S
         ...(s.details?.activations ?? []), ...(s.details?.mechanics ?? []),
       ].filter(Boolean).map(txt => `<p>${txt}</p>`).join(""),
     })}
-    optionsMap={{ cat: sectorOptions, brand: brandOptions }}
+    optionsMap={{ cat: sectorOptions, brand: brandOptions, authorName: authorOptions }}
+    authorAvatarMap={authorAvatarByName}
     blank={{id:"",title:"",client:"",year:String(new Date().getFullYear()),location:"",img:"",summary:"",cat:"retail",brand:"",results:[],details:STUDY_BLANK_DETAILS,status:"draft",publicPreview:false,cornerstone:false,authorName:author?.name ?? currentUser.name,authorAvatar:author?.avatar ?? "",publishedAt:new Date().toISOString().slice(0,10)}}
     extra={(form, setForm) => {
       const results: StudyResult[] = form.results ?? [];
@@ -2473,9 +2492,27 @@ function StudiesEditor   ({ data, brands, users, currentUser, onSave }: { data:S
 }
 function PostsEditor     ({ data, users, currentUser, onSave }: { data:PostItem[]|null; users:UserItem[]|null; currentUser:AdminUser; onSave:(d:PostItem[])=>void })     {
   const { t } = useAdminI18n();
+  const router = useRouter();
   const author = users?.find(u => u.id === currentUser.id || u.email === currentUser.email);
-  return <ListEditor<PostItem>     title={t.entityName.post} data={data} fields={translateFields(POST_FIELDS, t.itemField.post)}     nameKey="title" imgKey="img" onSave={onSave} withStatusTabs dateKey="date" previewUrl={p => `/blog/${p.slug}?preview=1`}
+  const authorAvatarByName: Record<string,string> = {};
+  for (const u of users ?? []) if (u.name) authorAvatarByName[u.name] = u.avatar ?? "";
+  for (const p of data ?? []) if (p.authorName) authorAvatarByName[p.authorName] = p.authorAvatar || authorAvatarByName[p.authorName] || "";
+  const authorOptions = Array.from(new Set([...(users ?? []).map(u => u.name), ...(data ?? []).map(p => p.authorName)].filter(Boolean))) as string[];
+  function createCustomPost() {
+    const slug = `nuovo-articolo-${Date.now()}`;
+    const newItem = {
+      id: Date.now(), slug, title:"Nuovo Articolo", date:new Date().toISOString().slice(0,10), excerpt:"", img:"",
+      category:"Loyalty Marketing", status:"draft", publicPreview:false, cornerstone:false,
+      authorName: author?.name ?? currentUser.name, authorAvatar: author?.avatar ?? "",
+      layoutMode:"custom", layoutBlocks:[],
+    } as unknown as PostItem;
+    onSave([...(data ?? []), newItem]);
+    router.push(`/blog/${slug}?preview=1&edit=1`);
+  }
+  return <ListEditor<PostItem>     title={t.entityName.post} data={data} fields={translateFields(POST_FIELDS, t.itemField.post)}     nameKey="title" imgKey="img" onSave={onSave} onCustomCreate={createCustomPost} withStatusTabs dateKey="date" previewUrl={p => `/blog/${p.slug}?preview=1`}
     seoInput={p => ({ title:p.title, description:p.excerpt, slug:p.slug, hasImage:Boolean(p.img), contentHtml:p.contentHtml||"", focusKeyword:p.focusKeyword })}
+    optionsMap={{ authorName: authorOptions }}
+    authorAvatarMap={authorAvatarByName}
     blank={{id:Date.now(),slug:"",title:"",date:new Date().toISOString().slice(0,10),excerpt:"",img:"",category:"Loyalty Marketing",status:"draft",publicPreview:false,cornerstone:false,authorName:author?.name ?? currentUser.name,authorAvatar:author?.avatar ?? ""}}
   extra={(form, setForm) => <SeoScorePanel title={form.title||""} description={form.excerpt||""} contentHtml={form.contentHtml||""} slug={form.slug||""} hasImage={Boolean(form.img)}
     focusKeyword={form.focusKeyword||""} onChangeFocusKeyword={v => setForm((p:any) => ({...p, focusKeyword:v}))} urlPrefix="blog/"/>}
@@ -2938,22 +2975,31 @@ function AccessibilityPanel({ posts, studies }: { posts: PostItem[]|null; studie
 
 function ListEditor<T extends Record<string, unknown>>({
   title, data, fields, nameKey, imgKey, onSave, blank, extra, optionsMap, withStatusTabs, dateKey, previewUrl, seoInput, avatarFallback,
+  onCustomCreate, authorAvatarMap,
 }: {
   title:string; data:T[]|null; fields:FieldDef[]; nameKey:string; imgKey:string;
   onSave:(d:T[])=>void; blank:T;
   extra?: (form:Record<string,any>, setForm:React.Dispatch<React.SetStateAction<Record<string,any>>>) => React.ReactNode;
   optionsMap?: Record<string,string[]>;
+  // Maps a chosen author name (from the "authorName" combo field) to their
+  // known avatar URL, so picking an existing author also fills authorAvatar.
+  authorAvatarMap?: Record<string,string>;
   withStatusTabs?: boolean;
   dateKey?: string;
   previewUrl?: (item:T) => string;
   seoInput?: (item:T) => AnalyzeInput;
   avatarFallback?: boolean;
+  // When set, creating a new item first asks "struttura predefinita" (the
+  // normal form below) vs "struttura personalizzata" (this callback —
+  // creates a minimal draft and jumps straight into the live block canvas).
+  onCustomCreate?: () => void;
 }) {
   const [items,   setItems]   = useState<T[]>([]);
   const [editing, setEditing] = useState<number|null>(null);
   const [form,    setForm]    = useState<Record<string,any>>({});
   const [isNew,   setIsNew]   = useState(false);
   const [query,   setQuery]   = useState("");
+  const [showCreateChoice, setShowCreateChoice] = useState(false);
   const [statusTab, setStatusTab] = useState<"all"|"published"|"draft"|"deleted"|"preview"|"cornerstone">("published");
   const [sortOrder, setSortOrder] = useState<"newest"|"oldest">("newest");
   const { ask, dialog } = useConfirm();
@@ -3041,6 +3087,10 @@ function ListEditor<T extends Record<string, unknown>>({
     setIsNew(true); setEditing(items.length);
     setForm(Object.fromEntries(Object.entries(blank).map(([k,v]) => [k,toFormValue(v)])));
   }
+  function handleAddClick() {
+    if (onCustomCreate) setShowCreateChoice(true);
+    else add();
+  }
 
   const byStatus = !withStatusTabs ? items : items.filter(item => {
     const rec = item as Record<string,unknown>;
@@ -3101,7 +3151,12 @@ function ListEditor<T extends Record<string, unknown>>({
                   ) : f.type === "select" ? (
                     <FieldSelect value={form[f.key]||""} onChange={v => setForm(p => ({...p,[f.key]:v}))} options={f.options??[]}/>
                   ) : f.type === "combo" ? (
-                    <ComboField value={form[f.key]||""} onChange={v => setForm(p => ({...p,[f.key]:v}))} options={optionsMap?.[f.key]??[]}/>
+                    <ComboField value={form[f.key]||""} options={optionsMap?.[f.key]??[]}
+                      onChange={v => setForm(p => {
+                        const next = { ...p, [f.key]: v };
+                        if (f.key === "authorName" && authorAvatarMap?.[v]) next.authorAvatar = authorAvatarMap[v];
+                        return next;
+                      })}/>
                   ) : f.type === "password" ? (
                     <PasswordInput
                       value={form[f.key]||""}
@@ -3155,7 +3210,7 @@ function ListEditor<T extends Record<string, unknown>>({
       {items.length === 0 ? (
         <EmptyState icon={Plus} title={`Nessun ${title.toLowerCase()} ancora`}
           description={`Questa lista è vuota: aggiungi il primo ${title.toLowerCase()} per farlo comparire sul sito.`}
-          actionLabel={t.common.addItem.replace("{item}", title)} onAction={add}/>
+          actionLabel={t.common.addItem.replace("{item}", title)} onAction={handleAddClick}/>
       ) : (
         <>
           <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",gap:12,marginBottom:14,flexWrap:"wrap" }}>
@@ -3166,7 +3221,7 @@ function ListEditor<T extends Record<string, unknown>>({
                   style={{ width:"100%",boxSizing:"border-box",padding:"9px 12px 9px 34px",border:"1.5px solid #E8E8F0",borderRadius:9,fontSize:13,background:"#FAFAFA",outline:"none" }}/>
               </div>
             ) : <div/>}
-            <Button icon={Plus} onClick={add}>{t.common.addItem.replace("{item}", title)}</Button>
+            <Button icon={Plus} onClick={handleAddClick}>{t.common.addItem.replace("{item}", title)}</Button>
           </div>
           {filtered.length === 0 ? (
             <div style={{ padding:"32px 0",textAlign:"center",color:"#999",fontSize:13 }}>
@@ -3208,6 +3263,12 @@ function ListEditor<T extends Record<string, unknown>>({
                             <Eye size={14}/>{t.common.preview}
                           </a>
                         )}
+                        {previewUrl && (
+                          <a href={`${previewUrl(item)}&edit=1`} target="_blank" rel="noopener noreferrer"
+                            style={{ display:"inline-flex",alignItems:"center",gap:7,padding:"10px 18px",borderRadius:10,fontSize:13,fontWeight:700,textDecoration:"none",background:"#EEF0FB",color:"#2E2784" }}>
+                            <Pencil size={14}/>Modifica in pagina
+                          </a>
+                        )}
                         {item.status === "draft" && (
                           <Button variant="secondary" icon={CheckCircle} onClick={() => publish(idx)}>{t.common.publish ?? "Pubblica"}</Button>
                         )}
@@ -3222,6 +3283,30 @@ function ListEditor<T extends Record<string, unknown>>({
           </div>
           )}
         </>
+      )}
+      {showCreateChoice && (
+        <div style={{ position:"fixed",inset:0,background:"rgba(0,0,0,0.55)",zIndex:250,display:"flex",alignItems:"center",justifyContent:"center",padding:16 }}
+          onClick={() => setShowCreateChoice(false)}>
+          <div style={{ background:"#fff",borderRadius:20,padding:28,width:"100%",maxWidth:440,boxShadow:"0 24px 60px rgba(0,0,0,0.25)" }}
+            onClick={e => e.stopPropagation()}>
+            <h3 style={{ margin:0,fontSize:16,fontWeight:700,color:"#111" }}>{t.common.createChoiceTitle.replace("{item}", title.toLowerCase())}</h3>
+            <p style={{ fontSize:13,color:"#777",marginTop:8,lineHeight:1.5 }}>
+              {t.common.createChoiceDesc}
+            </p>
+            <div style={{ display:"flex",flexDirection:"column",gap:10,marginTop:20 }}>
+              <button type="button" onClick={() => { setShowCreateChoice(false); add(); }}
+                style={{ textAlign:"left",padding:"14px 16px",borderRadius:12,border:"1.5px solid #E8E8F0",background:"#fff",cursor:"pointer" }}>
+                <div style={{ fontWeight:700,fontSize:14,color:"#111" }}>{t.common.createDefaultTitle}</div>
+                <div style={{ fontSize:12,color:"#888",marginTop:2 }}>{t.common.createDefaultDesc}</div>
+              </button>
+              <button type="button" onClick={() => { setShowCreateChoice(false); onCustomCreate?.(); }}
+                style={{ textAlign:"left",padding:"14px 16px",borderRadius:12,border:"1.5px solid #2E2784",background:"#EEF0FB",cursor:"pointer" }}>
+                <div style={{ fontWeight:700,fontSize:14,color:"#2E2784" }}>{t.common.createCustomTitle}</div>
+                <div style={{ fontSize:12,color:"#555",marginTop:2 }}>{t.common.createCustomDesc}</div>
+              </button>
+            </div>
+          </div>
+        </div>
       )}
       {dialog}
     </div>
