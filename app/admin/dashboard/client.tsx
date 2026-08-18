@@ -272,7 +272,7 @@ function AdminDashboardInner({ currentUser }: { currentUser: AdminUser }) {
 
   async function logout() {
     await fetch("/api/admin/auth", { method: "DELETE" });
-    router.push("/");
+    window.location.href = "/";
   }
 
   useEffect(() => {
