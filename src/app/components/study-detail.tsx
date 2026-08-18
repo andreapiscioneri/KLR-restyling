@@ -67,7 +67,9 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
   const videoCaptions: string[] = details?.videoCaptions ?? [];
   const videoPositions: string[] = details?.videoPositions ?? [];
   const openingVideoIdx = videos.map((_: string, i: number) => i).filter((i: number) => videoPositions[i] === "opening");
-  const galleryVideoIdx = videos.map((_: string, i: number) => i).filter((i: number) => videoPositions[i] !== "opening");
+  const isSocialEmbedUrl = (url: string) => /instagram\.com|facebook\.com|fb\.watch/.test(url);
+  const galleryVideoIdx = videos.map((_: string, i: number) => i).filter((i: number) => videoPositions[i] !== "opening" && !isSocialEmbedUrl(videos[i]));
+  const socialEmbedIdx = videos.map((_: string, i: number) => i).filter((i: number) => videoPositions[i] !== "opening" && isSocialEmbedUrl(videos[i]));
   const setVideoPosition = (i: number, pos: "opening" | "gallery") =>
     editor.patch({ details: { ...(s.details ?? {}), videoPositions: videos.map((_: string, xi: number) => xi === i ? pos : (videoPositions[xi] || "gallery")) } });
   type GalleryGroup = { id: string; title: string; images: string[]; feature?: boolean };
@@ -692,6 +694,49 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
             </div>
             )}
 
+            {(galleryVideoIdx.length > 0 || editing) && (
+              <>
+                <EditableText as="div" editing={editing} value={heading("video_label", "Video")} onCommit={(v) => patchHeading("video_label", v)}
+                  outlineColor="#2E2784"
+                  className="tracking-[0.3em] uppercase text-[#2E2784]/60 mt-14" style={{ fontSize: "0.65rem", fontWeight: 600 }}/>
+                <div className="mt-6 grid gap-8 max-w-4xl mx-auto">
+                  {galleryVideoIdx.map((i: number) => { const video = videos[i]; return (
+                    <div key={`${video}-${i}`}>
+                      <div className="relative rounded-[24px] overflow-hidden border border-white/40 bg-black aspect-video" style={softShadow}>
+                        <VideoEmbed url={video} className="w-full h-full" style={{ border: 0 }} />
+                        <EditableVideoUrl editing={editing} url={video}
+                          onCommit={(v) => editor.patch({ details: { ...(s.details ?? {}), videos: videos.map((x: string, xi: number) => xi === i ? v : x) } })}/>
+                        {editing && (
+                          <div className="absolute top-2 right-2 z-20 flex items-center gap-1.5">
+                            <button type="button" onClick={() => setVideoPosition(i, "opening")}
+                              className="rounded-full bg-[#2E2784]/90 hover:bg-[#2E2784] text-white text-[10px] font-bold px-2.5 py-1">
+                              In apertura
+                            </button>
+                            <button type="button" onClick={() => editor.patch({ details: { ...(s.details ?? {}), videos: videos.filter((_: string, xi: number) => xi !== i), videoCaptions: videoCaptions.filter((_: string, xi: number) => xi !== i), videoPositions: videoPositions.filter((_: string, xi: number) => xi !== i) } })}
+                              className="w-7 h-7 rounded-full bg-red-600/90 hover:bg-red-600 text-white flex items-center justify-center shadow-lg"
+                              aria-label="Elimina video">
+                              <Trash2 size={13}/>
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                      {(videoCaptions[i] || editing) && (
+                        <EditableText as="p" editing={editing} value={videoCaptions[i] || ""}
+                          onCommit={(v) => editor.patch({ details: { ...(s.details ?? {}), videoCaptions: videos.map((_: string, xi: number) => xi === i ? v : (videoCaptions[xi] || "")) } })}
+                          className="text-[#2E2784]/70 tracking-tight mt-3 text-center" style={{ fontSize: "0.88rem" }}/>
+                      )}
+                    </div>
+                  ); })}
+                  {editing && (
+                    <button type="button" onClick={() => editor.patch({ details: { ...(s.details ?? {}), videos: [...videos, ""], videoCaptions: [...videoCaptions, ""], videoPositions: [...videoPositions, "gallery"] } })}
+                      className="rounded-[24px] border-2 border-dashed border-[#2E2784]/40 flex items-center justify-center aspect-video text-[#2E2784]/70 text-sm font-semibold">
+                      + Aggiungi video
+                    </button>
+                  )}
+                </div>
+              </>
+            )}
+
             {(social.length > 0 || editing) && (
               <>
                 <EditableText as="div" editing={editing} value={heading("social_label", "Social Media")} onCommit={(v) => patchHeading("social_label", v)}
@@ -723,43 +768,30 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
               </>
             )}
 
-            {(galleryVideoIdx.length > 0 || editing) && (
+            {(socialEmbedIdx.length > 0 || editing) && (
               <>
-                <EditableText as="div" editing={editing} value={heading("video_label", "Video")} onCommit={(v) => patchHeading("video_label", v)}
+                <EditableText as="div" editing={editing} value={heading("social_embed_label", "Social Posts")} onCommit={(v) => patchHeading("social_embed_label", v)}
                   outlineColor="#2E2784"
                   className="tracking-[0.3em] uppercase text-[#2E2784]/60 mt-14" style={{ fontSize: "0.65rem", fontWeight: 600 }}/>
-                <div className="mt-6 grid md:grid-cols-2 gap-4">
-                  {galleryVideoIdx.map((i: number) => { const video = videos[i]; return (
-                    <div key={`${video}-${i}`}>
-                      <div className="relative rounded-[24px] overflow-hidden border border-white/40 bg-black" style={softShadow}>
-                        <VideoEmbed url={video} className="w-full h-[280px]" style={{ border: 0 }} />
-                        <EditableVideoUrl editing={editing} url={video}
-                          onCommit={(v) => editor.patch({ details: { ...(s.details ?? {}), videos: videos.map((x: string, xi: number) => xi === i ? v : x) } })}/>
-                        {editing && (
-                          <div className="absolute top-2 right-2 z-20 flex items-center gap-1.5">
-                            <button type="button" onClick={() => setVideoPosition(i, "opening")}
-                              className="rounded-full bg-[#2E2784]/90 hover:bg-[#2E2784] text-white text-[10px] font-bold px-2.5 py-1">
-                              In apertura
-                            </button>
-                            <button type="button" onClick={() => editor.patch({ details: { ...(s.details ?? {}), videos: videos.filter((_: string, xi: number) => xi !== i), videoCaptions: videoCaptions.filter((_: string, xi: number) => xi !== i), videoPositions: videoPositions.filter((_: string, xi: number) => xi !== i) } })}
-                              className="w-7 h-7 rounded-full bg-red-600/90 hover:bg-red-600 text-white flex items-center justify-center shadow-lg"
-                              aria-label="Elimina video">
-                              <Trash2 size={13}/>
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                      {(videoCaptions[i] || editing) && (
-                        <EditableText as="p" editing={editing} value={videoCaptions[i] || ""}
-                          onCommit={(v) => editor.patch({ details: { ...(s.details ?? {}), videoCaptions: videos.map((_: string, xi: number) => xi === i ? v : (videoCaptions[xi] || "")) } })}
-                          className="text-[#2E2784]/70 tracking-tight mt-2 text-center" style={{ fontSize: "0.82rem" }}/>
+                <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {socialEmbedIdx.map((i: number) => { const video = videos[i]; return (
+                    <div key={`${video}-${i}`} className="relative rounded-[24px] overflow-hidden border border-white/40 bg-white" style={softShadow}>
+                      <VideoEmbed url={video} className="w-full h-[600px]" style={{ border: 0 }} />
+                      <EditableVideoUrl editing={editing} url={video}
+                        onCommit={(v) => editor.patch({ details: { ...(s.details ?? {}), videos: videos.map((x: string, xi: number) => xi === i ? v : x) } })}/>
+                      {editing && (
+                        <button type="button" onClick={() => editor.patch({ details: { ...(s.details ?? {}), videos: videos.filter((_: string, xi: number) => xi !== i), videoCaptions: videoCaptions.filter((_: string, xi: number) => xi !== i), videoPositions: videoPositions.filter((_: string, xi: number) => xi !== i) } })}
+                          className="absolute top-2 right-2 z-20 w-7 h-7 rounded-full bg-red-600/90 hover:bg-red-600 text-white flex items-center justify-center shadow-lg"
+                          aria-label="Elimina post">
+                          <Trash2 size={13}/>
+                        </button>
                       )}
                     </div>
                   ); })}
                   {editing && (
                     <button type="button" onClick={() => editor.patch({ details: { ...(s.details ?? {}), videos: [...videos, ""], videoCaptions: [...videoCaptions, ""], videoPositions: [...videoPositions, "gallery"] } })}
-                      className="rounded-[24px] border-2 border-dashed border-[#2E2784]/40 flex items-center justify-center h-[280px] text-[#2E2784]/70 text-sm font-semibold">
-                      + Aggiungi video
+                      className="rounded-[24px] border-2 border-dashed border-[#2E2784]/40 flex items-center justify-center h-[600px] text-[#2E2784]/70 text-sm font-semibold">
+                      + Aggiungi post Instagram/Facebook
                     </button>
                   )}
                 </div>

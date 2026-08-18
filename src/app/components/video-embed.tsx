@@ -18,7 +18,14 @@ export function VideoEmbed({ url, className, style }: { url: string; className?:
   }
   return (
     <video className={className} style={style} controls preload="metadata" playsInline>
-      <source src={url} />
+      {/* .mov files are served as video/quicktime, which Chrome and Firefox
+          refuse to play natively (only Safari does) — even though the file
+          itself is perfectly valid and reachable. Most .mov exports (iPhone,
+          screen recordings) are H.264 video in a QuickTime container, which
+          is close enough to MP4's ISO base media format that forcing
+          type="video/mp4" here lets non-Safari browsers decode it anyway,
+          instead of silently refusing the source and showing a blank player. */}
+      <source src={url} type={url.toLowerCase().endsWith(".mov") ? "video/mp4" : undefined} />
     </video>
   );
 }
@@ -48,6 +55,14 @@ function toEmbedUrl(raw: string): string | null {
     }
     if (host === "player.vimeo.com") {
       return raw;
+    }
+    if (host === "instagram.com") {
+      const m = url.pathname.match(/^\/(p|reel|tv)\/([\w-]+)/);
+      return m ? `https://www.instagram.com/${m[1]}/${m[2]}/embed` : null;
+    }
+    if (host === "facebook.com" || host === "fb.watch") {
+      if (url.pathname.startsWith("/plugins/")) return raw;
+      return `https://www.facebook.com/plugins/${/\/videos?\//.test(url.pathname) || url.pathname.startsWith("/reel/") ? "video" : "post"}.php?href=${encodeURIComponent(raw)}&show_text=false`;
     }
     return null;
   } catch {
