@@ -1347,5 +1347,73 @@
     "browser": "Chrome",
     "visitedAt": "2026-08-18T10:56:55.322Z",
     "eventType": "pageview"
+  },
+  {
+    "id": "25b30024-43f3-484d-8707-4a09abb6b7b8",
+    "path": "/about",
+    "referrer": "http://localhost:3000/about",
+    "sessionId": "c08bea54-c8ac-4b06-a39b-9421fcf96379",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T11:23:44.358Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "ead9e838-dd13-4d7d-b2d5-a20f775da7d4",
+    "path": "/work",
+    "referrer": "http://localhost:3000/about",
+    "sessionId": "c08bea54-c8ac-4b06-a39b-9421fcf96379",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T11:25:50.957Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "d92b5306-c188-45bb-9261-5f119d7d543f",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland",
+    "referrer": "http://localhost:3000/about",
+    "sessionId": "c08bea54-c8ac-4b06-a39b-9421fcf96379",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T11:25:53.544Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "42481df9-0ad3-47ce-ad19-6d7c84f9f6c1",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "c08bea54-c8ac-4b06-a39b-9421fcf96379",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T11:26:08.601Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "d2d4201f-cc52-4a90-83d9-382715d9818b",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "referrer": "http://localhost:3000/work/zanussi-zmart-move-for-carrefour-poland",
+    "sessionId": "c08bea54-c8ac-4b06-a39b-9421fcf96379",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T11:26:18.558Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "a010af1d-ca7b-49a8-8341-b37d30e8e073",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "c08bea54-c8ac-4b06-a39b-9421fcf96379",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T11:28:14.368Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "be7529d3-1f4e-493d-a381-aadcbcb3af8f",
+    "path": "/work/zanussi-zmart-move-for-carrefour-poland?preview=1&edit=1",
+    "sessionId": "c08bea54-c8ac-4b06-a39b-9421fcf96379",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-18T11:29:10.341Z",
+    "eventType": "pageview"
   }
 ]

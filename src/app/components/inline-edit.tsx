@@ -167,6 +167,22 @@ export function EditableText({
   outlineColor?: string;
 }) {
   const ref = useRef<HTMLElement>(null);
+  // Tracks the text this component itself last emitted (via typing or
+  // blur). While `lastEmitted` matches the incoming `value` prop, the DOM
+  // is left alone — that prop change is an echo of our own edit. Only a
+  // *different* value (e.g. after "Annulla" resets state, or on first
+  // mount) re-seeds the DOM text. This keeps the element effectively
+  // uncontrolled while typing, so React never rewrites the text node under
+  // the user's cursor and resets the caret to the start on every keystroke.
+  const lastEmitted = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!editing || !ref.current) return;
+    if (lastEmitted.current === null || value !== lastEmitted.current) {
+      if (ref.current.textContent !== value) ref.current.textContent = value;
+      lastEmitted.current = value;
+    }
+  }, [value, editing]);
 
   if (!editing) return <As className={className} style={style}>{value}</As>;
 
@@ -181,16 +197,23 @@ export function EditableText({
       }}
       contentEditable
       suppressContentEditableWarning
+      onInput={(e: React.FormEvent<HTMLElement>) => {
+        // Commit on every keystroke (not just on blur) so the "Salva"
+        // button lights up immediately while typing, not only once you
+        // click away from the field.
+        const next = e.currentTarget.textContent ?? "";
+        lastEmitted.current = next;
+        if (next !== value) onCommit(next);
+      }}
       onBlur={(e: React.FocusEvent<HTMLElement>) => {
         const next = e.currentTarget.textContent ?? "";
+        lastEmitted.current = next;
         if (next !== value) onCommit(next);
       }}
       onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => {
         if (!multiline && e.key === "Enter") { e.preventDefault(); (e.currentTarget as HTMLElement).blur(); }
       }}
-    >
-      {value}
-    </As>
+    />
   );
 }
 
