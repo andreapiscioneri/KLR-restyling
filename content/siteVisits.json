@@ -1631,5 +1631,204 @@
     "browser": "Chrome",
     "visitedAt": "2026-08-18T21:27:56.617Z",
     "eventType": "pageview"
+  },
+  {
+    "id": "c2fbd556-c753-4890-b629-79ea68a6d27c",
+    "path": "/",
+    "sessionId": "a35a0660-b916-4b62-9bf4-d1613058c823",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:18:05.782Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "7c15b398-937a-42d7-ad2c-c5f405e52e32",
+    "path": "/work",
+    "sessionId": "a35a0660-b916-4b62-9bf4-d1613058c823",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:25:00.815Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "e33daad1-4595-40c0-be81-bc4510744812",
+    "path": "/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "sessionId": "a35a0660-b916-4b62-9bf4-d1613058c823",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:25:06.058Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "28f02c18-ea5b-4dde-b594-be037452258a",
+    "path": "/work",
+    "sessionId": "a35a0660-b916-4b62-9bf4-d1613058c823",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:25:19.058Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "273557df-46c6-477c-aa1e-8805d09b569e",
+    "path": "/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "sessionId": "a35a0660-b916-4b62-9bf4-d1613058c823",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:27:35.084Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "31d2486b-4aaa-4102-88a6-dd81ff9c1af2",
+    "path": "/",
+    "sessionId": "a35a0660-b916-4b62-9bf4-d1613058c823",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:35:05.433Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "ca95cf91-a82d-4c78-be4a-f83558d35d31",
+    "path": "/work/horizon-travel-collection-for-circle-k-poland",
+    "sessionId": "5a562d73-e82d-415c-95fb-55a92ec81ea0",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:39:41.819Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "187cf2a3-7d45-4797-802a-9bf062b4df80",
+    "path": "/work/horizon-travel-collection-for-circle-k-poland",
+    "sessionId": "2194acb7-6bac-47ea-86db-f8bdcd5cbb56",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:44:53.137Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "ea361a65-18f0-4ac0-a203-49e7fd5a45ec",
+    "path": "/work/bugatti-buono-cookware-for-coop-morava-czech-republic",
+    "sessionId": "05306024-0456-4355-806f-dc56b3af769a",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:45:03.322Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "c91aa392-fe3e-4c88-bba0-2387c2b2286c",
+    "path": "/work",
+    "sessionId": "a35a0660-b916-4b62-9bf4-d1613058c823",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:45:03.775Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "97fef816-6c0e-4499-91b4-e82b8ea0f25f",
+    "path": "/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "sessionId": "a35a0660-b916-4b62-9bf4-d1613058c823",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:45:07.078Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "70ef14b7-8846-4797-9473-b51edc4504a4",
+    "path": "/work/horizon-travel-collection-for-circle-k-poland?preview=1",
+    "sessionId": "fdfcfba7-832d-48e4-b33d-f9c7d1586bab",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:46:08.024Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "73340e04-6891-4d4a-b0f7-5d7fbcfadb6a",
+    "path": "/work/bugatti-buono-cookware-for-coop-morava-czech-republic?preview=1",
+    "sessionId": "8a76f532-fa13-452b-a076-25443e232ed5",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:46:16.534Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "afa32cfd-41c2-4911-b615-e58c9a4f2e9d",
+    "path": "/admin/login",
+    "sessionId": "a71e3344-3d38-43d8-b6c6-b720e129c69d",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:47:10.768Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "9f87aff2-a507-409f-ae71-fcb6c9c8abdc",
+    "path": "/admin/dashboard",
+    "sessionId": "a71e3344-3d38-43d8-b6c6-b720e129c69d",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:47:13.763Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "12036ff9-edb3-49a8-81bf-0b8f5f7d366e",
+    "path": "/work/horizon-travel-collection-for-circle-k-poland?preview=1",
+    "sessionId": "9df9fd84-aa7f-43b0-9ad9-aabbf5dcc480",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:47:15.192Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "23ef8089-31d9-410d-bd56-7845a938ff28",
+    "path": "/work/bugatti-buono-cookware-for-coop-morava-czech-republic?preview=1",
+    "sessionId": "af96bc4d-c4b7-4cf9-b99d-c9a034109c9f",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:47:24.683Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "a4971061-1e3d-4a78-942d-4fe3a75fd379",
+    "path": "/admin/login",
+    "sessionId": "b9df53b3-f29f-450b-a30c-2f8ff1fb296c",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:49:14.845Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "f0946291-b5d6-4b00-a22f-c5f771da58ee",
+    "path": "/admin/dashboard",
+    "sessionId": "b9df53b3-f29f-450b-a30c-2f8ff1fb296c",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:49:17.467Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "180aae08-6095-43ca-ab81-c422539fe279",
+    "path": "/work/horizon-travel-collection-for-circle-k-poland?preview=1",
+    "sessionId": "1ba4322e-9c6b-4a01-8aa0-d5121e02fae2",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:49:18.670Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "5d5cdfe6-19aa-43d8-a3c4-40728ffa294f",
+    "path": "/work/bugatti-buono-cookware-for-coop-morava-czech-republic?preview=1",
+    "sessionId": "25430abb-e1e7-41ef-8a47-4c257814c07f",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:49:29.202Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "4cd16c34-d8b5-4877-aa9b-8dd5826f978a",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "sessionId": "a35a0660-b916-4b62-9bf4-d1613058c823",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-19T12:51:51.105Z",
+    "eventType": "pageview"
   }
 ]

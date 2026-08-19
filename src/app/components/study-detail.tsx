@@ -255,9 +255,34 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
       </PageHero>
 
       {layoutMode === "custom" && (
-        <div className="relative" style={{ background: G.blue }}>
+        <div className="relative">
+          <section className="relative pt-16 md:pt-20 pb-16 overflow-hidden" style={{ background: G.yellow }}>
+            <div className="max-w-6xl mx-auto px-8">
+              <AnimatedSection>
+                <EditableText as="p" editing={editing} value={s.summary}
+                  onCommit={(v) => editor.patch({ summary: v })}
+                  multiline outlineColor="#2E2784"
+                  className="text-[#2E2784] tracking-tight max-w-3xl"
+                  style={{ fontSize: "clamp(1rem, 1.35vw, 1.15rem)", lineHeight: 1.65 }}/>
+                {results.length > 0 && (
+                  <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    {results.map((r: { k: string; v: string }, ri: number) => (
+                      <article key={`${r.k}-${r.v}`} className="relative rounded-[24px] p-6 border-2 border-[#2E2784]/35 bg-[#F8AE01]/35" style={softShadow}>
+                        <EditableText as="div" editing={editing} value={r.v} outlineColor="#2E2784"
+                          onCommit={(v) => editor.patch({ results: results.map((x: any, i: number) => i === ri ? { ...x, v } : x) })}
+                          className="text-[#2E2784]/55 tracking-[0.16em] uppercase" style={{ fontSize: "0.62rem", fontWeight: 700 }}/>
+                        <EditableText as="div" editing={editing} value={r.k} outlineColor="#2E2784"
+                          onCommit={(v) => editor.patch({ results: results.map((x: any, i: number) => i === ri ? { ...x, k: v } : x) })}
+                          className="text-[#2E2784] tracking-[-0.03em] mt-2" style={{ fontSize: "clamp(1.9rem, 3.2vw, 2.7rem)", lineHeight: 1, fontWeight: 800 }}/>
+                      </article>
+                    ))}
+                  </div>
+                )}
+              </AnimatedSection>
+            </div>
+          </section>
           {editing && (
-            <div className="flex justify-center py-3">
+            <div className="flex justify-center py-3" style={{ background: G.blue }}>
               <InsertBlockButton onInsert={(t) => insertBlockAt(0, t)} />
             </div>
           )}

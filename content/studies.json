@@ -81,6 +81,7 @@
           "id": "g1",
           "title": "Campaign",
           "images": [
+            "https://klr-europe.com/wp-content/uploads/2025/07/cover-picture-spar-slovenia-red-bull-klr-europe.png",
             "/api/media/wp-4501",
             "/api/media/wp-4513",
             "/api/media/wp-4514"
@@ -97,8 +98,7 @@
             "/api/media/wp-4507",
             "/api/media/wp-4508",
             "/api/media/wp-4510",
-            "/api/media/wp-4511",
-            "https://klr-europe.com/wp-content/uploads/2025/07/cover-picture-spar-slovenia-red-bull-klr-europe.png"
+            "/api/media/wp-4511"
           ]
         },
         {
@@ -214,6 +214,7 @@
           "id": "g5",
           "title": "Gallery",
           "images": [
+            "https://klr-europe.com/wp-content/uploads/2025/10/pintinox-bbq-collection-feat-pic.png",
             "/api/media/wp-4652",
             "/api/media/wp-4653",
             "/api/media/wp-4656",
@@ -222,8 +223,7 @@
             "/api/media/wp-4663",
             "/api/media/wp-4665",
             "/api/media/wp-4664",
-            "/api/media/wp-4667",
-            "https://klr-europe.com/wp-content/uploads/2025/10/pintinox-bbq-collection-feat-pic.png"
+            "/api/media/wp-4667"
           ]
         },
         {
@@ -333,23 +333,30 @@
       ],
       "galleryGroups": [
         {
+          "id": "g462238",
+          "title": "Campaign",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2025/07/redbull-spar-collection-loyalty.png",
+            "/api/media/wp-4755",
+            "/api/media/wp-4756",
+            "/api/media/wp-4757"
+          ]
+        },
+        {
           "id": "instore",
           "title": "In-Store Experience",
           "images": [
-            "/api/media/wp-4755",
-            "/api/media/wp-4756",
-            "/api/media/wp-4757",
-            "/api/media/wp-4722",
+            "/api/media/wp-4734",
             "/api/media/wp-4723",
+            "/api/media/wp-4722",
             "/api/media/wp-4727",
             "/api/media/wp-4733",
-            "/api/media/wp-4734",
             "/api/media/wp-4736",
             "/api/media/wp-4737",
             "/api/media/wp-4740",
             "/api/media/wp-4745",
-            "/api/media/wp-4747",
             "/api/media/wp-4746",
+            "/api/media/wp-4747",
             "/api/media/wp-4749"
           ]
         },
@@ -358,14 +365,14 @@
           "title": "Lottery: Porsche Experience",
           "images": [
             "/api/media/wp-4767",
-            "/api/media/wp-4770",
+            "/api/media/wp-4768",
             "/api/media/wp-4769",
-            "/api/media/wp-4768"
+            "/api/media/wp-4770"
           ]
         },
         {
           "id": "leaflet",
-          "title": "Campaign Leaflet",
+          "title": "Mechanics",
           "images": [
             "/api/media/wp-4744"
           ],
@@ -387,13 +394,6 @@
             "/api/media/wp-4707",
             "/api/media/wp-4708",
             "/api/media/wp-4709"
-          ]
-        },
-        {
-          "id": "g462238",
-          "title": "Gallery",
-          "images": [
-            "https://klr-europe.com/wp-content/uploads/2025/07/redbull-spar-collection-loyalty.png"
           ]
         }
       ],
@@ -2224,6 +2224,125 @@
             "https://klr-europe.com/wp-content/uploads/2026/08/NASA-Horizons-2025.001.jpeg"
           ]
         }
+      ],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "b1",
+          "type": "text",
+          "text": "Inspired by Space. Ready for Every Journey."
+        },
+        {
+          "id": "b2",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "b3",
+          "type": "text",
+          "text": "The Horizon campaign combined the excitement of space exploration with products designed for real journeys on Earth. Launched at a time of renewed public interest in crewed space missions, the campaign used NASA and Artemis Mission inspired branding to create a distinctive promotional world centred on discovery, technology and movement. The concept connected naturally with Circle K and its role in customers’ everyday journeys. Whether customers were commuting to work, preparing for a winter getaway or planning a city break, every visit brought them closer to a practical travel reward. Running throughout the winter season, the campaign gave customers a reason return to Circle K stations, consolidate their spending and engage with the Circle K EXTRA loyalty programme."
+        },
+        {
+          "id": "b4",
+          "type": "video",
+          "videoUrl": "https://youtu.be/7MOEHoQzjM8?si=Cuh74XBupu1lbSfn"
+        },
+        {
+          "id": "b5",
+          "type": "text",
+          "text": "Space-Inspired Design for Everyday Travel"
+        },
+        {
+          "id": "b6",
+          "type": "text",
+          "text": "The campaign featured a versatile collection of bags, travel essentials and everyday accessories: Urban Backpack Slim Backpack Travel Backpack Duffle Bag 2-in-1 Sling Pack Snail Travel Pillow Thermo Tumbler Starlight Blanket Passport Wallet Pop-Up Card Holder The collection balanced premium hero products with smaller and more accessible accessories. Customers could choose rewards suited to commuting, air travel, weekend trips, winter holidays and everyday driving."
+        },
+        {
+          "id": "b7",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-06-at-15.02.17.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-06-at-15.02.07.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-06-at-15.01.47.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-06-at-15.01.39.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-06-at-15.01.31.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-06-at-15.01.23.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-06-at-15.01.08.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-06-at-15.01.58.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-06-at-15.04.42.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-06-at-15.04.17.png"
+          ]
+        },
+        {
+          "id": "b8",
+          "type": "text",
+          "text": "Designed Around Real Journeys with Sustainability in mind"
+        },
+        {
+          "id": "b9",
+          "type": "text",
+          "text": "The Horizon collection was developed with a strong focus on sustainability, durability and everyday quality. The expandable Travel Backpack offers flexible capacity from 14 to 20 litres, making it suitable for daily use and short trips. Designed with recycled materials and water-resistant zips , it combines long-lasting quality with practical protection for life on the move. The 50-litre Duffle Bag 2-in-1 can be used as both a travel bag and a backpack. Made from durable rPET fabric , it is built to withstand frequent travel while supporting more responsible material choices. For everyday convenience, the 800 ml Thermo Tumbler is designed for use in the car and on the go, with reliable temperature retention for both hot and cold drinks. Across the collection, recycled rPET fabric and robust construction ensure long-term use , reducing the need for frequent replacement and supporting a more sustainable way of travelling."
+        },
+        {
+          "id": "b10",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2026/08/NASA-Horizons-12.25-2025.001.jpeg"
+        },
+        {
+          "id": "b11",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2026/08/Screenshot-2026-08-17-at-15.46.50.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/poster-1-scaled.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/poster-2-scaled.png"
+          ],
+          "title": "In Store Experience"
+        },
+        {
+          "id": "b12",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "b13",
+          "type": "text",
+          "text": "Customers received one loyalty sticker for every PLN 50 spent on qualifying purchases at participating Circle K stations. After collecting 10 stickers , customers unlocked reduced prices on selected Horizon products. Circle K EXTRA members could receive an additional discount by presenting their membership card when purchasing a reward. Customers placed their stickers on a campaign leaflet. Once the required number had been collected, they selected their preferred product and presented the completed leaflet at the checkout."
+        },
+        {
+          "id": "b14",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2026/08/NASA-Horizons-2025.001.jpeg"
+        },
+        {
+          "id": "b15",
+          "type": "text",
+          "text": "Designed Around Real Journeys"
+        },
+        {
+          "id": "b16",
+          "type": "text",
+          "text": "The Horizon collection was developed around practical situations customers could immediately recognise. The expandable Travel Backpack increased its capacity from 14 to 20 litres, making it suitable for everyday use and short trips. Its dimensions were designed to meet commonly used cabin-baggage requirements, while water-resistant zips, the ZipClip anti-theft system and a protected laptop compartment added functionality for customers travelling through busy airports and cities. The 50-litre Duffle Bag 2-in-1 could be carried as either a traditional travel bag or a backpack. Made from durable rPET fabric, it also featured water-resistant zips, reflective details and the ZipClip system to help protect customers’ belongings. For everyday journeys by car, the 800 ml Thermo Tumbler was designed to fit conveniently into a vehicle and included a practical handle and straw. Campaign communication highlighted temperature retention of up to six hours for hot drinks and eight hours for cold drinks. Across the bag collection, recycled rPET fabric supported a more responsible material choice while maintaining the durability required for regular travel."
+        },
+        {
+          "id": "b17",
+          "type": "text",
+          "text": "Instagram"
+        },
+        {
+          "id": "b18",
+          "type": "video",
+          "videoUrl": "https://www.instagram.com/p/DU2w73xjKR6/"
+        },
+        {
+          "id": "b19",
+          "type": "text",
+          "text": "Facebook"
+        },
+        {
+          "id": "b20",
+          "type": "video",
+          "videoUrl": "https://www.facebook.com/CircleKPolska/posts/pfbid033wRSPkmFxsyDUqmcyv5eRPcxg9w5eQQzzYxgsBEhGyvt26WBmf1gi9GMVkANVQn3l"
+        }
       ]
     },
     "status": "draft",
@@ -2330,6 +2449,150 @@
           "images": [
             "https://klr-europe.com/wp-content/uploads/2026/08/bugatti-1.png"
           ]
+        }
+      ],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "b21",
+          "type": "text",
+          "text": "Cooking with Love Tastes BUONO!"
+        },
+        {
+          "id": "b22",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2026/08/products-still-life.png"
+        },
+        {
+          "id": "b23",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "b24",
+          "type": "text",
+          "text": "The Bugatti Buono campaign combined practical everyday rewards with the appeal of Italian design. Timed to run throughout the autumn and Christmas shopping period , the campaign gave customers an additional reason to visit participating COOP MORAVA stores, consolidate their spending with desirable products for their kitchens. The reward collection was built around cooking, baking and sharing food—activities closely connected with family life and the festive season. This made the campaign relevant not only as a promotional offer, but also as an opportunity for customers to find useful gifts for themselves or their loved ones ."
+        },
+        {
+          "id": "b25",
+          "type": "text",
+          "text": "Italian Design for Everyday Cooking"
+        },
+        {
+          "id": "b26",
+          "type": "text",
+          "text": "The campaign featured a versatile premium collection of cookware, bakeware and kitchen accessories designed for both everyday meals and special occasions: Ceramic baking dish Springform cake pan Cast-iron casserole and grill pan 2-in-1 Baking pan Pot with lid Crêpe pan Three-piece stainless-steel knife set Kitchen whisk Flexible spatula Kitchen turner The collection balanced premium hero products with accessible kitchen essentials. Customers could choose from products suitable for baking, stovetop cooking, food preparation and serving, helping the campaign appeal to a broad range of households and cooking habits."
+        },
+        {
+          "id": "b27",
+          "type": "text",
+          "text": "The Brand"
+        },
+        {
+          "id": "b28",
+          "type": "text",
+          "text": "A Century of Italian Design Excellence Founded in 1923 in Lumezzane, near Brescia, Bugatti is an Italian family brand with more than a century of expertise in creating products for the kitchen, table and home. Its distinctive approach combines aesthetic research, technical know-how and everyday functionality, transforming practical objects into memorable expressions of contemporary Italian design. The Bugatti Buono collection reflects this philosophy through refined forms, carefully considered details and versatile products created to make cooking more enjoyable. By featuring Bugatti as the campaign reward, COOP MORAVA offered customers more than an attractive cookware collection—it gave them access to a brand experience built around quality, style and the pleasure of preparing and sharing food."
+        },
+        {
+          "id": "b29",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2026/08/bugatti-3.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/bugatti-4.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/bugatti-5.png"
+          ]
+        },
+        {
+          "id": "b30",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-display-6.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-totem-indoor-2.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-leaflet.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-totem-big.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-door-standing-poster.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-door-poster-2.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-display-5.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-poster-3.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-window-poster.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-wobblers-2-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-product-basket.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-outdoor-poster.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-totem.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-display-3.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Coop-Bugatti-door-poster.jpg"
+          ],
+          "title": "In Store Experience"
+        },
+        {
+          "id": "b31",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "b32",
+          "type": "text",
+          "text": "Customers received one loyalty point for every CZK 300 spent in participating stores. Points could also be awarded for specially marked partner products. After collecting 20 points , customers unlocked exclusive loyalty prices on selected Bugatti Buono products. The kitchen whisk, flexible spatula and turner could also be purchased without collecting points for a special loyalty price of CZK 99 , providing an immediate and accessible entry point into the collection. Customers collected their points on a physical campaign card. Once they had reached the required threshold, they selected their preferred product and presented the completed card at the checkout."
+        },
+        {
+          "id": "b33",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2026/08/bugatti-1.png"
+        },
+        {
+          "id": "b34",
+          "type": "text",
+          "text": "Recipe Inspiration"
+        },
+        {
+          "id": "b35",
+          "type": "text",
+          "text": "Selected products marked with a chef icon included access to additional recipe content. By scanning a QR code, customers could download recipes in Czech and discover ideas for using their new Bugatti Buono cookware. This extended the customer experience from the supermarket into the home, transforming the rewards from promotional products into tools for creating new meals and shared moments."
+        },
+        {
+          "id": "b36",
+          "type": "video",
+          "videoUrl": "https://youtu.be/tWSrL2gRnjg?si=mSBqyBbSnRBEBqVO"
+        },
+        {
+          "id": "b37",
+          "type": "text",
+          "text": "Social Media"
+        },
+        {
+          "id": "b38",
+          "type": "text",
+          "text": "Instagram"
+        },
+        {
+          "id": "b39",
+          "type": "video",
+          "videoUrl": "https://www.instagram.com/p/DQvthUYkklS/"
+        },
+        {
+          "id": "b40",
+          "type": "text",
+          "text": "Facebook"
+        },
+        {
+          "id": "b41",
+          "type": "video",
+          "videoUrl": "https://www.facebook.com/COOPaci/posts/pfbid02UVdE4Cviq45USUhSFdgaJbmheacKcT4MGdJ38xsQQ9kgxknCW6CESZqe13C2Eqwal"
+        },
+        {
+          "id": "b42",
+          "type": "video",
+          "videoUrl": "https://www.facebook.com/COOPUherskyOstroh/videos/794830366620772/"
+        },
+        {
+          "id": "b43",
+          "type": "text",
+          "text": "Website"
+        },
+        {
+          "id": "b44",
+          "type": "video",
+          "videoUrl": "https://klr-europe.com/wp-content/uploads/2026/08/laptop_scroll_coop_bugatti.mp4"
         }
       ]
     },
