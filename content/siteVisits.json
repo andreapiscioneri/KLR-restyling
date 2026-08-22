@@ -1830,5 +1830,512 @@
     "browser": "Chrome",
     "visitedAt": "2026-08-19T12:51:51.105Z",
     "eventType": "pageview"
+  },
+  {
+    "id": "ff0f1dff-085b-4331-aac1-cb4e714daa97",
+    "path": "/",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T06:58:27.541Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "56b7feae-02b8-4ddd-9d55-db7be2b5b125",
+    "path": "/",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:00:58.295Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "1b8c271e-c4e0-46a1-b19d-c88e55e28368",
+    "path": "/work",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:07:43.401Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "9aa7c4ef-0e90-4927-b845-5e04f7a2115c",
+    "path": "/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:07:51.470Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "ed4d32cb-0bd0-431e-af34-4a5daa89e54a",
+    "path": "/",
+    "sessionId": "35db4e41-0962-4192-b733-9a64314cd6e4",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:09:22.021Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "42b188bd-0be1-4971-94ce-581346b5da98",
+    "path": "/",
+    "sessionId": "35db4e41-0962-4192-b733-9a64314cd6e4",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:09:23.700Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "9d30489c-9c49-430e-8302-547c7bb1bc42",
+    "path": "/",
+    "sessionId": "35db4e41-0962-4192-b733-9a64314cd6e4",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:09:25.847Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "c40c2c36-caee-46af-8633-194aacaf607e",
+    "path": "/work/horizon-travel-collection-for-circle-k-poland",
+    "sessionId": "35db4e41-0962-4192-b733-9a64314cd6e4",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:09:30.763Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "1b34de19-87ca-4b51-bb11-b0b33e2523ac",
+    "path": "/",
+    "sessionId": "49a9a93f-c4f4-4d80-ae1f-307946632b0c",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:10:27.163Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "07ea038c-2c26-4d5b-8be7-775cc6ffb232",
+    "path": "/",
+    "sessionId": "a548f354-e98d-4453-80d7-ffed1e016184",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:11:56.957Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "349afd84-7ff4-4965-99bf-caf8ce80ae8b",
+    "path": "/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "referrer": "http://localhost:3000/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:11:57.916Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "1f8743c2-0135-45cd-bdfb-68daa195c66a",
+    "path": "/",
+    "sessionId": "a548f354-e98d-4453-80d7-ffed1e016184",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:12:37.294Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "62662cb6-6155-4174-b1d8-981c34c7de6c",
+    "path": "/work/horizon-travel-collection-for-circle-k-poland",
+    "sessionId": "a548f354-e98d-4453-80d7-ffed1e016184",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:13:11.576Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "3386f731-6a0a-4274-bb4f-509d2584ced2",
+    "path": "/",
+    "sessionId": "a548f354-e98d-4453-80d7-ffed1e016184",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:13:15.008Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "9e6b510d-fe6b-454e-bcc3-af48d72a99b6",
+    "path": "/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "referrer": "http://localhost:3000/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:14:29.639Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "09080d07-0b6e-425c-8697-c56e3029fc82",
+    "path": "/",
+    "sessionId": "5b9758c8-9997-41a5-94ff-4ee9deb44d63",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:15:01.816Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "fdf66eec-b9e8-4c8f-8363-a1e1f5aed2bf",
+    "path": "/work/horizon-travel-collection-for-circle-k-poland",
+    "sessionId": "5b9758c8-9997-41a5-94ff-4ee9deb44d63",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:15:40.842Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "b2fa7142-c9d9-46aa-870e-4425e20bd237",
+    "path": "/",
+    "sessionId": "5b9758c8-9997-41a5-94ff-4ee9deb44d63",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:15:44.219Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "507b596a-cf38-4160-ba6d-32a001822389",
+    "path": "/",
+    "sessionId": "76992bf6-c0f2-4c9f-9913-cc0bc941aec0",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:16:20.386Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "fb874a06-19cb-49e8-babf-7fc68cfc7b88",
+    "path": "/",
+    "sessionId": "05f945e2-f4d3-4853-b6bb-b1ae08da4b29",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:16:54.731Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "b7b92fee-6a61-440c-809c-5eb28a2418a1",
+    "path": "/",
+    "sessionId": "05f945e2-f4d3-4853-b6bb-b1ae08da4b29",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:17:35.033Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "5b583a4f-97c8-4227-931b-e2d06cdf8c7a",
+    "path": "/work/horizon-travel-collection-for-circle-k-poland",
+    "sessionId": "05f945e2-f4d3-4853-b6bb-b1ae08da4b29",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:17:49.650Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "f6a535d9-8265-4a69-bfb8-13ad3b4a8188",
+    "path": "/",
+    "sessionId": "05f945e2-f4d3-4853-b6bb-b1ae08da4b29",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:17:53.091Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "cf0dbe99-4040-4919-b7f2-bb2a2dbdb009",
+    "path": "/",
+    "sessionId": "d1d03eda-f4e4-4173-b8ef-ee8fd6cc902b",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:18:51.514Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "1899f8e3-6168-48ef-b548-98d40c0411a7",
+    "path": "/",
+    "sessionId": "d1d03eda-f4e4-4173-b8ef-ee8fd6cc902b",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:19:46.825Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "50190a22-9c7d-4df0-902d-064a9bd3ac27",
+    "path": "/work/horizon-travel-collection-for-circle-k-poland",
+    "sessionId": "d1d03eda-f4e4-4173-b8ef-ee8fd6cc902b",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:20:16.400Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "b3fa5db9-d6a3-410f-a353-9a55142c64e1",
+    "path": "/",
+    "sessionId": "d1d03eda-f4e4-4173-b8ef-ee8fd6cc902b",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:20:19.825Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "babfd7b6-571a-473b-8df2-27de7541ef99",
+    "path": "/",
+    "sessionId": "a519fa20-d4a5-4253-8af1-a4598432dd13",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:21:52.656Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "d2a28d27-e730-423c-a89f-9b5a2e29bc00",
+    "path": "/",
+    "sessionId": "0a10073d-4394-46d1-abaf-f274ee3924d5",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:23:34.140Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "65052c92-113c-4f41-8c61-8fce020f3a11",
+    "path": "/",
+    "sessionId": "ed33b9b6-6dc6-4d66-a410-37f395621d32",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:28:02.826Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "dc49484b-5196-4334-95f4-6916e8347aab",
+    "path": "/",
+    "sessionId": "ed33b9b6-6dc6-4d66-a410-37f395621d32",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:28:08.966Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "c94c1a58-c95c-4a03-b9bb-d427cf5cbfbe",
+    "path": "/",
+    "sessionId": "ed33b9b6-6dc6-4d66-a410-37f395621d32",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:29:11.647Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "1379c756-8f8d-496c-a2d7-230c8eac2d81",
+    "path": "/",
+    "sessionId": "daa802de-59cf-4446-8201-8e3aff1bd00e",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:30:19.779Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "5f614456-4cde-407e-a174-f63afbb76761",
+    "path": "/",
+    "sessionId": "daa802de-59cf-4446-8201-8e3aff1bd00e",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:31:50.070Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "ae164064-518c-4f4a-9f1b-358e084428c5",
+    "path": "/work/horizon-travel-collection-for-circle-k-poland",
+    "sessionId": "daa802de-59cf-4446-8201-8e3aff1bd00e",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:32:54.923Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "6defe70e-c2b5-43b8-a5db-17732e9b9378",
+    "path": "/",
+    "sessionId": "daa802de-59cf-4446-8201-8e3aff1bd00e",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:32:57.495Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "c02c3b7d-1317-4128-9717-8d26ca195ce2",
+    "path": "/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:35:21.343Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "e7b1b568-8732-4e18-8cdf-ab518351b9a1",
+    "path": "/work/oracle-red-bull-racing-adrenaline-for-spar-slovenia",
+    "sessionId": "c53272e3-de37-445b-87b8-5f5685cdd830",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:54:01.926Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "b5ddec1b-8749-4fa2-842c-ce10a287dcb5",
+    "path": "/work/oracle-red-bull-racing-adrenaline-for-spar-slovenia",
+    "sessionId": "68c0e653-dc5f-4930-9e0a-e3d230a7c16d",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T07:56:27.556Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "07cf2059-b00e-42a9-adc3-834cdc04789e",
+    "path": "/work/oracle-red-bull-racing-adrenaline-for-spar-slovenia",
+    "sessionId": "200899ca-0995-4c48-9ebb-20956a4f52cd",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T08:00:30.711Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "91b448a7-0816-4f28-adef-c1c418a5ff6f",
+    "path": "/work/oracle-red-bull-racing-adrenaline-for-spar-slovenia",
+    "sessionId": "a7e54571-2cb3-4812-aa69-53ef3b4711c0",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T08:06:05.149Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "45c4106c-2a1b-4328-84cc-d09d66d76795",
+    "path": "/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T08:09:15.069Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "16339c22-a5b2-4aa2-b063-d75c92eec911",
+    "path": "/work/oracle-red-bull-racing-adrenaline-for-spar-slovenia",
+    "sessionId": "fdb00ee1-a2ae-481e-872d-de884153e481",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T08:10:47.348Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "2e33e6f4-2e73-4166-9ce6-84410bc80773",
+    "path": "/work/oracle-red-bull-racing-adrenaline-for-spar-slovenia",
+    "sessionId": "3095f7b4-e375-4bbd-bdf8-1dad7aa66827",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T08:15:15.662Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "99750d43-8c8c-4c57-b2a9-db2dab5132c5",
+    "path": "/work/pintinox-trust-forged-in-steel-for-orlen-slovakia",
+    "sessionId": "03d23dfe-dece-40a1-bb57-f5be70032e4f",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T08:21:08.685Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "da59a81a-e6e0-4ddb-b627-d7e17be78d18",
+    "path": "/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T08:30:51.314Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "6b53c6fa-10ea-44f4-b829-2865bbde7c61",
+    "path": "/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T08:39:12.386Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "59a67d0f-c8fa-481c-995e-e625047ca367",
+    "path": "/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T08:52:46.146Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "699c96ef-4dfb-4301-8b35-9c9cdc6315af",
+    "path": "/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T09:00:01.162Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "b24728b9-1600-4c39-8fc3-7399ff5a38e1",
+    "path": "/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T09:08:48.132Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "8f535cbc-3fea-48fa-94a2-192976055e1f",
+    "path": "/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T09:18:00.738Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "f6c4e215-b2f6-4fc4-8bf2-aa32c84c1544",
+    "path": "/blog",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T09:21:26.339Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "2b8ba3f2-fa4b-4f47-b22b-476220580813",
+    "path": "/blog/driving-retail-growth-through-loyalty-in-latin-america",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T09:21:38.853Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "f063ccb2-6b8b-4e25-9595-1c103d64deff",
+    "path": "/work",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T09:21:49.554Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "36a78260-77f7-4b97-b188-ae4e01df3dd7",
+    "path": "/work/pintinox-trust-forged-in-steel-for-orlen-slovakia",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T09:21:52.515Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "b2529358-07bd-47c3-aeff-4a7c1e142f7d",
+    "path": "/work/pintinox-trust-forged-in-steel-for-orlen-slovakia",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T09:25:35.296Z",
+    "eventType": "pageview"
   }
 ]

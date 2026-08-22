@@ -132,6 +132,139 @@
         "gallery",
         "opening",
         "gallery"
+      ],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "hxhrbdd",
+          "type": "text",
+          "text": "Fueling Loyalty with Oracle Red Bull Racing Adrenaline​"
+        },
+        {
+          "id": "gny6klw",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2025/07/cover-picture-spar-slovenia-red-bull-klr-europe.png"
+        },
+        {
+          "id": "sv3o44g",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "qln02m3",
+          "type": "text",
+          "text": "Igniting Retail Loyalty Through Speed, Style, and Strategy\nSPAR Slovenia wanted to energize customer engagement and drive store traffic across its national supermarket network. The goal was twofold:\nBoost transactional spend per visit.\nDeepen customer loyalty through aspirational, experiential rewards.\nTo meet these ambitions, SPAR partnered with KLR to create a campaign that combined speed, excitement, and premium lifestyle rewards—anchored by the world of Oracle Red Bull Racing."
+        },
+        {
+          "id": "unmw4in",
+          "type": "video",
+          "videoUrl": "https://www.youtube.com/watch?v=tBPr9uuDKxY"
+        },
+        {
+          "id": "tl221kz",
+          "type": "text",
+          "text": "Premium Travel Lifestyle Rewards"
+        },
+        {
+          "id": "6h94yna",
+          "type": "text",
+          "text": "Travel & Mobility\nEssentials designed for seamless movement and smart packing.\nCabin Trolley\nCheck-in Trolley\nCarry-on Backpack\nTravel Pillow\nBags & Everyday Gear\nStylish and functional companions for daily use or short trips.\nUrban Backpack\nDuffle Bag\nShoulder Bag\nLadies’ Backpack\nLadies’ Bag\nReversible Umbrella\nFood & Drink On-the-Go\nFor staying refreshed and prepared wherever the journey leads.\nWater Flask\nThermo Bottle\nThermo Food Jar"
+        },
+        {
+          "id": "tz66xa0",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2025/07/redbull-spar-collection-loyalty.png"
+        },
+        {
+          "id": "ayendbo",
+          "type": "text",
+          "text": "In-store Gaming Activations:"
+        },
+        {
+          "id": "g6v9cci",
+          "type": "text",
+          "text": "Selected SPAR locations hosted dynamic interactive gaming experiences , bridging physical retail with immersive branded entertainment. These touchpoints drove dwell time, increased campaign visibility, and created shareable moments."
+        },
+        {
+          "id": "u9ibjmn",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2025/08/redbull-spar-klr-game-activation-loyalty.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/08/redbull-spar-klr-gaming-loyalty.jpg"
+          ]
+        },
+        {
+          "id": "m1mvrwu",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2025/08/redbull-spar-klr-display-loyalty.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/08/redbull-spar-klr-cashier-loyalty.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/08/redbull-spar-klr-gates-loyalty.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/08/redbull-spar-klr-leaflet-1-loyalty.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/08/redbull-spar-klr-leaflet-loyalty.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/08/redbull-spar-klr-leaflets-loyalty.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/08/redbull-spar-klr-rollup-loyalty.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/08/redbull-spar-klr-wobbler-loyalty.jpg"
+          ],
+          "title": "Gallery"
+        },
+        {
+          "id": "pmvtxs8",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "ydzigo2",
+          "type": "text",
+          "text": "KLR designed the Adrenaline Loyalty Campaign —a 12-week program powered by a dual mechanic:\nSpend & Earn : Spend €10–19.99 = 1 loyalty point Spend €20 or more = more points based on total value\nHigh-Octane Lottery : Entry into a draw to win 1 of 5 exclusive Porsche 718 driving experiences at the Red Bull Ring in Austria ."
+        },
+        {
+          "id": "szjzwic",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2025/08/redbull-spar-klr-leaflet-3-loyalty.jpg"
+        },
+        {
+          "id": "e1ozl44",
+          "type": "text",
+          "text": "Social Media"
+        },
+        {
+          "id": "qzfo2aq",
+          "type": "text",
+          "text": "Influencer Marketing"
+        },
+        {
+          "id": "6c96eny",
+          "type": "text",
+          "text": "To amplify reach and connect with a younger, style-conscious audience, we partnered with local influencer Teja Jugovic —better known as @coolmamacitaa on Instagram. Known for her relatable content and strong community of followers, Teja created a reel featuring her personal review of the travel lifestyle collection , highlighting both the design and practicality of the products. Her authentic storytelling and visual style helped generate buzz around the rewards, driving awareness and inspiring followers to join the campaign."
+        },
+        {
+          "id": "w999kn2",
+          "type": "video",
+          "videoUrl": "https://www.instagram.com/reel/DKKnLTHqXCH/"
+        },
+        {
+          "id": "p9ptik4",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2025/07/facebook-red-bull-6.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/07/facebook-red-bull-5.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/07/facebook-red-bull-4.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/07/facebook-red-bull-3.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/07/facebook-red-bull-2.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/07/facebook-red-bull-1.jpg"
+          ]
+        },
+        {
+          "id": "tjaa0wi",
+          "type": "text",
+          "text": "Website"
+        },
+        {
+          "id": "5h09yhs",
+          "type": "video",
+          "videoUrl": "https://klr-europe.com/wp-content/uploads/2025/07/08222.mov"
+        }
       ]
     },
     "publicPreview": false,
@@ -248,6 +381,89 @@
       ],
       "videoCaptions": [
         ""
+      ],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "uo2ktoy",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2025/10/pintinox-bbq-collection-feat-pic.png"
+        },
+        {
+          "id": "ajh2wn2",
+          "type": "text",
+          "text": "Master the Grill – Loyalty Campaign for MOL Hungary"
+        },
+        {
+          "id": "wc927tm",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "twl4z0x",
+          "type": "text",
+          "text": "In summer 2025, with our support, MOL Hungary launched a nationwide loyalty campaign to energize customer engagement and drive higher spending among MOL Move members.\nBranded “Master the Grill – For MOL Move Members Only” , the campaign offered exclusive access to a premium BBQ product collection from Italian kitchenware leader PINTINOX . With strong seasonal appeal and a practical, reward-driven mechanic, the initiative activated 370 petrol stations across Hungary over an 11-week period, seamlessly combining digital convenience with real-world value.\nThe campaign aimed to increase usage of the MOL Move app , reward loyal customers, and reinforce the brand’s position as an innovator in customer loyalty."
+        },
+        {
+          "id": "uq47hv3",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2025/10/MOL-HU-Pintinox-BBQ-display-3.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/MOL-HU-Pintinox-BBQ-display-5.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/MOL-HU-Pintinox-BBQ-display-closeup-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/MOL-HU-Pintinox-BBQ-leaflet-5.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/MOL-HU-Pintinox-BBQ-leaflet-6.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/MOL-HU-Pintinox-BBQ-leaflet-7.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/MOL-HU-Pintinox-BBQ-poster-refill.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/MOL-HU-Pintinox-BBQ-leaflet.jpg"
+          ],
+          "title": "Gallery"
+        },
+        {
+          "id": "il9ea7s",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2025/10/pintinox-bbq-collection-grill.png"
+        },
+        {
+          "id": "sdcqywv",
+          "type": "text",
+          "text": "Collection Overview"
+        },
+        {
+          "id": "6n2npvi",
+          "type": "text",
+          "text": "The PINTINOX BBQ Collection was more than just a set of products — it was a full summer experience packed into 13 carefully selected items. Each product offered MOL Move members a tangible lifestyle upgrade, combining outdoor utility with elegant Italian design.\nTo bring more relevance and emotional connection, the collection was grouped into three key clusters:\n🔥 Grill Like a Pro Designed for serious BBQ enthusiasts, this set of tools turned any garden cookout into a masterclass. Durable, heavy-duty, and built for performance, these items brought professional-level precision to the backyard. – Cast Iron Grill Pan – Ideal for searing steaks with perfect grill marks. – Cast Iron Pan – Versatile and robust, perfect for open flame cooking. – BBQ Tool Kit – Everything you need for flipping, grilling, and serving like a chef. – BBQ Gloves – Heat-resistant and practical for safe grilling. – Carving Set (2 pcs) – Sharp, sleek, and made for flawless slicing. – Steak Knife Set (4 pcs) – Perfect for sharing grilled perfection with friends and family.\n🧊 Cool, Carry & Enjoy This cluster focused on convenience and outdoor comfort, enabling members to easily transport, store, and enjoy their BBQ moments — wherever summer took them. – Picnic Blanket – Soft, compact, and ready for spontaneous outdoor meals. – Thermic Bag (Cooler Bag) – Keeps drinks and ingredients chilled and fresh. – Thermo Tumbler – Ideal for hot coffee or iced drinks, all day long. – Hip Flask – Sleek and discreet, for a celebratory sip in nature.\n🏕️ Adventure-Ready Essentials Whether camping, hiking, or just exploring beyond the backyard, these rugged tools were built for the outdoors — compact, multifunctional, and tough enough for any journey. – Pro Axe – Durable and sharp, ideal for wood prep and outdoor tasks. – Pro Machete – A bold tool for clearing space and cutting with ease. – 9-in-1 Knife – Compact utility in your pocket — screwdriver, opener, blade and more."
+        },
+        {
+          "id": "bophol9",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2025/10/pintinox-bbq-collection.png"
+        },
+        {
+          "id": "zdm4nr4",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "n4r9okc",
+          "type": "text",
+          "text": "The campaign was powered by a digital stamp collection mechanic integrated into the MOL Move mobile application.\nHow it worked:\nCustomers received 1 digital stamp for every HUF 4,000 spent at participating MOL stations (fuel, shop products, or services).\nStamps were automatically credited to the user’s MOL Move app when their loyalty card was scanned.\nOnce 5 stamps were collected, they could be exchanged in the app for a digital coupon , which granted access to one of the PINTINOX products at a special promotional price .\nCoupons were redeemable at any of the 370 participating stations across the country.\nAccepted payment methods included cash, bank card, or eligible MOL fuel cards (single method only per transaction). Mixed payment with fuel card + cash was not permitted.\nThis seamless process encouraged repeat visits and elevated spend, while increasing digital engagement through the MOL Move app."
+        },
+        {
+          "id": "ex4y1x3",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2025/10/MOL_PINTINOX_KV_A3_fekvo_2025_05_08_PRINT.jpg"
+        },
+        {
+          "id": "brshn0z",
+          "type": "text",
+          "text": "Social Media"
+        },
+        {
+          "id": "zcjcu9r",
+          "type": "video",
+          "videoUrl": "https://www.instagram.com/p/DM0YEQ2KGw9/"
+        }
       ]
     },
     "publicPreview": false,
@@ -410,7 +626,143 @@
       ],
       "headings": {
         "rewards_title": "Premium Travel Lifestyle Rewards"
-      }
+      },
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "x8i76u0",
+          "type": "text",
+          "text": "Fueling Loyalty with Oracle Red Bull Racing Adrenaline​"
+        },
+        {
+          "id": "3zmhlbb",
+          "type": "video",
+          "videoUrl": "https://youtu.be/3NK17OZW4go?si=KKxD7SgRrXty-J06"
+        },
+        {
+          "id": "12yj7bl",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "oohhxst",
+          "type": "text",
+          "text": "Igniting Retail Loyalty Through Speed, Style, and Strategy\nKaufland Bulgaria sought to energize its summer marketing calendar with a campaign that would attract new customers, increase repeat visits and to reinforce its position as a modern, dynamic retailer. The campaign needed to stand out in a competitive landscape while delivering real value and excitement to Kaufland Card users."
+        },
+        {
+          "id": "o428j0g",
+          "type": "video",
+          "videoUrl": "https://youtu.be/XS2xXQSBc5s?si=FiNGDe6z0Cn-bxNZ"
+        },
+        {
+          "id": "ja4f45w",
+          "type": "text",
+          "text": "Premium Travel Lifestyle Rewards"
+        },
+        {
+          "id": "rhn5csa",
+          "type": "text",
+          "text": "Travel & Mobility\nEssentials designed for seamless movement and smart packing.\nCabin Trolley\nCheck-in Trolley\nCarry-on Backpack\nTravel Pillow\nBags & Everyday Gear\nStylish and functional companions for daily use or short trips.\nUrban Backpack\nDuffle Bag\nShoulder Bag\nLadies’ Backpack\nLadies’ Bag\nReversible Umbrella\nFood & Drink On-the-Go\nFor staying refreshed and prepared wherever the journey leads.\nWater Flask\nThermo Bottle\nThermo Food Jar"
+        },
+        {
+          "id": "g4fxhei",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2025/07/redbull-spar-collection-loyalty.png"
+        },
+        {
+          "id": "v5hb11z",
+          "type": "text",
+          "text": "In-Store Activations: Where Loyalty Meets Live Action"
+        },
+        {
+          "id": "bn8cd2m",
+          "type": "text",
+          "text": "To bring the spirit of Formula 1 closer to customers, Kaufland launched immersive on-site activations in selected locations:\n🏁 Pit Stop Challenge – Visitors tested their speed and agility at Kaufland XOPark (24-25 May 2025) in a real-time tire change simulation.\n🎮 Fl Racing Simulator – at Kaufland Tsentralni Hali (17-18 May 2025) let customers test their speed and skills turning each store visit into an adrenaline-fueled experience.\n🏎️ Fl Real Show Car – was displayed at the Sofia – Izgrev hypermarket, creating buzz and social media engagement.\nThese activations were staged at key stores driving traffic and engagement beyond the typical shopping journey."
+        },
+        {
+          "id": "dxaoad1",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-bg-car1.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-bulgaria-instore-2.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-simulator.jpg"
+          ]
+        },
+        {
+          "id": "a7zpovl",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-bg-display-13.png",
+            "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-bg-display-2.png",
+            "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-bg-display-1.png",
+            "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-bg-display-6.png",
+            "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-bg-display-12.png",
+            "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-bg-display-15.png",
+            "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-bg-display-16.png",
+            "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-oracleredbull-bg-display-20.png",
+            "https://klr-europe.com/wp-content/uploads/2025/10/poster.png",
+            "https://klr-europe.com/wp-content/uploads/2025/10/totem-2.png",
+            "https://klr-europe.com/wp-content/uploads/2025/10/totem.png",
+            "https://klr-europe.com/wp-content/uploads/2025/10/totem4.png"
+          ],
+          "title": "In Store Experience"
+        },
+        {
+          "id": "p1nem2p",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2025/10/Porsche-experience.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/Porsche-experience-6.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/Porsche-experience-5.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/Porsche-experience-4.jpg"
+          ],
+          "title": "Lottery: Porsche Experience"
+        },
+        {
+          "id": "qjtz5r9",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "ipx2d09",
+          "type": "text",
+          "text": "💳 Shop & Earn\nCustomers shopping with their Kaufland Card earned loyalty points to redeem Oracle Red Bull Racing-branded lifestyle products at up to 70% off .\n🎟️ Lottery #1: VIP Showrun Access\nShoppers who purchased a limited edition 4-pack of Red Bull and registered their receipt entered a draw to win 1 of 20 VIP tickets to the Red Bull Showrun in Sofia (8 June 2025) —with prime viewing and exclusive access.\n🏎️ Lottery #2: Porsche 718 Cayman S Experience\nCustomers who purchased over 59.99 BGN worth of loyalty campaign products could win 1 of 2 trips for two to the legendary Red Bull Ring in Austria —including the thrill of driving a Porsche 718 Cayman S with a professional."
+        },
+        {
+          "id": "0yxu7io",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2025/10/leaflet.png"
+        },
+        {
+          "id": "0iiwa9c",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2025/10/496771301_687714860573250_189562626517358206_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/496942026_692516116759791_9063172721858987488_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/499873973_694573736554029_2412641020266511867_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/502714798_702739432404126_7057416049188882066_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/505118924_708844875126915_2672801994694239722_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/505228304_708844878460248_3750810654154981548_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/505229559_708844881793581_3046935458280975277_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/505873032_708844871793582_4911916493330085849_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/508444428_714557441222325_3605640074010401336_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/509429589_714557434555659_1518290386181068201_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/509431003_714557437888992_3045831895449085296_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/10/510441722_718209854190417_1919558957656668775_n.jpg"
+          ],
+          "title": "Social Media"
+        },
+        {
+          "id": "z24w0fg",
+          "type": "text",
+          "text": "Website"
+        },
+        {
+          "id": "4ap9b78",
+          "type": "video",
+          "videoUrl": "https://klr-europe.com/wp-content/uploads/2025/10/kaufland-website.mov"
+        }
+      ]
     },
     "publicPreview": false,
     "cornerstone": false
@@ -503,7 +855,70 @@
           ]
         }
       ],
-      "collectionImage": "/api/media/wp-3667"
+      "collectionImage": "/api/media/wp-3667",
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "9m9ru6z",
+          "type": "text",
+          "text": "Awarded as the Best Loyalty Campaign 2024 by Lukoil Bulgaria"
+        },
+        {
+          "id": "yv86wty",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2025/04/Best-Loyalty-Campaign-Award.jpg"
+        },
+        {
+          "id": "46wo7bq",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "br0x0pl",
+          "type": "text",
+          "text": "Bugatti Primo Kitchen Knives – Sharp Rewards at Lukoil Bulgaria\nWe launched a premium loyalty campaign in partnership with Lukoil Bulgaria and Bugatti, bringing world-class Italian craftsmanship to Bulgarian kitchens. The campaign offered Lukoil customers the exclusive opportunity to collect high-quality Bugatti Primo knives and kitchen tools with up to 75% discount, simply by fueling up or shopping at Lukoil petrol stations.\nThe campaign was a celebration of style, functionality, and reward – delivering strong results, increased customer engagement, and proudly earning the title of Best Loyalty Campaign of 2024 at Lukoil."
+        },
+        {
+          "id": "12ivxgk",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2025/04/буклет-лукойл-1024x686.jpg"
+        },
+        {
+          "id": "wmbyub9",
+          "type": "text",
+          "text": "Assortment"
+        },
+        {
+          "id": "x2sprxk",
+          "type": "text",
+          "text": "A Culinary Masterpiece\nThe campaign featured an exceptional range of 12 kitchen essentials, designed for both everyday cooking and gourmet experiences:\nParing Knife\nUtility Knife\nSlicing Knife\nChef’s Knife\nSantoku Knife\nFilleting Knife\nCleaver\nKnife Sharpener\nDamascus Knife\nDough Essentials\nPrestigio Knife Set\nEach product from the Bugatti Primo line blends modern Italian design with lasting performance. The ABS handles offer exceptional durability and comfort, while the ergonomic grip and dishwasher-safe quality make them perfect for daily use. Backed by Bugatti’s legacy of design excellence – including Red Dot and Compasso d’Oro awards – these tools are more than kitchenware: they’re statements of style and function."
+        },
+        {
+          "id": "b752dzs",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2025/04/display-lukoil-bugatti-2.jpg"
+        },
+        {
+          "id": "rs76wmq",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "my3s2mj",
+          "type": "text",
+          "text": "Customers collected points for every purchase at Lukoil stations:\n– 1 point for every 10 BGN spent on fuel or goods on a single receipt\nDouble points with a Lukoil Club loyalty card\n– 2 points for every 10 BGN spent on fuel or goods on a single receipt"
+        },
+        {
+          "id": "gqmuoln",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2025/04/lukoil-bugatti-primo.png"
+        },
+        {
+          "id": "tlyv8qw",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2025/04/484966984_1052386520269048_7677509030285945663_n.jpg"
+        }
+      ]
     },
     "publicPreview": false,
     "cornerstone": false
@@ -612,6 +1027,95 @@
       ],
       "videoPositions": [
         "opening"
+      ],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "hy84epc",
+          "type": "text",
+          "text": "Stardust Travel for OMV – Hungary"
+        },
+        {
+          "id": "mit4u3s",
+          "type": "video",
+          "videoUrl": "https://youtu.be/MkFQXDXXt6U?si=1f_DSIywePJDdZZB"
+        },
+        {
+          "id": "ofqxoqa",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "nhodr2d",
+          "type": "text",
+          "text": "AN EXCLUSIVE COLLECTION FOR SPACE LOVERS AND AN OPPORTUNITY TO WIN AN AUDI Q2\nSTARDUST loyalty campaign, a 12-week initiative implemented in 185 petrol stations across OMV HUNGARY . The campaign aimed to provide customers with a unique opportunity to acquire a collection of exclusive bags, trolleys and accessories inspired by Space exploration with discounts up to 60%.\nThe collection included 13 products:\n2 trolleys\nA food container and a water bottle\nAn urban Backpack\nA Cooler Backpack\nA travel Bag\nA bumbag\nAn umbrella\nA cap\nKids Academy Set\nShuttle Seat Belt Toy\nOuter Space Luminous Blanket"
+        },
+        {
+          "id": "tcdzfls",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2024/03/Leaflet-OMV-HU-NASA-scaled.jpg"
+        },
+        {
+          "id": "kovk8nx",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "rbnoi3e",
+          "type": "text",
+          "text": "You can collect 1 sticker for every HUF 4,000 spent, and double stickers when buying MaxxMotion fuels. In addition to 10 collected stickers, the Stardust products available in the OMV selection will be sold at a discounted price."
+        },
+        {
+          "id": "17zeupb",
+          "type": "text",
+          "text": "Lottery"
+        },
+        {
+          "id": "um32rqx",
+          "type": "text",
+          "text": "WIN AN AUDI Q2\nBuy at least 1 Stardust product during the promotion period, keep the receipt, register and participate in the draw to win a brand new Audi Q2!"
+        },
+        {
+          "id": "zeykw2a",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2024/03/431161083_800854838745206_6718799453210351701_n-1-1024x683.jpg"
+        },
+        {
+          "id": "pxe2lmf",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2024/03/431166283_800854798745210_3057804461490085269_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/431259241_800854845411872_549706086835594963_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/431433057_800854738745216_1705443015695792399_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/431467934_800854712078552_1910311464717813433_n.jpg"
+          ]
+        },
+        {
+          "id": "4shve38",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-Display-1-1-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-Display-2-1-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-outdoor-2-1-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-Poster-1-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-Gas-Pump-2-1-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-Gas-Pump-1-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-outdoor-1-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-Poster-2-2.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-Poster-3-scaled.jpg"
+          ],
+          "title": "Gallery"
+        },
+        {
+          "id": "xht7s9a",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-social-2-1.jpeg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-social-3-1.jpeg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/OMV-HU-NASA-2023-social-1.jpeg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/412290324_748416680655689_3846334552189314364_n.jpg"
+          ]
+        }
       ]
     },
     "publicPreview": false,
@@ -722,6 +1226,87 @@
       "videoPositions": [
         "opening",
         "gallery"
+      ],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "g407xpq",
+          "type": "text",
+          "text": "Pintinox Trust Forged In Steel For Petrom Romania"
+        },
+        {
+          "id": "wtzm8zh",
+          "type": "video",
+          "videoUrl": "https://youtu.be/HQYZTw1nVjU"
+        },
+        {
+          "id": "prk3ml6",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "k7d8qui",
+          "type": "text",
+          "text": "Pintinox Trust Forged In Steel collection, the best solution for your needs\nRenowned for its elegant, contemporary design and durable craftsmanship, this Pintinox collection is the ultimate choice for those who are adventurers by nature and chefs by choice. Featuring premium kitchen knife sets, high-quality multifunctional tools, and a stylish yet practical backpack, these items are crafted to enhance both culinary artistry and outdoor exploration. Designed with precision and style, they cater to enthusiasts who seek excellence in every adventure and every meal.\n10 Pintinox Trust Forged In Steel products are a real treat for customers:\nKnife set, 4pcs: Sharpener/Paring/Chef’s/Bread\nKnife set, 3 pcs : Cleaver/Slicing/Tomato knife\nKnife set, 3 pcs : Santoku/Utility/Scissors\nKnife set, 6pcs: Steak knives\n4 in 1 Carabiner\n9 in 1 Knife\n13 in 1 Plier\nHigh performance flashlight\nHot&cold Thermo flask 750ML\nDaypack"
+        },
+        {
+          "id": "7t2asyr",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2024/07/petrom-fb-7.jpeg"
+        },
+        {
+          "id": "nxblswp",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2024/07/petrom-pintinox-poster-loyalty-2.png",
+            "https://klr-europe.com/wp-content/uploads/2024/07/petrom-pintinox-cashier-loyalty-2.png",
+            "https://klr-europe.com/wp-content/uploads/2024/07/petrom-pintinox-poster-loyalty-5.png",
+            "https://klr-europe.com/wp-content/uploads/2024/07/petrom-pintinox-display-3.png",
+            "https://klr-europe.com/wp-content/uploads/2024/07/petrom-pintinox-display-2.png",
+            "https://klr-europe.com/wp-content/uploads/2024/07/petrom-pintinox-display-loyalty-1.png",
+            "https://klr-europe.com/wp-content/uploads/2024/07/petrom-pintinox-poster-video-screen-2.png",
+            "https://klr-europe.com/wp-content/uploads/2024/07/petrom-pintinox-poster-loyalty.png",
+            "https://klr-europe.com/wp-content/uploads/2024/07/rompetrol-pintinox-billboard-3.png"
+          ],
+          "title": "Gallery"
+        },
+        {
+          "id": "fmyni5x",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "22daw8j",
+          "type": "text",
+          "text": "Spend requirement 25 LEI for 1 sticker\n15 stickers to get 1 product with up to 83% discount\nSpecial time-limited offers on selected products for most loyal PETROM customers."
+        },
+        {
+          "id": "y5anjjw",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2024/07/petrom-fb-2.jpeg",
+            "https://klr-europe.com/wp-content/uploads/2024/07/petrom-fb-3.jpeg",
+            "https://klr-europe.com/wp-content/uploads/2024/07/petrom-fb-4.jpeg",
+            "https://klr-europe.com/wp-content/uploads/2024/07/petrom-fb-5.jpeg",
+            "https://klr-europe.com/wp-content/uploads/2024/07/petrom-fb-6.jpeg",
+            "https://klr-europe.com/wp-content/uploads/2024/07/petrom-fb-8.jpeg",
+            "https://klr-europe.com/wp-content/uploads/2024/07/petrom-fb-9.jpeg",
+            "https://klr-europe.com/wp-content/uploads/2024/07/petrom-fb-10.jpeg",
+            "https://klr-europe.com/wp-content/uploads/2024/07/petrom-fb-11.jpeg",
+            "https://klr-europe.com/wp-content/uploads/2024/07/petrom-fb.jpeg"
+          ],
+          "title": "Social Media"
+        },
+        {
+          "id": "zxk44j9",
+          "type": "text",
+          "text": "Website"
+        },
+        {
+          "id": "saji5mr",
+          "type": "video",
+          "videoUrl": "https://youtu.be/3dpdf9gqTHg"
+        }
       ]
     },
     "publicPreview": false,
@@ -831,6 +1416,67 @@
       ],
       "videoPositions": [
         "gallery"
+      ],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "qtdfquw",
+          "type": "text",
+          "text": "Choose Yourself Every Day – POLICE “Audacity Wanted” Loyalty Campaign for MOL Hungary"
+        },
+        {
+          "id": "ukkekxo",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2025/06/Screenshot-2025-06-06-at-16.44.20.png"
+        },
+        {
+          "id": "norxk5p",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "xpi7of5",
+          "type": "text",
+          "text": "In collaboration with MOL Hungary we aimed to create a high-impact loyalty promotion that did more than drive repeat purchases—it had to resonate emotionally with modern consumers, deliver real value, and activate the power of its digital loyalty platform, MOL Move.\nThe Concept: Choose Yourself Every Day\nInspired by the iconic POLICE brand, worn by global personalities like Lewis Hamilton and George Russell, the campaign celebrated individuality, confidence, and personal ambition.\nThe collection was designed for people who are bold, optimistic, independent, determined, and curious—values aligned with both POLICE and the evolving identity of the MOL customer base.\nEach product came in elegant, sleek packaging, making it not just a personal indulgence, but also an ideal gift—turning every reward into a statement.\nThe Collection: 11 Iconic Items\nThe Audacity Wanted loyalty collection was carefully curated to offer style, function, and high perceived value, appealing to a wide range of MOL customers.\nTravel & Commuting Essentials\nUrban Backpack\nShoulder Bag\nCabin-size Trolley\nLeather Accessories\nMen’s Wallet\nWomen’s Wallet\nCard Holder\nLeather Belt\nLifestyle & Utility Items\nFoldable Umbrella\nUnisex Scarf\nMagnetic Phone Holder\nWater Bottle (500 ml)\nEach item combined premium materials, sleek packaging, and gift-worthy appeal, reinforcing the campaign’s aspirational message: Choose yourself every day."
+        },
+        {
+          "id": "6cppdje",
+          "type": "gallery",
+          "title": "Gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2025/06/display-police-mol-klr.png",
+            "https://klr-europe.com/wp-content/uploads/2025/06/POSTER-police-mol-klr.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/06/products-close-up-Police-KLR.png",
+            "https://klr-europe.com/wp-content/uploads/2025/06/video-poster.png",
+            "https://klr-europe.com/wp-content/uploads/2025/06/police-products-mol-hungary.png",
+            "https://klr-europe.com/wp-content/uploads/2025/06/police-display-video-klr-mol.png"
+          ]
+        },
+        {
+          "id": "5kvmyu0",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "18wzh77",
+          "type": "text",
+          "text": "Customers could participate through a simple and motivating process:\nEarn Stickers: For every 4,000 HUF spent on fuel or in-store purchases, customers received 1 sticker.\nGet Rewarded: Collect 5 stickers to unlock at least 50% off any item in the exclusive POLICE collection.\nBoost Benefits: Scanning the MOL Move loyalty card enabled deeper discounts and smoother redemption.\nWhere: Available across participating MOL petrol stations and charging points in Hungary."
+        },
+        {
+          "id": "wcwvcil",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2025/06/leaflet-police-mol-klr.jpg"
+        },
+        {
+          "id": "q0x9jsm",
+          "type": "text",
+          "text": "Website"
+        },
+        {
+          "id": "qci7xfq",
+          "type": "video",
+          "videoUrl": "https://klr-europe.com/wp-content/uploads/2025/06/website-police-mol-hu.mov"
+        }
       ]
     },
     "publicPreview": false,
@@ -942,6 +1588,75 @@
       ],
       "videoPositions": [
         "gallery"
+      ],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "3uj9hxv",
+          "type": "text",
+          "text": "Pintinox Trust Forged In Steel - Ready for Every Challenge"
+        },
+        {
+          "id": "ox1o0bz",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2025/03/Banner-Pintinox-8000x4500px.png"
+        },
+        {
+          "id": "lblebri",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "1ke2464",
+          "type": "text",
+          "text": "Pintinox Trust Forged in Steel: Ready for Every Challenge\nThe “Trust Forged in Steel” loyalty campaign rewarded Viada Latvia customers with access to high-quality Pintinox kitchen and outdoor tools at discounted prices. The campaign aimed to enhance customer engagement, increase sales, and reinforce Viada’s commitment to offering premium products to its clientele. The campaign featured a carefully curated selection of Pintinox products, renowned for their superior craftsmanship and durability.\nThe “Trust Forged in Steel” collection reflects Pintinox’s commitment to high-quality, multifunctional tools designed to cater to both adventure seekers and home cooking enthusiasts. It’s a selection of durable, high-performance products that customers could trust—just like the steel they were forged from.\nGet ready for every challenge with Pintinox:\nKitchen Knife Sets:\n4-piece set: Sharpener, Paring, Chef’s, and Bread Knife\n3-piece set: Cleaver, Slicing, and Tomato Knife\n3-piece set: Santoku, Utility Knife, and Scissors\n6-piece Steak Knife set\nUniversal Knife Block\nMultifunctional & Outdoor Tools:\n13-in-1 Plier\n4-in-1 Carabiner\n9-in-1 Knife\nHigh-Performance Flashlight\nAdventure Knife\nHot & Cold Thermo Flask (750ML)\nDaypack"
+        },
+        {
+          "id": "1i1p42q",
+          "type": "gallery",
+          "title": "Gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2025/05/678A4096.png",
+            "https://klr-europe.com/wp-content/uploads/2025/05/678A4117.png",
+            "https://klr-europe.com/wp-content/uploads/2025/05/678A4085.png"
+          ]
+        },
+        {
+          "id": "b37ese7",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "u4cdali",
+          "type": "text",
+          "text": "To participate in the “Trust Forged in Steel” campaign, customers earned promotional stickers based on their spending at Viada Latvia petrol stations:\n1 sticker for every €5 spent\nCustomers collected stickers in a designated promotional booklet, available at Viada petrol stations’ promotion goods stand or at cash desks. Once the required number of stickers was collected, customers could redeem them for Pintinox products at a discounted price. Additionally, customers had the option to purchase promotional items at full price without stickers. A portion of the payment (up to 50%) could also be covered using VIADA PLUS discount card accumulated money. However, additional discounts did not apply to promotional goods."
+        },
+        {
+          "id": "9l1l1ru",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2025/03/LEAFLET-pintinox.png"
+        },
+        {
+          "id": "yecz26l",
+          "type": "gallery",
+          "title": "Social Media",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2025/05/472644980_18493384036039303_4735789228370735629_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/05/472620135_18485186068039303_2749124480996527670_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/05/486832233_18496610092039303_5767947186806989100_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/05/481801866_18490293775039303_7275193529262080868_n.jpg"
+          ]
+        },
+        {
+          "id": "dert30f",
+          "type": "text",
+          "text": "Website"
+        },
+        {
+          "id": "6eraizp",
+          "type": "video",
+          "videoUrl": "https://klr-europe.com/wp-content/uploads/2025/03/0822.mov"
+        }
       ]
     },
     "publicPreview": false,
@@ -1050,7 +1765,60 @@
         }
       ],
       "social": [],
-      "videos": []
+      "videos": [],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "tfdz6c4",
+          "type": "text",
+          "text": "ZANUSSI Zmart Move Loyalty Campaign for Carrefour - Poland"
+        },
+        {
+          "id": "mdtygxh",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2025/03/zanussi-carrefour-cover.jpg"
+        },
+        {
+          "id": "uwyf3zb",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "zmfccdi",
+          "type": "text",
+          "text": "Cook Smarter, Eat More Deliciously with Zanussi!\nUnder Zanussi, an Italian brand known for combining style and functionality in the kitchen, we launched with Carrefour Poland the Zmart Move campaign—an exclusive cookware and accessories promotion designed to bring smarter cooking solutions to Polish households. Under the claim “Cook Smarter, Eat More Deliciously,” the Zmart Move campaign was built around the idea that cooking should be effortless, enjoyable, and accessible to all. With a carefully curated selection of cookware, Carrefour customers had the opportunity to upgrade their kitchen with durable, high-performance Zanussi products— without breaking the bank.\nThe campaign featured a diverse selection of 16 Zanussi products, including essential cookware, kitchen accessories, and innovative tools designed to enhance meal preparation:\nCookware & Pans:\nFrypan (24cm & 28cm)\nPancake Pan (26cm)\nSaucepan (16cm)\nCasserole (24cm)\nUniversal Lids (16/18/20cm & 24/26/28cm)\nCutlery & Accessories:\nKnives Set (Cleaver, Slicing Knife, Utility Knife)\nStarter Knife Set (3 pcs)\nFood Chopper\nElectric Sharpener\nStorage & Utensils:\nFood Thermos\nVacuum Flask (1L)\nSpaghetti Server\nDeep Soup Ladle\nSlotted Turner"
+        },
+        {
+          "id": "6tyeb5p",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2025/03/mega-rabat-zanussi-p04Fvt.webp"
+        },
+        {
+          "id": "yof2iww",
+          "type": "gallery",
+          "title": "Gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2025/03/zanussi-carrefour-poland-poster-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/03/zanussi-carrefour-poland-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2025/03/zanussi-carrefour-poland-2-scaled.jpg"
+          ]
+        },
+        {
+          "id": "4cm4ily",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "lhh5i0e",
+          "type": "text",
+          "text": "Carrefour customers were encouraged to participate in the campaign through a simple and rewarding mechanic:\nSpend requirement 20zł for 1 sticker\n5 stickers to get 1 product with up to 50% discount"
+        },
+        {
+          "id": "teyvv24",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2025/03/3LEAFLET-Zanussi-Carrefour-mock-up.png"
+        }
+      ]
     },
     "publicPreview": false,
     "cornerstone": false
@@ -1167,6 +1935,95 @@
         "opening",
         "gallery",
         "gallery"
+      ],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "h3jsj0l",
+          "type": "text",
+          "text": "Space Collection for Petrol – Slovenia, Croatia, Bosnia Herzegovina"
+        },
+        {
+          "id": "g5fcacs",
+          "type": "video",
+          "videoUrl": "https://youtu.be/D-52xNRWfNo"
+        },
+        {
+          "id": "ob0qv7t",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "douuy5f",
+          "type": "text",
+          "text": "AN EXCLUSIVE COLLECTION FOR SPACE LOVERS\nSPACE COLLECTION loyalty campaign, a 16-week initiative implemented in 550 petrol stations across PETROL gas stations across Slovenia, Croatia and Bosnia Herzegovina. The campaign aimed to provide customers with a unique opportunity to acquire a collection of exclusive bags, trolleys and accessories inspired by Space explorations with discounts up to 75%.\nThe objective was to encourage customers to visit petrol station stores and reward their loyalty with highly functional and visually appealing space-themed products. Customers who participated in the promotion and purchased these items were able to proudly display them, signaling their affiliation with Petrol and sharing a sense of pride in being loyal customers.\nThe collection included 13 products:\nSpace Explorers Backpack\nMission Travel Bag\nLunar Pack\nSpace Legend Cap\nCrew Food Thermos\nInsulated Water Bottle\nLight Storm Umbrella\nShuttle Seat Belt Toy\nAnti-Gravity Trolley S\nZero-Gravity Cooler Backpack\nCarry-on Travel Backpack\nOuter Space All-purpose Ball Set\nOuter Space Luminous Blanket"
+        },
+        {
+          "id": "0akibyw",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2024/10/NASA_COLLECTION_black-luar.png"
+        },
+        {
+          "id": "4fi3y7s",
+          "type": "text",
+          "text": "Customer Feedback"
+        },
+        {
+          "id": "59cjc8u",
+          "type": "text",
+          "text": "The products that were liked the most were the travel related ones, like carry on Backpack, cooler Backpack, Anti-Gravity trolley, the Light Storm umbrella, Mission travel bag and the Space Explorers backpack.\nKLR team is very happy to help Petrol to award their customers in great style and we are looking forward to do it again soon."
+        },
+        {
+          "id": "pk6wpxr",
+          "type": "gallery",
+          "title": "Gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2024/10/NASA_Petrol-17.png",
+            "https://klr-europe.com/wp-content/uploads/2024/10/NASA_Petrol-19-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/10/NASA_Petrol-18-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/10/NASA_Petrol-23-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/10/NASA_Petrol-21-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/10/NASA_Petrol-24.png",
+            "https://klr-europe.com/wp-content/uploads/2024/10/NASA_Petrol-billboard-4.png",
+            "https://klr-europe.com/wp-content/uploads/2024/10/NASA_Petrol-01.png",
+            "https://klr-europe.com/wp-content/uploads/2024/10/NASA_Petrol-billboard-5.png"
+          ]
+        },
+        {
+          "id": "e7m7mrr",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "b5gwywf",
+          "type": "text",
+          "text": "By refueling at PETROL gas stations, customers could collect stickers, 10 of them could later be exchanged for Stardust products at up to 75% discounts. In order to reward the most loyal Petrol customers, Petrol Klub members needed less stickers to collect the products!\nStickers were collectable both with Petrol GO app and/or with a collection card."
+        },
+        {
+          "id": "pqobtb4",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2024/10/leaflet-petrol-nasa-2024.png"
+        },
+        {
+          "id": "54uecwf",
+          "type": "gallery",
+          "title": "Social Media",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2024/10/448310397_451308314267691_8373573877077202910_n-2.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/10/434541955_411919811539875_4625394618238952865_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/10/petrol-nasa-social.jpg"
+          ]
+        },
+        {
+          "id": "xfyjaft",
+          "type": "video",
+          "videoUrl": "https://www.instagram.com/reel/C87hwxUomJi/"
+        },
+        {
+          "id": "d4h1p2x",
+          "type": "video",
+          "videoUrl": "https://www.instagram.com/reel/C86yHRPNcqS/"
+        }
       ]
     },
     "publicPreview": false,
@@ -1300,6 +2157,116 @@
       "videoPositions": [
         "opening",
         "gallery"
+      ],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "8sasfl8",
+          "type": "text",
+          "text": "EUROSPORT Champions - Sports for everyone!"
+        },
+        {
+          "id": "0fi80w2",
+          "type": "video",
+          "videoUrl": "https://youtu.be/yk1VhmRF_zE"
+        },
+        {
+          "id": "b1ftmwb",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "rugmt4f",
+          "type": "text",
+          "text": "EUROSPORT Champions – the spirit of Olympic Games Paris 2024\nInspired by the Olympic Games Paris 2024, the Eurosport Champions collection celebrates those with a winning mindset, both on and off the field. This collection is crafted for those who embody the Olympic Games spirit — whether they’re competing on the track or embracing an active lifestyle. Featuring high-quality backpacks, stylish sunglasses, and versatile sports balls, these items are designed to elevate your game and prepare you for any adventure.\nThis 15-week loyalty campaign allows Viada’s customers around Latvia and Lithuania to gear up like true champions. By collecting stickers, sports events enthusiasts and those passionate about the Olympic Games can benefit from this campaign, which offers an unbeatable opportunity to secure premium gear at exceptional prices, with discounts of up to 75%.\n14 Eurosport Champions products for real everyday Champions:\nUrban backpack, 19L\nToproll backpack, 20L\nDuffle bag, 40L\nCooler backpack, 20L\nDrawstring backpack, 6L\nDouble-wall water bottle, 500ml\nSport sunglasses\nCasual sunglasses\nVolleyball\nFootball\nBasketball\n2 in 1 hand pump\nSlim backpack, 14L\nCompact gym bag, 24L"
+        },
+        {
+          "id": "bfqqbm8",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2024/08/Screenshot-2024-08-13-at-17.39.47.png"
+        },
+        {
+          "id": "xi4sc8b",
+          "type": "text",
+          "text": "Sustainability"
+        },
+        {
+          "id": "e842z34",
+          "type": "text",
+          "text": "The Eurosport Champions collection features backpacks made from rPET, recycled from plastic bottles, highlighting a commitment to sustainability and minimal environmental impact. This initiative showcases Eurosport and Viada’s dedication to eco-friendly practices and their efforts to reduce waste and support a greener future."
+        },
+        {
+          "id": "6gm1u3q",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2024/08/Screenshot-2024-08-22-at-11.18.20.png"
+        },
+        {
+          "id": "shsn0we",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2024/08/viada-eurosport-display-4.png",
+            "https://klr-europe.com/wp-content/uploads/2024/08/Viada-LV-2024-Eurosport-refill-area-1.png",
+            "https://klr-europe.com/wp-content/uploads/2024/08/Viada-LV-2024-Eurosport-Display-football.png",
+            "https://klr-europe.com/wp-content/uploads/2024/08/Viada-LV-2024-Eurosport-VIDEO-billboard.png",
+            "https://klr-europe.com/wp-content/uploads/2024/08/Viada-LV-2024-Eurosport-VIDEO-billboard-2.png",
+            "https://klr-europe.com/wp-content/uploads/2024/08/Viada-LV-2024-Eurosport-VIDEO-billboard-4.png",
+            "https://klr-europe.com/wp-content/uploads/2024/08/Viada-LV-2024-Eurosport-Display-11.png",
+            "https://klr-europe.com/wp-content/uploads/2024/08/Viada-LV-2024-Eurosport-Display-17.png",
+            "https://klr-europe.com/wp-content/uploads/2024/08/Viada-LV-2024-Eurosport-lottery.png"
+          ],
+          "title": "Gallery"
+        },
+        {
+          "id": "otcqx2f",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "l6raqss",
+          "type": "text",
+          "text": "Spend requirement 7 EUR for 1 sticker\n5 stickers to get 1 product with up to 75% discount\nSpecial time-limited offers on selected Eurosport products for the most loyal VIADA customers."
+        },
+        {
+          "id": "x848o8g",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2024/08/leaflet-mockup-viada-eurosport-champions.png"
+        },
+        {
+          "id": "levxdrl",
+          "type": "text",
+          "text": "Lottery"
+        },
+        {
+          "id": "h2rz2r9",
+          "type": "text",
+          "text": "Winning a Trip to the Olympic Games in Paris!"
+        },
+        {
+          "id": "ye5esyl",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2024/08/KLR-VIADA-LIT-lottery-2024_desktop-preview.png"
+        },
+        {
+          "id": "au5d0vc",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2024/08/452554394_18448810096039303_30090920810550925_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/08/448821189_18442382908039303_8865605218462896885_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/08/440466066_18434271736039303_3536703580266064067_n-2.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/08/442511564_18438006217039303_6919974136786599286_n.jpg"
+          ],
+          "title": "Social Media"
+        },
+        {
+          "id": "v2mwii8",
+          "type": "text",
+          "text": "Website"
+        },
+        {
+          "id": "t1k7af7",
+          "type": "video",
+          "videoUrl": "https://youtu.be/75-bHhEx_Vo"
+        }
       ]
     },
     "publicPreview": false,
@@ -1415,6 +2382,85 @@
       ],
       "videoPositions": [
         "opening"
+      ],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "y6fydrq",
+          "type": "text",
+          "text": "Bugatti Spezia Loyalty Campaign for Maxima Latvia"
+        },
+        {
+          "id": "0boepva",
+          "type": "video",
+          "videoUrl": "https://youtu.be/UIE-iJ-KFQg"
+        },
+        {
+          "id": "nrnd5zo",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "l5gy9oz",
+          "type": "text",
+          "text": "Bugatti Spezia, a sophisticated and exclusive cookware collection.\nThe Bugatti Spezia elegant cookware collection, featuring its sleek, modern design and soft-touch handles, captured the essence of culinary sophistication. Each piece, crafted with precision and style, became a must-have for discerning chefs and home cooks alike. This collection enabled Maxima supermarkets to launch an engaging 14-week loyalty campaign that boosted customer engagement and increased purchases through the collection of stickers. Ideal for cooking enthusiasts, the campaign offered the most loyal customers exclusive, time-limited discounts of up to 70% on high-quality pots, pans, and complementary products.\n12 Bugatti Spezia products designed for sophisticated cooking enthusiasts:\nForged Fry Pan, 20cm\nForged Fry Pan, 24cm\nForged Fry Pan, 28cm\nForged Pancake Pan, 26cm\nForged Saucepan with lid, 16cm\nForged wok, 30cm\nForged Casserole with lid, 24cm\nForged Shallow Casserole with lid, 28cm\nFlexible Spatula\nDeep Soup Ladle\nSlotted Turner"
+        },
+        {
+          "id": "j9slmhq",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2024/07/maxima-bugatti-leaflet-klr-europe-2024-scaled.jpg"
+        },
+        {
+          "id": "55cy2cc",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2024/07/maxima-bugatti-poster.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/07/Bugatti-spezia-maxima-display-16.png",
+            "https://klr-europe.com/wp-content/uploads/2024/07/Bugatti-spezia-maxima-cashier.png",
+            "https://klr-europe.com/wp-content/uploads/2024/07/Bugatti-spezia-maxima-display-7.png",
+            "https://klr-europe.com/wp-content/uploads/2024/07/Bugatti-spezia-maxima-display-8.png",
+            "https://klr-europe.com/wp-content/uploads/2024/07/Bugatti-spezia-maxima-display-9.png",
+            "https://klr-europe.com/wp-content/uploads/2024/07/Bugatti-spezia-maxima-display-detail.png",
+            "https://klr-europe.com/wp-content/uploads/2024/07/Bugatti-spezia-maxima-outdoor-1.png",
+            "https://klr-europe.com/wp-content/uploads/2024/07/Bugatti-spezia-maxima-outdoor-3.png"
+          ],
+          "title": "Gallery"
+        },
+        {
+          "id": "hd7qz0m",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "pu94lu1",
+          "type": "text",
+          "text": "Spend requirement 10€ for 1 sticker\n5 stickers to get 1 product with up to 70% discount\nSpecial time-limited offers on selected products for most-loyal MAXIMA customers."
+        },
+        {
+          "id": "ca03na8",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2024/07/437069082_824409049717604_3569313490636299681_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/07/436405770_824409039717605_7234797940058771489_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/07/436334832_824409019717607_726490118529806006_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/07/436255013_824409029717606_4613578165376928542_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/07/430645923_806565854835257_3329427879909731762_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/07/432929194_808312741327235_6569647601888670203_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/07/433962759_818174243674418_2662689971146173089_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/07/432885528_810698647755311_7952463493952925594_n.jpg"
+          ],
+          "title": "Social Media"
+        },
+        {
+          "id": "hrj8x3w",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2024/07/Bugatti-spezia-maxima-monitor.png",
+            "https://klr-europe.com/wp-content/uploads/2024/07/Bugatti-spezia-maxima-monitor-3.png",
+            "https://klr-europe.com/wp-content/uploads/2024/07/Bugatti-spezia-maxima-monitor-2.png"
+          ],
+          "title": "In Store Video Screens"
+        }
       ]
     },
     "publicPreview": false,
@@ -1496,7 +2542,56 @@
         }
       ],
       "social": [],
-      "videos": []
+      "videos": [],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "ag5obe4",
+          "type": "text",
+          "text": "ZANUSSI SUPERGRIP Loyalty Campaign for IKI - Lithuania"
+        },
+        {
+          "id": "bycvyzv",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2024/03/Cover-picture-scaled.jpg"
+        },
+        {
+          "id": "spk65zb",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "p6shrbf",
+          "type": "text",
+          "text": "Zanussi SuperGrip slashes prices like a ninja!\nAs the essential complement to your beloved Zanussi kitchen appliances, the SuperGrip Collection is where expectation meets perfection. These knives boast longevity, ease of cleaning, and heightened hygiene – ensuring every slice is as pristine as the last.\nThis campaign was especially created to allow to IKI’s customers not compromising on quality or break the bank – the Zanussi SuperGrip Collection delivers premium performance at a price that won’t leave a dent in a wallet. Anyone has the opportunity to upgrade their kitchen arsenal and experience the difference firsthand!\n10 Zanussi SuperGrip products are designed with a cutting-edge blend of durability and comfort, redefining the kitchen experience:\nElectric sharpener\nScissors\nKnife block\nCleaver\nSantoku knife\nFilleting knife\nSlicing knife\nUtility knife\nParing knife\nStarter knife set, 3 pcs"
+        },
+        {
+          "id": "zsgieat",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2024/03/IKI-Zanussi-2023-leaflet-6-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/IKI-Zanussi-2023-display-5-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/IKI-Zanussi-2023-display-9-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/IKI-Zanussi-2023-poster-6.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/IKI-Zanussi-2023-display-8.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/IKI-Zanussi-2023-display-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/400764702_737575988395458_5697491586503554977_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/410125434_757483739738016_8315384420291471241_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/03/IKI-Zanussi-2023-fb-post-2.jpeg"
+          ],
+          "title": "Gallery"
+        },
+        {
+          "id": "kqtjp53",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "y6fyp9u",
+          "type": "text",
+          "text": "Customers have to shop in stores for at least 15€ to get 60% discount for Zanussi products."
+        }
+      ]
     },
     "publicPreview": false,
     "cornerstone": false
@@ -1636,6 +2731,131 @@
         "opening",
         "gallery",
         "gallery"
+      ],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "9w8vw7i",
+          "type": "text",
+          "text": "Bugatti Buono! Loyalty Campaign for BILLA - Bulgaria"
+        },
+        {
+          "id": "1suiqeb",
+          "type": "video",
+          "videoUrl": "https://youtu.be/G9U5NTABPYI?si=YFSLaTKsP1RB4ZuY"
+        },
+        {
+          "id": "1dpj7rs",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "th20vt9",
+          "type": "text",
+          "text": "Baking with love is BUONO!\nBugatti Buono!’s baking cookware collection allowed to BILLA supermarkets to launch a captivating loyalty campaign that helped to boost customer engagement and to increase the penetration of purchases with BILLA loaylty card and helped to to enhance the supermarket’s brand image.\n14 Bugatti Buono! products are designed with love and embody the essence of warmth and celebration, inviting families to embrace the joy of creating delicious moments together:\nEssentials for baking\nBaking dish 41*24\nBaking dish 28*17\nRamekin set, 2pcs\nCast iron Casserole-Grill Pan 2 in 1\nMuffin pan\nSpringform pan ø24\nKitchen Whisk\nFlexible Spatula\nPastry Brush\nDough essentials\nKitchen scale\nPrestigio Knife Set\nDamascus Knife\nMini baking set for kids"
+        },
+        {
+          "id": "i2pxf2d",
+          "type": "gallery",
+          "title": "Gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2024/01/Bugatti-Buono-Billa-Bulgaria-poster-shopping-tray-KLR-Europe.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/01/Bugatti-Buono-Billa-Bulgaria-display-4-KLR-Europe-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/01/Bugatti-Buono-Billa-Bulgaria-poster-2-KLR-Europe-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/01/Bugatti-Buono-Billa-Bulgaria-cashier-2-KLR-Europe.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/01/Bugatti-Buono-Billa-Bulgaria-poster-3-KLR-Europe.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/01/Bugatti-Buono-Billa-Bulgaria-poster-4-KLR-Europe.jpg"
+          ]
+        },
+        {
+          "id": "m3txnqj",
+          "type": "text",
+          "text": "Recipe Book"
+        },
+        {
+          "id": "aylsnhy",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2024/01/Bugatti-Buono-Billa-Bulgaria-recipe-book-1024x715.png"
+        },
+        {
+          "id": "qf9vc1f",
+          "type": "text",
+          "text": "ENHANCE YOUR COOKING SKILLS WITH BUGATTI BUONO!\nInside the packaging of all the products customers could also find the QR code that allowed to discover some recipes to use with their new Bugatti Buono! products on a special website. To access the recipes scanning a QR code is mandatory."
+        },
+        {
+          "id": "29ptgkc",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2024/01/Screenshot-2024-01-24-at-11.36.05-1024x532.png"
+        },
+        {
+          "id": "3wt8m2v",
+          "type": "text",
+          "text": "Lottery"
+        },
+        {
+          "id": "v76ighr",
+          "type": "text",
+          "text": "EXCLUSIVE BUGATTI WEEKLY PRIZES\nTo further incentivize engagement and reward BILLA Loyalty Card holders, a special lottery was organized.\nEach week customers who purchased Bugatti Buono! products with their BILLA Card could register the reciept on the campaign website www.billapromo.bg to get a chance to win a stylish Bugatti Blender.\nThe final raffle was for the iconic Bugatti coffee machine."
+        },
+        {
+          "id": "a76d344",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2024/01/Billa-Bugatti-Buono-Lottery-1-1024x381.png"
+        },
+        {
+          "id": "un4et62",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2024/01/Blender-evolution-of-design-red.jpg"
+        },
+        {
+          "id": "v1quxh6",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2024/01/Coffee-Machine-Diva-in-the-Kitchen-red.jpg"
+        },
+        {
+          "id": "f62b5g1",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "oe5d0z4",
+          "type": "text",
+          "text": "Promotional stickers can be obtained when making a purchase in BILLA stores with a minimum value of BGN 10 and with a Billa Card. For every BGN 10 of the value of a one-time purchase the customer receives 1 promotional sticker. 10 stickers can be exchanged for purchase of Bugatti Buono! products with the discount for up to 72%.\nCollector cards are available free of charge in every BILLA store."
+        },
+        {
+          "id": "4t306x9",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2024/01/Bugatti-Buono-Billa-Bulgaria-leaflet-KLR-Europe-scaled.jpg"
+        },
+        {
+          "id": "iqe81b4",
+          "type": "gallery",
+          "title": "SOCIAL MEDIA",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2024/01/IMG_0976.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/01/IMG_0978.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/01/IMG_0979.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/01/IMG_0980.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/01/IMG_0982.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/01/IMG_0983.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/01/IMG_0984.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/01/IMG_0981.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/01/IMG_0977.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/01/403913254_375500711494945_8375730515094931306_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/01/406110222_378452697866413_4356109312141921225_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/01/411001252_389598456751837_976840042287134240_n.jpg"
+          ]
+        },
+        {
+          "id": "9s4qx0n",
+          "type": "video",
+          "videoUrl": "https://www.facebook.com/BillaBulgaria/videos/867686565081125/"
+        },
+        {
+          "id": "pxums09",
+          "type": "video",
+          "videoUrl": "https://www.facebook.com/BillaBulgaria/videos/6803080033119367/"
+        }
       ]
     },
     "publicPreview": false,
@@ -1726,6 +2946,106 @@
       "videoPositions": [
         "opening",
         "opening"
+      ],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "jr6pv75",
+          "type": "text",
+          "text": "Stardust Travel for SLOVNAFT – Slovakia"
+        },
+        {
+          "id": "v7xhvyf",
+          "type": "video",
+          "videoUrl": "https://youtu.be/MkFQXDXXt6U?si=1f_DSIywePJDdZZB"
+        },
+        {
+          "id": "x00snv5",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "b5xwr2h",
+          "type": "text",
+          "text": "AN EXCLUSIVE COLLECTION FOR SPACE LOVERS AND AN OPPORTUNITY TO WIN A TRIP TO THE KENNEDY SPACE CENTER\nSTARDUST loyalty campaign, a 12-week initiative implemented in 234 petrol stations across Slovnaft Slovakia . The campaign aimed to provide customers with a unique opportunity to acquire a collection of exclusive bags, trolleys and accessories inspired by Space exploration. With discounts of at least 50% for all customers and at least 60% for MOVE loyalty card holders, the campaign with double prices mechanics aimed to boost brand engagement through acquiring the Slovnaft MOVE loyalty membership.\nThe collection included 10 products:\n2 trolleys\nA food container and a water bottle\nAn urban Backpack\nA travel Bag\nA bumbag\nA glowing Blanket\nAn umbrella\nA cap"
+        },
+        {
+          "id": "93p2z2l",
+          "type": "text",
+          "text": "Results"
+        },
+        {
+          "id": "dml91z5",
+          "type": "text",
+          "text": "+9%"
+        },
+        {
+          "id": "v674btb",
+          "type": "text",
+          "text": "INCREASE OF BASKET SIZE"
+        },
+        {
+          "id": "j7w1nh7",
+          "type": "text",
+          "text": "99%"
+        },
+        {
+          "id": "11a0bvt",
+          "type": "text",
+          "text": "SHARE OF PURCHASES WITH SLOVNAFT MOVE MEMBERS"
+        },
+        {
+          "id": "p72x1t7",
+          "type": "gallery",
+          "title": "Gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2023/12/Slovnaft-NASA-2023-display-13-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/12/Slovnaft-NASA-2023-display-2.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/12/Slovnaft-NASA-2023-display-7-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/12/Slovnaft-NASA-2023-display-14.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/12/Slovnaft-NASA-2023-outdoor-7.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/12/Slovnaft-NASA-2023-leaflets-cashier.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/12/Slovnaft-NASA-2023-outdoor-6.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/12/Slovnaft-NASA-2023-outdoor-3.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/12/Slovnaft-Nasa-2023-Social-.jpeg"
+          ]
+        },
+        {
+          "id": "294q6qu",
+          "type": "text",
+          "text": "Lottery"
+        },
+        {
+          "id": "r91hfvw",
+          "type": "text",
+          "text": "A TRIP TO THE KENNEDY SPACE CENTER WORTH €10,000\nTo further incentivize engagement and reward Slovnaft Move Club members, a special lottery was organized.\nAfter purchasing any product from the STARDUST collection, customers were able to register the receipt on the contest form by 11/26/2023, and be eligible for a family trip to the Kennedy Space Center in Florida."
+        },
+        {
+          "id": "ue2egs9",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "xa414ij",
+          "type": "text",
+          "text": "By refueling at Slovnaft Slovakia petrol stations, customers could collect stickers , 10 of them could later be exchanged for Stardust products at discounts of at least 50%. Members of the Slovnaft Move customer program can purchase loyalty products at an even better price after presenting and scanning the card by the operator.\nStardust collection can also be purchased without collecting stickers at the retail price valid in the Slovnaft petrol station network."
+        },
+        {
+          "id": "irj15pi",
+          "type": "video",
+          "videoUrl": "https://klr-europe.com/wp-content/uploads/2023/12/6607874329838369662.mp4?_=1"
+        },
+        {
+          "id": "3z1cbmx",
+          "type": "gallery",
+          "title": "Mechanics",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2024/01/Slovnaft-NASA-2023-Cashier.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/01/Slovnaft-NASA-2023-Poster-7.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/01/Slovnaft-NASA-2023-display-3.jpg",
+            "https://klr-europe.com/wp-content/uploads/2024/01/Slovnaft-NASA-2023-display-4-scaled.jpg"
+          ]
+        }
       ]
     },
     "publicPreview": false,
@@ -1796,6 +3116,78 @@
       ],
       "videoPositions": [
         "opening"
+      ],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "sfn4rb3",
+          "type": "text",
+          "text": "NEWME Food For Longer for Tropic and Crvena Jabuka – Bosnia and Herzegovina"
+        },
+        {
+          "id": "s8lklw8",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "9um0bdb",
+          "type": "text",
+          "text": "NEWME Food for Longer, is a collection tailor-made for those who need products that comply with their sustainable lifestyle and allow them to keep up with all new sustainability solutions trends or even start new sustainable habits.\nNEWME products will help people to:\n– Plan and prepare their meals\n– Store their food correctly, reducing waste\n– Enjoy their home-made meals on-the-go"
+        },
+        {
+          "id": "plbj8dv",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "1onc6xa",
+          "type": "text",
+          "text": "• 1 sticker for each 10KM spent\n• With 10 stickers products come with up to 70% discount.\n• For “Klub osmijeha” members even more convenient mechanics: only 7 stickers needed"
+        },
+        {
+          "id": "etufqpi",
+          "type": "text",
+          "text": "Brand"
+        },
+        {
+          "id": "0ikvz21",
+          "type": "text",
+          "text": "NEWME is not just a brand, but a whole new way towards sustainable habits and a responsible lifestyle.\nNEWME stands for:\n♻️ CHANGE AND IMPACT – contributing to the general and personal wellbeing by acquiring new habits.\n💚 COMMITMENT AND GUIDANCE – giving directions and means towards sustainability.\n🌍 ENVIRONMENT – taking an active role in changing the way of interacting with the environment and reducing the carbon footprint."
+        },
+        {
+          "id": "sc2qd9w",
+          "type": "text",
+          "text": "Promotional Video"
+        },
+        {
+          "id": "zibjkyq",
+          "type": "video",
+          "videoUrl": "https://youtu.be/bX7tS8FefxM"
+        },
+        {
+          "id": "e9tulki",
+          "type": "text",
+          "text": "Collection"
+        },
+        {
+          "id": "bt5jm58",
+          "type": "text",
+          "text": "The collection features 14 sustainable products\n— products made of glass, which is recyclable & environmentally friendly\n— 30% wheat-straw fibre plastic use in the multi-compartment lunchbox, cutting board, and knives handle\n— 100% re-usable products"
+        },
+        {
+          "id": "qrghwjs",
+          "type": "gallery",
+          "title": "Gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2023/06/Tropic-BA-Newme-2023-poster-KLR-Europe-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/06/Tropic-BA-Newme-2023-display-KLR-Europe.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/06/Tropic-BA-Newme-2023-social-KLR-Europe.png",
+            "https://klr-europe.com/wp-content/uploads/2023/06/Tropic-BA-Newme-2023-KLR-Europe.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/06/Tropic-BA-Newme-2023-influencer-4-KLR-Europe.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/06/Tropic-BA-Newme-2023-leafet-2-KLR-Europe.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/06/Tropic-BA-Newme-2023-products-packaging-2-KLR-Europe.jpg"
+          ]
+        }
       ]
     },
     "publicPreview": false,
@@ -1888,6 +3280,87 @@
       "videoPositions": [
         "opening",
         "opening"
+      ],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "rwi4ghx",
+          "type": "text",
+          "text": "Alfa Romeo Gran Turismo for Rompetrol– Romania"
+        },
+        {
+          "id": "3m20kzq",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "7ibwt39",
+          "type": "text",
+          "text": "The stylish Alfa Romeo Gran Turismo Gifts campaign ran for 11 weeks during the Christmas period in 245 petrol stations of Rompetrol Romania, offering their customers a possibility to get a collection of exclusive bags, small leather accessories and multitools designed with Alfa Romeo passion for automotive with an up to 68% discount.\nExclusive gift boxes made this collection perfect as a Christmas Gift idea. The collection consists of 12 items:\n2 backpacks\nWomen’s “Neverfull” Bag\nShoulder Bag\nTravel Bag\nBumbag\nWater Bottle\nWomen’s Wallet in a gift box\nMen’s Wallet in a gift box\n3 versatile multitools: a multifunctional safety hammer, a pocket knife and a multifunctional led torch, all with exclusive limited edition gift box."
+        },
+        {
+          "id": "79bi4ic",
+          "type": "video",
+          "videoUrl": "https://klr-europe.com/wp-content/uploads/2023/01/Rompetrol.mp4"
+        },
+        {
+          "id": "7cemcxp",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "7cwruo4",
+          "type": "text",
+          "text": "Customers collected bonus sticker points, 10 of them allowed to purchase stylish limited edition Alfa Romeo products with 68% discount.\nTop up or purchase for a minimum of 50 lei from any Rompetrol station to receive 1 sticker bonus point."
+        },
+        {
+          "id": "b0mp6fp",
+          "type": "text",
+          "text": "Lottery"
+        },
+        {
+          "id": "wx48gss",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2023/01/Rompetrol-Alfa-Romeo-lottery-prizes.jpg"
+        },
+        {
+          "id": "5231uvp",
+          "type": "text",
+          "text": "This campaign was not just about collecting travel accessories but also an outstanding opportunity to win an Alfa Romeo Tonale Hybrid car as the main prize and 8 Rompetrol Fuel Cards for one year value as weekly prizes for anybody who made at least 150lei purchase.\nRompetrol Go program members have double chances to win!"
+        },
+        {
+          "id": "wj75jig",
+          "type": "text",
+          "text": "Brand"
+        },
+        {
+          "id": "v3f02nh",
+          "type": "text",
+          "text": "A legendary brand whose DNA is built on a unique motoring history. Alfa Romeo’s perfect balance between best-in-class performance, pure Italian style and sporting legacy delivers a timeless and unparalleled premium driving experience. Today, the combination of dynamism, technology and performance at every step goes beyond the framework of just automotive experiences representing sporty inspiration and elegance."
+        },
+        {
+          "id": "ymbfdcy",
+          "type": "text",
+          "text": "Promotional Video"
+        },
+        {
+          "id": "pn8o1x4",
+          "type": "video",
+          "videoUrl": "https://youtu.be/HQVWdIB6F5o"
+        },
+        {
+          "id": "0d00fhq",
+          "type": "gallery",
+          "title": "Gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2023/01/Rompetrol-Alfa-Romeo-Leaflet-1.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/Rompetrol-Alfa-Romeo-display-4.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/Rompetrol-Alfa-Romeo-Giftbox.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/Rompetrol-Alfa-Romeo-display-2.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/Rompetrol-Alfa-Romeo-poster.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/Rompetrol-Alfa-Romeo-displaycashier.jpg"
+          ]
+        }
       ]
     },
     "publicPreview": false,
@@ -1976,6 +3449,85 @@
       ],
       "videoCaptions": [
         ""
+      ],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "5d1hh90",
+          "type": "text",
+          "text": "Alfa Romeo Gran Turismo for OMV – Slovenia"
+        },
+        {
+          "id": "dmukkhj",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "ijqz8cp",
+          "type": "text",
+          "text": "The stylish Alfa Romeo Gran Turismo campaign ran for 13 weeks in more than 100 gas stations of OMV SLOVENIA, offering their customers a possibility to get a collection of exclusive bags and accessories designed with Alfa Romeo passion for automotive. The collection consists of 12 items:\n6 bags and for different occasions: backpacks, a lady bag, a travel bag and a shoulder bag\nA travel cosmetic bag\nA stylish reverse folding umbrella\n3 versatile multitools:a multifunctional safety hammer, a pocket knife and a multifunctional led torch.\nA thermos bottle."
+        },
+        {
+          "id": "ag00v6a",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "3gka2zh",
+          "type": "text",
+          "text": "1. Customers collected points for each 10€ spent to get stylish limited edition Alfa Romeo products 2. Members of the OMV SMILE & DRIVE Club have an even more convenient bonus system:\nOpportunity to get Alfa Romeo products using stickers and OMV Smile&Drive loyalty card bonus points for a bigger discount\nThe could get golden stickers for purchase of signature OMV fuel – MaxxMotion 100plus and MaxxMotion Diesel and get Alfa Romeo products for even more convenient prices"
+        },
+        {
+          "id": "itmjmnv",
+          "type": "text",
+          "text": "Lottery"
+        },
+        {
+          "id": "47rlylo",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2023/01/Banner_CIP_Alfa_Romeo_TONALE_Nagradna_Igra_1080x392.jpg"
+        },
+        {
+          "id": "wvvtn1t",
+          "type": "text",
+          "text": "This campaign was not just about collecting travel accessories but also an outstanding opportunity to win an Alfa Romeo Tonale Hybrid car and 30 OMV 100€ Value Cards for fuel.\nThe campaign was closed with the Lottery awarding ceremony!"
+        },
+        {
+          "id": "o66p4kb",
+          "type": "text",
+          "text": "Brand"
+        },
+        {
+          "id": "vmecbbv",
+          "type": "text",
+          "text": "A legendary brand whose DNA is built on a unique motoring history. Alfa Romeo’s perfect balance between best-in-class performance, pure Italian style and sporting legacy delivers a timeless and unparalleled premium driving experience. Today, the combination of dynamism, technology and performance at every step goes beyond the framework of just automotive experiences representing sporty inspiration and elegance."
+        },
+        {
+          "id": "ax6z8jn",
+          "type": "text",
+          "text": "Promotional Video"
+        },
+        {
+          "id": "fxxnxms",
+          "type": "video",
+          "videoUrl": "https://www.youtube.com/watch?v=ScUljIBbhCE&list=PLkHb3uWjLzFWP6VmAqtpH_WUZ8dRQgMQP&index=7"
+        },
+        {
+          "id": "p9thfvv",
+          "type": "gallery",
+          "title": "Gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2023/01/OMV-Alfa-Romeo-Gran-Turismo.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/OMV-Alfa-Romeo-Gran-Turismo-billboard.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/OMV-Alfa-Romeo-Gran-Turismo-pump-poster-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/OMV-Alfa-Romeo-Gran-Turismo-display-1-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/306396416_10160254519577369_8466638612763191049_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/306306819_10160263560837369_661511209364559757_n.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/OMV-Alfa-Romeo-Gran-Turismo-prize-exposition-2.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/OMV-Alfa-Romeo-Gran-Turismo-lottery-winner-2.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/OMV-Alfa-Romeo-Gran-Turismo-prize-ceremony.jpg"
+          ]
+        }
       ]
     },
     "publicPreview": false,
@@ -2030,7 +3582,48 @@
         }
       ],
       "social": [],
-      "videos": []
+      "videos": [],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "wtdmzj6",
+          "type": "text",
+          "text": "Blaupunkt Hi-Fidelity for Mego – Latvia"
+        },
+        {
+          "id": "l1cmhc2",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "wf5m0wr",
+          "type": "text",
+          "text": "This loyalty campaign featuring Blaupunkt Hi-Fidelity collection of cookware is inviting people to add a tone of high quality cooking in their kitchens. Earning points for each 7€ spent in MEGO supermarkets, with each 5 or 10 points collected it was possible to purchase a wide range of products with 60% discount .\nThere was an extra possibility to earn points. When purchasing partner brand products, one extra sticker for each item of this brand was given, regardless of the total amount of the purchase receipt."
+        },
+        {
+          "id": "v5bewkd",
+          "type": "text",
+          "text": "Brand"
+        },
+        {
+          "id": "8zdlwpk",
+          "type": "text",
+          "text": "Blaupunkt is one of the most well-loved and well-recognised German brand names. It all started with the blue dot. Every unit was carefully tested by technicians and labelled with a seal for quality – the blue dot which quickly became a symbol of outstanding quality. Blaupunkt proves that a long, established good reputation of a brand can stand the test of time when it is based on quality and competence."
+        },
+        {
+          "id": "8c20i6j",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2023/01/MEGO-Blaupunkt-Hi-Fidelity-2022-leaflet.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/MEGO-Blaupunkt-Hi-Fidelity-2022-poster.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/MEGO-Blaupunkt-Hi-Fidelity-2022-magazine.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/MEGO-Blaupunkt-Hi-Fidelity-2022-display.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/MEGO-Blaupunkt-Hi-Fidelity-2022-wobbler.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/MEGO-Blaupunkt-Hi-Fidelity-2022-website.jpg"
+          ],
+          "title": "Gallery"
+        }
+      ]
     },
     "publicPreview": false,
     "cornerstone": false
@@ -2084,7 +3677,59 @@
         }
       ],
       "social": [],
-      "videos": []
+      "videos": [],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "jin6r6q",
+          "type": "text",
+          "text": "Spear&Jackson Sense of Adventure for Maxima – Estonia"
+        },
+        {
+          "id": "nc32lgp",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "n3wwceb",
+          "type": "text",
+          "text": "Trekking and hiking are very popular in Estonia, that’s why our summer loyalty campaign for Maxima customers was focused on this outdoor activities offering basic and essential gear for all the family. This loyalty campaign featuring Spear&Jackson limited edition Sense of Adventure collection offered customers the opportunity to earn points for each 15€ spent in MAXIMA supermarkets. These points can then be redeemed for Spear&Jackson products: 5 points collected allowed to MAXIMA customers to purchase Spear&Jackson products with a 60% discount."
+        },
+        {
+          "id": "wltk4bt",
+          "type": "text",
+          "text": "Lottery"
+        },
+        {
+          "id": "s9tqzpp",
+          "type": "text",
+          "text": "To make this campaign even more engaging besides the standard 12 rewards achievable with stickers, customers had an amazing opportunity to win 16 exclusive lottery prizes:\n1 GoPro H10\n1 iPhone 12\n1 Apple Watch 7-GPS-45mm\n13 Spear&Jackson 19l trekking backpacks"
+        },
+        {
+          "id": "rq8kdzz",
+          "type": "text",
+          "text": "Brand"
+        },
+        {
+          "id": "n5tiaww",
+          "type": "text",
+          "text": "Spear&Jackson is a brand with more than 260 years of UK craftsmen heritage in design, quality and innovation in manufacturing technologies . Sense of Adventure collection is for those who want to live their live by a compass, not a clock, offering a set of tools you can trust in any adventure!"
+        },
+        {
+          "id": "5lvxgjo",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2023/01/maxima-spear-and-jackson-keyvisual-klr-europe-2022.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/maxima-spear-and-jackson-leaflet-klr-europe-2022.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/maxima-spear-and-jackson-security-gates-klr-europe-2022-1.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/maxima-spear-and-jackson-display-2-klr-europe-2022-1-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/maxima-spear-and-jackson-klr-europe-2022-1-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/maxima-spear-and-jackson-display-klr-europe-2022-1.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/maxima-spear-and-jackson-display-3-klr-europe-2022.jpg"
+          ],
+          "title": "Gallery"
+        }
+      ]
     },
     "publicPreview": false,
     "cornerstone": false
@@ -2135,7 +3780,47 @@
         }
       ],
       "social": [],
-      "videos": []
+      "videos": [],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "gmkpyos",
+          "type": "text",
+          "text": "Bugatti Prestigio for Viada – Latvia"
+        },
+        {
+          "id": "qled328",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "8y1bma6",
+          "type": "text",
+          "text": "This loyalty campaign featuring Bugatti limited edition Damascus knives, cast iron and baking ceramics involve offering customers the opportunity to earn points for each 10€ spent in VIADA petrol stations. These points can then be redeemed for Bugatti products: 5 or 10 points collected allow to VIADA customers to purchase Bugatti products with a 60% discount ."
+        },
+        {
+          "id": "it530mb",
+          "type": "text",
+          "text": "Brand"
+        },
+        {
+          "id": "f5rb2rf",
+          "type": "text",
+          "text": "For 90 years, Bugatti design is distinguished by the unique style in which high technology blends with Italian taste for shapes and details; links with the territory and craftsmanship tradition live together with the eyes open to the contemporary world and its values; from experience sharing to environmental sustainability. Bugatti designs and manufactures products for the table and kitchen, cutlery and small household appliances that are highly innovative and have an original and sophisticated design."
+        },
+        {
+          "id": "2767tb7",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2023/01/Viada-Bugatti-Prestigio-2022-Wobbler.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/Viada-Bugatti-Prestigio-2022-Leaflet.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/Viada-Bugatti-Prestigio-2022-Display.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/Viada-Bugatti-Prestigio-2022-Door-Sticker-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2023/01/Viada-Bugatti-Prestigio-2022-cover.jpg"
+          ],
+          "title": "Gallery"
+        }
+      ]
     },
     "publicPreview": false,
     "cornerstone": false
@@ -2165,7 +3850,7 @@
       }
     ],
     "details": {
-      "sourceUrl": "",
+      "sourceUrl": "https://klr-europe.com/horizon-travel-circle-k-polska-poland/",
       "campaignTitle": "Inspired by Space. Ready for Every Journey.",
       "challenge": "The Horizon campaign combined the excitement of space exploration with products designed for real journeys on Earth. Launched at a time of renewed public interest in crewed space missions, the campaign used NASA and Artemis Mission inspired branding to create a distinctive promotional world centred on discovery, technology and movement. The concept connected naturally with Circle K and its role in customers’ everyday journeys. Whether customers were commuting to work, preparing for a winter getaway or planning a city break, every visit brought them closer to a practical travel reward. Running throughout the winter season, the campaign gave customers a reason return to Circle K stations, consolidate their spending and engage with the Circle K EXTRA loyalty programme. The campaign featured a versatile collection of bags, travel essentials and everyday accessories: Urban Backpack Slim Backpack Travel Backpack Duffle Bag 2-in-1 Sling Pack Snail Travel Pillow Thermo Tumbler Starlight Blanket Passport Wallet Pop-Up Card Holder The collection balanced premium hero products with smaller and more accessible accessories. Customers could choose rewards suited to commuting, air travel, weekend trips, winter holidays and everyday driving. The Horizon collection was developed with a strong focus on sustainability, durability and everyday quality. The expandable Travel Backpack offers flexible capacity from 14 to 20 litres, making it suitable for daily use and short trips. Designed with recycled materials and water-resistant zips , it combines long-lasting quality with practical protection for life on the move. The 50-litre Duffle Bag 2-in-1 can be used as both a travel bag and a backpack. Made from durable rPET fabric , it is built to withstand frequent travel while supporting more responsible material choices. For everyday convenience, the 800 ml Thermo Tumbler is designed for use in the car and on the go, with reliable temperature retention for both hot and cold drinks. Across the collection, recycled rPET fabric and robust construction ensure long-term use , reducing the need for frequent replacement and supporting a more sustainable way of travelling.",
       "rewardGroups": [],
@@ -2345,7 +4030,7 @@
         }
       ]
     },
-    "status": "draft",
+    "status": "published",
     "publicPreview": false,
     "cornerstone": false
   },
@@ -2374,7 +4059,7 @@
       }
     ],
     "details": {
-      "sourceUrl": "",
+      "sourceUrl": "https://klr-europe.com/bugatti-buono-coop-morava-czech-republic/",
       "campaignTitle": "Cooking with Love Tastes BUONO!",
       "challenge": "The Bugatti Buono campaign combined practical everyday rewards with the appeal of Italian design. Timed to run throughout the autumn and Christmas shopping period , the campaign gave customers an additional reason to visit participating COOP MORAVA stores, consolidate their spending with desirable products for their kitchens. The reward collection was built around cooking, baking and sharing food—activities closely connected with family life and the festive season. This made the campaign relevant not only as a promotional offer, but also as an opportunity for customers to find useful gifts for themselves or their loved ones . The campaign featured a versatile premium collection of cookware, bakeware and kitchen accessories designed for both everyday meals and special occasions: Ceramic baking dish Springform cake pan Cast-iron casserole and grill pan 2-in-1 Baking pan Pot with lid Crêpe pan Three-piece stainless-steel knife set Kitchen whisk Flexible spatula Kitchen turner The collection balanced premium hero products with accessible kitchen essentials. Customers could choose from products suitable for baking, stovetop cooking, food preparation and serving, helping the campaign appeal to a broad range of households and cooking habits. A Century of Italian Design Excellence Founded in 1923 in Lumezzane, near Brescia, Bugatti is an Italian family brand with more than a century of expertise in creating products for the kitchen, table and home. Its distinctive approach combines aesthetic research, technical know-how and everyday functionality, transforming practical objects into memorable expressions of contemporary Italian design. The Bugatti Buono collection reflects this philosophy through refined forms, carefully considered details and versatile products created to make cooking more enjoyable. By featuring Bugatti as the campaign reward, COOP MORAVA offered customers more than an attractive cookware collection—it gave them access to a brand experience built around quality, style and the pleasure of preparing and sharing food.",
       "rewardGroups": [],
@@ -2596,7 +4281,7 @@
         }
       ]
     },
-    "status": "draft",
+    "status": "published",
     "publicPreview": true,
     "cornerstone": false
   },
@@ -2682,6 +4367,112 @@
         "gallery",
         "gallery",
         "gallery"
+      ],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "1gh3dhq",
+          "type": "text",
+          "text": "Forged for loyalty: Pintinox Collection for ORLEN Slovakia"
+        },
+        {
+          "id": "pns1yqd",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2026/08/Pintinox_multitools.jpg"
+        },
+        {
+          "id": "jcucwbu",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "8hugwxy",
+          "type": "text",
+          "text": "Turning everyday petrol station visits into progress towards premium, practical rewards.\nFor ORLEN Slovakia, KLR developed a collect-and-redeem loyalty campaign featuring the PINTINOX Trust – Forged in Steel collection. The promotion combines a sticker mechanic with a versatile assortment of kitchen essentials, multifunctional tools and products for life on the road.\nBy connecting everyday fuel and shop purchases with attractive promotional prices, the campaign gives customers an additional reason to choose ORLEN—and another reason to return.\nThe challenge\nAfter a strong start to the year, ORLEN faced a sudden shift in market conditions. Fuel prices increased in early March, followed by government interventions later that month, putting pressure on customer traffic, spending and overall sales performance. The challenge was to protect basket value, encourage customers to complete their purchases and give them a compelling reason to return. At the same time, the campaign needed to support both customer acquisition and retention without adding complexity to the forecourt experience."
+        },
+        {
+          "id": "affbzqt",
+          "type": "text",
+          "text": "Results"
+        },
+        {
+          "id": "vw1dnlg",
+          "type": "text",
+          "text": "Despite significant external pressure from rising fuel prices and government interventions, the PINTINOX campaign helped ORLEN stabilise customer behaviour and protect sales performance. During the promotion, average basket value increased up to 4% , while the decline in customer traffic was reversed —from approximately –3% in March back to the previous year’s level by May and June. The campaign encouraged higher spend, support repeat visits and offset the decline in customer numbers."
+        },
+        {
+          "id": "aobx5y8",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2026/08/orlen-pintinox-display-2.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/a3d097dd6465b2223bca4cc94ab9ee08_3e12244c-2be2-4e97-9646-92be3c63e57d-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/orlen-pintinox-display.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/dc2727d1510e09be5b94835493458831_571eb4fa-1d63-4dfa-962b-ef5a46e72dd0-2-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/orlen-pintinox-display-4-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/39ccdc880225fcf282db5eece2c0975f_594db796-a447-4ae0-9b92-4324333f713b-scaled.png"
+          ],
+          "title": "Gallery"
+        },
+        {
+          "id": "a1yv3d4",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "6qau8v5",
+          "type": "text",
+          "text": "KLR created a sticker-based loyalty promotion centred around the PINTINOX Trust – Forged in Steel collection .\nCustomers receive one sticker for every €10 spent on fuel or eligible purchases at ORLEN. After collecting 10 stickers, they can purchase their chosen PINTINOX product at an exclusive promotional price, with discounts reaching up to 80%.\nThe mechanic makes every qualifying transaction feel like visible progress. Instead of offering an abstract future benefit, the campaign gives customers a clear goal and a tangible reward they can select according to their needs."
+        },
+        {
+          "id": "6zea63z",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2026/08/hf_20260804_143648_6d36efff-0385-479c-a2f7-e8debcbce712.png"
+        },
+        {
+          "id": "jfshn8l",
+          "type": "text",
+          "text": "A collection built for different lifestyles"
+        },
+        {
+          "id": "xntg1c8",
+          "type": "text",
+          "text": "The nine-product assortment was designed to extend the campaign’s relevance beyond the kitchen.\nFor customers interested in cooking, the collection includes:\na four-piece knife set with a paring knife, chef’s knife, bread knife and sharpener;\na three-piece set featuring a cleaver, slicing knife and tomato knife;\na six-piece steak knife set;\na two-piece carving set.\nThe knives combine stainless-steel blades with practical features such as long-lasting sharpness, easy maintenance and secure handling.\nThe collection also includes practical products for travel, work and everyday use :\na 4-in-1 carabiner;\na 9-in-1 multifunctional knife;\n13-in-1 multifunctional pliers;\na high-performance flashlight;\na 750 ml hot-and-cold thermal flask.\nThe multifunctional products were selected for their versatility, durability and everyday usefulness."
+        },
+        {
+          "id": "0e1kmdg",
+          "type": "video",
+          "videoUrl": "https://youtu.be/o0gl7R4rqAc?si=QGKt_Ms5sO-0hiff"
+        },
+        {
+          "id": "4tuksxo",
+          "type": "text",
+          "text": "Social Media"
+        },
+        {
+          "id": "bzylhu7",
+          "type": "text",
+          "text": "Instagram"
+        },
+        {
+          "id": "gkitsml",
+          "type": "video",
+          "videoUrl": "https://www.instagram.com/p/DXHUHzal2OU/"
+        },
+        {
+          "id": "9xrrvkx",
+          "type": "text",
+          "text": "Facebook"
+        },
+        {
+          "id": "ygdwxrq",
+          "type": "video",
+          "videoUrl": "https://www.facebook.com/reel/972216605288403/"
+        },
+        {
+          "id": "sxo4yki",
+          "type": "video",
+          "videoUrl": "https://www.facebook.com/reel/2771073759920029/"
+        }
       ]
     },
     "status": "published",
@@ -2798,6 +4589,163 @@
         "Website",
         "",
         ""
+      ],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "2k12fpq",
+          "type": "text",
+          "text": "TRAVEL LIKE A CHAMPION WITH ORACLE RED BULL RACING"
+        },
+        {
+          "id": "xm3vtl0",
+          "type": "text",
+          "text": "Campaign"
+        },
+        {
+          "id": "anibyt5",
+          "type": "text",
+          "text": "Adrenaline of collecting stickers and unlocking discounts\nA strong loyalty campaign does more than offer a lower price. It transforms everyday purchases into visible progress towards a reward customers genuinely want.\nFor Intermarché Poland, KLR created “Travel Like a Champion” —a sticker-based loyalty campaign featuring a limited collection of Oracle Red Bull Racing travel and lifestyle products. The campaign combined a simple promotional mechanic, a highly recognisable international brand and a practical assortment designed for everyday journeys."
+        },
+        {
+          "id": "axskahp",
+          "type": "video",
+          "videoUrl": "https://klr-europe.com/wp-content/uploads/2026/08/VIDEO-INTERMARCHe.mp4"
+        },
+        {
+          "id": "mx7a4b7",
+          "type": "text",
+          "text": "The reward assortment translated the energy, performance and distinctive style of Oracle Red Bull Racing into a coherent collection of 13 functional travel products."
+        },
+        {
+          "id": "i7gewdw",
+          "type": "text",
+          "text": "Travel & Mobility\nEssentials designed for seamless movement and smart packing.\nCabin Trolley\nCheck-in Trolley\nCarry-on Backpack\nTravel Pillow\nBags & Everyday Gear\nStylish and functional companions for daily use or short trips.\nUrban Backpack\nDuffle Bag\nShoulder Bag\nLadies’ Backpack\nLadies’ Bag\nReversible Umbrella\nFood & Drink On-the-Go\nFor staying refreshed and prepared wherever the journey leads.\nWater Flask\nThermo Bottle\nThermo Food Jar"
+        },
+        {
+          "id": "m4f3klu",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2026/08/Background-pilotiprodotti.png"
+        },
+        {
+          "id": "fu2xad5",
+          "type": "text",
+          "text": "The Challenge"
+        },
+        {
+          "id": "d7ntfk8",
+          "type": "text",
+          "text": "The objective was to encourage customers to consolidate more of their regular grocery purchases within the Intermarché network. At the same time, the reward proposition had to be attractive enough to maintain interest throughout the campaign and motivate customers to complete their collector’s cards."
+        },
+        {
+          "id": "qscu2qq",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-Poland-RB-display-1.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-Poland-RB-poster1.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-Poland-RB-totem.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-Poland-RB-totem-2.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-Poland-RB-shop.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-Poland-RB-cashier.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-Poland-RB-display-3.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-Poland-RB-display-detail.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-Poland-RB-display-2.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-Poland-RB-display.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-Poland-RB-trolley-2.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/67c18076d11b6613e3746c8ada43432f_bc8e9d3a-e893-485f-b56c-00428c95b464-scaled.png"
+          ],
+          "title": "In Store Experience"
+        },
+        {
+          "id": "5qc3hpz",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "9ff10rq",
+          "type": "text",
+          "text": "A simple path from purchase to reward\nCustomers received promotional stickers for qualifying purchases at participating Intermarché stores.\nCustomers earned:\none sticker for every PLN 50 spent in-store;\nsome additional products are given for the purchase of selected partner products\nAfter collecting 10 stickers on a collector’s card, the customer could purchase one selected product from the promotional collection at a significantly reduced price. Collector’s cards were available in Intermarché stores and could also be downloaded and printed from the dedicated campaign website.\nPromotional products could be purchased until 31 July 2026, while stocks lasted."
+        },
+        {
+          "id": "0i5ti9n",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2026/08/hf_20260804_115643_4e749fa9-dd4e-4620-a7c0-b670cdad3db8.png"
+        },
+        {
+          "id": "2bfbjo9",
+          "type": "text",
+          "text": "Lottery"
+        },
+        {
+          "id": "j7gvcy1",
+          "type": "text",
+          "text": "To further strengthen customer engagement, Intermarché complemented the sticker campaign with a promotional lottery running from 23 March to 3 June 2026. For every PLN 70 spent, customers received a unique code and the chance to win 1 of 1000 shopping vouchers or the ultimate prize: 1 of 8 tickets to attend the 2026 Spanish Formula 1 Grand Prix at MADRING in Madrid.\nBy combining accessible instant participation with a highly aspirational final reward, the lottery helped encourage higher basket values, generate excitement and build momentum ahead of the main loyalty campaign."
+        },
+        {
+          "id": "9ac884q",
+          "type": "text",
+          "text": "An integrated customer experience"
+        },
+        {
+          "id": "cjjelo8",
+          "type": "text",
+          "text": "The campaign journey connected supermarkets, checkout communication, printed collector’s materials, social media and a dedicated website.\nAt every stage, customers received a clear message: shop, collect, choose and save. The straightforward mechanic minimised barriers to participation, while the online campaign hub provided easy access to the collector’s card, product information, frequently asked questions and the full promotional terms."
+        },
+        {
+          "id": "xw0fyd7",
+          "type": "gallery",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-PL-ORBR-CAROSELLO-1080X135012-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-PL-ORBR-CAROSELLO-1080X13504-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-PL-ORBR-CAROSELLO-1080X135013-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-PL-ORBR-CAROSELLO-1080X13509-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-PL-ORBR-CAROSELLO-1080X13507-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-PL-ORBR-CAROSELLO-1080X135010-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-PL-ORBR-CAROSELLO-1080X1350-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-PL-ORBR-CAROSELLO-1080X135011-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-PL-ORBR-CAROSELLO-1080X13508-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-PL-ORBR-CAROSELLO-1080X13503-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-PL-ORBR-CAROSELLO-1080X13502-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-PL-ORBR-CAROSELLO-1080X13506-scaled.jpg",
+            "https://klr-europe.com/wp-content/uploads/2026/08/Intermarche-PL-ORBR-CAROSELLO-1080X13505-scaled.jpg"
+          ],
+          "title": "Social Media"
+        },
+        {
+          "id": "3en39z1",
+          "type": "text",
+          "text": "Instagram Reels"
+        },
+        {
+          "id": "up5e9kx",
+          "type": "video",
+          "videoUrl": "https://www.instagram.com/reel/DYUA8bcFXe7/"
+        },
+        {
+          "id": "3oul9pa",
+          "type": "video",
+          "videoUrl": "https://www.instagram.com/reel/DXdx9vFE9mK/"
+        },
+        {
+          "id": "860qa7a",
+          "type": "text",
+          "text": "Loyalty that goes beyond the transaction"
+        },
+        {
+          "id": "zgweelf",
+          "type": "text",
+          "text": "“Travel Like a Champion” demonstrates how a familiar sticker mechanic can be elevated through the right combination of brand, product and customer experience.\nRather than rewarding customers with an abstract benefit, the campaign gave them access to desirable products with lasting, everyday value. This transformed routine shopping and refuelling into an engaging collection journey—supporting stronger customer participation across both Intermarché retail channels."
+        },
+        {
+          "id": "s4e0t0d",
+          "type": "text",
+          "text": "Website"
+        },
+        {
+          "id": "fbuhmxr",
+          "type": "video",
+          "videoUrl": "https://klr-europe.com/wp-content/uploads/2026/08/laptop_scroll_generated-2.mp4"
+        }
       ]
     },
     "status": "published",

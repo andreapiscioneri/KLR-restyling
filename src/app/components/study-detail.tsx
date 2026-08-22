@@ -30,6 +30,234 @@ const SECTION_LABELS: Record<string, string> = {
 };
 const BLOCK_LABELS: Record<string, string> = { text: "Testo", image: "Immagine", gallery: "Galleria", video: "Video" };
 
+const isSocialEmbedUrl = (url: string) => /instagram\.com|facebook\.com|fb\.watch/.test(url);
+
+// Two-color band rhythm for the published (non-editing) view of a custom-layout
+// case study — see groupCustomBlocks below for how sections are grouped before
+// being assigned alternating colors. Every section (text, image/video, gallery,
+// social grid) draws from this single running index, so two adjacent sections
+// never share the same color.
+const BAND_COLORS = [G.blue, G.yellow];
+const BLOCK_SECTION_PAD = "py-16 md:py-24 px-8";
+
+const isHeadingLike = (b: CustomBlock) => b.type === "text" && !b.text.includes("\n") && b.text.trim().length > 0 && b.text.trim().length <= 90;
+const isVideoBlock = (b: CustomBlock | undefined): b is Extract<CustomBlock, { type: "video" }> => !!b && b.type === "video" && !!b.videoUrl;
+const isSocialVideo = (b: CustomBlock | undefined) => isVideoBlock(b) && isSocialEmbedUrl(b.videoUrl);
+
+type MixedSection = { kind: "mixed"; blocks: CustomBlock[] };
+type GalleryGroup = { kind: "gallery"; block: Extract<CustomBlock, { type: "gallery" }>; title: string | null };
+type SocialItem = { label: CustomBlock | null; video: CustomBlock };
+type SocialGroup = { kind: "social"; items: SocialItem[]; title: string | null };
+type RenderGroup = MixedSection | GalleryGroup | SocialGroup;
+
+// Walks the flat block list and clusters it for display purposes only — the
+// underlying blocks array (order, positions, content) is never touched.
+// A section starts at a short one-line "heading" block (e.g. "Campaign",
+// "Mechanics", "Website" — the editorial pattern this content already uses
+// to mark a new topic) and keeps absorbing whatever follows — more text, a
+// single image, a single video — until the next heading, a gallery, or a
+// run of social-embed videos, so a piece of text and its correlated
+// image/video always land in the same colored band. Galleries stay their
+// own section (never merged with another gallery or with text); a run of
+// social videos (each optionally preceded by a short "Instagram"/"Facebook"
+// label) becomes one grid. A lone heading immediately before a gallery or
+// social run becomes that section's title instead of a disconnected band.
+function groupCustomBlocks(blocks: CustomBlock[]): RenderGroup[] {
+  const groups: RenderGroup[] = [];
+  let current: CustomBlock[] = [];
+
+  const takePrecedingTitle = (): string | null => {
+    if (current.length === 1 && current[0].type === "text" && isHeadingLike(current[0])) {
+      const t = (current[0] as Extract<CustomBlock, { type: "text" }>).text;
+      current = [];
+      return t;
+    }
+    if (current.length) { groups.push({ kind: "mixed", blocks: current }); current = []; }
+    return null;
+  };
+
+  let i = 0;
+  while (i < blocks.length) {
+    const b = blocks[i];
+    const labelsVideo = isHeadingLike(b) && isVideoBlock(blocks[i + 1]);
+    const startsSocialRun = (labelsVideo && isSocialVideo(blocks[i + 1])) || (!labelsVideo && isSocialVideo(b));
+    if (startsSocialRun) {
+      const title = takePrecedingTitle();
+      const items: SocialItem[] = [];
+      while (i < blocks.length) {
+        const cur = blocks[i];
+        if (isHeadingLike(cur) && isSocialVideo(blocks[i + 1])) { items.push({ label: cur, video: blocks[i + 1] }); i += 2; }
+        else if (isSocialVideo(cur)) { items.push({ label: null, video: cur }); i += 1; }
+        else break;
+      }
+      groups.push({ kind: "social", items, title });
+      continue;
+    }
+    if (b.type === "gallery") {
+      const title = takePrecedingTitle();
+      groups.push({ kind: "gallery", block: b, title: b.title || title });
+      i++;
+      continue;
+    }
+    if (isHeadingLike(b) && current.length > 0) {
+      groups.push({ kind: "mixed", blocks: current });
+      current = [b];
+      i++;
+      continue;
+    }
+    current.push(b);
+    i++;
+  }
+  if (current.length) groups.push({ kind: "mixed", blocks: current });
+  return groups;
+}
+
+// Renders one text block with a consistent 3-tier hierarchy: the section's
+// opening block reads as a heading when short enough to plausibly be one; a
+// longer block's first line reads as a bold lead-in when short enough to be
+// a subtitle, with the remaining lines as body copy. Purely visual — the
+// stored text itself is never modified.
+function TextBlockContent({ text, isHeading, onDark }: { text: string; isHeading: boolean; onDark: boolean }) {
+  const headColor = onDark ? "#ffffff" : "#2E2784";
+  if (isHeading) {
+    return (
+      <h3 className="tracking-[-0.03em]" style={{ color: headColor, fontSize: "clamp(1.6rem, 3.2vw, 2.4rem)", fontWeight: 800, lineHeight: 1.12 }}>
+        {text}
+      </h3>
+    );
+  }
+  const leadColor = onDark ? "#ffffff" : "#2E2784";
+  const bodyColor = onDark ? "rgba(255,255,255,0.82)" : "rgba(46,39,132,0.82)";
+  const lines = text.split("\n").map((l) => l.trim()).filter(Boolean);
+  const hasLead = lines.length > 1 && lines[0].length <= 130;
+  const bodyLines = hasLead ? lines.slice(1) : lines;
+  return (
+    <div>
+      {hasLead && (
+        <p className="tracking-tight" style={{ color: leadColor, fontSize: "clamp(1.05rem, 1.6vw, 1.25rem)", fontWeight: 700, lineHeight: 1.45, marginBottom: "0.85rem" }}>
+          {lines[0]}
+        </p>
+      )}
+      {bodyLines.map((line, li) => (
+        <p key={li} className="tracking-tight" style={{ color: bodyColor, fontSize: "1rem", fontWeight: 400, lineHeight: 1.75, marginTop: li === 0 ? 0 : "0.85rem" }}>
+          {line}
+        </p>
+      ))}
+    </div>
+  );
+}
+
+// Renders a "mixed" section's blocks (text interleaved with at most a
+// couple of single images/videos) stacked in one colored band: text in a
+// centered reading column, media at the section's full width.
+function MixedSectionContent({ blocks, studyTitle, onDark }: { blocks: CustomBlock[]; studyTitle: string; onDark: boolean }) {
+  let seenText = false;
+  return (
+    <div className="max-w-5xl mx-auto space-y-8">
+      {blocks.map((block, i) => {
+        if (block.type === "text") {
+          const isHeading = !seenText && isHeadingLike(block);
+          seenText = true;
+          return (
+            <div key={block.id} className="max-w-3xl mx-auto">
+              <TextBlockContent text={block.text} isHeading={isHeading} onDark={onDark} />
+            </div>
+          );
+        }
+        if (block.type === "image") {
+          return (
+            <div key={block.id}>
+              <div className="rounded-[24px] overflow-hidden" style={softShadow}>
+                <ImageWithFallback src={block.imageUrl} alt={studyTitle} className="w-full h-[420px] object-cover" />
+              </div>
+              {block.caption && (
+                <p className={`tracking-tight mt-3 text-center ${onDark ? "text-white/60" : "text-[#2E2784]/60"}`} style={{ fontSize: "0.82rem" }}>{block.caption}</p>
+              )}
+            </div>
+          );
+        }
+        if (block.type === "video") {
+          return (
+            <div key={block.id} className="max-w-4xl mx-auto">
+              <div className="relative rounded-[24px] overflow-hidden" style={{ background: "#000", ...softShadow }}>
+                <div className="relative w-full aspect-video max-h-[75vh] mx-auto">
+                  <VideoEmbed url={block.videoUrl} className="w-full h-full" style={{ border: 0 }} />
+                </div>
+                {block.caption && (
+                  <p className="text-white/60 tracking-tight text-center py-4 px-8" style={{ fontSize: "0.82rem" }}>{block.caption}</p>
+                )}
+              </div>
+            </div>
+          );
+        }
+        return null;
+      })}
+    </div>
+  );
+}
+
+// Published (non-editing) rendering of a custom-layout case study's blocks.
+// Editing mode keeps the original one-section-per-block editor further down
+// so admin controls (reorder/insert/delete) stay tied to a stable 1:1 mapping
+// with the stored blocks array.
+function CustomBlocksView({ blocks, studyTitle, openLightbox }: { blocks: CustomBlock[]; studyTitle: string; openLightbox: (images: string[], index: number) => void }) {
+  const groups = groupCustomBlocks(blocks);
+  return (
+    <>
+      {groups.map((group, gi) => {
+        const bg = BAND_COLORS[gi % 2];
+        const onDark = bg === G.blue;
+        if (group.kind === "mixed") {
+          return (
+            <section key={gi} className={`relative ${BLOCK_SECTION_PAD}`} style={{ background: bg }}>
+              <MixedSectionContent blocks={group.blocks} studyTitle={studyTitle} onDark={onDark} />
+            </section>
+          );
+        }
+        if (group.kind === "social") {
+          return (
+            <section key={gi} className={`relative ${BLOCK_SECTION_PAD}`} style={{ background: bg }}>
+              <div className="max-w-5xl mx-auto">
+                <div className={`tracking-[0.3em] uppercase mb-8 text-center ${onDark ? "text-white/50" : "text-[#2E2784]/50"}`} style={{ fontSize: "0.65rem", fontWeight: 600 }}>{group.title || "Social"}</div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {group.items.map(({ label, video }) => (
+                    <div key={video.id} className="rounded-[20px] overflow-hidden bg-black" style={softShadow}>
+                      {label && label.type === "text" && (
+                        <div className="px-4 py-2 text-white/70 tracking-wide" style={{ fontSize: "0.72rem", fontWeight: 700 }}>{label.text}</div>
+                      )}
+                      <div className="relative w-full" style={{ aspectRatio: "4 / 5" }}>
+                        {video.type === "video" && <VideoEmbed url={video.videoUrl} className="w-full h-full" style={{ border: 0 }} />}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          );
+        }
+        // gallery
+        const block = group.block;
+        return (
+          <section key={gi} className={`relative ${BLOCK_SECTION_PAD}`} style={{ background: bg }}>
+            <div className="max-w-6xl mx-auto">
+              {group.title && (
+                <div className={`tracking-[0.3em] uppercase mb-8 ${onDark ? "text-white/60" : "text-[#2E2784]/60"}`} style={{ fontSize: "0.65rem", fontWeight: 600 }}>{group.title}</div>
+              )}
+              <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
+                {block.images.map((img, i) => (
+                  <div key={`${img}-${i}`} className="relative rounded-[24px] cursor-zoom-in" style={softShadow} onClick={() => openLightbox(block.images, i)}>
+                    <ImageWithFallback src={img} alt={`${studyTitle} ${i + 1}`} className="w-full h-[220px] object-cover rounded-[24px] border border-white/40" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      })}
+    </>
+  );
+}
+
 export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Route) => void; initialStudies?: typeof fallbackStudies }) {
   const studies = initialStudies?.length ? initialStudies : fallbackStudies;
 
@@ -130,6 +358,13 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
 
   const layoutMode: "default" | "custom" = details?.layoutMode === "custom" ? "custom" : "default";
   const customBlocks: CustomBlock[] = Array.isArray(details?.blocks) ? details.blocks : [];
+  // The published custom-blocks view alternates bands starting on blue (see
+  // CustomBlocksView); continuing that same sequence here keeps the RELATED
+  // and CLOSING sections from ever landing on the same color as whatever
+  // band immediately precedes them.
+  const customBandCount = !editing && layoutMode === "custom" ? groupCustomBlocks(customBlocks).length : 0;
+  const relatedBg = customBandCount > 0 ? BAND_COLORS[customBandCount % 2] : G.yellow;
+  const closingBg = relatedBg === G.blue ? G.yellow : G.blue;
 
   function switchToCustomLayout() {
     if (customBlocks.length > 0) { patchDetails({ layoutMode: "custom" }); return; }
@@ -160,8 +395,8 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
     const video = videos[i];
     return (
       <div className="py-5 md:py-8 px-4 md:px-8" style={{ background: G.blue }}>
-        <div className="relative rounded-[24px] overflow-hidden max-w-5xl mx-auto" style={{ background: "#000", ...softShadow }}>
-          <div className="relative w-full aspect-video max-h-[85vh] mx-auto">
+        <div className="relative rounded-[24px] overflow-hidden max-w-4xl mx-auto" style={{ background: "#000", ...softShadow }}>
+          <div className="relative w-full aspect-video max-h-[75vh] mx-auto">
             <VideoEmbed url={video} className="w-full h-full" style={{ border: 0 }} />
             <EditableVideoUrl editing={editing} url={video}
               onCommit={(v) => editor.patch({ details: { ...(s.details ?? {}), videos: videos.map((x: string, xi: number) => xi === i ? v : x) } })}/>
@@ -286,8 +521,11 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
               <InsertBlockButton onInsert={(t) => insertBlockAt(0, t)} />
             </div>
           )}
-          {customBlocks.map((block, idx) => {
-            const bg = [G.blue, G.yellow, G.rosa][idx % 3];
+          {!editing && (
+            <CustomBlocksView blocks={customBlocks} studyTitle={s.title} openLightbox={openLightbox} />
+          )}
+          {editing && customBlocks.map((block, idx) => {
+            const bg = [G.blue, G.yellow][idx % 2];
             const controls = editing ? {
               onUp: () => moveBlockIdx(idx, -1), onDown: () => moveBlockIdx(idx, 1), onDelete: () => removeBlock(idx),
               disabledUp: idx === 0, disabledDown: idx === customBlocks.length - 1,
@@ -368,7 +606,7 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
             return (
               <div key={block.id}>
                 {controls ? <BlockShell label={BLOCK_LABELS[block.type]} {...controls}>{content}</BlockShell> : content}
-                {editing && <div className="flex justify-center py-1" style={{ background: [G.blue, G.yellow, G.rosa][(idx + 1) % 3] }}><InsertBlockButton onInsert={(t) => insertBlockAt(idx + 1, t)} /></div>}
+                {editing && <div className="flex justify-center py-1" style={{ background: [G.blue, G.yellow][(idx + 1) % 2] }}><InsertBlockButton onInsert={(t) => insertBlockAt(idx + 1, t)} /></div>}
               </div>
             );
           })}
@@ -510,8 +748,8 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
       );
       case "rewards": return (
       <div key={sectionKey} className="relative">{orderControls}
-      {/* REWARDS — rosa */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
+      {/* REWARDS — yellow */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/10 blur-3xl pointer-events-none" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
@@ -829,13 +1067,13 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
       );
       case "brand": return (
       <div key={sectionKey} className="relative">{orderControls}
-      {/* BRAND LINK — rosa */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
-        <div className="absolute -top-24 right-0 w-[400px] h-[400px] rounded-full bg-white/10 blur-3xl pointer-events-none" />
+      {/* BRAND LINK — blue */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
+        <div className="absolute -top-24 right-0 w-[400px] h-[400px] rounded-full bg-[#F8AE01]/15 blur-3xl pointer-events-none" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             {brand && (
-              <div className="rounded-[24px] p-8 flex flex-wrap items-center justify-between gap-6" style={{ background: "rgba(255,255,255,0.25)", border: "1px solid rgba(255,255,255,0.45)" }}>
+              <div className="rounded-[24px] p-8 flex flex-wrap items-center justify-between gap-6" style={{ background: "rgba(255,255,255,0.92)", border: "1px solid rgba(255,255,255,0.6)" }}>
                 <div>
                   <EditableText as="div" editing={editing} value={heading("brand_label", "Featured Brand")} onCommit={(v) => patchHeading("brand_label", v)}
                     className="text-[#2E2784]/60 tracking-[0.2em] uppercase" style={{ fontSize: "0.62rem", fontWeight: 700 }}/>
@@ -870,17 +1108,17 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
         }
       })}
 
-      {/* RELATED — yellow */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
+      {/* RELATED */}
+      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: relatedBg }}>
         <div className="absolute -bottom-24 -left-20 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <EditableText as="div" editing={editing} value={heading("related_eyebrow", "Related")} onCommit={(v) => patchHeading("related_eyebrow", v)}
                   outlineColor="#2E2784"
-              className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}/>
-            <h2 className="text-[#2E2784] tracking-[-0.04em] mt-8" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 0.98, fontWeight: 800 }}>
+              className={`tracking-[0.3em] uppercase ${relatedBg === G.blue ? "text-white/60" : "text-[#2E2784]/60"}`} style={{ fontSize: "0.65rem", fontWeight: 600 }}/>
+            <h2 className={`tracking-[-0.04em] mt-8 ${relatedBg === G.blue ? "text-white" : "text-[#2E2784]"}`} style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 0.98, fontWeight: 800 }}>
               <HeadingInner k="related_title" fallbackText="More stories, same loyalty ambition." outlineColor="#2E2784"
-                defaultNode={<>More stories,<br /><span className="text-black">same loyalty ambition.</span></>}/>
+                defaultNode={<>More stories,<br /><span className={relatedBg === G.blue ? "text-[#F8AE01]" : "text-black"}>same loyalty ambition.</span></>}/>
             </h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
               {related.map((r) => (
@@ -908,9 +1146,9 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
               <button
                 onClick={() => prevStudy && go({ page: "study-detail", id: prevStudy.id })}
                 disabled={!prevStudy}
-                className={`group inline-flex items-center gap-3 px-1 py-1.5 transition-all ${prevStudy ? "text-[#2E2784] hover:opacity-75" : "text-[#2E2784]/45 cursor-not-allowed"}`}
+                className={`group inline-flex items-center gap-3 px-1 py-1.5 transition-all ${prevStudy ? `${relatedBg === G.blue ? "text-white" : "text-[#2E2784]"} hover:opacity-75` : `${relatedBg === G.blue ? "text-white/45" : "text-[#2E2784]/45"} cursor-not-allowed`}`}
               >
-                <span className={`${prevStudy ? "text-[#2E2784]" : "text-[#2E2784]/45"}`}>
+                <span className={prevStudy ? (relatedBg === G.blue ? "text-white" : "text-[#2E2784]") : (relatedBg === G.blue ? "text-white/45" : "text-[#2E2784]/45")}>
                   <ArrowLeft className="w-4 h-4" />
                 </span>
                 <span className="tracking-tight" style={{ fontSize: "1rem", fontWeight: 700 }}>
@@ -921,12 +1159,12 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
               <button
                 onClick={() => nextStudy && go({ page: "study-detail", id: nextStudy.id })}
                 disabled={!nextStudy}
-                className={`group inline-flex items-center gap-3 px-1 py-1.5 transition-all ${nextStudy ? "text-[#2E2784] hover:opacity-75" : "text-[#2E2784]/45 cursor-not-allowed"}`}
+                className={`group inline-flex items-center gap-3 px-1 py-1.5 transition-all ${nextStudy ? `${relatedBg === G.blue ? "text-white" : "text-[#2E2784]"} hover:opacity-75` : `${relatedBg === G.blue ? "text-white/45" : "text-[#2E2784]/45"} cursor-not-allowed`}`}
               >
                 <span className="tracking-tight" style={{ fontSize: "1rem", fontWeight: 700 }}>
                   {nextStudy ? `Next: ${nextStudy.title}` : "No next"}
                 </span>
-                <span className={`${nextStudy ? "text-[#2E2784]" : "text-[#2E2784]/45"}`}>
+                <span className={nextStudy ? (relatedBg === G.blue ? "text-white" : "text-[#2E2784]") : (relatedBg === G.blue ? "text-white/45" : "text-[#2E2784]/45")}>
                   <ArrowRight className="w-4 h-4" />
                 </span>
               </button>
@@ -935,16 +1173,16 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
         </div>
       </section>
 
-      {/* CLOSING CTA — blue */}
-      <section className="relative pt-24 md:pt-28 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
-        <div className="absolute -bottom-20 -right-20 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
+      {/* CLOSING CTA */}
+      <section className="relative pt-24 md:pt-28 pb-20 md:pb-24 overflow-hidden" style={{ background: closingBg }}>
+        <div className={`absolute -bottom-20 -right-20 w-[360px] h-[360px] rounded-full blur-3xl ${closingBg === G.blue ? "bg-[#F8AE01]/20" : "bg-[#2E2784]/15"}`} />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="grid md:grid-cols-2 gap-10 items-center">
               <div>
-                <h2 className="text-white tracking-[-0.035em]" style={{ fontSize: "clamp(1.9rem, 3.8vw, 3.8rem)", lineHeight: 1.05, fontWeight: 800 }}>
+                <h2 className={`tracking-[-0.035em] ${closingBg === G.blue ? "text-white" : "text-[#2E2784]"}`} style={{ fontSize: "clamp(1.9rem, 3.8vw, 3.8rem)", lineHeight: 1.05, fontWeight: 800 }}>
                   <HeadingInner k="closing_title" fallbackText="Let's Design Your Loyalty Campaign"
-                    defaultNode={<>Let's Design<br /><span className="text-[#F8AE01]">Your Loyalty Campaign</span></>}/>
+                    defaultNode={<>Let's Design<br /><span className={closingBg === G.blue ? "text-[#F8AE01]" : "text-black"}>Your Loyalty Campaign</span></>}/>
                 </h2>
               </div>
               <div className="md:text-right">
@@ -958,10 +1196,10 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
                 ) : (
                   <button
                     onClick={() => go({ page: "contact" })}
-                    className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#F8AE01] text-black hover:bg-[#ffd95a] hover:text-[#2E2784]"
+                    className={`inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 ${closingBg === G.blue ? "bg-[#F8AE01] text-black hover:bg-[#ffd95a] hover:text-[#2E2784]" : "bg-[#2E2784] text-white hover:bg-black"}`}
                   >
                     <span>{heading("closing_cta", "Book an Appointment")}</span>
-                    <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center">
+                    <span className={`w-8 h-8 rounded-full flex items-center justify-center ${closingBg === G.blue ? "bg-black/10" : "bg-white/10"}`}>
                       <ArrowUpRight className="w-4 h-4" />
                     </span>
                   </button>

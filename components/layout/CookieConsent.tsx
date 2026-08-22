@@ -99,7 +99,7 @@ const SERVICES_BY_CATEGORY: Record<keyof ConsentCategories, string[]> = {
   basic: ["Cookie Compliance"],
   content: [],
   optimization: ["Google Analytics"],
-  ads: [],
+  ads: ["YouTube / Vimeo / Social Embeds"],
 };
 
 function DataIcon({ type }: { type: DataItem["icon"] }) {

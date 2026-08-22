@@ -1,11 +1,74 @@
+"use client";
+
+import { Play } from "lucide-react";
+import { useConsentCategories } from "@/components/layout/CookieConsent";
+import {
+  DURATION_MONTHS,
+  LEVEL_PRESETS,
+  makeConsentId,
+  makeExpiry,
+  readConsent,
+  writeConsent,
+} from "@/lib/cookie-consent";
+
+// Grants marketing ("ads") consent so an embedded 3rd-party player (YouTube,
+// Vimeo, Instagram, Facebook) can load. Preserves any existing consent
+// record's other categories/duration instead of overwriting the user's choice.
+function allowEmbedConsent() {
+  const existing = readConsent();
+  const base = existing ?? {
+    id: makeConsentId(),
+    level: "custom" as const,
+    duration: "1m" as const,
+    categories: LEVEL_PRESETS.silver,
+    consentedAt: new Date().toISOString(),
+    expiresAt: makeExpiry("1m"),
+  };
+  writeConsent({
+    ...base,
+    level: "custom",
+    categories: { ...base.categories, ads: true },
+    consentedAt: existing ? base.consentedAt : new Date().toISOString(),
+    expiresAt: existing ? base.expiresAt : makeExpiry(base.duration),
+  });
+}
+
+function EmbedConsentPlaceholder({ className, style }: { className?: string; style?: React.CSSProperties }) {
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "0.75rem", background: "#11111a", color: "#fff", textAlign: "center", padding: "1.5rem" }}
+    >
+      <Play className="w-8 h-8" strokeWidth={1.5} />
+      <p className="text-sm max-w-xs opacity-90">
+        This content is hosted by a third party and requires marketing cookies to load.
+      </p>
+      <button
+        type="button"
+        onClick={allowEmbedConsent}
+        className="text-xs font-semibold rounded-full px-4 py-2"
+        style={{ background: "#F8AE01", color: "#111" }}
+      >
+        Allow &amp; play
+      </button>
+    </div>
+  );
+}
+
 // Turns a pasted video URL (YouTube, Vimeo, or a direct file link) into the
 // right player. Editors naturally paste share links (youtube.com/watch?v=…,
 // youtu.be/…, vimeo.com/…) which a plain <video> tag can't play — only
 // direct .mp4/.webm/.mov files work there. This renders an <iframe> embed
 // for the hosted-platform case and falls back to <video> otherwise.
+// 3rd-party iframe embeds set cross-site tracking cookies on load, so they're
+// gated behind marketing ("ads") consent, same as any other 3rd-party script.
 export function VideoEmbed({ url, className, style }: { url: string; className?: string; style?: React.CSSProperties }) {
+  const categories = useConsentCategories();
   const embed = toEmbedUrl(url);
   if (embed) {
+    if (!categories?.ads) {
+      return <EmbedConsentPlaceholder className={className} style={style} />;
+    }
     return (
       <iframe
         src={embed}
