@@ -4758,19 +4758,28 @@
     "client": "FLOP & Hruška",
     "year": "2026",
     "location": "Czech Republic",
-    "img": "/api/media/wp-5135",
+    "img": "https://klr-europe.com/wp-content/uploads/2026/08/cover.png",
     "summary": "Turning everyday cooking into something to look forward to. With Pintinox master knives and kitchen essentials as the reward, FLOP and Hruška invited shoppers to collect, choose and bring a touch of professional quality into their own kitchens.",
     "cat": "retail",
     "brand": "Pintinox",
     "results": [
-      { "k": "12", "v": "Weeks" },
-      { "k": "830", "v": "Sales points nationwide" },
-      { "k": "9", "v": "Pintinox exclusive products" }
+      {
+        "k": "12",
+        "v": "Weeks"
+      },
+      {
+        "k": "830",
+        "v": "Sales points nationwide"
+      },
+      {
+        "k": "9",
+        "v": "Pintinox exclusive products"
+      }
     ],
     "details": {
       "sourceUrl": "https://klr-europe.com/pintinox-virtuoso-for-flop-hruska-czech-republic/",
       "campaignTitle": "Bringing professional inspiration into the everyday kitchen",
-      "challenge": "For 12 weeks, everyday grocery shopping became an opportunity for customers to build their own collection of high-quality Pintinox kitchen knives and accessories. The campaign combined a highly relevant household reward category with an accessible collect-and-redeem mechanic. Customers could collect the tools they use most in the kitchen from the Pintinox collection at outstanding prices. With 830 sales points nationwide, the campaign brought together broad retail reach, strong product desirability and a simple proposition: shop, collect stickers and choose your reward. Pintinox added an important premium dimension to the campaign. With more than 90 years of experience creating products for professional and domestic kitchens, the Italian brand brought craftsmanship, functionality and distinctive design to a reward collection made for everyday use.",
+      "challenge": "For 12 weeks, everyday grocery shopping became an opportunity for customers to build their own collection of high-quality Pintinox kitchen knives and accessories. The campaign combined a highly relevant household reward category with an accessible collect-and-redeem mechanic. With 830 sales points nationwide, the campaign brought together broad retail reach, strong product desirability and a simple proposition: shop, collect stickers and choose your reward.",
       "rewardGroups": [
         {
           "title": "Master Tools for Every Kitchen",
@@ -4807,13 +4816,163 @@
         "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-poster-scaled.png",
         "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-display-5-scaled.png"
       ],
-      "social": [],
-      "videos": []
+      "social": [
+        "https://www.facebook.com/reel/926880220250231/",
+        "https://www.facebook.com/reel/1691503385173995/",
+        "https://www.instagram.com/reel/DWBtVI4DMBa/"
+      ],
+      "videos": [
+        "https://klr-europe.com/wp-content/uploads/2026/08/laptop_scroll_flop_pintinox.mp4"
+      ],
+      "galleryGroups": [
+        {
+          "id": "pv-g1",
+          "title": "Campaign",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2026/08/collection-scaled.png"
+          ],
+          "feature": true
+        },
+        {
+          "id": "pv-g2",
+          "title": "In-Store Experience",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-display-12-scaled.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-poster-2-scaled.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-leaflet-1-scaled.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-display-plexi-scaled.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-display-4-scaled.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-poster-7-scaled.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-display-3-scaled.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-poster-scaled.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-display-5-scaled.png"
+          ]
+        },
+        {
+          "id": "pv-g3",
+          "title": "Mechanics",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2026/08/leaflet.png"
+          ]
+        }
+      ],
+      "layoutMode": "custom",
+      "blocks": [
+        {
+          "id": "pv01",
+          "type": "text",
+          "text": "Bringing professional inspiration into the everyday kitchen"
+        },
+        {
+          "id": "pv04",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2026/08/collection-scaled.png"
+        },
+        {
+          "id": "pv06",
+          "type": "text",
+          "text": "Cutting can be a joy.\n\nFor 12 weeks, everyday grocery shopping became an opportunity for customers to build their own collection of high-quality Pintinox kitchen knives and accessories.\n\nThe campaign combined a highly relevant household reward category with an accessible collect-and-redeem mechanic. Customers could collect the tools they use most in the kitchen from the Pintinox collection at outstanding prices.\n\nWith 830 sales points nationwide, the campaign brought together broad retail reach, strong product desirability and a simple proposition: shop, collect stickers and choose your reward."
+        },
+        {
+          "id": "pv05",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2026/08/Hruska-web-banner-1925x868px.jpg"
+        },
+        {
+          "id": "pv07",
+          "type": "text",
+          "text": "The Brand"
+        },
+        {
+          "id": "pv08",
+          "type": "text",
+          "text": "Pintinox added an important premium dimension to the campaign. With more than 90 years of experience creating products for professional and domestic kitchens, the Italian brand brought craftsmanship, functionality and distinctive design to a reward collection made for everyday use."
+        },
+        {
+          "id": "pv09",
+          "type": "text",
+          "text": "In-Store Experience"
+        },
+        {
+          "id": "pv10",
+          "type": "gallery",
+          "title": "In-Store Experience",
+          "images": [
+            "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-display-12-scaled.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-poster-2-scaled.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-leaflet-1-scaled.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-display-plexi-scaled.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-display-4-scaled.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-poster-7-scaled.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-display-3-scaled.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-poster-scaled.png",
+            "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-display-5-scaled.png"
+          ]
+        },
+        {
+          "id": "pv11",
+          "type": "text",
+          "text": "Mechanics"
+        },
+        {
+          "id": "pv12",
+          "type": "text",
+          "text": "Participation was designed to be simple and intuitive.\n\nCustomers received 1 promotional sticker for every CZK 200 spent at participating stores. Selected promotional products offered the opportunity to earn an additional sticker, creating another incentive within the shopping journey.\n\nAfter collecting stickers, customers could choose between two redemption levels:\n\n10 stickers\nCustomers could purchase selected Pintinox products at promotional prices starting from CZK 149.\n\n20 stickers\nCustomers unlocked the strongest offer, with selected products available from just CZK 79 and savings of up to 87% compared with regular retail prices.\n\nStickers were collected on a dedicated campaign card available in stores, while customers could also access campaign information and the collector card online."
+        },
+        {
+          "id": "pv13",
+          "type": "image",
+          "imageUrl": "https://klr-europe.com/wp-content/uploads/2026/08/leaflet.png"
+        },
+        {
+          "id": "pv14",
+          "type": "text",
+          "text": "Master Tools for Every Kitchen"
+        },
+        {
+          "id": "pv15",
+          "type": "text",
+          "text": "The campaign featured a carefully selected 9-piece Pintinox collection, covering everything from everyday preparation and precision cutting to sharpening and storage:\n\nParing Knife – 8.5 cm\nCompact and precise for peeling and detailed preparation.\nUtility Knife – 12 cm\nA versatile everyday knife for a wide range of kitchen tasks.\nChef’s Knife – 20 cm\nAn essential all-round knife for slicing, chopping and food preparation.\nSantoku Knife – 18 cm\nDesigned for efficient slicing, chopping and dicing.\nCleaver Knife – 16.5 cm\nA strong, distinctive addition for heavier kitchen tasks.\nDamascus Knife – 20 cm\nThe premium hero of the collection, featuring a 67-layer premium stainless-steel blade, HRC 58–62 hardness and a comfortable walnut-wood handle.\nScissors – 18.5 cm\nA practical everyday kitchen accessory.\nKnife & Scissors Sharpener\nA three-stage manual sharpener designed for sharpening and polishing blades.\nUniversal Knife Block – 22.5 cm\nA contemporary storage solution designed to complete the collection.\n\nThe core knife range combined sharp performance with ergonomic handles and a distinctive diamond-drop pattern, creating a collection that looked premium while remaining practical for everyday cooking."
+        },
+        {
+          "id": "pv17",
+          "type": "text",
+          "text": "Facebook"
+        },
+        {
+          "id": "pv18",
+          "type": "video",
+          "videoUrl": "https://www.facebook.com/reel/926880220250231/"
+        },
+        {
+          "id": "pv19",
+          "type": "video",
+          "videoUrl": "https://www.facebook.com/reel/1691503385173995/"
+        },
+        {
+          "id": "pv20",
+          "type": "text",
+          "text": "Instagram"
+        },
+        {
+          "id": "pv21",
+          "type": "video",
+          "videoUrl": "https://www.instagram.com/reel/DWBtVI4DMBa/"
+        },
+        {
+          "id": "pv22",
+          "type": "text",
+          "text": "Website"
+        },
+        {
+          "id": "pv23",
+          "type": "video",
+          "videoUrl": "https://klr-europe.com/wp-content/uploads/2026/08/laptop_scroll_flop_pintinox.mp4"
+        }
+      ]
     },
     "status": "draft",
     "publicPreview": true,
-    "cornerstone": false,
-    "authorName": "Natalia Molchanova",
-    "authorAvatar": "/api/media/avatar-natalia-molchanova-avatar-60x60"
+    "cornerstone": false
   }
 ]

@@ -494,6 +494,7 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
           <section className="relative pt-16 md:pt-20 pb-16 overflow-hidden" style={{ background: G.yellow }}>
             <div className="max-w-6xl mx-auto px-8">
               <AnimatedSection>
+                <div className="mb-3"><Eyebrow><span style={{ color: "#2E2784" }}>Overview</span></Eyebrow></div>
                 <EditableText as="p" editing={editing} value={s.summary}
                   onCommit={(v) => editor.patch({ summary: v })}
                   multiline outlineColor="#2E2784"
