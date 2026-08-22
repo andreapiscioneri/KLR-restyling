@@ -4751,5 +4751,69 @@
     "status": "published",
     "publicPreview": true,
     "cornerstone": false
+  },
+  {
+    "id": "pintinox-virtuoso-for-flop-hruska-czech-republic",
+    "title": "Pintinox Virtuoso for FLOP & Hruška – Czech Republic",
+    "client": "FLOP & Hruška",
+    "year": "2026",
+    "location": "Czech Republic",
+    "img": "/api/media/wp-5135",
+    "summary": "Turning everyday cooking into something to look forward to. With Pintinox master knives and kitchen essentials as the reward, FLOP and Hruška invited shoppers to collect, choose and bring a touch of professional quality into their own kitchens.",
+    "cat": "retail",
+    "brand": "Pintinox",
+    "results": [
+      { "k": "12", "v": "Weeks" },
+      { "k": "830", "v": "Sales points nationwide" },
+      { "k": "9", "v": "Pintinox exclusive products" }
+    ],
+    "details": {
+      "sourceUrl": "https://klr-europe.com/pintinox-virtuoso-for-flop-hruska-czech-republic/",
+      "campaignTitle": "Bringing professional inspiration into the everyday kitchen",
+      "challenge": "For 12 weeks, everyday grocery shopping became an opportunity for customers to build their own collection of high-quality Pintinox kitchen knives and accessories. The campaign combined a highly relevant household reward category with an accessible collect-and-redeem mechanic. Customers could collect the tools they use most in the kitchen from the Pintinox collection at outstanding prices. With 830 sales points nationwide, the campaign brought together broad retail reach, strong product desirability and a simple proposition: shop, collect stickers and choose your reward. Pintinox added an important premium dimension to the campaign. With more than 90 years of experience creating products for professional and domestic kitchens, the Italian brand brought craftsmanship, functionality and distinctive design to a reward collection made for everyday use.",
+      "rewardGroups": [
+        {
+          "title": "Master Tools for Every Kitchen",
+          "subtitle": "A carefully selected 9-piece Pintinox collection covering everyday preparation, precision cutting, sharpening and storage.",
+          "items": [
+            "Paring Knife – 8.5 cm",
+            "Utility Knife – 12 cm",
+            "Chef’s Knife – 20 cm",
+            "Santoku Knife – 18 cm",
+            "Cleaver Knife – 16.5 cm",
+            "Damascus Knife – 20 cm",
+            "Scissors – 18.5 cm",
+            "Knife & Scissors Sharpener",
+            "Universal Knife Block – 22.5 cm"
+          ]
+        }
+      ],
+      "activations": [],
+      "mechanics": [
+        "Customers received 1 promotional sticker for every CZK 200 spent at participating stores.",
+        "Selected promotional products offered the opportunity to earn an additional sticker.",
+        "After collecting 10 stickers, customers could purchase selected Pintinox products at promotional prices starting from CZK 149.",
+        "After collecting 20 stickers, customers unlocked selected products from CZK 79, with savings of up to 87% compared with regular retail prices.",
+        "Stickers were collected on a dedicated campaign card available in stores, with campaign information and the collector card also available online."
+      ],
+      "gallery": [
+        "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-display-12-scaled.png",
+        "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-poster-2-scaled.png",
+        "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-leaflet-1-scaled.png",
+        "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-display-plexi-scaled.png",
+        "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-display-4-scaled.png",
+        "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-poster-7-scaled.png",
+        "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-display-3-scaled.png",
+        "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-poster-scaled.png",
+        "https://klr-europe.com/wp-content/uploads/2026/08/flosman-pintinox-display-5-scaled.png"
+      ],
+      "social": [],
+      "videos": []
+    },
+    "status": "draft",
+    "publicPreview": true,
+    "cornerstone": false,
+    "authorName": "Natalia Molchanova",
+    "authorAvatar": "/api/media/avatar-natalia-molchanova-avatar-60x60"
   }
 ]

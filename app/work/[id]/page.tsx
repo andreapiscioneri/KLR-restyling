@@ -16,17 +16,29 @@ export async function generateStaticParams() {
 
 type StudyRecord = typeof fallbackStudies[number] & { status?: string; publicPreview?: boolean };
 
+function normalizeStatus(status?: string) {
+  const value = String(status ?? "").trim().toLowerCase();
+  if (!value || value === "publish" || value === "published") return "published";
+  if (["draft", "pending", "private", "future", "auto-draft", "review"].includes(value)) return "draft";
+  if (["deleted", "trash", "remove"].includes(value)) return "deleted";
+  return "published";
+}
+
 // Drafts are visible via ?preview=1 either to a logged-in admin, or to
 // anyone when the item's own "public preview" flag is enabled (a
 // shareable review link, matching the old WordPress workflow).
 async function resolveStudies(preview: boolean): Promise<StudyRecord[]> {
   const all = ((await getStudies()) as StudyRecord[] | null) ?? [];
   const source = all.length ? all : (fallbackStudies as StudyRecord[]);
-  if (!preview) return source.filter((s) => s.status !== "draft" && s.status !== "deleted");
+  if (!preview) return source.filter((s) => {
+    const status = normalizeStatus(s.status);
+    return status !== "draft" && status !== "deleted";
+  });
   const isAdmin = Boolean(await getAdminSessionUser());
   return source.filter((s) => {
-    if (s.status === "deleted") return false;
-    if (s.status !== "draft") return true;
+    const status = normalizeStatus(s.status);
+    if (status === "deleted") return false;
+    if (status !== "draft") return true;
     return isAdmin || s.publicPreview === true;
   });
 }

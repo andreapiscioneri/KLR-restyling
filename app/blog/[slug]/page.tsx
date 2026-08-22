@@ -25,16 +25,28 @@ type BlogPost = {
   publicPreview?: boolean;
 };
 
+function normalizeStatus(status?: string) {
+  const value = String(status ?? "").trim().toLowerCase();
+  if (!value || value === "publish" || value === "published") return "published";
+  if (["draft", "pending", "private", "future", "auto-draft", "review"].includes(value)) return "draft";
+  if (["deleted", "trash", "remove"].includes(value)) return "deleted";
+  return "published";
+}
+
 // Drafts are visible via ?preview=1 either to a logged-in admin, or to
 // anyone when the item's own "public preview" flag is enabled (a
 // shareable review link, matching the old WordPress workflow).
 async function loadPosts(preview = false): Promise<BlogPost[]> {
   const all = ((await getPosts()) as BlogPost[] | null) ?? [];
-  if (!preview) return all.filter((p) => p.status !== "draft" && p.status !== "deleted");
+  if (!preview) return all.filter((p) => {
+    const status = normalizeStatus(p.status);
+    return status !== "draft" && status !== "deleted";
+  });
   const isAdmin = Boolean(await getAdminSessionUser());
   return all.filter((p) => {
-    if (p.status === "deleted") return false;
-    if (p.status !== "draft") return true;
+    const status = normalizeStatus(p.status);
+    if (status === "deleted") return false;
+    if (status !== "draft") return true;
     return isAdmin || p.publicPreview === true;
   });
 }

@@ -2364,5 +2364,202 @@
     "browser": "Chrome",
     "visitedAt": "2026-08-22T09:27:45.952Z",
     "eventType": "pageview"
+  },
+  {
+    "id": "85591f7b-0c39-4f93-9c36-4eb5ce511275",
+    "path": "/work",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T09:31:32.608Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "879d4f94-1562-4626-8810-ff73fa3dd118",
+    "path": "/",
+    "sessionId": "ef6ef9d7-5627-4328-a684-433a4a32ce09",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T09:55:55.513Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "5547fdc0-8517-429d-ac7a-71db997bfff9",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "ef6ef9d7-5627-4328-a684-433a4a32ce09",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T09:56:00.636Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "e6d7f14a-e2cb-4d0e-8467-d0db1f56ba5c",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "ef6ef9d7-5627-4328-a684-433a4a32ce09",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T09:56:33.111Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "3bfde1b0-ef0c-4bc3-9e33-67d82f92533a",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "ef6ef9d7-5627-4328-a684-433a4a32ce09",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T09:58:34.749Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "0d9ea688-0e9b-4236-b6e3-e62822209fbb",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "ef6ef9d7-5627-4328-a684-433a4a32ce09",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T09:58:55.749Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "856db78e-1c8b-4404-8596-e4b25a0d8425",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "ef6ef9d7-5627-4328-a684-433a4a32ce09",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T10:01:23.125Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "f949d79b-0128-45a2-a136-5bbbaa810ce5",
+    "path": "/",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "ef6ef9d7-5627-4328-a684-433a4a32ce09",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T10:04:46.929Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "27f3ba5a-c854-49d6-9efa-9920f2120c92",
+    "path": "/work",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "ef6ef9d7-5627-4328-a684-433a4a32ce09",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T10:04:48.849Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "6dedc538-f7d4-4818-914f-1d294efc9556",
+    "path": "/blog",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "ef6ef9d7-5627-4328-a684-433a4a32ce09",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T10:04:50.967Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "f47cbace-580a-4f9d-9439-801a5fc3fd53",
+    "path": "/work",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "ef6ef9d7-5627-4328-a684-433a4a32ce09",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T10:05:00.276Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "de159c8a-0287-4e48-b477-5ac954cb4fb0",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/work",
+    "sessionId": "ef6ef9d7-5627-4328-a684-433a4a32ce09",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T10:05:05.499Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "46d176f9-a702-4283-9cae-4807d1e8f67f",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/work",
+    "sessionId": "ef6ef9d7-5627-4328-a684-433a4a32ce09",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T10:08:03.946Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "820709d4-3e39-4ace-be57-ec57ab0c48e2",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/work",
+    "sessionId": "ef6ef9d7-5627-4328-a684-433a4a32ce09",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T10:08:05.875Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "a1d6123b-2899-4a64-a818-b9aa8dd64289",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/work",
+    "sessionId": "ef6ef9d7-5627-4328-a684-433a4a32ce09",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T10:08:15.991Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "29a0f759-a91a-4fc5-8aaa-f511c502e28c",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/work",
+    "sessionId": "ef6ef9d7-5627-4328-a684-433a4a32ce09",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T10:09:20.407Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "e1822375-6ea1-4262-953c-4a1f787537d7",
+    "path": "/blog/pintinox-virtuoso-for-flop-hruska-czech-republic?preview=1",
+    "sessionId": "530c9b1c-a789-40c7-8ab1-547431f4cd54",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T10:09:50.935Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "4793767d-8c7a-4a64-9967-da6d97e0e8f5",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/work",
+    "sessionId": "ef6ef9d7-5627-4328-a684-433a4a32ce09",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T10:11:19.057Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "79ae9396-fbf4-4a57-ba87-1c39c6bcbdf5",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/admin/dashboard",
+    "sessionId": "ef6ef9d7-5627-4328-a684-433a4a32ce09",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T10:12:03.124Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "eff32aee-2540-4088-a6ca-b3bb18f258a4",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/admin/dashboard",
+    "sessionId": "ef6ef9d7-5627-4328-a684-433a4a32ce09",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T10:12:58.995Z",
+    "eventType": "pageview"
   }
 ]

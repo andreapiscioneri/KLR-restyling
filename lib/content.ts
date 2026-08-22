@@ -41,14 +41,30 @@ export async function getPosts() {
 // Public-facing pages must never show drafts or soft-deleted items; the
 // admin dashboard uses getStudies()/getPosts() directly so editors can see
 // and manage all of them (including the trash).
+export function normalizeContentStatus(status?: string | null): "published" | "draft" | "deleted" {
+  const value = String(status ?? "").trim().toLowerCase();
+  if (!value || value === "publish" || value === "published") return "published";
+  if (["draft", "pending", "private", "future", "auto-draft", "review"].includes(value)) return "draft";
+  if (["deleted", "trash", "remove"].includes(value)) return "deleted";
+  return "published";
+}
+
 export async function getPublishedStudies() {
   const studies = await getStudies();
-  return (studies as { status?: string }[])?.filter((s) => s.status !== "draft" && s.status !== "deleted") ?? studies;
+  if (!Array.isArray(studies)) return studies;
+  return studies.filter((s) => {
+    const status = normalizeContentStatus((s as { status?: string | null })?.status);
+    return status !== "draft" && status !== "deleted";
+  });
 }
 
 export async function getPublishedPosts() {
   const posts = await getPosts();
-  return (posts as { status?: string }[])?.filter((p) => p.status !== "draft" && p.status !== "deleted") ?? posts;
+  if (!Array.isArray(posts)) return posts;
+  return posts.filter((p) => {
+    const status = normalizeContentStatus((p as { status?: string | null })?.status);
+    return status !== "draft" && status !== "deleted";
+  });
 }
 
 export async function getUsers() {

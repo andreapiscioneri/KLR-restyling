@@ -15,7 +15,7 @@ const G = {
   yellow: "radial-gradient(130% 130% at 15% 0%, #ffd95a 0%, #F8AE01 50%, #de9800 100%)",
 };
 
-const CATEGORIES = ["All", "Loyalty Marketing", "Retail Trends", "Leadership & Culture", "KLR Life"] as const;
+const CATEGORIES = ["All", "Loyalty Marketing", "Retail & Business Trends", "Leadership & Culture", "KLR Life"] as const;
 const PAGE_SIZE = 9;
 
 type InsightCategory = (typeof CATEGORIES)[number];
@@ -27,10 +27,10 @@ type InsightPost = Post & {
 };
 
 function normalizeCategory(raw: string): Exclude<InsightCategory, "All"> {
-  const v = raw.toLowerCase();
+  const v = String(raw ?? "").toLowerCase().replace(/&/g, " ").replace(/[^a-z0-9\s]/g, " ");
   if (v.includes("loyalty")) return "Loyalty Marketing";
-  if (v.includes("retail") || v.includes("trend") || v.includes("business")) return "Retail Trends";
   if (v.includes("leadership") || v.includes("culture")) return "Leadership & Culture";
+  if (v.includes("retail") || v.includes("trend") || v.includes("business")) return "Retail & Business Trends";
   return "KLR Life";
 }
 
