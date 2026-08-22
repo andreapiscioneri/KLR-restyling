@@ -2337,5 +2337,32 @@
     "browser": "Chrome",
     "visitedAt": "2026-08-22T09:25:35.296Z",
     "eventType": "pageview"
+  },
+  {
+    "id": "a3201ccb-adc3-440e-b39f-0a801bc255e9",
+    "path": "/blog",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T09:27:22.279Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "e56a41ad-13de-4127-bd5d-ac271e9abfc8",
+    "path": "/blog/driving-retail-growth-through-loyalty-in-latin-america",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T09:27:29.878Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "1850ca04-f3d9-449f-99d7-19d52ec44fd1",
+    "path": "/work",
+    "sessionId": "05ee5adf-d1d9-46cd-b4e6-4bd0544cadcb",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-22T09:27:45.952Z",
+    "eventType": "pageview"
   }
 ]
