@@ -11,6 +11,7 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import {
   useEditMode, useCollectionEditor, EditableText, EditableImage, EditToolbar,
   type CustomBlock, newBlockId, blankBlock, InsertBlockButton, BlockShell, EditableVideoUrl,
+  galleryImageUrl, setGalleryImageUrl,
 } from "./inline-edit";
 import { VideoEmbed } from "./video-embed";
 import { Lightbox, type LightboxState } from "./lightbox";
@@ -362,10 +363,10 @@ export function BlogDetail({ slug, go, initialPost, initialOthers }: BlogDetailP
                       )}
                       <div className="grid sm:grid-cols-2 gap-4">
                       {block.images.map((img, i) => (
-                        <div key={`${img}-${i}`} className={`relative rounded-[24px] ${!editing ? "cursor-zoom-in" : ""}`}
-                          onClick={() => !editing && openLightbox(block.images, i)}>
-                          <EditableImage editing={editing} src={img} className="w-full h-[220px] object-cover rounded-[24px]" alt={`${post.title} ${i + 1}`}
-                            onCommit={(v) => updateBlock(idx, { images: block.images.map((x, xi) => xi === i ? v : x) })}/>
+                        <div key={`${galleryImageUrl(img)}-${i}`} className={`relative rounded-[24px] ${!editing ? "cursor-zoom-in" : ""}`}
+                          onClick={() => !editing && openLightbox(block.images.map(galleryImageUrl), i)}>
+                          <EditableImage editing={editing} src={galleryImageUrl(img)} className="w-full h-[220px] object-cover rounded-[24px]" alt={`${post.title} ${i + 1}`}
+                            onCommit={(v) => updateBlock(idx, { images: block.images.map((x, xi) => xi === i ? setGalleryImageUrl(x, v) : x) })}/>
                           {editing && (
                             <button type="button" onClick={() => updateBlock(idx, { images: block.images.filter((_, xi) => xi !== i) })}
                               className="absolute top-2 left-2 z-20 w-6 h-6 rounded-full bg-red-600/80 text-white flex items-center justify-center" aria-label="Rimuovi immagine">

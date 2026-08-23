@@ -7,15 +7,51 @@ import { readMediaManifest, getMediaBlob } from "@/lib/media-storage";
 export const fetchCache = "force-no-store";
 export const dynamic = "force-dynamic";
 
+// Netlify Blobs' connection pool occasionally stalls under concurrent load
+// (a case-study page fires a dozen of these at once) and undici's connect
+// timeout only fires after ~10s. Racing a short local timeout lets us fail
+// fast and fall back instead of leaving the browser hanging on a 500.
+const BLOB_FETCH_TIMEOUT_MS = 6000;
+
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error("Blob fetch timed out")), ms);
+    promise.then((v) => { clearTimeout(timer); resolve(v); }, (e) => { clearTimeout(timer); reject(e); });
+  });
+}
+
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
-  const manifest = await readMediaManifest();
+  let manifest;
+  try {
+    manifest = await withTimeout(readMediaManifest(), BLOB_FETCH_TIMEOUT_MS);
+  } catch (err) {
+    console.error(`Media manifest read failed for ${params.id}:`, err);
+    return NextResponse.json({ error: "Storage temporarily unavailable" }, { status: 503, headers: { "Cache-Control": "no-store" } });
+  }
+
   const record = manifest.find((m) => m.id === params.id);
   if (!record) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  const blob = await getMediaBlob(record.blobKey);
+  // Migrated WordPress media keeps its original CDN URL as `sourceUrl`. If
+  // the blob store errors, times out, or genuinely doesn't have the file
+  // yet, redirect there instead of surfacing a broken image — no-store so
+  // the next request retries the (usually working) blob store fresh.
+  let blob;
+  try {
+    blob = await withTimeout(getMediaBlob(record.blobKey), BLOB_FETCH_TIMEOUT_MS);
+  } catch (err) {
+    console.error(`Media blob fetch failed for ${params.id} (${record.blobKey}):`, err);
+    if (record.sourceUrl) {
+      return NextResponse.redirect(record.sourceUrl, { status: 307, headers: { "Cache-Control": "no-store" } });
+    }
+    return NextResponse.json({ error: "Storage temporarily unavailable" }, { status: 503, headers: { "Cache-Control": "no-store" } });
+  }
   if (!blob) {
+    if (record.sourceUrl) {
+      return NextResponse.redirect(record.sourceUrl, { status: 307, headers: { "Cache-Control": "no-store" } });
+    }
     return NextResponse.json({ error: "Blob not found" }, { status: 404 });
   }
 

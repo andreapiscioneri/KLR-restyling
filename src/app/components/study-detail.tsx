@@ -11,7 +11,9 @@ import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import {
   useEditMode, useCollectionEditor, EditableText, EditableImage, EditToolbar, ReorderControls, SectionOrderControls, reorder,
-  type CustomBlock, newBlockId, blankBlock, InsertBlockButton, BlockShell, EditableVideoUrl,
+  type CustomBlock, type ImageFit, type GalleryImage, newBlockId, blankBlock, InsertBlockButton, BlockShell, EditableVideoUrl,
+  EditableBlockText, renderInlineMarkup, segmentRichLines, ImageFitControl, GalleryColumnsControl, galleryColsClass,
+  galleryImageUrl, galleryImageFit, setGalleryImageUrl, setGalleryImageFit, mediaFrameClasses, GalleryItemFitControl,
 } from "./inline-edit";
 import { VideoEmbed } from "./video-embed";
 import { Lightbox, type LightboxState } from "./lightbox";
@@ -122,27 +124,61 @@ function TextBlockContent({ text, isHeading, onDark }: { text: string; isHeading
   if (isHeading) {
     return (
       <h3 className="tracking-[-0.03em]" style={{ color: headColor, fontSize: "clamp(1.6rem, 3.2vw, 2.4rem)", fontWeight: 800, lineHeight: 1.12 }}>
-        {text}
+        {renderInlineMarkup(text, "h")}
       </h3>
     );
   }
   const leadColor = onDark ? "#ffffff" : "#2E2784";
   const bodyColor = onDark ? "rgba(255,255,255,0.82)" : "rgba(46,39,132,0.82)";
   const lines = text.split("\n").map((l) => l.trim()).filter(Boolean);
-  const hasLead = lines.length > 1 && lines[0].length <= 130;
+  const hasLead = lines.length > 1 && !lines[0].startsWith("- ") && lines[0].length <= 130;
+  const leadLine = hasLead ? lines[0] : null;
   const bodyLines = hasLead ? lines.slice(1) : lines;
+  const segments = segmentRichLines(bodyLines);
+  const listClassName = onDark ? "list-disc pl-5 space-y-1.5 marker:text-white/50" : "list-disc pl-5 space-y-1.5 marker:text-[#2E2784]/50";
+  const olistClassName = onDark ? "list-decimal pl-5 space-y-1.5 marker:text-white/50" : "list-decimal pl-5 space-y-1.5 marker:text-[#2E2784]/50";
+  const HEADING_STYLE = {
+    h2: { fontSize: "clamp(1.35rem, 2.4vw, 1.75rem)", fontWeight: 800 as const, lineHeight: 1.2 },
+    h3: { fontSize: "clamp(1.15rem, 1.9vw, 1.45rem)", fontWeight: 800 as const, lineHeight: 1.25 },
+    h4: { fontSize: "clamp(1.02rem, 1.5vw, 1.2rem)", fontWeight: 700 as const, lineHeight: 1.3 },
+  };
   return (
     <div>
-      {hasLead && (
+      {leadLine && (
         <p className="tracking-tight" style={{ color: leadColor, fontSize: "clamp(1.05rem, 1.6vw, 1.25rem)", fontWeight: 700, lineHeight: 1.45, marginBottom: "0.85rem" }}>
-          {lines[0]}
+          {renderInlineMarkup(leadLine, "lead")}
         </p>
       )}
-      {bodyLines.map((line, li) => (
-        <p key={li} className="tracking-tight" style={{ color: bodyColor, fontSize: "1rem", fontWeight: 400, lineHeight: 1.75, marginTop: li === 0 ? 0 : "0.85rem" }}>
-          {line}
-        </p>
-      ))}
+      {segments.map((seg, si) => {
+        const marginTop = si === 0 && !leadLine ? 0 : "0.85rem";
+        if (seg.type === "list") {
+          return (
+            <ul key={si} className={listClassName} style={{ color: bodyColor, fontSize: "1rem", fontWeight: 400, lineHeight: 1.65, marginTop }}>
+              {seg.items.map((item, ii) => <li key={ii}>{renderInlineMarkup(item, `${si}-${ii}`)}</li>)}
+            </ul>
+          );
+        }
+        if (seg.type === "olist") {
+          return (
+            <ol key={si} className={olistClassName} style={{ color: bodyColor, fontSize: "1rem", fontWeight: 400, lineHeight: 1.65, marginTop }}>
+              {seg.items.map((item, ii) => <li key={ii}>{renderInlineMarkup(item, `${si}-${ii}`)}</li>)}
+            </ol>
+          );
+        }
+        if (seg.type === "h2" || seg.type === "h3" || seg.type === "h4") {
+          const As = seg.type;
+          return (
+            <As key={si} className="tracking-[-0.02em]" style={{ color: leadColor, marginTop, ...HEADING_STYLE[seg.type] }}>
+              {renderInlineMarkup(seg.text, `${si}`)}
+            </As>
+          );
+        }
+        return (
+          <p key={si} className="tracking-tight" style={{ color: bodyColor, fontSize: "1rem", fontWeight: 400, lineHeight: 1.75, marginTop }}>
+            {renderInlineMarkup(seg.text, `${si}`)}
+          </p>
+        );
+      })}
     </div>
   );
 }
@@ -165,10 +201,15 @@ function MixedSectionContent({ blocks, studyTitle, onDark }: { blocks: CustomBlo
           );
         }
         if (block.type === "image") {
+          const { boxClass, imgClass } = mediaFrameClasses(block.fit, "h-[420px]");
+          const letterboxed = block.fit === "contain";
           return (
             <div key={block.id}>
-              <div className="rounded-[24px] overflow-hidden" style={softShadow}>
-                <ImageWithFallback src={block.imageUrl} alt={studyTitle} className="w-full h-[420px] object-cover" />
+              <div
+                className={`rounded-[24px] overflow-hidden ${boxClass}`}
+                style={{ ...softShadow, ...(letterboxed ? { background: onDark ? "rgba(255,255,255,0.06)" : "rgba(46,39,132,0.06)" } : {}) }}
+              >
+                <ImageWithFallback src={block.imageUrl} alt={studyTitle} className={imgClass} />
               </div>
               {block.caption && (
                 <p className={`tracking-tight mt-3 text-center ${onDark ? "text-white/60" : "text-[#2E2784]/60"}`} style={{ fontSize: "0.82rem" }}>{block.caption}</p>
@@ -181,7 +222,7 @@ function MixedSectionContent({ blocks, studyTitle, onDark }: { blocks: CustomBlo
             <div key={block.id} className="max-w-4xl mx-auto">
               <div className="relative rounded-[24px] overflow-hidden" style={{ background: "#000", ...softShadow }}>
                 <div className="relative w-full aspect-video max-h-[75vh] mx-auto">
-                  <VideoEmbed url={block.videoUrl} className="w-full h-full" style={{ border: 0 }} />
+                  <VideoEmbed url={block.videoUrl} poster={block.poster} className="w-full h-full" style={{ border: 0 }} />
                 </div>
                 {block.caption && (
                   <p className="text-white/60 tracking-tight text-center py-4 px-8" style={{ fontSize: "0.82rem" }}>{block.caption}</p>
@@ -237,18 +278,29 @@ function CustomBlocksView({ blocks, studyTitle, openLightbox }: { blocks: Custom
         }
         // gallery
         const block = group.block;
+        const imageUrls = block.images.map(galleryImageUrl);
         return (
           <section key={gi} className={`relative ${BLOCK_SECTION_PAD}`} style={{ background: bg }}>
             <div className="max-w-6xl mx-auto">
               {group.title && (
                 <div className={`tracking-[0.3em] uppercase mb-8 ${onDark ? "text-white/60" : "text-[#2E2784]/60"}`} style={{ fontSize: "0.65rem", fontWeight: 600 }}>{group.title}</div>
               )}
-              <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
-                {block.images.map((img, i) => (
-                  <div key={`${img}-${i}`} className="relative rounded-[24px] cursor-zoom-in" style={softShadow} onClick={() => openLightbox(block.images, i)}>
-                    <ImageWithFallback src={img} alt={`${studyTitle} ${i + 1}`} className="w-full h-[220px] object-cover rounded-[24px] border border-white/40" />
-                  </div>
-                ))}
+              <div className={`grid gap-4 items-start ${galleryColsClass(block.columns, block.images.length)}`}>
+                {block.images.map((img, i) => {
+                  const fit = galleryImageFit(img, block.fit);
+                  const { boxClass, imgClass } = mediaFrameClasses(fit, "h-[220px]");
+                  const letterboxed = fit === "contain";
+                  return (
+                    <div
+                      key={`${galleryImageUrl(img)}-${i}`}
+                      className={`relative rounded-[24px] cursor-zoom-in overflow-hidden ${boxClass}`}
+                      style={{ ...softShadow, ...(letterboxed ? { background: onDark ? "rgba(255,255,255,0.06)" : "rgba(46,39,132,0.06)" } : {}) }}
+                      onClick={() => openLightbox(imageUrls, i)}
+                    >
+                      <ImageWithFallback src={galleryImageUrl(img)} alt={`${studyTitle} ${i + 1}`} className={`${imgClass} rounded-[24px] border border-white/40`} />
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </section>
@@ -536,19 +588,22 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
               content = (
                 <section className="relative py-20 md:py-28 px-8" style={{ background: bg }}>
                   <div className="max-w-3xl mx-auto">
-                    <EditableText as="p" editing={editing} multiline value={block.text}
-                      onCommit={(v) => updateBlock(idx, { text: v })}
-                      className="text-white tracking-tight" style={{ fontSize: "clamp(1.1rem, 2vw, 1.5rem)", lineHeight: 1.6, fontWeight: 500 }}/>
+                    <EditableBlockText value={block.text} onCommit={(v) => updateBlock(idx, { text: v })} />
                   </div>
                 </section>
               );
             } else if (block.type === "image") {
+              const { boxClass, imgClass } = mediaFrameClasses(block.fit, "h-[420px]");
+              const letterboxed = block.fit === "contain";
               content = (
                 <section className="relative py-12 px-8" style={{ background: bg }}>
                   <div className="max-w-5xl mx-auto">
-                    <div className="rounded-[24px]" style={softShadow}>
+                    <div className={`relative rounded-[24px] overflow-hidden ${boxClass}`} style={{ ...softShadow, ...(letterboxed ? { background: "rgba(255,255,255,0.08)" } : {}) }}>
                       <EditableImage editing={editing} src={block.imageUrl} onCommit={(v) => updateBlock(idx, { imageUrl: v })}
-                        className="w-full h-[420px] object-cover rounded-[24px]" alt={s.title}/>
+                        className={`rounded-[24px] ${imgClass}`} alt={s.title}/>
+                      <div className="absolute top-3 left-3 z-30">
+                        <ImageFitControl fit={block.fit} onChange={(f) => updateBlock(idx, { fit: f })} />
+                      </div>
                     </div>
                     {(block.caption || editing) && (
                       <EditableText as="p" editing={editing} value={block.caption || ""} onCommit={(v) => updateBlock(idx, { caption: v })}
@@ -558,28 +613,46 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
                 </section>
               );
             } else if (block.type === "gallery") {
+              const updateImages = (images: GalleryImage[]) => updateBlock(idx, { images });
               content = (
                 <section className="relative py-20 px-8" style={{ background: bg }}>
                   <div className="max-w-6xl mx-auto">
-                    {(block.title || editing) && (
-                      <EditableText as="div" editing={editing} value={block.title || ""} onCommit={(v) => updateBlock(idx, { title: v })}
-                        className="tracking-[0.3em] uppercase text-white/60 mb-8" style={{ fontSize: "0.65rem", fontWeight: 600 }}/>
-                    )}
-                    <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
-                    {block.images.map((img, i) => (
-                      <div key={`${img}-${i}`} className="relative rounded-[24px]" style={softShadow}>
-                        <EditableImage editing={editing} src={img} onCommit={(v) => updateBlock(idx, { images: block.images.map((x, xi) => xi === i ? v : x) })}
-                          className="w-full h-[220px] object-cover rounded-[24px]" alt={`${s.title} ${i + 1}`}/>
-                        {editing && (
-                          <button type="button" onClick={() => updateBlock(idx, { images: block.images.filter((_, xi) => xi !== i) })}
-                            className="absolute top-2 left-2 z-20 w-6 h-6 rounded-full bg-red-600/80 text-white flex items-center justify-center" aria-label="Rimuovi immagine">
-                            <Trash2 size={12}/>
-                          </button>
-                        )}
+                    <div className="flex items-center justify-between gap-3 flex-wrap mb-6">
+                      {(block.title || editing) && (
+                        <EditableText as="div" editing={editing} value={block.title || ""} onCommit={(v) => updateBlock(idx, { title: v })}
+                          className="tracking-[0.3em] uppercase text-white/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}/>
+                      )}
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <ImageFitControl fit={block.fit} onChange={(f) => updateBlock(idx, { fit: f })} />
+                        <GalleryColumnsControl columns={block.columns} imageCount={block.images.length}
+                          onChange={(n) => updateBlock(idx, { columns: n })} />
                       </div>
-                    ))}
+                    </div>
+                    <div className={`grid gap-4 items-start ${galleryColsClass(block.columns, block.images.length)}`}>
+                    {block.images.map((img, i) => {
+                      const fit = galleryImageFit(img, block.fit);
+                      const { boxClass, imgClass } = mediaFrameClasses(fit, "h-[220px]");
+                      const letterboxed = fit === "contain";
+                      return (
+                        <div key={`${galleryImageUrl(img)}-${i}`} className={`relative rounded-[24px] overflow-hidden ${boxClass}`} style={{ ...softShadow, ...(letterboxed ? { background: "rgba(255,255,255,0.08)" } : {}) }}>
+                          <EditableImage editing={editing} src={galleryImageUrl(img)} onCommit={(v) => updateImages(block.images.map((x, xi) => xi === i ? setGalleryImageUrl(x, v) : x))}
+                            className={`rounded-[24px] ${imgClass}`} alt={`${s.title} ${i + 1}`}/>
+                          {editing && (
+                            <>
+                              <div className="absolute bottom-2 left-2 z-20">
+                                <GalleryItemFitControl fit={fit} onChange={(f) => updateImages(block.images.map((x, xi) => xi === i ? setGalleryImageFit(x, f) : x))} />
+                              </div>
+                              <button type="button" onClick={() => updateImages(block.images.filter((_, xi) => xi !== i))}
+                                className="absolute top-2 left-2 z-20 w-6 h-6 rounded-full bg-red-600/80 text-white flex items-center justify-center" aria-label="Rimuovi immagine">
+                                <Trash2 size={12}/>
+                              </button>
+                            </>
+                          )}
+                        </div>
+                      );
+                    })}
                     {editing && (
-                      <button type="button" onClick={() => updateBlock(idx, { images: [...block.images, ""] })}
+                      <button type="button" onClick={() => updateImages([...block.images, ""])}
                         className="rounded-[24px] border-2 border-dashed border-white/40 flex items-center justify-center h-[220px] text-white/70 text-sm font-semibold">
                         + Aggiungi immagine
                       </button>
@@ -593,9 +666,13 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
                 <section className="relative py-0" style={{ background: "#000" }}>
                   <div className="relative w-full aspect-video max-h-[85vh] mx-auto">
                     {block.videoUrl
-                      ? <VideoEmbed url={block.videoUrl} className="w-full h-full" style={{ border: 0 }}/>
+                      ? <VideoEmbed url={block.videoUrl} poster={block.poster} className="w-full h-full" style={{ border: 0 }}/>
                       : <div className="w-full h-full flex items-center justify-center text-white/50 text-sm">Nessun video — aggiungine uno</div>}
                     <EditableVideoUrl editing={editing} url={block.videoUrl} onCommit={(v) => updateBlock(idx, { videoUrl: v })}/>
+                    {editing && (
+                      <EditableImage editing variant="corner" cornerTopRem={0.75} label="Miniatura video"
+                        src={block.poster || ""} onCommit={(v) => updateBlock(idx, { poster: v })} alt="" className="hidden"/>
+                    )}
                   </div>
                   {(block.caption || editing) && (
                     <EditableText as="p" editing={editing} value={block.caption || ""} onCommit={(v) => updateBlock(idx, { caption: v })}
@@ -884,7 +961,7 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
                       </button>
                     )}
                   </div>
-                  <div className={`mt-6 grid gap-4 ${group.feature ? "sm:grid-cols-2" : "md:grid-cols-2 xl:grid-cols-4"}`}>
+                  <div className={`mt-6 grid gap-4 ${group.feature ? "sm:grid-cols-2" : galleryColsClass(undefined, group.images.length)}`}>
                     {group.images.map((img, i) => (
                       <div key={`${img}-${i}`} className={`relative rounded-[24px] ${!editing ? "cursor-zoom-in" : ""}`} style={softShadow}
                         onClick={() => !editing && openLightbox(group.images, i)}>
@@ -925,7 +1002,7 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
             )}
 
             {(gallery.length > 0 || (editing && galleryGroups.length === 0)) && (
-            <div className="mt-12 grid md:grid-cols-2 xl:grid-cols-4 gap-4">
+            <div className={`mt-12 grid gap-4 ${galleryColsClass(undefined, gallery.length)}`}>
               {gallery.map((img: string, i: number) => (
                 <div key={`${img}-${i}`} className={`relative rounded-[24px] ${!editing ? "cursor-zoom-in" : ""}`} style={softShadow}
                   onClick={() => !editing && openLightbox(gallery, i)}>

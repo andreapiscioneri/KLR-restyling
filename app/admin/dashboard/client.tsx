@@ -20,6 +20,7 @@ import { analyzeContent, analyzeAccessibility, trafficLight, TRAFFIC_LIGHT_COLOR
 import { AdminI18nProvider, useAdminI18n } from "@/lib/admin-i18n";
 import { LanguageSwitcher } from "@/components/admin/LanguageSwitcher";
 import { AuthorAvatar } from "@/src/app/components/author-avatar";
+import { EditableBlockText, blankBlock, type CustomBlock } from "@/src/app/components/inline-edit";
 
 const ADMIN_INTL_LOCALE: Record<"it" | "en" | "ru", string> = {
   it: "it-IT",
@@ -161,6 +162,7 @@ type StudyDetails = {
   sourceUrl:string;campaignTitle:string;challenge:string;
   rewardGroups:StudyRewardGroup[];activations:string[];mechanics:string[];
   gallery:string[];social:string[];videos:string[];
+  layoutMode?:"default"|"custom";blocks?:CustomBlock[];
 };
 type StudyItem    = { id:string;title:string;client:string;year:string;location:string;img:string;summary:string;cat:string;brand:string;results:StudyResult[];details:StudyDetails;status?:"published"|"draft"|"deleted";publicPreview?:boolean;cornerstone?:boolean;focusKeyword?:string;authorName?:string;authorAvatar?:string;publishedAt?:string };
 type PostItem     = { id:number;slug:string;title:string;date:string;excerpt:string;img:string;category:string;contentHtml?:string;authorName?:string;authorAvatar?:string;status?:"published"|"draft"|"deleted";publicPreview?:boolean;cornerstone?:boolean;focusKeyword?:string };
@@ -705,6 +707,82 @@ function RewardGroupsField({ label, value, onChange }: { label:string; value:{ti
       </div>
     </Field>
   );
+}
+
+const BLOCK_TYPE_ICON: Record<CustomBlock["type"], LucideIcon> = { text: FileText, image: FileIcon, gallery: Images, video: FileVideo };
+const BLOCK_TYPE_LABEL_IT: Record<CustomBlock["type"], string> = { text: "Testo", image: "Immagine", gallery: "Galleria", video: "Video" };
+
+// Same rich-text block editor used by the on-page "Modifica in pagina" flow
+// (EditableBlockText — bold/italic/link/H2-H4/liste), surfaced here too so
+// text can be formatted straight from the backend form. Image/gallery/video
+// blocks stay summary-only here: their controls (crop, colonne, poster) are
+// inherently visual and already live on the page itself.
+function StudyBlocksField({ value, onChange }: { value:CustomBlock[]; onChange:(v:CustomBlock[])=>void }) {
+  const blocks = value ?? [];
+  function update(i:number, patch:Partial<CustomBlock>) {
+    onChange(blocks.map((b, idx) => (idx === i ? ({ ...b, ...patch } as CustomBlock) : b)));
+  }
+  function remove(i:number) { onChange(blocks.filter((_, idx) => idx !== i)); }
+  function addText() { onChange([...blocks, blankBlock("text")]); }
+
+  return (
+    <Field label="Contenuto (testo, grassetto, link, titoli, elenchi)" full
+      hint='Formatta qui i blocchi di testo. Immagini, gallerie e video si modificano invece dal pulsante "Modifica in pagina", dove il ritaglio e la composizione si vedono dal vivo.'>
+      <div style={{ display:"flex",flexDirection:"column",gap:10 }}>
+        {blocks.length === 0 && (
+          <div style={{ fontSize:12.5,color:"#999",fontStyle:"italic" }}>Nessun blocco ancora. Aggiungi un testo qui, oppure costruisci il layout da &quot;Modifica in pagina&quot;.</div>
+        )}
+        {blocks.map((b, i) => {
+          const Icon = BLOCK_TYPE_ICON[b.type];
+          if (b.type === "text") {
+            return (
+              <div key={b.id} style={{ background:"#1a1752",borderRadius:12,padding:14 }}>
+                <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:10 }}>
+                  <span style={{ display:"flex",alignItems:"center",gap:6,color:"#F8AE01",fontSize:11,fontWeight:700,textTransform:"uppercase",letterSpacing:"0.05em" }}>
+                    <Icon size={13}/>Testo
+                  </span>
+                  <button type="button" onClick={()=>remove(i)} aria-label="Rimuovi blocco" style={{ ...listRowBtn,background:"rgba(220,38,38,0.3)",color:"#fff" }}><Trash2 size={13}/></button>
+                </div>
+                <EditableBlockText value={b.text} onCommit={(v)=>update(i,{ text:v })}/>
+              </div>
+            );
+          }
+          const summary = b.type === "image" ? (b.caption || b.imageUrl || "—")
+            : b.type === "gallery" ? `${b.images.length} immagini`
+            : (b.caption || b.videoUrl || "—");
+          return (
+            <div key={b.id} style={{ display:"flex",alignItems:"center",gap:10,padding:"10px 12px",background:"#F5F5FA",borderRadius:10 }}>
+              <Icon size={14} color="#888"/>
+              <span style={{ fontSize:11,fontWeight:700,color:"#888",textTransform:"uppercase",flexShrink:0 }}>{BLOCK_TYPE_LABEL_IT[b.type]}</span>
+              <span style={{ fontSize:12.5,color:"#555",flex:1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap" }}>{summary}</span>
+              <button type="button" onClick={()=>remove(i)} aria-label="Rimuovi blocco" style={listRowBtn}><Trash2 size={13}/></button>
+            </div>
+          );
+        })}
+        <button type="button" onClick={addText} style={listAddBtn}><Plus size={13}/>Aggiungi testo</button>
+      </div>
+    </Field>
+  );
+}
+
+// Plain-text extract of a study's real (rendered) body copy, for SEO
+// scoring — strips the **bold**/*italic*/[link](url)/heading/list markup
+// so word-count and keyword checks read the actual words, not the syntax.
+// Falls back to the legacy flat fields only for a study that was never
+// migrated to blocks (details.blocks empty) — matches what study-detail.tsx
+// itself renders in each of those two cases.
+function blocksPlainText(blocks: CustomBlock[] | undefined): string | null {
+  if (!blocks || blocks.length === 0) return null;
+  return blocks
+    .filter((b): b is Extract<CustomBlock,{type:"text"}> => b.type === "text")
+    .map(b => b.text)
+    .join(" ")
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/\*(.+?)\*/g, "$1")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/^#{2,4}\s+/gm, "")
+    .replace(/^-\s+/gm, "")
+    .replace(/^\d+\.\s+/gm, "");
 }
 
 /* ══════════════════════════════════════════════════
@@ -2450,11 +2528,11 @@ function StudiesEditor   ({ data, brands, users, currentUser, onSave }: { data:S
     withStatusTabs dateKey="year" previewUrl={s => `/work/${s.id}?preview=1`}
     seoInput={s => ({
       title: s.title, description: s.summary, slug: s.id, hasImage: Boolean(s.img), focusKeyword: s.focusKeyword,
-      contentHtml: [
+      contentHtml: (blocksPlainText(s.details?.blocks) ?? [
         s.details?.campaignTitle, s.details?.challenge,
         ...(s.details?.rewardGroups ?? []).flatMap(g => [g.title, g.subtitle, ...(g.items ?? [])]),
         ...(s.details?.activations ?? []), ...(s.details?.mechanics ?? []),
-      ].filter(Boolean).map(txt => `<p>${txt}</p>`).join(""),
+      ].filter(Boolean).join(" ")).split(/\n+/).filter(Boolean).map(txt => `<p>${txt}</p>`).join(""),
     })}
     optionsMap={{ cat: sectorOptions, brand: brandOptions, authorName: authorOptions }}
     authorAvatarMap={authorAvatarByName}
@@ -2476,6 +2554,15 @@ function StudiesEditor   ({ data, brands, users, currentUser, onSave }: { data:S
           <div style={{ fontSize:11,fontWeight:700,color:"#2E2784",textTransform:"uppercase",letterSpacing:"0.07em" }}>{sd.title}</div>
           <Grid>
             <KVListField label={sd.results} value={results} kLabel={sd.resultsK} vLabel={sd.resultsV} onChange={v => setForm((p:any) => ({...p, results: v}))}/>
+          </Grid>
+          <StudyBlocksField value={details.blocks ?? []} onChange={blocks => setDetails({blocks})}/>
+          </div>
+          <div style={{ display:"flex",flexDirection:"column",gap:18,paddingTop:18,borderTop:"1px solid #f0f0f6" }}>
+          <div>
+            <div style={{ fontSize:11,fontWeight:700,color:"#999",textTransform:"uppercase",letterSpacing:"0.07em" }}>Campi legacy</div>
+            <div style={{ fontSize:11.5,color:"#aaa",marginTop:3 }}>Non compaiono nella pagina pubblicata (che usa il Contenuto sopra) — servono solo se disattivi il layout a blocchi da &quot;Modifica in pagina&quot;.</div>
+          </div>
+          <Grid>
             <Field label={sd.campaignTitle}><Input value={details.campaignTitle} onChange={v => setDetails({campaignTitle:v})}/></Field>
             <Field label={sd.challenge} full><Textarea rows={3} value={details.challenge} onChange={v => setDetails({challenge:v})}/></Field>
             <StringListField label={sd.activations} value={details.activations} onChange={v => setDetails({activations:v})} placeholder={sd.activationPlaceholder}/>
@@ -2486,7 +2573,9 @@ function StudiesEditor   ({ data, brands, users, currentUser, onSave }: { data:S
             <StringListField label={sd.videos} value={details.videos} onChange={v => setDetails({videos:v})} placeholder={sd.videoPlaceholder}/>
           </Grid>
           </div>
-          <SeoScorePanel title={form.title||""} description={form.summary||""} contentHtml={`${details.challenge||""} ${(details.activations||[]).join(" ")} ${(details.mechanics||[]).join(" ")}`} slug={form.id||""} hasImage={Boolean(form.img)}
+          <SeoScorePanel title={form.title||""} description={form.summary||""}
+            contentHtml={blocksPlainText(details.blocks) ?? `${details.challenge||""} ${(details.activations||[]).join(" ")} ${(details.mechanics||[]).join(" ")}`}
+            slug={form.id||""} hasImage={Boolean(form.img)}
             focusKeyword={form.focusKeyword||""} onChangeFocusKeyword={v => setForm((p:any) => ({...p, focusKeyword:v}))} urlPrefix="work/"/>
         </div>
       );

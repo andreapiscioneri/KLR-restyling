@@ -62,7 +62,7 @@ function EmbedConsentPlaceholder({ className, style }: { className?: string; sty
 // for the hosted-platform case and falls back to <video> otherwise.
 // 3rd-party iframe embeds set cross-site tracking cookies on load, so they're
 // gated behind marketing ("ads") consent, same as any other 3rd-party script.
-export function VideoEmbed({ url, className, style }: { url: string; className?: string; style?: React.CSSProperties }) {
+export function VideoEmbed({ url, poster, className, style }: { url: string; poster?: string; className?: string; style?: React.CSSProperties }) {
   const categories = useConsentCategories();
   const embed = toEmbedUrl(url);
   if (embed) {
@@ -80,7 +80,27 @@ export function VideoEmbed({ url, className, style }: { url: string; className?:
     );
   }
   return (
-    <video className={className} style={style} controls preload="metadata" playsInline>
+    <video
+      className={className}
+      style={style}
+      controls
+      preload="metadata"
+      playsInline
+      poster={poster || undefined}
+      // preload="metadata" only fetches duration/dimensions — it doesn't
+      // decode a frame, so without a poster the player shows solid black
+      // until the visitor presses play. Nudging currentTime forward by a
+      // fraction of a second once metadata is known forces the browser to
+      // seek to (and paint) that frame, giving a real preview at no extra
+      // bandwidth cost instead of requiring a separately-authored poster
+      // image per video. Skipped when a custom poster is set — that image
+      // should stay put instead of being replaced by a decoded frame.
+      onLoadedMetadata={(e) => {
+        if (poster) return;
+        const v = e.currentTarget;
+        if (v.currentTime === 0) v.currentTime = 0.05;
+      }}
+    >
       {/* .mov files are served as video/quicktime, which Chrome and Firefox
           refuse to play natively (only Safari does) — even though the file
           itself is perfectly valid and reachable. Most .mov exports (iPhone,
