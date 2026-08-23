@@ -3129,5 +3129,32 @@
     "browser": "Chrome",
     "visitedAt": "2026-08-23T09:42:16.758Z",
     "eventType": "pageview"
+  },
+  {
+    "id": "093872a2-5330-4ab0-9135-c9f748b58ccc",
+    "path": "/",
+    "sessionId": "c716da0e-8999-4a52-8115-514944edd135",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-23T09:52:40.197Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "af32a0ee-96c4-42db-bdd9-64c33f064caf",
+    "path": "/work",
+    "sessionId": "c716da0e-8999-4a52-8115-514944edd135",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-23T09:52:43.888Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "419b11d1-19a0-40b0-bf11-e057191c5f16",
+    "path": "/work/pintinox-trust-forged-in-steel-for-orlen-slovakia",
+    "sessionId": "c716da0e-8999-4a52-8115-514944edd135",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-23T09:52:49.229Z",
+    "eventType": "pageview"
   }
 ]
