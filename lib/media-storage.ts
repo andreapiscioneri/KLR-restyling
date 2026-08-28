@@ -1,5 +1,6 @@
 import { getStore, type Store } from "@netlify/blobs";
 import { readContent, writeContent } from "./storage";
+import { withRetry } from "./with-retry";
 
 const STORE_NAME = "media";
 const MANIFEST_KEY = "mediaLibrary";
@@ -44,8 +45,10 @@ export async function writeMediaManifest(records: MediaRecord[]): Promise<void> 
 }
 
 export async function putMediaBlob(key: string, data: ArrayBuffer, mimeType: string): Promise<void> {
-  const store = getMediaStore();
-  await store.set(key, data, { metadata: { mimeType } });
+  await withRetry(async () => {
+    const store = getMediaStore();
+    await store.set(key, data, { metadata: { mimeType } });
+  });
 }
 
 export async function getMediaBlob(key: string): Promise<{ data: ArrayBuffer; metadata: Record<string, unknown> } | null> {

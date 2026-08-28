@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { withRetry } from "./with-retry";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
 const IS_NETLIFY_CLOUD = Boolean(process.env.NETLIFY && !process.env.NETLIFY_LOCAL);
@@ -53,11 +54,13 @@ export async function readContent<T>(key: string, fallback: T): Promise<T> {
 export async function writeContent(key: string, data: unknown): Promise<void> {
   if (USE_BLOBS) {
     try {
-      const store = await initBlobStore();
-      await store.setJSON(key, data);
+      await withRetry(async () => {
+        const store = await initBlobStore();
+        await store.setJSON(key, data);
+      });
       return;
     } catch (err) {
-      console.error("Write content to Netlify blobs failed:", err);
+      console.error("Write content to Netlify blobs failed after retries:", err);
       if (IS_NETLIFY_CLOUD) {
         throw err;
       }
