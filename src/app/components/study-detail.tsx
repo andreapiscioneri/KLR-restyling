@@ -289,7 +289,7 @@ function CustomBlocksView({ blocks, studyTitle, openLightbox }: { blocks: Custom
               <div className={`grid gap-4 items-start ${galleryColsClass(block.columns, block.images.length)}`}>
                 {block.images.map((img, i) => {
                   const fit = galleryImageFit(img, block.fit);
-                  const { boxClass, imgClass } = mediaFrameClasses(fit, "h-[220px]");
+                  const { boxClass, imgClass } = mediaFrameClasses(fit, "h-[300px]");
                   const letterboxed = fit === "contain";
                   return (
                     <div
@@ -632,7 +632,7 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
                     <div className={`grid gap-4 items-start ${galleryColsClass(block.columns, block.images.length)}`}>
                     {block.images.map((img, i) => {
                       const fit = galleryImageFit(img, block.fit);
-                      const { boxClass, imgClass } = mediaFrameClasses(fit, "h-[220px]");
+                      const { boxClass, imgClass } = mediaFrameClasses(fit, "h-[300px]");
                       const letterboxed = fit === "contain";
                       return (
                         <div key={`${galleryImageUrl(img)}-${i}`} className={`relative rounded-[24px] overflow-hidden ${boxClass}`} style={{ ...softShadow, ...(letterboxed ? { background: "rgba(255,255,255,0.08)" } : {}) }}>

@@ -398,5 +398,21 @@
     "path": "/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
     "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
     "loggedAt": "2026-08-28T07:56:12.016Z"
+  },
+  {
+    "id": "41bb759a-c4f6-4147-8b84-4d061acff420",
+    "level": "platinum",
+    "duration": "1m",
+    "categories": {
+      "basic": true,
+      "content": true,
+      "optimization": true,
+      "ads": true
+    },
+    "consentedAt": "2026-08-28T08:01:52.617Z",
+    "expiresAt": "2026-09-28T08:01:52.617Z",
+    "path": "/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
+    "loggedAt": "2026-08-28T08:01:52.625Z"
   }
 ]
