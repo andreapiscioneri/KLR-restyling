@@ -3220,5 +3220,53 @@
     "browser": "Chrome",
     "visitedAt": "2026-08-28T07:48:07.556Z",
     "eventType": "pageview"
+  },
+  {
+    "id": "1bb936a5-d9ce-4612-b8da-eb89adeeb7f5",
+    "path": "/",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "047e3ce9-bc3f-4082-8e6e-0139d921737b",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-28T07:49:53.426Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "bf3a1f38-6f4b-4a93-b9a4-99ad18a83d0f",
+    "path": "/work",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "047e3ce9-bc3f-4082-8e6e-0139d921737b",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-28T07:49:54.592Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "f4346aad-baa4-4a97-bea8-611293d7b158",
+    "path": "/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "047e3ce9-bc3f-4082-8e6e-0139d921737b",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-28T07:50:12.850Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "a9ab0786-573b-4037-9270-b992622ac039",
+    "path": "/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "sessionId": "289cd388-1a53-4e7c-b045-ea823a3981ea",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-28T07:55:07.967Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "187a4d13-c164-4757-b5c0-be3d59ff05e3",
+    "path": "/work/oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
+    "sessionId": "8108cb1d-fb11-42a1-9394-d50c3d90fe0d",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-28T07:56:06.839Z",
+    "eventType": "pageview"
   }
 ]

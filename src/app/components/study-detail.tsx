@@ -261,11 +261,12 @@ function CustomBlocksView({ blocks, studyTitle, openLightbox }: { blocks: Custom
               <div className="max-w-5xl mx-auto">
                 <div className={`tracking-[0.3em] uppercase mb-8 text-center ${onDark ? "text-white/50" : "text-[#2E2784]/50"}`} style={{ fontSize: "0.65rem", fontWeight: 600 }}>{group.title || "Social"}</div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {group.items.map(({ label, video }) => (
+                  {/* No per-item "Instagram"/"Instagram Reels" caption: only some
+                      items in a run had a preceding heading block, so showing it
+                      pushed just those videos down inside their cell, misaligning
+                      them against label-less neighbors in the same row. */}
+                  {group.items.map(({ video }) => (
                     <div key={video.id} className="rounded-[20px] overflow-hidden bg-black" style={softShadow}>
-                      {label && label.type === "text" && (
-                        <div className="px-4 py-2 text-white/70 tracking-wide" style={{ fontSize: "0.72rem", fontWeight: 700 }}>{label.text}</div>
-                      )}
                       <div className="relative w-full" style={{ aspectRatio: "4 / 5" }}>
                         {video.type === "video" && <VideoEmbed url={video.videoUrl} className="w-full h-full" style={{ border: 0 }} />}
                       </div>
