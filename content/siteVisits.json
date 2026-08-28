@@ -3201,5 +3201,24 @@
     "browser": "Chrome",
     "visitedAt": "2026-08-28T06:42:23.363Z",
     "eventType": "pageview"
+  },
+  {
+    "id": "1e998257-1dfa-4e25-9e2a-1e991d3a8cd8",
+    "path": "/",
+    "referrer": "http://localhost:3000/",
+    "sessionId": "047e3ce9-bc3f-4082-8e6e-0139d921737b",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-28T07:44:11.978Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "52bfe42b-10bd-4b7a-ba5b-ce1b3a34e7dd",
+    "path": "/admin/login",
+    "sessionId": "047e3ce9-bc3f-4082-8e6e-0139d921737b",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-28T07:48:07.556Z",
+    "eventType": "pageview"
   }
 ]

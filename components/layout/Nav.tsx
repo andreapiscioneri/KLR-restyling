@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, ArrowUpRight, UserCircle } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useAdminBarVisible } from "./AdminBar";
 
@@ -140,21 +140,6 @@ export function Nav({ initialLinks, initialCtaLabel, initialCtaHref, logoUrl }: 
 
         {/* CTA + burger */}
         <div className="flex items-center gap-2">
-          <Link
-            href="/admin"
-            prefetch={false}
-            onClick={(e) => {
-              e.preventDefault();
-              window.location.href = "/admin";
-            }}
-            className="p-2 rounded-xl transition-all text-white/40 hover:text-white/70"
-            style={{ background: "rgba(255,255,255,0.04)" }}
-            aria-label="Admin"
-            title="Accedi al pannello admin"
-          >
-            <UserCircle className="w-4 h-4" />
-          </Link>
-
           <Link
             href={ctaHref}
             data-cursor="cta"

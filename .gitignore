@@ -5,3 +5,4 @@ dist
 .env.local
 .DS_Store
 admin-credentials.local.md
+admin-login-link.local.md
