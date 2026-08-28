@@ -248,7 +248,7 @@ const it: Dict = {
   },
   entityName: { brand: "Brand", user: "Utente", leader: "Membro", study: "Case Study", post: "Post", position: "Posizione Lavorativa" },
   itemField: {
-    brand: { id:"ID Slug", name:"Nome", tag:"Categoria", img:"Immagine (URL)", since:"Anno inizio", campaigns:"N° Campagne", countries:"N° Paesi", desc:"Descrizione" },
+    brand: { id:"ID Slug", name:"Nome", tag:"Categoria", img:"Immagine (URL)", logo:"Logo (per la striscia partner, sfondo trasparente)", since:"Anno inizio", campaigns:"N° Campagne", countries:"N° Paesi", desc:"Descrizione" },
     leader: { id:"ID Slug", name:"Nome", role:"Ruolo", img:"Foto (URL)", bio:"Bio", quote:"Citazione" },
     study: { id:"ID Slug", title:"Titolo", client:"Cliente", year:"Anno", location:"Paese", img:"Immagine (URL)", summary:"Sommario", focusKeyword:"Parola chiave SEO (focus keyword)", status:"Stato", publicPreview:"Anteprima pubblica", publicPreviewCheckbox:"Consenti anteprima senza login (link condivisibile per revisione bozza)", cornerstone:"Contenuto cornerstone", cornerstoneCheckbox:"Segna come contenuto cornerstone (più importante per la SEO)" },
     post: { slug:"Slug (URL)", title:"Titolo", date:"Data (YYYY-MM-DD)", category:"Categoria", img:"Immagine (URL)", excerpt:"Estratto", authorName:"Autore", authorAvatar:"Avatar autore (URL)", focusKeyword:"Parola chiave SEO (focus keyword)", status:"Stato", publicPreview:"Anteprima pubblica", publicPreviewCheckbox:"Consenti anteprima senza login (link condivisibile per revisione bozza)", cornerstone:"Contenuto cornerstone", cornerstoneCheckbox:"Segna come contenuto cornerstone (più importante per la SEO)", contentHtml:"Contenuto Articolo" },
@@ -482,7 +482,7 @@ const en: Dict = {
   },
   entityName: { brand: "Brand", user: "User", leader: "Member", study: "Case Study", post: "Post", position: "Job Position" },
   itemField: {
-    brand: { id:"ID Slug", name:"Name", tag:"Category", img:"Image (URL)", since:"Start year", campaigns:"Campaign count", countries:"Country count", desc:"Description" },
+    brand: { id:"ID Slug", name:"Name", tag:"Category", img:"Image (URL)", logo:"Logo (for the partner strip, transparent background)", since:"Start year", campaigns:"Campaign count", countries:"Country count", desc:"Description" },
     leader: { id:"ID Slug", name:"Name", role:"Role", img:"Photo (URL)", bio:"Bio", quote:"Quote" },
     study: { id:"ID Slug", title:"Title", client:"Client", year:"Year", location:"Country", img:"Image (URL)", summary:"Summary", focusKeyword:"SEO keyword (focus keyword)", status:"Status", publicPreview:"Public preview", publicPreviewCheckbox:"Allow preview without login (shareable link for draft review)", cornerstone:"Cornerstone content", cornerstoneCheckbox:"Mark as cornerstone content (more important for SEO)" },
     post: { slug:"Slug (URL)", title:"Title", date:"Date (YYYY-MM-DD)", category:"Category", img:"Image (URL)", excerpt:"Excerpt", authorName:"Author", authorAvatar:"Author avatar (URL)", focusKeyword:"SEO keyword (focus keyword)", status:"Status", publicPreview:"Public preview", publicPreviewCheckbox:"Allow preview without login (shareable link for draft review)", cornerstone:"Cornerstone content", cornerstoneCheckbox:"Mark as cornerstone content (more important for SEO)", contentHtml:"Article content" },
@@ -716,7 +716,7 @@ const ru: Dict = {
   },
   entityName: { brand: "Бренд", user: "Пользователь", leader: "Участник", study: "Кейс", post: "Пост", position: "Вакансия" },
   itemField: {
-    brand: { id:"ID Slug", name:"Название", tag:"Категория", img:"Изображение (URL)", since:"Год начала", campaigns:"Кол-во кампаний", countries:"Кол-во стран", desc:"Описание" },
+    brand: { id:"ID Slug", name:"Название", tag:"Категория", img:"Изображение (URL)", logo:"Логотип (для ленты партнёров, прозрачный фон)", since:"Год начала", campaigns:"Кол-во кампаний", countries:"Кол-во стран", desc:"Описание" },
     leader: { id:"ID Slug", name:"Имя", role:"Должность", img:"Фото (URL)", bio:"Био", quote:"Цитата" },
     study: { id:"ID Slug", title:"Заголовок", client:"Клиент", year:"Год", location:"Страна", img:"Изображение (URL)", summary:"Сводка", focusKeyword:"SEO ключевое слово (focus keyword)", status:"Статус", publicPreview:"Публичный просмотр", publicPreviewCheckbox:"Разрешить просмотр без входа (ссылка для проверки черновика)", cornerstone:"Ключевой контент", cornerstoneCheckbox:"Отметить как ключевой контент (важнее для SEO)" },
     post: { slug:"Slug (URL)", title:"Заголовок", date:"Дата (ГГГГ-ММ-ДД)", category:"Категория", img:"Изображение (URL)", excerpt:"Отрывок", authorName:"Автор", authorAvatar:"Аватар автора (URL)", focusKeyword:"SEO ключевое слово (focus keyword)", status:"Статус", publicPreview:"Публичный просмотр", publicPreviewCheckbox:"Разрешить просмотр без входа (ссылка для проверки черновика)", cornerstone:"Ключевой контент", cornerstoneCheckbox:"Отметить как ключевой контент (важнее для SEO)", contentHtml:"Текст статьи" },

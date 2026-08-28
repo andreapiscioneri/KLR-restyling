@@ -40,7 +40,7 @@ export default async function Page() {
       initialStats={stats as HomeStats | undefined}
       initialStudies={(studies ?? undefined) as HomeStudies | undefined}
       initialPages={pages as Record<string, Record<string, unknown>>}
-      initialBrands={brands as { name: string; img?: string }[] | undefined}
+      initialBrands={brands as { name: string; logo?: string | null }[] | undefined}
     />
   );
 }

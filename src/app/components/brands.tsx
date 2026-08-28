@@ -4,7 +4,7 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { ArrowUpRight, ArrowDown, Baby, ChefHat, Dumbbell, Plane, Sparkles, Trees, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { softShadow } from "./ui-bits";
-import { brandPartners, brandPartnershipProcess, brands as fallbackBrands, images, productCategories, whyBrandsPartner } from "../data";
+import { brandPartnershipProcess, brands as fallbackBrands, images, productCategories, whyBrandsPartner } from "../data";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import type { Route } from "../App";
@@ -139,7 +139,7 @@ export function Brands({ go, initialBrands, initialBrandsCms }: BrandsProps) {
   const brandsCms = initialBrandsCms ?? {};
   const featured = brands.slice(0, 4);
   const categoryIcons = [ChefHat, Trees, Plane, Sparkles, Baby, Dumbbell] as const;
-  const partnerLogos = brandPartners.filter((b) => b.logo);
+  const partnerBrands = brands.filter((b) => b.logo);
 
   const heroEyebrow = brandsCms.hero?.eyebrow || "Brands";
   const heroTitle = brandsCms.hero?.title || "Exceptional Brands. Unforgettable Rewards.";
@@ -180,8 +180,9 @@ export function Brands({ go, initialBrands, initialBrandsCms }: BrandsProps) {
               width: "max-content",
             }}
           >
-            {[...partnerLogos, ...partnerLogos].map((b, i) => (
-              <div key={i} className="flex items-center justify-center h-14 w-28 sm:w-32 md:w-36 shrink-0">
+            {[...partnerBrands, ...partnerBrands].map((b, i) => (
+              <div key={`${b.id}-${i}`} className="flex items-center justify-center h-14 w-28 sm:w-32 md:w-36 shrink-0">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={b.logo!}
                   alt={b.name}

@@ -53,15 +53,15 @@ export const founders = leadership.slice(0, 3);
 
 // Brand partners with per-brand stats from spec
 export const brands = [
-  { id: "bugatti", name: "Bugatti", tag: "Kitchenware", img: "/api/media/wp-1924", since: "2020", campaigns: "32", countries: "17", desc: "Iconic Italian design for the modern kitchen — a collection synonymous with craftsmanship and style." },
-  { id: "pintinox", name: "Pintinox", tag: "Cookware & BBQ", img: "/api/media/wp-2932", since: "2024", campaigns: "25", countries: "15", desc: "Since 1919, Pintinox has defined the art of Italian stainless steel — cutlery, tabletop and cookware." },
-  { id: "nasa", name: "NASA Stardust", tag: "Family & Kids", img: "/api/media/wp-3121", since: "2023", campaigns: "15", countries: "14", desc: "Exclusive NASA-licensed collectibles — a cosmic collection engineered for ambitious loyalty programs." },
-  { id: "red-bull", name: "Oracle Red Bull Racing", tag: "Lifestyle", img: "/api/media/wp-4522", since: "2025", campaigns: "5", countries: "5", desc: "Exclusive F1 merchandise — speed, precision and adrenaline for loyal shoppers." },
-  { id: "eurosport", name: "Eurosport", tag: "Sports", img: images.teamwork, since: "2022", campaigns: "12", countries: "8", desc: "Multi-market sports campaigns across the Baltics & CEE — the Eurosport brand meets loyalty." },
-  { id: "spear-jackson", name: "Spear & Jackson", tag: "Outdoor", img: "/api/media/wp-2741", since: "2021", campaigns: "18", countries: "11", desc: "British garden heritage since 1760 — tools that bring shoppers closer to the outdoors." },
-  { id: "zanussi", name: "Zanussi", tag: "Kitchenware", img: "/api/media/wp-2755", since: "2019", campaigns: "22", countries: "12", desc: "A European household name reimagined for loyalty — kitchen tools that simplify everyday life." },
-  { id: "guzzini", name: "Guzzini Chefline", tag: "Kitchenware", img: "/api/media/wp-3440", since: "2023", campaigns: "9", countries: "6", desc: "Colorful, contemporary Italian design for the table and kitchen." },
-  { id: "police", name: "Police", tag: "Lifestyle", img: "/api/media/wp-3485", since: "2022", campaigns: "7", countries: "5", desc: "Attitude, design and heritage. The Police lifestyle brand brings identity to retail and petrol loyalty." },
+  { id: "bugatti", name: "Bugatti", tag: "Kitchenware", img: "/api/media/wp-1924", logo: "/partner/casa-bugatti-logo-vector-1.svg", since: "2020", campaigns: "32", countries: "17", desc: "Iconic Italian design for the modern kitchen — a collection synonymous with craftsmanship and style." },
+  { id: "pintinox", name: "Pintinox", tag: "Cookware & BBQ", img: "/api/media/wp-2932", logo: "/partner/Logo-Pintinox.png", since: "2024", campaigns: "25", countries: "15", desc: "Since 1919, Pintinox has defined the art of Italian stainless steel — cutlery, tabletop and cookware." },
+  { id: "nasa", name: "NASA Stardust", tag: "Family & Kids", img: "/api/media/wp-3121", logo: "/partner/pngkey.com-nasa-logo-png-274741.png", since: "2023", campaigns: "15", countries: "14", desc: "Exclusive NASA-licensed collectibles — a cosmic collection engineered for ambitious loyalty programs." },
+  { id: "red-bull", name: "Oracle Red Bull Racing", tag: "Lifestyle", img: "/api/media/wp-4522", logo: "/partner/ORBR_TEAM_LOGO_22_MONO_WHITE.png", since: "2025", campaigns: "5", countries: "5", desc: "Exclusive F1 merchandise — speed, precision and adrenaline for loyal shoppers." },
+  { id: "eurosport", name: "Eurosport", tag: "Sports", img: images.teamwork, logo: "/partner/Eurosport-1.svg", since: "2022", campaigns: "12", countries: "8", desc: "Multi-market sports campaigns across the Baltics & CEE — the Eurosport brand meets loyalty." },
+  { id: "spear-jackson", name: "Spear & Jackson", tag: "Outdoor", img: "/api/media/wp-2741", logo: "/partner/SpearJackson-1.svg", since: "2021", campaigns: "18", countries: "11", desc: "British garden heritage since 1760 — tools that bring shoppers closer to the outdoors." },
+  { id: "zanussi", name: "Zanussi", tag: "Kitchenware", img: "/api/media/wp-2755", logo: "/partner/zanussi-01.svg", since: "2019", campaigns: "22", countries: "12", desc: "A European household name reimagined for loyalty — kitchen tools that simplify everyday life." },
+  { id: "guzzini", name: "Guzzini Chefline", tag: "Kitchenware", img: "/api/media/wp-3440", logo: "/partner/LOGO_CHEFLINE.png", since: "2023", campaigns: "9", countries: "6", desc: "Colorful, contemporary Italian design for the table and kitchen." },
+  { id: "police", name: "Police", tag: "Lifestyle", img: "/api/media/wp-3485", logo: "/partner/Police-logo.png", since: "2022", campaigns: "7", countries: "5", desc: "Attitude, design and heritage. The Police lifestyle brand brings identity to retail and petrol loyalty." },
 ];
 
 // Brand partner logos grid

@@ -154,7 +154,7 @@ const PAGE_TABS: { id: PageKey; label: string; icon: LucideIcon }[] = [
 /* ══════════════════════════════════════════════════
    TYPES
 ══════════════════════════════════════════════════ */
-type BrandItem    = { id:string;name:string;tag:string;img:string;since:string;campaigns:string;countries:string;desc:string };
+type BrandItem    = { id:string;name:string;tag:string;img:string;logo?:string;since:string;campaigns:string;countries:string;desc:string };
 type LeaderItem   = { id:string;name:string;role:string;img:string;bio:string;quote:string };
 type StudyResult  = { k:string;v:string };
 type StudyRewardGroup = { title:string;subtitle:string;items:string[] };
@@ -245,7 +245,7 @@ function AdminDashboardInner({ currentUser }: { currentUser: AdminUser }) {
     if (section === "accessibility" && !posts)      load("posts");
   }, [section, stats, brands, leadership, studies, posts, pages, load, colors, users, settings, positions, customPages, cookieBanner]);
 
-  async function save(type: string, payload: unknown) {
+  async function save(type: string, payload: unknown, attempt = 1) {
     setSaving(true); setSaved(false); setSaveError(false); setSaveErrorMessage(null);
     try {
       const res = await fetch(`/api/admin/content?type=${type}`, {
@@ -254,22 +254,40 @@ function AdminDashboardInner({ currentUser }: { currentUser: AdminUser }) {
         body: JSON.stringify(payload),
       });
       if (!res.ok) {
+        // Transient network/storage hiccups (e.g. a cold-start Blobs write)
+        // are common enough to deserve one silent retry before surfacing an
+        // error to the editor.
+        if (attempt < 2) {
+          await new Promise(r => setTimeout(r, 800));
+          return save(type, payload, attempt + 1);
+        }
         const json = await res.json().catch(() => null);
         const message = json?.error || json?.details || `HTTP ${res.status}`;
         console.error("Admin save failed:", message, json);
         setSaveErrorMessage(String(message));
         setSaveError(true);
         setSaving(false);
-        setTimeout(() => setSaveError(false), 4000);
+        setTimeout(() => setSaveError(false), 6000);
+        // The section's local state was already updated optimistically before
+        // this call — if the save truly failed, re-fetch the real persisted
+        // data so the admin UI can't silently drift from what's actually
+        // live on the site.
+        load(type);
         return;
       }
       setSaving(false); setSaved(true);
       setTimeout(() => setSaved(false), 3000);
     } catch (err) {
+      if (attempt < 2) {
+        await new Promise(r => setTimeout(r, 800));
+        return save(type, payload, attempt + 1);
+      }
       console.error("Admin save exception:", err);
       setSaveErrorMessage(err instanceof Error ? err.message : String(err));
       setSaveError(true);
       setSaving(false);
+      setTimeout(() => setSaveError(false), 6000);
+      load(type);
     }
   }
 
@@ -571,16 +589,22 @@ function useImageUpload(onUrl: (url: string) => void) {
   const ref = useRef<HTMLInputElement>(null);
   const { t } = useAdminI18n();
 
-  async function handleFile(file: File) {
+  async function handleFile(file: File, attempt = 1) {
     setUploading(true); setUploadError("");
     const fd = new FormData();
     fd.append("file", file);
     try {
       const res  = await fetch("/api/admin/upload", { method: "POST", body: fd });
       const json = await res.json() as { url?: string; error?: string };
-      if (json.url) { onUrl(json.url); }
-      else          { setUploadError(json.error || t.common.uploadFailed); }
-    } catch { setUploadError(t.common.networkError); }
+      if (json.url) { onUrl(json.url); setUploading(false); return; }
+      // A cold-start Netlify Blobs write can fail transiently; retry once
+      // before showing an error, same as the content-save path.
+      if (attempt < 2) { await new Promise(r => setTimeout(r, 800)); return handleFile(file, attempt + 1); }
+      setUploadError(json.error || t.common.uploadFailed);
+    } catch {
+      if (attempt < 2) { await new Promise(r => setTimeout(r, 800)); return handleFile(file, attempt + 1); }
+      setUploadError(t.common.networkError);
+    }
     setUploading(false);
   }
 
@@ -2449,7 +2473,9 @@ const SECTOR_LABELS: Record<string,string> = { retail: "Grocery", petrol: "Fuel"
 
 const BRAND_FIELDS:    FieldDef[] = [
   {key:"id",label:"ID Slug",type:"text"},{key:"name",label:"Nome",type:"text"},{key:"tag",label:"Categoria",type:"text"},
-  {key:"img",label:"Immagine (URL)",type:"url"},{key:"since",label:"Anno inizio",type:"text"},
+  {key:"img",label:"Immagine (URL)",type:"url"},
+  {key:"logo",label:"Logo (per la striscia partner, sfondo trasparente)",type:"url"},
+  {key:"since",label:"Anno inizio",type:"text"},
   {key:"campaigns",label:"N° Campagne",type:"text"},{key:"countries",label:"N° Paesi",type:"text"},
   {key:"desc",label:"Descrizione",type:"textarea"},
 ];
@@ -2492,7 +2518,7 @@ const POSITION_FIELDS: FieldDef[] = [
   {key:"loc",label:"Sede",type:"text"},{key:"description",label:"Descrizione",type:"textarea"},
 ];
 
-function BrandsEditor    ({ data, onSave }: { data:BrandItem[]|null;    onSave:(d:BrandItem[])=>void })    { const { t } = useAdminI18n(); return <ListEditor<BrandItem>    title={t.entityName.brand}  data={data} fields={translateFields(BRAND_FIELDS, t.itemField.brand)}    nameKey="name"  imgKey="img" onSave={onSave} blank={{id:"",name:"",tag:"",img:"",since:"",campaigns:"",countries:"",desc:""}}/>; }
+function BrandsEditor    ({ data, onSave }: { data:BrandItem[]|null;    onSave:(d:BrandItem[])=>void })    { const { t } = useAdminI18n(); return <ListEditor<BrandItem>    title={t.entityName.brand}  data={data} fields={translateFields(BRAND_FIELDS, t.itemField.brand)}    nameKey="name"  imgKey="img" onSave={onSave} blank={{id:"",name:"",tag:"",img:"",logo:"",since:"",campaigns:"",countries:"",desc:""}}/>; }
 function UsersEditor     ({ data, onSave }: { data:UserItem[]|null;     onSave:(d:UserItem[])=>void })     { const { t } = useAdminI18n(); return <ListEditor<UserItem>     title={t.entityName.user}   data={data} fields={translateFields(USER_FIELDS, t.itemField.user)}     nameKey="name"  imgKey="avatar" avatarFallback onSave={onSave} blank={{id:"",name:"",email:"",avatar:"",password:"",role:"editor"}}/>; }
 function LeadershipEditor({ data, onSave }: { data:LeaderItem[]|null;   onSave:(d:LeaderItem[])=>void })   { const { t } = useAdminI18n(); return <ListEditor<LeaderItem>   title={t.entityName.leader} data={data} fields={translateFields(LEADER_FIELDS, t.itemField.leader)}   nameKey="name"  imgKey="img" onSave={onSave} blank={{id:"",name:"",role:"",img:"",bio:"",quote:""}}/>; }
 const STUDY_BLANK_DETAILS: StudyDetails = { sourceUrl:"",campaignTitle:"",challenge:"",rewardGroups:[],activations:[],mechanics:[],gallery:[],social:[],videos:[] };

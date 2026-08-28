@@ -3156,5 +3156,50 @@
     "browser": "Chrome",
     "visitedAt": "2026-08-23T09:52:49.229Z",
     "eventType": "pageview"
+  },
+  {
+    "id": "745f7691-a13f-4c14-b26c-441aea0228ee",
+    "path": "/",
+    "sessionId": "f1889425-e3a2-4c06-be2c-6305ce570939",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-28T06:29:22.057Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "f231d491-b8c8-49a0-8400-6a69d420b8e2",
+    "path": "/",
+    "sessionId": "3fc21bab-147e-486f-b33a-400ab1f8a9b1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-28T06:30:08.008Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "a97259c0-4500-4058-bc83-9b033182987b",
+    "path": "/brands",
+    "sessionId": "3fc21bab-147e-486f-b33a-400ab1f8a9b1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-28T06:30:14.297Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "486a849c-cb2e-4bce-a777-36dd1e9d3c07",
+    "path": "/",
+    "sessionId": "047e3ce9-bc3f-4082-8e6e-0139d921737b",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-28T06:31:11.039Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "f671ad3a-13b0-42cc-9402-97ff7430ab17",
+    "path": "/",
+    "sessionId": "047e3ce9-bc3f-4082-8e6e-0139d921737b",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-08-28T06:42:23.363Z",
+    "eventType": "pageview"
   }
 ]

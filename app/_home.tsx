@@ -475,8 +475,8 @@ function ClientLogos({ data = {} }: { data?: SectionData }) {
   );
 }
 
-function PartnerLogosBand({ brands }: { brands: typeof defaultBrands }) {
-  const partnerLogos = brands.filter((b) => b.logo);
+function PartnerLogosBand({ brands }: { brands: { id?: string; name: string; logo?: string | null }[] }) {
+  const partnerBrands = brands.filter((b) => b.logo);
   return (
     <section className="relative py-14 overflow-hidden" style={{ background: "#06051C" }}>
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 80% at 50% 50%, rgba(46,39,132,0.25) 0%, transparent 70%)" }} />
@@ -493,8 +493,9 @@ function PartnerLogosBand({ brands }: { brands: typeof defaultBrands }) {
           className="flex gap-8 sm:gap-10 md:gap-12 items-center"
           style={{ animation: "marquee 28s linear infinite", width: "max-content" }}
         >
-          {[...partnerLogos, ...partnerLogos].map((b, i) => (
-            <div key={i} className="flex items-center justify-center h-14 w-28 sm:w-32 md:w-36 shrink-0">
+          {[...partnerBrands, ...partnerBrands].map((b, i) => (
+            <div key={`${b.id ?? b.name}-${i}`} className="flex items-center justify-center h-14 w-28 sm:w-32 md:w-36 shrink-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={b.logo!}
                 alt={b.name}
@@ -724,16 +725,14 @@ type HomePageProps = {
   initialStats?: HomeStats;
   initialStudies?: HomeStudies;
   initialPages?: Record<string, Record<string, unknown>>;
-  initialBrands?: { name: string; img?: string }[];
+  initialBrands?: { name: string; logo?: string | null }[];
 };
 
 export function HomePage({ initialStats, initialStudies, initialPages, initialBrands }: HomePageProps = {}) {
   const stats = initialStats ?? defaultStats;
   const studies = initialStudies ?? defaultStudies;
   const pages = initialPages ?? {};
-  // Marquee loghi: usa sempre i loghi trasparenti statici (come su /brands),
-  // non le foto prodotto caricate in "Brand Partners" nel CMS.
-  const brands = defaultBrands;
+  const brands = initialBrands?.length ? initialBrands : defaultBrands;
 
   const home = (pages.home as Record<string, unknown>) || {};
   const heroData         = (home.hero          as HeroData)    || {};

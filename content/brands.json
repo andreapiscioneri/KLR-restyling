@@ -7,7 +7,8 @@
     "since": "2020",
     "campaigns": "32",
     "countries": "17",
-    "desc": "Iconic Italian design for the modern kitchen — a collection synonymous with craftsmanship and style."
+    "desc": "Iconic Italian design for the modern kitchen \u2014 a collection synonymous with craftsmanship and style.",
+    "logo": "/partner/casa-bugatti-logo-vector-1.svg"
   },
   {
     "id": "pintinox",
@@ -17,7 +18,8 @@
     "since": "2024",
     "campaigns": "25",
     "countries": "15",
-    "desc": "Since 1919, Pintinox has defined the art of Italian stainless steel — cutlery, tabletop and cookware."
+    "desc": "Since 1919, Pintinox has defined the art of Italian stainless steel \u2014 cutlery, tabletop and cookware.",
+    "logo": "/partner/Logo-Pintinox.png"
   },
   {
     "id": "nasa",
@@ -27,7 +29,8 @@
     "since": "2023",
     "campaigns": "15",
     "countries": "14",
-    "desc": "Exclusive NASA-licensed collectibles — a cosmic collection engineered for ambitious loyalty programs."
+    "desc": "Exclusive NASA-licensed collectibles \u2014 a cosmic collection engineered for ambitious loyalty programs.",
+    "logo": "/partner/pngkey.com-nasa-logo-png-274741.png"
   },
   {
     "id": "red-bull",
@@ -37,7 +40,8 @@
     "since": "2025",
     "campaigns": "5",
     "countries": "5",
-    "desc": "Exclusive F1 merchandise — speed, precision and adrenaline for loyal shoppers."
+    "desc": "Exclusive F1 merchandise \u2014 speed, precision and adrenaline for loyal shoppers.",
+    "logo": "/partner/ORBR_TEAM_LOGO_22_MONO_WHITE.png"
   },
   {
     "id": "eurosport",
@@ -47,7 +51,8 @@
     "since": "2022",
     "campaigns": "12",
     "countries": "8",
-    "desc": "Multi-market sports campaigns across the Baltics & CEE — the Eurosport brand meets loyalty."
+    "desc": "Multi-market sports campaigns across the Baltics & CEE \u2014 the Eurosport brand meets loyalty.",
+    "logo": "/partner/Eurosport-1.svg"
   },
   {
     "id": "spear-jackson",
@@ -57,7 +62,8 @@
     "since": "2021",
     "campaigns": "18",
     "countries": "11",
-    "desc": "British garden heritage since 1760 — tools that bring shoppers closer to the outdoors."
+    "desc": "British garden heritage since 1760 \u2014 tools that bring shoppers closer to the outdoors.",
+    "logo": "/partner/SpearJackson-1.svg"
   },
   {
     "id": "zanussi",
@@ -67,7 +73,8 @@
     "since": "2019",
     "campaigns": "22",
     "countries": "12",
-    "desc": "A European household name reimagined for loyalty — kitchen tools that simplify everyday life."
+    "desc": "A European household name reimagined for loyalty \u2014 kitchen tools that simplify everyday life.",
+    "logo": "/partner/zanussi-01.svg"
   },
   {
     "id": "guzzini",
@@ -77,7 +84,8 @@
     "since": "2023",
     "campaigns": "9",
     "countries": "6",
-    "desc": "Colorful, contemporary Italian design for the table and kitchen."
+    "desc": "Colorful, contemporary Italian design for the table and kitchen.",
+    "logo": "/partner/LOGO_CHEFLINE.png"
   },
   {
     "id": "police",
@@ -87,6 +95,7 @@
     "since": "2022",
     "campaigns": "7",
     "countries": "5",
-    "desc": "Attitude, design and heritage. The Police lifestyle brand brings identity to retail and petrol loyalty."
+    "desc": "Attitude, design and heritage. The Police lifestyle brand brings identity to retail and petrol loyalty.",
+    "logo": "/partner/Police-logo.png"
   }
 ]
