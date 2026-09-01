@@ -813,7 +813,6 @@ function CollectionsCarouselPanel({ data, onSave }: { data: PagesDataLocal | nul
           <button type="button" onClick={addNewBrand} style={listAddBtn}><Plus size={13}/>{t.collectionsCarousel.addBrandButton}</button>
         </div>
       </Panel>
-      <SaveBtn onClick={save}/>
     </div>
   );
 }
