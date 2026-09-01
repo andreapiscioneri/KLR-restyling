@@ -3598,5 +3598,15 @@
     "browser": "Chrome",
     "visitedAt": "2026-09-01T20:23:37.222Z",
     "eventType": "pageview"
+  },
+  {
+    "id": "3d1609da-50ce-4879-810a-b1d5abc9ca81",
+    "path": "/admin/dashboard",
+    "referrer": "http://localhost:3000/admin/dashboard",
+    "sessionId": "c3473cbb-550d-41a2-8b45-d4eab78f8dd1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-09-01T20:47:20.984Z",
+    "eventType": "pageview"
   }
 ]

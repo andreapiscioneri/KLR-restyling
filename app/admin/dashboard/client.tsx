@@ -736,6 +736,7 @@ function serializeCarouselRows(rows: CarouselRow[]): string {
 }
 
 function CollectionsCarouselPanel({ data, onSave }: { data: PagesDataLocal | null; onSave: (d: unknown) => void }) {
+  const { t } = useAdminI18n();
   const [text, setText]         = useState("");
   const [newBrand, setNewBrand] = useState("");
   const [justAdded, setJustAdded] = useState<string | null>(null);
@@ -787,29 +788,29 @@ function CollectionsCarouselPanel({ data, onSave }: { data: PagesDataLocal | nul
       <div style={{ display:"flex",justifyContent:"flex-end",marginBottom:12 }}>
         <SaveBtn onClick={save}/>
       </div>
-      <Panel title="Collezioni per brand" info="Le card del carosello 'Our Collections' mostrato su /brands, raggruppate per brand. Ogni riga è una collezione con la sua immagine.">
+      <Panel title={t.collectionsCarousel.panelTitle} info={t.collectionsCarousel.panelInfo}>
         <div style={{ display:"flex",flexDirection:"column",gap:10 }}>
           {groups.map(g => (
-            <Accordion key={g.brand} title={g.brand} subtitle={`${g.items.length} collezion${g.items.length===1?"e":"i"}`} defaultOpen={g.brand === justAdded}>
+            <Accordion key={g.brand} title={g.brand} subtitle={`${g.items.length} ${g.items.length===1?t.collectionsCarousel.countOne:t.collectionsCarousel.countMany}`} defaultOpen={g.brand === justAdded}>
               <div style={{ display:"flex",flexDirection:"column",gap:10 }}>
                 {g.items.map(({ idx, row }) => (
                   <div key={idx} style={{ display:"flex",gap:8,alignItems:"center",border:"1px solid #eee",borderRadius:10,padding:10 }}>
                     <div style={{ width:170,flexShrink:0 }}>
-                      <Input value={row.item} placeholder="Nome collezione" onChange={v=>update(idx,{item:v})}/>
+                      <Input value={row.item} placeholder={t.collectionsCarousel.itemPlaceholder} onChange={v=>update(idx,{item:v})}/>
                     </div>
                     <div style={{ flex:1 }}><ImageField value={row.src} onChange={v=>update(idx,{src:v})} label=""/></div>
-                    <button type="button" onClick={()=>remove(idx)} aria-label="Rimuovi" style={listRowBtn}><Trash2 size={13}/></button>
+                    <button type="button" onClick={()=>remove(idx)} aria-label={t.collectionsCarousel.removeAria} style={listRowBtn}><Trash2 size={13}/></button>
                   </div>
                 ))}
-                <button type="button" onClick={()=>addToBrand(g.brand)} style={listAddBtn}><Plus size={13}/>Aggiungi a {g.brand}</button>
+                <button type="button" onClick={()=>addToBrand(g.brand)} style={listAddBtn}><Plus size={13}/>{t.collectionsCarousel.addToBrand.replace("{brand}", g.brand)}</button>
               </div>
             </Accordion>
           ))}
-          {!groups.length && <div style={{ fontSize:13,color:"#999" }}>Nessuna collezione ancora.</div>}
+          {!groups.length && <div style={{ fontSize:13,color:"#999" }}>{t.collectionsCarousel.empty}</div>}
         </div>
         <div style={{ display:"flex",gap:8,alignItems:"center",marginTop:16,paddingTop:14,borderTop:"1px solid #f0f0f6" }}>
-          <div style={{ flex:1 }}><Input value={newBrand} placeholder="Nuovo brand..." onChange={setNewBrand}/></div>
-          <button type="button" onClick={addNewBrand} style={listAddBtn}><Plus size={13}/>Aggiungi brand</button>
+          <div style={{ flex:1 }}><Input value={newBrand} placeholder={t.collectionsCarousel.newBrandPlaceholder} onChange={setNewBrand}/></div>
+          <button type="button" onClick={addNewBrand} style={listAddBtn}><Plus size={13}/>{t.collectionsCarousel.addBrandButton}</button>
         </div>
       </Panel>
       <SaveBtn onClick={save}/>
@@ -2309,7 +2310,7 @@ function PagesEditor({ data, onSave }: { data:PagesDataLocal|null; onSave:(d:unk
               )}
               {activePage === "brands" && sectionKey === "collections" && (
                 <div style={{ padding:"10px 14px",background:"#F8F8FC",borderRadius:8,fontSize:12,color:"#666",marginBottom:12 }}>
-                  Le singole collezioni (etichette e immagini) si gestiscono in <strong>Our Collections</strong>, nella sidebar. Qui sotto trovi solo il testo introduttivo di questa sezione.
+                  {t.collectionsCarousel.pagesHint}
                 </div>
               )}
               <Grid>
