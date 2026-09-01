@@ -29,13 +29,13 @@ const ADMIN_INTL_LOCALE: Record<"it" | "en" | "ru", string> = {
 };
 
 type TopSection =
-  | "overview" | "pages" | "stats" | "brands" | "leadership"
+  | "overview" | "pages" | "stats" | "brands" | "globalBrands" | "leadership"
   | "studies" | "posts" | "colors" | "users" | "settings"
   | "positions" | "customPages" | "cookies" | "media" | "analytics" | "leads" | "seo" | "accessibility";
 
 const ROLE_SECTIONS: Record<string, TopSection[]> = {
-  superadmin: ["overview","pages","stats","brands","leadership","studies","posts","colors","users","settings","positions","customPages","cookies","media","analytics","leads","seo","accessibility"],
-  admin:      ["overview","pages","stats","brands","leadership","studies","posts","colors","settings","positions","customPages","cookies","media","analytics","leads","seo","accessibility"],
+  superadmin: ["overview","pages","stats","brands","globalBrands","leadership","studies","posts","colors","users","settings","positions","customPages","cookies","media","analytics","leads","seo","accessibility"],
+  admin:      ["overview","pages","stats","brands","globalBrands","leadership","studies","posts","colors","settings","positions","customPages","cookies","media","analytics","leads","seo","accessibility"],
   editor:     ["overview","studies","posts","media","seo"],
 };
 
@@ -60,7 +60,8 @@ type NavGroup = "principale" | "contenuti" | "media" | "configurazione" | "siste
 const TOP_NAV: { id: TopSection; label: string; icon: LucideIcon; group: NavGroup }[] = [
   { id: "overview",    label: "Overview",       icon: LayoutGrid, group: "principale" },
   { id: "pages",       label: "Pagine & Testi", icon: FileText,   group: "contenuti" },
-  { id: "brands",      label: "Brand Partners", icon: Tags,       group: "contenuti" },
+  { id: "brands",      label: "Our Collections", icon: Tags,      group: "contenuti" },
+  { id: "globalBrands",label: "Our Global Brands", icon: Globe,   group: "contenuti" },
   { id: "leadership",  label: "Team",           icon: Users,      group: "contenuti" },
   { id: "studies",     label: "Case Studies",   icon: FolderOpen, group: "contenuti" },
   { id: "posts",       label: "Insights",       icon: PenLine,    group: "contenuti" },
@@ -92,7 +93,8 @@ const SECTION_DESCRIPTIONS: Record<TopSection, string> = {
   pages:       "Modifica i testi, i titoli, le immagini e la visibilità delle sezioni di ogni pagina del sito. Ogni scheda in alto corrisponde a una pagina.",
   stats:       "I numeri mostrati nelle sezioni statistiche del sito (es. anni di attività, campagne realizzate, paesi).",
   seo:         "Monitoraggio SEO, SEM (targeting parola chiave per ricerca/campagne a pagamento), GEO (ottimizzazione per i motori generativi AI) e AIO (AI Overview) di tutti i contenuti pubblicati: punteggi, contenuti da migliorare e valutazione in tempo reale mentre scrivi. L'accessibilità è valutata separatamente nella sezione dedicata.",
-  brands:      "I brand partner mostrati nella sezione dedicata del sito, con logo, descrizione e dati.",
+  brands:      "Le schede complete di ogni brand partner (foto, categoria, descrizione, statistiche) mostrate nelle card in evidenza e nelle pagine di dettaglio su /brands.",
+  globalBrands: "I loghi dei brand partner mostrati nella striscia scorrevole in home e in cima alla pagina /brands. Aggiungi, sostituisci o rimuovi un logo da qui.",
   leadership:  "I membri del team mostrati nella pagina About/Team, con foto, ruolo e biografia.",
   studies:     "I case study/campagne pubblicati sul sito: dati generali, risultati, reward e galleria immagini.",
   posts:       "Gli articoli del blog/Insights, con testo formattato, immagine di copertina e autore.",
@@ -114,7 +116,8 @@ const SECTION_USAGE: Record<TopSection, string[]> = {
   pages:       ["Usala quando devi cambiare un testo, un titolo o un'immagine già presente sul sito.", "Le modifiche sono visibili subito dopo il salvataggio, senza bisogno di deploy."],
   stats:       ["Aggiorna questi numeri solo quando i dati aziendali cambiano davvero (es. nuovo anno, nuova campagna conclusa)."],
   seo:         ["Consulta questa sezione dopo aver pubblicato per vedere quali articoli/case study vanno migliorati.", "Mentre scrivi un post o un case study, la valutazione SEO/GEO/AIO appare in tempo reale in fondo al modulo di modifica."],
-  brands:      ["Aggiungi un brand quando firmi una nuova partnership; modificalo se cambiano i dati del cliente."],
+  brands:      ["Aggiungi un brand quando firmi una nuova partnership; modifica foto, descrizione e statistiche se cambiano i dati del cliente."],
+  globalBrands: ["Usa questa sezione se devi solo aggiornare o aggiungere il logo mostrato in home, senza toccare foto, descrizione o statistiche del brand."],
   leadership:  ["Aggiorna quando un membro del team entra, esce o cambia ruolo/foto."],
   studies:     ["Pubblica un nuovo case study a campagna conclusa; usa i campi 'Dettaglio' per la pagina completa del progetto."],
   posts:       ["Pubblica un nuovo articolo o correggi un testo esistente del blog."],
@@ -232,6 +235,7 @@ function AdminDashboardInner({ currentUser }: { currentUser: AdminUser }) {
     if (section === "settings"    && !settings)     load("settings");
     if (section === "stats"       && !stats)        load("stats");
     if (section === "brands"      && !brands)       load("brands");
+    if (section === "globalBrands" && !brands)      load("brands");
     if (section === "leadership"  && !leadership)   load("leadership");
     if (section === "studies"     && !studies)      load("studies");
     if (section === "posts"       && !posts)        load("posts");
@@ -417,6 +421,7 @@ function AdminDashboardInner({ currentUser }: { currentUser: AdminUser }) {
           {section === "settings"    && <SettingsEditor   data={settings}    onSave={d => { setSettings(d as Record<string,unknown>); save("settings",   d); }} />}
           {section === "stats"       && <StatsEditor      data={stats}       onSave={d => { setStats(d);                          save("stats",       d); }} />}
           {section === "brands"      && <BrandsEditor     data={brands}      onSave={d => { setBrands(d);                         save("brands",      d); }} />}
+          {section === "globalBrands" && <GlobalBrandsEditor data={brands}   onSave={d => { setBrands(d);                         save("brands",      d); }} />}
           {section === "leadership"  && <LeadershipEditor data={leadership}  onSave={d => { setLeadership(d);                     save("leadership",  d); }} />}
           {section === "studies"     && <StudiesEditor    data={studies}     brands={brands} users={users} currentUser={currentUser} onSave={d => { setStudies(d);                        save("studies",     d); }} />}
           {section === "posts"       && <PostsEditor      data={posts}       users={users} currentUser={currentUser} onSave={d => { setPosts(d);                          save("posts",       d); }} />}
@@ -701,6 +706,38 @@ function KVListField({ label, value, onChange, kLabel, vLabel }: { label:string;
           </div>
         ))}
         <button type="button" onClick={add} style={listAddBtn}><Plus size={13}/>Aggiungi</button>
+      </div>
+    </Field>
+  );
+}
+
+function ImageLabelListField({ label, value, onChange, labelPlaceholder }: { label:string; value:string; onChange:(v:string)=>void; labelPlaceholder?:string }) {
+  const { t } = useAdminI18n();
+  const rows = (value || "").split("\n").filter(l => l.length > 0).map(line => {
+    const i = line.indexOf("|");
+    return i === -1 ? { label: line, src: "" } : { label: line.slice(0, i), src: line.slice(i + 1) };
+  });
+  function serialize(next: { label:string; src:string }[]) {
+    onChange(next.map(r => `${r.label}|${r.src}`).join("\n"));
+  }
+  function update(i:number, patch:Partial<{label:string;src:string}>) {
+    serialize(rows.map((r,idx)=>idx===i?{...r,...patch}:r));
+  }
+  function remove(i:number) { serialize(rows.filter((_,idx)=>idx!==i)); }
+  function add() { serialize([...rows, { label:"", src:"" }]); }
+  return (
+    <Field label={label} full>
+      <div style={{ display:"flex",flexDirection:"column",gap:14 }}>
+        {rows.map((r, i) => (
+          <div key={i} style={{ border:"1px solid #eee",borderRadius:12,padding:14,display:"flex",flexDirection:"column",gap:10 }}>
+            <div style={{ display:"flex",gap:8,alignItems:"center" }}>
+              <div style={{ flex:1 }}><Input value={r.label} placeholder={labelPlaceholder} onChange={v=>update(i,{label:v})}/></div>
+              <button type="button" onClick={()=>remove(i)} aria-label={t.common.removeItem} style={listRowBtn}><Trash2 size={13}/></button>
+            </div>
+            <ImageField value={r.src} onChange={v=>update(i,{src:v})} label=""/>
+          </div>
+        ))}
+        <button type="button" onClick={add} style={listAddBtn}><Plus size={13}/>{t.common.add}</button>
       </div>
     </Field>
   );
@@ -2174,7 +2211,9 @@ function PagesEditor({ data, onSave }: { data:PagesDataLocal|null; onSave:(d:unk
         {activePage !== "nav" && Object.entries(pageData).map(([sectionKey, sectionVal]) => {
           if (typeof sectionVal !== "object" || sectionVal === null || Array.isArray(sectionVal)) return null;
           const obj = sectionVal as Record<string, unknown>;
-          const label = sectionKey.replace(/([A-Z])/g, " $1").replace(/^./, s => s.toUpperCase());
+          const label = (activePage === "brands" && sectionKey === "collections")
+            ? "Carosello Rewards"
+            : sectionKey.replace(/([A-Z])/g, " $1").replace(/^./, s => s.toUpperCase());
           const isVisible = obj._visible !== false;
 
           return (
@@ -2199,6 +2238,12 @@ function PagesEditor({ data, onSave }: { data:PagesDataLocal|null; onSave:(d:unk
                   if (fk === "_visible") return null;
                   if (Array.isArray(fv)) return null;
                   if (typeof fv === "object") return null;
+                  if (activePage === "brands" && sectionKey === "collections" && fk === "itemsText") {
+                    return (
+                      <ImageLabelListField key={fk} label="Elementi collezione" labelPlaceholder="Es. Pintinox — Trust"
+                        value={String(fv ?? "")} onChange={v => update(activePage, sectionKey, fk, v)}/>
+                    );
+                  }
                   return renderField(fk, String(fv ?? ""), v => update(activePage, sectionKey, fk, v), t.fieldLabel);
                 })}
               </Grid>
@@ -2519,6 +2564,85 @@ const POSITION_FIELDS: FieldDef[] = [
 ];
 
 function BrandsEditor    ({ data, onSave }: { data:BrandItem[]|null;    onSave:(d:BrandItem[])=>void })    { const { t } = useAdminI18n(); return <ListEditor<BrandItem>    title={t.entityName.brand}  data={data} fields={translateFields(BRAND_FIELDS, t.itemField.brand)}    nameKey="name"  imgKey="img" onSave={onSave} blank={{id:"",name:"",tag:"",img:"",logo:"",since:"",campaigns:"",countries:"",desc:""}}/>; }
+
+/* ══════════════════════════════════════════════════
+   GLOBAL BRANDS — focused view on the same brands.json list,
+   scoped to just the "logo" field used by the home marquee
+══════════════════════════════════════════════════ */
+function GlobalBrandsEditor({ data, onSave }: { data: BrandItem[] | null; onSave: (d: BrandItem[]) => void }) {
+  const [form, setForm] = useState<BrandItem[]>([]);
+  const { t } = useAdminI18n();
+  const gb = t.globalBrands;
+  const { ask, dialog } = useConfirm();
+  useEffect(() => { if (data) setForm(data); }, [data]);
+  if (!data) return <Loader/>;
+
+  function updateField(id: string, patch: Partial<BrandItem>) {
+    setForm(prev => prev.map(b => b.id === id ? { ...b, ...patch } : b));
+  }
+  function hasProfileData(b: BrandItem) {
+    return !!(b.img || b.desc || b.tag || b.since || b.campaigns || b.countries);
+  }
+  function removeLogo(b: BrandItem) {
+    if (hasProfileData(b)) { updateField(b.id, { logo: "" }); return; }
+    ask({
+      title: gb.confirmDeleteTitle,
+      message: gb.confirmDeleteMessage,
+      confirmLabel: gb.confirmDeleteBtn,
+      onConfirm: () => setForm(prev => prev.filter(x => x.id !== b.id)),
+    });
+  }
+  function addNew() {
+    const id = `logo-${Date.now()}`;
+    setForm(prev => [...prev, { id, name:"", tag:"", img:"", logo:"", since:"", campaigns:"", countries:"", desc:"" }]);
+  }
+
+  const withLogo    = form.filter(b => b.logo);
+  const withoutLogo = form.filter(b => !b.logo);
+
+  return (
+    <div>
+      <div style={{ display:"flex",justifyContent:"flex-end",marginBottom:12 }}>
+        <SaveBtn onClick={() => onSave(form)}/>
+      </div>
+      <Panel title={gb.activeTitle} info={gb.activeInfo}>
+        {withLogo.length ? (
+          <div style={{ display:"flex",flexDirection:"column",gap:14 }}>
+            {withLogo.map(b => (
+              <div key={b.id} style={{ display:"flex",gap:12,alignItems:"flex-start",border:"1px solid #eee",borderRadius:12,padding:14 }}>
+                <div style={{ width:150,flexShrink:0 }}><Input value={b.name} placeholder={gb.namePlaceholder} onChange={v => updateField(b.id, { name: v })}/></div>
+                <div style={{ flex:1 }}><ImageField value={b.logo || ""} onChange={v => updateField(b.id, { logo: v })} label=""/></div>
+                <button type="button" onClick={() => removeLogo(b)} aria-label={gb.removeAria} style={listRowBtn}><Trash2 size={13}/></button>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div style={{ fontSize:13,color:"#999" }}>{gb.emptyActive}</div>
+        )}
+      </Panel>
+
+      {withoutLogo.length > 0 && (
+        <Panel title={gb.withoutTitle} info={gb.withoutInfo}>
+          <div style={{ display:"flex",flexDirection:"column",gap:14 }}>
+            {withoutLogo.map(b => (
+              <div key={b.id} style={{ display:"flex",gap:12,alignItems:"flex-start",border:"1px solid #eee",borderRadius:12,padding:14 }}>
+                <div style={{ width:150,flexShrink:0,fontSize:13,fontWeight:600,color:"#333",paddingTop:9 }}>{b.name || gb.unnamed}</div>
+                <div style={{ flex:1 }}><ImageField value="" onChange={v => updateField(b.id, { logo: v })} label=""/></div>
+              </div>
+            ))}
+          </div>
+        </Panel>
+      )}
+
+      <Panel title={gb.addTitle} info={gb.addInfo}>
+        <button type="button" onClick={addNew} style={listAddBtn}><Plus size={13}/>{gb.addButton}</button>
+      </Panel>
+
+      <SaveBtn onClick={() => onSave(form)}/>
+      {dialog}
+    </div>
+  );
+}
 function UsersEditor     ({ data, onSave }: { data:UserItem[]|null;     onSave:(d:UserItem[])=>void })     { const { t } = useAdminI18n(); return <ListEditor<UserItem>     title={t.entityName.user}   data={data} fields={translateFields(USER_FIELDS, t.itemField.user)}     nameKey="name"  imgKey="avatar" avatarFallback onSave={onSave} blank={{id:"",name:"",email:"",avatar:"",password:"",role:"editor"}}/>; }
 function LeadershipEditor({ data, onSave }: { data:LeaderItem[]|null;   onSave:(d:LeaderItem[])=>void })   { const { t } = useAdminI18n(); return <ListEditor<LeaderItem>   title={t.entityName.leader} data={data} fields={translateFields(LEADER_FIELDS, t.itemField.leader)}   nameKey="name"  imgKey="img" onSave={onSave} blank={{id:"",name:"",role:"",img:"",bio:"",quote:""}}/>; }
 const STUDY_BLANK_DETAILS: StudyDetails = { sourceUrl:"",campaignTitle:"",challenge:"",rewardGroups:[],activations:[],mechanics:[],gallery:[],social:[],videos:[] };

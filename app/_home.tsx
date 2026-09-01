@@ -491,9 +491,9 @@ function PartnerLogosBand({ brands }: { brands: { id?: string; name: string; log
       <div className="relative overflow-hidden">
         <div
           className="flex gap-8 sm:gap-10 md:gap-12 items-center"
-          style={{ animation: "marquee 28s linear infinite", width: "max-content" }}
+          style={{ animation: "marquee 28s linear infinite", width: "max-content", willChange: "transform" }}
         >
-          {[...partnerBrands, ...partnerBrands].map((b, i) => (
+          {[...partnerBrands, ...partnerBrands, ...partnerBrands, ...partnerBrands].map((b, i) => (
             <div key={`${b.id ?? b.name}-${i}`} className="flex items-center justify-center h-14 w-28 sm:w-32 md:w-36 shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -506,7 +506,7 @@ function PartnerLogosBand({ brands }: { brands: { id?: string; name: string; log
           ))}
         </div>
       </div>
-      <style>{`@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }`}</style>
+      <style>{`@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-25%); } }`}</style>
 
       <div className="max-w-6xl mx-auto px-8 mt-12 flex justify-center">
         <Link
@@ -529,7 +529,17 @@ function CaseStudies({ studies, data = {} }: { studies: typeof defaultStudies; d
   const ctaLabel = data.ctaLabel || "See All Case Studies";
   const ctaHref  = data.ctaHref  || "/work";
 
-  const entries = studies.slice(0, 3);
+  // Same "newest first" ordering as /work: sort by year desc, tie-broken by
+  // array position (new studies are always appended, so higher index = newer).
+  const entries = studies
+    .map((s, i) => ({ s, i }))
+    .sort((a, b) => {
+      const diff = (parseInt(a.s.year, 10) || 0) - (parseInt(b.s.year, 10) || 0);
+      if (diff !== 0) return -diff;
+      return b.i - a.i;
+    })
+    .map(({ s }) => s)
+    .slice(0, 3);
   const [idx, setIdx] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -599,13 +609,16 @@ function CaseStudies({ studies, data = {} }: { studies: typeof defaultStudies; d
   );
 }
 
-function BlogPreview({ data = {} }: { data?: SectionData }) {
+function BlogPreview({ posts: sourcePosts, data = {} }: { posts: typeof fallbackPosts; data?: SectionData }) {
   const eyebrow  = data.eyebrow  || "Insights";
   const title    = data.title    || "Latest Insights";
   const ctaLabel = data.ctaLabel || "See All Insights";
   const ctaHref  = data.ctaHref  || "/blog";
 
-  const posts = fallbackPosts.slice(0, 3);
+  // Always show the latest 3 published insights, newest date first.
+  const posts = [...sourcePosts]
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 3);
   const [idx, setIdx] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -720,17 +733,20 @@ const HOME_SECTION_ORDER = [
 
 export type HomeStats = typeof defaultStats;
 export type HomeStudies = typeof defaultStudies;
+export type HomePosts = typeof fallbackPosts;
 
 type HomePageProps = {
   initialStats?: HomeStats;
   initialStudies?: HomeStudies;
+  initialPosts?: HomePosts;
   initialPages?: Record<string, Record<string, unknown>>;
   initialBrands?: { name: string; logo?: string | null }[];
 };
 
-export function HomePage({ initialStats, initialStudies, initialPages, initialBrands }: HomePageProps = {}) {
+export function HomePage({ initialStats, initialStudies, initialPosts, initialPages, initialBrands }: HomePageProps = {}) {
   const stats = initialStats ?? defaultStats;
   const studies = initialStudies ?? defaultStudies;
+  const posts = initialPosts?.length ? initialPosts : fallbackPosts;
   const pages = initialPages ?? {};
   const brands = initialBrands?.length ? initialBrands : defaultBrands;
 
@@ -755,7 +771,7 @@ export function HomePage({ initialStats, initialStudies, initialPages, initialBr
     international:  internationalData._visible !== false && <InternationalPresence data={internationalData} />,
     clients:        clientsData._visible       !== false && <ClientLogos data={clientsData} />,
     caseStudies:    caseStudiesData._visible   !== false && <CaseStudies studies={studies} data={caseStudiesData} />,
-    blog:           blogData._visible          !== false && <BlogPreview data={blogData} />,
+    blog:           blogData._visible          !== false && <BlogPreview posts={posts} data={blogData} />,
     closing:        closingData._visible       !== false && <ClosingCta data={closingData} />,
   };
 

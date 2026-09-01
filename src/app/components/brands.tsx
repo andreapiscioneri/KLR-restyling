@@ -178,9 +178,10 @@ export function Brands({ go, initialBrands, initialBrandsCms }: BrandsProps) {
             style={{
               animation: "marquee 28s linear infinite",
               width: "max-content",
+              willChange: "transform",
             }}
           >
-            {[...partnerBrands, ...partnerBrands].map((b, i) => (
+            {[...partnerBrands, ...partnerBrands, ...partnerBrands, ...partnerBrands].map((b, i) => (
               <div key={`${b.id}-${i}`} className="flex items-center justify-center h-14 w-28 sm:w-32 md:w-36 shrink-0">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -193,7 +194,7 @@ export function Brands({ go, initialBrands, initialBrandsCms }: BrandsProps) {
             ))}
           </div>
         </div>
-        <style>{`@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }`}</style>
+        <style>{`@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-25%); } }`}</style>
 
         {/* CTA */}
         <div className="max-w-6xl mx-auto px-8 mt-12 flex justify-center">
