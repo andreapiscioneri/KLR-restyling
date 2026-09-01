@@ -45,6 +45,13 @@ type Dict = {
     addTitle: string; addInfo: string; addButton: string;
     confirmDeleteTitle: string; confirmDeleteMessage: string; confirmDeleteBtn: string;
   };
+  collectionsCarousel: {
+    panelTitle: string; panelInfo: string;
+    countOne: string; countMany: string;
+    itemPlaceholder: string; removeAria: string;
+    addToBrand: string; newBrandPlaceholder: string; addBrandButton: string;
+    empty: string; pagesHint: string;
+  };
   overview: {
     title: string; intro: string; usage1: string; usage2: string;
     quickGuide: string; allSolved: string; allSolvedDesc: string;
@@ -117,8 +124,8 @@ const it: Dict = {
     pages:       "Modifica i testi, i titoli, le immagini e la visibilità delle sezioni di ogni pagina del sito. Ogni scheda in alto corrisponde a una pagina.",
     stats:       "I numeri mostrati nelle sezioni statistiche del sito (es. anni di attività, campagne realizzate, paesi).",
     seo:         "Monitoraggio SEO, SEM (targeting parola chiave per ricerca/campagne a pagamento), GEO (ottimizzazione per i motori generativi AI) e AIO (AI Overview) di tutti i contenuti pubblicati: punteggi, contenuti da migliorare e valutazione in tempo reale mentre scrivi. L'accessibilità è valutata separatamente nella sezione dedicata.",
-    brands:      "Le schede complete di ogni brand partner (foto, categoria, descrizione, statistiche) mostrate nelle card in evidenza e nelle pagine di dettaglio su /brands.",
-    globalBrands: "I loghi dei brand partner mostrati nella striscia scorrevole in home e in cima alla pagina /brands. Aggiungi, sostituisci o rimuovi un logo da qui.",
+    brands:      "Le collezioni prodotto raggruppate per brand: etichetta e immagine di ogni collezione. Sono quelle visibili nella sezione 'Our Collections' della pagina /brands del sito.",
+    globalBrands: "Le schede complete di ogni brand partner (foto, categoria, descrizione, statistiche) e il logo mostrato nella striscia in home e su /brands.",
     leadership:  "I membri del team mostrati nella pagina About/Team, con foto, ruolo e biografia.",
     studies:     "I case study/campagne pubblicati sul sito: dati generali, risultati, reward e galleria immagini.",
     posts:       "Gli articoli del blog/Insights, con testo formattato, immagine di copertina e autore.",
@@ -138,8 +145,8 @@ const it: Dict = {
     pages:       ["Usala quando devi cambiare un testo, un titolo o un'immagine già presente sul sito.", "Le modifiche sono visibili subito dopo il salvataggio, senza bisogno di deploy."],
     stats:       ["Aggiorna questi numeri solo quando i dati aziendali cambiano davvero (es. nuovo anno, nuova campagna conclusa)."],
     seo:         ["Consulta questa sezione dopo aver pubblicato per vedere quali articoli/case study vanno migliorati.", "Mentre scrivi un post o un case study, la valutazione SEO/SEM/GEO/AIO appare in tempo reale in fondo al modulo di modifica."],
-    brands:      ["Aggiungi un brand quando firmi una nuova partnership; modifica foto, descrizione e statistiche se cambiano i dati del cliente."],
-    globalBrands: ["Usa questa sezione se devi solo aggiornare o aggiungere il logo mostrato in home, senza toccare foto, descrizione o statistiche del brand."],
+    brands:      ["Aggiungi una collezione quando lanci una nuova linea prodotto per un brand; sostituisci l'immagine se cambia il visual della collezione."],
+    globalBrands: ["Aggiungi un brand quando firmi una nuova partnership; modifica foto, descrizione e statistiche se cambiano i dati del cliente.", "Usa il pannello dei loghi qui sopra se devi solo aggiornare velocemente il logo mostrato in home."],
     leadership:  ["Aggiorna quando un membro del team entra, esce o cambia ruolo/foto."],
     studies:     ["Pubblica un nuovo case study a campagna conclusa; usa i campi 'Dettaglio' per la pagina completa del progetto."],
     posts:       ["Pubblica un nuovo articolo o correggi un testo esistente del blog."],
@@ -164,6 +171,15 @@ const it: Dict = {
     confirmDeleteTitle: "Eliminare questo logo?", confirmDeleteMessage: "Questo brand non ha una scheda completa in Our Collections: eliminandolo qui, sparisce del tutto.",
     confirmDeleteBtn: "Elimina",
   },
+  collectionsCarousel: {
+    panelTitle: "Collezioni per brand",
+    panelInfo: "Le card del carosello 'Our Collections' mostrato su /brands, raggruppate per brand. Ogni riga è una collezione con la sua immagine.",
+    countOne: "collezione", countMany: "collezioni",
+    itemPlaceholder: "Nome collezione", removeAria: "Rimuovi",
+    addToBrand: "Aggiungi a {brand}", newBrandPlaceholder: "Nuovo brand...", addBrandButton: "Aggiungi brand",
+    empty: "Nessuna collezione ancora.",
+    pagesHint: "Le singole collezioni (etichette e immagini) si gestiscono in Our Collections, nella sidebar. Qui sotto trovi solo il testo introduttivo di questa sezione.",
+  },
   overview: {
     title: "Overview", intro: "Panoramica generale del pannello: numeri chiave e guida rapida a tutte le sezioni.",
     usage1: "Punto di partenza: da qui vedi cosa manca o va completato.", usage2: "Utile a chiunque acceda al pannello, di qualsiasi ruolo.",
@@ -175,8 +191,8 @@ const it: Dict = {
       ["Pagine & Testi",  "modifica ogni testo, titolo e CTA di ogni pagina — con visibilità sezioni"],
       ["Navbar",          "gestisci i link della navbar e il bottone CTA"],
       ["Statistiche",     "aggiorna i numeri KLR (campagne, paesi, retailer…)"],
-      ["Our Collections", "gestisci le schede complete dei brand partner: foto, categoria, descrizione, statistiche"],
-      ["Our Global Brands", "gestisci i loghi nella striscia della home: aggiungi, sostituisci o rimuovi"],
+      ["Our Collections", "gestisci le collezioni prodotto per brand, mostrate su /brands"],
+      ["Our Global Brands", "gestisci le schede brand partner e i loghi in home: aggiungi, sostituisci o rimuovi"],
       ["Team",            "gestisci tutti i membri del team"],
       ["Case Studies",    "aggiungi e modifica le campagne"],
       ["Insights",        "gestisci gli articoli del blog con editor rich text"],
@@ -364,8 +380,8 @@ const en: Dict = {
     pages:       "Edit the text, titles, images and section visibility of every page on the site. Each tab above corresponds to a page.",
     stats:       "The numbers shown in the site's statistics sections (e.g. years active, campaigns run, countries).",
     seo:         "SEO, SEM (keyword targeting for search/paid campaigns), GEO (optimization for generative AI engines) and AIO (AI Overview) monitoring for all published content: scores, content to improve, and real-time evaluation while you write. Accessibility is scored separately in its own section.",
-    brands:      "The full profile of each brand partner (photo, category, description, stats) shown in the featured cards and detail pages on /brands.",
-    globalBrands: "The brand partner logos shown in the scrolling strip on the homepage and at the top of the /brands page. Add, replace or remove a logo here.",
+    brands:      "The product collections grouped by brand: each collection's label and image. These are the ones visible in the 'Our Collections' section of the site's /brands page.",
+    globalBrands: "The full profile of each brand partner (photo, category, description, stats) and the logo shown in the homepage strip and on /brands.",
     leadership:  "The team members shown on the About/Team page, with photo, role and bio.",
     studies:     "The case studies/campaigns published on the site: overview data, results, rewards and image gallery.",
     posts:       "The blog/Insights articles, with formatted text, cover image and author.",
@@ -385,8 +401,8 @@ const en: Dict = {
     pages:       ["Use it whenever you need to change text, a title, or an image already on the site.", "Changes are visible immediately after saving, no deploy needed."],
     stats:       ["Only update these numbers when the underlying business data actually changes (e.g. a new year, a campaign wrapping up)."],
     seo:         ["Check this section after publishing to see which articles/case studies need improvement.", "While writing a post or case study, the SEO/SEM/GEO/AIO evaluation appears in real time at the bottom of the edit form."],
-    brands:      ["Add a brand when you sign a new partnership; update photo, description and stats when the client's details change."],
-    globalBrands: ["Use this section when you only need to update or add the logo shown on the homepage, without touching the brand's photo, description or stats."],
+    brands:      ["Add a collection when you launch a new product line for a brand; replace the image if the collection's visual changes."],
+    globalBrands: ["Add a brand when you sign a new partnership; update photo, description and stats when the client's details change.", "Use the logo panel above when you only need a quick update to the logo shown on the homepage."],
     leadership:  ["Update it when a team member joins, leaves, or changes role/photo."],
     studies:     ["Publish a new case study once a campaign wraps; use the 'Detail' fields for the full project page."],
     posts:       ["Publish a new article or fix an existing blog text."],
@@ -411,6 +427,15 @@ const en: Dict = {
     confirmDeleteTitle: "Delete this logo?", confirmDeleteMessage: "This brand has no full profile in Our Collections: deleting it here removes it entirely.",
     confirmDeleteBtn: "Delete",
   },
+  collectionsCarousel: {
+    panelTitle: "Collections by brand",
+    panelInfo: "The cards of the 'Our Collections' carousel shown on /brands, grouped by brand. Each row is one collection with its image.",
+    countOne: "collection", countMany: "collections",
+    itemPlaceholder: "Collection name", removeAria: "Remove",
+    addToBrand: "Add to {brand}", newBrandPlaceholder: "New brand...", addBrandButton: "Add brand",
+    empty: "No collections yet.",
+    pagesHint: "Individual collections (labels and images) are managed in Our Collections, in the sidebar. Below you'll only find this section's intro text.",
+  },
   overview: {
     title: "Overview", intro: "General panel overview: key numbers and a quick guide to every section.",
     usage1: "Starting point: see what's missing or needs completing from here.", usage2: "Useful to anyone accessing the panel, regardless of role.",
@@ -422,8 +447,8 @@ const en: Dict = {
       ["Pages & Text",     "edit every text, title and CTA on every page — with section visibility"],
       ["Navbar",           "manage navbar links and the CTA button"],
       ["Statistics",       "update KLR's numbers (campaigns, countries, retailers…)"],
-      ["Our Collections",  "manage full brand partner profiles: photo, category, description, stats"],
-      ["Our Global Brands","manage the logos in the homepage strip: add, replace or remove"],
+      ["Our Collections",  "manage per-brand product collections shown on /brands"],
+      ["Our Global Brands","manage brand partner profiles and homepage logos: add, replace or remove"],
       ["Team",             "manage every team member"],
       ["Case Studies",     "add and edit campaigns"],
       ["Insights",         "manage blog articles with a rich text editor"],
@@ -611,8 +636,8 @@ const ru: Dict = {
     pages:       "Редактируйте тексты, заголовки, изображения и видимость разделов каждой страницы сайта. Каждая вкладка сверху соответствует странице.",
     stats:       "Цифры, отображаемые в статистических разделах сайта (например, годы работы, реализованные кампании, страны).",
     seo:         "Мониторинг SEO, SEM (таргетинг ключевых слов для поиска/платных кампаний), GEO (оптимизация для генеративных ИИ-систем) и AIO (AI Overview) всего опубликованного контента: оценки, контент для улучшения и оценка в реальном времени во время написания. Доступность оценивается отдельно в специальном разделе.",
-    brands:      "Полная карточка каждого бренда-партнёра (фото, категория, описание, статистика), отображаемая в карточках на /brands и на страницах деталей.",
-    globalBrands: "Логотипы брендов-партнёров, отображаемые в прокручивающейся ленте на главной и в верхней части страницы /brands. Добавляйте, заменяйте или удаляйте логотип здесь.",
+    brands:      "Коллекции продуктов, сгруппированные по бренду: название и изображение каждой коллекции. Это те же коллекции, что видны в разделе 'Our Collections' на странице /brands сайта.",
+    globalBrands: "Полная карточка каждого бренда-партнёра (фото, категория, описание, статистика) и логотип, отображаемый в ленте на главной и на /brands.",
     leadership:  "Члены команды, отображаемые на странице About/Team, с фото, должностью и биографией.",
     studies:     "Кейсы/кампании, опубликованные на сайте: общие данные, результаты, награды и галерея изображений.",
     posts:       "Статьи блога/Инсайтов с форматированным текстом, обложкой и автором.",
@@ -632,8 +657,8 @@ const ru: Dict = {
     pages:       ["Используйте, когда нужно изменить текст, заголовок или изображение, уже присутствующие на сайте.", "Изменения видны сразу после сохранения, без необходимости деплоя."],
     stats:       ["Обновляйте эти цифры только когда реально меняются данные компании (например, новый год, завершённая кампания)."],
     seo:         ["Просматривайте этот раздел после публикации, чтобы узнать, какие статьи/кейсы нужно улучшить.", "Во время написания статьи или кейса оценка SEO/SEM/GEO/AIO появляется в реальном времени внизу формы редактирования."],
-    brands:      ["Добавляйте бренд при подписании нового партнёрства; обновляйте фото, описание и статистику при изменении данных клиента."],
-    globalBrands: ["Используйте этот раздел, если нужно только обновить или добавить логотип на главной, не трогая фото, описание или статистику бренда."],
+    brands:      ["Добавляйте коллекцию при запуске новой линейки продуктов для бренда; заменяйте изображение при изменении визуала коллекции."],
+    globalBrands: ["Добавляйте бренд при подписании нового партнёрства; обновляйте фото, описание и статистику при изменении данных клиента.", "Используйте панель логотипов выше, если нужно быстро обновить только логотип на главной."],
     leadership:  ["Обновляйте при приходе, уходе или смене роли/фото члена команды."],
     studies:     ["Публикуйте новый кейс после завершения кампании; используйте поля 'Детали' для полной страницы проекта."],
     posts:       ["Публикуйте новую статью или исправляйте существующий текст блога."],
@@ -669,8 +694,8 @@ const ru: Dict = {
       ["Страницы и тексты", "редактируйте любой текст, заголовок и CTA на каждой странице — с видимостью разделов"],
       ["Навбар",            "управляйте ссылками навбара и кнопкой CTA"],
       ["Статистика",        "обновляйте цифры KLR (кампании, страны, ритейлеры…)"],
-      ["Our Collections",   "управляйте полными карточками брендов-партнёров: фото, категория, описание, статистика"],
-      ["Our Global Brands", "управляйте логотипами в ленте на главной: добавляйте, заменяйте или удаляйте"],
+      ["Our Collections",   "управляйте коллекциями продуктов по брендам, отображаемыми на /brands"],
+      ["Our Global Brands", "управляйте карточками брендов-партнёров и логотипами на главной: добавляйте, заменяйте или удаляйте"],
       ["Команда",           "управляйте всеми членами команды"],
       ["Кейсы",             "добавляйте и редактируйте кампании"],
       ["Инсайты",           "управляйте статьями блога с редактором форматированного текста"],

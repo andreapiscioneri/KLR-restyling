@@ -93,8 +93,8 @@ const SECTION_DESCRIPTIONS: Record<TopSection, string> = {
   pages:       "Modifica i testi, i titoli, le immagini e la visibilità delle sezioni di ogni pagina del sito. Ogni scheda in alto corrisponde a una pagina.",
   stats:       "I numeri mostrati nelle sezioni statistiche del sito (es. anni di attività, campagne realizzate, paesi).",
   seo:         "Monitoraggio SEO, SEM (targeting parola chiave per ricerca/campagne a pagamento), GEO (ottimizzazione per i motori generativi AI) e AIO (AI Overview) di tutti i contenuti pubblicati: punteggi, contenuti da migliorare e valutazione in tempo reale mentre scrivi. L'accessibilità è valutata separatamente nella sezione dedicata.",
-  brands:      "Le schede complete di ogni brand partner (foto, categoria, descrizione, statistiche) mostrate nelle card in evidenza e nelle pagine di dettaglio su /brands.",
-  globalBrands: "I loghi dei brand partner mostrati nella striscia scorrevole in home e in cima alla pagina /brands. Aggiungi, sostituisci o rimuovi un logo da qui.",
+  brands:      "Le collezioni prodotto raggruppate per brand: etichetta e immagine di ogni collezione. Sono quelle visibili nella sezione 'Our Collections' della pagina /brands del sito.",
+  globalBrands: "Le schede complete di ogni brand partner (foto, categoria, descrizione, statistiche) e il logo mostrato nella striscia in home e su /brands.",
   leadership:  "I membri del team mostrati nella pagina About/Team, con foto, ruolo e biografia.",
   studies:     "I case study/campagne pubblicati sul sito: dati generali, risultati, reward e galleria immagini.",
   posts:       "Gli articoli del blog/Insights, con testo formattato, immagine di copertina e autore.",
@@ -116,8 +116,8 @@ const SECTION_USAGE: Record<TopSection, string[]> = {
   pages:       ["Usala quando devi cambiare un testo, un titolo o un'immagine già presente sul sito.", "Le modifiche sono visibili subito dopo il salvataggio, senza bisogno di deploy."],
   stats:       ["Aggiorna questi numeri solo quando i dati aziendali cambiano davvero (es. nuovo anno, nuova campagna conclusa)."],
   seo:         ["Consulta questa sezione dopo aver pubblicato per vedere quali articoli/case study vanno migliorati.", "Mentre scrivi un post o un case study, la valutazione SEO/GEO/AIO appare in tempo reale in fondo al modulo di modifica."],
-  brands:      ["Aggiungi un brand quando firmi una nuova partnership; modifica foto, descrizione e statistiche se cambiano i dati del cliente."],
-  globalBrands: ["Usa questa sezione se devi solo aggiornare o aggiungere il logo mostrato in home, senza toccare foto, descrizione o statistiche del brand."],
+  brands:      ["Aggiungi una collezione quando lanci una nuova linea prodotto per un brand; sostituisci l'immagine se cambia il visual della collezione."],
+  globalBrands: ["Aggiungi un brand quando firmi una nuova partnership; modifica foto, descrizione e statistiche se cambiano i dati del cliente.", "Usa il pannello dei loghi qui sopra se devi solo aggiornare velocemente il logo mostrato in home."],
   leadership:  ["Aggiorna quando un membro del team entra, esce o cambia ruolo/foto."],
   studies:     ["Pubblica un nuovo case study a campagna conclusa; usa i campi 'Dettaglio' per la pagina completa del progetto."],
   posts:       ["Pubblica un nuovo articolo o correggi un testo esistente del blog."],
@@ -234,7 +234,7 @@ function AdminDashboardInner({ currentUser }: { currentUser: AdminUser }) {
     if (section === "users"       && !users)        load("users");
     if (section === "settings"    && !settings)     load("settings");
     if (section === "stats"       && !stats)        load("stats");
-    if (section === "brands"      && !brands)       load("brands");
+    if (section === "brands"      && !pages)        load("pages");
     if (section === "globalBrands" && !brands)      load("brands");
     if (section === "leadership"  && !leadership)   load("leadership");
     if (section === "studies"     && !studies)      load("studies");
@@ -420,8 +420,9 @@ function AdminDashboardInner({ currentUser }: { currentUser: AdminUser }) {
           {section === "users"       && <UsersEditor      data={users}       onSave={d => { setUsers(d);                          save("users",       d); }} />}
           {section === "settings"    && <SettingsEditor   data={settings}    onSave={d => { setSettings(d as Record<string,unknown>); save("settings",   d); }} />}
           {section === "stats"       && <StatsEditor      data={stats}       onSave={d => { setStats(d);                          save("stats",       d); }} />}
-          {section === "brands"      && <BrandsEditor     data={brands}      onSave={d => { setBrands(d);                         save("brands",      d); }} />}
+          {section === "brands"      && <CollectionsCarouselPanel data={pages as PagesDataLocal | null} onSave={d => { setPages(d as PagesData); save("pages", d); }} />}
           {section === "globalBrands" && <GlobalBrandsEditor data={brands}   onSave={d => { setBrands(d);                         save("brands",      d); }} />}
+          {section === "globalBrands" && <BrandsEditor     data={brands}      onSave={d => { setBrands(d);                         save("brands",      d); }} />}
           {section === "leadership"  && <LeadershipEditor data={leadership}  onSave={d => { setLeadership(d);                     save("leadership",  d); }} />}
           {section === "studies"     && <StudiesEditor    data={studies}     brands={brands} users={users} currentUser={currentUser} onSave={d => { setStudies(d);                        save("studies",     d); }} />}
           {section === "posts"       && <PostsEditor      data={posts}       users={users} currentUser={currentUser} onSave={d => { setPosts(d);                          save("posts",       d); }} />}
@@ -711,35 +712,108 @@ function KVListField({ label, value, onChange, kLabel, vLabel }: { label:string;
   );
 }
 
-function ImageLabelListField({ label, value, onChange, labelPlaceholder }: { label:string; value:string; onChange:(v:string)=>void; labelPlaceholder?:string }) {
-  const { t } = useAdminI18n();
-  const rows = (value || "").split("\n").filter(l => l.length > 0).map(line => {
-    const i = line.indexOf("|");
-    return i === -1 ? { label: line, src: "" } : { label: line.slice(0, i), src: line.slice(i + 1) };
+/* ══════════════════════════════════════════════════
+   COLLECTIONS CAROUSEL — grouped-by-brand editor for the
+   /brands "Our Collections" reward carousel. Lives on the
+   "Our Collections" page (not buried in Pagine & Testi) so
+   brand profiles and their collections are managed in one place.
+══════════════════════════════════════════════════ */
+type CarouselRow = { brand: string; item: string; src: string };
+
+function parseCarouselRows(text: string): CarouselRow[] {
+  return (text || "").split("\n").filter(l => l.length > 0).map(line => {
+    const pipeIdx = line.indexOf("|");
+    const left = pipeIdx === -1 ? line : line.slice(0, pipeIdx);
+    const src  = pipeIdx === -1 ? "" : line.slice(pipeIdx + 1);
+    const dashIdx = left.indexOf(" — ");
+    return dashIdx === -1
+      ? { brand: left, item: "", src }
+      : { brand: left.slice(0, dashIdx), item: left.slice(dashIdx + 3), src };
   });
-  function serialize(next: { label:string; src:string }[]) {
-    onChange(next.map(r => `${r.label}|${r.src}`).join("\n"));
+}
+function serializeCarouselRows(rows: CarouselRow[]): string {
+  return rows.map(r => `${r.item ? `${r.brand} — ${r.item}` : r.brand}|${r.src}`).join("\n");
+}
+
+function CollectionsCarouselPanel({ data, onSave }: { data: PagesDataLocal | null; onSave: (d: unknown) => void }) {
+  const [text, setText]         = useState("");
+  const [newBrand, setNewBrand] = useState("");
+  const [justAdded, setJustAdded] = useState<string | null>(null);
+  useEffect(() => {
+    if (!data) return;
+    const collections = (data.brands as Record<string,unknown> | undefined)?.collections as Record<string,unknown> | undefined;
+    setText(String(collections?.itemsText ?? ""));
+  }, [data]);
+  if (!data) return <Loader/>;
+
+  const rows = parseCarouselRows(text);
+  function commit(next: CarouselRow[]) { setText(serializeCarouselRows(next)); }
+  function update(idx: number, patch: Partial<CarouselRow>) { commit(rows.map((r,i)=>i===idx?{...r,...patch}:r)); }
+  function remove(idx: number) { commit(rows.filter((_,i)=>i!==idx)); }
+  function addToBrand(brand: string) {
+    let lastIdx = -1;
+    rows.forEach((r,i) => { if (r.brand === brand) lastIdx = i; });
+    const next = [...rows];
+    next.splice(lastIdx === -1 ? next.length : lastIdx + 1, 0, { brand, item: "", src: "" });
+    commit(next);
   }
-  function update(i:number, patch:Partial<{label:string;src:string}>) {
-    serialize(rows.map((r,idx)=>idx===i?{...r,...patch}:r));
+  function addNewBrand() {
+    const name = newBrand.trim();
+    if (!name) return;
+    commit([...rows, { brand: name, item: "", src: "" }]);
+    setNewBrand("");
+    setJustAdded(name);
   }
-  function remove(i:number) { serialize(rows.filter((_,idx)=>idx!==i)); }
-  function add() { serialize([...rows, { label:"", src:"" }]); }
+  function save() {
+    if (!data) return;
+    const prevBrandsSection = (data.brands as Record<string,unknown> | undefined) || {};
+    const prevCollections   = (prevBrandsSection.collections as Record<string,unknown> | undefined) || {};
+    onSave({
+      ...data,
+      brands: { ...prevBrandsSection, collections: { ...prevCollections, itemsText: text } },
+    });
+  }
+
+  const groups: { brand: string; items: { idx:number; row:CarouselRow }[] }[] = [];
+  const brandGroupIndex = new Map<string, number>();
+  rows.forEach((row, idx) => {
+    let gi = brandGroupIndex.get(row.brand);
+    if (gi === undefined) { gi = groups.length; groups.push({ brand: row.brand, items: [] }); brandGroupIndex.set(row.brand, gi); }
+    groups[gi].items.push({ idx, row });
+  });
+
   return (
-    <Field label={label} full>
-      <div style={{ display:"flex",flexDirection:"column",gap:14 }}>
-        {rows.map((r, i) => (
-          <div key={i} style={{ border:"1px solid #eee",borderRadius:12,padding:14,display:"flex",flexDirection:"column",gap:10 }}>
-            <div style={{ display:"flex",gap:8,alignItems:"center" }}>
-              <div style={{ flex:1 }}><Input value={r.label} placeholder={labelPlaceholder} onChange={v=>update(i,{label:v})}/></div>
-              <button type="button" onClick={()=>remove(i)} aria-label={t.common.removeItem} style={listRowBtn}><Trash2 size={13}/></button>
-            </div>
-            <ImageField value={r.src} onChange={v=>update(i,{src:v})} label=""/>
-          </div>
-        ))}
-        <button type="button" onClick={add} style={listAddBtn}><Plus size={13}/>{t.common.add}</button>
+    <div>
+      <div style={{ display:"flex",justifyContent:"flex-end",marginBottom:12 }}>
+        <SaveBtn onClick={save}/>
       </div>
-    </Field>
+      <Panel title="Collezioni per brand" info="Le card del carosello 'Our Collections' mostrato su /brands, raggruppate per brand. Ogni riga è una collezione con la sua immagine.">
+        <div style={{ display:"flex",flexDirection:"column",gap:10 }}>
+          {groups.map(g => (
+            <Accordion key={g.brand} title={g.brand} subtitle={`${g.items.length} collezion${g.items.length===1?"e":"i"}`} defaultOpen={g.brand === justAdded}>
+              <div style={{ display:"flex",flexDirection:"column",gap:10 }}>
+                {g.items.map(({ idx, row }) => (
+                  <div key={idx} style={{ display:"flex",gap:8,alignItems:"center",border:"1px solid #eee",borderRadius:10,padding:10 }}>
+                    <div style={{ width:170,flexShrink:0 }}>
+                      <Input value={row.item} placeholder="Nome collezione" onChange={v=>update(idx,{item:v})}/>
+                    </div>
+                    <div style={{ flex:1 }}><ImageField value={row.src} onChange={v=>update(idx,{src:v})} label=""/></div>
+                    <button type="button" onClick={()=>remove(idx)} aria-label="Rimuovi" style={listRowBtn}><Trash2 size={13}/></button>
+                  </div>
+                ))}
+                <button type="button" onClick={()=>addToBrand(g.brand)} style={listAddBtn}><Plus size={13}/>Aggiungi a {g.brand}</button>
+              </div>
+            </Accordion>
+          ))}
+          {!groups.length && <div style={{ fontSize:13,color:"#999" }}>Nessuna collezione ancora.</div>}
+        </div>
+        <div style={{ display:"flex",gap:8,alignItems:"center",marginTop:16,paddingTop:14,borderTop:"1px solid #f0f0f6" }}>
+          <div style={{ flex:1 }}><Input value={newBrand} placeholder="Nuovo brand..." onChange={setNewBrand}/></div>
+          <button type="button" onClick={addNewBrand} style={listAddBtn}><Plus size={13}/>Aggiungi brand</button>
+        </div>
+      </Panel>
+      <SaveBtn onClick={save}/>
+    </div>
   );
 }
 
@@ -2233,17 +2307,17 @@ function PagesEditor({ data, onSave }: { data:PagesDataLocal|null; onSave:(d:unk
                   {t.common.sectionHidden}
                 </div>
               )}
+              {activePage === "brands" && sectionKey === "collections" && (
+                <div style={{ padding:"10px 14px",background:"#F8F8FC",borderRadius:8,fontSize:12,color:"#666",marginBottom:12 }}>
+                  Le singole collezioni (etichette e immagini) si gestiscono in <strong>Our Collections</strong>, nella sidebar. Qui sotto trovi solo il testo introduttivo di questa sezione.
+                </div>
+              )}
               <Grid>
                 {Object.entries(obj).map(([fk, fv]) => {
                   if (fk === "_visible") return null;
                   if (Array.isArray(fv)) return null;
                   if (typeof fv === "object") return null;
-                  if (activePage === "brands" && sectionKey === "collections" && fk === "itemsText") {
-                    return (
-                      <ImageLabelListField key={fk} label="Elementi collezione" labelPlaceholder="Es. Pintinox — Trust"
-                        value={String(fv ?? "")} onChange={v => update(activePage, sectionKey, fk, v)}/>
-                    );
-                  }
+                  if (activePage === "brands" && sectionKey === "collections" && fk === "itemsText") return null;
                   return renderField(fk, String(fv ?? ""), v => update(activePage, sectionKey, fk, v), t.fieldLabel);
                 })}
               </Grid>
