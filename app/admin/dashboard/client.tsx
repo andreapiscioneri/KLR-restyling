@@ -94,7 +94,7 @@ const SECTION_DESCRIPTIONS: Record<TopSection, string> = {
   stats:       "I numeri mostrati nelle sezioni statistiche del sito (es. anni di attività, campagne realizzate, paesi).",
   seo:         "Monitoraggio SEO, SEM (targeting parola chiave per ricerca/campagne a pagamento), GEO (ottimizzazione per i motori generativi AI) e AIO (AI Overview) di tutti i contenuti pubblicati: punteggi, contenuti da migliorare e valutazione in tempo reale mentre scrivi. L'accessibilità è valutata separatamente nella sezione dedicata.",
   brands:      "Le collezioni prodotto raggruppate per brand: etichetta e immagine di ogni collezione. Sono quelle visibili nella sezione 'Our Collections' della pagina /brands del sito.",
-  globalBrands: "Le schede complete di ogni brand partner (foto, categoria, descrizione, statistiche) e il logo mostrato nella striscia in home e su /brands.",
+  globalBrands: "I loghi dei brand partner mostrati nella striscia scorrevole in home e in cima alla pagina /brands. Aggiungi, sostituisci o rimuovi un logo da qui.",
   leadership:  "I membri del team mostrati nella pagina About/Team, con foto, ruolo e biografia.",
   studies:     "I case study/campagne pubblicati sul sito: dati generali, risultati, reward e galleria immagini.",
   posts:       "Gli articoli del blog/Insights, con testo formattato, immagine di copertina e autore.",
@@ -117,7 +117,7 @@ const SECTION_USAGE: Record<TopSection, string[]> = {
   stats:       ["Aggiorna questi numeri solo quando i dati aziendali cambiano davvero (es. nuovo anno, nuova campagna conclusa)."],
   seo:         ["Consulta questa sezione dopo aver pubblicato per vedere quali articoli/case study vanno migliorati.", "Mentre scrivi un post o un case study, la valutazione SEO/GEO/AIO appare in tempo reale in fondo al modulo di modifica."],
   brands:      ["Aggiungi una collezione quando lanci una nuova linea prodotto per un brand; sostituisci l'immagine se cambia il visual della collezione."],
-  globalBrands: ["Aggiungi un brand quando firmi una nuova partnership; modifica foto, descrizione e statistiche se cambiano i dati del cliente.", "Usa il pannello dei loghi qui sopra se devi solo aggiornare velocemente il logo mostrato in home."],
+  globalBrands: ["Usa questa sezione se devi solo aggiornare o aggiungere il logo mostrato in home, senza toccare foto, descrizione o statistiche del brand."],
   leadership:  ["Aggiorna quando un membro del team entra, esce o cambia ruolo/foto."],
   studies:     ["Pubblica un nuovo case study a campagna conclusa; usa i campi 'Dettaglio' per la pagina completa del progetto."],
   posts:       ["Pubblica un nuovo articolo o correggi un testo esistente del blog."],
@@ -422,7 +422,6 @@ function AdminDashboardInner({ currentUser }: { currentUser: AdminUser }) {
           {section === "stats"       && <StatsEditor      data={stats}       onSave={d => { setStats(d);                          save("stats",       d); }} />}
           {section === "brands"      && <CollectionsCarouselPanel data={pages as PagesDataLocal | null} onSave={d => { setPages(d as PagesData); save("pages", d); }} />}
           {section === "globalBrands" && <GlobalBrandsEditor data={brands}   onSave={d => { setBrands(d);                         save("brands",      d); }} />}
-          {section === "globalBrands" && <BrandsEditor     data={brands}      onSave={d => { setBrands(d);                         save("brands",      d); }} />}
           {section === "leadership"  && <LeadershipEditor data={leadership}  onSave={d => { setLeadership(d);                     save("leadership",  d); }} />}
           {section === "studies"     && <StudiesEditor    data={studies}     brands={brands} users={users} currentUser={currentUser} onSave={d => { setStudies(d);                        save("studies",     d); }} />}
           {section === "posts"       && <PostsEditor      data={posts}       users={users} currentUser={currentUser} onSave={d => { setPosts(d);                          save("posts",       d); }} />}
