@@ -29,13 +29,13 @@ const ADMIN_INTL_LOCALE: Record<"it" | "en" | "ru", string> = {
 };
 
 type TopSection =
-  | "overview" | "pages" | "stats" | "brands" | "globalBrands" | "leadership"
+  | "overview" | "pages" | "stats" | "brands" | "globalBrands" | "clients" | "leadership"
   | "studies" | "posts" | "colors" | "users" | "settings"
   | "positions" | "customPages" | "cookies" | "media" | "analytics" | "leads" | "seo" | "accessibility";
 
 const ROLE_SECTIONS: Record<string, TopSection[]> = {
-  superadmin: ["overview","pages","stats","brands","globalBrands","leadership","studies","posts","colors","users","settings","positions","customPages","cookies","media","analytics","leads","seo","accessibility"],
-  admin:      ["overview","pages","stats","brands","globalBrands","leadership","studies","posts","colors","settings","positions","customPages","cookies","media","analytics","leads","seo","accessibility"],
+  superadmin: ["overview","pages","stats","brands","globalBrands","clients","leadership","studies","posts","colors","users","settings","positions","customPages","cookies","media","analytics","leads","seo","accessibility"],
+  admin:      ["overview","pages","stats","brands","globalBrands","clients","leadership","studies","posts","colors","settings","positions","customPages","cookies","media","analytics","leads","seo","accessibility"],
   editor:     ["overview","studies","posts","media","seo"],
 };
 
@@ -62,6 +62,7 @@ const TOP_NAV: { id: TopSection; label: string; icon: LucideIcon; group: NavGrou
   { id: "pages",       label: "Pagine & Testi", icon: FileText,   group: "contenuti" },
   { id: "brands",      label: "Our Collections", icon: Tags,      group: "contenuti" },
   { id: "globalBrands",label: "Our Global Brands", icon: Globe,   group: "contenuti" },
+  { id: "clients",     label: "Our Clients",   icon: Briefcase,   group: "contenuti" },
   { id: "leadership",  label: "Team",           icon: Users,      group: "contenuti" },
   { id: "studies",     label: "Case Studies",   icon: FolderOpen, group: "contenuti" },
   { id: "posts",       label: "Insights",       icon: PenLine,    group: "contenuti" },
@@ -95,6 +96,7 @@ const SECTION_DESCRIPTIONS: Record<TopSection, string> = {
   seo:         "Monitoraggio SEO, SEM (targeting parola chiave per ricerca/campagne a pagamento), GEO (ottimizzazione per i motori generativi AI) e AIO (AI Overview) di tutti i contenuti pubblicati: punteggi, contenuti da migliorare e valutazione in tempo reale mentre scrivi. L'accessibilità è valutata separatamente nella sezione dedicata.",
   brands:      "Le collezioni prodotto raggruppate per brand: etichetta e immagine di ogni collezione. Sono quelle visibili nella sezione 'Our Collections' della pagina /brands del sito.",
   globalBrands: "I loghi dei brand partner mostrati nella striscia scorrevole in home e in cima alla pagina /brands. Aggiungi, sostituisci o rimuovi un logo da qui.",
+  clients:     "I loghi dei retailer/clienti mostrati nella sezione 'Our Clients' della home, divisi tra Grocery e Petrol, con testo introduttivo.",
   leadership:  "I membri del team mostrati nella pagina About/Team, con foto, ruolo e biografia.",
   studies:     "I case study/campagne pubblicati sul sito: dati generali, risultati, reward e galleria immagini.",
   posts:       "Gli articoli del blog/Insights, con testo formattato, immagine di copertina e autore.",
@@ -118,6 +120,7 @@ const SECTION_USAGE: Record<TopSection, string[]> = {
   seo:         ["Consulta questa sezione dopo aver pubblicato per vedere quali articoli/case study vanno migliorati.", "Mentre scrivi un post o un case study, la valutazione SEO/GEO/AIO appare in tempo reale in fondo al modulo di modifica."],
   brands:      ["Aggiungi una collezione quando lanci una nuova linea prodotto per un brand; sostituisci l'immagine se cambia il visual della collezione."],
   globalBrands: ["Usa questa sezione se devi solo aggiornare o aggiungere il logo mostrato in home, senza toccare foto, descrizione o statistiche del brand."],
+  clients:      ["Aggiungi un cliente quando firmi una nuova retail/petrol partnership; scegli la categoria giusta così compare nella colonna corretta in home."],
   leadership:  ["Aggiorna quando un membro del team entra, esce o cambia ruolo/foto."],
   studies:     ["Pubblica un nuovo case study a campagna conclusa; usa i campi 'Dettaglio' per la pagina completa del progetto."],
   posts:       ["Pubblica un nuovo articolo o correggi un testo esistente del blog."],
@@ -236,6 +239,7 @@ function AdminDashboardInner({ currentUser }: { currentUser: AdminUser }) {
     if (section === "stats"       && !stats)        load("stats");
     if (section === "brands"      && !pages)        load("pages");
     if (section === "globalBrands" && !brands)      load("brands");
+    if (section === "clients"      && !pages)       load("pages");
     if (section === "leadership"  && !leadership)   load("leadership");
     if (section === "studies"     && !studies)      load("studies");
     if (section === "posts"       && !posts)        load("posts");
@@ -388,7 +392,7 @@ function AdminDashboardInner({ currentUser }: { currentUser: AdminUser }) {
         <LanguageSwitcher/>
         <div style={{ padding:"0 10px 20px" }}>
           <button onClick={logout}
-            style={{ display:"flex",alignItems:"center",justifyContent:"center",gap:7,width:"100%",padding:"10px 12px",background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:10,color:"rgba(255,255,255,0.45)",fontSize:12,cursor:"pointer",transition:"all 0.15s" }}>
+            style={{ display:"flex",alignItems:"center",justifyContent:"center",gap:7,width:"100%",padding:"10px 12px",background:"rgba(239,68,68,0.2)",border:"1px solid rgba(239,68,68,0.5)",borderRadius:10,color:"#FECACA",fontSize:12,cursor:"pointer",transition:"all 0.15s" }}>
             <LogOut size={13}/> {t.common.logout}
           </button>
         </div>
@@ -422,6 +426,7 @@ function AdminDashboardInner({ currentUser }: { currentUser: AdminUser }) {
           {section === "stats"       && <StatsEditor      data={stats}       onSave={d => { setStats(d);                          save("stats",       d); }} />}
           {section === "brands"      && <CollectionsCarouselPanel data={pages as PagesDataLocal | null} onSave={d => { setPages(d as PagesData); save("pages", d); }} />}
           {section === "globalBrands" && <GlobalBrandsEditor data={brands}   onSave={d => { setBrands(d);                         save("brands",      d); }} />}
+          {section === "clients"     && <ClientsPanel data={pages as PagesDataLocal | null} onSave={d => { setPages(d as PagesData); save("pages", d); }} />}
           {section === "leadership"  && <LeadershipEditor data={leadership}  onSave={d => { setLeadership(d);                     save("leadership",  d); }} />}
           {section === "studies"     && <StudiesEditor    data={studies}     brands={brands} users={users} currentUser={currentUser} onSave={d => { setStudies(d);                        save("studies",     d); }} />}
           {section === "posts"       && <PostsEditor      data={posts}       users={users} currentUser={currentUser} onSave={d => { setPosts(d);                          save("posts",       d); }} />}
@@ -627,7 +632,7 @@ function useImageUpload(onUrl: (url: string) => void) {
 /* ══════════════════════════════════════════════════
    IMAGE FIELD with UPLOAD BUTTON
 ══════════════════════════════════════════════════ */
-function ImageField({ value, onChange, label, avatarName }: { value: string; onChange: (v: string) => void; label: string; avatarName?: string }) {
+function ImageField({ value, onChange, label, avatarName, logoStyle }: { value: string; onChange: (v: string) => void; label: string; avatarName?: string; logoStyle?: boolean }) {
   const { open, uploading, uploadError, inputEl } = useImageUpload(onChange);
   const { t } = useAdminI18n();
   return (
@@ -645,9 +650,11 @@ function ImageField({ value, onChange, label, avatarName }: { value: string; onC
       {uploadError && <div style={{ fontSize:11,color:"#dc2626",marginTop:4 }}>{uploadError}</div>}
       {value && (
         <div style={{ display:"flex",alignItems:"center",gap:8,marginTop:8 }}>
-          <div style={{ background:"#2E2784",borderRadius:8,padding:8,display:"flex",alignItems:"center" }}>
+          {/* Logo-type images (transparent PNG/SVG marks) need "contain" on a light
+              backdrop, or they get cropped/invisible inside the default dark "cover" preview. */}
+          <div style={{ background:logoStyle?"#F3F3F8":"#2E2784",borderRadius:8,padding:8,display:"flex",alignItems:"center",minWidth:60 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={value} alt="" style={{ height:60,objectFit:"cover",borderRadius:4,maxWidth:"100%" }}/>
+            <img src={value} alt="" style={{ height:60,width:logoStyle?100:undefined,objectFit:logoStyle?"contain":"cover",borderRadius:4,maxWidth:"100%" }}/>
           </div>
           <button type="button" onClick={() => onChange("")} title={t.common.removeImage} aria-label={t.common.removeImage}
             style={{ flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",width:32,height:32,background:"#fff",color:"#dc2626",border:"1px solid #eee",borderRadius:999,cursor:"pointer" }}>
@@ -812,6 +819,88 @@ function CollectionsCarouselPanel({ data, onSave }: { data: PagesDataLocal | nul
           <button type="button" onClick={addNewBrand} style={listAddBtn}><Plus size={13}/>{t.collectionsCarousel.addBrandButton}</button>
         </div>
       </Panel>
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════
+   CLIENTS PANEL — "Our Clients" home section (retailer
+   logos split into Grocery / Petrol), text + logos in one place
+══════════════════════════════════════════════════ */
+type ClientRow = { id: string; name: string; logo: string; category: "grocery" | "petrol" };
+
+function ClientsPanel({ data, onSave }: { data: PagesDataLocal | null; onSave: (d: unknown) => void }) {
+  const { t } = useAdminI18n();
+  const c = t.clientsPanel;
+  const [eyebrow, setEyebrow] = useState("");
+  const [title, setTitle]     = useState("");
+  const [items, setItems]     = useState<ClientRow[]>([]);
+  useEffect(() => {
+    if (!data) return;
+    const clients = (data.home as Record<string,unknown> | undefined)?.clients as Record<string,unknown> | undefined;
+    setEyebrow(String(clients?.eyebrow ?? ""));
+    setTitle(String(clients?.title ?? ""));
+    setItems(Array.isArray(clients?.items) ? (clients!.items as ClientRow[]) : []);
+  }, [data]);
+  if (!data) return <Loader/>;
+
+  function update(id: string, patch: Partial<ClientRow>) {
+    setItems(prev => prev.map(it => it.id === id ? { ...it, ...patch } : it));
+  }
+  function remove(id: string) { setItems(prev => prev.filter(it => it.id !== id)); }
+  function addItem(category: "grocery" | "petrol") {
+    setItems(prev => [...prev, { id: `client-${Date.now()}`, name: "", logo: "", category }]);
+  }
+  function save() {
+    if (!data) return;
+    const prevHome    = (data.home as Record<string,unknown> | undefined) || {};
+    const prevClients = (prevHome.clients as Record<string,unknown> | undefined) || {};
+    onSave({
+      ...data,
+      home: { ...prevHome, clients: { ...prevClients, eyebrow, title, items } },
+    });
+  }
+
+  const selectStyle: React.CSSProperties = { width:"100%",boxSizing:"border-box",padding:"9px 10px",border:"1.5px solid #E8E8F0",borderRadius:9,fontSize:13,color:"#111",background:"#FAFAFA",outline:"none",fontFamily:"inherit",cursor:"pointer" };
+
+  function renderGroup(label: string, category: "grocery" | "petrol") {
+    const list = items.filter(it => it.category === category);
+    return (
+      <Panel title={label}>
+        <div style={{ display:"flex",flexDirection:"column",gap:10 }}>
+          {list.map(it => (
+            <div key={it.id} style={{ display:"flex",gap:8,alignItems:"center",border:"1px solid #eee",borderRadius:10,padding:10 }}>
+              <div style={{ width:140,flexShrink:0 }}><Input value={it.name} placeholder={c.namePlaceholder} onChange={v=>update(it.id,{name:v})}/></div>
+              <div style={{ width:110,flexShrink:0 }}>
+                <select value={it.category} onChange={e=>update(it.id,{category:e.target.value as "grocery"|"petrol"})} style={selectStyle}>
+                  <option value="grocery">{c.groceryLabel}</option>
+                  <option value="petrol">{c.petrolLabel}</option>
+                </select>
+              </div>
+              <div style={{ flex:1 }}><ImageField value={it.logo} onChange={v=>update(it.id,{logo:v})} label="" logoStyle/></div>
+              <button type="button" onClick={()=>remove(it.id)} aria-label={c.removeAria} style={listRowBtn}><Trash2 size={13}/></button>
+            </div>
+          ))}
+          {!list.length && <div style={{ fontSize:13,color:"#999" }}>{c.empty}</div>}
+          <button type="button" onClick={()=>addItem(category)} style={listAddBtn}><Plus size={13}/>{c.addButton}</button>
+        </div>
+      </Panel>
+    );
+  }
+
+  return (
+    <div>
+      <div style={{ display:"flex",justifyContent:"flex-end",marginBottom:12 }}>
+        <SaveBtn onClick={save}/>
+      </div>
+      <Panel title={c.textPanelTitle} info={c.textPanelInfo}>
+        <Grid>
+          <Field label={c.eyebrowLabel}><Input value={eyebrow} onChange={setEyebrow}/></Field>
+          <Field label={c.titleLabel} full><Input value={title} onChange={setTitle}/></Field>
+        </Grid>
+      </Panel>
+      {renderGroup(c.groceryLabel, "grocery")}
+      {renderGroup(c.petrolLabel, "petrol")}
     </div>
   );
 }
@@ -2286,6 +2375,8 @@ function PagesEditor({ data, onSave }: { data:PagesDataLocal|null; onSave:(d:unk
           const obj = sectionVal as Record<string, unknown>;
           const label = (activePage === "brands" && sectionKey === "collections")
             ? "Carosello Rewards"
+            : (activePage === "home" && sectionKey === "clients")
+            ? "Our Clients"
             : sectionKey.replace(/([A-Z])/g, " $1").replace(/^./, s => s.toUpperCase());
           const isVisible = obj._visible !== false;
 
@@ -2311,6 +2402,12 @@ function PagesEditor({ data, onSave }: { data:PagesDataLocal|null; onSave:(d:unk
                   {t.collectionsCarousel.pagesHint}
                 </div>
               )}
+              {activePage === "home" && sectionKey === "clients" && (
+                <div style={{ padding:"10px 14px",background:"#F8F8FC",borderRadius:8,fontSize:12,color:"#666",marginBottom:12 }}>
+                  {t.clientsPanel.pagesHint}
+                </div>
+              )}
+              {!(activePage === "home" && sectionKey === "clients") && (
               <Grid>
                 {Object.entries(obj).map(([fk, fv]) => {
                   if (fk === "_visible") return null;
@@ -2320,6 +2417,7 @@ function PagesEditor({ data, onSave }: { data:PagesDataLocal|null; onSave:(d:unk
                   return renderField(fk, String(fv ?? ""), v => update(activePage, sectionKey, fk, v), t.fieldLabel);
                 })}
               </Grid>
+              )}
               {/* Nested objects */}
               {Object.entries(obj).map(([subKey, subVal]) => {
                 if (typeof subVal !== "object" || subVal === null || Array.isArray(subVal)) return null;
@@ -2684,7 +2782,7 @@ function GlobalBrandsEditor({ data, onSave }: { data: BrandItem[] | null; onSave
             {withLogo.map(b => (
               <div key={b.id} style={{ display:"flex",gap:12,alignItems:"flex-start",border:"1px solid #eee",borderRadius:12,padding:14 }}>
                 <div style={{ width:150,flexShrink:0 }}><Input value={b.name} placeholder={gb.namePlaceholder} onChange={v => updateField(b.id, { name: v })}/></div>
-                <div style={{ flex:1 }}><ImageField value={b.logo || ""} onChange={v => updateField(b.id, { logo: v })} label=""/></div>
+                <div style={{ flex:1 }}><ImageField value={b.logo || ""} onChange={v => updateField(b.id, { logo: v })} label="" logoStyle/></div>
                 <button type="button" onClick={() => removeLogo(b)} aria-label={gb.removeAria} style={listRowBtn}><Trash2 size={13}/></button>
               </div>
             ))}
@@ -2700,7 +2798,7 @@ function GlobalBrandsEditor({ data, onSave }: { data: BrandItem[] | null; onSave
             {withoutLogo.map(b => (
               <div key={b.id} style={{ display:"flex",gap:12,alignItems:"flex-start",border:"1px solid #eee",borderRadius:12,padding:14 }}>
                 <div style={{ width:150,flexShrink:0,fontSize:13,fontWeight:600,color:"#333",paddingTop:9 }}>{b.name || gb.unnamed}</div>
-                <div style={{ flex:1 }}><ImageField value="" onChange={v => updateField(b.id, { logo: v })} label=""/></div>
+                <div style={{ flex:1 }}><ImageField value="" onChange={v => updateField(b.id, { logo: v })} label="" logoStyle/></div>
               </div>
             ))}
           </div>

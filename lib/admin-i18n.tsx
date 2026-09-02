@@ -52,6 +52,13 @@ type Dict = {
     addToBrand: string; newBrandPlaceholder: string; addBrandButton: string;
     empty: string; pagesHint: string;
   };
+  clientsPanel: {
+    textPanelTitle: string; textPanelInfo: string;
+    eyebrowLabel: string; titleLabel: string;
+    groceryLabel: string; petrolLabel: string;
+    namePlaceholder: string; removeAria: string; empty: string; addButton: string;
+    pagesHint: string;
+  };
   overview: {
     title: string; intro: string; usage1: string; usage2: string;
     quickGuide: string; allSolved: string; allSolvedDesc: string;
@@ -63,7 +70,7 @@ type Dict = {
 
 const it: Dict = {
   nav: {
-    overview: "Overview", pages: "Pagine & Testi", brands: "Our Collections", globalBrands: "Our Global Brands", leadership: "Team",
+    overview: "Overview", pages: "Pagine & Testi", brands: "Our Collections", globalBrands: "Our Global Brands", clients: "Our Clients", leadership: "Team",
     studies: "Case Studies", posts: "Insights", positions: "Posizioni Lavorative", customPages: "Pagine Custom",
     media: "Media Library", colors: "Colori & Tema", stats: "Statistiche", cookies: "Cookie & Privacy",
     analytics: "Traffico Sito", accessibility: "Accessibilità", seo: "SEO · SEM · GEO · AIO",
@@ -126,6 +133,7 @@ const it: Dict = {
     seo:         "Monitoraggio SEO, SEM (targeting parola chiave per ricerca/campagne a pagamento), GEO (ottimizzazione per i motori generativi AI) e AIO (AI Overview) di tutti i contenuti pubblicati: punteggi, contenuti da migliorare e valutazione in tempo reale mentre scrivi. L'accessibilità è valutata separatamente nella sezione dedicata.",
     brands:      "Le collezioni prodotto raggruppate per brand: etichetta e immagine di ogni collezione. Sono quelle visibili nella sezione 'Our Collections' della pagina /brands del sito.",
     globalBrands: "I loghi dei brand partner mostrati nella striscia scorrevole in home e in cima alla pagina /brands. Aggiungi, sostituisci o rimuovi un logo da qui.",
+    clients:     "I loghi dei retailer/clienti mostrati nella sezione 'Our Clients' della home, divisi tra Grocery e Petrol, con testo introduttivo.",
     leadership:  "I membri del team mostrati nella pagina About/Team, con foto, ruolo e biografia.",
     studies:     "I case study/campagne pubblicati sul sito: dati generali, risultati, reward e galleria immagini.",
     posts:       "Gli articoli del blog/Insights, con testo formattato, immagine di copertina e autore.",
@@ -146,7 +154,8 @@ const it: Dict = {
     stats:       ["Aggiorna questi numeri solo quando i dati aziendali cambiano davvero (es. nuovo anno, nuova campagna conclusa)."],
     seo:         ["Consulta questa sezione dopo aver pubblicato per vedere quali articoli/case study vanno migliorati.", "Mentre scrivi un post o un case study, la valutazione SEO/SEM/GEO/AIO appare in tempo reale in fondo al modulo di modifica."],
     brands:      ["Aggiungi una collezione quando lanci una nuova linea prodotto per un brand; sostituisci l'immagine se cambia il visual della collezione."],
-    globalBrands: ["Aggiungi un brand quando firmi una nuova partnership; modifica foto, descrizione e statistiche se cambiano i dati del cliente.", "Usa il pannello dei loghi qui sopra se devi solo aggiornare velocemente il logo mostrato in home."],
+    globalBrands: ["Usa questa sezione se devi solo aggiornare o aggiungere il logo mostrato in home, senza toccare foto, descrizione o statistiche del brand."],
+    clients:      ["Aggiungi un cliente quando firmi una nuova retail/petrol partnership; scegli la categoria giusta così compare nella colonna corretta in home."],
     leadership:  ["Aggiorna quando un membro del team entra, esce o cambia ruolo/foto."],
     studies:     ["Pubblica un nuovo case study a campagna conclusa; usa i campi 'Dettaglio' per la pagina completa del progetto."],
     posts:       ["Pubblica un nuovo articolo o correggi un testo esistente del blog."],
@@ -179,6 +188,14 @@ const it: Dict = {
     addToBrand: "Aggiungi a {brand}", newBrandPlaceholder: "Nuovo brand...", addBrandButton: "Aggiungi brand",
     empty: "Nessuna collezione ancora.",
     pagesHint: "Le singole collezioni (etichette e immagini) si gestiscono in Our Collections, nella sidebar. Qui sotto trovi solo il testo introduttivo di questa sezione.",
+  },
+  clientsPanel: {
+    textPanelTitle: "Testo sezione", textPanelInfo: "Il titolo introduttivo della sezione 'Our Clients' in home.",
+    eyebrowLabel: "Eyebrow", titleLabel: "Titolo",
+    groceryLabel: "Grocery", petrolLabel: "Petrol",
+    namePlaceholder: "Nome cliente", removeAria: "Rimuovi", empty: "Nessun cliente in questa categoria.",
+    addButton: "Aggiungi cliente",
+    pagesHint: "I loghi e il testo della sezione 'Our Clients' si gestiscono in Our Clients, nella sidebar.",
   },
   overview: {
     title: "Overview", intro: "Panoramica generale del pannello: numeri chiave e guida rapida a tutte le sezioni.",
@@ -319,7 +336,7 @@ const it: Dict = {
 
 const en: Dict = {
   nav: {
-    overview: "Overview", pages: "Pages & Text", brands: "Our Collections", globalBrands: "Our Global Brands", leadership: "Team",
+    overview: "Overview", pages: "Pages & Text", brands: "Our Collections", globalBrands: "Our Global Brands", clients: "Our Clients", leadership: "Team",
     studies: "Case Studies", posts: "Insights", positions: "Job Positions", customPages: "Custom Pages",
     media: "Media Library", colors: "Colors & Theme", stats: "Statistics", cookies: "Cookies & Privacy",
     analytics: "Site Traffic", accessibility: "Accessibility", seo: "SEO · SEM · GEO · AIO",
@@ -382,6 +399,7 @@ const en: Dict = {
     seo:         "SEO, SEM (keyword targeting for search/paid campaigns), GEO (optimization for generative AI engines) and AIO (AI Overview) monitoring for all published content: scores, content to improve, and real-time evaluation while you write. Accessibility is scored separately in its own section.",
     brands:      "The product collections grouped by brand: each collection's label and image. These are the ones visible in the 'Our Collections' section of the site's /brands page.",
     globalBrands: "The brand partner logos shown in the scrolling strip on the homepage and at the top of the /brands page. Add, replace or remove a logo here.",
+    clients:     "The retailer/client logos shown in the 'Our Clients' section on the homepage, split between Grocery and Petrol, with the intro text.",
     leadership:  "The team members shown on the About/Team page, with photo, role and bio.",
     studies:     "The case studies/campaigns published on the site: overview data, results, rewards and image gallery.",
     posts:       "The blog/Insights articles, with formatted text, cover image and author.",
@@ -403,6 +421,7 @@ const en: Dict = {
     seo:         ["Check this section after publishing to see which articles/case studies need improvement.", "While writing a post or case study, the SEO/SEM/GEO/AIO evaluation appears in real time at the bottom of the edit form."],
     brands:      ["Add a collection when you launch a new product line for a brand; replace the image if the collection's visual changes."],
     globalBrands: ["Use this section when you only need to update or add the logo shown on the homepage, without touching the brand's photo, description or stats."],
+    clients:      ["Add a client when you sign a new retail/petrol partnership; pick the right category so it shows up in the correct column on the homepage."],
     leadership:  ["Update it when a team member joins, leaves, or changes role/photo."],
     studies:     ["Publish a new case study once a campaign wraps; use the 'Detail' fields for the full project page."],
     posts:       ["Publish a new article or fix an existing blog text."],
@@ -435,6 +454,14 @@ const en: Dict = {
     addToBrand: "Add to {brand}", newBrandPlaceholder: "New brand...", addBrandButton: "Add brand",
     empty: "No collections yet.",
     pagesHint: "Individual collections (labels and images) are managed in Our Collections, in the sidebar. Below you'll only find this section's intro text.",
+  },
+  clientsPanel: {
+    textPanelTitle: "Section text", textPanelInfo: "The intro title for the 'Our Clients' section on the homepage.",
+    eyebrowLabel: "Eyebrow", titleLabel: "Title",
+    groceryLabel: "Grocery", petrolLabel: "Petrol",
+    namePlaceholder: "Client name", removeAria: "Remove", empty: "No clients in this category yet.",
+    addButton: "Add client",
+    pagesHint: "The logos and text of the 'Our Clients' section are managed in Our Clients, in the sidebar.",
   },
   overview: {
     title: "Overview", intro: "General panel overview: key numbers and a quick guide to every section.",
@@ -575,7 +602,7 @@ const en: Dict = {
 
 const ru: Dict = {
   nav: {
-    overview: "Обзор", pages: "Страницы и тексты", brands: "Наши коллекции", globalBrands: "Наши глобальные бренды", leadership: "Команда",
+    overview: "Обзор", pages: "Страницы и тексты", brands: "Наши коллекции", globalBrands: "Наши глобальные бренды", clients: "Наши клиенты", leadership: "Команда",
     studies: "Кейсы", posts: "Инсайты", positions: "Вакансии", customPages: "Дополнительные страницы",
     media: "Медиатека", colors: "Цвета и тема", stats: "Статистика", cookies: "Cookie и конфиденциальность",
     analytics: "Трафик сайта", accessibility: "Доступность", seo: "SEO · SEM · GEO · AIO",
@@ -638,6 +665,7 @@ const ru: Dict = {
     seo:         "Мониторинг SEO, SEM (таргетинг ключевых слов для поиска/платных кампаний), GEO (оптимизация для генеративных ИИ-систем) и AIO (AI Overview) всего опубликованного контента: оценки, контент для улучшения и оценка в реальном времени во время написания. Доступность оценивается отдельно в специальном разделе.",
     brands:      "Коллекции продуктов, сгруппированные по бренду: название и изображение каждой коллекции. Это те же коллекции, что видны в разделе 'Our Collections' на странице /brands сайта.",
     globalBrands: "Логотипы брендов-партнёров, отображаемые в прокручивающейся ленте на главной и в верхней части страницы /brands. Добавляйте, заменяйте или удаляйте логотип здесь.",
+    clients:     "Логотипы ритейлеров/клиентов, отображаемые в разделе 'Our Clients' на главной, разделённые на Grocery и Petrol, с вводным текстом.",
     leadership:  "Члены команды, отображаемые на странице About/Team, с фото, должностью и биографией.",
     studies:     "Кейсы/кампании, опубликованные на сайте: общие данные, результаты, награды и галерея изображений.",
     posts:       "Статьи блога/Инсайтов с форматированным текстом, обложкой и автором.",
@@ -659,6 +687,7 @@ const ru: Dict = {
     seo:         ["Просматривайте этот раздел после публикации, чтобы узнать, какие статьи/кейсы нужно улучшить.", "Во время написания статьи или кейса оценка SEO/SEM/GEO/AIO появляется в реальном времени внизу формы редактирования."],
     brands:      ["Добавляйте коллекцию при запуске новой линейки продуктов для бренда; заменяйте изображение при изменении визуала коллекции."],
     globalBrands: ["Используйте этот раздел, если нужно только обновить или добавить логотип на главной, не трогая фото, описание или статистику бренда."],
+    clients:      ["Добавляйте клиента при подписании новой retail/petrol партнёрства; выбирайте нужную категорию, чтобы он появился в правильной колонке на главной."],
     leadership:  ["Обновляйте при приходе, уходе или смене роли/фото члена команды."],
     studies:     ["Публикуйте новый кейс после завершения кампании; используйте поля 'Детали' для полной страницы проекта."],
     posts:       ["Публикуйте новую статью или исправляйте существующий текст блога."],
@@ -691,6 +720,14 @@ const ru: Dict = {
     addToBrand: "Добавить к {brand}", newBrandPlaceholder: "Новый бренд...", addBrandButton: "Добавить бренд",
     empty: "Пока нет коллекций.",
     pagesHint: "Отдельные коллекции (названия и изображения) управляются в разделе «Наши коллекции», в боковом меню. Здесь только вводный текст этого раздела.",
+  },
+  clientsPanel: {
+    textPanelTitle: "Текст раздела", textPanelInfo: "Вводный заголовок раздела 'Our Clients' на главной странице.",
+    eyebrowLabel: "Надзаголовок", titleLabel: "Заголовок",
+    groceryLabel: "Grocery", petrolLabel: "Petrol",
+    namePlaceholder: "Название клиента", removeAria: "Удалить", empty: "В этой категории пока нет клиентов.",
+    addButton: "Добавить клиента",
+    pagesHint: "Логотипы и текст раздела 'Our Clients' управляются в разделе Наши клиенты, в боковом меню.",
   },
   overview: {
     title: "Обзор", intro: "Общий обзор панели: ключевые показатели и краткое руководство по всем разделам.",

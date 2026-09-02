@@ -427,9 +427,20 @@ function TwoSectors({ data = {} }: { data?: SectionData }) {
   );
 }
 
-function ClientLogos({ data = {} }: { data?: SectionData }) {
+type ClientLogoItem = { id?: string; name: string; logo: string; category: "grocery" | "petrol" };
+type ClientsData = SectionData & { items?: ClientLogoItem[] };
+
+function ClientLogos({ data = {} }: { data?: ClientsData }) {
   const eyebrow = data.eyebrow || "Our Clients";
   const title   = data.title   || "The Leading Retailers Who Already Trusted Us";
+  const items: ClientLogoItem[] = Array.isArray(data.items) && data.items.length
+    ? data.items
+    : [
+        ...retailerLogos.grocery.map(r => ({ ...r, category: "grocery" as const })),
+        ...retailerLogos.petrol.map(r => ({ ...r, category: "petrol" as const })),
+      ];
+  const grocery = items.filter(r => r.category === "grocery");
+  const petrol  = items.filter(r => r.category === "petrol");
 
   return (
     <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.rosa }}>
@@ -449,8 +460,8 @@ function ClientLogos({ data = {} }: { data?: SectionData }) {
                 Grocery
               </div>
               <div className="grid grid-cols-3 sm:flex sm:flex-wrap gap-3">
-                {retailerLogos.grocery.map((r) => (
-                  <div key={r.name} className="flex items-center justify-center h-16 w-full sm:w-28 rounded-xl bg-white/70 p-3" style={{ boxShadow: "0 4px 16px rgba(46,39,132,0.08)" }}>
+                {grocery.map((r) => (
+                  <div key={r.id ?? r.name} className="flex items-center justify-center h-16 w-full sm:w-28 rounded-xl bg-white/70 p-3" style={{ boxShadow: "0 4px 16px rgba(46,39,132,0.08)" }}>
                     <img src={r.logo} alt={r.name} className="h-full w-full object-contain" />
                   </div>
                 ))}
@@ -461,8 +472,8 @@ function ClientLogos({ data = {} }: { data?: SectionData }) {
                 Petrol
               </div>
               <div className="grid grid-cols-3 sm:flex sm:flex-wrap gap-3">
-                {retailerLogos.petrol.map((r) => (
-                  <div key={r.name} className="flex items-center justify-center h-16 w-full sm:w-28 rounded-xl bg-white/70 p-3" style={{ boxShadow: "0 4px 16px rgba(46,39,132,0.08)" }}>
+                {petrol.map((r) => (
+                  <div key={r.id ?? r.name} className="flex items-center justify-center h-16 w-full sm:w-28 rounded-xl bg-white/70 p-3" style={{ boxShadow: "0 4px 16px rgba(46,39,132,0.08)" }}>
                     <img src={r.logo} alt={r.name} className="h-full w-full object-contain" />
                   </div>
                 ))}
@@ -756,7 +767,7 @@ export function HomePage({ initialStats, initialStudies, initialPosts, initialPa
   const frameworkData    = (home.framework      as SectionData) || {};
   const sectorsData      = (home.sectors        as SectionData) || {};
   const internationalData= (home.international  as SectionData) || {};
-  const clientsData      = (home.clients        as SectionData) || {};
+  const clientsData      = (home.clients        as ClientsData) || {};
   const brandPartnersData= (home.brandPartners  as SectionData) || {};
   const caseStudiesData  = (home.caseStudies    as SectionData) || {};
   const blogData         = (home.blog           as SectionData) || {};

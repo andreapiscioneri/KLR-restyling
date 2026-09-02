@@ -103,7 +103,159 @@
     "clients": {
       "_visible": true,
       "eyebrow": "Our Clients",
-      "title": "The Leading Retailers Who Already Trusted Us"
+      "title": "The Leading Retailers Who Already Trusted Us",
+      "items": [
+        {
+          "id": "coop",
+          "name": "Coop",
+          "logo": "/loghi_home/coop.png",
+          "category": "grocery"
+        },
+        {
+          "id": "kaufland",
+          "name": "Kaufland",
+          "logo": "/loghi_home/Kaufland.png",
+          "category": "grocery"
+        },
+        {
+          "id": "carrefour",
+          "name": "Carrefour",
+          "logo": "/loghi_home/Carrefour.png",
+          "category": "grocery"
+        },
+        {
+          "id": "intermarche",
+          "name": "Intermarché",
+          "logo": "/loghi_home/Intermarché.png",
+          "category": "grocery"
+        },
+        {
+          "id": "esselunga",
+          "name": "Esselunga",
+          "logo": "/loghi_home/esselunga.png",
+          "category": "grocery"
+        },
+        {
+          "id": "maxima",
+          "name": "Maxima",
+          "logo": "/loghi_home/Maxima.png",
+          "category": "grocery"
+        },
+        {
+          "id": "conad",
+          "name": "Conad",
+          "logo": "/loghi_home/Conad.png",
+          "category": "grocery"
+        },
+        {
+          "id": "fantastico",
+          "name": "Fantastico",
+          "logo": "/loghi_home/Fantastico.png",
+          "category": "grocery"
+        },
+        {
+          "id": "plodine",
+          "name": "Plodine",
+          "logo": "/loghi_home/Plodine.png",
+          "category": "grocery"
+        },
+        {
+          "id": "iki",
+          "name": "IKI",
+          "logo": "/loghi_home/iki.png",
+          "category": "grocery"
+        },
+        {
+          "id": "spar",
+          "name": "Spar",
+          "logo": "/loghi_home/SPAR.png",
+          "category": "grocery"
+        },
+        {
+          "id": "mercator",
+          "name": "Mercator",
+          "logo": "/loghi_home/Mercator.png",
+          "category": "grocery"
+        },
+        {
+          "id": "billa",
+          "name": "Billa",
+          "logo": "/loghi_home/BILLA.png",
+          "category": "grocery"
+        },
+        {
+          "id": "gadis",
+          "name": "Gadis",
+          "logo": "/loghi_home/Gadis.png",
+          "category": "grocery"
+        },
+        {
+          "id": "konzum",
+          "name": "Konzum",
+          "logo": "/loghi_home/Konzum.png",
+          "category": "grocery"
+        },
+        {
+          "id": "viada",
+          "name": "Viada",
+          "logo": "/loghi_home/Viada.png",
+          "category": "petrol"
+        },
+        {
+          "id": "eko",
+          "name": "EKO",
+          "logo": "/loghi_home/EKO.png",
+          "category": "petrol"
+        },
+        {
+          "id": "bp",
+          "name": "BP",
+          "logo": "/loghi_home/BP.png",
+          "category": "petrol"
+        },
+        {
+          "id": "omv",
+          "name": "OMV",
+          "logo": "/loghi_home/OMV.png",
+          "category": "petrol"
+        },
+        {
+          "id": "petrol",
+          "name": "Petrol",
+          "logo": "/loghi_home/Petrol.png",
+          "category": "petrol"
+        },
+        {
+          "id": "mol",
+          "name": "MOL",
+          "logo": "/loghi_home/MOL.png",
+          "category": "petrol"
+        },
+        {
+          "id": "circle-k",
+          "name": "Circle K",
+          "logo": "/loghi_home/Circle K.png",
+          "category": "petrol"
+        },
+        {
+          "id": "petrom",
+          "name": "Petrom",
+          "logo": "/loghi_home/Petrom.png",
+          "category": "petrol"
+        },
+        {
+          "id": "slovnaft",
+          "name": "Slovnaft",
+          "logo": "/loghi_home/Slovnaft.png",
+          "category": "petrol"
+        },
+        {
+          "id": "socar",
+          "name": "SOCAR",
+          "logo": "/loghi_home/socar.png",
+          "category": "petrol"
+        }
+      ]
     },
     "brandPartners": {
       "_visible": true,
