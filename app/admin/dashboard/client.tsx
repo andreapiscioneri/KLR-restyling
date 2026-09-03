@@ -2769,7 +2769,6 @@ function GlobalBrandsEditor({ data, onSave }: { data: BrandItem[] | null; onSave
   }
 
   const withLogo    = form.filter(b => b.logo);
-  const withoutLogo = form.filter(b => !b.logo);
 
   return (
     <div>
@@ -2791,19 +2790,6 @@ function GlobalBrandsEditor({ data, onSave }: { data: BrandItem[] | null; onSave
           <div style={{ fontSize:13,color:"#999" }}>{gb.emptyActive}</div>
         )}
       </Panel>
-
-      {withoutLogo.length > 0 && (
-        <Panel title={gb.withoutTitle} info={gb.withoutInfo}>
-          <div style={{ display:"flex",flexDirection:"column",gap:14 }}>
-            {withoutLogo.map(b => (
-              <div key={b.id} style={{ display:"flex",gap:12,alignItems:"flex-start",border:"1px solid #eee",borderRadius:12,padding:14 }}>
-                <div style={{ width:150,flexShrink:0,fontSize:13,fontWeight:600,color:"#333",paddingTop:9 }}>{b.name || gb.unnamed}</div>
-                <div style={{ flex:1 }}><ImageField value="" onChange={v => updateField(b.id, { logo: v })} label="" logoStyle/></div>
-              </div>
-            ))}
-          </div>
-        </Panel>
-      )}
 
       <Panel title={gb.addTitle} info={gb.addInfo}>
         <button type="button" onClick={addNew} style={listAddBtn}><Plus size={13}/>{gb.addButton}</button>

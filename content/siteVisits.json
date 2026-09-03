@@ -3725,5 +3725,14 @@
     "browser": "Chrome",
     "visitedAt": "2026-09-02T18:03:57.352Z",
     "eventType": "pageview"
+  },
+  {
+    "id": "bccd5144-578f-4686-becd-434eea17d3a6",
+    "path": "/admin/dashboard",
+    "sessionId": "87b600b4-da8c-4986-be2b-ce2d68d652f1",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-09-03T14:15:45.248Z",
+    "eventType": "pageview"
   }
 ]
