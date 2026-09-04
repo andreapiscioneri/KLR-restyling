@@ -36,9 +36,17 @@ export function TeamDetail({ id, go, initialLeadership }: { id: string; go: (r: 
           <p className="text-black tracking-tight mt-10 max-w-md" style={{ fontSize: "1.125rem", lineHeight: 1.6 }}>{p.bio}</p>
 
           <div className="mt-10 flex gap-3">
-            <button className={`w-11 h-11 rounded-full bg-[#2E2784] text-white flex items-center justify-center hover:bg-[#F8AE01] hover:text-black transition-all`}>
-              <Linkedin className="w-4 h-4" />
-            </button>
+            {p.linkedin && (
+              <a
+                href={p.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`LinkedIn – ${p.name}`}
+                className="w-11 h-11 rounded-full bg-[#2E2784] text-white flex items-center justify-center hover:bg-[#F8AE01] hover:text-black transition-all"
+              >
+                <Linkedin className="w-4 h-4" />
+              </a>
+            )}
             <button className="w-11 h-11 rounded-full bg-[#2E2784] text-white flex items-center justify-center hover:bg-[#F8AE01] hover:text-black transition-all">
               <Mail className="w-4 h-4" />
             </button>

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { readMediaManifest, getMediaBlob } from "@/lib/media-storage";
+import { withRetry } from "@/lib/with-retry";
 
 // Netlify Blobs fetches large objects internally via signed S3 fetch() calls;
 // Next.js's Data Cache tries to cache those and throws for anything over 2MB.
@@ -23,7 +24,10 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   let manifest;
   try {
-    manifest = await withTimeout(readMediaManifest(), BLOB_FETCH_TIMEOUT_MS);
+    // One quick retry: the connection-pool stall this races against is
+    // usually per-connection, so a fresh attempt often succeeds even when
+    // the first one times out — much cheaper than surfacing a broken image.
+    manifest = await withRetry(() => withTimeout(readMediaManifest(), BLOB_FETCH_TIMEOUT_MS), 2, [200]);
   } catch (err) {
     console.error(`Media manifest read failed for ${params.id}:`, err);
     return NextResponse.json({ error: "Storage temporarily unavailable" }, { status: 503, headers: { "Cache-Control": "no-store" } });
@@ -40,7 +44,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
   // the next request retries the (usually working) blob store fresh.
   let blob;
   try {
-    blob = await withTimeout(getMediaBlob(record.blobKey), BLOB_FETCH_TIMEOUT_MS);
+    blob = await withRetry(() => withTimeout(getMediaBlob(record.blobKey), BLOB_FETCH_TIMEOUT_MS), 2, [200]);
   } catch (err) {
     console.error(`Media blob fetch failed for ${params.id} (${record.blobKey}):`, err);
     if (record.sourceUrl) {

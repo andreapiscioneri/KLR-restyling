@@ -410,7 +410,7 @@
         "All-In-Stores (Bazaars)"
       ],
       "closing": "Overall, we are loyalty Makers for any retailer.",
-      "image": "/1.png"
+      "image": "/api/media/9c7b94ae-ce44-49be-bbd3-1c08d673011d"
     },
     "closing": {
       "_visible": true,
@@ -491,12 +491,36 @@
       "eyebrow": "Team",
       "title": "The People Behind KLR.",
       "subtitle": "43 people. 11 nationalities. 11 locations across Europe. One shared passion for designing loyalty experiences that work.",
-      "image": "/api/media/wp-4569"
+      "image": "/api/media/0f7237f8-7bd3-4cdd-8c51-3d3296a387b0"
     },
     "international": {
       "_visible": true,
       "eyebrow": "International",
       "title": "One Team, Across Europe"
+    },
+    "culture": {
+      "_visible": true,
+      "eyebrow": "Our Culture",
+      "title": "What It's Like to Work at KLR",
+      "subtitle": "KLR is more than a company — it's a family of open-minded professionals from different cultures and backgrounds. We give people freedom to contribute, support to grow, and recognition for the value they bring.",
+      "testimonials": [
+        {
+          "personId": "sebastjan-kocjancic",
+          "quote": "At KLR, everyone contributes. We solve complex multi-market challenges as one team."
+        },
+        {
+          "personId": "marta-marga",
+          "quote": "You have freedom to create, support to grow, and space to bring your perspective."
+        },
+        {
+          "personId": "jan-sahbaz-pergar",
+          "quote": "People here care about quality, speed, and helping each other get better every day."
+        },
+        {
+          "personId": "nina-bjelivuk",
+          "quote": "Different cultures, one rhythm. That's what makes this team strong."
+        }
+      ]
     },
     "joinUs": {
       "_visible": true,

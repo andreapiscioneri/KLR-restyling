@@ -27,18 +27,6 @@ const locationPhotoByCity: Record<string, string> = {
   Madrid: "/team/Madrid.png",
 };
 
-const linkedinById: Record<string, string> = {
-  "antonio-finazzi": "https://www.linkedin.com/search/results/all/?keywords=Antonio%20Finazzi%20KLR",
-  "stefano-finazzi": "https://www.linkedin.com/search/results/all/?keywords=Stefano%20Finazzi%20KLR",
-  "sebastjan-kocjancic": "https://www.linkedin.com/search/results/all/?keywords=Sebastjan%20Kocjan%C4%8Di%C4%8D%20KLR",
-  "olga-wojcik": "https://www.linkedin.com/search/results/all/?keywords=Olga%20Wojcik%20KLR",
-  "marta-marga": "https://www.linkedin.com/search/results/all/?keywords=Marta%20Marga%20KLR",
-  "jan-sahbaz-pergar": "https://www.linkedin.com/search/results/all/?keywords=Jan%20Sahbaz%20Pergar%20KLR",
-  "riccardo-fogazzi": "https://www.linkedin.com/search/results/all/?keywords=Riccardo%20Fogazzi%20KLR",
-  "nina-bjelivuk": "https://www.linkedin.com/search/results/all/?keywords=Nina%20Bjelivuk%20KLR",
-  "natalia-molchanova": "https://www.linkedin.com/search/results/all/?keywords=Natalia%20Molchanova%20KLR",
-};
-
 // Row 1: founder Antonio + 4 leads
 const row1Ids = ["antonio-finazzi", "sebastjan-kocjancic", "marta-marga", "natalia-molchanova"];
 // Row 2: founder Stefano + 4 leads
@@ -58,7 +46,7 @@ function FounderCard({
   go: (r: Route) => void;
 }) {
   const { first, last } = splitName(person.name);
-  const li = linkedinById[person.id];
+  const li = person.linkedin;
   return (
     <article
       className="rounded-[24px] p-5 md:p-7 flex flex-col items-center text-center"
@@ -79,23 +67,25 @@ function FounderCard({
       </p>
 
       <div className="mt-5 flex items-center gap-2">
-        <button
-          onClick={() => go({ page: "team-detail", id: person.id })}
-          className="inline-flex items-center gap-1 text-white/80 hover:text-[#F8AE01] transition-colors"
-          style={{ fontSize: "0.75rem", fontWeight: 700 }}
-        >
-          Profile <ArrowUpRight className="w-3 h-3" />
-        </button>
         {li && (
-          <a
-            href={li}
-            target="_blank"
-            rel="noreferrer"
-            className="w-7 h-7 rounded-full bg-[#F8AE01] text-[#2E2784] flex items-center justify-center hover:bg-white transition-colors"
-            aria-label={`LinkedIn – ${person.name}`}
-          >
-            <LucideLinkedin className="w-4 h-4" fill="currentColor" stroke="none" />
-          </a>
+          <>
+            <button
+              onClick={() => go({ page: "team-detail", id: person.id })}
+              className="inline-flex items-center gap-1 text-white/80 hover:text-[#F8AE01] transition-colors"
+              style={{ fontSize: "0.75rem", fontWeight: 700 }}
+            >
+              Profile <ArrowUpRight className="w-3 h-3" />
+            </button>
+            <a
+              href={li}
+              target="_blank"
+              rel="noreferrer"
+              className="w-7 h-7 rounded-full bg-[#F8AE01] text-[#2E2784] flex items-center justify-center hover:bg-white transition-colors"
+              aria-label={`LinkedIn – ${person.name}`}
+            >
+              <LucideLinkedin className="w-4 h-4" fill="currentColor" stroke="none" />
+            </a>
+          </>
         )}
       </div>
     </article>
@@ -110,7 +100,7 @@ function TeamCard({
   go: (r: Route) => void;
 }) {
   const { first, last } = splitName(person.name);
-  const li = linkedinById[person.id];
+  const li = person.linkedin;
   return (
     <article
       // Centrato con items-center, text-center e justify-center
@@ -133,23 +123,25 @@ function TeamCard({
       </p>
 
       <div className="mt-4 flex items-center gap-2">
-        <button
-          onClick={() => go({ page: "team-detail", id: person.id })}
-          className="inline-flex items-center gap-1 text-[#2E2784]/80 hover:text-black transition-colors"
-          style={{ fontSize: "0.72rem", fontWeight: 700 }}
-        >
-          Profile <ArrowUpRight className="w-3 h-3" />
-        </button>
         {li && (
-          <a
-            href={li}
-            target="_blank"
-            rel="noreferrer"
-            className="w-6 h-6 rounded-full bg-[#2E2784] text-white flex items-center justify-center hover:bg-black transition-colors"
-            aria-label={`LinkedIn – ${person.name}`}
-          >
-            <LucideLinkedin className="w-3.5 h-3.5" fill="currentColor" stroke="none" />
-          </a>
+          <>
+            <button
+              onClick={() => go({ page: "team-detail", id: person.id })}
+              className="inline-flex items-center gap-1 text-[#2E2784]/80 hover:text-black transition-colors"
+              style={{ fontSize: "0.72rem", fontWeight: 700 }}
+            >
+              Profile <ArrowUpRight className="w-3 h-3" />
+            </button>
+            <a
+              href={li}
+              target="_blank"
+              rel="noreferrer"
+              className="w-6 h-6 rounded-full bg-[#2E2784] text-white flex items-center justify-center hover:bg-black transition-colors"
+              aria-label={`LinkedIn – ${person.name}`}
+            >
+              <LucideLinkedin className="w-3.5 h-3.5" fill="currentColor" stroke="none" />
+            </a>
+          </>
         )}
       </div>
     </article>
@@ -159,6 +151,7 @@ function TeamCard({
 type TeamCmsData = {
   hero?: { eyebrow?: string; title?: string; subtitle?: string; image?: string };
   international?: { eyebrow?: string; title?: string };
+  culture?: { eyebrow?: string; title?: string; subtitle?: string; testimonials?: { personId?: string; quote?: string }[] };
   joinUs?: { eyebrow?: string; title?: string; subtitle?: string; contactEmail?: string; ctaLabel?: string; ctaHref?: string };
 };
 
@@ -177,17 +170,17 @@ export function Team({ go, initialLeadership, initialStats, initialTeamCms }: Te
   const row1 = row1Ids.map(get);
   const row2 = row2Ids.map(get);
 
-  const testimonialsData = [
-    { id: "sebastjan-kocjancic", fallback: "At KLR, everyone contributes. We solve complex multi-market challenges as one team." },
-    { id: "marta-marga", fallback: "You have freedom to create, support to grow, and space to bring your perspective." },
-    { id: "jan-sahbaz-pergar", fallback: "People here care about quality, speed, and helping each other get better every day." },
-    { id: "nina-bjelivuk", fallback: "Different cultures, one rhythm. That's what makes this team strong." },
+  const defaultTestimonials = [
+    { personId: "sebastjan-kocjancic", quote: "At KLR, everyone contributes. We solve complex multi-market challenges as one team." },
+    { personId: "marta-marga", quote: "You have freedom to create, support to grow, and space to bring your perspective." },
+    { personId: "jan-sahbaz-pergar", quote: "People here care about quality, speed, and helping each other get better every day." },
+    { personId: "nina-bjelivuk", quote: "Different cultures, one rhythm. That's what makes this team strong." },
   ];
 
-  const testimonials = testimonialsData
-    .map((t) => {
-      const person = leadership.find((p) => p.id === t.id);
-      return person ? { id: t.id, person, text: String(person.quote || t.fallback) } : null;
+  const testimonials = (teamCms.culture?.testimonials?.length ? teamCms.culture.testimonials : defaultTestimonials)
+    .map((tItem, i) => {
+      const person = leadership.find((p) => p.id === tItem.personId);
+      return person ? { id: `${tItem.personId}-${i}`, person, text: String(tItem.quote || person.quote || "") } : null;
     })
     .filter((t): t is { id: string; person: (typeof fallbackLeadership)[number]; text: string } => Boolean(t));
 
@@ -197,10 +190,13 @@ export function Team({ go, initialLeadership, initialStats, initialTeamCms }: Te
   const heroImage = teamCms.hero?.image || images.recruiting;
   const intlEyebrow = teamCms.international?.eyebrow || "International Presence";
   const intlTitle = teamCms.international?.title || "We Are Truly International";
+  const cultureEyebrow = teamCms.culture?.eyebrow || "Our Culture";
+  const cultureTitle = teamCms.culture?.title || "What It's Like to Work at KLR";
+  const cultureSubtitle = teamCms.culture?.subtitle || "KLR is more than a company — it's a family of open-minded professionals from different cultures and backgrounds. We give people freedom to contribute, support to grow, and recognition for the value they bring.";
   const joinEyebrow = teamCms.joinUs?.eyebrow || "Want to Work With Us?";
   const joinTitle = teamCms.joinUs?.title || "Join Our Team";
   const joinSubtitle = teamCms.joinUs?.subtitle || "We're always interested in meeting talented people who share our passion for loyalty and teamwork. Send us your details and we'll be in touch.";
-  const visible = (section?: Record<string, string>) => (section as Record<string, unknown> | undefined)?._visible !== false;
+  const visible = (section?: Record<string, unknown>) => section?._visible !== false;
 
   // Split title for coloring last words
   const heroTitleWords = heroTitle.trim().split(/\s+/);
@@ -320,18 +316,18 @@ export function Team({ go, initialLeadership, initialStats, initialTeamCms }: Te
       </section>}
 
       {/* OUR CULTURE — yellow */}
-      <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
+      {visible(teamCms.culture) && <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
         <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-white/20 blur-3xl" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              Our Culture
+              {cultureEyebrow}
             </div>
             <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-              What It's Like to Work at KLR
+              {cultureTitle}
             </h2>
             <p className="text-[#2E2784]/80 tracking-tight mt-7 max-w-4xl" style={{ fontSize: "1.05rem", lineHeight: 1.65 }}>
-              KLR is more than a company — it's a family of open-minded professionals from different cultures and backgrounds. We give people freedom to contribute, support to grow, and recognition for the value they bring.
+              {cultureSubtitle}
             </p>
 
             <div className="mt-12 grid md:grid-cols-2 xl:grid-cols-4 gap-5">
@@ -352,7 +348,7 @@ export function Team({ go, initialLeadership, initialStats, initialTeamCms }: Te
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section>}
 
       {/* GUIDING PRINCIPLE — blue */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>

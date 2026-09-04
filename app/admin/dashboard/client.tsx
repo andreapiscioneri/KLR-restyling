@@ -161,7 +161,7 @@ const PAGE_TABS: { id: PageKey; label: string; icon: LucideIcon }[] = [
    TYPES
 ══════════════════════════════════════════════════ */
 type BrandItem    = { id:string;name:string;tag:string;img:string;logo?:string;since:string;campaigns:string;countries:string;desc:string };
-type LeaderItem   = { id:string;name:string;role:string;img:string;bio:string;quote:string };
+type LeaderItem   = { id:string;name:string;role:string;img:string;bio:string;quote:string;linkedin?:string };
 type StudyResult  = { k:string;v:string };
 type StudyRewardGroup = { title:string;subtitle:string;items:string[] };
 type StudyDetails = {
@@ -244,6 +244,7 @@ function AdminDashboardInner({ currentUser }: { currentUser: AdminUser }) {
     if (section === "studies"     && !studies)      load("studies");
     if (section === "posts"       && !posts)        load("posts");
     if (section === "pages"       && !pages)        load("pages");
+    if (section === "leadership"  && !pages)        load("pages");
     if (section === "positions"   && !positions)    load("positions");
     if (section === "customPages" && !customPages)  load("customPages");
     if (section === "cookies"     && !cookieBanner) load("cookieBanner");
@@ -427,7 +428,7 @@ function AdminDashboardInner({ currentUser }: { currentUser: AdminUser }) {
           {section === "brands"      && <CollectionsCarouselPanel data={pages as PagesDataLocal | null} onSave={d => { setPages(d as PagesData); save("pages", d); }} />}
           {section === "globalBrands" && <GlobalBrandsEditor data={brands}   onSave={d => { setBrands(d);                         save("brands",      d); }} />}
           {section === "clients"     && <ClientsPanel data={pages as PagesDataLocal | null} onSave={d => { setPages(d as PagesData); save("pages", d); }} />}
-          {section === "leadership"  && <LeadershipEditor data={leadership}  onSave={d => { setLeadership(d);                     save("leadership",  d); }} />}
+          {section === "leadership"  && <LeadershipEditor data={leadership} pages={pages as PagesDataLocal | null} saving={saving} saved={saved} saveError={saveError} onSave={d => { setLeadership(d);                     save("leadership",  d); }} onSavePages={d => { setPages(d as PagesData); save("pages", d); }} />}
           {section === "studies"     && <StudiesEditor    data={studies}     brands={brands} users={users} currentUser={currentUser} onSave={d => { setStudies(d);                        save("studies",     d); }} />}
           {section === "posts"       && <PostsEditor      data={posts}       users={users} currentUser={currentUser} onSave={d => { setPosts(d);                          save("posts",       d); }} />}
           {section === "positions"   && <PositionsEditor  data={positions}   onSave={d => { setPositions(d);                      save("positions",   d); }} />}
@@ -980,6 +981,47 @@ function RewardGroupsField({ label, value, onChange }: { label:string; value:{ti
           </div>
         ))}
         <button type="button" onClick={add} style={listAddBtn}><Plus size={13}/>{t.common.addRewardGroup}</button>
+      </div>
+    </Field>
+  );
+}
+
+function CultureTestimonialsField({ value, leadership, onChange }: { value:{ personId:string; quote:string }[]; leadership:LeaderItem[]|null; onChange:(v:{ personId:string; quote:string }[])=>void }) {
+  const { t } = useAdminI18n();
+  const items = value ?? [];
+  const people = leadership ?? [];
+  function update(i:number, patch:Partial<{ personId:string; quote:string }>) {
+    onChange(items.map((it,idx)=>idx===i?{...it,...patch}:it));
+  }
+  function remove(i:number) { onChange(items.filter((_,idx)=>idx!==i)); }
+  function add() { onChange([...items, { personId: people[0]?.id ?? "", quote:"" }]); }
+  return (
+    <Field label={t.common.cultureTestimonials} full hint={t.common.cultureTestimonialsHint}>
+      <div style={{ display:"flex",flexDirection:"column",gap:14 }}>
+        {items.map((item, i) => {
+          const person = people.find(p => p.id === item.personId);
+          return (
+            <div key={i} style={{ border:"1px solid #eee",borderRadius:12,padding:14,display:"flex",gap:12,alignItems:"flex-start" }}>
+              <div style={{ width:44,height:44,borderRadius:"50%",overflow:"hidden",flexShrink:0,background:"#F5F5FA" }}>
+                {person?.img && <img src={person.img} alt={person.name} style={{ width:"100%",height:"100%",objectFit:"cover" }}/>}
+              </div>
+              <div style={{ flex:1,display:"flex",flexDirection:"column",gap:10 }}>
+                <div style={{ display:"flex",gap:8,alignItems:"center" }}>
+                  <div style={{ flex:1 }}>
+                    <select value={item.personId} onChange={e=>update(i,{personId:e.target.value})}
+                      style={{ width:"100%",boxSizing:"border-box",padding:"9px 12px",border:"1.5px solid #E8E8F0",borderRadius:9,fontSize:13,color:"#111",background:"#FAFAFA",outline:"none",fontFamily:"inherit",cursor:"pointer" }}>
+                      <option value="" disabled>{t.common.chooseMember}</option>
+                      {people.map(p => <option key={p.id} value={p.id}>{p.name} — {p.role}</option>)}
+                    </select>
+                  </div>
+                  <button type="button" onClick={()=>remove(i)} aria-label={t.common.removeItem} style={listRowBtn}><Trash2 size={13}/></button>
+                </div>
+                <Textarea rows={2} value={item.quote} placeholder={t.common.cultureQuotePlaceholder} onChange={v=>update(i,{quote:v})}/>
+              </div>
+            </div>
+          );
+        })}
+        <button type="button" onClick={add} style={listAddBtn}><Plus size={13}/>{t.common.addCultureQuote}</button>
       </div>
     </Field>
   );
@@ -2425,6 +2467,7 @@ function PagesEditor({ data, onSave }: { data:PagesDataLocal|null; onSave:(d:unk
         {/* Nested sections */}
         {activePage !== "nav" && Object.entries(pageData).map(([sectionKey, sectionVal]) => {
           if (typeof sectionVal !== "object" || sectionVal === null || Array.isArray(sectionVal)) return null;
+          if (activePage === "team" && sectionKey === "culture") return null; // managed from the Team section instead
           const obj = sectionVal as Record<string, unknown>;
           const label = (activePage === "brands" && sectionKey === "collections")
             ? "Carosello Rewards"
@@ -2751,6 +2794,7 @@ const BRAND_FIELDS:    FieldDef[] = [
 const LEADER_FIELDS:   FieldDef[] = [
   {key:"id",label:"ID Slug",type:"text"},{key:"name",label:"Nome",type:"text"},{key:"role",label:"Ruolo",type:"text"},
   {key:"img",label:"Foto (URL)",type:"url"},{key:"bio",label:"Bio",type:"textarea"},{key:"quote",label:"Citazione",type:"textarea"},
+  {key:"linkedin",label:"LinkedIn (URL, lascia vuoto se non ha LinkedIn)",type:"text"},
 ];
 const STUDY_FIELDS:    FieldDef[] = [
   {key:"id",label:"ID Slug",type:"text"},{key:"title",label:"Titolo",type:"text"},{key:"client",label:"Cliente",type:"text"},
@@ -2873,7 +2917,88 @@ function GlobalBrandsEditor({ data, onSave }: { data: BrandItem[] | null; onSave
   );
 }
 function UsersEditor     ({ data, onSave }: { data:UserItem[]|null;     onSave:(d:UserItem[])=>void })     { const { t } = useAdminI18n(); return <ListEditor<UserItem>     title={t.entityName.user}   data={data} fields={translateFields(USER_FIELDS, t.itemField.user)}     nameKey="name"  imgKey="avatar" avatarFallback onSave={onSave} blank={{id:"",name:"",email:"",avatar:"",password:"",role:"editor"}}/>; }
-function LeadershipEditor({ data, onSave }: { data:LeaderItem[]|null;   onSave:(d:LeaderItem[])=>void })   { const { t } = useAdminI18n(); return <ListEditor<LeaderItem>   title={t.entityName.leader} data={data} fields={translateFields(LEADER_FIELDS, t.itemField.leader)}   nameKey="name"  imgKey="img" onSave={onSave} blank={{id:"",name:"",role:"",img:"",bio:"",quote:""}}/>; }
+function LeadershipEditor({ data, pages, saving, saved, saveError, onSave, onSavePages }: { data:LeaderItem[]|null; pages:PagesDataLocal|null; saving?:boolean; saved?:boolean; saveError?:boolean; onSave:(d:LeaderItem[])=>void; onSavePages:(d:unknown)=>void }) {
+  const { t } = useAdminI18n();
+  return (
+    <>
+      <ListEditor<LeaderItem> title={t.entityName.leader} data={data} fields={translateFields(LEADER_FIELDS, t.itemField.leader)} nameKey="name" imgKey="img" onSave={onSave} blank={{id:"",name:"",role:"",img:"",bio:"",quote:"",linkedin:""}}/>
+      <TeamCultureEditor pages={pages} leadership={data} saving={saving} saved={saved} saveError={saveError} onSave={onSavePages}/>
+    </>
+  );
+}
+
+// Mirrors the hardcoded fallback in src/app/components/team.tsx — what visitors
+// see live on /team as long as no "culture" section has ever been saved to the CMS.
+// Pre-filling the editor with this (instead of blank fields) means opening the
+// panel for the first time shows exactly what's already on the site.
+const CULTURE_DEFAULT: Record<string,unknown> = {
+  _visible: true,
+  eyebrow: "Our Culture",
+  title: "What It's Like to Work at KLR",
+  subtitle: "KLR is more than a company — it's a family of open-minded professionals from different cultures and backgrounds. We give people freedom to contribute, support to grow, and recognition for the value they bring.",
+  testimonials: [
+    { personId: "sebastjan-kocjancic", quote: "At KLR, everyone contributes. We solve complex multi-market challenges as one team." },
+    { personId: "marta-marga", quote: "You have freedom to create, support to grow, and space to bring your perspective." },
+    { personId: "jan-sahbaz-pergar", quote: "People here care about quality, speed, and helping each other get better every day." },
+    { personId: "nina-bjelivuk", quote: "Different cultures, one rhythm. That's what makes this team strong." },
+  ],
+};
+
+function TeamCultureEditor({ pages, leadership, saving, saved, saveError, onSave }: { pages:PagesDataLocal|null; leadership:LeaderItem[]|null; saving?:boolean; saved?:boolean; saveError?:boolean; onSave:(d:unknown)=>void }) {
+  const { t } = useAdminI18n();
+  const [culture, setCulture] = useState<Record<string,unknown>>(CULTURE_DEFAULT);
+  useEffect(() => {
+    const c = (pages?.team as Record<string,unknown> | undefined)?.culture as Record<string,unknown> | undefined;
+    setCulture(c ?? CULTURE_DEFAULT);
+  }, [pages]);
+
+  if (!pages) return <Loader/>;
+
+  function update(patch: Record<string,unknown>) { setCulture(prev => ({ ...prev, ...patch })); }
+  function save() {
+    onSave({ ...pages, team: { ...(pages!.team as Record<string,unknown>), culture } });
+  }
+  const isVisible = culture._visible !== false;
+
+  return (
+    <Panel
+      title={t.common.cultureSectionLabel}
+      info={t.common.cultureTestimonialsHint}
+      rightAction={
+        <button type="button"
+          onClick={() => update({ _visible: !isVisible })}
+          style={{ display:"flex",alignItems:"center",gap:5,padding:"4px 10px",border:"none",borderRadius:8,fontSize:11,fontWeight:600,cursor:"pointer",background:isVisible?"rgba(22,163,74,0.1)":"rgba(220,38,38,0.1)",color:isVisible?"#16a34a":"#dc2626",transition:"all 0.15s" }}>
+          {isVisible ? <Eye size={12}/> : <EyeOff size={12}/>}
+          {isVisible ? t.common.visible : t.common.hidden}
+        </button>
+      }
+    >
+      {!isVisible && (
+        <div style={{ padding:"10px 14px",background:"rgba(220,38,38,0.06)",borderRadius:8,fontSize:12,color:"#dc2626",marginBottom:12 }}>
+          {t.common.sectionHidden}
+        </div>
+      )}
+      <Grid>
+        <Field label={t.fieldLabel.eyebrow || "Eyebrow"}><Input value={String(culture.eyebrow||"")} onChange={v=>update({eyebrow:v})}/></Field>
+        <Field label={t.fieldLabel.title || "Titolo"}><Input value={String(culture.title||"")} onChange={v=>update({title:v})}/></Field>
+        <Field label={t.fieldLabel.subtitle || "Sottotitolo"} full><Textarea value={String(culture.subtitle||"")} onChange={v=>update({subtitle:v})}/></Field>
+      </Grid>
+      <div style={{ marginTop:14 }}>
+        <CultureTestimonialsField
+          value={(culture.testimonials as { personId:string; quote:string }[]) ?? []}
+          leadership={leadership}
+          onChange={testimonials => update({ testimonials })}
+        />
+      </div>
+      <FooterBar>
+        <div style={{ display:"flex",alignItems:"center",gap:10 }}>
+          <Button icon={Save} onClick={save}>{t.common.save}</Button>
+          <InlineSaveStatus saving={saving} saved={saved} saveError={saveError}/>
+        </div>
+      </FooterBar>
+    </Panel>
+  );
+}
 const STUDY_BLANK_DETAILS: StudyDetails = { sourceUrl:"",campaignTitle:"",challenge:"",rewardGroups:[],activations:[],mechanics:[],gallery:[],social:[],videos:[] };
 function StudiesEditor   ({ data, brands, users, currentUser, onSave }: { data:StudyItem[]|null; brands:BrandItem[]|null; users:UserItem[]|null; currentUser:AdminUser; onSave:(d:StudyItem[])=>void })    {
   const { t } = useAdminI18n();
@@ -4187,6 +4312,16 @@ function Loader() {
 function SaveBtn({ onClick }: { onClick:()=>void }) {
   const { t } = useAdminI18n();
   return <Button icon={Save} onClick={onClick}>{t.common.save}</Button>;
+}
+// Standalone save-status pill, for panels that sit far below the page header
+// (where the global StatusBadge lives) and need feedback right next to their
+// own Save button instead.
+function InlineSaveStatus({ saving, saved, saveError }: { saving?:boolean; saved?:boolean; saveError?:boolean }) {
+  const { t } = useAdminI18n();
+  if (saving) return <span style={{ fontSize:12,color:"#F8AE01",fontWeight:600,background:"rgba(248,174,1,0.1)",padding:"4px 12px",borderRadius:20 }}>{t.common.saving}</span>;
+  if (saved) return <span style={{ display:"flex",alignItems:"center",gap:4,fontSize:12,color:"#16a34a",fontWeight:600,background:"rgba(22,163,74,0.1)",padding:"4px 12px",borderRadius:20 }}><CheckCircle size={12}/>{t.common.saved}</span>;
+  if (saveError) return <span style={{ fontSize:12,color:"#dc2626",fontWeight:600,background:"rgba(220,38,38,0.1)",padding:"4px 12px",borderRadius:20 }}>✗ {t.common.saveError}</span>;
+  return null;
 }
 function SecBtn({ onClick, children }: { onClick:()=>void; children:React.ReactNode }) {
   return <Button variant="secondary" onClick={onClick}>{children}</Button>;

@@ -29,7 +29,16 @@ const LEGACY_STUDY_SLUG_TO_ID = {
   "bugatti-buono-coop-morava-czech-republic": "bugatti-buono-cookware-for-coop-morava-czech-republic",
   "pintinox-for-orlen-slovakia": "pintinox-trust-forged-in-steel-for-orlen-slovakia",
   "oracle-red-bull-racing-adrenaline-for-intermarche-poland": "oracle-red-bull-racing-travel-like-a-champion-for-intermarche-poland",
-  "pintinox-virtuoso-for-flop-hruska-czech-republic": "pintinox-virtuoso-for-flop-hruska-czech-republic",
+  "pintinox-virtuoso-flosman-czech-republic": "pintinox-virtuoso-for-flop-hruska-czech-republic",
+};
+
+// Core WordPress pages whose slug changed (or which had no direct new-site
+// equivalent) when migrating to the new site's route structure.
+const LEGACY_PAGE_REDIRECTS = {
+  "/workscasestudies": "/work",
+  "/contacts": "/contact",
+  "/klr-10-years": "/10-years",
+  "/petrol": "/services",
 };
 
 const nextConfig = {
@@ -47,11 +56,17 @@ const nextConfig = {
     optimizePackageImports: ["lucide-react", "motion"],
   },
   async redirects() {
-    return Object.entries(LEGACY_STUDY_SLUG_TO_ID).map(([slug, id]) => ({
+    const studyRedirects = Object.entries(LEGACY_STUDY_SLUG_TO_ID).map(([slug, id]) => ({
       source: `/${slug}`,
       destination: `/work/${id}`,
       permanent: true,
     }));
+    const pageRedirects = Object.entries(LEGACY_PAGE_REDIRECTS).map(([source, destination]) => ({
+      source,
+      destination,
+      permanent: true,
+    }));
+    return [...studyRedirects, ...pageRedirects];
   },
 };
 

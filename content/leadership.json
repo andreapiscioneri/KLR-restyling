@@ -5,7 +5,8 @@
     "role": "CEO & Founder",
     "img": "/team/KLR-Antonio-fondo-giallo.png",
     "bio": "Antonio founded KLR in 2015 with a vision to design emotional loyalty across Europe. Three decades of retail and petrol strategy built on relationships.",
-    "quote": "Loyalty is never transactional. It's human."
+    "quote": "Loyalty is never transactional. It's human.",
+    "linkedin": "https://www.linkedin.com/search/results/all/?keywords=Antonio%20Finazzi%20KLR"
   },
   {
     "id": "stefano-finazzi",
@@ -13,7 +14,8 @@
     "role": "CMO & Founder",
     "img": "/team/Stefano-FINAZZI.png",
     "bio": "Stefano shapes the creative and marketing vision of KLR — from campaign concept through every retail touchpoint.",
-    "quote": "We deliver 6 million moments of joy a year — every single one matters."
+    "quote": "We deliver 6 million moments of joy a year — every single one matters.",
+    "linkedin": "https://www.linkedin.com/search/results/all/?keywords=Stefano%20Finazzi%20KLR"
   },
   {
     "id": "sebastjan-kocjancic",
@@ -21,7 +23,8 @@
     "role": "COO",
     "img": "/team/Sebstjan-Kocjancic.png",
     "bio": "Sebastjan runs operations across 10 European locations. Procurement, warehousing, distribution — the backbone behind every flawless rollout.",
-    "quote": "Every shopper deserves a reason to come back."
+    "quote": "Every shopper deserves a reason to come back.",
+    "linkedin": "https://www.linkedin.com/search/results/all/?keywords=Sebastjan%20Kocjan%C4%8Di%C4%8D%20KLR"
   },
   {
     "id": "olga-wojcik",
@@ -29,7 +32,8 @@
     "role": "Head of Corporate Sales",
     "img": "/team/Olga-WOJCIK.png",
     "bio": "Olga drives corporate sales across the KLR client portfolio, turning ambitious briefs into long-term partnerships.",
-    "quote": "Sales is listening before selling."
+    "quote": "Sales is listening before selling.",
+    "linkedin": "https://www.linkedin.com/search/results/all/?keywords=Olga%20Wojcik%20KLR"
   },
   {
     "id": "marta-marga",
@@ -37,7 +41,8 @@
     "role": "Head of Marketing",
     "img": "/team/Marta-MARGA.png",
     "bio": "Marta leads marketing, content and communications — the voice of KLR across every channel.",
-    "quote": "Good marketing feels like good storytelling."
+    "quote": "Good marketing feels like good storytelling.",
+    "linkedin": "https://www.linkedin.com/search/results/all/?keywords=Marta%20Marga%20KLR"
   },
   {
     "id": "jan-sahbaz-pergar",
@@ -45,7 +50,8 @@
     "role": "Head of Development",
     "img": "/team/Jan-SAHBAZ-PERGAR.png",
     "bio": "Jan leads product and technology development, including KLR's proprietary campaign management software.",
-    "quote": "Great software makes complex things feel simple."
+    "quote": "Great software makes complex things feel simple.",
+    "linkedin": "https://www.linkedin.com/search/results/all/?keywords=Jan%20Sahbaz%20Pergar%20KLR"
   },
   {
     "id": "riccardo-fogazzi",
@@ -53,7 +59,8 @@
     "role": "Head of Campaigns & Stock Management",
     "img": "/team/Riccardo-FOGAZZI.png",
     "bio": "Riccardo oversees campaign execution and stock management across 20+ markets.",
-    "quote": "Plan for the edge cases — delight lives in the details."
+    "quote": "Plan for the edge cases — delight lives in the details.",
+    "linkedin": "https://www.linkedin.com/search/results/all/?keywords=Riccardo%20Fogazzi%20KLR"
   },
   {
     "id": "nina-bjelivuk",
@@ -61,7 +68,8 @@
     "role": "Head of Logistics",
     "img": "/team/Nina-BJELIVUK.png",
     "bio": "Nina orchestrates logistics across Europe — from port to pallet to final store.",
-    "quote": "Loyalty only works when the reward arrives on time."
+    "quote": "Loyalty only works when the reward arrives on time.",
+    "linkedin": ""
   },
   {
     "id": "natalia-molchanova",
@@ -69,7 +77,8 @@
     "role": "Head of Corporate Communication",
     "img": "/team/Natalia-MOLCHANOVA.png",
     "bio": "Natalia shapes KLR's corporate voice, partnerships and external communications.",
-    "quote": "Clear words build loyal relationships."
+    "quote": "Clear words build loyal relationships.",
+    "linkedin": "https://www.linkedin.com/search/results/all/?keywords=Natalia%20Molchanova%20KLR"
   },
   {
     "id": "team-design",
@@ -77,7 +86,8 @@
     "role": "Creative & Product Design",
     "img": "/api/media/wp-916",
     "bio": "Our in-house design studio develops packaging, POSM and campaign identities tailored to every retailer and brand.",
-    "quote": "Design is how people fall in love with a campaign."
+    "quote": "Design is how people fall in love with a campaign.",
+    "linkedin": ""
   },
   {
     "id": "team-analytics",
@@ -85,7 +95,8 @@
     "role": "Measurement & Insight",
     "img": "/api/media/wp-2663",
     "bio": "KLR's analytics team delivers custom metrics, KPI dashboards and post-campaign insights.",
-    "quote": "Numbers tell us what worked — and what to try next."
+    "quote": "Numbers tell us what worked — and what to try next.",
+    "linkedin": ""
   },
   {
     "id": "team-account",
@@ -93,6 +104,7 @@
     "role": "Client Partnership",
     "img": "/api/media/wp-909",
     "bio": "Dedicated account managers serve as the single point of contact for every KLR retail and petrol client.",
-    "quote": "We answer the phone — always."
+    "quote": "We answer the phone — always.",
+    "linkedin": ""
   }
 ]
