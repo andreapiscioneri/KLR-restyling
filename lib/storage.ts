@@ -13,12 +13,14 @@ function manualCredentials() {
   return siteID && token ? { siteID, token } : null;
 }
 
-// Manual credentials (.env.local) exist for one-off scripts that construct
-// their own store directly — they must NOT flip plain `npm run dev` into
-// talking to production Netlify Blobs. Cold-start requests firing many
-// concurrent reads against Blobs have been seen to 403 and crash the first
-// render; local dev should just read/write content/*.json on disk.
-const USE_BLOBS = IS_NETLIFY_CLOUD || IS_NETLIFY_LOCAL || HAS_NETLIFY_BLOBS;
+// Local dev intentionally shares the same Netlify Blobs store as production
+// (via the manual .env.local credentials) so admin edits on either side are
+// always visible on both — no more manual sync step, no more drift.
+// Previously this was disabled because concurrent cold-start reads against
+// Blobs had been seen to 403; readContent()/writeContent() below always fall
+// back to the local content/*.json file on any Blobs error, so a repeat of
+// that failure degrades to local-only instead of crashing.
+const USE_BLOBS = IS_NETLIFY_CLOUD || IS_NETLIFY_LOCAL || HAS_NETLIFY_BLOBS || Boolean(manualCredentials());
 
 async function initBlobStore() {
   const { getStore } = await import("@netlify/blobs");
