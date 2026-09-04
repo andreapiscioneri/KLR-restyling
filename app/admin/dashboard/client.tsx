@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   LayoutGrid, FileText, BarChart3, Tags, Users, FolderOpen,
-  PenLine, LogOut, Menu, X, Save, ChevronRight, Globe,
+  PenLine, LogOut, Menu, X, Save, ChevronRight, ChevronUp, ChevronDown, Globe,
   Home, Info, Wrench, Phone, Footprints, Star, Palette, Settings,
   Lightbulb, Paperclip, ArrowRight, CheckCircle, Folder, MapPin,
   Link as LinkIcon, Calendar, MessageSquare, BookOpen, Briefcase,
@@ -671,6 +671,17 @@ function ImageField({ value, onChange, label, avatarName, logoStyle }: { value: 
 ══════════════════════════════════════════════════ */
 const listRowBtn: React.CSSProperties = { flexShrink:0,padding:8,minWidth:32,minHeight:32,background:"#FEE2E2",color:"#DC2626",border:"none",borderRadius:8,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center" };
 const listAddBtn: React.CSSProperties = { padding:"8px 14px",background:"#EEF0FB",color:"#2E2784",border:"none",borderRadius:8,fontSize:12,fontWeight:600,cursor:"pointer",display:"inline-flex",alignItems:"center",gap:6 };
+const moveBtn = (disabled: boolean): React.CSSProperties => ({ flexShrink:0,width:26,height:15,padding:0,background:disabled?"#F5F5FA":"#EEF0FB",color:disabled?"#ccc":"#2E2784",border:"none",display:"flex",alignItems:"center",justifyContent:"center",cursor:disabled?"not-allowed":"pointer" });
+
+/** Su/giù per riordinare un elemento in una lista — usali invece del drag & drop per semplicità e accessibilità. */
+function MoveButtons({ onUp, onDown, disableUp, disableDown, upLabel, downLabel }: { onUp:()=>void; onDown:()=>void; disableUp?:boolean; disableDown?:boolean; upLabel:string; downLabel:string }) {
+  return (
+    <div style={{ display:"flex",flexDirection:"column",borderRadius:8,overflow:"hidden",border:"1px solid #E8E8F0" }}>
+      <button type="button" onClick={onUp} disabled={disableUp} aria-label={upLabel} style={moveBtn(!!disableUp)}><ChevronUp size={13}/></button>
+      <button type="button" onClick={onDown} disabled={disableDown} aria-label={downLabel} style={{ ...moveBtn(!!disableDown), borderTop:"1px solid #E8E8F0" }}><ChevronDown size={13}/></button>
+    </div>
+  );
+}
 
 function StringListField({ label, value, onChange, placeholder, image }: { label:string; value:string[]; onChange:(v:string[])=>void; placeholder?:string; image?:boolean }) {
   const items = value ?? [];
@@ -758,18 +769,37 @@ function CollectionsCarouselPanel({ data, onSave }: { data: PagesDataLocal | nul
   function update(idx: number, patch: Partial<CarouselRow>) { commit(rows.map((r,i)=>i===idx?{...r,...patch}:r)); }
   function remove(idx: number) { commit(rows.filter((_,i)=>i!==idx)); }
   function addToBrand(brand: string) {
-    let lastIdx = -1;
-    rows.forEach((r,i) => { if (r.brand === brand) lastIdx = i; });
+    let firstIdx = -1;
+    rows.forEach((r,i) => { if (r.brand === brand && firstIdx === -1) firstIdx = i; });
     const next = [...rows];
-    next.splice(lastIdx === -1 ? next.length : lastIdx + 1, 0, { brand, item: "", src: "" });
+    next.splice(firstIdx === -1 ? next.length : firstIdx, 0, { brand, item: "", src: "" });
     commit(next);
   }
   function addNewBrand() {
     const name = newBrand.trim();
     if (!name) return;
-    commit([...rows, { brand: name, item: "", src: "" }]);
+    commit([{ brand: name, item: "", src: "" }, ...rows]);
     setNewBrand("");
     setJustAdded(name);
+  }
+  function moveItemInGroup(idx: number, dir: -1 | 1) {
+    const brand = rows[idx].brand;
+    const groupIdxs = rows.map((r,i) => r.brand === brand ? i : -1).filter(i => i !== -1);
+    const targetIdx = groupIdxs[groupIdxs.indexOf(idx) + dir];
+    if (targetIdx === undefined) return;
+    const next = [...rows];
+    [next[idx], next[targetIdx]] = [next[targetIdx], next[idx]];
+    commit(next);
+  }
+  function moveGroup(brand: string, dir: -1 | 1) {
+    const order = groups.map(g => g.brand);
+    const pos = order.indexOf(brand);
+    const target = pos + dir;
+    if (target < 0 || target >= order.length) return;
+    [order[pos], order[target]] = [order[target], order[pos]];
+    const next: CarouselRow[] = [];
+    for (const b of order) rows.forEach(r => { if (r.brand === b) next.push(r); });
+    commit(next);
   }
   function save() {
     if (!data) return;
@@ -796,21 +826,29 @@ function CollectionsCarouselPanel({ data, onSave }: { data: PagesDataLocal | nul
       </div>
       <Panel title={t.collectionsCarousel.panelTitle} info={t.collectionsCarousel.panelInfo}>
         <div style={{ display:"flex",flexDirection:"column",gap:10 }}>
-          {groups.map(g => (
-            <Accordion key={g.brand} title={g.brand} subtitle={`${g.items.length} ${g.items.length===1?t.collectionsCarousel.countOne:t.collectionsCarousel.countMany}`} defaultOpen={g.brand === justAdded}>
-              <div style={{ display:"flex",flexDirection:"column",gap:10 }}>
-                {g.items.map(({ idx, row }) => (
-                  <div key={idx} style={{ display:"flex",gap:8,alignItems:"center",border:"1px solid #eee",borderRadius:10,padding:10 }}>
-                    <div style={{ width:170,flexShrink:0 }}>
-                      <Input value={row.item} placeholder={t.collectionsCarousel.itemPlaceholder} onChange={v=>update(idx,{item:v})}/>
-                    </div>
-                    <div style={{ flex:1 }}><ImageField value={row.src} onChange={v=>update(idx,{src:v})} label=""/></div>
-                    <button type="button" onClick={()=>remove(idx)} aria-label={t.collectionsCarousel.removeAria} style={listRowBtn}><Trash2 size={13}/></button>
+          {groups.map((g, gi) => (
+            <div key={g.brand} style={{ display:"flex",gap:8,alignItems:"flex-start" }}>
+              <MoveButtons onUp={()=>moveGroup(g.brand,-1)} onDown={()=>moveGroup(g.brand,1)} disableUp={gi===0} disableDown={gi===groups.length-1} upLabel={t.common.moveUp} downLabel={t.common.moveDown}/>
+              <div style={{ flex:1,minWidth:0 }}>
+                <Accordion title={g.brand} subtitle={`${g.items.length} ${g.items.length===1?t.collectionsCarousel.countOne:t.collectionsCarousel.countMany}`} defaultOpen={g.brand === justAdded}>
+                  <div style={{ display:"flex",flexDirection:"column",gap:10 }}>
+                    {g.items.map(({ idx, row }, ii) => (
+                      <div key={idx} style={{ display:"flex",gap:8,alignItems:"center" }}>
+                        <MoveButtons onUp={()=>moveItemInGroup(idx,-1)} onDown={()=>moveItemInGroup(idx,1)} disableUp={ii===0} disableDown={ii===g.items.length-1} upLabel={t.common.moveUp} downLabel={t.common.moveDown}/>
+                        <div style={{ flex:1,display:"flex",gap:8,alignItems:"center",border:"1px solid #eee",borderRadius:10,padding:10 }}>
+                          <div style={{ width:170,flexShrink:0 }}>
+                            <Input value={row.item} placeholder={t.collectionsCarousel.itemPlaceholder} onChange={v=>update(idx,{item:v})}/>
+                          </div>
+                          <div style={{ flex:1 }}><ImageField value={row.src} onChange={v=>update(idx,{src:v})} label=""/></div>
+                          <button type="button" onClick={()=>remove(idx)} aria-label={t.collectionsCarousel.removeAria} style={listRowBtn}><Trash2 size={13}/></button>
+                        </div>
+                      </div>
+                    ))}
+                    <button type="button" onClick={()=>addToBrand(g.brand)} style={listAddBtn}><Plus size={13}/>{t.collectionsCarousel.addToBrand.replace("{brand}", g.brand)}</button>
                   </div>
-                ))}
-                <button type="button" onClick={()=>addToBrand(g.brand)} style={listAddBtn}><Plus size={13}/>{t.collectionsCarousel.addToBrand.replace("{brand}", g.brand)}</button>
+                </Accordion>
               </div>
-            </Accordion>
+            </div>
           ))}
           {!groups.length && <div style={{ fontSize:13,color:"#999" }}>{t.collectionsCarousel.empty}</div>}
         </div>
@@ -849,7 +887,19 @@ function ClientsPanel({ data, onSave }: { data: PagesDataLocal | null; onSave: (
   }
   function remove(id: string) { setItems(prev => prev.filter(it => it.id !== id)); }
   function addItem(category: "grocery" | "petrol") {
-    setItems(prev => [...prev, { id: `client-${Date.now()}`, name: "", logo: "", category }]);
+    setItems(prev => [{ id: `client-${Date.now()}`, name: "", logo: "", category }, ...prev]);
+  }
+  function moveInCategory(id: string, category: "grocery" | "petrol", dir: -1 | 1) {
+    const ids = items.filter(it => it.category === category).map(it => it.id);
+    const otherId = ids[ids.indexOf(id) + dir];
+    if (!otherId) return;
+    setItems(prev => {
+      const next = [...prev];
+      const i1 = next.findIndex(x => x.id === id);
+      const i2 = next.findIndex(x => x.id === otherId);
+      [next[i1], next[i2]] = [next[i2], next[i1]];
+      return next;
+    });
   }
   function save() {
     if (!data) return;
@@ -868,17 +918,20 @@ function ClientsPanel({ data, onSave }: { data: PagesDataLocal | null; onSave: (
     return (
       <Panel title={label}>
         <div style={{ display:"flex",flexDirection:"column",gap:10 }}>
-          {list.map(it => (
-            <div key={it.id} style={{ display:"flex",gap:8,alignItems:"center",border:"1px solid #eee",borderRadius:10,padding:10 }}>
-              <div style={{ width:140,flexShrink:0 }}><Input value={it.name} placeholder={c.namePlaceholder} onChange={v=>update(it.id,{name:v})}/></div>
-              <div style={{ width:110,flexShrink:0 }}>
-                <select value={it.category} onChange={e=>update(it.id,{category:e.target.value as "grocery"|"petrol"})} style={selectStyle}>
-                  <option value="grocery">{c.groceryLabel}</option>
-                  <option value="petrol">{c.petrolLabel}</option>
-                </select>
+          {list.map((it, i) => (
+            <div key={it.id} style={{ display:"flex",gap:8,alignItems:"center" }}>
+              <MoveButtons onUp={()=>moveInCategory(it.id,category,-1)} onDown={()=>moveInCategory(it.id,category,1)} disableUp={i===0} disableDown={i===list.length-1} upLabel={t.common.moveUp} downLabel={t.common.moveDown}/>
+              <div style={{ flex:1,display:"flex",gap:8,alignItems:"center",border:"1px solid #eee",borderRadius:10,padding:10 }}>
+                <div style={{ width:140,flexShrink:0 }}><Input value={it.name} placeholder={c.namePlaceholder} onChange={v=>update(it.id,{name:v})}/></div>
+                <div style={{ width:110,flexShrink:0 }}>
+                  <select value={it.category} onChange={e=>update(it.id,{category:e.target.value as "grocery"|"petrol"})} style={selectStyle}>
+                    <option value="grocery">{c.groceryLabel}</option>
+                    <option value="petrol">{c.petrolLabel}</option>
+                  </select>
+                </div>
+                <div style={{ flex:1 }}><ImageField value={it.logo} onChange={v=>update(it.id,{logo:v})} label="" logoStyle/></div>
+                <button type="button" onClick={()=>remove(it.id)} aria-label={c.removeAria} style={listRowBtn}><Trash2 size={13}/></button>
               </div>
-              <div style={{ flex:1 }}><ImageField value={it.logo} onChange={v=>update(it.id,{logo:v})} label="" logoStyle/></div>
-              <button type="button" onClick={()=>remove(it.id)} aria-label={c.removeAria} style={listRowBtn}><Trash2 size={13}/></button>
             </div>
           ))}
           {!list.length && <div style={{ fontSize:13,color:"#999" }}>{c.empty}</div>}
@@ -2765,10 +2818,26 @@ function GlobalBrandsEditor({ data, onSave }: { data: BrandItem[] | null; onSave
   }
   function addNew() {
     const id = `logo-${Date.now()}`;
-    setForm(prev => [...prev, { id, name:"", tag:"", img:"", logo:"", since:"", campaigns:"", countries:"", desc:"" }]);
+    setForm(prev => [{ id, name:"", tag:"", img:"", logo:"", since:"", campaigns:"", countries:"", desc:"" }, ...prev]);
+  }
+  function moveVisible(id: string, dir: -1 | 1) {
+    const visibleIds = withLogo.map(b => b.id);
+    const pos = visibleIds.indexOf(id);
+    const otherId = visibleIds[pos + dir];
+    if (!otherId) return;
+    setForm(prev => {
+      const next = [...prev];
+      const i1 = next.findIndex(b => b.id === id);
+      const i2 = next.findIndex(b => b.id === otherId);
+      [next[i1], next[i2]] = [next[i2], next[i1]];
+      return next;
+    });
   }
 
-  const withLogo    = form.filter(b => b.logo);
+  // Show entries with a logo, plus brand-new logo-only rows just added via
+  // "Aggiungi logo" (no other profile data yet) — but not existing full-profile
+  // brands that simply lack a logo, since those are deliberately hidden here.
+  const withLogo = form.filter(b => b.logo || !hasProfileData(b));
 
   return (
     <div>
@@ -2778,11 +2847,14 @@ function GlobalBrandsEditor({ data, onSave }: { data: BrandItem[] | null; onSave
       <Panel title={gb.activeTitle} info={gb.activeInfo}>
         {withLogo.length ? (
           <div style={{ display:"flex",flexDirection:"column",gap:14 }}>
-            {withLogo.map(b => (
-              <div key={b.id} style={{ display:"flex",gap:12,alignItems:"flex-start",border:"1px solid #eee",borderRadius:12,padding:14 }}>
-                <div style={{ width:150,flexShrink:0 }}><Input value={b.name} placeholder={gb.namePlaceholder} onChange={v => updateField(b.id, { name: v })}/></div>
-                <div style={{ flex:1 }}><ImageField value={b.logo || ""} onChange={v => updateField(b.id, { logo: v })} label="" logoStyle/></div>
-                <button type="button" onClick={() => removeLogo(b)} aria-label={gb.removeAria} style={listRowBtn}><Trash2 size={13}/></button>
+            {withLogo.map((b, i) => (
+              <div key={b.id} style={{ display:"flex",gap:8,alignItems:"flex-start" }}>
+                <MoveButtons onUp={()=>moveVisible(b.id,-1)} onDown={()=>moveVisible(b.id,1)} disableUp={i===0} disableDown={i===withLogo.length-1} upLabel={t.common.moveUp} downLabel={t.common.moveDown}/>
+                <div style={{ flex:1,display:"flex",gap:12,alignItems:"flex-start",border:"1px solid #eee",borderRadius:12,padding:14 }}>
+                  <div style={{ width:150,flexShrink:0 }}><Input value={b.name} placeholder={gb.namePlaceholder} onChange={v => updateField(b.id, { name: v })}/></div>
+                  <div style={{ flex:1 }}><ImageField value={b.logo || ""} onChange={v => updateField(b.id, { logo: v })} label="" logoStyle/></div>
+                  <button type="button" onClick={() => removeLogo(b)} aria-label={gb.removeAria} style={listRowBtn}><Trash2 size={13}/></button>
+                </div>
               </div>
             ))}
           </div>
