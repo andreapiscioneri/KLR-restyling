@@ -150,7 +150,7 @@
         {
           "id": "fantastico",
           "name": "Fantastico",
-          "logo": "/api/media/e893f05d-4433-4461-8223-64b62a4c71f1",
+          "logo": "/loghi_home/Fantastico.png",
           "category": "grocery"
         },
         {
@@ -253,30 +253,6 @@
           "id": "socar",
           "name": "SOCAR",
           "logo": "/loghi_home/socar.png",
-          "category": "petrol"
-        },
-        {
-          "id": "client-1788529953938",
-          "name": "ORLEN",
-          "logo": "/api/media/80e41c37-d782-4955-adf1-e35a05c0399f",
-          "category": "petrol"
-        },
-        {
-          "id": "client-1788531260694",
-          "name": "INA",
-          "logo": "/api/media/a21885c3-41a6-412f-8139-d2438ff6fa4c",
-          "category": "petrol"
-        },
-        {
-          "id": "client-1788532082208",
-          "name": "ROMPETROL",
-          "logo": "/api/media/f6dfc974-ec79-4262-8207-cba90a30651b",
-          "category": "petrol"
-        },
-        {
-          "id": "client-1788532833013",
-          "name": "Baltic Petroleum",
-          "logo": "/api/media/da9dc4c9-df6b-4662-b344-105632952a5d",
           "category": "petrol"
         }
       ]
@@ -548,7 +524,7 @@
       "eyebrow": "Exclusive Rewards",
       "title": "Our Collections",
       "subtitle": "Our partnerships with the world's leading brands guarantee that our rewards collections are tangible, sustainable and unique!",
-      "itemsText": "Zanussi — Cooking Easy|/api/media/wp-2755\nZanussi — SuperGrip|/api/media/wp-2754\nZanussi — Zmart Move|/api/media/wp-2930\nPintinox — Trust Forged In Steel|/api/media/wp-2932\nPintinox — Barbeque|/api/media/wp-3468\nPintinox — Hexacore|/api/media/wp-3445\nPintinox — Virtuoso|/api/media/wp-3449\nBugatti — Spezia|/api/media/wp-2936\nBugatti — Ergo Pakka|/api/media/wp-1920\nBugatti — Prestigio|/api/media/wp-1924\nBugatti — Buono Bakeware|/api/media/wp-1940\nBugatti — Aki Tori|/api/media/03ec2a9f-4429-4886-8271-288904593c57\nSpear & Jackson — Wanderwild|/api/media/5ec61a15-0f61-4545-851c-28baf5d37af8\nSpear & Jackson — Craft Your World|/api/media/7dc3fb27-4449-432b-bf4d-c9a4ea9a6400\nEurosport — Champions|/api/media/wp-3117\nNEWME — Food 4 Longer|/api/media/wp-2742\nWaverly — Silver Dreams|https://klr-europe-restyling.netlify.app/api/media/wp-3441\nGuzzini Chefline — Knives|/api/media/wp-3440\nGuzzini Chefline — CeramiX|/api/media/c16f9b23-d738-44b1-8e84-c6ba4dc20a52\nCarl Schmidt Sohn — The German Standard|/api/media/5cc3780e-3012-4459-9668-8e7157085c47\nCarl Schmidt Sohn — The Joy Of Cooking|/api/media/dba389e2-30f3-4228-9b02-1641b829f02e\nNASA — Horizons|/api/media/dbf83835-bc89-42cf-8884-0675a254e420\nNASA — Stardust|/api/media/bc9f96fd-e43a-49f7-b08a-94ddafe9cfcd"
+      "itemsText": "Zanussi — Cooking Easy|/api/media/wp-2755\nZanussi — SuperGrip|/api/media/wp-2754\nZanussi — Zmart Move|/api/media/wp-2930\nPintinox — Trust|/api/media/wp-2932\nPintinox — Barbeque|/api/media/wp-3468\nPintinox — Hexacore|/api/media/wp-3445\nPintinox — Virtuoso|/api/media/wp-3449\nBugatti — Spezia|/api/media/wp-2936\nBugatti — Ergo Pakka|/api/media/wp-1920\nBugatti — Prestigio|/api/media/wp-1924\nBugatti — Buono Cookiez|/api/media/wp-1916\nBugatti — Buono Bakeware|/api/media/wp-1940\nSpear & Jackson — Best Sellers|/api/media/wp-2741\nSpear & Jackson — Adventure|/api/media/wp-1910\nSpear & Jackson — Nature|/api/media/wp-1914\nPolice|/api/media/wp-3485\nEurosport — Champions|/api/media/wp-3117\nNEWME — Food Containers|/api/media/wp-2742\nWastebusters|/api/media/wp-1904\nNASA Stardust|/api/media/wp-3121\nGuzzini — Chefline|/api/media/wp-3440\nCarl Schmidt Sohn — The German Standard|/api/media/5cc3780e-3012-4459-9668-8e7157085c47\nCarl Schmidt Sohn — The Joy Of Cooking|/api/media/dba389e2-30f3-4228-9b02-1641b829f02e\nWaverley|/api/media/wp-3441"
     },
     "seo": {
       "title": "Brands | Exceptional Rewards for Retail Loyalty",

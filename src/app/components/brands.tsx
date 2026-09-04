@@ -137,7 +137,10 @@ type BrandsProps = {
 export function Brands({ go, initialBrands, initialBrandsCms }: BrandsProps) {
   const brands = initialBrands?.length ? initialBrands : fallbackBrands;
   const brandsCms = initialBrandsCms ?? {};
-  const featured = brands.slice(0, 4);
+  // Logo-only entries (added just for the home marquee, via "Aggiungi logo")
+  // have no img/desc — exclude them so a quick logo add never surfaces as a
+  // broken, empty Featured Brands card regardless of array position.
+  const featured = brands.filter((b) => b.img && b.desc).slice(0, 4);
   const categoryIcons = [ChefHat, Trees, Plane, Sparkles, Baby, Dumbbell] as const;
   const partnerBrands = brands.filter((b) => b.logo);
 
