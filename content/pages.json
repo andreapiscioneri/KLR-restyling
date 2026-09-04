@@ -409,7 +409,8 @@
         "Convenience Stores & On-The-Go",
         "All-In-Stores (Bazaars)"
       ],
-      "closing": "Overall, we are loyalty Makers for any retailer."
+      "closing": "Overall, we are loyalty Makers for any retailer.",
+      "image": "/1.png"
     },
     "closing": {
       "_visible": true,

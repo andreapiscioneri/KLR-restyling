@@ -257,10 +257,9 @@ export function ServicesClient({ initialCms }: { initialCms?: ServicesCms }) {
                 </div>
               </div>
 
-              {/* Right — cartoon in circle with blue bg */}
-              <div className="relative flex items-center justify-center min-h-[320px] p-10" style={{ background: "#2E2784" }}>
-                <div className="absolute bottom-6 left-6 w-28 h-28 rounded-full" style={{ background: "rgba(46,39,132,0.5)" }} />
-                <img src="/1.png" alt="Loyalty for any retailer" className="relative z-10 w-full max-w-[320px] h-auto object-contain" />
+              {/* Right — image fills the panel edge to edge */}
+              <div className="relative min-h-[320px]" style={{ background: "#2E2784" }}>
+                <img src={String(sNext.image || "/1.png")} alt="Loyalty for any retailer" className="absolute inset-0 w-full h-full object-cover" />
               </div>
             </div>
 
