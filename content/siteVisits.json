@@ -3858,5 +3858,23 @@
     "browser": "Chrome",
     "visitedAt": "2026-09-04T14:59:09.950Z",
     "eventType": "pageview"
+  },
+  {
+    "id": "cf3121cf-03ba-4c81-a11b-47435e1075e1",
+    "path": "/",
+    "sessionId": "c61f1e2c-3668-4fb1-b6ee-ada59863bdf3",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-09-04T15:03:42.507Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "0c0af373-9c12-4cda-9cbc-4b38e52225b0",
+    "path": "/brands",
+    "sessionId": "c61f1e2c-3668-4fb1-b6ee-ada59863bdf3",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-09-04T15:04:06.529Z",
+    "eventType": "pageview"
   }
 ]
