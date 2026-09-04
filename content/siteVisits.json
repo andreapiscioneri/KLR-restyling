@@ -3831,5 +3831,23 @@
     "browser": "Chrome",
     "visitedAt": "2026-09-04T14:42:11.913Z",
     "eventType": "pageview"
+  },
+  {
+    "id": "cc210c13-622d-43cf-9dfd-9d544af915b3",
+    "path": "/admin/dashboard",
+    "sessionId": "48fe56ed-09b6-4517-8103-b68b33cbc592",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-09-04T14:50:19.133Z",
+    "eventType": "pageview"
+  },
+  {
+    "id": "6edbc2ce-0989-498a-970d-ac86ee5ad266",
+    "path": "/admin/dashboard",
+    "sessionId": "48fe56ed-09b6-4517-8103-b68b33cbc592",
+    "device": "desktop",
+    "browser": "Chrome",
+    "visitedAt": "2026-09-04T14:51:00.897Z",
+    "eventType": "pageview"
   }
 ]
