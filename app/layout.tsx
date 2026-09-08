@@ -256,6 +256,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Scoperta automatica del feed. Va qui e non in
+            metadata.alternates.types, che questa versione di Next non
+            emette. Il percorso è quello che serviva WordPress, così le
+            iscrizioni esistenti restano valide. */}
+        <link rel="alternate" type="application/rss+xml" title="KLR Europe — Insights" href={`${SITE}/feed`} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="stylesheet" href={googleFontsUrl} />

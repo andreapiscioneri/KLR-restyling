@@ -133,13 +133,10 @@ export const LEGACY_TAG_REDIRECTS = {
 };
 
 
-// WordPress serviva i feed RSS e la paginazione degli archivi: il sito
-// nuovo non ha equivalenti, si porta chi arriva all'elenco articoli.
-// Nota: chi era iscritto al feed smette comunque di ricevere aggiornamenti.
-// Per non perderli servirebbe generare un vero feed, non un redirect.
+// Il feed dei commenti non ha equivalente: il sito nuovo non ne ha.
 export const LEGACY_FEED_REDIRECTS = {
-  "/feed": "/blog",
-  "/blog/feed": "/blog",
+  // /feed e /blog/feed non sono qui: quei percorsi servono il feed vero
+  // (app/feed/route.ts), non un redirect.
   "/comments/feed": "/blog",
 };
 
