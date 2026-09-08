@@ -6,7 +6,7 @@ import { Eyebrow, CTA, softShadow } from "./ui-bits";
 import { images, leadership, fallbackPosts } from "../data";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import type { Route } from "../App";
+import type { Route } from "../routes";
 
 function VideoWithPoster({ src }: { src: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);

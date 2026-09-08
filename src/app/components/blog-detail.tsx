@@ -15,7 +15,7 @@ import {
 } from "./inline-edit";
 import { VideoEmbed } from "./video-embed";
 import { Lightbox, type LightboxState } from "./lightbox";
-import type { Route } from "../App";
+import type { Route } from "../routes";
 
 const BLOCK_LABELS: Record<string, string> = { text: "Testo", image: "Immagine", gallery: "Galleria", video: "Video" };
 const BLOCK_BG = ["#241f69", "#F8AE01", "#1a1752"];

@@ -6,6 +6,7 @@ import { motion } from "motion/react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { PageHero } from "@/src/app/components/page-hero";
 import { images, whatWeDeliver, aboutImpact, journey } from "@/src/app/data";
+import { mergeCmsItems } from "@/lib/cms-items";
 
 const G = {
   blue:   "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
@@ -29,6 +30,14 @@ export function AboutClient({ initialCms }: { initialCms?: AboutCms }) {
   const impact            = cms.impact           || {};
   const corePromise       = cms.corePromise      || {};
   const closing           = cms.closing          || {};
+
+  // Le voci di queste tre sezioni erano leggibili sul sito ma scritte nel
+  // codice: il CMS controllava solo eyebrow e titolo. Ora ogni testo è
+  // modificabile, mentre il numero di elementi resta fissato dal layout
+  // (timeline a 9 tappe, griglie a 3 colonne).
+  const journeyItems  = mergeCmsItems(journey, journeyData as Record<string, unknown>);
+  const deliverItems  = mergeCmsItems(whatWeDeliver, ourSolution as Record<string, unknown>);
+  const impactItems   = mergeCmsItems(aboutImpact, impact as Record<string, unknown>);
 
   const visible = (s: CmsSection) => (s as Record<string, unknown>)._visible !== false;
 
@@ -129,7 +138,7 @@ export function AboutClient({ initialCms }: { initialCms?: AboutCms }) {
             <div className="hidden md:block mt-14 relative">
               <div className="absolute left-0 right-0 h-px bg-white/20" style={{ top: "2.25rem" }} />
               <div className="grid grid-cols-9 gap-2">
-                {journey.map((j, i) => (
+                {journeyItems.map((j, i) => (
                   <div key={i} className="flex flex-col items-center">
                     <div
                       className="w-4 h-4 rounded-full border-2 border-white shrink-0 z-10"
@@ -150,7 +159,7 @@ export function AboutClient({ initialCms }: { initialCms?: AboutCms }) {
             <div className="md:hidden mt-14 relative pl-6">
               <div className="absolute left-[0.6rem] top-2 bottom-2 w-px bg-white/20" />
               <div className="flex flex-col gap-6">
-                {journey.map((j, i) => (
+                {journeyItems.map((j, i) => (
                   <div key={i} className="relative flex gap-4 items-start">
                     <div
                       className="absolute -left-6 mt-1 w-4 h-4 rounded-full border-2 border-white shrink-0"
@@ -244,7 +253,7 @@ export function AboutClient({ initialCms }: { initialCms?: AboutCms }) {
             </h2>
 
             <div className="mt-20 grid md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-6 pt-8">
-              {whatWeDeliver.map((item, i) => (
+              {deliverItems.map((item, i) => (
                 <motion.div
                   key={item.title}
                   initial={{ opacity: 0, y: 50 }}
@@ -370,7 +379,7 @@ export function AboutClient({ initialCms }: { initialCms?: AboutCms }) {
             </h2>
 
             <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {aboutImpact.map((item, i) => {
+              {impactItems.map((item, i) => {
                 const bg = i === 0 ? "#2E2784" : i === 1 ? "#2C2C34" : "#2E2784";
                 const titleCol = "#F8AE01";
                 return (

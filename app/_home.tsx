@@ -6,7 +6,8 @@ import { ArrowUpRight, ArrowLeft, ArrowRight, Heart, Star, Award, Eye, Smile, Tr
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, useState } from "react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { images, stats as defaultStats, brandPartners as defaultBrands, studies as defaultStudies, fallbackPosts, loyaltyFramework, sectors, retailerLogos } from "@/src/app/data";
+import { images, stats as defaultStats, studies as studyShape, fallbackPosts as postShape, sectors, retailerLogos } from "@/src/app/data";
+import { mergeCmsItems } from "@/lib/cms-items";
 
 const gradients = {
   blue:   "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
@@ -396,6 +397,8 @@ function TwoSectors({ data = {} }: { data?: SectionData }) {
   const eyebrow    = data.eyebrow || "Expertise";
   const title      = data.title   || "Two Sectors. Deep Expertise.";
   const sectorImgs = [data.image1 || images.family, data.image2 || images.hero];
+  // Il layout è a due colonne: il CMS modifica i testi, non il numero di voci.
+  const items = mergeCmsItems(sectors, data as Record<string, unknown>);
 
   return (
     <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.yellow }}>
@@ -410,7 +413,7 @@ function TwoSectors({ data = {} }: { data?: SectionData }) {
           </h2>
 
           <div className="mt-14 grid md:grid-cols-2 gap-6">
-            {sectors.map((s, i) => (
+            {items.map((s, i) => (
               <div key={s.title} className="rounded-[32px] overflow-hidden relative" style={{ minHeight: "380px" }}>
                 <img src={sectorImgs[i]} alt={s.title} className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(36,31,105,0.92) 0%, rgba(36,31,105,0.5) 50%, transparent 100%)" }} />
@@ -534,7 +537,7 @@ function PartnerLogosBand({ brands }: { brands: { id?: string; name: string; log
   );
 }
 
-function CaseStudies({ studies, data = {} }: { studies: typeof defaultStudies; data?: SectionData }) {
+function CaseStudies({ studies, data = {} }: { studies: typeof studyShape; data?: SectionData }) {
   const eyebrow  = data.eyebrow  || "Case Studies";
   const title    = data.title    || "Loyalty Campaigns That Drive Results";
   const ctaLabel = data.ctaLabel || "See All Case Studies";
@@ -620,7 +623,7 @@ function CaseStudies({ studies, data = {} }: { studies: typeof defaultStudies; d
   );
 }
 
-function BlogPreview({ posts: sourcePosts, data = {} }: { posts: typeof fallbackPosts; data?: SectionData }) {
+function BlogPreview({ posts: sourcePosts, data = {} }: { posts: typeof postShape; data?: SectionData }) {
   const eyebrow  = data.eyebrow  || "Insights";
   const title    = data.title    || "Latest Insights";
   const ctaLabel = data.ctaLabel || "See All Insights";
@@ -743,8 +746,8 @@ const HOME_SECTION_ORDER = [
 ] as const;
 
 export type HomeStats = typeof defaultStats;
-export type HomeStudies = typeof defaultStudies;
-export type HomePosts = typeof fallbackPosts;
+export type HomeStudies = typeof studyShape;
+export type HomePosts = typeof postShape;
 
 type HomePageProps = {
   initialStats?: HomeStats;
@@ -755,11 +758,16 @@ type HomePageProps = {
 };
 
 export function HomePage({ initialStats, initialStudies, initialPosts, initialPages, initialBrands }: HomePageProps = {}) {
+  // Solo `stats` conserva un valore di ripiego: è un oggetto di poche cifre
+  // con un default canonico in lib/content-types.ts, quindi non è mai vuoto.
+  // Per case study, articoli e brand il ripiego è stato tolto: i dati in
+  // data.ts erano fermi a 6 case study su 26 e 7 articoli su 31, e servirli
+  // avrebbe mostrato contenuti di anni fa rispondendo comunque 200.
   const stats = initialStats ?? defaultStats;
-  const studies = initialStudies ?? defaultStudies;
-  const posts = initialPosts?.length ? initialPosts : fallbackPosts;
+  const studies = initialStudies ?? [];
+  const posts = initialPosts ?? [];
   const pages = initialPages ?? {};
-  const brands = initialBrands?.length ? initialBrands : defaultBrands;
+  const brands = initialBrands ?? [];
 
   const home = (pages.home as Record<string, unknown>) || {};
   const heroData         = (home.hero          as HeroData)    || {};

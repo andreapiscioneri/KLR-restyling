@@ -17,7 +17,7 @@ import {
 } from "./inline-edit";
 import { VideoEmbed } from "./video-embed";
 import { Lightbox, type LightboxState } from "./lightbox";
-import type { Route } from "../App";
+import type { Route } from "../routes";
 
 const G = {
   blue: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",

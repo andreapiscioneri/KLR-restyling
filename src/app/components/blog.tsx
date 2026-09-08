@@ -8,7 +8,7 @@ import { softShadow } from "./ui-bits";
 import { fallbackPosts, images, type Post } from "../data";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import type { Route } from "../App";
+import type { Route } from "../routes";
 
 const G = {
   blue: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",

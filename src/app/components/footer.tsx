@@ -1,5 +1,5 @@
 import logo from "../../imports/KLR-Logosito.png";
-import type { Route } from "../App";
+import type { Route } from "../routes";
 
 export function Footer({ go }: { go: (r: Route) => void }) {
   const explore: { label: string; route: Route }[] = [

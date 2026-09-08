@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { PageHero } from "@/src/app/components/page-hero";
 import { pillars, sectors, images } from "@/src/app/data";
+import { mergeCmsItems } from "@/lib/cms-items";
 
 const G = {
   blue:   "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
@@ -124,6 +125,10 @@ export function ServicesClient({ initialCms }: { initialCms?: ServicesCms }) {
   const sNext    = cms.nextChallenge || {};
   const sClosing = cms.closing || {};
   const sPillars = (cms.pillars || {}) as unknown as Record<string, Record<string, string>>;
+  // La sezione "Born for Grocery & Petrol" non aveva alcuna voce nel CMS:
+  // titolo e testi erano scritti nel JSX.
+  const sEcosystem = (cms.ecosystem || {}) as Record<string, unknown>;
+  const ecosystemItems = mergeCmsItems(sectors, sEcosystem);
   const mergedPillars = pillars.map((p, i) => {
     const o = sPillars[`pillar${i + 1}`] || {};
     return { ...p, title: o.title || p.title, what: o.what || p.what, how: o.how || p.how, out: o.out || p.out };
@@ -206,16 +211,18 @@ export function ServicesClient({ initialCms }: { initialCms?: ServicesCms }) {
 
             {/* ── Born for Grocery & Petrol ── */}
             <div className="tracking-[0.3em] uppercase text-[#2E2784]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
-              Our Ecosystem
+              {String(sEcosystem.eyebrow || "Our Ecosystem")}
             </div>
             <h2 className="text-[#2E2784] tracking-[-0.035em] mt-4 mb-10" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 800, lineHeight: 1.05 }}>
-              We Were Born for<br /><span className="text-black">Grocery &amp; Petrol</span>
+              {sEcosystem.title
+                ? String(sEcosystem.title)
+                : <>We Were Born for<br /><span className="text-black">Grocery &amp; Petrol</span></>}
             </h2>
 
             <div className="grid md:grid-cols-2 gap-6 mb-16">
               {[
-                { title: sectors[0].title, desc: sectors[0].desc, img: images.family },
-                { title: sectors[1].title, desc: sectors[1].desc, img: images.hero },
+                { title: ecosystemItems[0].title, desc: ecosystemItems[0].desc, img: images.family },
+                { title: ecosystemItems[1].title, desc: ecosystemItems[1].desc, img: images.hero },
               ].map((s) => (
                 <div key={s.title} className="rounded-[28px] overflow-hidden relative" style={{ minHeight: "280px" }}>
                   <img src={s.img} alt={s.title} className="absolute inset-0 w-full h-full object-cover" />

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPosts, getColors } from "@/lib/content";
-import { getAdminSessionUser } from "@/lib/admin-auth";
+import { getAdminSessionUser } from "@/lib/admin-session";
 import { BlogDetailClient } from "./_client";
 
 export const dynamicParams = true;

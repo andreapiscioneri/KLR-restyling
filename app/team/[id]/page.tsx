@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { leadership as fallbackLeadership } from "@/src/app/data";
+import { leadership as leaderShape } from "@/src/app/data";
 import { getLeadership } from "@/lib/content";
 import { TeamDetailClient } from "./_client";
 
@@ -7,12 +7,12 @@ export const dynamicParams = true;
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-  return fallbackLeadership.map((p) => ({ id: p.id }));
+  const leadership = ((await getLeadership()) as { id?: string }[] | null) ?? [];
+  return leadership.map((p) => p?.id).filter((id): id is string => Boolean(id)).map((id) => ({ id }));
 }
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const cmsLeadership = (await getLeadership()) as typeof fallbackLeadership | null;
-  const leadership = cmsLeadership?.length ? cmsLeadership : fallbackLeadership;
+  const leadership = ((await getLeadership()) as typeof leaderShape | null) ?? [];
   const person = leadership.find((p) => p.id === params.id);
   const title = person ? `${person.name} — ${person.role} | KLR Europe` : "Team Member | KLR Europe";
   const description = person?.bio ?? "KLR Europe team member.";
@@ -39,7 +39,6 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 }
 
 export default async function Page({ params }: { params: { id: string } }) {
-  const cmsLeadership = (await getLeadership()) as typeof fallbackLeadership | null;
-  const leadership = cmsLeadership?.length ? cmsLeadership : fallbackLeadership;
+  const leadership = ((await getLeadership()) as typeof leaderShape | null) ?? [];
   return <TeamDetailClient id={params.id} initialLeadership={leadership} />;
 }

@@ -48,9 +48,6 @@ export const leadership = [
   { id: "team-account", name: "Account Management", role: "Client Partnership", img: images.teamwork, bio: "Dedicated account managers serve as the single point of contact for every KLR retail and petrol client.", quote: "We answer the phone — always.", linkedin: "" },
 ];
 
-// Expose legacy alias
-export const founders = leadership.slice(0, 3);
-
 // Brand partners with per-brand stats from spec
 export const brands = [
   { id: "bugatti", name: "Bugatti", tag: "Kitchenware", img: "/api/media/wp-1924", logo: "/partner/casa-bugatti-logo-vector-1.svg", since: "2020", campaigns: "32", countries: "17", desc: "Iconic Italian design for the modern kitchen — a collection synonymous with craftsmanship and style." },
@@ -62,29 +59,6 @@ export const brands = [
   { id: "zanussi", name: "Zanussi", tag: "Kitchenware", img: "/api/media/wp-2755", logo: "/partner/zanussi-01.svg", since: "2019", campaigns: "22", countries: "12", desc: "A European household name reimagined for loyalty — kitchen tools that simplify everyday life." },
   { id: "guzzini", name: "Guzzini Chefline", tag: "Kitchenware", img: "/api/media/wp-3440", logo: "/partner/LOGO_CHEFLINE.png", since: "2023", campaigns: "9", countries: "6", desc: "Colorful, contemporary Italian design for the table and kitchen." },
   { id: "police", name: "Police", tag: "Lifestyle", img: "/api/media/wp-3485", logo: "/partner/Police-logo.png", since: "2022", campaigns: "7", countries: "5", desc: "Attitude, design and heritage. The Police lifestyle brand brings identity to retail and petrol loyalty." },
-];
-
-// Brand partner logos grid
-export const brandPartners: { name: string; logo: string | null }[] = [
-  { name: "Oracle Red Bull Racing", logo: "/partner/ORBR_TEAM_LOGO_22_MONO_WHITE.png" },
-  { name: "NASA", logo: "/partner/pngkey.com-nasa-logo-png-274741.png" },
-  { name: "Bugatti", logo: "/partner/casa-bugatti-logo-vector-1.svg" },
-  { name: "Pintinox", logo: "/partner/Logo-Pintinox.png" },
-  { name: "Eurosport", logo: "/partner/Eurosport-1.svg" },
-  { name: "Guzzini Chefline", logo: "/partner/LOGO_CHEFLINE.png" },
-  { name: "Zanussi", logo: "/partner/zanussi-01.svg" },
-  { name: "Spear & Jackson", logo: "/partner/SpearJackson-1.svg" },
-  { name: "Police", logo: "/partner/Police-logo.png" },
-  { name: "O bag", logo: null },
-  { name: "Mustang", logo: null },
-  { name: "Carl Schmidt Sohn", logo: "/partner/footer-css.png" },
-  { name: "Luminarc", logo: "/partner/Luminarc_2.svg" },
-  { name: "Goodyear", logo: "/partner/goodyear-1.svg" },
-  { name: "Blaupunkt", logo: "/partner/Blaupunkt-1.svg" },
-  { name: "Elle", logo: "/partner/Elle-1.svg" },
-  { name: "NewME", logo: "/partner/NewME-final-1.svg" },
-  { name: "Wastebusters", logo: "/partner/Wastebusters-1.svg" },
-  { name: "Waverley", logo: "/partner/WAVERLY-LOGO.png" },
 ];
 
 export const productCategories = [
@@ -476,12 +450,6 @@ export function resolveStudyId(id: string): string {
   return legacyStudyIdMap[id] || id;
 }
 
-// Retailers — full list from presentation, split by sector
-export const retailers = {
-  grocery: ["Coop", "Kaufland", "Carrefour", "Esselunga", "Maxima", "Conad", "Fantastico", "Plodine", "IKI", "Spar", "Tropic", "Tinex", "Mercator", "Cora", "bi1", "MaxiMarché", "Billa", "Gadis", "CBA", "Univerexport", "Tuš", "Konzum"],
-  petrol: ["Viada", "EKO", "BP", "Lukoil", "Makpetrol", "INA", "OMV", "Petrol", "MOL", "Circle K", "Petrom", "NIS", "Adria Oil", "Slovnaft", "SOCAR", "Baltic Petroleum"],
-};
-
 export const retailerLogos = {
   grocery: [
     { name: "Coop", logo: "/loghi_home/coop.png" },
@@ -514,27 +482,11 @@ export const retailerLogos = {
   ],
 };
 
-// Legacy alias for existing components
-export const partners = {
-  petrol: retailers.petrol,
-  retail: retailers.grocery,
-};
-
 // Service pillars — 3 per spec
 export const pillars = [
   { n: "01", title: "Loyalty Marketing Strategy", what: "We develop loyalty strategies rooted in behavioural insight and local market understanding, tailored to your goals, competitive landscape, and customers' real motivations.", how: "Market analysis, customer segmentation, campaign concept design, mechanics selection (collectibles, instant rewards, tiered programmes), reward strategy.", out: "A fully developed campaign concept with defined mechanics, reward selection, visual direction, and projected KPIs." },
   { n: "02", title: "Full Campaign Management", what: "End-to-end execution across multiple markets. Creative production, POSM, logistics, stock management, staff training, daily support.", how: "Our network across 10 European locations handles procurement, warehousing, distribution. Proprietary software with weekly performance monitoring.", out: "Stress-free rollout with dedicated project management, real-time reporting, single point of contact." },
   { n: "03", title: "Measurement & Analytics", what: "Data-driven campaign evaluation. Period sales uplift, ROI, brand equity, CRR, RPR, redemption patterns, basket size impact.", how: "Quantitative data + qualitative insights from discovery workshops and social media audits. Custom metrics.", out: "Actionable reports with optimisation recommendations. Compounding knowledge base." },
-];
-
-// Legacy alias (some older components still import `services`)
-export const services = pillars.map((p) => ({ n: p.n, title: p.title, desc: p.what }));
-
-// Loyalty Framework — 3 pillars of emotional loyalty
-export const loyaltyFramework = [
-  { n: "01", title: "Desire", desc: "Dream, high-quality rewards that money can't buy. Aspirational rewards, compelling visuals, clear value perception, strong storytelling." },
-  { n: "02", title: "Experience", desc: "High participation is the key to real engagement. Motivating milestones, clear progress systems, engaging communication, intuitive journeys." },
-  { n: "03", title: "Satisfaction", desc: "High perceived value rewards that last forever in your best customers' hearts. Long positive memory through exceptional quality." },
 ];
 
 export const sectors = [
@@ -553,12 +505,6 @@ export const aboutImpact = [
   { title: "Your Customers Will Shop One More Time.", desc: "Increased visit frequency through emotional engagement and collectible mechanics." },
   { title: "Your Turnover Will Be Higher. Like-4-Like.", desc: "Measurable commercial uplift that goes beyond the campaign period." },
   { title: "Your Banner Will Become a Love Brand.", desc: "Emotional connection that competitors can't replicate with price alone." },
-];
-
-export const moreThanLoyalty = [
-  { title: "Creative Designers", desc: "We create cool product collections customers want. Tailor-made for YOUR loyalty needs. Best-quality products." },
-  { title: "Top Campaign Managers", desc: "Concept, POSM, marketing, logistics and returns. With weekly performance monitoring." },
-  { title: "Reliable Partners", desc: "Retailers have trusted us for years. Why? Because we deliver. That's why we are masters of repeat business." },
 ];
 
 // Why brands partner with KLR — Brands page
@@ -617,14 +563,6 @@ export const careerValues = [
   { title: "Open-minded", desc: "Flexible, engaging professionals dedicated to innovative and impactful loyalty marketing." },
   { title: "Collaborative", desc: "We work collaboratively and openly communicate with one another." },
   { title: "Trust & Support", desc: "Fostering a culture of trust, respect, and support at every level." },
-];
-
-// Kept for About page (used in existing About component)
-export const aboutValues = [
-  { title: "Human-centered", desc: "A unique human-centred approach to loyalty design is the key to delivering successful campaigns." },
-  { title: "Trustful", desc: "Positive, trustful and loyal relationships between retail chains and their clients." },
-  { title: "Smart incentive-based", desc: "Creative, incentive-based solutions that create real engagement with customers." },
-  { title: "Empowered", desc: "Our values ensure that everyone who works at KLR feels empowered and ambitious." },
 ];
 
 export const fallbackPosts = [

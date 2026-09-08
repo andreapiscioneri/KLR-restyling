@@ -5,7 +5,7 @@ import { ArrowUpRight, Mail, ExternalLink } from "lucide-react";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { softShadow, hexToRgba } from "./ui-bits";
-import type { Route } from "../App";
+import type { Route } from "../routes";
 
 type CopyrightCms = {
   hero?: Record<string, unknown>;

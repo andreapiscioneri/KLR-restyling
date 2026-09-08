@@ -7,7 +7,7 @@ import { softShadow } from "./ui-bits";
 import { brandPartnershipProcess, brands as fallbackBrands, images, productCategories, whyBrandsPartner } from "../data";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import type { Route } from "../App";
+import type { Route } from "../routes";
 
 
 const G = {
