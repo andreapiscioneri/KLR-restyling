@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { isAdminRequest } from "@/lib/admin-auth";
+import { isAdminRequest } from "@/lib/admin-session";
 import {
-  readMediaManifest,
-  writeMediaManifest,
+  getMediaRecord,
+  upsertMediaRecord,
+  deleteMediaRecord,
   putMediaBlob,
   deleteMediaBlob,
   mediaUrl,
@@ -23,18 +24,17 @@ async function countUsages(id: string): Promise<number> {
 }
 
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
-  if (!isAdminRequest(request)) {
+  if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const manifest = await readMediaManifest();
-  const idx = manifest.findIndex((m) => m.id === params.id);
-  if (idx === -1) {
+  const existing = getMediaRecord(params.id);
+  if (!existing) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
   const contentType = request.headers.get("content-type") || "";
-  const record = { ...manifest[idx] };
+  const record = { ...existing };
 
   if (contentType.includes("multipart/form-data")) {
     const form = await request.formData();
@@ -66,21 +66,19 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   }
 
   record.updatedAt = new Date().toISOString();
-  manifest[idx] = record;
-  await writeMediaManifest(manifest);
+  upsertMediaRecord(record);
 
   return NextResponse.json({ data: { ...record, url: mediaUrl(record.id) } });
 }
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
-  if (!isAdminRequest(request)) {
+  if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const force = request.nextUrl.searchParams.get("force") === "true";
-  const manifest = await readMediaManifest();
-  const idx = manifest.findIndex((m) => m.id === params.id);
-  if (idx === -1) {
+  const record = getMediaRecord(params.id);
+  if (!record) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
@@ -92,9 +90,8 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
     );
   }
 
-  await deleteMediaBlob(manifest[idx].blobKey);
-  manifest.splice(idx, 1);
-  await writeMediaManifest(manifest);
+  await deleteMediaBlob(record.blobKey);
+  deleteMediaRecord(params.id);
 
   return NextResponse.json({ ok: true });
 }

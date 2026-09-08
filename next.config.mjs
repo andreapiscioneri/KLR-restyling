@@ -54,6 +54,9 @@ const nextConfig = {
   },
   experimental: {
     optimizePackageImports: ["lucide-react", "motion"],
+    // better-sqlite3 è un modulo nativo: va lasciato fuori dal bundle
+    // e richiesto a runtime, altrimenti il build fallisce.
+    serverComponentsExternalPackages: ["better-sqlite3"],
   },
   async redirects() {
     const studyRedirects = Object.entries(LEGACY_STUDY_SLUG_TO_ID).map(([slug, id]) => ({

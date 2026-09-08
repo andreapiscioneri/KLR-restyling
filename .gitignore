@@ -6,3 +6,9 @@ dist
 .DS_Store
 admin-credentials.local.md
 admin-login-link.local.md
+
+# Dati runtime: DB SQLite e media, mai versionati
+data/
+
+# Artefatto incrementale di TypeScript
+tsconfig.tsbuildinfo
