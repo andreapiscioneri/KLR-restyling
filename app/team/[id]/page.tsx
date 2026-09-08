@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { leadership as leaderShape } from "@/src/app/data";
+import type { Leader } from "@/lib/content-schema";
 import { getLeadership } from "@/lib/content";
 import { TeamDetailClient } from "./_client";
 
@@ -12,7 +12,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const leadership = ((await getLeadership()) as typeof leaderShape | null) ?? [];
+  const leadership = ((await getLeadership()) as Leader[] | null) ?? [];
   const person = leadership.find((p) => p.id === params.id);
   const title = person ? `${person.name} — ${person.role} | KLR Europe` : "Team Member | KLR Europe";
   const description = person?.bio ?? "KLR Europe team member.";
@@ -39,6 +39,6 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 }
 
 export default async function Page({ params }: { params: { id: string } }) {
-  const leadership = ((await getLeadership()) as typeof leaderShape | null) ?? [];
+  const leadership = ((await getLeadership()) as Leader[] | null) ?? [];
   return <TeamDetailClient id={params.id} initialLeadership={leadership} />;
 }

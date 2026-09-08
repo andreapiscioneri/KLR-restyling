@@ -6,7 +6,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Pencil, Plus, Trash2 } from "lucid
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { AuthorAvatar } from "./author-avatar";
 import { Eyebrow, softShadow } from "./ui-bits";
-import { studies as fallbackStudies, brands as fallbackBrands } from "../data";
+import type { Brand, Study } from "@/lib/content-schema";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import {
@@ -311,8 +311,13 @@ function CustomBlocksView({ blocks, studyTitle, openLightbox }: { blocks: Custom
   );
 }
 
-export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Route) => void; initialStudies?: typeof fallbackStudies }) {
-  const studies = initialStudies?.length ? initialStudies : fallbackStudies;
+export function StudyDetail({ id, go, initialStudies, initialBrands }: {
+  id: string;
+  go: (r: Route) => void;
+  initialStudies?: Study[];
+  initialBrands?: Brand[];
+}) {
+  const studies = initialStudies ?? [];
 
   const base = studies.find((x) => x.id === id) || studies[0];
   const editMode = useEditMode();
@@ -323,7 +328,7 @@ export function StudyDetail({ id, go, initialStudies }: { id: string; go: (r: Ro
   const [galleryPencilsVisible, setGalleryPencilsVisible] = useState(false);
   const [lightbox, setLightbox] = useState<LightboxState>(null);
   const openLightbox = (images: string[], index: number) => setLightbox({ images, index });
-  const brand = fallbackBrands.find((b) => b.name === s.brand);
+  const brand = (initialBrands ?? []).find((b) => b.name === s.brand);
   const details = (s as any).details;
   const currentIndex = studies.findIndex((x) => x.id === s.id);
   const prevStudy = currentIndex > 0 ? studies[currentIndex - 1] : null;

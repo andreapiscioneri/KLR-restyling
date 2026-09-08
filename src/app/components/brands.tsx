@@ -4,7 +4,8 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { ArrowUpRight, ArrowDown, Baby, ChefHat, Dumbbell, Plane, Sparkles, Trees, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { softShadow } from "./ui-bits";
-import { brandPartnershipProcess, brands as fallbackBrands, images, productCategories, whyBrandsPartner } from "../data";
+import { brandPartnershipProcess, images, productCategories, whyBrandsPartner } from "../data";
+import type { Brand } from "@/lib/content-schema";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import type { Route } from "../routes";
@@ -130,12 +131,12 @@ function parseCollectionsText(text: string | undefined): typeof collections {
 
 type BrandsProps = {
   go: (r: Route) => void;
-  initialBrands?: typeof fallbackBrands;
+  initialBrands?: Brand[];
   initialBrandsCms?: BrandsCmsData;
 };
 
 export function Brands({ go, initialBrands, initialBrandsCms }: BrandsProps) {
-  const brands = initialBrands?.length ? initialBrands : fallbackBrands;
+  const brands = initialBrands ?? [];
   const brandsCms = initialBrandsCms ?? {};
   // Logo-only entries (added just for the home marquee, via "Aggiungi logo")
   // have no img/desc — exclude them so a quick logo add never surfaces as a

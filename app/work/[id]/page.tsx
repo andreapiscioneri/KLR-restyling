@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { legacyStudyIdMap, resolveStudyId, studies as studyShape } from "@/src/app/data";
-import { permanentRedirect } from "next/navigation";
-import { getStudies, getPublishedStudies } from "@/lib/content";
+import { legacyStudyIdMap, resolveStudyId } from "@/src/app/data";
+import type { Brand, Study } from "@/lib/content-schema";
+import { notFound, permanentRedirect } from "next/navigation";
+import { getStudies, getPublishedStudies, getBrands } from "@/lib/content";
 import { getAdminSessionUser } from "@/lib/admin-session";
 import { StudyDetailClient } from "./_client";
 
@@ -18,7 +19,7 @@ export async function generateStaticParams() {
   return [...ids].map((id) => ({ id }));
 }
 
-type StudyRecord = typeof studyShape[number] & { status?: string; publicPreview?: boolean };
+type StudyRecord = Study;
 
 function normalizeStatus(status?: string) {
   const value = String(status ?? "").trim().toLowerCase();
@@ -82,6 +83,17 @@ export default async function Page({ params, searchParams }: { params: { id: str
   if (resolvedId !== params.id) {
     permanentRedirect(`/work/${resolvedId}`);
   }
-  const studies = await resolveStudies(searchParams.preview === "1");
-  return <StudyDetailClient id={resolvedId} initialStudies={studies} />;
+  const [studies, brands] = await Promise.all([
+    resolveStudies(searchParams.preview === "1"),
+    getBrands() as Promise<Brand[] | null>,
+  ]);
+
+  // Prima, un id inesistente ripiegava sul primo case study dell'elenco:
+  // la pagina rispondeva 200 mostrando un contenuto diverso da quello
+  // richiesto, che per un motore di ricerca è un soft 404.
+  if (!studies.some((s) => s.id === resolvedId)) {
+    notFound();
+  }
+
+  return <StudyDetailClient id={resolvedId} initialStudies={studies} initialBrands={brands ?? []} />;
 }

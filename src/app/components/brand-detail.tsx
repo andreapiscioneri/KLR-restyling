@@ -1,7 +1,7 @@
 "use client";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, softShadow } from "./ui-bits";
-import { brands as fallbackBrands, studies as fallbackStudies } from "../data";
+import type { Brand, Study } from "@/lib/content-schema";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import type { Route } from "../routes";
@@ -14,13 +14,13 @@ const G = {
 type BrandDetailProps = {
   id: string;
   go: (r: Route) => void;
-  initialBrands?: typeof fallbackBrands;
-  initialStudies?: typeof fallbackStudies;
+  initialBrands?: Brand[];
+  initialStudies?: Study[];
 };
 
 export function BrandDetail({ id, go, initialBrands, initialStudies }: BrandDetailProps) {
-  const brands = initialBrands?.length ? initialBrands : fallbackBrands;
-  const studies = initialStudies?.length ? initialStudies : fallbackStudies;
+  const brands = initialBrands ?? [];
+  const studies = initialStudies ?? [];
 
   const brand = brands.find((b) => b.id === id) || brands[0];
   const related = studies.filter((s) => s.brand === brand.name).slice(0, 3);

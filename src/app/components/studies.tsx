@@ -4,7 +4,8 @@ import { useState } from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { ArrowUpRight, ArrowDownUp, Search, X } from "lucide-react";
 import { softShadow } from "./ui-bits";
-import { studies as fallbackStudies, images } from "../data";
+import { images } from "../data";
+import type { Study } from "@/lib/content-schema";
 import { AuthorAvatar } from "./author-avatar";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
@@ -24,7 +25,7 @@ type CaseStudiesPageData = {
 
 type StudiesProps = {
   go: (r: Route) => void;
-  initialStudies?: typeof fallbackStudies;
+  initialStudies?: Study[];
   initialPageData?: CaseStudiesPageData;
 };
 
@@ -34,7 +35,7 @@ export function Studies({ go, initialStudies, initialPageData }: StudiesProps) {
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
   const [query, setQuery] = useState("");
   const [visible, setVisible] = useState(PAGE_SIZE);
-  const studies = initialStudies?.length ? initialStudies : fallbackStudies;
+  const studies = initialStudies ?? [];
   const hero = initialPageData?.hero;
   const heroEyebrow = hero?.eyebrow || "Case Studies";
   const heroTitle = hero?.title || "Real Results for Real Retail Chains";

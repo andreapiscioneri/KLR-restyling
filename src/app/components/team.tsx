@@ -3,7 +3,8 @@
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { ArrowUpRight, LucideLinkedin } from "lucide-react";
 import { softShadow, openMailtoDraft } from "./ui-bits";
-import { leadership as fallbackLeadership, locations, images, stats as fallbackStats } from "../data";
+import { locations, images, stats as fallbackStats } from "../data";
+import type { Leader } from "@/lib/content-schema";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import type { Route } from "../routes";
@@ -42,7 +43,7 @@ function FounderCard({
   person,
   go,
 }: {
-  person: (typeof fallbackLeadership)[number];
+  person: Leader;
   go: (r: Route) => void;
 }) {
   const { first, last } = splitName(person.name);
@@ -96,7 +97,7 @@ function TeamCard({
   person,
   go,
 }: {
-  person: (typeof fallbackLeadership)[number];
+  person: Leader;
   go: (r: Route) => void;
 }) {
   const { first, last } = splitName(person.name);
@@ -157,13 +158,13 @@ type TeamCmsData = {
 
 type TeamProps = {
   go: (r: Route) => void;
-  initialLeadership?: typeof fallbackLeadership;
+  initialLeadership?: Leader[];
   initialStats?: typeof fallbackStats;
   initialTeamCms?: TeamCmsData;
 };
 
 export function Team({ go, initialLeadership, initialStats, initialTeamCms }: TeamProps) {
-  const leadership = initialLeadership?.length ? initialLeadership : fallbackLeadership;
+  const leadership = initialLeadership ?? [];
   const stats = initialStats ?? fallbackStats;
   const teamCms = initialTeamCms ?? {};
   const get = (id: string) => leadership.find((p) => p.id === id)!;
@@ -182,7 +183,7 @@ export function Team({ go, initialLeadership, initialStats, initialTeamCms }: Te
       const person = leadership.find((p) => p.id === tItem.personId);
       return person ? { id: `${tItem.personId}-${i}`, person, text: String(tItem.quote || person.quote || "") } : null;
     })
-    .filter((t): t is { id: string; person: (typeof fallbackLeadership)[number]; text: string } => Boolean(t));
+    .filter((t): t is { id: string; person: Leader; text: string } => Boolean(t));
 
   const heroEyebrow = teamCms.hero?.eyebrow || "Team";
   const heroTitle = teamCms.hero?.title || "Loyalty Starts With Us";

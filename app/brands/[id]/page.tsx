@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { brands as brandShape, studies as studyShape } from "@/src/app/data";
+import type { Brand, Study } from "@/lib/content-schema";
 import { getBrands, getPublishedStudies } from "@/lib/content";
 import { BrandDetailClient } from "./_client";
 
@@ -12,7 +12,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const brands = ((await getBrands()) as typeof brandShape | null) ?? [];
+  const brands = ((await getBrands()) as Brand[] | null) ?? [];
   const brand = brands.find((b) => b.id === params.id);
   const title = brand ? `${brand.name} | Brand Partner — KLR Europe` : "Brand Partner | KLR Europe";
   const description = brand
@@ -42,8 +42,8 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 
 export default async function Page({ params }: { params: { id: string } }) {
   const [cmsBrands, cmsStudies] = await Promise.all([
-    getBrands() as Promise<typeof brandShape | null>,
-    getPublishedStudies() as Promise<typeof studyShape | null>,
+    getBrands() as Promise<Brand[] | null>,
+    getPublishedStudies() as Promise<Study[] | null>,
   ]);
   const brands = cmsBrands ?? [];
   const studies = cmsStudies ?? [];

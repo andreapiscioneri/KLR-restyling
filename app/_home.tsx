@@ -6,7 +6,8 @@ import { ArrowUpRight, ArrowLeft, ArrowRight, Heart, Star, Award, Eye, Smile, Tr
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, useState } from "react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { images, stats as defaultStats, studies as studyShape, fallbackPosts as postShape, sectors, retailerLogos } from "@/src/app/data";
+import { images, stats as defaultStats, sectors, retailerLogos } from "@/src/app/data";
+import type { Study, Post } from "@/lib/content-schema";
 import { mergeCmsItems } from "@/lib/cms-items";
 
 const gradients = {
@@ -537,7 +538,7 @@ function PartnerLogosBand({ brands }: { brands: { id?: string; name: string; log
   );
 }
 
-function CaseStudies({ studies, data = {} }: { studies: typeof studyShape; data?: SectionData }) {
+function CaseStudies({ studies, data = {} }: { studies: Study[]; data?: SectionData }) {
   const eyebrow  = data.eyebrow  || "Case Studies";
   const title    = data.title    || "Loyalty Campaigns That Drive Results";
   const ctaLabel = data.ctaLabel || "See All Case Studies";
@@ -623,7 +624,7 @@ function CaseStudies({ studies, data = {} }: { studies: typeof studyShape; data?
   );
 }
 
-function BlogPreview({ posts: sourcePosts, data = {} }: { posts: typeof postShape; data?: SectionData }) {
+function BlogPreview({ posts: sourcePosts, data = {} }: { posts: Post[]; data?: SectionData }) {
   const eyebrow  = data.eyebrow  || "Insights";
   const title    = data.title    || "Latest Insights";
   const ctaLabel = data.ctaLabel || "See All Insights";
@@ -746,8 +747,8 @@ const HOME_SECTION_ORDER = [
 ] as const;
 
 export type HomeStats = typeof defaultStats;
-export type HomeStudies = typeof studyShape;
-export type HomePosts = typeof postShape;
+export type HomeStudies = Study[];
+export type HomePosts = Post[];
 
 type HomePageProps = {
   initialStats?: HomeStats;
