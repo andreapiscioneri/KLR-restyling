@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { isAdminRequest } from "@/lib/admin-auth";
+import { isAdminRequest } from "@/lib/admin-session";
 import { readApplicationsLog, deleteApplication, clearApplicationsLog } from "@/lib/applications-log";
 
 export async function GET(request: NextRequest) {
-  if (!isAdminRequest(request)) {
+  if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const log = await readApplicationsLog();
@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
-  if (!isAdminRequest(request)) {
+  if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const id = request.nextUrl.searchParams.get("id");

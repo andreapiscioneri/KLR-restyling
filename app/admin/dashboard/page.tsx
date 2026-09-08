@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { AdminDashboardClient } from "./client";
-import { getAdminSessionUser } from "@/lib/admin-auth";
+import { getAdminSessionUser } from "@/lib/admin-session";
 
 export default async function DashboardPage() {
   const currentUser = await getAdminSessionUser();

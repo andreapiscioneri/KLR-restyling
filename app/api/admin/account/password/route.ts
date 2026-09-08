@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { isAdminRequest, getAdminUserFromRequestAsync, validateCredentials, hashNewPassword } from "@/lib/admin-auth";
+import { validateCredentials, hashNewPassword } from "@/lib/admin-auth";
+import { getAdminSessionUser } from "@/lib/admin-session";
 import { getUsers, writeJSON } from "@/lib/content";
-import { logAdminCredential } from "@/lib/admin-credentials-log";
 
 type RawUser = {
   id: string;
@@ -10,15 +10,12 @@ type RawUser = {
   password?: string;
   passwordHash?: string;
   passwordSalt?: string;
+  passwordIterations?: number;
   role: string;
 };
 
 export async function PUT(request: NextRequest) {
-  if (!isAdminRequest(request)) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  const currentUser = await getAdminUserFromRequestAsync(request);
+  const currentUser = await getAdminSessionUser();
   if (!currentUser) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -37,15 +34,15 @@ export async function PUT(request: NextRequest) {
   }
 
   const users = (await getUsers()) as RawUser[];
-  const { passwordHash, passwordSalt } = hashNewPassword(newPassword);
+  const fresh = await hashNewPassword(newPassword);
   const updated = users.map((u) => {
     if (u.email !== currentUser.email) return u;
+    // Scarta l'eventuale password in chiaro residua insieme al vecchio hash.
     const { password: _legacy, ...rest } = u;
-    return { ...rest, passwordHash, passwordSalt };
+    return { ...rest, ...fresh };
   });
 
   await writeJSON("users.json", updated);
-  logAdminCredential(currentUser.name, currentUser.email, currentUser.role, newPassword);
 
   return NextResponse.json({ ok: true });
 }

@@ -1,20 +1,15 @@
-import { NextRequest, NextResponse } from "next/server";
+import NextAuth from "next-auth";
+import { authConfig } from "./auth.config";
 
-const COOKIE_NAME = "klr_admin_session";
-const TOKEN = "klr-admin-v1-secure-token-2025";
-
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-
-  if (pathname.startsWith("/admin") && !pathname.startsWith("/admin/login")) {
-    const session = request.cookies.get(COOKIE_NAME);
-    if (!session || !session.value.startsWith(TOKEN)) {
-      return NextResponse.redirect(new URL("/admin/login", request.url));
-    }
-  }
-
-  return NextResponse.next();
-}
+/**
+ * La protezione di /admin è ora il callback `authorized` in
+ * auth.config.ts: verifica la firma del JWT invece di confrontare il
+ * cookie con una costante presente nel sorgente.
+ *
+ * Qui si usa la sola configurazione edge-safe: il middleware di Next
+ * gira nel runtime edge, dove better-sqlite3 non è disponibile.
+ */
+export const { auth: middleware } = NextAuth(authConfig);
 
 export const config = {
   matcher: ["/admin/:path*"],

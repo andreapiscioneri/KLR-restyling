@@ -1,27 +1,21 @@
 "use server";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { findUserByCredentials, generateToken, COOKIE_OPTIONS } from "./admin-auth";
+import { AuthError } from "next-auth";
+import { signIn } from "@/auth";
 
 export async function adminLoginAction(email: string, password: string) {
-  const user = await findUserByCredentials(email, password);
-
-  if (!user) {
-    return { ok: false, error: "Email o password non corretti." };
+  try {
+    // redirect: false per poter restituire l'errore al form invece di
+    // far reindirizzare Auth.js a una pagina di errore.
+    await signIn("credentials", { email, password, redirect: false });
+  } catch (err) {
+    if (err instanceof AuthError) {
+      return { ok: false, error: "Email o password non corretti." };
+    }
+    throw err;
   }
 
-  const cookieStore = await cookies();
-  const token = generateToken(user.email);
-  
-  // Setta il cookie nel server
-  cookieStore.set(COOKIE_OPTIONS.name, token, {
-    httpOnly: COOKIE_OPTIONS.httpOnly,
-    secure: COOKIE_OPTIONS.secure,
-    sameSite: COOKIE_OPTIONS.sameSite,
-    maxAge: COOKIE_OPTIONS.maxAge,
-    path: COOKIE_OPTIONS.path,
-  });
-
-  // Reindirizza lato server - questo lancia un errore speciale che Next.js cattura
+  // Fuori dal try: redirect() propaga un'eccezione di controllo che
+  // Next intercetta, e un catch la scambierebbe per un errore.
   redirect("/admin/dashboard");
 }
