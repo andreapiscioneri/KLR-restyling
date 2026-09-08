@@ -3,6 +3,8 @@
 // a few cases the id was renamed during migration, so the old slug no
 // longer matches. These map every legacy case-study URL (e.g. ones already
 // shared on LinkedIn) to its new location instead of 404ing.
+import { ALL_LEGACY_REDIRECTS } from "./legacy-redirects.mjs";
+
 const LEGACY_STUDY_SLUG_TO_ID = {
   "oracle-red-bull-racing-adrenaline-for-spar-slovenia": "oracle-red-bull-racing-adrenaline-for-spar-slovenia",
   "pintinox-bbq-for-mol-hungary": "pintinox-bbq-for-mol-hungary",
@@ -69,7 +71,24 @@ const nextConfig = {
       destination,
       permanent: true,
     }));
-    return [...studyRedirects, ...pageRedirects];
+
+    // Articoli, categorie, tag e autori del vecchio sito WordPress:
+    // 106 URL che senza queste voci risponderebbero 404.
+    const wordpressRedirects = Object.entries(ALL_LEGACY_REDIRECTS).map(([source, destination]) => ({
+      source,
+      destination,
+      permanent: true,
+    }));
+
+    // Paginazione degli archivi WordPress (/blog/page/2/ e simili).
+    const paginationRedirects = [
+      { source: "/blog/page/:n", destination: "/blog", permanent: true },
+      { source: "/category/:slug/page/:n", destination: "/blog", permanent: true },
+      { source: "/tag/:slug/page/:n", destination: "/blog", permanent: true },
+      { source: "/author/:slug/page/:n", destination: "/team", permanent: true },
+    ];
+
+    return [...studyRedirects, ...pageRedirects, ...wordpressRedirects, ...paginationRedirects];
   },
 };
 

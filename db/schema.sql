@@ -149,6 +149,8 @@ CREATE TABLE IF NOT EXISTS media (
   updated_at  TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_media_uploaded ON media(uploaded_at DESC);
+-- Risoluzione dei vecchi URL /wp-content/uploads/... verso il media attuale.
+CREATE INDEX IF NOT EXISTS idx_media_source_url ON media(source_url);
 
 -- ── Log runtime ───────────────────────────────────────────────
 -- Il motivo principale della migrazione: oggi ogni pageview

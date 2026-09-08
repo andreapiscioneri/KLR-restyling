@@ -100,6 +100,33 @@ export async function readMediaManifest(): Promise<MediaRecord[]> {
   return rows.map(fromRow);
 }
 
+/**
+ * Trova un media dal percorso che aveva sul vecchio sito WordPress.
+ *
+ * Gli URL /wp-content/uploads/... sono incorporati negli articoli
+ * ripubblicati altrove e nelle anteprime social: dopo lo spostamento del
+ * dominio risponderebbero 404. Qui si risale al record corrispondente.
+ *
+ * WordPress serviva anche varianti ridimensionate con il suffisso
+ * -LARGHEZZAxALTEZZA prima dell'estensione: se il percorso esatto non
+ * esiste si riprova togliendolo, tornando all'originale.
+ */
+export function getMediaBySourceUrl(uploadPath: string): MediaRecord | null {
+  const db = getDb();
+  const find = db.prepare("SELECT * FROM media WHERE source_url LIKE ? ORDER BY length(source_url) LIMIT 1");
+
+  const direct = find.get(`%${uploadPath}`) as Row | undefined;
+  if (direct) return fromRow(direct);
+
+  const withoutSize = uploadPath.replace(/-\d{2,4}x\d{2,4}(\.[A-Za-z0-9]+)$/, "$1");
+  if (withoutSize !== uploadPath) {
+    const resized = find.get(`%${withoutSize}`) as Row | undefined;
+    if (resized) return fromRow(resized);
+  }
+
+  return null;
+}
+
 /** Filtro lato SQL per la libreria media dell'admin. */
 export function queryMedia(opts: { q?: string; type?: string } = {}): MediaRecord[] {
   const where: string[] = [];

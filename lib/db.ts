@@ -90,6 +90,13 @@ const MIGRATIONS: Migration[] = [
       }
     },
   },
+  {
+    version: 5,
+    describe: "indice su media.source_url per i vecchi URL di WordPress",
+    apply(db) {
+      db.exec("CREATE INDEX IF NOT EXISTS idx_media_source_url ON media(source_url)");
+    },
+  },
 ];
 
 /**
