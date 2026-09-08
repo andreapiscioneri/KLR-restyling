@@ -7,6 +7,7 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { PageHero } from "@/src/app/components/page-hero";
 import { images, whatWeDeliver, aboutImpact, journey } from "@/src/app/data";
 import { mergeCmsItems } from "@/lib/cms-items";
+import { ImageWithFallback } from "@/src/app/components/figma/ImageWithFallback";
 
 const G = {
   blue:   "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
@@ -71,7 +72,7 @@ export function AboutClient({ initialCms }: { initialCms?: AboutCms }) {
               {/* Right — two cards stacked */}
               <div className="flex flex-col gap-5">
                 <div className="rounded-[24px] p-8 flex items-center gap-4" style={{ background: "#2C2C34" }}>
-                  <img src="/anniv.png" alt="KLR 10 Years" className="w-16 h-16 object-contain shrink-0 drop-shadow-[0_0_16px_rgba(248,174,1,0.4)]" />
+                  <ImageWithFallback src="/anniv.png" alt="KLR 10 Years" className="w-16 h-16 object-contain shrink-0 drop-shadow-[0_0_16px_rgba(248,174,1,0.4)]" />
                   <span className="text-white tracking-tight" style={{ fontSize: "1.15rem", fontWeight: 700, lineHeight: 1.25 }}>{whatWeDo.badge1 || "Years of Expertise"}</span>
                 </div>
                 <div className="rounded-[24px] p-8 flex items-center" style={{ background: "#2E2784" }}>
@@ -114,7 +115,7 @@ export function AboutClient({ initialCms }: { initialCms?: AboutCms }) {
                   className="w-[330px] h-[330px] md:w-[450px] md:h-[450px] rounded-[40px] overflow-hidden"
                   style={{ boxShadow: "0 40px 100px -24px rgba(46,39,132,0.25)" }}
                 >
-                  <img src={images.teamPhoto} alt="KLR Anniversary" className="w-full h-full object-cover" />
+                  <ImageWithFallback src={images.teamPhoto} alt="KLR Anniversary" className="w-full h-full object-cover" />
                 </div>
               </div>
             </div>
@@ -195,7 +196,7 @@ export function AboutClient({ initialCms }: { initialCms?: AboutCms }) {
 
       {/* ── 5. MORE THAN A LOYALTY COMPANY ── */}
       {visible(moreThanLoyalty) && <section className="w-full">
-        <img src="/fondo.png" alt="More Than a Loyalty Company" className="w-full h-auto block" />
+        <ImageWithFallback src="/fondo.webp" alt="More Than a Loyalty Company" className="w-full h-auto block" />
         <div className="flex justify-center py-10" style={{ backgroundImage: "url('/back.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
           <Link
             href="/team"

@@ -16,16 +16,16 @@ const G = {
 };
 
 const locationPhotoByCity: Record<string, string> = {
-  Koper: "/team/Koper.png",
-  Rovato: "/team/Rovato.png",
-  Milan: "/team/Milan.png",
-  Lille: "/team/Lille.png",
-  Budapest: "/team/Budapest.png",
-  Lublin: "/team/Lublin.png",
-  Prague: "/team/Prague.png",
-  Belgrade: "/team/Belgrade.png",
-  Riga: "/team/Riga.png",
-  Madrid: "/team/Madrid.png",
+  Koper: "/team/Koper.webp",
+  Rovato: "/team/Rovato.webp",
+  Milan: "/team/Milan.webp",
+  Lille: "/team/Lille.webp",
+  Budapest: "/team/Budapest.webp",
+  Lublin: "/team/Lublin.webp",
+  Prague: "/team/Prague.webp",
+  Belgrade: "/team/Belgrade.webp",
+  Riga: "/team/Riga.webp",
+  Madrid: "/team/Madrid.webp",
 };
 
 // Row 1: founder Antonio + 4 leads
@@ -335,7 +335,7 @@ export function Team({ go, initialLeadership, initialStats, initialTeamCms }: Te
               {testimonials.map((t) => (
                 <article key={t.id} className="rounded-[24px] p-5 border border-white/40 bg-white/65" style={softShadow}>
                   <div className="flex items-center gap-3">
-                    <img src={t.person.img} alt={t.person.name} className="w-12 h-12 rounded-full object-cover border-2 border-white" />
+                    <ImageWithFallback src={t.person.img} alt={t.person.name} sizes="48px" className="w-12 h-12 rounded-full object-cover border-2 border-white" />
                     <div>
                       <div className="text-[#2E2784] tracking-tight" style={{ fontSize: "0.9rem", fontWeight: 700 }}>{t.person.name}</div>
                       <div className="text-[#2E2784]/60 tracking-tight" style={{ fontSize: "0.75rem" }}>{t.person.role}</div>

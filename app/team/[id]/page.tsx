@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import type { Leader } from "@/lib/content-schema";
 import { getLeadership } from "@/lib/content";
 import { TeamDetailClient } from "./_client";
@@ -40,5 +41,13 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 
 export default async function Page({ params }: { params: { id: string } }) {
   const leadership = ((await getLeadership()) as Leader[] | null) ?? [];
+
+  // Senza questo controllo un id inesistente rendeva comunque una pagina
+  // con HTTP 200 — un soft 404. Si notava anche sui file statici rimossi:
+  // /team/Rovato.png finiva qui come se "Rovato.png" fosse una persona.
+  if (!leadership.some((p) => p.id === params.id)) {
+    notFound();
+  }
+
   return <TeamDetailClient id={params.id} initialLeadership={leadership} />;
 }

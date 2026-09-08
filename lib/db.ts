@@ -61,6 +61,35 @@ const MIGRATIONS: Migration[] = [
     describe: "pages: testi delle sezioni a elenco resi modificabili dal CMS",
     apply: seedCmsItems,
   },
+  {
+    version: 4,
+    describe: "riferimenti alle immagini convertite in WebP",
+    apply(db) {
+      // Le immagini pesanti di public/ sono state convertite da PNG a
+      // WebP (78,7 MB -> 4,5 MB). I riferimenti nel codice sono stati
+      // aggiornati direttamente; questo sistema quelli salvati nel
+      // database dal CMS.
+      const renamed: Record<string, string> = {
+        "/team/KLR-Antonio-fondo-giallo.png": "/team/KLR-Antonio-fondo-giallo.webp",
+      };
+      const columns: [string, string][] = [
+        ["leadership", "img"],
+        ["brands", "img"], ["brands", "logo"],
+        ["posts", "img"], ["posts", "author_avatar"], ["posts", "content_html"],
+        ["studies", "img"], ["studies", "details"],
+        ["documents", "data"],
+      ];
+      for (const [from, to] of Object.entries(renamed)) {
+        for (const [table, column] of columns) {
+          const info = db.prepare(`PRAGMA table_info(${table})`).all() as { name: string }[];
+          if (!info.some((c) => c.name === column)) continue;
+          db.prepare(
+            `UPDATE ${table} SET ${column} = replace(${column}, ?, ?) WHERE ${column} LIKE ?`
+          ).run(from, to, `%${from}%`);
+        }
+      }
+    },
+  },
 ];
 
 /**

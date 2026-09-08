@@ -40,7 +40,7 @@ export function Services({ go }: { go: (r: Route) => void }) {
         eyebrow="Services"
         title={<>Our<br /><span className="text-[#F8AE01]">Services.</span></>}
         subtitle="We have a full range of services that allow us to deliver concrete results to our clients. Happy rewarded loyal customers mean more visits in-store, stable or increased turnover and a better reputation."
-        image="/3.png"
+        image="/3.webp"
         cta={{ label: "See Our Work", href: "/work" }}
       />
 
@@ -64,7 +64,7 @@ export function Services({ go }: { go: (r: Route) => void }) {
                   style={{ background: "color-mix(in oklab, #2E2784 20%, transparent)" }}
                 />
                 <div className="w-[330px] h-[330px] md:w-[450px] md:h-[450px] rounded-full overflow-hidden border-[5px] border-[#2E2784]" style={softShadow}>
-                  <ImageWithFallback src="/1.png" alt="360° Loyalty Marketing" className="w-full h-full object-cover" />
+                  <ImageWithFallback src="/1.webp" alt="360° Loyalty Marketing" className="w-full h-full object-cover" />
                 </div>
               </div>
             </div>
@@ -76,7 +76,7 @@ export function Services({ go }: { go: (r: Route) => void }) {
                   style={{ background: "color-mix(in oklab, #2E2784 20%, transparent)" }}
                 />
                 <div className="w-[330px] h-[330px] md:w-[420px] md:h-[420px] rounded-full overflow-hidden border-[5px] border-[#2E2784]" style={softShadow}>
-                  <ImageWithFallback src="/2.png" alt="Our Tailor-made Solutions" className="w-full h-full object-cover" />
+                  <ImageWithFallback src="/2.webp" alt="Our Tailor-made Solutions" className="w-full h-full object-cover" />
                 </div>
               </div>
               <div className="order-1 md:order-2">
@@ -199,7 +199,7 @@ export function Services({ go }: { go: (r: Route) => void }) {
                   In today's competitive market, it takes more than a great product to stand out. At KLR, we help clients to tell their stories and captivate audiences using integrated marketing communications that are brand-centric and highly measurable.
                 </p>
                 <div className="mt-10 relative w-full rounded-[32px] overflow-hidden" style={{ aspectRatio: "4/3" }}>
-                  <ImageWithFallback src="/1.png" alt="Loyalty Marketing Strategic Development" className="w-full h-full object-cover" />
+                  <ImageWithFallback src="/1.webp" alt="Loyalty Marketing Strategic Development" className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-[#2E2784]/30" />
                 </div>
               </div>

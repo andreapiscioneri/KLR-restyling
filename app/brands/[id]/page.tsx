@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import type { Brand, Study } from "@/lib/content-schema";
 import { getBrands, getPublishedStudies } from "@/lib/content";
 import { BrandDetailClient } from "./_client";
@@ -47,5 +48,10 @@ export default async function Page({ params }: { params: { id: string } }) {
   ]);
   const brands = cmsBrands ?? [];
   const studies = cmsStudies ?? [];
+
+  if (!brands.some((b) => b.id === params.id)) {
+    notFound();
+  }
+
   return <BrandDetailClient id={params.id} initialBrands={brands} initialStudies={studies} />;
 }

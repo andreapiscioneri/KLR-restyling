@@ -6,6 +6,7 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { PageHero } from "@/src/app/components/page-hero";
 import { pillars, sectors, images } from "@/src/app/data";
 import { mergeCmsItems } from "@/lib/cms-items";
+import { ImageWithFallback } from "@/src/app/components/figma/ImageWithFallback";
 
 const G = {
   blue:   "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
@@ -13,7 +14,7 @@ const G = {
   rosa:   "radial-gradient(130% 130% at 10% 0%, #f0e8ff 0%, #C8B8F0 45%, #9d85d4 100%)",
 };
 
-const pillarImages = ["/1.png", "/2.png", "/3.png"];
+const pillarImages = ["/1.webp", "/2.webp", "/3.webp"];
 
 // Pillar 1 (blue), Pillar 2 (yellow), Pillar 3 (blue)
 const pillarBg = [G.blue, G.yellow, G.blue];
@@ -105,7 +106,7 @@ function PillarSection({
                 className="relative w-[280px] h-[280px] md:w-[360px] md:h-[360px] lg:w-[450px] lg:h-[450px] rounded-full overflow-hidden"
                 style={{ boxShadow: "0 40px 100px -40px rgba(46,39,132,0.18)" }}
               >
-                <img src={img} alt={pillar.title} className="w-full h-full object-cover" />
+                <ImageWithFallback src={img} alt={pillar.title} className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
@@ -225,7 +226,7 @@ export function ServicesClient({ initialCms }: { initialCms?: ServicesCms }) {
                 { title: ecosystemItems[1].title, desc: ecosystemItems[1].desc, img: images.hero },
               ].map((s) => (
                 <div key={s.title} className="rounded-[28px] overflow-hidden relative" style={{ minHeight: "280px" }}>
-                  <img src={s.img} alt={s.title} className="absolute inset-0 w-full h-full object-cover" />
+                  <ImageWithFallback src={s.img} alt={s.title} className="absolute inset-0 w-full h-full object-cover" />
                   <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(46,39,132,0.92) 0%, rgba(46,39,132,0.5) 50%, transparent 100%)" }} />
                   <div className="relative flex flex-col justify-end p-8" style={{ minHeight: "280px" }}>
                     <h3 className="text-white tracking-[-0.02em]" style={{ fontSize: "1.4rem", fontWeight: 700 }}>{s.title}</h3>
@@ -266,7 +267,7 @@ export function ServicesClient({ initialCms }: { initialCms?: ServicesCms }) {
 
               {/* Right — image fills the panel edge to edge */}
               <div className="relative min-h-[320px]" style={{ background: "#2E2784" }}>
-                <img src={String(sNext.image || "/1.png")} alt="Loyalty for any retailer" className="absolute inset-0 w-full h-full object-cover" />
+                <ImageWithFallback src={String(sNext.image || "/1.webp")} alt="Loyalty for any retailer" className="absolute inset-0 w-full h-full object-cover" />
               </div>
             </div>
 
