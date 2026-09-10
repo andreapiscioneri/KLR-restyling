@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, createContext, useContext } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -324,6 +324,7 @@ function AdminDashboardInner({ currentUser }: { currentUser: AdminUser }) {
   );
 
   return (
+    <SaveStatusContext.Provider value={{ saving, saved, saveError, saveErrorMessage }}>
     <div style={{ display:"flex",minHeight:"100vh",background:"#F5F5FA",fontFamily:"-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" }}>
       {sidebarOpen && (
         <div onClick={() => setSidebarOpen(false)}
@@ -454,6 +455,7 @@ function AdminDashboardInner({ currentUser }: { currentUser: AdminUser }) {
       </main>
       {changePasswordOpen && <ChangePasswordModal onClose={() => setChangePasswordOpen(false)} />}
     </div>
+    </SaveStatusContext.Provider>
   );
 }
 
@@ -758,6 +760,8 @@ function CollectionsCarouselPanel({ data, onSave }: { data: PagesDataLocal | nul
   const [text, setText]         = useState("");
   const [newBrand, setNewBrand] = useState("");
   const [justAdded, setJustAdded] = useState<string | null>(null);
+  const [nameMissing, setNameMissing] = useState(false);
+  const newBrandRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     if (!data) return;
     const collections = (data.brands as Record<string,unknown> | undefined)?.collections as Record<string,unknown> | undefined;
@@ -778,8 +782,16 @@ function CollectionsCarouselPanel({ data, onSave }: { data: PagesDataLocal | nul
   }
   function addNewBrand() {
     const name = newBrand.trim();
-    if (!name) return;
-    commit([{ brand: name, item: "", src: "" }, ...rows]);
+    if (!name) {
+      // Senza un nome non c'è nulla da aggiungere, ma uscire in silenzio
+      // faceva sembrare il pulsante rotto: si porta l'attenzione sul campo
+      // da compilare invece di non fare niente.
+      setNameMissing(true);
+      newBrandRef.current?.focus();
+      return;
+    }
+    setNameMissing(false);
+    commit([...rows, { brand: name, item: "", src: "" }]);
     setNewBrand("");
     setJustAdded(name);
   }
@@ -854,7 +866,13 @@ function CollectionsCarouselPanel({ data, onSave }: { data: PagesDataLocal | nul
           {!groups.length && <div style={{ fontSize:13,color:"#999" }}>{t.collectionsCarousel.empty}</div>}
         </div>
         <div style={{ display:"flex",gap:8,alignItems:"center",marginTop:16,paddingTop:14,borderTop:"1px solid #f0f0f6" }}>
-          <div style={{ flex:1 }}><Input value={newBrand} placeholder={t.collectionsCarousel.newBrandPlaceholder} onChange={setNewBrand}/></div>
+          <div style={{ flex:1 }}>
+            <Input inputRef={newBrandRef} value={newBrand} placeholder={t.collectionsCarousel.newBrandPlaceholder}
+              onChange={v => { setNewBrand(v); if (nameMissing) setNameMissing(false); }}/>
+            {nameMissing && (
+              <div style={{ marginTop:6,fontSize:12,color:"#dc2626",fontWeight:600 }}>{t.collectionsCarousel.nameRequired}</div>
+            )}
+          </div>
           <button type="button" onClick={addNewBrand} style={listAddBtn}><Plus size={13}/>{t.collectionsCarousel.addBrandButton}</button>
         </div>
       </Panel>
@@ -888,7 +906,9 @@ function ClientsPanel({ data, onSave }: { data: PagesDataLocal | null; onSave: (
   }
   function remove(id: string) { setItems(prev => prev.filter(it => it.id !== id)); }
   function addItem(category: "grocery" | "petrol") {
-    setItems(prev => [{ id: `client-${Date.now()}`, name: "", logo: "", category }, ...prev]);
+    // In coda: il pulsante è sotto l'elenco della categoria, quindi la
+    // riga nuova compare dove si sta guardando invece che in cima.
+    setItems(prev => [...prev, { id: `client-${Date.now()}`, name: "", logo: "", category }]);
   }
   function moveInCategory(id: string, category: "grocery" | "petrol", dir: -1 | 1) {
     const ids = items.filter(it => it.category === category).map(it => it.id);
@@ -2862,7 +2882,10 @@ function GlobalBrandsEditor({ data, onSave }: { data: BrandItem[] | null; onSave
   }
   function addNew() {
     const id = `logo-${Date.now()}`;
-    setForm(prev => [{ id, name:"", tag:"", img:"", logo:"", since:"", campaigns:"", countries:"", desc:"" }, ...prev]);
+    // In coda e non in testa: il pulsante sta in fondo alla pagina, e una
+    // riga aggiunta all'inizio compariva oltre 2000 pixel più in alto,
+    // fuori dallo schermo. Chi cliccava non vedeva accadere nulla.
+    setForm(prev => [...prev, { id, name:"", tag:"", img:"", logo:"", since:"", campaigns:"", countries:"", desc:"" }]);
   }
   function moveVisible(id: string, dir: -1 | 1) {
     const visibleIds = withLogo.map(b => b.id);
@@ -4225,9 +4248,9 @@ function Field({ label, children, full, hint, required, error }: { label:string;
     </div>
   );
 }
-function Input({ value, onChange, type="text", placeholder }: { value:string; onChange:(v:string)=>void; type?:string; placeholder?:string }) {
+function Input({ value, onChange, type="text", placeholder, inputRef }: { value:string; onChange:(v:string)=>void; type?:string; placeholder?:string; inputRef?:React.Ref<HTMLInputElement> }) {
   return (
-    <input type={type} value={value} placeholder={placeholder} onChange={e=>onChange(e.target.value)}
+    <input ref={inputRef} type={type} value={value} placeholder={placeholder} onChange={e=>onChange(e.target.value)}
       style={{ width:"100%",boxSizing:"border-box",padding:"9px 12px",border:"1.5px solid #E8E8F0",borderRadius:9,fontSize:13,color:"#111",background:"#FAFAFA",outline:"none",fontFamily:"inherit",transition:"border 0.15s" }}
       onFocus={e=>e.target.style.borderColor="#2E2784"}
       onBlur={e=>e.target.style.borderColor="#E8E8F0"}
@@ -4309,18 +4332,45 @@ function Loader() {
     </div>
   );
 }
+/**
+ * Stato del salvataggio, condiviso con i pulsanti Salva.
+ *
+ * Il riscontro esisteva già ma viveva solo nell'intestazione della
+ * pagina: su desktop la barra sticky che lo conteneva è nascosta
+ * (.admin-mobile-bar { display: none }), quindi restava l'intestazione
+ * statica in cima. Chi salvava da un pannello in fondo a una pagina di
+ * 3300 pixel non vedeva nulla e non sapeva se il salvataggio fosse
+ * andato a buon fine.
+ */
+export type SaveStatus = { saving?: boolean; saved?: boolean; saveError?: boolean; saveErrorMessage?: string | null };
+export const SaveStatusContext = createContext<SaveStatus>({});
+
 function SaveBtn({ onClick }: { onClick:()=>void }) {
   const { t } = useAdminI18n();
-  return <Button icon={Save} onClick={onClick}>{t.common.save}</Button>;
+  const status = useContext(SaveStatusContext);
+  // Il riscontro sta accanto al pulsante, dove l'occhio è già.
+  return (
+    <span style={{ display:"inline-flex",alignItems:"center",gap:10 }}>
+      <Button icon={Save} onClick={onClick}>{t.common.save}</Button>
+      <InlineSaveStatus saving={status.saving} saved={status.saved} saveError={status.saveError} saveErrorMessage={status.saveErrorMessage}/>
+    </span>
+  );
 }
 // Standalone save-status pill, for panels that sit far below the page header
 // (where the global StatusBadge lives) and need feedback right next to their
 // own Save button instead.
-function InlineSaveStatus({ saving, saved, saveError }: { saving?:boolean; saved?:boolean; saveError?:boolean }) {
+function InlineSaveStatus({ saving, saved, saveError, saveErrorMessage }: { saving?:boolean; saved?:boolean; saveError?:boolean; saveErrorMessage?:string|null }) {
   const { t } = useAdminI18n();
   if (saving) return <span style={{ fontSize:12,color:"#F8AE01",fontWeight:600,background:"rgba(248,174,1,0.1)",padding:"4px 12px",borderRadius:20 }}>{t.common.saving}</span>;
   if (saved) return <span style={{ display:"flex",alignItems:"center",gap:4,fontSize:12,color:"#16a34a",fontWeight:600,background:"rgba(22,163,74,0.1)",padding:"4px 12px",borderRadius:20 }}><CheckCircle size={12}/>{t.common.saved}</span>;
-  if (saveError) return <span style={{ fontSize:12,color:"#dc2626",fontWeight:600,background:"rgba(220,38,38,0.1)",padding:"4px 12px",borderRadius:20 }}>✗ {t.common.saveError}</span>;
+  // Il motivo del fallimento accanto al pulsante, non solo in cima alla
+  // pagina: senza, si sa che è andata male ma non perché.
+  if (saveError) return (
+    <span style={{ display:"inline-flex",flexDirection:"column",gap:2,fontSize:12,color:"#dc2626",fontWeight:600,background:"rgba(220,38,38,0.1)",padding:"6px 12px",borderRadius:14,maxWidth:340 }}>
+      <span>✗ {t.common.saveError}</span>
+      {saveErrorMessage && <span style={{ fontSize:11,color:"#881111",fontWeight:500,opacity:0.9 }}>{saveErrorMessage}</span>}
+    </span>
+  );
   return null;
 }
 function SecBtn({ onClick, children }: { onClick:()=>void; children:React.ReactNode }) {
