@@ -1,23 +1,20 @@
-import { NextRequest, NextResponse } from "next/server";
-import { findUserByCredentials, generateToken, COOKIE_OPTIONS, isAdminRequest } from "@/lib/admin-auth";
+import { NextResponse } from "next/server";
+import { signOut } from "@/auth";
+import { isAdminRequest } from "@/lib/admin-session";
 
-export async function POST(request: NextRequest) {
-  const { email, password } = await request.json();
-  const user = await findUserByCredentials(email, password);
-  if (!user) {
-    return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
-  }
-  const response = NextResponse.json({ ok: true });
-  response.cookies.set({ ...COOKIE_OPTIONS, value: generateToken(user.email) });
-  return response;
+/**
+ * Endpoint di compatibilità: la AdminBar interroga GET per sapere se
+ * mostrarsi, la dashboard chiama DELETE per il logout. Il login è
+ * passato al server action adminLoginAction (Auth.js).
+ */
+export async function GET() {
+  return NextResponse.json(
+    { authenticated: await isAdminRequest() },
+    { headers: { "Cache-Control": "no-store" } }
+  );
 }
 
-export async function DELETE(request: NextRequest) {
-  const response = NextResponse.json({ ok: true });
-  response.cookies.set({ ...COOKIE_OPTIONS, value: "", maxAge: 0 });
-  return response;
-}
-
-export async function GET(request: NextRequest) {
-  return NextResponse.json({ authenticated: isAdminRequest(request) });
+export async function DELETE() {
+  await signOut({ redirect: false });
+  return NextResponse.json({ ok: true });
 }

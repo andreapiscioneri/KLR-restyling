@@ -7,15 +7,48 @@ import { readConsent } from "@/lib/cookie-consent";
 const SESSION_KEY = "klr_analytics_sid";
 const ATTRIBUTION_KEY = "klr_analytics_attribution";
 
+/**
+ * crypto.randomUUID() esiste solo nei contesti sicuri (HTTPS o
+ * localhost): servito da un IP in HTTP semplice è undefined, e la
+ * chiamata sollevava un TypeError che faceva fallire l'idratazione
+ * dell'intera pagina — non solo il tracciamento.
+ *
+ * crypto.getRandomValues() non ha quella restrizione, quindi si usa
+ * quello per comporre un UUID v4 con lo stesso formato: l'endpoint
+ * /api/track valida il sessionId con /^[0-9a-f-]{8,64}$/i.
+ */
+function randomId(): string {
+  const c: Crypto | undefined = typeof globalThis !== "undefined" ? globalThis.crypto : undefined;
+
+  if (typeof c?.randomUUID === "function") {
+    return c.randomUUID();
+  }
+
+  if (typeof c?.getRandomValues === "function") {
+    const bytes = c.getRandomValues(new Uint8Array(16));
+    bytes[6] = (bytes[6] & 0x0f) | 0x40; // versione 4
+    bytes[8] = (bytes[8] & 0x3f) | 0x80; // variante RFC 4122
+    const hex = Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
+    return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+  }
+
+  // Nessuna API crittografica disponibile: l'id serve solo a raggruppare
+  // le visite di una stessa scheda, non ha requisiti di sicurezza.
+  const rand = () => Math.floor(Math.random() * 0xffffffff).toString(16).padStart(8, "0");
+  return `${rand()}-${rand().slice(0, 4)}-4${rand().slice(0, 3)}-a${rand().slice(0, 3)}-${rand()}${rand().slice(0, 4)}`;
+}
+
 function getSessionId(): string {
   try {
     const existing = sessionStorage.getItem(SESSION_KEY);
     if (existing) return existing;
-    const id = crypto.randomUUID();
+    const id = randomId();
     sessionStorage.setItem(SESSION_KEY, id);
     return id;
   } catch {
-    return crypto.randomUUID();
+    // sessionStorage può essere inaccessibile (navigazione privata,
+    // cookie di terze parti bloccati): l'id si rigenera a ogni chiamata.
+    return randomId();
   }
 }
 

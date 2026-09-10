@@ -1,34 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
-import { isAdminRequest } from "@/lib/admin-auth";
-import { readMediaManifest, writeMediaManifest, putMediaBlob, mediaUrl, type MediaRecord } from "@/lib/media-storage";
+import { isAdminRequest } from "@/lib/admin-session";
+import { queryMedia, countMedia, upsertMediaRecord, putMediaBlob, buildBlobKey, mediaUrl, type MediaRecord } from "@/lib/media-storage";
 
 export async function GET(request: NextRequest) {
-  if (!isAdminRequest(request)) {
+  if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  const manifest = await readMediaManifest();
-  const q = request.nextUrl.searchParams.get("q")?.toLowerCase().trim();
-  const type = request.nextUrl.searchParams.get("type");
-
-  let filtered = manifest;
-  if (type && type !== "all") {
-    filtered = filtered.filter((m) => m.mimeType.startsWith(type));
-  }
-  if (q) {
-    filtered = filtered.filter((m) =>
-      [m.filename, m.title, m.alt, m.caption, m.description].some((f) => f?.toLowerCase().includes(q))
-    );
-  }
-  filtered = [...filtered].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+  // Il filtro è ora lato SQL invece di caricare tutti i record e
+  // filtrarli in memoria.
+  const filtered = queryMedia({
+    q: request.nextUrl.searchParams.get("q")?.toLowerCase().trim() || undefined,
+    type: request.nextUrl.searchParams.get("type") || undefined,
+  });
 
   return NextResponse.json(
-    { data: filtered.map((m) => ({ ...m, url: mediaUrl(m.id) })), total: manifest.length },
+    { data: filtered.map((m) => ({ ...m, url: mediaUrl(m.id) })), total: countMedia() },
     { headers: { "Cache-Control": "no-store" } }
   );
 }
 
 export async function POST(request: NextRequest) {
-  if (!isAdminRequest(request)) {
+  if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -39,8 +31,7 @@ export async function POST(request: NextRequest) {
   }
 
   const id = crypto.randomUUID();
-  const ext = file.name.includes(".") ? file.name.split(".").pop() : "";
-  const blobKey = `${id}${ext ? `.${ext}` : ""}`;
+  const blobKey = buildBlobKey(id, file.name);
   const buffer = await file.arrayBuffer();
 
   try {
@@ -68,9 +59,7 @@ export async function POST(request: NextRequest) {
     updatedAt: now,
   };
 
-  const manifest = await readMediaManifest();
-  manifest.push(record);
-  await writeMediaManifest(manifest);
+  upsertMediaRecord(record);
 
   return NextResponse.json({ data: { ...record, url: mediaUrl(record.id) } });
 }

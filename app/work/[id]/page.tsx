@@ -1,20 +1,25 @@
 import type { Metadata } from "next";
-import { legacyStudyIdMap, resolveStudyId, studies as fallbackStudies } from "@/src/app/data";
-import { permanentRedirect } from "next/navigation";
-import { getStudies } from "@/lib/content";
-import { getAdminSessionUser } from "@/lib/admin-auth";
+import { legacyStudyIdMap, resolveStudyId } from "@/src/app/data";
+import type { Brand, Study } from "@/lib/content-schema";
+import { notFound, permanentRedirect } from "next/navigation";
+import { getStudies, getPublishedStudies, getBrands } from "@/lib/content";
+import { getAdminSessionUser } from "@/lib/admin-session";
 import { StudyDetailClient } from "./_client";
 
 export const dynamicParams = true;
 export const revalidate = 60;
 
+// Prima si prerenderizzavano i 6 case study scritti a mano in data.ts,
+// lasciando gli altri 20 al rendering su richiesta. Ora l'elenco viene
+// dal database.
 export async function generateStaticParams() {
-  const canonical = fallbackStudies.map((s) => ({ id: s.id }));
-  const legacy = Object.keys(legacyStudyIdMap).map((id) => ({ id }));
-  return [...canonical, ...legacy];
+  const studies = ((await getPublishedStudies()) as { id?: string }[] | null) ?? [];
+  const ids = new Set(studies.map((s) => s?.id).filter((id): id is string => Boolean(id)));
+  for (const id of Object.keys(legacyStudyIdMap)) ids.add(id);
+  return [...ids].map((id) => ({ id }));
 }
 
-type StudyRecord = typeof fallbackStudies[number] & { status?: string; publicPreview?: boolean };
+type StudyRecord = Study;
 
 function normalizeStatus(status?: string) {
   const value = String(status ?? "").trim().toLowerCase();
@@ -28,8 +33,10 @@ function normalizeStatus(status?: string) {
 // anyone when the item's own "public preview" flag is enabled (a
 // shareable review link, matching the old WordPress workflow).
 async function resolveStudies(preview: boolean): Promise<StudyRecord[]> {
-  const all = ((await getStudies()) as StudyRecord[] | null) ?? [];
-  const source = all.length ? all : (fallbackStudies as StudyRecord[]);
+  // Nessun ripiego sui dati hardcoded: erano fermi a 6 case study, e
+  // servirli in caso di database vuoto significherebbe rispondere 200 con
+  // contenuti di anni fa invece di segnalare il problema.
+  const source = ((await getStudies()) as StudyRecord[] | null) ?? [];
   if (!preview) return source.filter((s) => {
     const status = normalizeStatus(s.status);
     return status !== "draft" && status !== "deleted";
@@ -76,6 +83,17 @@ export default async function Page({ params, searchParams }: { params: { id: str
   if (resolvedId !== params.id) {
     permanentRedirect(`/work/${resolvedId}`);
   }
-  const studies = await resolveStudies(searchParams.preview === "1");
-  return <StudyDetailClient id={resolvedId} initialStudies={studies} />;
+  const [studies, brands] = await Promise.all([
+    resolveStudies(searchParams.preview === "1"),
+    getBrands() as Promise<Brand[] | null>,
+  ]);
+
+  // Prima, un id inesistente ripiegava sul primo case study dell'elenco:
+  // la pagina rispondeva 200 mostrando un contenuto diverso da quello
+  // richiesto, che per un motore di ricerca è un soft 404.
+  if (!studies.some((s) => s.id === resolvedId)) {
+    notFound();
+  }
+
+  return <StudyDetailClient id={resolvedId} initialStudies={studies} initialBrands={brands ?? []} />;
 }

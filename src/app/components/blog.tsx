@@ -5,10 +5,11 @@ import { ArrowUpRight, ArrowDownUp, Search, X } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { AuthorAvatar } from "./author-avatar";
 import { softShadow } from "./ui-bits";
-import { fallbackPosts, images, type Post } from "../data";
+import { images } from "../data";
+import type { Post } from "@/lib/content-schema";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import type { Route } from "../App";
+import type { Route } from "../routes";
 
 const G = {
   blue: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
@@ -19,7 +20,10 @@ const CATEGORIES = ["All", "Loyalty Marketing", "Retail & Business Trends", "Lea
 const PAGE_SIZE = 9;
 
 type InsightCategory = (typeof CATEGORIES)[number];
-type InsightPost = Post & {
+// La lista degli articoli mostra solo la scheda: non le servono corpo
+// del testo né flag di pubblicazione, quindi prende i campi che usa
+// invece dell'intero Post.
+type InsightPost = Pick<Post, "id" | "slug" | "title" | "date" | "excerpt" | "img" | "link" | "category"> & {
   normalizedCategory: Exclude<InsightCategory, "All">;
   authorName: string;
   authorAvatar: string;
@@ -39,18 +43,9 @@ function estimateReadingTime(text: string): string {
   return `${Math.max(2, Math.ceil(words / 220))} min read`;
 }
 
-function toInsightPost(p: Post): InsightPost {
-  return {
-    ...p,
-    normalizedCategory: normalizeCategory(p.category),
-    authorName: "KLR Editorial Team",
-    authorAvatar: images.teamPhoto,
-    readingTime: estimateReadingTime(p.excerpt),
-  };
-}
-
 type BlogHeroData = { eyebrow?: string; title?: string; subtitle?: string; _visible?: boolean };
-type RawPost = { id: number | string; slug: string; title: string; date: string; excerpt?: string; img?: string; category?: string; contentHtml?: string; authorName?: string; authorAvatar?: string };
+/** Forma in ingresso: il CMS può avere id numerici o testuali e campi vuoti. */
+type RawPost = Partial<Post> & { id: number | string; slug: string; title: string; date: string };
 
 function toInsightPostFromCms(p: RawPost): InsightPost {
   return {
@@ -76,9 +71,7 @@ type BlogProps = {
 };
 
 export function Blog({ go, initialPosts, initialHero }: BlogProps) {
-  const posts: InsightPost[] = initialPosts?.length
-    ? initialPosts.map(toInsightPostFromCms)
-    : fallbackPosts.map(toInsightPost);
+  const posts: InsightPost[] = (initialPosts ?? []).map(toInsightPostFromCms);
   const [cat, setCat] = useState<InsightCategory>("All");
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
   const [query, setQuery] = useState("");

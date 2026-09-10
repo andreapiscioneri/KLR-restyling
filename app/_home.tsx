@@ -6,7 +6,10 @@ import { ArrowUpRight, ArrowLeft, ArrowRight, Heart, Star, Award, Eye, Smile, Tr
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, useState } from "react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { images, stats as defaultStats, brandPartners as defaultBrands, studies as defaultStudies, fallbackPosts, loyaltyFramework, sectors, retailerLogos } from "@/src/app/data";
+import { images, stats as defaultStats, sectors, retailerLogos } from "@/src/app/data";
+import type { Study, Post } from "@/lib/content-schema";
+import { mergeCmsItems } from "@/lib/cms-items";
+import { ImageWithFallback } from "@/src/app/components/figma/ImageWithFallback";
 
 const gradients = {
   blue:   "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
@@ -70,7 +73,7 @@ function Hero({ data = {} }: { data?: HeroData }) {
   return (
     <section ref={ref} className="relative min-h-screen overflow-hidden">
       <motion.div className="absolute inset-0" style={{ y, willChange: "transform" }}>
-        <img src={bg} alt="KLR Hero" decoding="async" fetchPriority="high" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <ImageWithFallback src={bg} alt="KLR Hero" decoding="async" fetchPriority="high" className="absolute inset-0 w-full h-full object-cover object-center" />
         <div className="absolute inset-0 bg-[#2E2784]/70" />
       </motion.div>
 
@@ -188,8 +191,7 @@ function StatsBar({ stats, data = {} }: { stats: typeof defaultStats; data?: Sta
               <div className="relative z-10 flex flex-col h-full">
                 {/* Anniversary logo */}
                 <div className="flex-1 flex items-center justify-start">
-                  <img
-                    src="/anniv.png"
+                  <ImageWithFallback                     src="/anniv.png"
                     alt="KLR 10 Years Anniversary"
                     className="w-40 h-40 object-contain drop-shadow-[0_0_32px_rgba(248,174,1,0.35)]"
                   />
@@ -274,7 +276,7 @@ function InternationalPresence({ data = {} }: { data?: SectionData }) {
           </p>
 
           <div className="mt-10 flex justify-center">
-            <img src={mapImage} alt="KLR European presence" className="w-full max-w-3xl h-auto" />
+            <ImageWithFallback src={mapImage} alt="KLR European presence" className="w-full max-w-3xl h-auto" />
           </div>
         </AnimatedSection>
       </div>
@@ -396,6 +398,8 @@ function TwoSectors({ data = {} }: { data?: SectionData }) {
   const eyebrow    = data.eyebrow || "Expertise";
   const title      = data.title   || "Two Sectors. Deep Expertise.";
   const sectorImgs = [data.image1 || images.family, data.image2 || images.hero];
+  // Il layout è a due colonne: il CMS modifica i testi, non il numero di voci.
+  const items = mergeCmsItems(sectors, data as Record<string, unknown>);
 
   return (
     <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: gradients.yellow }}>
@@ -410,9 +414,9 @@ function TwoSectors({ data = {} }: { data?: SectionData }) {
           </h2>
 
           <div className="mt-14 grid md:grid-cols-2 gap-6">
-            {sectors.map((s, i) => (
+            {items.map((s, i) => (
               <div key={s.title} className="rounded-[32px] overflow-hidden relative" style={{ minHeight: "380px" }}>
-                <img src={sectorImgs[i]} alt={s.title} className="absolute inset-0 w-full h-full object-cover" />
+                <ImageWithFallback src={sectorImgs[i]} alt={s.title} className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(36,31,105,0.92) 0%, rgba(36,31,105,0.5) 50%, transparent 100%)" }} />
                 <div className="relative flex flex-col justify-end p-8" style={{ minHeight: "380px" }}>
                   <h3 className="text-white tracking-[-0.02em]" style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)", fontWeight: 700 }}>{s.title}</h3>
@@ -462,7 +466,7 @@ function ClientLogos({ data = {} }: { data?: ClientsData }) {
               <div className="grid grid-cols-3 sm:flex sm:flex-wrap gap-3">
                 {grocery.map((r) => (
                   <div key={r.id ?? r.name} className="flex items-center justify-center h-16 w-full sm:w-28 rounded-xl bg-white/70 p-3" style={{ boxShadow: "0 4px 16px rgba(46,39,132,0.08)" }}>
-                    <img src={r.logo} alt={r.name} className="h-full w-full object-contain" />
+                    <ImageWithFallback src={r.logo} alt={r.name} className="h-full w-full object-contain" />
                   </div>
                 ))}
               </div>
@@ -474,7 +478,7 @@ function ClientLogos({ data = {} }: { data?: ClientsData }) {
               <div className="grid grid-cols-3 sm:flex sm:flex-wrap gap-3">
                 {petrol.map((r) => (
                   <div key={r.id ?? r.name} className="flex items-center justify-center h-16 w-full sm:w-28 rounded-xl bg-white/70 p-3" style={{ boxShadow: "0 4px 16px rgba(46,39,132,0.08)" }}>
-                    <img src={r.logo} alt={r.name} className="h-full w-full object-contain" />
+                    <ImageWithFallback src={r.logo} alt={r.name} className="h-full w-full object-contain" />
                   </div>
                 ))}
               </div>
@@ -507,8 +511,7 @@ function PartnerLogosBand({ brands }: { brands: { id?: string; name: string; log
           {[...partnerBrands, ...partnerBrands, ...partnerBrands, ...partnerBrands].map((b, i) => (
             <div key={`${b.id ?? b.name}-${i}`} className="flex items-center justify-center h-14 w-28 sm:w-32 md:w-36 shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={b.logo!}
+              <ImageWithFallback                 src={b.logo!}
                 alt={b.name}
                 className="h-full w-full object-contain"
                 style={{ filter: "brightness(0) invert(1)", opacity: 0.6 }}
@@ -534,7 +537,7 @@ function PartnerLogosBand({ brands }: { brands: { id?: string; name: string; log
   );
 }
 
-function CaseStudies({ studies, data = {} }: { studies: typeof defaultStudies; data?: SectionData }) {
+function CaseStudies({ studies, data = {} }: { studies: Study[]; data?: SectionData }) {
   const eyebrow  = data.eyebrow  || "Case Studies";
   const title    = data.title    || "Loyalty Campaigns That Drive Results";
   const ctaLabel = data.ctaLabel || "See All Case Studies";
@@ -577,7 +580,7 @@ function CaseStudies({ studies, data = {} }: { studies: typeof defaultStudies; d
             {entries.map((entry, i) => (
               <Link key={entry.id} href={`/work/${entry.id}`} className={`group flex flex-col rounded-[28px] overflow-hidden bg-[#241f69] border border-[#241f69] shrink-0 w-[80vw] snap-start md:w-auto md:shrink${i > 1 ? " hidden md:flex" : ""}`}>
                 <div className="aspect-[4/3] overflow-hidden">
-                  <img src={entry.img} alt={entry.title} className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700" />
+                  <ImageWithFallback src={entry.img} alt={entry.title} className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700" />
                 </div>
                 <div className="flex flex-col flex-1 p-5">
                   <h3 className="text-white tracking-[-0.02em]" style={{ fontSize: "clamp(1rem, 1.3vw, 1.35rem)", lineHeight: 1.3 }}>
@@ -620,7 +623,7 @@ function CaseStudies({ studies, data = {} }: { studies: typeof defaultStudies; d
   );
 }
 
-function BlogPreview({ posts: sourcePosts, data = {} }: { posts: typeof fallbackPosts; data?: SectionData }) {
+function BlogPreview({ posts: sourcePosts, data = {} }: { posts: Post[]; data?: SectionData }) {
   const eyebrow  = data.eyebrow  || "Insights";
   const title    = data.title    || "Latest Insights";
   const ctaLabel = data.ctaLabel || "See All Insights";
@@ -656,7 +659,7 @@ function BlogPreview({ posts: sourcePosts, data = {} }: { posts: typeof fallback
             {posts.map((post, i) => (
               <Link key={post.id} href={`/blog/${post.slug}`} className={`group flex flex-col rounded-[28px] overflow-hidden bg-white/10 border border-white/15 shrink-0 w-[80vw] snap-start md:w-auto md:shrink${i > 1 ? " hidden md:flex" : ""}`}>
                 <div className="aspect-[16/10] overflow-hidden">
-                  <img src={post.img} alt={post.title} className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700" />
+                  <ImageWithFallback src={post.img} alt={post.title} className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700" />
                 </div>
                 <div className="flex flex-col flex-1 p-5">
                   <h3 className="text-white tracking-[-0.02em]" style={{ fontSize: "clamp(1rem, 1.3vw, 1.35rem)", lineHeight: 1.3 }}>
@@ -743,8 +746,8 @@ const HOME_SECTION_ORDER = [
 ] as const;
 
 export type HomeStats = typeof defaultStats;
-export type HomeStudies = typeof defaultStudies;
-export type HomePosts = typeof fallbackPosts;
+export type HomeStudies = Study[];
+export type HomePosts = Post[];
 
 type HomePageProps = {
   initialStats?: HomeStats;
@@ -755,11 +758,16 @@ type HomePageProps = {
 };
 
 export function HomePage({ initialStats, initialStudies, initialPosts, initialPages, initialBrands }: HomePageProps = {}) {
+  // Solo `stats` conserva un valore di ripiego: è un oggetto di poche cifre
+  // con un default canonico in lib/content-types.ts, quindi non è mai vuoto.
+  // Per case study, articoli e brand il ripiego è stato tolto: i dati in
+  // data.ts erano fermi a 6 case study su 26 e 7 articoli su 31, e servirli
+  // avrebbe mostrato contenuti di anni fa rispondendo comunque 200.
   const stats = initialStats ?? defaultStats;
-  const studies = initialStudies ?? defaultStudies;
-  const posts = initialPosts?.length ? initialPosts : fallbackPosts;
+  const studies = initialStudies ?? [];
+  const posts = initialPosts ?? [];
   const pages = initialPages ?? {};
-  const brands = initialBrands?.length ? initialBrands : defaultBrands;
+  const brands = initialBrands ?? [];
 
   const home = (pages.home as Record<string, unknown>) || {};
   const heroData         = (home.hero          as HeroData)    || {};

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import type { Post } from "@/lib/content-schema";
 import { getPosts, getColors } from "@/lib/content";
-import { getAdminSessionUser } from "@/lib/admin-auth";
+import { getAdminSessionUser } from "@/lib/admin-session";
 import { BlogDetailClient } from "./_client";
 
 export const dynamicParams = true;
@@ -9,21 +10,7 @@ export const revalidate = 60;
 
 const SITE = "https://klr-europe.com";
 
-type BlogPost = {
-  id: number;
-  slug: string;
-  title: string;
-  date: string;
-  excerpt: string;
-  img: string;
-  link: string;
-  category: string;
-  contentHtml?: string;
-  authorName?: string;
-  authorAvatar?: string;
-  status?: string;
-  publicPreview?: boolean;
-};
+
 
 function normalizeStatus(status?: string) {
   const value = String(status ?? "").trim().toLowerCase();
@@ -36,8 +23,8 @@ function normalizeStatus(status?: string) {
 // Drafts are visible via ?preview=1 either to a logged-in admin, or to
 // anyone when the item's own "public preview" flag is enabled (a
 // shareable review link, matching the old WordPress workflow).
-async function loadPosts(preview = false): Promise<BlogPost[]> {
-  const all = ((await getPosts()) as BlogPost[] | null) ?? [];
+async function loadPosts(preview = false): Promise<Post[]> {
+  const all = ((await getPosts()) as Post[] | null) ?? [];
   if (!preview) return all.filter((p) => {
     const status = normalizeStatus(p.status);
     return status !== "draft" && status !== "deleted";

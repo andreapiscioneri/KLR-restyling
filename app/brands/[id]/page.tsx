@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { brands as fallbackBrands, studies as fallbackStudies } from "@/src/app/data";
+import { notFound } from "next/navigation";
+import type { Brand, Study } from "@/lib/content-schema";
 import { getBrands, getPublishedStudies } from "@/lib/content";
 import { BrandDetailClient } from "./_client";
 
@@ -7,12 +8,12 @@ export const dynamicParams = true;
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-  return fallbackBrands.map((b) => ({ id: b.id }));
+  const brands = ((await getBrands()) as { id?: string }[] | null) ?? [];
+  return brands.map((b) => b?.id).filter((id): id is string => Boolean(id)).map((id) => ({ id }));
 }
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const cmsBrands = (await getBrands()) as typeof fallbackBrands | null;
-  const brands = cmsBrands?.length ? cmsBrands : fallbackBrands;
+  const brands = ((await getBrands()) as Brand[] | null) ?? [];
   const brand = brands.find((b) => b.id === params.id);
   const title = brand ? `${brand.name} | Brand Partner — KLR Europe` : "Brand Partner | KLR Europe";
   const description = brand
@@ -42,10 +43,15 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 
 export default async function Page({ params }: { params: { id: string } }) {
   const [cmsBrands, cmsStudies] = await Promise.all([
-    getBrands() as Promise<typeof fallbackBrands | null>,
-    getPublishedStudies() as Promise<typeof fallbackStudies | null>,
+    getBrands() as Promise<Brand[] | null>,
+    getPublishedStudies() as Promise<Study[] | null>,
   ]);
-  const brands = cmsBrands?.length ? cmsBrands : fallbackBrands;
-  const studies = cmsStudies?.length ? cmsStudies : fallbackStudies;
+  const brands = cmsBrands ?? [];
+  const studies = cmsStudies ?? [];
+
+  if (!brands.some((b) => b.id === params.id)) {
+    notFound();
+  }
+
   return <BrandDetailClient id={params.id} initialBrands={brands} initialStudies={studies} />;
 }

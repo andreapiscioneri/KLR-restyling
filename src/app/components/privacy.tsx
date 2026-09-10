@@ -5,7 +5,7 @@ import { ArrowUpRight, Mail, Shield, Database, Cookie, Scale, Clock, UserCheck }
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { softShadow, hexToRgba } from "./ui-bits";
-import type { Route } from "../App";
+import type { Route } from "../routes";
 
 type PrivacyCms = {
   hero?: Record<string, unknown>;

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { leadership as fallbackLeadership } from "@/src/app/data";
+import { notFound } from "next/navigation";
+import type { Leader } from "@/lib/content-schema";
 import { getLeadership } from "@/lib/content";
 import { TeamDetailClient } from "./_client";
 
@@ -7,12 +8,12 @@ export const dynamicParams = true;
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-  return fallbackLeadership.map((p) => ({ id: p.id }));
+  const leadership = ((await getLeadership()) as { id?: string }[] | null) ?? [];
+  return leadership.map((p) => p?.id).filter((id): id is string => Boolean(id)).map((id) => ({ id }));
 }
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const cmsLeadership = (await getLeadership()) as typeof fallbackLeadership | null;
-  const leadership = cmsLeadership?.length ? cmsLeadership : fallbackLeadership;
+  const leadership = ((await getLeadership()) as Leader[] | null) ?? [];
   const person = leadership.find((p) => p.id === params.id);
   const title = person ? `${person.name} — ${person.role} | KLR Europe` : "Team Member | KLR Europe";
   const description = person?.bio ?? "KLR Europe team member.";
@@ -39,7 +40,14 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 }
 
 export default async function Page({ params }: { params: { id: string } }) {
-  const cmsLeadership = (await getLeadership()) as typeof fallbackLeadership | null;
-  const leadership = cmsLeadership?.length ? cmsLeadership : fallbackLeadership;
+  const leadership = ((await getLeadership()) as Leader[] | null) ?? [];
+
+  // Senza questo controllo un id inesistente rendeva comunque una pagina
+  // con HTTP 200 — un soft 404. Si notava anche sui file statici rimossi:
+  // /team/Rovato.png finiva qui come se "Rovato.png" fosse una persona.
+  if (!leadership.some((p) => p.id === params.id)) {
+    notFound();
+  }
+
   return <TeamDetailClient id={params.id} initialLeadership={leadership} />;
 }

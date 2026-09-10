@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { isAdminRequest } from "@/lib/admin-auth";
-import { readMediaManifest, writeMediaManifest, putMediaBlob, mediaUrl, type MediaRecord } from "@/lib/media-storage";
+import { isAdminRequest } from "@/lib/admin-session";
+import { upsertMediaRecord, putMediaBlob, buildBlobKey, mediaUrl, type MediaRecord } from "@/lib/media-storage";
 
 const VALID_TYPES = new Set([
   "image/jpeg", "image/jpg", "image/png", "image/gif", "image/webp", "image/svg+xml", "image/avif", "image/heic",
@@ -9,7 +9,7 @@ const VALID_TYPES = new Set([
 ]);
 
 export async function POST(request: NextRequest) {
-  if (!isAdminRequest(request)) {
+  if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -34,8 +34,7 @@ export async function POST(request: NextRequest) {
   }
 
   const id = crypto.randomUUID();
-  const ext = file.name.includes(".") ? file.name.split(".").pop() : "";
-  const blobKey = `${id}${ext ? `.${ext}` : ""}`;
+  const blobKey = buildBlobKey(id, file.name);
   const buffer = await file.arrayBuffer();
 
   try {
@@ -60,9 +59,7 @@ export async function POST(request: NextRequest) {
     updatedAt: now,
   };
 
-  const manifest = await readMediaManifest();
-  manifest.push(record);
-  await writeMediaManifest(manifest);
+  upsertMediaRecord(record);
 
   return NextResponse.json({ url: mediaUrl(id) });
 }

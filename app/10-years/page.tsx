@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Klr10Client } from "./_client";
-import { getPages } from "@/lib/content";
+import { getPages, getLeadership, getPublishedPosts } from "@/lib/content";
+import type { Leader, Post } from "@/lib/content-schema";
 
 export const revalidate = 60;
 
@@ -34,7 +35,17 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  const pages = await getPages();
+  const [pages, leadership, posts] = await Promise.all([
+    getPages(),
+    getLeadership() as Promise<Leader[] | null>,
+    getPublishedPosts() as Promise<Post[] | null>,
+  ]);
   const tenYearsCms = (pages as Record<string, unknown>)?.tenYears as Parameters<typeof Klr10Client>[0]["initialCms"];
-  return <Klr10Client initialCms={tenYearsCms} />;
+  return (
+    <Klr10Client
+      initialCms={tenYearsCms}
+      initialLeadership={leadership ?? []}
+      initialPosts={posts ?? []}
+    />
+  );
 }

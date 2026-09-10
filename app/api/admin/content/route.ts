@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
-import { isAdminRequest, canWrite, getAdminUserFromRequestAsync, hashNewPassword } from "@/lib/admin-auth";
+import { canWrite, hashNewPassword } from "@/lib/admin-auth";
+import { isAdminRequest, getAdminSessionUser } from "@/lib/admin-session";
 import { getStats, getBrands, getLeadership, getPages, getStudies, getPosts, getUsers, getColors, getSettings, getPositions, getCustomPages, getCookieBanner, writeJSON } from "@/lib/content";
 import { VALID_CONTENT_TYPES } from "@/lib/content-types";
-import { logAdminCredential, syncAdminCredentialRoster } from "@/lib/admin-credentials-log";
 
 const VALID_TYPES: string[] = VALID_CONTENT_TYPES;
 
@@ -14,11 +14,12 @@ type RawUser = {
   password?: string;
   passwordHash?: string;
   passwordSalt?: string;
+  passwordIterations?: number;
   role: string;
 };
 
 export async function GET(request: NextRequest) {
-  if (!isAdminRequest(request)) {
+  if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const type = request.nextUrl.searchParams.get("type");
@@ -46,7 +47,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function PUT(request: NextRequest) {
-  if (!isAdminRequest(request)) {
+  if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const type = request.nextUrl.searchParams.get("type");
@@ -54,7 +55,7 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ error: "Invalid type" }, { status: 400 });
   }
 
-  const user = await getAdminUserFromRequestAsync(request);
+  const user = await getAdminSessionUser();
   const role = user?.role ?? "editor";
   if (!canWrite(role, type)) {
     return NextResponse.json({ error: "Forbidden: permessi insufficienti" }, { status: 403 });
@@ -64,31 +65,46 @@ export async function PUT(request: NextRequest) {
 
   if (type === "users") {
     const existingUsers = (await getUsers()) as RawUser[];
-    body = (body as (RawUser & { hasPassword?: unknown })[]).map((raw) => {
-      // hasPassword is a derived, display-only flag computed by the GET loader — never persist it.
+    const incoming = body as (RawUser & { hasPassword?: unknown })[];
+    const next: RawUser[] = [];
+
+    for (const raw of incoming) {
+      // hasPassword è un flag derivato calcolato dalla GET per la sola
+      // visualizzazione: non va mai persistito.
       const { hasPassword: _hasPassword, ...u } = raw;
-      const existing = existingUsers.find(e => e.id === u.id);
+      const existing = existingUsers.find((e) => e.id === u.id);
+
       if (u.password && u.password.length > 0) {
-        // Plaintext password only ever exists here, in this request body,
-        // before being hashed below — this is the sole point where it can
-        // be recorded to the local credentials log.
-        logAdminCredential(u.name, u.email, u.role, u.password);
-        const { passwordHash, passwordSalt } = hashNewPassword(u.password);
-        const { password: _, ...rest } = u;
-        return { ...rest, passwordHash, passwordSalt };
+        // La password in chiaro esiste solo qui, nel corpo di questa
+        // richiesta, e viene subito sostituita dal suo hash. Non viene
+        // più scritta su alcun file di log.
+        const fresh = await hashNewPassword(u.password);
+        const { password: _plain, ...rest } = u;
+        next.push({ ...rest, ...fresh });
+        continue;
       }
+
       if (existing) {
-        const { password: _, ...rest } = u;
-        return {
+        // Nessuna nuova password: si conservano le credenziali esistenti,
+        // incluso il numero di iterazioni con cui erano state generate.
+        const { password: _plain, ...rest } = u;
+        next.push({
           ...rest,
           ...(existing.passwordHash
-            ? { passwordHash: existing.passwordHash, passwordSalt: existing.passwordSalt }
+            ? {
+                passwordHash: existing.passwordHash,
+                passwordSalt: existing.passwordSalt,
+                passwordIterations: existing.passwordIterations,
+              }
             : { password: existing.password }),
-        };
+        });
+        continue;
       }
-      return u;
-    });
-    syncAdminCredentialRoster((body as RawUser[]).map(u => ({ name: u.name, email: u.email, role: u.role })));
+
+      next.push(u);
+    }
+
+    body = next;
   }
 
   try {

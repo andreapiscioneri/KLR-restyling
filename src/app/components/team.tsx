@@ -3,10 +3,11 @@
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { ArrowUpRight, LucideLinkedin } from "lucide-react";
 import { softShadow, openMailtoDraft } from "./ui-bits";
-import { leadership as fallbackLeadership, locations, images, stats as fallbackStats } from "../data";
+import { locations, images, stats as fallbackStats } from "../data";
+import type { Leader } from "@/lib/content-schema";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import type { Route } from "../App";
+import type { Route } from "../routes";
 
 const G = {
   blue: "radial-gradient(130% 130% at 10% 0%, #5b53bf 0%, #2E2784 45%, #241f69 100%)",
@@ -15,16 +16,16 @@ const G = {
 };
 
 const locationPhotoByCity: Record<string, string> = {
-  Koper: "/team/Koper.png",
-  Rovato: "/team/Rovato.png",
-  Milan: "/team/Milan.png",
-  Lille: "/team/Lille.png",
-  Budapest: "/team/Budapest.png",
-  Lublin: "/team/Lublin.png",
-  Prague: "/team/Prague.png",
-  Belgrade: "/team/Belgrade.png",
-  Riga: "/team/Riga.png",
-  Madrid: "/team/Madrid.png",
+  Koper: "/team/Koper.webp",
+  Rovato: "/team/Rovato.webp",
+  Milan: "/team/Milan.webp",
+  Lille: "/team/Lille.webp",
+  Budapest: "/team/Budapest.webp",
+  Lublin: "/team/Lublin.webp",
+  Prague: "/team/Prague.webp",
+  Belgrade: "/team/Belgrade.webp",
+  Riga: "/team/Riga.webp",
+  Madrid: "/team/Madrid.webp",
 };
 
 // Row 1: founder Antonio + 4 leads
@@ -42,7 +43,7 @@ function FounderCard({
   person,
   go,
 }: {
-  person: (typeof fallbackLeadership)[number];
+  person: Leader;
   go: (r: Route) => void;
 }) {
   const { first, last } = splitName(person.name);
@@ -96,7 +97,7 @@ function TeamCard({
   person,
   go,
 }: {
-  person: (typeof fallbackLeadership)[number];
+  person: Leader;
   go: (r: Route) => void;
 }) {
   const { first, last } = splitName(person.name);
@@ -157,13 +158,13 @@ type TeamCmsData = {
 
 type TeamProps = {
   go: (r: Route) => void;
-  initialLeadership?: typeof fallbackLeadership;
+  initialLeadership?: Leader[];
   initialStats?: typeof fallbackStats;
   initialTeamCms?: TeamCmsData;
 };
 
 export function Team({ go, initialLeadership, initialStats, initialTeamCms }: TeamProps) {
-  const leadership = initialLeadership?.length ? initialLeadership : fallbackLeadership;
+  const leadership = initialLeadership ?? [];
   const stats = initialStats ?? fallbackStats;
   const teamCms = initialTeamCms ?? {};
   const get = (id: string) => leadership.find((p) => p.id === id)!;
@@ -182,7 +183,7 @@ export function Team({ go, initialLeadership, initialStats, initialTeamCms }: Te
       const person = leadership.find((p) => p.id === tItem.personId);
       return person ? { id: `${tItem.personId}-${i}`, person, text: String(tItem.quote || person.quote || "") } : null;
     })
-    .filter((t): t is { id: string; person: (typeof fallbackLeadership)[number]; text: string } => Boolean(t));
+    .filter((t): t is { id: string; person: Leader; text: string } => Boolean(t));
 
   const heroEyebrow = teamCms.hero?.eyebrow || "Team";
   const heroTitle = teamCms.hero?.title || "Loyalty Starts With Us";
@@ -334,7 +335,7 @@ export function Team({ go, initialLeadership, initialStats, initialTeamCms }: Te
               {testimonials.map((t) => (
                 <article key={t.id} className="rounded-[24px] p-5 border border-white/40 bg-white/65" style={softShadow}>
                   <div className="flex items-center gap-3">
-                    <img src={t.person.img} alt={t.person.name} className="w-12 h-12 rounded-full object-cover border-2 border-white" />
+                    <ImageWithFallback src={t.person.img} alt={t.person.name} sizes="48px" className="w-12 h-12 rounded-full object-cover border-2 border-white" />
                     <div>
                       <div className="text-[#2E2784] tracking-tight" style={{ fontSize: "0.9rem", fontWeight: 700 }}>{t.person.name}</div>
                       <div className="text-[#2E2784]/60 tracking-tight" style={{ fontSize: "0.75rem" }}>{t.person.role}</div>

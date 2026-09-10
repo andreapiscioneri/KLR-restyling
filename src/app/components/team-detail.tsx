@@ -1,13 +1,13 @@
 "use client";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, hairline, softShadow } from "./ui-bits";
-import { leadership as fallbackLeadership } from "../data";
+import type { Leader } from "@/lib/content-schema";
 import { PageHero } from "./page-hero";
 import { ArrowLeft, Linkedin, Mail } from "lucide-react";
-import type { Route } from "../App";
+import type { Route } from "../routes";
 
-export function TeamDetail({ id, go, initialLeadership }: { id: string; go: (r: Route) => void; initialLeadership?: typeof fallbackLeadership }) {
-  const leadership = initialLeadership?.length ? initialLeadership : fallbackLeadership;
+export function TeamDetail({ id, go, initialLeadership }: { id: string; go: (r: Route) => void; initialLeadership?: Leader[] }) {
+  const leadership = initialLeadership ?? [];
 
   const p = leadership.find((x) => x.id === id) || leadership[0];
   const others = leadership.filter((x) => x.id !== p.id).slice(0, 4);

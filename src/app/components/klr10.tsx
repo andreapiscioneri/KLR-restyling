@@ -3,10 +3,11 @@
 import { useRef, useEffect } from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Eyebrow, CTA, softShadow } from "./ui-bits";
-import { images, leadership, fallbackPosts } from "../data";
+import { images } from "../data";
+import type { Leader, Post } from "@/lib/content-schema";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import type { Route } from "../App";
+import type { Route } from "../routes";
 
 function VideoWithPoster({ src }: { src: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -113,8 +114,16 @@ const insights = [
   },
 ];
 
-export function Klr10({ go, cms = {} }: { go: (r: Route) => void; cms?: TenYearsCms }) {
-  const anniversary = fallbackPosts.find((p) => p.slug.includes("10-anniversary")) || fallbackPosts[4];
+export function Klr10({ go, cms = {}, leadership = [], posts = [] }: {
+  go: (r: Route) => void;
+  cms?: TenYearsCms;
+  leadership?: Leader[];
+  posts?: Post[];
+}) {
+  // Le persone e l'articolo dell'anniversario arrivavano dagli elenchi
+  // scritti a mano: questa pagina non leggeva affatto dal CMS, quindi un
+  // articolo ripubblicato o una persona aggiunta non comparivano.
+  const anniversary = posts.find((p) => p.slug.includes("10-anniversary")) ?? posts[0];
 
   const cHero    = cms.hero        || {};
   const cIntro   = cms.intro       || {};
@@ -164,10 +173,9 @@ export function Klr10({ go, cms = {} }: { go: (r: Route) => void; cms?: TenYears
     { k: String(cStats.card4Value || defaultPageStats[3].k), v: String(cStats.card4Text || defaultPageStats[3].v) },
   ];
 
-  const resolvedInsights = insights.map((ins) => ({
-    ...ins,
-    person: leadership.find((p) => p.id === ins.id)!,
-  })).filter((i) => Boolean(i.person));
+  const resolvedInsights = insights
+    .map((ins) => ({ ...ins, person: leadership.find((p) => p.id === ins.id) }))
+    .filter((i): i is typeof i & { person: Leader } => Boolean(i.person));
 
   const heroTitle = text(cHero, "title", "A decade built together.");
   const heroTitleWords = heroTitle.split(" ");
@@ -389,7 +397,7 @@ export function Klr10({ go, cms = {} }: { go: (r: Route) => void; cms?: TenYears
             </div>
 
             <button
-              onClick={() => go({ page: "blog-detail", slug: anniversary.slug })}
+              onClick={() => anniversary && go({ page: "blog-detail", slug: anniversary.slug })}
               className="mt-8 w-full rounded-[40px] overflow-hidden text-left group"
               style={{ background: G.yellow, ...softShadow }}
             >
@@ -397,7 +405,7 @@ export function Klr10({ go, cms = {} }: { go: (r: Route) => void; cms?: TenYears
                 <div className="aspect-[4/3] md:aspect-auto overflow-hidden">
                   <ImageWithFallback
                     src={images.anniversario}
-                    alt={anniversary.title}
+                    alt={anniversary?.title ?? ""}
                     className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-[1500ms]"
                   />
                 </div>
@@ -407,10 +415,10 @@ export function Klr10({ go, cms = {} }: { go: (r: Route) => void; cms?: TenYears
                       Franciacorta · September 2025
                     </div>
                     <h3 className="text-[#2E2784] tracking-[-0.03em] mt-5" style={{ fontSize: "clamp(1.4rem, 3vw, 2.2rem)", fontWeight: 700, lineHeight: 1.1 }}>
-                      {anniversary.title}
+                      {anniversary?.title}
                     </h3>
                     <p className="text-[#2E2784]/70 tracking-tight mt-5" style={{ fontSize: "0.97rem", lineHeight: 1.65 }}>
-                      {anniversary.excerpt}
+                      {anniversary?.excerpt}
                     </p>
                   </div>
                   <span className="text-[#2E2784] border-b border-[#2E2784] pb-0.5 self-start" style={{ fontSize: "0.9rem", fontWeight: 600 }}>

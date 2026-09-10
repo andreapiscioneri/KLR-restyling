@@ -49,7 +49,7 @@ type Dict = {
     panelTitle: string; panelInfo: string;
     countOne: string; countMany: string;
     itemPlaceholder: string; removeAria: string;
-    addToBrand: string; newBrandPlaceholder: string; addBrandButton: string;
+    addToBrand: string; newBrandPlaceholder: string; addBrandButton: string; nameRequired: string;
     empty: string; pagesHint: string;
   };
   clientsPanel: {
@@ -186,6 +186,7 @@ const it: Dict = {
     countOne: "collezione", countMany: "collezioni",
     itemPlaceholder: "Nome collezione", removeAria: "Rimuovi",
     addToBrand: "Aggiungi a {brand}", newBrandPlaceholder: "Nuovo brand...", addBrandButton: "Aggiungi brand",
+    nameRequired: "Scrivi il nome del brand prima di aggiungerlo.",
     empty: "Nessuna collezione ancora.",
     pagesHint: "Le singole collezioni (etichette e immagini) si gestiscono in Our Collections, nella sidebar. Qui sotto trovi solo il testo introduttivo di questa sezione.",
   },
@@ -456,6 +457,7 @@ const en: Dict = {
     countOne: "collection", countMany: "collections",
     itemPlaceholder: "Collection name", removeAria: "Remove",
     addToBrand: "Add to {brand}", newBrandPlaceholder: "New brand...", addBrandButton: "Add brand",
+    nameRequired: "Type the brand name before adding it.",
     empty: "No collections yet.",
     pagesHint: "Individual collections (labels and images) are managed in Our Collections, in the sidebar. Below you'll only find this section's intro text.",
   },
@@ -726,6 +728,7 @@ const ru: Dict = {
     countOne: "коллекция", countMany: "коллекций",
     itemPlaceholder: "Название коллекции", removeAria: "Удалить",
     addToBrand: "Добавить к {brand}", newBrandPlaceholder: "Новый бренд...", addBrandButton: "Добавить бренд",
+    nameRequired: "Введите название бренда перед добавлением.",
     empty: "Пока нет коллекций.",
     pagesHint: "Отдельные коллекции (названия и изображения) управляются в разделе «Наши коллекции», в боковом меню. Здесь только вводный текст этого раздела.",
   },

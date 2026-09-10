@@ -5,7 +5,7 @@ import { ArrowUpRight, Target, Trash2 } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { AuthorAvatar } from "./author-avatar";
 import { Eyebrow } from "./ui-bits";
-import { fallbackPosts, type Post } from "../data";
+import type { Post } from "@/lib/content-schema";
 import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import {
@@ -15,7 +15,7 @@ import {
 } from "./inline-edit";
 import { VideoEmbed } from "./video-embed";
 import { Lightbox, type LightboxState } from "./lightbox";
-import type { Route } from "../App";
+import type { Route } from "../routes";
 
 const BLOCK_LABELS: Record<string, string> = { text: "Testo", image: "Immagine", gallery: "Galleria", video: "Video" };
 const BLOCK_BG = ["#241f69", "#F8AE01", "#1a1752"];
@@ -36,12 +36,15 @@ type FullPost = Post & {
 type BlogDetailProps = {
   slug: string;
   go: (r: Route) => void;
-  initialPost?: FullPost;
+  initialPost: FullPost;
   initialOthers?: FullPost[];
 };
 
 export function BlogDetail({ slug, go, initialPost, initialOthers }: BlogDetailProps) {
-  const baseInitial: FullPost = initialPost || fallbackPosts.find((p) => p.slug === slug) || fallbackPosts[0];
+  // La pagina risponde 404 quando lo slug non esiste, quindi qui il post
+  // è sempre presente: il ripiego sui dati scritti a mano era codice
+  // irraggiungibile che li teneva in vita.
+  const baseInitial: FullPost = initialPost;
   const editMode = useEditMode();
   const editor = useCollectionEditor<any>("posts", "slug", baseInitial.slug, editMode);
   const editing = editMode && editor.ready;
@@ -84,7 +87,7 @@ export function BlogDetail({ slug, go, initialPost, initialOthers }: BlogDetailP
     editor.patch({ layoutBlocks: next });
   }
 
-  const others = (initialOthers?.length ? initialOthers : fallbackPosts).filter((p) => p.slug !== post.slug).slice(0, 3);
+  const others = (initialOthers ?? []).filter((p) => p.slug !== post.slug).slice(0, 3);
 
   // LOGICA DEL TITOLO HERO: Dividiamo le parole per colorarle
   const titleWords = post.title ? post.title.split(" ") : [];

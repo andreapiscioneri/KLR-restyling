@@ -6,7 +6,7 @@ import { Eyebrow, CTA, hairline, softShadow } from "./ui-bits";
 import { getAttribution } from "@/components/layout/SiteAnalytics";
 import { images, careerValues, offices } from "../data";
 import { PageHero } from "./page-hero";
-import type { Route } from "../App";
+import type { Route } from "../routes";
 
 type Position = { id: string; role: string; loc: string; description?: string };
 
