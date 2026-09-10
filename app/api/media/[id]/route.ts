@@ -7,6 +7,30 @@ import { getMediaRecord, getMediaBlob } from "@/lib/media-storage";
 // connessioni di Netlify Blobs si bloccava sotto carico concorrente.
 export const dynamic = "force-dynamic";
 
+/**
+ * Vero quando il vecchio URL punta ormai a questa stessa macchina.
+ *
+ * Il ripiego qui sotto manda al sito storico su klr-europe.com quando il
+ * file non è presente in locale. Finché il dominio serve WordPress ha
+ * senso, ma appena lo si punta al VPS quell'indirizzo siamo noi: la
+ * richiesta finirebbe su app/wp-content/uploads/[...path], che risolve
+ * il media e rimanda qui, che non trova il file e rimanda di nuovo là —
+ * un ciclo infinito invece di una singola immagine mancante.
+ *
+ * Il difetto non si vede oggi (tutti gli 1121 record hanno il loro file)
+ * e si presenterebbe solo dopo lo spostamento del dominio, cioè quando
+ * nessuno lo starebbe cercando.
+ */
+function pointsAtUs(sourceUrl: string, request: NextRequest): boolean {
+  const host = request.headers.get("x-forwarded-host") ?? request.headers.get("host");
+  if (!host) return false;
+  try {
+    return new URL(sourceUrl).host.toLowerCase() === host.toLowerCase();
+  } catch {
+    return false;
+  }
+}
+
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   const record = getMediaRecord(params.id);
   if (!record) {
@@ -18,7 +42,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
     // I media migrati da WordPress conservano l'URL originale: se il file
     // non è ancora stato sincronizzato su questa macchina, meglio un
     // redirect che un'immagine rotta.
-    if (record.sourceUrl) {
+    if (record.sourceUrl && !pointsAtUs(record.sourceUrl, request)) {
       return NextResponse.redirect(record.sourceUrl, { status: 307, headers: { "Cache-Control": "no-store" } });
     }
     return NextResponse.json({ error: "File non trovato" }, { status: 404 });
