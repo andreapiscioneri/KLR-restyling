@@ -11,6 +11,10 @@ interface PageHeroProps {
   title: React.ReactNode;
   subtitle?: string;
   image?: string;
+  // CSS object-position for the hero image; defaults to "top" (unchanged
+  // behavior everywhere else). Override per-page when the subject sits lower
+  // in the source photo (e.g. a group photo with a crouching front row).
+  imagePosition?: string;
   background?: string;
   cta?: { label: React.ReactNode; href: string };
   ctaEditing?: boolean;
@@ -28,7 +32,7 @@ interface PageHeroProps {
   children?: React.ReactNode;
 }
 
-export function PageHero({ eyebrow, title, subtitle, image, background, cta, ctaEditing, editingImage, onImageChange, imageEditorOpen, onImageEditorOpenChange, extraCornerControls, children }: PageHeroProps) {
+export function PageHero({ eyebrow, title, subtitle, image, imagePosition = "top", background, cta, ctaEditing, editingImage, onImageChange, imageEditorOpen, onImageEditorOpenChange, extraCornerControls, children }: PageHeroProps) {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
@@ -46,14 +50,14 @@ export function PageHero({ eyebrow, title, subtitle, image, background, cta, cta
         <div className="absolute inset-0">
           <EditableImage editing variant="corner" src={image || ""} onCommit={(v) => onImageChange?.(v)} alt=""
             openControlled={imageEditorOpen} onOpenChange={onImageEditorOpenChange}
-            className="absolute inset-0 w-full h-full object-cover object-top"/>
+            className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: imagePosition }}/>
           <div className="absolute inset-0 bg-[#2E2784]/65 pointer-events-none" />
         </div>
       ) : (
         <motion.div className="absolute inset-0" style={{ y, willChange: "transform" }}>
           {image ? (
             <>
-              <img src={image} alt="" decoding="async" fetchPriority="high" draggable={false} className="absolute inset-0 w-full h-full object-cover object-top" />
+              <img src={image} alt="" decoding="async" fetchPriority="high" draggable={false} className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: imagePosition }} />
               <div className="absolute inset-0 bg-[#2E2784]/65 pointer-events-none" />
             </>
           ) : (
