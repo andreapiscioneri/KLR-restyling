@@ -69,24 +69,15 @@ function FounderCard({
 
       <div className="mt-5 flex items-center gap-2">
         {li && (
-          <>
-            <button
-              onClick={() => go({ page: "team-detail", id: person.id })}
-              className="inline-flex items-center gap-1 text-white/80 hover:text-[#F8AE01] transition-colors"
-              style={{ fontSize: "0.75rem", fontWeight: 700 }}
-            >
-              Profile <ArrowUpRight className="w-3 h-3" />
-            </button>
-            <a
-              href={li}
-              target="_blank"
-              rel="noreferrer"
-              className="w-7 h-7 rounded-full bg-[#F8AE01] text-[#2E2784] flex items-center justify-center hover:bg-white transition-colors"
-              aria-label={`LinkedIn – ${person.name}`}
-            >
-              <LucideLinkedin className="w-4 h-4" fill="currentColor" stroke="none" />
-            </a>
-          </>
+          <a
+            href={li}
+            target="_blank"
+            rel="noreferrer"
+            className="w-7 h-7 rounded-full bg-[#F8AE01] text-[#2E2784] flex items-center justify-center hover:bg-white transition-colors"
+            aria-label={`LinkedIn – ${person.name}`}
+          >
+            <LucideLinkedin className="w-4 h-4" fill="currentColor" stroke="none" />
+          </a>
         )}
       </div>
     </article>
@@ -125,24 +116,15 @@ function TeamCard({
 
       <div className="mt-4 flex items-center gap-2">
         {li && (
-          <>
-            <button
-              onClick={() => go({ page: "team-detail", id: person.id })}
-              className="inline-flex items-center gap-1 text-[#2E2784]/80 hover:text-black transition-colors"
-              style={{ fontSize: "0.72rem", fontWeight: 700 }}
-            >
-              Profile <ArrowUpRight className="w-3 h-3" />
-            </button>
-            <a
-              href={li}
-              target="_blank"
-              rel="noreferrer"
-              className="w-6 h-6 rounded-full bg-[#2E2784] text-white flex items-center justify-center hover:bg-black transition-colors"
-              aria-label={`LinkedIn – ${person.name}`}
-            >
-              <LucideLinkedin className="w-3.5 h-3.5" fill="currentColor" stroke="none" />
-            </a>
-          </>
+          <a
+            href={li}
+            target="_blank"
+            rel="noreferrer"
+            className="w-6 h-6 rounded-full bg-[#2E2784] text-white flex items-center justify-center hover:bg-black transition-colors"
+            aria-label={`LinkedIn – ${person.name}`}
+          >
+            <LucideLinkedin className="w-3.5 h-3.5" fill="currentColor" stroke="none" />
+          </a>
         )}
       </div>
     </article>
@@ -211,6 +193,7 @@ export function Team({ go, initialLeadership, initialStats, initialTeamCms }: Te
         title={heroTitleFirst ? <>{heroTitleFirst}<br /><span className="text-[#F8AE01]">{heroTitleLast}</span></> : <>{heroTitle}</>}
         subtitle={heroSubtitle}
         image={heroImage}
+        imagePosition="center 65%"
         cta={{ label: "Meet Our Leadership", href: "#leadership-grid" }}
       />}
 
