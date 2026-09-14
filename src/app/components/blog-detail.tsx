@@ -38,9 +38,11 @@ type BlogDetailProps = {
   go: (r: Route) => void;
   initialPost: FullPost;
   initialOthers?: FullPost[];
+  /** Solo per la visualizzazione: in modifica si usa l'HTML originale. */
+  contentHtmlOptimized?: string;
 };
 
-export function BlogDetail({ slug, go, initialPost, initialOthers }: BlogDetailProps) {
+export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOptimized }: BlogDetailProps) {
   // La pagina risponde 404 quando lo slug non esiste, quindi qui il post
   // è sempre presente: il ripiego sui dati scritti a mano era codice
   // irraggiungibile che li teneva in vita.
@@ -305,7 +307,9 @@ export function BlogDetail({ slug, go, initialPost, initialOthers }: BlogDetailP
                   suppressContentEditableWarning={editing}
                   onBlur={editing ? () => editor.patch({ contentHtml: contentRef.current?.innerHTML ?? "" }) : undefined}
                   style={editing ? { outline: "2px dashed rgba(248,174,1,0.5)", outlineOffset: 8, borderRadius: 12, minHeight: 80 } : undefined}
-                  dangerouslySetInnerHTML={{ __html: post.contentHtml || "" }}
+                  /* In modifica l'HTML originale, così l'editor in linea
+                     non risalva gli indirizzi riscritti per la consegna. */
+                  dangerouslySetInnerHTML={{ __html: (editing ? post.contentHtml : contentHtmlOptimized || post.contentHtml) || "" }}
                 />
               </div>
             </div>
