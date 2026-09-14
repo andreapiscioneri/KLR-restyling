@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import type { Post } from "@/lib/content-schema";
+import { optimizeContentImages } from "@/lib/content-images";
 import { getPosts, getColors } from "@/lib/content";
 import { getAdminSessionUser } from "@/lib/admin-session";
 import { BlogDetailClient } from "./_client";
@@ -120,7 +121,15 @@ export default async function Page({ params, searchParams }: { params: { slug: s
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
-      <BlogDetailClient slug={params.slug} initialPost={post} initialOthers={others} />
+      <BlogDetailClient
+        slug={params.slug}
+        initialPost={post}
+        initialOthers={others}
+        /* Passato a parte e non dentro post: in modifica va mostrato
+           l'HTML originale, altrimenti l'editor in linea risalverebbe
+           nel database gli indirizzi riscritti. */
+        contentHtmlOptimized={optimizeContentImages(post.contentHtml)}
+      />
     </>
   );
 }
