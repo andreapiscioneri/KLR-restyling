@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "motion/react";
+import { motion, useMotionValue } from "motion/react";
 
 type CursorState = "default" | "explore" | "cta" | "link";
 type CursorTheme = "default" | "yellow" | "purple";
@@ -26,10 +26,15 @@ export function CustomCursor() {
     return t === "yellow" || t === "purple" ? t : "default";
   });
 
-  const smoothX = useSpring(mouseX, { damping: 28, stiffness: 350, mass: 0.5 });
-  const smoothY = useSpring(mouseY, { damping: 28, stiffness: 350, mass: 0.5 });
-  const dotX = useSpring(mouseX, { damping: 40, stiffness: 500, mass: 0.3 });
-  const dotY = useSpring(mouseY, { damping: 40, stiffness: 500, mass: 0.3 });
+  // Segue il mouse 1:1, senza smorzamento: una molla qui introduce un
+  // ritardo percepibile come "mouse lento", tanto più evidente quanto più
+  // lo schermo è grande (il cursore deve rincorrere il puntatore su
+  // distanze maggiori). La transizione di dimensione/colore resta comunque
+  // animata sotto (vedi `animate={{ width, height, background }}`).
+  const smoothX = mouseX;
+  const smoothY = mouseY;
+  const dotX = mouseX;
+  const dotY = mouseY;
 
   useEffect(() => {
     const readTheme = (): CursorTheme => {
