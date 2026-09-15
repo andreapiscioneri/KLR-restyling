@@ -1,8 +1,9 @@
 "use client";
 
-import { ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
+import { useState } from "react";
+import { ArrowUpRight, Mail, Phone, MapPin, Check } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { softShadow, openMailtoDraft } from "./ui-bits";
+import { softShadow } from "./ui-bits";
 import { getAttribution } from "@/components/layout/SiteAnalytics";
 import { PageHero } from "./page-hero";
 import { offices, images } from "../data";
@@ -28,6 +29,31 @@ type ContactCmsData = {
 function ContactFormSection({ cms }: { cms: ContactCmsData }) {
   const eyebrow = cms.form?.eyebrow || "Contact Form";
   const title = cms.form?.title || "Let's Start Something New Together";
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+
+  if (status === "success") {
+    return (
+      <section id="contact-form" className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
+        <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/20 blur-3xl" />
+        <div className="max-w-6xl mx-auto px-8">
+          <AnimatedSection>
+            <div className="mt-14 rounded-[40px] p-6 md:p-14 border border-[#2E2784]/10 flex flex-col items-center text-center gap-5" style={{ background: "rgba(255,255,255,0.3)", ...softShadow }}>
+              <span className="w-14 h-14 rounded-full bg-[#2E2784] flex items-center justify-center">
+                <Check className="w-6 h-6 text-white" />
+              </span>
+              <h2 className="text-[#2E2784] tracking-[-0.03em]" style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)", fontWeight: 800 }}>
+                Message sent
+              </h2>
+              <p className="text-[#2E2784]/70 tracking-tight max-w-md" style={{ fontSize: "1rem" }}>
+                Thanks for reaching out — our team will get back to you within one business day.
+              </p>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="contact-form" className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
       <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/20 blur-3xl" />
@@ -43,23 +69,29 @@ function ContactFormSection({ cms }: { cms: ContactCmsData }) {
           </h2>
 
           <form
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
               const form = e.currentTarget;
               const data = new FormData(form);
-              fetch("/api/contact", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  name: data.get("name"),
-                  email: data.get("email"),
-                  company: data.get("company"),
-                  jobTitle: data.get("job_title"),
-                  message: data.get("message"),
-                  ...getAttribution(),
-                }),
-              }).catch(() => {});
-              openMailtoDraft(form, "info@klr-europe.com", "KLR Contact Form");
+              setStatus("sending");
+              try {
+                const res = await fetch("/api/contact", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    name: data.get("name"),
+                    email: data.get("email"),
+                    company: data.get("company"),
+                    jobTitle: data.get("job_title"),
+                    message: data.get("message"),
+                    ...getAttribution(),
+                  }),
+                });
+                if (!res.ok) throw new Error("request failed");
+                setStatus("success");
+              } catch {
+                setStatus("error");
+              }
             }}
             className="mt-14 rounded-[40px] p-6 md:p-14 border border-[#2E2784]/10 grid md:grid-cols-2 gap-x-8 gap-y-8"
             style={{ background: "rgba(255,255,255,0.3)", ...softShadow }}
@@ -138,13 +170,20 @@ function ContactFormSection({ cms }: { cms: ContactCmsData }) {
             <div className="md:col-span-2 mt-2">
               <button
                 type="submit"
-                className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
+                disabled={status === "sending"}
+                className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black disabled:opacity-60"
               >
-                <span style={{ fontWeight: 700 }}>Send Message</span>
+                <span style={{ fontWeight: 700 }}>{status === "sending" ? "Sending…" : "Send Message"}</span>
                 <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
                   <ArrowUpRight className="w-4 h-4" />
                 </span>
               </button>
+              {status === "error" && (
+                <p className="mt-4 text-[#2E2784]" style={{ fontSize: "0.9rem" }}>
+                  Something went wrong sending your message. Please try again, or write to us directly at{" "}
+                  <a href="mailto:info@klr-europe.com" className="underline font-semibold">info@klr-europe.com</a>.
+                </p>
+              )}
             </div>
           </form>
         </AnimatedSection>
