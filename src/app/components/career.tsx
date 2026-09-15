@@ -11,7 +11,7 @@ import type { Route } from "../routes";
 type Position = { id: string; role: string; loc: string; description?: string };
 
 function ApplyModal({ position, onClose }: { position: Position; onClose: () => void }) {
-  const [status, setStatus] = useState<"idle" | "sent">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   return (
     <div className="fixed inset-0 z-[999] flex items-center justify-center p-4" style={{ background: "rgba(20,17,60,0.55)" }} onClick={onClose}>
@@ -38,7 +38,7 @@ function ApplyModal({ position, onClose }: { position: Position; onClose: () => 
 
             <form
               className="mt-6 space-y-5"
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
                 const data = new FormData(e.currentTarget);
                 const payload = {
@@ -49,13 +49,18 @@ function ApplyModal({ position, onClose }: { position: Position; onClose: () => 
                   message: data.get("message"),
                   ...getAttribution(),
                 };
-                fetch("/api/apply", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify(payload),
-                }).catch(() => {});
-                window.location.href = `mailto:info@klr-europe.com?subject=${encodeURIComponent(`Candidatura: ${position.role}`)}&body=${encodeURIComponent(`Nome: ${payload.name}\nEmail: ${payload.email}\n\n${payload.message || ""}`)}`;
-                setStatus("sent");
+                setStatus("sending");
+                try {
+                  const res = await fetch("/api/apply", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
+                  });
+                  if (!res.ok) throw new Error("request failed");
+                  setStatus("sent");
+                } catch {
+                  setStatus("error");
+                }
               }}
             >
               <div className="border-b border-[#2E2784]/20 pb-3">
@@ -70,9 +75,15 @@ function ApplyModal({ position, onClose }: { position: Position; onClose: () => 
                 <label className="tracking-[0.2em] uppercase text-[#2E2784]/60 block mb-2" style={{ fontSize: "0.6rem", fontWeight: 700 }}>Messaggio</label>
                 <textarea name="message" rows={3} className="w-full bg-transparent outline-none text-[#2E2784] font-medium resize-none" style={{ fontSize: "0.95rem" }} />
               </div>
-              <button type="submit" className="inline-flex items-center gap-2.5 rounded-full tracking-tight text-[0.9rem] px-6 py-3 bg-[#2E2784] text-white hover:bg-black transition-colors">
-                Invia candidatura
+              <button type="submit" disabled={status === "sending"} className="inline-flex items-center gap-2.5 rounded-full tracking-tight text-[0.9rem] px-6 py-3 bg-[#2E2784] text-white hover:bg-black transition-colors disabled:opacity-60">
+                {status === "sending" ? "Invio…" : "Invia candidatura"}
               </button>
+              {status === "error" && (
+                <p className="text-red-600" style={{ fontSize: "0.85rem" }}>
+                  Qualcosa è andato storto. Riprova, oppure scrivici direttamente a{" "}
+                  <a href="mailto:info@klr-europe.com" className="underline font-semibold">info@klr-europe.com</a>.
+                </p>
+              )}
             </form>
           </>
         )}

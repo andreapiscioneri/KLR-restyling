@@ -1,21 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
 import { appendContactSubmission, type ContactSubmission } from "@/lib/contact-log";
+import { sendNotificationEmail } from "@/lib/send-email";
 
-const CONTACT_RECIPIENT = process.env.CONTACT_RECIPIENT_EMAIL || "info@klr-europe.com";
-// resend.dev è il dominio di test di Resend: funziona per qualsiasi
-// destinatario senza dover verificare un dominio. Una volta verificato
-// klr-europe.com su Resend, basta impostare CONTACT_FROM_EMAIL (es.
-// "KLR Europe <noreply@klr-europe.com>") senza toccare il codice.
-const FROM_ADDRESS = process.env.CONTACT_FROM_EMAIL || "KLR Europe Website <onboarding@resend.dev>";
-
-async function sendNotificationEmail(record: ContactSubmission): Promise<void> {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.warn("RESEND_API_KEY non configurata: il messaggio è stato salvato ma nessuna email è stata inviata.");
-    return;
-  }
-  const resend = new Resend(apiKey);
+function emailFor(record: ContactSubmission) {
   const lines = [
     `Nome: ${record.name}`,
     `Email: ${record.email}`,
@@ -24,14 +11,7 @@ async function sendNotificationEmail(record: ContactSubmission): Promise<void> {
     "",
     record.message,
   ].filter((l): l is string => l !== null);
-
-  await resend.emails.send({
-    from: FROM_ADDRESS,
-    to: CONTACT_RECIPIENT,
-    replyTo: record.email,
-    subject: `Nuovo messaggio dal sito — ${record.name}`,
-    text: lines.join("\n"),
-  });
+  return { subject: `Nuovo messaggio dal sito — ${record.name}`, text: lines.join("\n"), replyTo: record.email };
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -80,7 +60,7 @@ export async function POST(request: NextRequest) {
   // dell'email non deve far fallire la richiesta per chi ha compilato il
   // form, resta comunque visibile nell'admin.
   try {
-    await sendNotificationEmail(record);
+    await sendNotificationEmail(emailFor(record));
   } catch (err) {
     console.error("Failed to send contact notification email:", err);
   }
