@@ -73,7 +73,7 @@ function Hero({ data = {} }: { data?: HeroData }) {
   return (
     <section ref={ref} className="relative min-h-screen overflow-hidden">
       <motion.div className="absolute inset-0" style={{ y, willChange: "transform" }}>
-        <ImageWithFallback src={bg} alt="KLR Hero" decoding="async" fetchPriority="high" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <ImageWithFallback src={bg} alt="KLR Hero" decoding="async" fetchPriority="high" className="absolute inset-0 w-full h-full object-cover object-center" sizes="100vw" />
         <div className="absolute inset-0 bg-[#2E2784]/70" />
       </motion.div>
 
