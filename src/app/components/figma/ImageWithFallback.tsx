@@ -9,7 +9,7 @@ const ERROR_IMG_SRC =
  * ammesse da Next (images.deviceSizes), altrimenti la richiesta è
  * rifiutata.
  */
-const WIDTHS = [640, 828, 1080, 1920] as const;
+const WIDTHS = [640, 828, 1080, 1920, 3840] as const;
 
 /**
  * L'ottimizzatore accetta solo percorsi locali e host dichiarati in
