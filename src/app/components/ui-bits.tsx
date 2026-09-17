@@ -14,23 +14,6 @@ export function hexToRgba(hex: string, alpha: number): string {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
-// Opens the user's email client with a prefilled draft recapping a form's fields.
-// mailto: links can't carry file attachments — file inputs are listed by filename only,
-// with a note asking the sender to attach the file manually before sending.
-export function openMailtoDraft(form: HTMLFormElement, to: string, subject: string) {
-  const data = new FormData(form);
-  const lines: string[] = [];
-  for (const [key, value] of data.entries()) {
-    if (value instanceof File) {
-      if (value.name) lines.push(`${key}: ${value.name} (please attach this file manually)`);
-    } else if (value) {
-      lines.push(`${key}: ${value}`);
-    }
-  }
-  const body = lines.join("\n");
-  window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-}
-
 export function Eyebrow({ children, onDark = false, lineColor = "#F8AE01" }: { children: React.ReactNode; onDark?: boolean; lineColor?: string }) {
   return (
     <div

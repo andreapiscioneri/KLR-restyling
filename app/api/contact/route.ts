@@ -1,5 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { appendContactSubmission, type ContactSubmission } from "@/lib/contact-log";
+import { sendNotificationEmail } from "@/lib/send-email";
+
+function emailFor(record: ContactSubmission) {
+  const lines = [
+    `Nome: ${record.name}`,
+    `Email: ${record.email}`,
+    record.company ? `Azienda: ${record.company}` : null,
+    record.jobTitle ? `Ruolo: ${record.jobTitle}` : null,
+    "",
+    record.message,
+  ].filter((l): l is string => l !== null);
+  return { subject: `Nuovo messaggio dal sito — ${record.name}`, text: lines.join("\n"), replyTo: record.email };
+}
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -41,6 +54,15 @@ export async function POST(request: NextRequest) {
   } catch (err) {
     console.error("Failed to log contact submission:", err);
     return NextResponse.json({ error: "Failed to store submission" }, { status: 500 });
+  }
+
+  // Il messaggio è già al sicuro nel log qui sopra: un intoppo nell'invio
+  // dell'email non deve far fallire la richiesta per chi ha compilato il
+  // form, resta comunque visibile nell'admin.
+  try {
+    await sendNotificationEmail(emailFor(record));
+  } catch (err) {
+    console.error("Failed to send contact notification email:", err);
   }
 
   return NextResponse.json({ ok: true }, { headers: { "Cache-Control": "no-store" } });

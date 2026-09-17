@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { ArrowUpRight, LucideLinkedin } from "lucide-react";
-import { softShadow, openMailtoDraft } from "./ui-bits";
+import { ArrowUpRight, LucideLinkedin, Check } from "lucide-react";
+import { softShadow } from "./ui-bits";
+import { getAttribution } from "@/components/layout/SiteAnalytics";
 import { locations, images, stats as fallbackStats } from "../data";
 import type { Leader } from "@/lib/content-schema";
 import { PageHero } from "./page-hero";
@@ -146,6 +148,7 @@ type TeamProps = {
 };
 
 export function Team({ go, initialLeadership, initialStats, initialTeamCms }: TeamProps) {
+  const [joinStatus, setJoinStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const leadership = initialLeadership ?? [];
   const stats = initialStats ?? fallbackStats;
   const teamCms = initialTeamCms ?? {};
@@ -377,10 +380,36 @@ export function Team({ go, initialLeadership, initialStats, initialTeamCms }: Te
               </div>
 
               {/* CONTACT FORM */}
+              {joinStatus === "sent" ? (
+                <div
+                  className="rounded-[32px] p-7 md:p-10 flex flex-col items-center text-center gap-4"
+                  style={{ background: "rgba(255,255,255,0.30)", border: "1px solid rgba(255,255,255,0.5)", ...softShadow }}
+                >
+                  <span className="w-12 h-12 rounded-full bg-[#2E2784] flex items-center justify-center">
+                    <Check className="w-5 h-5 text-white" />
+                  </span>
+                  <h3 className="text-[#2E2784] tracking-[-0.02em]" style={{ fontSize: "1.3rem", fontWeight: 800 }}>
+                    Application sent
+                  </h3>
+                  <p className="text-[#2E2784]/70 tracking-tight" style={{ fontSize: "0.9rem" }}>
+                    Thanks for reaching out — our team will get back to you soon.
+                  </p>
+                </div>
+              ) : (
               <form
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
-                  openMailtoDraft(e.currentTarget, "info@klr-europe.com", "KLR Team Application");
+                  const form = e.currentTarget;
+                  const data = new FormData(form);
+                  for (const [k, v] of Object.entries(getAttribution())) if (v) data.set(k, v);
+                  setJoinStatus("sending");
+                  try {
+                    const res = await fetch("/api/apply", { method: "POST", body: data });
+                    if (!res.ok) throw new Error("request failed");
+                    setJoinStatus("sent");
+                  } catch {
+                    setJoinStatus("error");
+                  }
                 }}
                 className="rounded-[32px] p-7 md:p-10 grid gap-5"
                 style={{ background: "rgba(255,255,255,0.30)", border: "1px solid rgba(255,255,255,0.5)", ...softShadow }}
@@ -439,15 +468,23 @@ export function Team({ go, initialLeadership, initialStats, initialTeamCms }: Te
                 <div>
                   <button
                     type="submit"
-                    className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black"
+                    disabled={joinStatus === "sending"}
+                    className="inline-flex items-center gap-2.5 rounded-full tracking-tight transition-all text-[0.9rem] pl-5 pr-2 py-2 bg-[#2E2784] text-white hover:bg-black disabled:opacity-60"
                   >
-                    <span>Send Application</span>
+                    <span>{joinStatus === "sending" ? "Sending…" : "Send Application"}</span>
                     <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
                       <ArrowUpRight className="w-4 h-4" />
                     </span>
                   </button>
+                  {joinStatus === "error" && (
+                    <p className="mt-3 text-[#2E2784]" style={{ fontSize: "0.85rem" }}>
+                      Something went wrong. Please try again, or write to us at{" "}
+                      <a href="mailto:info@klr-europe.com" className="underline font-semibold">info@klr-europe.com</a>.
+                    </p>
+                  )}
                 </div>
               </form>
+              )}
             </div>
           </AnimatedSection>
         </div>
