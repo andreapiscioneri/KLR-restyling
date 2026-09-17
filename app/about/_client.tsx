@@ -196,7 +196,7 @@ export function AboutClient({ initialCms }: { initialCms?: AboutCms }) {
 
       {/* ── 5. MORE THAN A LOYALTY COMPANY ── */}
       {visible(moreThanLoyalty) && <section className="w-full">
-        <ImageWithFallback src="/fondo.webp" alt="More Than a Loyalty Company" className="w-full h-auto block" />
+        <ImageWithFallback src="/back.webp" alt="More Than a Loyalty Company" className="w-full h-auto block" />
         <div className="flex justify-center py-10" style={{ backgroundImage: "url('/back.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
           <Link
             href="/team"
