@@ -1294,7 +1294,8 @@ export function StudyDetail({ id, go, initialStudies, initialBrands }: {
         </div>
       </section>
       <EditToolbar active={editMode} ready={editor.ready} dirty={editor.dirty} saving={editor.saving} error={editor.error}
-        onSave={editor.save} onDiscard={editor.discard} layoutControls={layoutToggle}/>
+        onSave={editor.save} onDiscard={editor.discard} layoutControls={layoutToggle}
+        onPublish={s.status === "draft" ? () => editor.save({ status: "published" }) : undefined}/>
       <Lightbox state={lightbox} onClose={() => setLightbox(null)} onNavigate={(i) => setLightbox((l) => l && { ...l, index: i })}/>
     </>
   );

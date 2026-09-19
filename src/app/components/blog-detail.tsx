@@ -91,10 +91,14 @@ export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOp
 
   const others = (initialOthers ?? []).filter((p) => p.slug !== post.slug).slice(0, 3);
 
-  // LOGICA DEL TITOLO HERO: Dividiamo le parole per colorarle
-  const titleWords = post.title ? post.title.split(" ") : [];
-  const titleFirstPart = titleWords.slice(0, 2).join(" ");
-  const titleSecondPart = titleWords.slice(2).join(" ");
+  // LOGICA DEL TITOLO HERO: un "|" nel testo del titolo sceglie dove
+  // dividere i due colori (bianco prima, oro dopo) — utile per titoli dove
+  // le prime due parole di default non sono il punto giusto. Senza "|" resta
+  // il comportamento precedente, invariato per i contenuti già esistenti.
+  const rawTitle = post.title || "";
+  const pipeIndex = rawTitle.indexOf("|");
+  const titleFirstPart = pipeIndex >= 0 ? rawTitle.slice(0, pipeIndex).trim() : rawTitle.split(" ").slice(0, 2).join(" ");
+  const titleSecondPart = pipeIndex >= 0 ? rawTitle.slice(pipeIndex + 1).trim() : rawTitle.split(" ").slice(2).join(" ");
 
   return (
     <div className="min-h-screen text-white font-sans selection:bg-[#F8AE01] selection:text-[#1a1752]" style={{ background: COLORS.navy }}>
@@ -230,10 +234,15 @@ export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOp
           <EditableText as="span" editing value={post.category || ""} onCommit={(v) => editor.patch({ category: v })} />
         ) : post.category}
         title={editing ? (
-          <EditableText as="span" editing value={post.title || ""} onCommit={(v) => editor.patch({ title: v })}
-            className="font-black tracking-tighter leading-[0.9]"/>
+          <>
+            <EditableText as="span" editing value={post.title || ""} onCommit={(v) => editor.patch({ title: v })}
+              className="font-black tracking-tighter leading-[1.05]"/>
+            <div className="text-white/50 tracking-normal normal-case mt-3" style={{ fontSize: "0.8rem", fontWeight: 500 }}>
+              Aggiungi "|" nel testo per scegliere dove passa dal bianco all'oro (es. "Formula 1 Madrid|: il resto del titolo"). Senza "|", di default sono colorate le prime due parole.
+            </div>
+          </>
         ) : (
-          <span className="font-black tracking-tighter leading-[0.9]">
+          <span className="font-black tracking-tighter leading-[1.05]">
             <span className="text-white">{titleFirstPart} </span>
             {titleSecondPart && <span className="text-[#F8AE01]">{titleSecondPart}</span>}
           </span>
@@ -475,6 +484,7 @@ export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOp
       </section>
       <EditToolbar active={editMode} ready={editor.ready} dirty={editor.dirty} saving={editor.saving} error={editor.error}
         onSave={editor.save} onDiscard={editor.discard}
+        onPublish={post.status === "draft" ? () => editor.save({ status: "published" }) : undefined}
         layoutControls={editing && (
           <div className="fixed top-14 left-1/2 -translate-x-1/2 z-[100] flex items-center gap-1 rounded-full bg-[#1a1752] text-white p-1 shadow-2xl border border-white/10">
             <button type="button" onClick={switchToDefaultLayout}

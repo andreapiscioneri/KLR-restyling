@@ -97,23 +97,30 @@ export function useCollectionEditor<T extends Record<string, any>>(
     setDirty(true);
   }, [idKey, idValue]);
 
-  const save = useCallback(async () => {
+  // `overrides` si applica qui invece di passare da patch()+save() in
+  // sequenza: patch() aggiorna lo stato in modo asincrono, quindi una save()
+  // chiamata subito dopo nello stesso handler leggerebbe ancora gli `items`
+  // di prima (closure non ancora aggiornata) e spedirebbe la versione
+  // vecchia. Un'azione unica ed esplicita come "pubblica" evita la corsa.
+  const save = useCallback(async (overrides?: Partial<T>) => {
     if (!items) return;
+    const toSend = overrides ? items.map((i) => (i[idKey] === idValue ? { ...i, ...overrides } : i)) : items;
     setSaving(true); setError("");
     try {
       const res = await fetch(`/api/admin/content?type=${type}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify(items),
+        body: JSON.stringify(toSend),
       });
       if (!res.ok) throw new Error("save failed");
+      if (overrides) setItems(toSend);
       setDirty(false);
     } catch {
       setError("Salvataggio non riuscito. Riprova.");
     }
     setSaving(false);
-  }, [items, type]);
+  }, [items, type, idKey, idValue]);
 
   const discard = useCallback(() => {
     if (serverSnapshot.current) setItems(JSON.parse(JSON.stringify(serverSnapshot.current)));
@@ -338,7 +345,7 @@ export function EditableImage({
 }
 
 export function EditToolbar({
-  active, dirty, saving, error, onSave, onDiscard, ready, layoutControls,
+  active, dirty, saving, error, onSave, onDiscard, ready, layoutControls, onPublish,
 }: {
   active: boolean;
   dirty: boolean;
@@ -348,6 +355,10 @@ export function EditToolbar({
   onDiscard?: () => void;
   ready: boolean;
   layoutControls?: React.ReactNode;
+  // Presente solo per contenuti in bozza: pubblica salvando insieme alle
+  // altre modifiche in corso, invece di dover prima uscire dalla modifica
+  // in pagina e cercare "Pubblica" nell'elenco in admin.
+  onPublish?: () => void;
 }) {
   const [confirmDiscard, setConfirmDiscard] = useState(false);
   if (!active) return null;
@@ -376,6 +387,16 @@ export function EditToolbar({
             className="flex items-center gap-1.5 rounded-full bg-white/10 text-white text-xs font-bold px-4 py-1.5 disabled:opacity-30 disabled:cursor-not-allowed"
           >
             <X size={12} /> Annulla
+          </button>
+        )}
+        {onPublish && (
+          <button
+            type="button"
+            onClick={onPublish}
+            disabled={!ready || saving}
+            className="flex items-center gap-1.5 rounded-full bg-emerald-500 text-white text-xs font-bold px-4 py-1.5 disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            {saving ? <Loader2 size={12} className="animate-spin" /> : <Check size={12} />} Pubblica
           </button>
         )}
         <button
