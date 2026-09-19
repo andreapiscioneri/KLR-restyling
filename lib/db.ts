@@ -97,6 +97,29 @@ const MIGRATIONS: Migration[] = [
       db.exec("CREATE INDEX IF NOT EXISTS idx_media_source_url ON media(source_url)");
     },
   },
+  {
+    version: 6,
+    describe: "posts: markup colorato scelto a mano per il titolo hero",
+    apply(db) {
+      addColumnIfMissing(db, "posts", "title_html", "TEXT");
+    },
+  },
+  {
+    version: 7,
+    describe: "posts: etichetta e titolo della sezione riassunto personalizzabili",
+    apply(db) {
+      addColumnIfMissing(db, "posts", "summary_eyebrow", "TEXT");
+      addColumnIfMissing(db, "posts", "summary_title", "TEXT");
+    },
+  },
+  {
+    version: 8,
+    describe: "posts: struttura a blocchi personalizzata (testo/immagine/galleria/video)",
+    apply(db) {
+      addColumnIfMissing(db, "posts", "layout_mode", "TEXT");
+      addColumnIfMissing(db, "posts", "layout_blocks", "TEXT");
+    },
+  },
 ];
 
 /**

@@ -46,6 +46,18 @@ CREATE TABLE IF NOT EXISTS posts (
   author_avatar  TEXT    NOT NULL DEFAULT '',
   status         TEXT    NOT NULL DEFAULT 'published',
   position       INTEGER NOT NULL DEFAULT 0,
+  -- Markup del titolo hero (span colorati scelti a mano selezionando il
+  -- testo). NULL = comportamento di sempre (prime due parole in bianco).
+  title_html     TEXT,
+  -- Etichetta e titolo della sezione "riassunto" sopra l'estratto. NULL =
+  -- comportamento di sempre ("Executive Summary" / "The core concept.").
+  summary_eyebrow TEXT,
+  summary_title   TEXT,
+  -- Sequenza di blocchi (testo/immagine/galleria/video) al posto del
+  -- riassunto+corpo unico, come i case study. NULL/'default' = comportamento
+  -- di sempre; layout_blocks è un array JSON di CustomBlock.
+  layout_mode    TEXT,
+  layout_blocks  TEXT,
   updated_at     TEXT    NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_posts_status_date ON posts(status, date DESC);

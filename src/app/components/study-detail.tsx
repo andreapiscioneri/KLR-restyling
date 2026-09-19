@@ -11,6 +11,7 @@ import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import {
   useEditMode, useCollectionEditor, EditableText, EditableImage, EditToolbar, ReorderControls, SectionOrderControls, reorder,
+  EditableRichText, escapeHtml,
   type CustomBlock, type ImageFit, type GalleryImage, newBlockId, blankBlock, InsertBlockButton, BlockShell, EditableVideoUrl,
   EditableBlockText, renderInlineMarkup, segmentRichLines, ImageFitControl, GalleryColumnsControl, galleryColsClass,
   galleryImageUrl, galleryImageFit, setGalleryImageUrl, setGalleryImageFit, mediaFrameClasses, GalleryItemFitControl,
@@ -380,9 +381,15 @@ export function StudyDetail({ id, go, initialStudies, initialBrands }: {
     },
   ];
 
+  // Comportamento di sempre quando nessun colore è stato scelto a mano:
+  // tutto bianco tranne le ultime due parole, in oro.
   const titleWords = s.title.split(" ");
   const titleStart = titleWords.slice(0, -2).join(" ");
   const titleEnd = titleWords.slice(-2).join(" ");
+  const defaultTitleHtml = titleStart
+    ? `${escapeHtml(titleStart)} <span style="color:#F8AE01">${escapeHtml(titleEnd)}</span>`
+    : escapeHtml(titleEnd);
+  const titleHtml: string = details?.titleHtml || defaultTitleHtml;
 
   const storedOrder: string[] | undefined = details?.sectionOrder;
   const sectionOrder = storedOrder && DEFAULT_SECTION_ORDER.every((k) => storedOrder.includes(k)) && storedOrder.length === DEFAULT_SECTION_ORDER.length
@@ -504,8 +511,13 @@ export function StudyDetail({ id, go, initialStudies, initialBrands }: {
           <EditableText as="span" editing value={heading("hero_eyebrow", s.cat === "petrol" ? "Fuel · Case Study" : "Grocery · Case Study")} onCommit={(v) => patchHeading("hero_eyebrow", v)}/>
         ) : heading("hero_eyebrow", s.cat === "petrol" ? "Fuel · Case Study" : "Grocery · Case Study")}
         title={editing ? (
-          <EditableText as="span" editing value={s.title} onCommit={(v) => editor.patch({ title: v })} />
-        ) : titleStart ? <>{titleStart} <span className="text-[#F8AE01]">{titleEnd}</span></> : <>{titleEnd}</>}
+          <EditableRichText
+            html={titleHtml}
+            onChange={(nextHtml, nextPlainText) => { editor.patch({ title: nextPlainText }); patchDetails({ titleHtml: nextHtml }); }}
+          />
+        ) : (
+          <span dangerouslySetInnerHTML={{ __html: titleHtml }} />
+        )}
         image={s.img}
         editingImage={editing}
         onImageChange={(v) => editor.patch({ img: v })}
