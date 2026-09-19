@@ -171,7 +171,7 @@ type StudyDetails = {
   layoutMode?:"default"|"custom";blocks?:CustomBlock[];
 };
 type StudyItem    = { id:string;title:string;client:string;year:string;location:string;img:string;summary:string;cat:string;brand:string;results:StudyResult[];details:StudyDetails;status?:"published"|"draft"|"deleted";publicPreview?:boolean;cornerstone?:boolean;focusKeyword?:string;authorName?:string;authorAvatar?:string;publishedAt?:string };
-type PostItem     = { id:number;slug:string;title:string;date:string;excerpt:string;img:string;category:string;contentHtml?:string;authorName?:string;authorAvatar?:string;status?:"published"|"draft"|"deleted";publicPreview?:boolean;cornerstone?:boolean;focusKeyword?:string };
+type PostItem     = { id:number;slug:string;title:string;date:string;excerpt:string;img:string;category:string;contentHtml?:string;authorName?:string;authorAvatar?:string;status?:"published"|"draft"|"deleted";publicPreview?:boolean;cornerstone?:boolean;focusKeyword?:string;titleHtml?:string;summaryEyebrow?:string;summaryTitle?:string;layoutMode?:"default"|"custom";layoutBlocks?:CustomBlock[] };
 type UserItem     = { id:string;name:string;email:string;password?:string;role:string;hasPassword?:boolean;avatar?:string };
 type PositionItem = { id:string;role:string;loc:string;description:string };
 type NavLinkItem  = { href:string;label:string;sub?:{href:string;label:string}[] };
@@ -2828,10 +2828,16 @@ const STUDY_FIELDS:    FieldDef[] = [
   {key:"publicPreview",label:"Anteprima pubblica",type:"checkbox",checkboxLabel:"Consenti anteprima senza login (link condivisibile per revisione bozza)"},
   {key:"cornerstone",label:"Contenuto cornerstone",type:"checkbox",checkboxLabel:"Segna come contenuto cornerstone (più importante per la SEO)"},
 ];
+// Stesse 4 categorie del filtro Insights pubblico (src/app/components/blog.tsx),
+// per evitare varianti/refusi che il normalizzatore lì non riconoscerebbe.
+const POST_CATEGORY_OPTIONS = ["Loyalty Marketing","Retail & Business Trends","Leadership & Culture","KLR Life"];
 const POST_FIELDS:     FieldDef[] = [
   {key:"slug",label:"Slug (URL)",type:"text"},{key:"title",label:"Titolo",type:"text"},
-  {key:"date",label:"Data (YYYY-MM-DD)",type:"text"},{key:"category",label:"Categoria",type:"text"},
+  {key:"date",label:"Data (YYYY-MM-DD)",type:"text"},
+  {key:"category",label:"Categoria",type:"combo"},
   {key:"img",label:"Immagine (URL)",type:"url"},{key:"excerpt",label:"Estratto",type:"textarea"},
+  {key:"summaryEyebrow",label:"Etichetta sezione riassunto (lascia vuoto per \"Executive Summary\")",type:"text"},
+  {key:"summaryTitle",label:"Titolo sezione riassunto (lascia vuoto per \"The core concept.\")",type:"text"},
   {key:"authorName",label:"Autore",type:"combo"},{key:"authorAvatar",label:"Avatar autore (URL)",type:"url"},
   {key:"focusKeyword",label:"Parola chiave SEO (focus keyword)",type:"text"},
   {key:"status",label:"Stato",type:"select",options:["published","draft"]},
@@ -3124,13 +3130,13 @@ function PostsEditor     ({ data, users, currentUser, onSave }: { data:PostItem[
       category:"Loyalty Marketing", status:"draft", publicPreview:false, cornerstone:false,
       authorName: author?.name ?? currentUser.name, authorAvatar: author?.avatar ?? "",
       layoutMode:"custom", layoutBlocks:[],
-    } as unknown as PostItem;
+    } as PostItem;
     onSave([...(data ?? []), newItem]);
     router.push(`/blog/${slug}?preview=1&edit=1`);
   }
   return <ListEditor<PostItem>     title={t.entityName.post} data={data} fields={translateFields(POST_FIELDS, t.itemField.post)}     nameKey="title" imgKey="img" onSave={onSave} onCustomCreate={createCustomPost} withStatusTabs dateKey="date" previewUrl={p => `/blog/${p.slug}?preview=1`}
     seoInput={p => ({ title:p.title, description:p.excerpt, slug:p.slug, hasImage:Boolean(p.img), contentHtml:p.contentHtml||"", focusKeyword:p.focusKeyword })}
-    optionsMap={{ authorName: authorOptions }}
+    optionsMap={{ authorName: authorOptions, category: POST_CATEGORY_OPTIONS }}
     authorAvatarMap={authorAvatarByName}
     blank={{id:Date.now(),slug:"",title:"",date:new Date().toISOString().slice(0,10),excerpt:"",img:"",category:"Loyalty Marketing",status:"draft",publicPreview:false,cornerstone:false,authorName:author?.name ?? currentUser.name,authorAvatar:author?.avatar ?? ""}}
   extra={(form, setForm) => <SeoScorePanel title={form.title||""} description={form.excerpt||""} contentHtml={form.contentHtml||""} slug={form.slug||""} hasImage={Boolean(form.img)}
@@ -3991,6 +3997,14 @@ function RichTextEditor({ value, onChange }: { value:string; onChange:(v:string)
   const exec = (cmd:string, arg?:string) => { document.execCommand(cmd,false,arg); editorRef.current?.focus(); emit(); };
   const emit = () => { skipSync.current=true; onChange(editorRef.current?.innerHTML??""); setTimeout(()=>{skipSync.current=false;},0); };
   const insertLink = () => { const url=prompt("URL del link:"); if(url) exec("createLink",url); };
+  const SHORTCUTS: Record<string,string> = { b:"bold", i:"italic", u:"underline" };
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (!(e.metaKey || e.ctrlKey)) return;
+    const cmd = SHORTCUTS[e.key.toLowerCase()];
+    if (!cmd) return;
+    e.preventDefault();
+    exec(cmd);
+  };
   const btn = (label:string,action:()=>void,title:string) => (
     <button key={label} type="button" title={title} onMouseDown={e=>{e.preventDefault();action();}}
       style={{ padding:"4px 8px",border:"none",borderRadius:5,background:"transparent",cursor:"pointer",fontSize:11,fontWeight:700,color:"#444" }}
@@ -4000,15 +4014,18 @@ function RichTextEditor({ value, onChange }: { value:string; onChange:(v:string)
     </button>
   );
   return (
-    <div style={{ border:"1.5px solid #E8E8F0",borderRadius:9,overflow:"hidden",background:"#FAFAFA" }}>
-      <div style={{ display:"flex",gap:2,padding:"6px 8px",background:"#F0F0F8",borderBottom:"1px solid #E8E8F0",flexWrap:"wrap",alignItems:"center" }}>
+    // Niente overflow:hidden qui: spezzerebbe lo sticky della barra sotto,
+    // perché diventerebbe lui il contenitore di scroll invece del modale.
+    // Gli angoli arrotondati si ottengono invece sui due figli estremi.
+    <div style={{ border:"1.5px solid #E8E8F0",borderRadius:9,background:"#FAFAFA" }}>
+      <div style={{ display:"flex",gap:2,padding:"6px 8px",background:"#F0F0F8",borderBottom:"1px solid #E8E8F0",borderTopLeftRadius:9,borderTopRightRadius:9,flexWrap:"wrap",alignItems:"center",position:"sticky",top:0,zIndex:5 }}>
         {RICH_CMDS.map(c => btn(c.label,()=>exec(c.cmd,c.arg),c.title))}
         <div style={{ width:1,height:18,background:"#DDD",margin:"0 4px" }}/>
         {btn("🔗 Link",insertLink,"Inserisci link")}
         {btn("✂ Unlink",()=>exec("unlink"),"Rimuovi link")}
       </div>
-      <div ref={editorRef} contentEditable suppressContentEditableWarning onInput={emit}
-        style={{ minHeight:220,padding:"12px 14px",fontSize:13,color:"#111",lineHeight:1.7,outline:"none",fontFamily:"inherit" }}
+      <div ref={editorRef} contentEditable suppressContentEditableWarning onInput={emit} onKeyDown={onKeyDown}
+        style={{ minHeight:220,padding:"12px 14px",fontSize:13,color:"#111",lineHeight:1.7,outline:"none",fontFamily:"inherit",borderBottomLeftRadius:9,borderBottomRightRadius:9 }}
         onFocus={e=>{e.currentTarget.parentElement!.style.borderColor="#2E2784";}}
         onBlur={e=>{e.currentTarget.parentElement!.style.borderColor="#E8E8F0";}}
       />

@@ -98,6 +98,19 @@ export type Post = {
   authorName: string;
   authorAvatar: string;
   status?: string;
+  /** Markup del titolo hero con i colori scelti a mano (span bianco/oro).
+   *  Assente = comportamento di sempre (prime due parole in bianco). */
+  titleHtml?: string;
+  /** Etichetta e titolo della sezione "riassunto" sopra l'estratto.
+   *  Assenti = comportamento di sempre ("Executive Summary" / "The core
+   *  concept."). */
+  summaryEyebrow?: string;
+  summaryTitle?: string;
+  /** "custom" sostituisce riassunto+corpo con una sequenza di blocchi
+   *  (testo/immagine/galleria/video), come già avviene per i case study.
+   *  Assente = comportamento di sempre (contentHtml unico). */
+  layoutMode?: "default" | "custom";
+  layoutBlocks?: CustomBlock[];
 };
 
 // ── Brand, persone, posizioni aperte ──────────────────────────

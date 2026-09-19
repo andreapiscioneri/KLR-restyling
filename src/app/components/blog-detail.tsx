@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Target, Trash2 } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { AuthorAvatar } from "./author-avatar";
@@ -10,6 +10,7 @@ import { PageHero } from "./page-hero";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import {
   useEditMode, useCollectionEditor, EditableText, EditableImage, EditToolbar,
+  EditableRichText, escapeHtml, useTextColorToolbar,
   type CustomBlock, newBlockId, blankBlock, InsertBlockButton, BlockShell, EditableVideoUrl,
   galleryImageUrl, setGalleryImageUrl,
 } from "./inline-edit";
@@ -42,6 +43,16 @@ type BlogDetailProps = {
   contentHtmlOptimized?: string;
 };
 
+// Comportamento di sempre quando nessun colore è stato scelto a mano:
+// prime due parole in bianco, il resto in oro.
+function defaultTitleHtml(rawTitle: string): string {
+  const words = rawTitle.split(" ");
+  const first = words.slice(0, 2).join(" ");
+  const rest = words.slice(2).join(" ");
+  if (!rest) return escapeHtml(first);
+  return `${escapeHtml(first)} <span style="color:#F8AE01">${escapeHtml(rest)}</span>`;
+}
+
 export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOptimized }: BlogDetailProps) {
   // La pagina risponde 404 quando lo slug non esiste, quindi qui il post
   // è sempre presente: il ripiego sui dati scritti a mano era codice
@@ -60,9 +71,10 @@ export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOp
     authorName: (editor.current ?? baseInitial).authorName || "KLR Editorial Team",
   };
   const contentRef = useRef<HTMLDivElement>(null);
+  const bodyColorToolbar = useTextColorToolbar(contentRef, () => editor.patch({ contentHtml: contentRef.current?.innerHTML ?? "" }));
 
-  const layoutMode: "default" | "custom" = (post as any).layoutMode === "custom" ? "custom" : "default";
-  const customBlocks: CustomBlock[] = Array.isArray((post as any).layoutBlocks) ? (post as any).layoutBlocks : [];
+  const layoutMode: "default" | "custom" = post.layoutMode === "custom" ? "custom" : "default";
+  const customBlocks: CustomBlock[] = Array.isArray(post.layoutBlocks) ? post.layoutBlocks : [];
   function switchToCustomLayout() {
     if (customBlocks.length > 0) { editor.patch({ layoutMode: "custom" }); return; }
     const seeded: CustomBlock[] = [
@@ -91,18 +103,26 @@ export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOp
 
   const others = (initialOthers ?? []).filter((p) => p.slug !== post.slug).slice(0, 3);
 
-  // LOGICA DEL TITOLO HERO: Dividiamo le parole per colorarle
-  const titleWords = post.title ? post.title.split(" ") : [];
-  const titleFirstPart = titleWords.slice(0, 2).join(" ");
-  const titleSecondPart = titleWords.slice(2).join(" ");
+  // LOGICA DEL TITOLO HERO: il titolo passa dal bianco all'oro nel punto
+  // scelto a mano in `titleHtml` selezionando il testo mentre si modifica.
+  // Senza un valore salvato, il default resta quello di sempre: le prime
+  // due parole in bianco — così i contenuti già esistenti non cambiano
+  // aspetto.
+  const rawTitle = post.title || "";
+  const titleHtml = post.titleHtml || defaultTitleHtml(rawTitle);
 
   return (
     <div className="min-h-screen text-white font-sans selection:bg-[#F8AE01] selection:text-[#1a1752]" style={{ background: COLORS.navy }}>
       
       {/* INIEZIONE CSS: Tutti i titoletti (h3, h4) diventano gialli */}
       <style dangerouslySetInnerHTML={{ __html: `
+        /* Colore di base per eredità, non forzato con !important su ogni
+           elemento: altrimenti vincerebbe anche sugli span di colore
+           applicati a mano con lo strumento oro/bianco. */
+        .klr-editorial-content {
+          color: #f8f9fa;
+        }
         .klr-editorial-content * {
-          color: #f8f9fa !important;
           background-color: transparent !important;
           font-family: inherit !important;
         }
@@ -122,9 +142,11 @@ export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOp
           }
         }
 
-        .klr-editorial-content h1, 
+        .klr-editorial-content h1,
         .klr-editorial-content h2 {
-          color: ${COLORS.gold} !important;
+          /* Non !important: uno span colorato a mano con lo strumento
+             oro/bianco deve poter vincere anche dentro un titolo. */
+          color: ${COLORS.gold};
           font-size: clamp(2.2rem, 5vw, 3.5rem) !important;
           font-weight: 900 !important;
           letter-spacing: -0.05em !important;
@@ -136,7 +158,7 @@ export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOp
         /* MODIFICA: Ora h3 e h4 forzati in Giallo Oro */
         .klr-editorial-content h3,
         .klr-editorial-content h4 {
-          color: ${COLORS.gold} !important;
+          color: ${COLORS.gold};
           font-size: 1.3rem !important;
           font-weight: 800 !important;
           letter-spacing: -0.02em !important;
@@ -220,7 +242,7 @@ export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOp
         .klr-editorial-content strong,
         .klr-editorial-content b {
           font-weight: 800 !important;
-          color: #ffffff !important;
+          color: #ffffff;
         }
       `}} />
 
@@ -230,13 +252,13 @@ export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOp
           <EditableText as="span" editing value={post.category || ""} onCommit={(v) => editor.patch({ category: v })} />
         ) : post.category}
         title={editing ? (
-          <EditableText as="span" editing value={post.title || ""} onCommit={(v) => editor.patch({ title: v })}
-            className="font-black tracking-tighter leading-[0.9]"/>
+          <EditableRichText
+            html={titleHtml}
+            onChange={(nextHtml, nextPlainText) => editor.patch({ title: nextPlainText, titleHtml: nextHtml })}
+            className="font-black tracking-tighter leading-[1.05]"
+          />
         ) : (
-          <span className="font-black tracking-tighter leading-[0.9]">
-            <span className="text-white">{titleFirstPart} </span>
-            {titleSecondPart && <span className="text-[#F8AE01]">{titleSecondPart}</span>}
-          </span>
+          <span className="font-black tracking-tighter leading-[1.05]" dangerouslySetInnerHTML={{ __html: titleHtml }} />
         )}
         subtitle={post.excerpt}
         image={post.img}
@@ -280,12 +302,14 @@ export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOp
                 <div className="w-12 h-12 rounded-xl bg-[#1a1752] flex items-center justify-center text-[#F8AE01] rotate-3">
                   <Target size={24} strokeWidth={3} />
                 </div>
-                <div className="text-[#2E2784] font-bold tracking-[0.2em] uppercase text-xs">Executive Summary</div>
+                <EditableText as="div" editing={editing} value={post.summaryEyebrow || "Executive Summary"} outlineColor="#2E2784"
+                  onCommit={(v) => editor.patch({ summaryEyebrow: v })}
+                  className="text-[#2E2784] font-bold tracking-[0.2em] uppercase text-xs"/>
               </div>
 
-              <h2 className="text-[#2E2784] text-2xl md:text-5xl font-black tracking-tighter mb-6 leading-none italic">
-                The core concept.
-              </h2>
+              <EditableText as="h2" editing={editing} value={post.summaryTitle || "The core concept."} outlineColor="#2E2784"
+                onCommit={(v) => editor.patch({ summaryTitle: v })}
+                className="text-[#2E2784] text-2xl md:text-5xl font-black tracking-tighter mb-6 leading-none italic"/>
               <EditableText as="p" editing={editing} value={post.excerpt || ""} multiline outlineColor="#2E2784"
                 onCommit={(v) => editor.patch({ excerpt: v })}
                 className="text-[#1a1752] text-base md:text-3xl font-medium leading-snug tracking-tight border-l-4 border-[#2E2784] pl-5 md:pl-8 opacity-90"/>
@@ -305,12 +329,15 @@ export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOp
                   className="klr-editorial-content"
                   contentEditable={editing}
                   suppressContentEditableWarning={editing}
-                  onBlur={editing ? () => editor.patch({ contentHtml: contentRef.current?.innerHTML ?? "" }) : undefined}
+                  onBlur={editing ? () => { editor.patch({ contentHtml: contentRef.current?.innerHTML ?? "" }); bodyColorToolbar.closeToolbar(); } : undefined}
+                  onMouseUp={editing ? bodyColorToolbar.updateToolbarPosition : undefined}
+                  onKeyUp={editing ? bodyColorToolbar.updateToolbarPosition : undefined}
                   style={editing ? { outline: "2px dashed rgba(248,174,1,0.5)", outlineOffset: 8, borderRadius: 12, minHeight: 80 } : undefined}
                   /* In modifica l'HTML originale, così l'editor in linea
                      non risalva gli indirizzi riscritti per la consegna. */
                   dangerouslySetInnerHTML={{ __html: (editing ? post.contentHtml : contentHtmlOptimized || post.contentHtml) || "" }}
                 />
+                {editing && bodyColorToolbar.toolbarNode}
               </div>
             </div>
           </AnimatedSection>
@@ -475,6 +502,7 @@ export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOp
       </section>
       <EditToolbar active={editMode} ready={editor.ready} dirty={editor.dirty} saving={editor.saving} error={editor.error}
         onSave={editor.save} onDiscard={editor.discard}
+        onPublish={post.status === "draft" ? () => editor.save({ status: "published" }) : undefined}
         layoutControls={editing && (
           <div className="fixed top-14 left-1/2 -translate-x-1/2 z-[100] flex items-center gap-1 rounded-full bg-[#1a1752] text-white p-1 shadow-2xl border border-white/10">
             <button type="button" onClick={switchToDefaultLayout}

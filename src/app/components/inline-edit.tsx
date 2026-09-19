@@ -97,23 +97,30 @@ export function useCollectionEditor<T extends Record<string, any>>(
     setDirty(true);
   }, [idKey, idValue]);
 
-  const save = useCallback(async () => {
+  // `overrides` si applica qui invece di passare da patch()+save() in
+  // sequenza: patch() aggiorna lo stato in modo asincrono, quindi una save()
+  // chiamata subito dopo nello stesso handler leggerebbe ancora gli `items`
+  // di prima (closure non ancora aggiornata) e spedirebbe la versione
+  // vecchia. Un'azione unica ed esplicita come "pubblica" evita la corsa.
+  const save = useCallback(async (overrides?: Partial<T>) => {
     if (!items) return;
+    const toSend = overrides ? items.map((i) => (i[idKey] === idValue ? { ...i, ...overrides } : i)) : items;
     setSaving(true); setError("");
     try {
       const res = await fetch(`/api/admin/content?type=${type}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify(items),
+        body: JSON.stringify(toSend),
       });
       if (!res.ok) throw new Error("save failed");
+      if (overrides) setItems(toSend);
       setDirty(false);
     } catch {
       setError("Salvataggio non riuscito. Riprova.");
     }
     setSaving(false);
-  }, [items, type]);
+  }, [items, type, idKey, idValue]);
 
   const discard = useCallback(() => {
     if (serverSnapshot.current) setItems(JSON.parse(JSON.stringify(serverSnapshot.current)));
@@ -214,6 +221,152 @@ export function EditableText({
         if (!multiline && e.key === "Enter") { e.preventDefault(); (e.currentTarget as HTMLElement).blur(); }
       }}
     />
+  );
+}
+
+export function escapeHtml(s: string): string {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+export const RICH_TEXT_GOLD = "#F8AE01";
+export const RICH_TEXT_WHITE = "#ffffff";
+
+// Selezione + pastiglie colore condivise fra EditableRichText e qualsiasi
+// altra area contentEditable già esistente (es. il corpo di un articolo):
+// non impone uno storage particolare, chi lo usa decide cosa fare del
+// contenuto dopo che il colore è stato applicato (`onColorApplied`).
+export function useTextColorToolbar(containerRef: React.RefObject<HTMLElement>, onColorApplied: () => void) {
+  // Il pannello vive fuori da React (posizione e visibilità impostate
+  // direttamente sul nodo via ref, non con useState): un setState ad ogni
+  // mouseup/keyup di selezione ri-renderizza il componente che lo contiene,
+  // e su alcuni contenuti quel giro in più bastava a far perdere la
+  // selezione di testo prima ancora di poter cliccare una pastiglia.
+  const toolbarRef = useRef<HTMLDivElement>(null);
+  const rangeRef = useRef<Range | null>(null);
+
+  function hideToolbar() {
+    if (toolbarRef.current) toolbarRef.current.hidden = true;
+    rangeRef.current = null;
+  }
+
+  function updateToolbarPosition() {
+    const sel = window.getSelection();
+    const container = containerRef.current;
+    const el = toolbarRef.current;
+    if (!sel || sel.rangeCount === 0 || sel.isCollapsed || !container || !el) { hideToolbar(); return; }
+    const range = sel.getRangeAt(0);
+    if (!container.contains(range.commonAncestorContainer)) { hideToolbar(); return; }
+    const rect = range.getBoundingClientRect();
+    if (rect.width === 0 && rect.height === 0) { hideToolbar(); return; }
+    // Il Range va clonato: quello vivo restituito da getRangeAt cambia se
+    // la selezione si muove dopo aver aperto il pannello.
+    rangeRef.current = range.cloneRange();
+    el.style.left = `${rect.left + rect.width / 2}px`;
+    el.style.top = `${rect.top}px`;
+    el.hidden = false;
+  }
+
+  function applyColor(color: string) {
+    const range = rangeRef.current;
+    if (!range) return;
+    // Range.extractContents()/insertNode() invece di execCommand: colora in
+    // modo affidabile qualunque selezione (anche una singola lettera, anche
+    // a cavallo di tag diversi), senza dipendere dal comportamento — non
+    // uniforme fra i browser e coi tag legacy come <font> — di un'API
+    // deprecata.
+    const span = document.createElement("span");
+    span.style.color = color;
+    try {
+      span.appendChild(range.extractContents());
+      range.insertNode(span);
+      containerRef.current?.normalize();
+    } catch {
+      // Il documento è cambiato da quando questo Range è stato catturato
+      // (es. altra digitazione nel frattempo): niente da colorare.
+    }
+    hideToolbar();
+    onColorApplied();
+  }
+
+  const toolbarNode = (
+    <div
+      ref={toolbarRef}
+      hidden
+      className="fixed z-[200] flex items-center gap-2 rounded-full bg-[#1a1752] p-2 shadow-2xl border border-white/10"
+      // translate(-100% dell'altezza del pannello + un margine) invece di
+      // un numero fisso di pixel: così il pannello finisce sempre sopra la
+      // selezione, senza coprirla, qualunque sia la sua vera altezza.
+      style={{ transform: "translate(-50%, calc(-100% - 10px))" }}
+      // Senza questo, il mousedown sulla pastiglia toglierebbe la
+      // selezione di testo prima che l'onClick riesca a colorarla.
+      onMouseDown={(e) => e.preventDefault()}
+    >
+      <button type="button" aria-label="Colora di oro" title="Colora di oro"
+        onClick={() => applyColor(RICH_TEXT_GOLD)}
+        className="w-7 h-7 rounded-full border-2 border-white/30"
+        style={{ background: RICH_TEXT_GOLD }}
+      />
+      <button type="button" aria-label="Colora di bianco" title="Colora di bianco"
+        onClick={() => applyColor(RICH_TEXT_WHITE)}
+        className="w-7 h-7 rounded-full border-2 border-white/30"
+        style={{ background: RICH_TEXT_WHITE }}
+      />
+    </div>
+  );
+
+  return { updateToolbarPosition, closeToolbar: hideToolbar, toolbarNode };
+}
+
+// Testo modificabile in linea con colore libero: selezionando anche un solo
+// carattere compaiono due pastiglie (bianco/oro) per colorare esattamente
+// quella selezione — non un punto di passaggio unico, non un'anteprima
+// separata. `html` è il markup con gli span di colore già applicati (chi usa
+// questo componente decide cosa mostrare quando non c'è ancora nulla di
+// salvato, tipicamente lo stesso testo semplice di sempre).
+export function EditableRichText({ html, onChange, className }: {
+  html: string;
+  onChange: (html: string, plainText: string) => void;
+  className?: string;
+}) {
+  const containerRef = useRef<HTMLSpanElement>(null);
+  // Come in EditableText: mentre `lastEmitted` combacia col valore in
+  // arrivo, il DOM non viene ritoccato (quell'aggiornamento è un'eco della
+  // nostra stessa digitazione/dell'ultimo comando colore). Solo un cambio
+  // "esterno" (es. "Annulla") forza il DOM a riallinearsi.
+  const lastEmitted = useRef<string | null>(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    if (lastEmitted.current === null || html !== lastEmitted.current) {
+      if (el.innerHTML !== html) el.innerHTML = html;
+      lastEmitted.current = html;
+    }
+  }, [html]);
+
+  function commit() {
+    const el = containerRef.current;
+    if (!el) return;
+    lastEmitted.current = el.innerHTML;
+    onChange(el.innerHTML, el.textContent ?? "");
+  }
+
+  const { updateToolbarPosition, closeToolbar, toolbarNode } = useTextColorToolbar(containerRef, commit);
+
+  return (
+    <span className="relative inline-block">
+      <span
+        ref={containerRef}
+        className={className}
+        contentEditable
+        suppressContentEditableWarning
+        onInput={commit}
+        onMouseUp={updateToolbarPosition}
+        onKeyUp={updateToolbarPosition}
+        onBlur={closeToolbar}
+      />
+      {toolbarNode}
+    </span>
   );
 }
 
@@ -338,7 +491,7 @@ export function EditableImage({
 }
 
 export function EditToolbar({
-  active, dirty, saving, error, onSave, onDiscard, ready, layoutControls,
+  active, dirty, saving, error, onSave, onDiscard, ready, layoutControls, onPublish,
 }: {
   active: boolean;
   dirty: boolean;
@@ -348,6 +501,10 @@ export function EditToolbar({
   onDiscard?: () => void;
   ready: boolean;
   layoutControls?: React.ReactNode;
+  // Presente solo per contenuti in bozza: pubblica salvando insieme alle
+  // altre modifiche in corso, invece di dover prima uscire dalla modifica
+  // in pagina e cercare "Pubblica" nell'elenco in admin.
+  onPublish?: () => void;
 }) {
   const [confirmDiscard, setConfirmDiscard] = useState(false);
   if (!active) return null;
@@ -378,9 +535,23 @@ export function EditToolbar({
             <X size={12} /> Annulla
           </button>
         )}
+        {onPublish && (
+          <button
+            type="button"
+            onClick={onPublish}
+            disabled={!ready || saving}
+            className="flex items-center gap-1.5 rounded-full bg-emerald-500 text-white text-xs font-bold px-4 py-1.5 disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            {saving ? <Loader2 size={12} className="animate-spin" /> : <Check size={12} />} Pubblica
+          </button>
+        )}
         <button
           type="button"
-          onClick={onSave}
+          // Chiamata come () => onSave() e non onClick={onSave}: altrimenti
+          // React passerebbe l'evento del click come primo argomento, che
+          // save() (ora con un parametro "overrides" opzionale per
+          // "Pubblica") tratterebbe come campi da sovrascrivere sul post.
+          onClick={() => onSave()}
           disabled={!ready || !dirty || saving}
           className="flex items-center gap-1.5 rounded-full bg-[#F8AE01] text-[#2E2784] text-xs font-bold px-4 py-1.5 disabled:opacity-40 disabled:cursor-not-allowed"
         >
