@@ -63,7 +63,11 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
     headers: {
       "Content-Type": record.mimeType || "application/octet-stream",
       "Content-Disposition": `inline; filename="${asciiFilename}"; filename*=UTF-8''${encodedFilename}`,
-      "Cache-Control": "public, max-age=300, must-revalidate",
+      // Con max-age il browser riusava i byte vecchi fino a 5 minuti dopo
+      // una sostituzione da admin, senza nemmeno rimandare la richiesta:
+      // no-cache forza una If-None-Match a ogni caricamento, che qui costa
+      // solo un 304 quando il file non è cambiato.
+      "Cache-Control": "public, no-cache, must-revalidate",
       ETag: etag,
     },
   });
