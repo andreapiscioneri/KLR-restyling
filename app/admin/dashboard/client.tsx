@@ -2044,6 +2044,7 @@ function MediaLibraryPanel() {
   const [uploading, setUploading] = useState(false);
   const [uploadMsg, setUploadMsg] = useState("");
   const [editing, setEditing]     = useState<MediaRecord | null>(null);
+  const [mediaError, setMediaError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const load = useCallback(async (q: string, type: string) => {
@@ -2087,26 +2088,35 @@ function MediaLibraryPanel() {
   }
 
   async function saveEdit(record: MediaRecord, replaceFile?: File) {
+    setMediaError(null);
     let res: Response;
-    if (replaceFile) {
-      const fd = new FormData();
-      fd.append("file", replaceFile);
-      fd.append("title", record.title);
-      fd.append("alt", record.alt);
-      fd.append("caption", record.caption);
-      fd.append("description", record.description);
-      res = await fetch(`/api/admin/media/${record.id}`, { method: "PUT", body: fd });
-    } else {
-      res = await fetch(`/api/admin/media/${record.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title: record.title, alt: record.alt, caption: record.caption, description: record.description }),
-      });
+    try {
+      if (replaceFile) {
+        const fd = new FormData();
+        fd.append("file", replaceFile);
+        fd.append("title", record.title);
+        fd.append("alt", record.alt);
+        fd.append("caption", record.caption);
+        fd.append("description", record.description);
+        res = await fetch(`/api/admin/media/${record.id}`, { method: "PUT", body: fd });
+      } else {
+        res = await fetch(`/api/admin/media/${record.id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ title: record.title, alt: record.alt, caption: record.caption, description: record.description }),
+        });
+      }
+    } catch (err) {
+      setMediaError(err instanceof Error ? err.message : String(err));
+      return;
     }
     if (res.ok) {
       setEditing(null);
       load(query, typeFilter);
+      return;
     }
+    const json = await res.json().catch(() => null);
+    setMediaError(json?.error || json?.details || `HTTP ${res.status}`);
   }
 
   const { ask, dialog } = useConfirm();
@@ -2193,11 +2203,11 @@ function MediaLibraryPanel() {
       {dialog}
 
       {editing && (
-        <div onClick={() => setEditing(null)}
+        <div onClick={() => { setEditing(null); setMediaError(null); }}
           style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
           <div onClick={e => e.stopPropagation()}
             style={{ background: "#fff", borderRadius: 16, padding: 24, maxWidth: 480, width: "100%", maxHeight: "85vh", overflowY: "auto" }}>
-            <MediaEditForm item={editing} onCancel={() => setEditing(null)} onSave={saveEdit} onDelete={remove} onCopyUrl={copyUrl} />
+            <MediaEditForm item={editing} error={mediaError} onCancel={() => { setEditing(null); setMediaError(null); }} onSave={saveEdit} onDelete={remove} onCopyUrl={copyUrl} />
           </div>
         </div>
       )}
@@ -2205,8 +2215,9 @@ function MediaLibraryPanel() {
   );
 }
 
-function MediaEditForm({ item, onCancel, onSave, onDelete, onCopyUrl }: {
+function MediaEditForm({ item, error, onCancel, onSave, onDelete, onCopyUrl }: {
   item: MediaRecord;
+  error: string | null;
   onCancel: () => void;
   onSave: (record: MediaRecord, replaceFile?: File) => void;
   onDelete: (id: string) => void;
@@ -2256,6 +2267,8 @@ function MediaEditForm({ item, onCancel, onSave, onDelete, onCopyUrl }: {
         style={{ marginTop: 12, width: "100%", padding: "9px 12px", background: "#F5F5FA", color: "#555", border: "1px dashed #ddd", borderRadius: 10, fontSize: 12.5, fontWeight: 600, cursor: "pointer" }}>
         {replaceFile ? t.media.replaceWith.replace("{name}", replaceFile.name) : t.media.replaceFile}
       </button>
+
+      {error && <div style={{ color: "#dc2626", fontSize: 13, padding: "12px 0" }}>{t.common.errorPrefix}: {error}</div>}
 
       <div style={{ display: "flex", gap: 8, marginTop: 18 }}>
         <Button variant="danger" icon={Trash2} onClick={() => onDelete(item.id)}>Elimina</Button>
