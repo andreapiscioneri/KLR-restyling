@@ -294,14 +294,6 @@ export function Brands({ go, initialBrands, initialBrandsCms }: BrandsProps) {
                         <div className="text-white tracking-tight mt-1" style={{ fontSize: "0.8rem", fontWeight: 600 }}>{b.since}</div>
                       </div>
                     </div>
-
-                    <button
-                      onClick={() => go({ page: "brand-detail", id: b.id })}
-                      className="mt-5 inline-flex items-center gap-2 text-[#F8AE01] hover:text-white transition-colors tracking-tight"
-                      style={{ fontSize: "0.88rem", fontWeight: 600 }}
-                    >
-                      Explore brand story <ArrowUpRight className="w-4 h-4" />
-                    </button>
                   </div>
                 </article>
               ))}
