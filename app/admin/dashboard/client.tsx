@@ -29,13 +29,13 @@ const ADMIN_INTL_LOCALE: Record<"it" | "en" | "ru", string> = {
 };
 
 type TopSection =
-  | "overview" | "pages" | "stats" | "brands" | "globalBrands" | "clients" | "leadership"
+  | "overview" | "pages" | "stats" | "brands" | "globalBrands" | "brandProfiles" | "clients" | "leadership"
   | "studies" | "posts" | "colors" | "users" | "settings"
   | "positions" | "customPages" | "cookies" | "media" | "analytics" | "leads" | "seo" | "accessibility";
 
 const ROLE_SECTIONS: Record<string, TopSection[]> = {
-  superadmin: ["overview","pages","stats","brands","globalBrands","clients","leadership","studies","posts","colors","users","settings","positions","customPages","cookies","media","analytics","leads","seo","accessibility"],
-  admin:      ["overview","pages","stats","brands","globalBrands","clients","leadership","studies","posts","colors","settings","positions","customPages","cookies","media","analytics","leads","seo","accessibility"],
+  superadmin: ["overview","pages","stats","brands","globalBrands","brandProfiles","clients","leadership","studies","posts","colors","users","settings","positions","customPages","cookies","media","analytics","leads","seo","accessibility"],
+  admin:      ["overview","pages","stats","brands","globalBrands","brandProfiles","clients","leadership","studies","posts","colors","settings","positions","customPages","cookies","media","analytics","leads","seo","accessibility"],
   editor:     ["overview","studies","posts","media","seo"],
 };
 
@@ -62,6 +62,7 @@ const TOP_NAV: { id: TopSection; label: string; icon: LucideIcon; group: NavGrou
   { id: "pages",       label: "Pagine & Testi", icon: FileText,   group: "contenuti" },
   { id: "brands",      label: "Our Collections", icon: Tags,      group: "contenuti" },
   { id: "globalBrands",label: "Our Global Brands", icon: Globe,   group: "contenuti" },
+  { id: "brandProfiles", label: "Featured Brands", icon: Star,    group: "contenuti" },
   { id: "clients",     label: "Our Clients",   icon: Briefcase,   group: "contenuti" },
   { id: "leadership",  label: "Team",           icon: Users,      group: "contenuti" },
   { id: "studies",     label: "Case Studies",   icon: FolderOpen, group: "contenuti" },
@@ -96,6 +97,7 @@ const SECTION_DESCRIPTIONS: Record<TopSection, string> = {
   seo:         "Monitoraggio SEO, SEM (targeting parola chiave per ricerca/campagne a pagamento), GEO (ottimizzazione per i motori generativi AI) e AIO (AI Overview) di tutti i contenuti pubblicati: punteggi, contenuti da migliorare e valutazione in tempo reale mentre scrivi. L'accessibilità è valutata separatamente nella sezione dedicata.",
   brands:      "Le collezioni prodotto raggruppate per brand: etichetta e immagine di ogni collezione. Sono quelle visibili nella sezione 'Our Collections' della pagina /brands del sito.",
   globalBrands: "I loghi dei brand partner mostrati nella striscia scorrevole in home e in cima alla pagina /brands. Aggiungi, sostituisci o rimuovi un logo da qui.",
+  brandProfiles: "Le schede complete dei brand mostrate in 'Our Current Portfolio' sulla pagina /brands e nella loro pagina di dettaglio: foto, descrizione, categoria, campagne, paesi e anno di inizio.",
   clients:     "I loghi dei retailer/clienti mostrati nella sezione 'Our Clients' della home, divisi tra Grocery e Petrol, con testo introduttivo.",
   leadership:  "I membri del team mostrati nella pagina About/Team, con foto, ruolo e biografia.",
   studies:     "I case study/campagne pubblicati sul sito: dati generali, risultati, reward e galleria immagini.",
@@ -119,7 +121,8 @@ const SECTION_USAGE: Record<TopSection, string[]> = {
   stats:       ["Aggiorna questi numeri solo quando i dati aziendali cambiano davvero (es. nuovo anno, nuova campagna conclusa)."],
   seo:         ["Consulta questa sezione dopo aver pubblicato per vedere quali articoli/case study vanno migliorati.", "Mentre scrivi un post o un case study, la valutazione SEO/GEO/AIO appare in tempo reale in fondo al modulo di modifica."],
   brands:      ["Aggiungi una collezione quando lanci una nuova linea prodotto per un brand; sostituisci l'immagine se cambia il visual della collezione."],
-  globalBrands: ["Usa questa sezione se devi solo aggiornare o aggiungere il logo mostrato in home, senza toccare foto, descrizione o statistiche del brand."],
+  globalBrands: ["Usa questa sezione se devi solo aggiornare o aggiungere il logo mostrato in home, senza toccare foto, descrizione o statistiche del brand: quelle si modificano in 'Featured Brands'."],
+  brandProfiles: ["Aggiorna qui foto, descrizione, categoria e numeri (campagne, paesi, anno di inizio) quando cambiano per un brand esistente."],
   clients:      ["Aggiungi un cliente quando firmi una nuova retail/petrol partnership; scegli la categoria giusta così compare nella colonna corretta in home."],
   leadership:  ["Aggiorna quando un membro del team entra, esce o cambia ruolo/foto."],
   studies:     ["Pubblica un nuovo case study a campagna conclusa; usa i campi 'Dettaglio' per la pagina completa del progetto."],
@@ -239,6 +242,7 @@ function AdminDashboardInner({ currentUser }: { currentUser: AdminUser }) {
     if (section === "stats"       && !stats)        load("stats");
     if (section === "brands"      && !pages)        load("pages");
     if (section === "globalBrands" && !brands)      load("brands");
+    if (section === "brandProfiles" && !brands)     load("brands");
     if (section === "clients"      && !pages)       load("pages");
     if (section === "leadership"  && !leadership)   load("leadership");
     if (section === "studies"     && !studies)      load("studies");
@@ -428,6 +432,7 @@ function AdminDashboardInner({ currentUser }: { currentUser: AdminUser }) {
           {section === "stats"       && <StatsEditor      data={stats}       onSave={d => { setStats(d);                          save("stats",       d); }} />}
           {section === "brands"      && <CollectionsCarouselPanel data={pages as PagesDataLocal | null} onSave={d => { setPages(d as PagesData); save("pages", d); }} />}
           {section === "globalBrands" && <GlobalBrandsEditor data={brands}   onSave={d => { setBrands(d);                         save("brands",      d); }} />}
+          {section === "brandProfiles" && <BrandsEditor      data={brands}   onSave={d => { setBrands(d);                         save("brands",      d); }} />}
           {section === "clients"     && <ClientsPanel data={pages as PagesDataLocal | null} onSave={d => { setPages(d as PagesData); save("pages", d); }} />}
           {section === "leadership"  && <LeadershipEditor data={leadership} pages={pages as PagesDataLocal | null} saving={saving} saved={saved} saveError={saveError} onSave={d => { setLeadership(d);                     save("leadership",  d); }} onSavePages={d => { setPages(d as PagesData); save("pages", d); }} />}
           {section === "studies"     && <StudiesEditor    data={studies}     brands={brands} users={users} currentUser={currentUser} onSave={d => { setStudies(d);                        save("studies",     d); }} />}

@@ -70,7 +70,7 @@ type Dict = {
 
 const it: Dict = {
   nav: {
-    overview: "Overview", pages: "Pagine & Testi", brands: "Our Collections", globalBrands: "Our Global Brands", clients: "Our Clients", leadership: "Team",
+    overview: "Overview", pages: "Pagine & Testi", brands: "Our Collections", globalBrands: "Our Global Brands", brandProfiles: "Featured Brands", clients: "Our Clients", leadership: "Team",
     studies: "Case Studies", posts: "Insights", positions: "Posizioni Lavorative", customPages: "Pagine Custom",
     media: "Media Library", colors: "Colori & Tema", stats: "Statistiche", cookies: "Cookie & Privacy",
     analytics: "Traffico Sito", accessibility: "Accessibilità", seo: "SEO · SEM · GEO · AIO",
@@ -133,6 +133,7 @@ const it: Dict = {
     seo:         "Monitoraggio SEO, SEM (targeting parola chiave per ricerca/campagne a pagamento), GEO (ottimizzazione per i motori generativi AI) e AIO (AI Overview) di tutti i contenuti pubblicati: punteggi, contenuti da migliorare e valutazione in tempo reale mentre scrivi. L'accessibilità è valutata separatamente nella sezione dedicata.",
     brands:      "Le collezioni prodotto raggruppate per brand: etichetta e immagine di ogni collezione. Sono quelle visibili nella sezione 'Our Collections' della pagina /brands del sito.",
     globalBrands: "I loghi dei brand partner mostrati nella striscia scorrevole in home e in cima alla pagina /brands. Aggiungi, sostituisci o rimuovi un logo da qui.",
+    brandProfiles: "Le schede complete dei brand mostrate in 'Our Current Portfolio' sulla pagina /brands e nella loro pagina di dettaglio: foto, descrizione, categoria, campagne, paesi e anno di inizio.",
     clients:     "I loghi dei retailer/clienti mostrati nella sezione 'Our Clients' della home, divisi tra Grocery e Petrol, con testo introduttivo.",
     leadership:  "I membri del team mostrati nella pagina About/Team, con foto, ruolo e biografia.",
     studies:     "I case study/campagne pubblicati sul sito: dati generali, risultati, reward e galleria immagini.",
@@ -154,7 +155,8 @@ const it: Dict = {
     stats:       ["Aggiorna questi numeri solo quando i dati aziendali cambiano davvero (es. nuovo anno, nuova campagna conclusa)."],
     seo:         ["Consulta questa sezione dopo aver pubblicato per vedere quali articoli/case study vanno migliorati.", "Mentre scrivi un post o un case study, la valutazione SEO/SEM/GEO/AIO appare in tempo reale in fondo al modulo di modifica."],
     brands:      ["Aggiungi una collezione quando lanci una nuova linea prodotto per un brand; sostituisci l'immagine se cambia il visual della collezione."],
-    globalBrands: ["Usa questa sezione se devi solo aggiornare o aggiungere il logo mostrato in home, senza toccare foto, descrizione o statistiche del brand."],
+    globalBrands: ["Usa questa sezione se devi solo aggiornare o aggiungere il logo mostrato in home, senza toccare foto, descrizione o statistiche del brand: quelle si modificano in 'Featured Brands'."],
+    brandProfiles: ["Aggiorna qui foto, descrizione, categoria e numeri (campagne, paesi, anno di inizio) quando cambiano per un brand esistente."],
     clients:      ["Aggiungi un cliente quando firmi una nuova retail/petrol partnership; scegli la categoria giusta così compare nella colonna corretta in home."],
     leadership:  ["Aggiorna quando un membro del team entra, esce o cambia ruolo/foto."],
     studies:     ["Pubblica un nuovo case study a campagna conclusa; usa i campi 'Dettaglio' per la pagina completa del progetto."],
@@ -341,7 +343,7 @@ const it: Dict = {
 
 const en: Dict = {
   nav: {
-    overview: "Overview", pages: "Pages & Text", brands: "Our Collections", globalBrands: "Our Global Brands", clients: "Our Clients", leadership: "Team",
+    overview: "Overview", pages: "Pages & Text", brands: "Our Collections", globalBrands: "Our Global Brands", brandProfiles: "Featured Brands", clients: "Our Clients", leadership: "Team",
     studies: "Case Studies", posts: "Insights", positions: "Job Positions", customPages: "Custom Pages",
     media: "Media Library", colors: "Colors & Theme", stats: "Statistics", cookies: "Cookies & Privacy",
     analytics: "Site Traffic", accessibility: "Accessibility", seo: "SEO · SEM · GEO · AIO",
@@ -404,6 +406,7 @@ const en: Dict = {
     seo:         "SEO, SEM (keyword targeting for search/paid campaigns), GEO (optimization for generative AI engines) and AIO (AI Overview) monitoring for all published content: scores, content to improve, and real-time evaluation while you write. Accessibility is scored separately in its own section.",
     brands:      "The product collections grouped by brand: each collection's label and image. These are the ones visible in the 'Our Collections' section of the site's /brands page.",
     globalBrands: "The brand partner logos shown in the scrolling strip on the homepage and at the top of the /brands page. Add, replace or remove a logo here.",
+    brandProfiles: "The full brand profiles shown in 'Our Current Portfolio' on the /brands page and on each brand's detail page: photo, description, category, campaigns, countries and start year.",
     clients:     "The retailer/client logos shown in the 'Our Clients' section on the homepage, split between Grocery and Petrol, with the intro text.",
     leadership:  "The team members shown on the About/Team page, with photo, role and bio.",
     studies:     "The case studies/campaigns published on the site: overview data, results, rewards and image gallery.",
@@ -425,7 +428,8 @@ const en: Dict = {
     stats:       ["Only update these numbers when the underlying business data actually changes (e.g. a new year, a campaign wrapping up)."],
     seo:         ["Check this section after publishing to see which articles/case studies need improvement.", "While writing a post or case study, the SEO/SEM/GEO/AIO evaluation appears in real time at the bottom of the edit form."],
     brands:      ["Add a collection when you launch a new product line for a brand; replace the image if the collection's visual changes."],
-    globalBrands: ["Use this section when you only need to update or add the logo shown on the homepage, without touching the brand's photo, description or stats."],
+    globalBrands: ["Use this section when you only need to update or add the logo shown on the homepage, without touching the brand's photo, description or stats: those are edited in 'Featured Brands'."],
+    brandProfiles: ["Update photo, description, category and numbers (campaigns, countries, start year) here whenever they change for an existing brand."],
     clients:      ["Add a client when you sign a new retail/petrol partnership; pick the right category so it shows up in the correct column on the homepage."],
     leadership:  ["Update it when a team member joins, leaves, or changes role/photo."],
     studies:     ["Publish a new case study once a campaign wraps; use the 'Detail' fields for the full project page."],
@@ -612,7 +616,7 @@ const en: Dict = {
 
 const ru: Dict = {
   nav: {
-    overview: "Обзор", pages: "Страницы и тексты", brands: "Наши коллекции", globalBrands: "Наши глобальные бренды", clients: "Наши клиенты", leadership: "Команда",
+    overview: "Обзор", pages: "Страницы и тексты", brands: "Наши коллекции", globalBrands: "Наши глобальные бренды", brandProfiles: "Featured Brands", clients: "Наши клиенты", leadership: "Команда",
     studies: "Кейсы", posts: "Инсайты", positions: "Вакансии", customPages: "Дополнительные страницы",
     media: "Медиатека", colors: "Цвета и тема", stats: "Статистика", cookies: "Cookie и конфиденциальность",
     analytics: "Трафик сайта", accessibility: "Доступность", seo: "SEO · SEM · GEO · AIO",
@@ -675,6 +679,7 @@ const ru: Dict = {
     seo:         "Мониторинг SEO, SEM (таргетинг ключевых слов для поиска/платных кампаний), GEO (оптимизация для генеративных ИИ-систем) и AIO (AI Overview) всего опубликованного контента: оценки, контент для улучшения и оценка в реальном времени во время написания. Доступность оценивается отдельно в специальном разделе.",
     brands:      "Коллекции продуктов, сгруппированные по бренду: название и изображение каждой коллекции. Это те же коллекции, что видны в разделе 'Our Collections' на странице /brands сайта.",
     globalBrands: "Логотипы брендов-партнёров, отображаемые в прокручивающейся ленте на главной и в верхней части страницы /brands. Добавляйте, заменяйте или удаляйте логотип здесь.",
+    brandProfiles: "Полные карточки брендов, отображаемые в 'Our Current Portfolio' на странице /brands и на странице бренда: фото, описание, категория, кампании, страны и год начала.",
     clients:     "Логотипы ритейлеров/клиентов, отображаемые в разделе 'Our Clients' на главной, разделённые на Grocery и Petrol, с вводным текстом.",
     leadership:  "Члены команды, отображаемые на странице About/Team, с фото, должностью и биографией.",
     studies:     "Кейсы/кампании, опубликованные на сайте: общие данные, результаты, награды и галерея изображений.",
@@ -696,7 +701,8 @@ const ru: Dict = {
     stats:       ["Обновляйте эти цифры только когда реально меняются данные компании (например, новый год, завершённая кампания)."],
     seo:         ["Просматривайте этот раздел после публикации, чтобы узнать, какие статьи/кейсы нужно улучшить.", "Во время написания статьи или кейса оценка SEO/SEM/GEO/AIO появляется в реальном времени внизу формы редактирования."],
     brands:      ["Добавляйте коллекцию при запуске новой линейки продуктов для бренда; заменяйте изображение при изменении визуала коллекции."],
-    globalBrands: ["Используйте этот раздел, если нужно только обновить или добавить логотип на главной, не трогая фото, описание или статистику бренда."],
+    globalBrands: ["Используйте этот раздел, если нужно только обновить или добавить логотип на главной, не трогая фото, описание или статистику бренда: это редактируется в 'Featured Brands'."],
+    brandProfiles: ["Обновляйте здесь фото, описание, категорию и цифры (кампании, страны, год начала), когда они меняются для существующего бренда."],
     clients:      ["Добавляйте клиента при подписании новой retail/petrol партнёрства; выбирайте нужную категорию, чтобы он появился в правильной колонке на главной."],
     leadership:  ["Обновляйте при приходе, уходе или смене роли/фото члена команды."],
     studies:     ["Публикуйте новый кейс после завершения кампании; используйте поля 'Детали' для полной страницы проекта."],
