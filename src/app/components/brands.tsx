@@ -216,7 +216,7 @@ export function Brands({ go, initialBrands, initialBrandsCms }: BrandsProps) {
 
       {/* PRODUCT CATEGORIES — yellow */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
-        <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl" />
+        <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-white/15 blur-3xl pointer-events-none" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
@@ -254,7 +254,7 @@ export function Brands({ go, initialBrands, initialBrandsCms }: BrandsProps) {
 
       {/* FEATURED BRANDS — blue */}
       {visible(brandsCms.featured) && <section id="featured-brands" className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
-        <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
+        <div className="absolute -bottom-28 -left-24 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/20 blur-3xl pointer-events-none" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
@@ -312,7 +312,7 @@ export function Brands({ go, initialBrands, initialBrandsCms }: BrandsProps) {
 
       {/* EXCLUSIVE REWARDS CAROUSEL — rosa */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.rosa }}>
-        <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-[#2E2784]/08 blur-3xl" />
+        <div className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-[#2E2784]/08 blur-3xl pointer-events-none" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
@@ -332,7 +332,7 @@ export function Brands({ go, initialBrands, initialBrandsCms }: BrandsProps) {
 
       {/* WHY PARTNER — blue */}
       <section id="why-partner" className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
-        <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/15 blur-3xl" />
+        <div className="absolute top-0 right-0 w-[420px] h-[420px] rounded-full bg-[#F8AE01]/15 blur-3xl pointer-events-none" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="tracking-[0.3em] uppercase text-[#F8AE01]/70" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
@@ -366,7 +366,7 @@ export function Brands({ go, initialBrands, initialBrandsCms }: BrandsProps) {
 
       {/* PROCESS — yellow */}
       <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
-        <div className="absolute -bottom-20 -right-20 w-[360px] h-[360px] rounded-full bg-white/20 blur-3xl" />
+        <div className="absolute -bottom-20 -right-20 w-[360px] h-[360px] rounded-full bg-white/20 blur-3xl pointer-events-none" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="tracking-[0.3em] uppercase text-[#2E2784]/60" style={{ fontSize: "0.65rem", fontWeight: 600 }}>
@@ -403,7 +403,7 @@ export function Brands({ go, initialBrands, initialBrandsCms }: BrandsProps) {
 
       {/* DUAL CTA — blue */}
       {visible(brandsCms.closing) && <section className="relative pt-28 md:pt-32 pb-20 md:pb-24 overflow-hidden" style={{ background: G.blue }}>
-        <div className="absolute -bottom-24 -left-20 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/20 blur-3xl" />
+        <div className="absolute -bottom-24 -left-20 w-[360px] h-[360px] rounded-full bg-[#F8AE01]/20 blur-3xl pointer-events-none" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="grid md:grid-cols-2 gap-6">
@@ -459,7 +459,7 @@ export function Brands({ go, initialBrands, initialBrandsCms }: BrandsProps) {
 
       {/* EXTRA CTA — yellow */}
       <section className="relative pt-24 md:pt-28 pb-20 md:pb-24 overflow-hidden" style={{ background: G.yellow }}>
-        <div className="absolute -top-20 right-12 w-[300px] h-[300px] rounded-full bg-white/15 blur-3xl" />
+        <div className="absolute -top-20 right-12 w-[300px] h-[300px] rounded-full bg-white/15 blur-3xl pointer-events-none" />
         <div className="max-w-6xl mx-auto px-8">
           <AnimatedSection>
             <div className="grid md:grid-cols-2 gap-10 items-center">
