@@ -424,20 +424,37 @@ export function EditableImage({
     setUploading(false);
   }
 
+  const isEmpty = !src;
+
   return (
     <div className="relative inline-block" style={{ display: "contents" }}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt={alt || ""} className={className} style={style} />
+      {!isEmpty && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={src} alt={alt || ""} className={className} style={style} />
+      )}
       {variant === "cover" ? (
-        <button
-          type="button"
-          onClick={() => setOpen(!open)}
-          className={`absolute z-20 inset-0 flex items-center justify-center transition-colors group ${alwaysShowPencil ? "bg-black/25 hover:bg-black/40" : "bg-black/0 hover:bg-black/40"}`}
-          style={{ borderRadius: (style as any)?.borderRadius }}
-          aria-label="Modifica immagine"
-        >
-          <Pencil size={18} className={`text-white drop-shadow ${alwaysShowPencil ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`} />
-        </button>
+        isEmpty ? (
+          <button
+            type="button"
+            onClick={() => setOpen(!open)}
+            className={`${className ?? ""} flex flex-col items-center justify-center gap-2 border-2 border-dashed border-white/50 bg-white/5 hover:bg-white/10 hover:border-white/80 text-white transition-colors`}
+            style={{ ...style, borderRadius: (style as any)?.borderRadius, minHeight: 200 }}
+            aria-label="Carica immagine"
+          >
+            <Upload size={22} />
+            <span className="text-xs font-semibold">Clicca qui per caricare un&apos;immagine</span>
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setOpen(!open)}
+            className={`absolute z-20 inset-0 flex items-center justify-center transition-colors group ${alwaysShowPencil ? "bg-black/25 hover:bg-black/40" : "bg-black/0 hover:bg-black/40"}`}
+            style={{ borderRadius: (style as any)?.borderRadius }}
+            aria-label="Modifica immagine"
+          >
+            <Pencil size={18} className={`text-white drop-shadow ${alwaysShowPencil ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`} />
+          </button>
+        )
       ) : (
         <button
           type="button"
@@ -450,9 +467,10 @@ export function EditableImage({
         </button>
       )}
       {open && (
+        <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/40 px-4"
+          onClick={() => setOpen(false)}>
         <div
-          style={variant === "corner" ? { top: `${cornerTopRem + 2.75}rem` } : undefined}
-          className={`z-50 w-72 rounded-xl bg-white p-3 shadow-2xl border border-black/10 ${variant === "corner" ? "absolute right-6" : "absolute top-full left-0 mt-2"}`}
+          className="w-72 rounded-xl bg-white p-3 shadow-2xl border border-black/10"
           onClick={(e) => e.stopPropagation()}>
           <div className="flex items-center justify-between mb-2">
             <span className="text-[11px] font-bold uppercase tracking-wide text-gray-500">{label}</span>
@@ -482,8 +500,15 @@ export function EditableImage({
               {uploading ? <Loader2 size={12} className="animate-spin" /> : <Upload size={12} />} Carica
             </button>
           </div>
+          {src && (
+            <button type="button" onClick={() => { setUrl(""); onCommit(""); setOpen(false); }}
+              className="w-full flex items-center justify-center gap-1 rounded-lg bg-red-50 text-red-600 text-xs font-semibold py-2 mt-2 hover:bg-red-100">
+              <Trash2 size={12} /> Rimuovi immagine
+            </button>
+          )}
           <input ref={fileRef} type="file" accept="image/*" className="hidden"
             onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFile(f); e.target.value = ""; }} />
+        </div>
         </div>
       )}
     </div>

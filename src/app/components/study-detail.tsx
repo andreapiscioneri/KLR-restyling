@@ -616,12 +616,12 @@ export function StudyDetail({ id, go, initialStudies, initialBrands }: {
               content = (
                 <section className="relative py-12 px-8" style={{ background: bg }}>
                   <div className="max-w-5xl mx-auto">
+                    <div className="flex justify-start mb-2">
+                      <ImageFitControl fit={block.fit} onChange={(f) => updateBlock(idx, { fit: f })} />
+                    </div>
                     <div className={`relative rounded-[24px] overflow-hidden ${boxClass}`} style={{ ...softShadow, ...(letterboxed ? { background: "rgba(255,255,255,0.08)" } : {}) }}>
                       <EditableImage editing={editing} src={block.imageUrl} onCommit={(v) => updateBlock(idx, { imageUrl: v })}
                         className={`rounded-[24px] ${imgClass}`} alt={s.title}/>
-                      <div className="absolute top-3 left-3 z-30">
-                        <ImageFitControl fit={block.fit} onChange={(f) => updateBlock(idx, { fit: f })} />
-                      </div>
                     </div>
                     {(block.caption || editing) && (
                       <EditableText as="p" editing={editing} value={block.caption || ""} onCommit={(v) => updateBlock(idx, { caption: v })}
