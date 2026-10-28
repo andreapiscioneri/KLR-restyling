@@ -99,7 +99,19 @@ html.lenis, html.lenis body {
 .klr-prose a { color: #2E2784; text-decoration: underline; }
 .klr-prose a:hover { color: #F8AE01; }
 .klr-prose ul, .klr-prose ol { padding-left: 1.5rem; margin-bottom: 1.25rem; color: #000; }
-.klr-prose li { margin-bottom: 0.5rem; }
+.klr-prose ul { list-style-type: disc; }
+.klr-prose ol { list-style-type: decimal; }
+.klr-prose li { margin-bottom: 0.5rem; display: list-item; }
+
+/* Editor di testo ricco nell'admin (RichTextEditor, campo "Contenuto
+   Articolo"): senza queste regole i bottoni "Lista puntata"/"Lista
+   numerata" creano comunque un <ul>/<ol> valido, ma il preflight di
+   Tailwind azzera list-style globalmente e i pallini/numeri restano
+   invisibili — sembra che il pulsante "non faccia niente". */
+.klr-admin-rte ul, .klr-admin-rte ol { padding-left: 1.5rem; margin: 0.5rem 0; }
+.klr-admin-rte ul { list-style-type: disc; }
+.klr-admin-rte ol { list-style-type: decimal; }
+.klr-admin-rte li { display: list-item; margin-bottom: 0.3rem; color: inherit; font-size: inherit; }
 .klr-prose img { border-radius: 24px; margin: 2rem 0; max-width: 100%; height: auto; }
 .klr-prose strong { color: #2E2784; font-weight: 600; }
 .klr-prose blockquote {

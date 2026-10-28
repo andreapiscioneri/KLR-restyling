@@ -4042,7 +4042,7 @@ function RichTextEditor({ value, onChange }: { value:string; onChange:(v:string)
         {btn("🔗 Link",insertLink,"Inserisci link")}
         {btn("✂ Unlink",()=>exec("unlink"),"Rimuovi link")}
       </div>
-      <div ref={editorRef} contentEditable suppressContentEditableWarning onInput={emit} onKeyDown={onKeyDown}
+      <div ref={editorRef} className="klr-admin-rte" contentEditable suppressContentEditableWarning onInput={emit} onKeyDown={onKeyDown}
         style={{ minHeight:220,padding:"12px 14px",fontSize:13,color:"#111",lineHeight:1.7,outline:"none",fontFamily:"inherit",borderBottomLeftRadius:9,borderBottomRightRadius:9 }}
         onFocus={e=>{e.currentTarget.parentElement!.style.borderColor="#2E2784";}}
         onBlur={e=>{e.currentTarget.parentElement!.style.borderColor="#E8E8F0";}}

@@ -219,13 +219,20 @@ export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOp
           }
         }
 
-        .klr-editorial-content ul, 
+        .klr-editorial-content ul,
         .klr-editorial-content ol {
           margin-bottom: 2.5rem !important;
           padding-left: 1.75rem !important;
         }
 
+        /* Il preflight di Tailwind azzera list-style globalmente: senza
+           queste due righe i pallini/numeri restano invisibili anche se
+           il markup <ul>/<ol> è corretto — l'elenco "non si vede". */
+        .klr-editorial-content ul { list-style-type: disc !important; }
+        .klr-editorial-content ol { list-style-type: decimal !important; }
+
         .klr-editorial-content li {
+          display: list-item !important;
           margin-bottom: 0.75rem !important;
           font-size: 1rem !important;
           line-height: 1.65 !important;
@@ -278,10 +285,10 @@ export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOp
 
       <div className="max-w-6xl mx-auto px-6 md:px-8 py-20 space-y-16">
 
-        {layoutMode === "default" && (
-          <>
-        {/* 2. OVERVIEW & AUTHOR */}
-        {post.excerpt && post.excerpt.trim() && (
+        {/* 2. OVERVIEW & AUTHOR — indipendente dal layout del corpo (testo
+            libero o blocchi): autore ed estratto sono metadati del post,
+            non contenuto, quindi restano visibili in entrambe le modalità. */}
+        {(post.excerpt && post.excerpt.trim()) || editing ? (
         <AnimatedSection>
           <div className="rounded-[40px] border border-white/10 overflow-hidden flex flex-col lg:flex-row">
 
@@ -317,10 +324,10 @@ export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOp
 
           </div>
         </AnimatedSection>
-        )}
+        ) : null}
 
         {/* 3. CONTENUTO INTERNO: Tutti gli h3/h4 nel contenuto saranno gialli grazie all'iniezione CSS */}
-        {(post.contentHtml && post.contentHtml.trim()) || editing ? (
+        {layoutMode === "default" && ((post.contentHtml && post.contentHtml.trim()) || editing) && (
           <AnimatedSection>
             <div className="rounded-[50px] border border-white/10 py-16 md:py-24 px-6 md:px-12" style={{ background: COLORS.purpleBox }}>
               <div className="max-w-3xl mx-auto">
@@ -341,8 +348,6 @@ export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOp
               </div>
             </div>
           </AnimatedSection>
-        ) : null}
-          </>
         )}
 
         {layoutMode === "custom" && (
@@ -504,17 +509,20 @@ export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOp
         onSave={editor.save} onDiscard={editor.discard}
         onPublish={post.status === "draft" ? () => editor.save({ status: "published" }) : undefined}
         layoutControls={editing && (
-          <div className="fixed top-14 left-1/2 -translate-x-1/2 z-[100] flex items-center gap-1 rounded-full bg-[#1a1752] text-white p-1 shadow-2xl border border-white/10">
+          <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center gap-1.5">
+            <span className="text-[10px] font-semibold text-white/80 bg-[#1a1752] rounded-full px-3 py-1 shadow-lg">Corpo articolo</span>
+            <div className="flex items-center gap-1 rounded-full bg-[#1a1752] text-white p-1 shadow-2xl border border-white/10">
             <button type="button" onClick={switchToDefaultLayout}
               className="rounded-full text-[11px] font-bold px-3 py-1.5"
               style={{ background: layoutMode === "default" ? "#F8AE01" : "transparent", color: layoutMode === "default" ? "#2E2784" : "#fff" }}>
-              Struttura predefinita
+              Testo semplice
             </button>
             <button type="button" onClick={switchToCustomLayout}
               className="rounded-full text-[11px] font-bold px-3 py-1.5"
               style={{ background: layoutMode === "custom" ? "#F8AE01" : "transparent", color: layoutMode === "custom" ? "#2E2784" : "#fff" }}>
-              Struttura personalizzata
+              Blocchi (testo, immagini, video)
             </button>
+            </div>
           </div>
         )}/>
       <Lightbox state={lightbox} onClose={() => setLightbox(null)} onNavigate={(i) => setLightbox((l) => l && { ...l, index: i })}/>

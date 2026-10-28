@@ -490,17 +490,20 @@ export function StudyDetail({ id, go, initialStudies, initialBrands }: {
   }
 
   const layoutToggle = editing && (
-    <div className="fixed top-14 left-1/2 -translate-x-1/2 z-[100] flex items-center gap-1 rounded-full bg-[#1a1752] text-white p-1 shadow-2xl border border-white/10">
-      <button type="button" onClick={switchToDefaultLayout}
-        className="rounded-full text-[11px] font-bold px-3 py-1.5"
-        style={{ background: layoutMode === "default" ? "#F8AE01" : "transparent", color: layoutMode === "default" ? "#2E2784" : "#fff" }}>
-        Struttura predefinita
-      </button>
-      <button type="button" onClick={switchToCustomLayout}
-        className="rounded-full text-[11px] font-bold px-3 py-1.5"
-        style={{ background: layoutMode === "custom" ? "#F8AE01" : "transparent", color: layoutMode === "custom" ? "#2E2784" : "#fff" }}>
-        Struttura personalizzata
-      </button>
+    <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center gap-1.5">
+      <span className="text-[10px] font-semibold text-white/80 bg-[#1a1752] rounded-full px-3 py-1 shadow-lg">Corpo case study</span>
+      <div className="flex items-center gap-1 rounded-full bg-[#1a1752] text-white p-1 shadow-2xl border border-white/10">
+        <button type="button" onClick={switchToDefaultLayout}
+          className="rounded-full text-[11px] font-bold px-3 py-1.5"
+          style={{ background: layoutMode === "default" ? "#F8AE01" : "transparent", color: layoutMode === "default" ? "#2E2784" : "#fff" }}>
+          Testo semplice
+        </button>
+        <button type="button" onClick={switchToCustomLayout}
+          className="rounded-full text-[11px] font-bold px-3 py-1.5"
+          style={{ background: layoutMode === "custom" ? "#F8AE01" : "transparent", color: layoutMode === "custom" ? "#2E2784" : "#fff" }}>
+          Blocchi (testo, immagini, video)
+        </button>
+      </div>
     </div>
   );
 
