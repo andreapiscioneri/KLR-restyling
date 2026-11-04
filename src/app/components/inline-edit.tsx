@@ -405,6 +405,7 @@ export function EditableImage({
   const setOpen = (next: boolean) => { onOpenChange ? onOpenChange(next) : setOpenLocal(next); };
   const [url, setUrl] = useState(src);
   const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
   if (!editing) {
@@ -414,13 +415,20 @@ export function EditableImage({
 
   async function handleFile(file: File) {
     setUploading(true);
+    setUploadError(null);
     const fd = new FormData();
     fd.append("file", file);
     try {
       const res = await fetch("/api/admin/upload", { method: "POST", body: fd, credentials: "include" });
-      const json = await res.json() as { url?: string };
-      if (json.url) { setUrl(json.url); onCommit(json.url); setOpen(false); }
-    } catch { /* ignore */ }
+      const json = await res.json().catch(() => null) as { url?: string; error?: string } | null;
+      if (res.ok && json?.url) {
+        setUrl(json.url); onCommit(json.url); setOpen(false);
+      } else {
+        setUploadError(json?.error || `Caricamento fallito (HTTP ${res.status})`);
+      }
+    } catch (err) {
+      setUploadError(err instanceof Error ? err.message : "Caricamento fallito");
+    }
     setUploading(false);
   }
 
@@ -500,6 +508,9 @@ export function EditableImage({
               {uploading ? <Loader2 size={12} className="animate-spin" /> : <Upload size={12} />} Carica
             </button>
           </div>
+          {uploadError && (
+            <div className="text-[11px] text-red-600 bg-red-50 rounded-lg px-2 py-1.5 mt-2">{uploadError}</div>
+          )}
           {src && (
             <button type="button" onClick={() => { setUrl(""); onCommit(""); setOpen(false); }}
               className="w-full flex items-center justify-center gap-1 rounded-lg bg-red-50 text-red-600 text-xs font-semibold py-2 mt-2 hover:bg-red-100">
@@ -1000,15 +1011,49 @@ export function BlockShell({ label, onUp, onDown, onDelete, disabledUp, disabled
 export function EditableVideoUrl({ url, onCommit, editing }: { url: string; onCommit: (v: string) => void; editing: boolean }) {
   const [open, setOpen] = useState(!url && editing);
   const [value, setValue] = useState(url);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
   if (!editing) return null;
+
+  async function handleFile(file: File) {
+    setUploading(true);
+    setUploadError(null);
+    const fd = new FormData();
+    fd.append("file", file);
+    try {
+      const res = await fetch("/api/admin/upload", { method: "POST", body: fd, credentials: "include" });
+      const json = await res.json().catch(() => null) as { url?: string; error?: string } | null;
+      if (res.ok && json?.url) {
+        setValue(json.url); onCommit(json.url); setOpen(false);
+      } else {
+        setUploadError(json?.error || `Caricamento fallito (HTTP ${res.status})`);
+      }
+    } catch (err) {
+      setUploadError(err instanceof Error ? err.message : "Caricamento fallito");
+    }
+    setUploading(false);
+  }
+
   return (
     <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30">
       {open ? (
-        <div className="flex items-center gap-2 rounded-full bg-white shadow-2xl p-1.5 pl-4">
-          <input value={value} onChange={(e) => setValue(e.target.value)} placeholder="URL YouTube, Vimeo o file video…"
-            className="text-xs w-72 outline-none" />
-          <button type="button" onClick={() => { onCommit(value); setOpen(false); }}
-            className="rounded-full bg-[#2E2784] text-white text-xs font-bold px-3 py-1.5">Usa</button>
+        <div className="flex flex-col items-center gap-1.5">
+          <div className="flex items-center gap-2 rounded-full bg-white shadow-2xl p-1.5 pl-4">
+            <input value={value} onChange={(e) => setValue(e.target.value)} placeholder="URL YouTube, Vimeo…"
+              className="text-xs w-64 outline-none" />
+            <button type="button" onClick={() => { onCommit(value); setOpen(false); }}
+              className="rounded-full bg-[#2E2784] text-white text-xs font-bold px-3 py-1.5">Usa</button>
+            <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading}
+              className="flex items-center gap-1 rounded-full bg-[#F8AE01] text-[#2E2784] text-xs font-bold px-3 py-1.5">
+              {uploading ? <Loader2 size={12} className="animate-spin" /> : <Upload size={12} />} Carica
+            </button>
+          </div>
+          {uploadError && (
+            <div className="text-[11px] text-red-600 bg-white rounded-lg px-2 py-1 shadow max-w-xs text-center">{uploadError}</div>
+          )}
+          <input ref={fileRef} type="file" accept="video/*" className="hidden"
+            onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFile(f); e.target.value = ""; }} />
         </div>
       ) : (
         <button type="button" onClick={() => setOpen(true)}

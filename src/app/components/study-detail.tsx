@@ -65,17 +65,28 @@ type RenderGroup = MixedSection | GalleryGroup | SocialGroup;
 // social videos (each optionally preceded by a short "Instagram"/"Facebook"
 // label) becomes one grid. A lone heading immediately before a gallery or
 // social run becomes that section's title instead of a disconnected band.
-function groupCustomBlocks(blocks: CustomBlock[]): RenderGroup[] {
+// Oltre ai gruppi, calcola a quale banda (indice colore) finisce ogni
+// blocco originale una volta pubblicato — serve a far vedere in editing
+// lo stesso colore che il blocco avrà davvero, invece del semplice
+// alternarsi per indice grezzo che ignora il raggruppamento qui sopra.
+function groupCustomBlocks(blocks: CustomBlock[]): { groups: RenderGroup[]; blockBand: number[] } {
   const groups: RenderGroup[] = [];
+  const blockBand: number[] = new Array(blocks.length).fill(0);
+  const markBand = (idxs: number[]) => { for (const j of idxs) blockBand[j] = groups.length; };
+
   let current: CustomBlock[] = [];
+  let currentIdx: number[] = [];
+  let pendingTitleIdx: number | null = null;
 
   const takePrecedingTitle = (): string | null => {
     if (current.length === 1 && current[0].type === "text" && isHeadingLike(current[0])) {
       const t = (current[0] as Extract<CustomBlock, { type: "text" }>).text;
+      pendingTitleIdx = currentIdx[0];
       current = [];
+      currentIdx = [];
       return t;
     }
-    if (current.length) { groups.push({ kind: "mixed", blocks: current }); current = []; }
+    if (current.length) { markBand(currentIdx); groups.push({ kind: "mixed", blocks: current }); current = []; currentIdx = []; }
     return null;
   };
 
@@ -87,32 +98,40 @@ function groupCustomBlocks(blocks: CustomBlock[]): RenderGroup[] {
     if (startsSocialRun) {
       const title = takePrecedingTitle();
       const items: SocialItem[] = [];
+      const consumedIdx: number[] = pendingTitleIdx !== null ? [pendingTitleIdx] : [];
       while (i < blocks.length) {
         const cur = blocks[i];
-        if (isHeadingLike(cur) && isSocialVideo(blocks[i + 1])) { items.push({ label: cur, video: blocks[i + 1] }); i += 2; }
-        else if (isSocialVideo(cur)) { items.push({ label: null, video: cur }); i += 1; }
+        if (isHeadingLike(cur) && isSocialVideo(blocks[i + 1])) { items.push({ label: cur, video: blocks[i + 1] }); consumedIdx.push(i, i + 1); i += 2; }
+        else if (isSocialVideo(cur)) { items.push({ label: null, video: cur }); consumedIdx.push(i); i += 1; }
         else break;
       }
+      markBand(consumedIdx);
       groups.push({ kind: "social", items, title });
+      pendingTitleIdx = null;
       continue;
     }
     if (b.type === "gallery") {
       const title = takePrecedingTitle();
+      markBand(pendingTitleIdx !== null ? [pendingTitleIdx, i] : [i]);
       groups.push({ kind: "gallery", block: b, title: b.title || title });
+      pendingTitleIdx = null;
       i++;
       continue;
     }
     if (isHeadingLike(b) && current.length > 0) {
+      markBand(currentIdx);
       groups.push({ kind: "mixed", blocks: current });
       current = [b];
+      currentIdx = [i];
       i++;
       continue;
     }
     current.push(b);
+    currentIdx.push(i);
     i++;
   }
-  if (current.length) groups.push({ kind: "mixed", blocks: current });
-  return groups;
+  if (current.length) { markBand(currentIdx); groups.push({ kind: "mixed", blocks: current }); }
+  return { groups, blockBand };
 }
 
 // Renders one text block with a consistent 3-tier hierarchy: the section's
@@ -132,7 +151,10 @@ function TextBlockContent({ text, isHeading, onDark }: { text: string; isHeading
   const leadColor = onDark ? "#ffffff" : "#2E2784";
   const bodyColor = onDark ? "rgba(255,255,255,0.82)" : "rgba(46,39,132,0.82)";
   const lines = text.split("\n").map((l) => l.trim()).filter(Boolean);
-  const hasLead = lines.length > 1 && !lines[0].startsWith("- ") && lines[0].length <= 130;
+  // Una prima riga come "## Titolo" va trattata da segmentRichLines come
+  // heading, non come lead paragraph: altrimenti il "##" resta letterale
+  // a schermo invece di diventare un h2/h3/h4 vero.
+  const hasLead = lines.length > 1 && !lines[0].startsWith("- ") && !/^#{2,4}\s+/.test(lines[0]) && lines[0].length <= 130;
   const leadLine = hasLead ? lines[0] : null;
   const bodyLines = hasLead ? lines.slice(1) : lines;
   const segments = segmentRichLines(bodyLines);
@@ -243,7 +265,7 @@ function MixedSectionContent({ blocks, studyTitle, onDark }: { blocks: CustomBlo
 // so admin controls (reorder/insert/delete) stay tied to a stable 1:1 mapping
 // with the stored blocks array.
 function CustomBlocksView({ blocks, studyTitle, openLightbox }: { blocks: CustomBlock[]; studyTitle: string; openLightbox: (images: string[], index: number) => void }) {
-  const groups = groupCustomBlocks(blocks);
+  const { groups } = groupCustomBlocks(blocks);
   return (
     <>
       {groups.map((group, gi) => {
@@ -423,11 +445,13 @@ export function StudyDetail({ id, go, initialStudies, initialBrands }: {
 
   const layoutMode: "default" | "custom" = details?.layoutMode === "custom" ? "custom" : "default";
   const customBlocks: CustomBlock[] = Array.isArray(details?.blocks) ? details.blocks : [];
+  const customGrouping = groupCustomBlocks(customBlocks);
+  const customBandByBlock = customGrouping.blockBand;
   // The published custom-blocks view alternates bands starting on blue (see
   // CustomBlocksView); continuing that same sequence here keeps the RELATED
   // and CLOSING sections from ever landing on the same color as whatever
   // band immediately precedes them.
-  const customBandCount = !editing && layoutMode === "custom" ? groupCustomBlocks(customBlocks).length : 0;
+  const customBandCount = !editing && layoutMode === "custom" ? customGrouping.groups.length : 0;
   const relatedBg = customBandCount > 0 ? BAND_COLORS[customBandCount % 2] : G.yellow;
   const closingBg = relatedBg === G.blue ? G.yellow : G.blue;
 
@@ -599,7 +623,12 @@ export function StudyDetail({ id, go, initialStudies, initialBrands }: {
             <CustomBlocksView blocks={customBlocks} studyTitle={s.title} openLightbox={openLightbox} />
           )}
           {editing && customBlocks.map((block, idx) => {
-            const bg = [G.blue, G.yellow][idx % 2];
+            // Stessa banda colore che il blocco avrà una volta pubblicato
+            // (vedi groupCustomBlocks): l'editing mostra ancora una sezione
+            // per blocco per tenere i controlli ancorati 1:1 all'array, ma
+            // il colore ora anticipa il raggruppamento reale invece di
+            // alternare per indice grezzo.
+            const bg = BAND_COLORS[customBandByBlock[idx] % 2];
             const controls = editing ? {
               onUp: () => moveBlockIdx(idx, -1), onDown: () => moveBlockIdx(idx, 1), onDelete: () => removeBlock(idx),
               disabledUp: idx === 0, disabledDown: idx === customBlocks.length - 1,
