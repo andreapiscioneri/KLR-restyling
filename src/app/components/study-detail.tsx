@@ -12,8 +12,8 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import {
   useEditMode, useCollectionEditor, EditableText, EditableImage, EditToolbar, ReorderControls, SectionOrderControls, reorder,
   EditableRichText, escapeHtml,
-  type CustomBlock, type ImageFit, type GalleryImage, newBlockId, blankBlock, InsertBlockButton, BlockShell, EditableVideoUrl,
-  EditableBlockText, renderInlineMarkup, segmentRichLines, ImageFitControl, GalleryColumnsControl, galleryColsClass,
+  type CustomBlock, type BlockBand, type ImageFit, type GalleryImage, newBlockId, blankBlock, InsertBlockButton, BlockShell, EditableVideoUrl,
+  EditableBlockText, renderInlineMarkup, segmentRichLines, normalizeRichLine, ImageFitControl, GalleryColumnsControl, galleryColsClass,
   galleryImageUrl, galleryImageFit, setGalleryImageUrl, setGalleryImageFit, mediaFrameClasses, GalleryItemFitControl,
 } from "./inline-edit";
 import { VideoEmbed } from "./video-embed";
@@ -40,10 +40,66 @@ const isSocialEmbedUrl = (url: string) => /instagram\.com|facebook\.com|fb\.watc
 // being assigned alternating colors. Every section (text, image/video, gallery,
 // social grid) draws from this single running index, so two adjacent sections
 // never share the same color.
-const BAND_COLORS = [G.blue, G.yellow];
+const BAND_COLOR_OF: Record<BlockBand, string> = { blue: G.blue, yellow: G.yellow };
 const BLOCK_SECTION_PAD = "py-16 md:py-24 px-8";
 
-const isHeadingLike = (b: CustomBlock) => b.type === "text" && !b.text.includes("\n") && b.text.trim().length > 0 && b.text.trim().length <= 90;
+// Prefissi di riga che la toolbar di EditableBlockText inserisce (H2/H3/H4,
+// elenco puntato, elenco numerato) — stessa classificazione di
+// segmentRichLines. Ogni punto che mostra una riga di blocco SENZA passare
+// da segmentRichLines deve togliere o rispettare questi prefissi, altrimenti
+// finiscono a schermo alla lettera ("## Titolo", "- voce", "1. voce").
+const LINE_MARKUP_RE = /^(#{2,4}\s+|-\s+|\d+\.\s+)/;
+const H2_PREFIX_RE = /^##\s+/;
+
+// Una riga sola e breve fa da titolo di sezione se è testo semplice o una
+// riga H2 (il "titolo" scelto dall'editor). H3/H4 ed elenchi su una riga
+// sola restano invece al renderer normale, che li mostra come tali.
+const isHeadingLike = (b: CustomBlock) => {
+  if (b.type !== "text" || b.text.trim().includes("\n")) return false;
+  const t = normalizeRichLine(b.text);
+  return t.length > 0 && t.length <= 90 && (!LINE_MARKUP_RE.test(t) || H2_PREFIX_RE.test(t));
+};
+const headingText = (text: string) => normalizeRichLine(text).replace(H2_PREFIX_RE, "");
+
+// Un blocco media senza file (es. caricamento fallito, URL cancellato) non
+// va mostrato nella pagina pubblicata: un <img> senza src fa apparire il
+// testo alternativo (il titolo del case study) dentro un riquadro vuoto.
+// Stessa cosa per un blocco di testo vuoto o una galleria senza immagini.
+function renderableWithIndex(blocks: CustomBlock[]): { block: CustomBlock; idx: number }[] {
+  const out: { block: CustomBlock; idx: number }[] = [];
+  blocks.forEach((b, idx) => {
+    if (b.type === "text") { if (b.text.split("\n").some((l) => normalizeRichLine(l))) out.push({ block: b, idx }); }
+    else if (b.type === "image") { if (b.imageUrl?.trim()) out.push({ block: b, idx }); }
+    else if (b.type === "video") { if (b.videoUrl?.trim()) out.push({ block: b, idx }); }
+    else if (b.type === "gallery") {
+      const images = (b.images ?? []).filter((img) => galleryImageUrl(img)?.trim());
+      if (images.length) out.push({ block: { ...b, images }, idx });
+    } else out.push({ block: b, idx });
+  });
+  return out;
+}
+const renderableBlocks = (blocks: CustomBlock[]) => renderableWithIndex(blocks).map((r) => r.block);
+
+// Colore di sfondo di ogni blocco così come apparirà pubblicato — usato
+// dall'editing per mostrare esattamente gli stessi colori dell'anteprima.
+// Si calcola sui soli blocchi visibili (gli stessi di CustomBlocksView):
+// un blocco vuoto, nascosto in pubblicazione, prende il colore scelto o
+// quello del blocco visibile precedente. lastColor serve alle sezioni
+// finali (Related/Closing), che devono continuare l'alternanza.
+function customBlockColors(blocks: CustomBlock[]): { blockColors: string[]; lastColor: string | null } {
+  const visible = renderableWithIndex(blocks);
+  const { blockBand, groupColors } = groupCustomBlocks(visible.map((v) => v.block));
+  const byIdx = new Map<number, string>();
+  visible.forEach((v, k) => byIdx.set(v.idx, groupColors[blockBand[k]]));
+  const blockColors: string[] = [];
+  let prev: string = groupColors[0] ?? G.blue;
+  blocks.forEach((b, idx) => {
+    const c = byIdx.get(idx) ?? (b.band ? BAND_COLOR_OF[b.band] : prev);
+    blockColors.push(c);
+    if (byIdx.has(idx)) prev = c;
+  });
+  return { blockColors, lastColor: groupColors.length ? groupColors[groupColors.length - 1] : null };
+}
 const isVideoBlock = (b: CustomBlock | undefined): b is Extract<CustomBlock, { type: "video" }> => !!b && b.type === "video" && !!b.videoUrl;
 const isSocialVideo = (b: CustomBlock | undefined) => isVideoBlock(b) && isSocialEmbedUrl(b.videoUrl);
 
@@ -65,11 +121,14 @@ type RenderGroup = MixedSection | GalleryGroup | SocialGroup;
 // social videos (each optionally preceded by a short "Instagram"/"Facebook"
 // label) becomes one grid. A lone heading immediately before a gallery or
 // social run becomes that section's title instead of a disconnected band.
-// Oltre ai gruppi, calcola a quale banda (indice colore) finisce ogni
-// blocco originale una volta pubblicato — serve a far vedere in editing
-// lo stesso colore che il blocco avrà davvero, invece del semplice
-// alternarsi per indice grezzo che ignora il raggruppamento qui sopra.
-function groupCustomBlocks(blocks: CustomBlock[]): { groups: RenderGroup[]; blockBand: number[] } {
+// Oltre ai gruppi, calcola a quale gruppo finisce ogni blocco originale
+// (blockBand) e il colore di ogni gruppo (groupColors).
+// Colore: se l'editor ha scelto Viola/Giallo su un blocco (campo `band`),
+// il suo gruppo usa quel colore; un blocco con un colore scelto diverso da
+// quello del gruppo in corso apre un gruppo nuovo, così ogni scelta viene
+// rispettata. I gruppi senza scelta alternano rispetto al gruppo
+// precedente (il primo parte viola), come prima.
+function groupCustomBlocks(blocks: CustomBlock[]): { groups: RenderGroup[]; blockBand: number[]; groupColors: string[] } {
   const groups: RenderGroup[] = [];
   const blockBand: number[] = new Array(blocks.length).fill(0);
   const markBand = (idxs: number[]) => { for (const j of idxs) blockBand[j] = groups.length; };
@@ -78,9 +137,13 @@ function groupCustomBlocks(blocks: CustomBlock[]): { groups: RenderGroup[]; bloc
   let currentIdx: number[] = [];
   let pendingTitleIdx: number | null = null;
 
-  const takePrecedingTitle = (): string | null => {
-    if (current.length === 1 && current[0].type === "text" && isHeadingLike(current[0])) {
-      const t = (current[0] as Extract<CustomBlock, { type: "text" }>).text;
+  const takePrecedingTitle = (targetBand?: BlockBand): string | null => {
+    const titleBand = current[0]?.band;
+    const bandsAgree = !titleBand || !targetBand || titleBand === targetBand;
+    if (current.length === 1 && current[0].type === "text" && isHeadingLike(current[0]) && bandsAgree) {
+      // Qui diventa un titolo di sezione per posizione, non tramite
+      // segmentRichLines: il prefisso "## " va tolto (vedi isHeadingLike).
+      const t = headingText((current[0] as Extract<CustomBlock, { type: "text" }>).text);
       pendingTitleIdx = currentIdx[0];
       current = [];
       currentIdx = [];
@@ -111,14 +174,16 @@ function groupCustomBlocks(blocks: CustomBlock[]): { groups: RenderGroup[]; bloc
       continue;
     }
     if (b.type === "gallery") {
-      const title = takePrecedingTitle();
+      const title = takePrecedingTitle(b.band);
       markBand(pendingTitleIdx !== null ? [pendingTitleIdx, i] : [i]);
       groups.push({ kind: "gallery", block: b, title: b.title || title });
       pendingTitleIdx = null;
       i++;
       continue;
     }
-    if (isHeadingLike(b) && current.length > 0) {
+    const currentBand = current.find((x) => x.band)?.band;
+    const bandChanges = !!b.band && current.length > 0 && currentBand !== b.band;
+    if ((isHeadingLike(b) || bandChanges) && current.length > 0) {
       markBand(currentIdx);
       groups.push({ kind: "mixed", blocks: current });
       current = [b];
@@ -131,7 +196,14 @@ function groupCustomBlocks(blocks: CustomBlock[]): { groups: RenderGroup[]; bloc
     i++;
   }
   if (current.length) { markBand(currentIdx); groups.push({ kind: "mixed", blocks: current }); }
-  return { groups, blockBand };
+
+  const explicit: (BlockBand | undefined)[] = new Array(groups.length).fill(undefined);
+  blocks.forEach((b, j) => { if (b.band && !explicit[blockBand[j]]) explicit[blockBand[j]] = b.band; });
+  const groupColors: string[] = [];
+  explicit.forEach((band, gi) => {
+    groupColors.push(band ? BAND_COLOR_OF[band] : gi === 0 ? G.blue : groupColors[gi - 1] === G.blue ? G.yellow : G.blue);
+  });
+  return { groups, blockBand, groupColors };
 }
 
 // Renders one text block with a consistent 3-tier hierarchy: the section's
@@ -139,22 +211,38 @@ function groupCustomBlocks(blocks: CustomBlock[]): { groups: RenderGroup[]; bloc
 // longer block's first line reads as a bold lead-in when short enough to be
 // a subtitle, with the remaining lines as body copy. Purely visual — the
 // stored text itself is never modified.
-function TextBlockContent({ text, isHeading, onDark }: { text: string; isHeading: boolean; onDark: boolean }) {
+function TextBlockContent({ text, isHeading, opensSection = false, onDark }: { text: string; isHeading: boolean; opensSection?: boolean; onDark: boolean }) {
   const headColor = onDark ? "#ffffff" : "#2E2784";
+  const titleStyle = { color: headColor, fontSize: "clamp(1.6rem, 3.2vw, 2.4rem)", fontWeight: 800 as const, lineHeight: 1.12 };
   if (isHeading) {
+    // Blocco "heading-like" (riga sola, titolo di sezione): non passa da
+    // segmentRichLines, quindi l'eventuale "## " dell'editor va tolto qui.
     return (
-      <h3 className="tracking-[-0.03em]" style={{ color: headColor, fontSize: "clamp(1.6rem, 3.2vw, 2.4rem)", fontWeight: 800, lineHeight: 1.12 }}>
-        {renderInlineMarkup(text, "h")}
+      <h3 className="tracking-[-0.03em]" style={titleStyle}>
+        {renderInlineMarkup(headingText(text), "h")}
       </h3>
+    );
+  }
+  const lines = text.split("\n").map(normalizeRichLine).filter(Boolean);
+  // Blocco che apre la sezione e inizia con una riga H2 ("## Titolo")
+  // seguita da altro testo: quella riga è il titolo della sezione, con lo
+  // stesso stile grande del titolo singolo, non l'h2 medio del corpo.
+  if (opensSection && lines.length > 1 && H2_PREFIX_RE.test(lines[0])) {
+    return (
+      <div>
+        <h2 className="tracking-[-0.03em]" style={{ ...titleStyle, marginBottom: "1.1rem" }}>
+          {renderInlineMarkup(headingText(lines[0]), "h")}
+        </h2>
+        <TextBlockContent text={lines.slice(1).join("\n")} isHeading={false} onDark={onDark} />
+      </div>
     );
   }
   const leadColor = onDark ? "#ffffff" : "#2E2784";
   const bodyColor = onDark ? "rgba(255,255,255,0.82)" : "rgba(46,39,132,0.82)";
-  const lines = text.split("\n").map((l) => l.trim()).filter(Boolean);
-  // Una prima riga come "## Titolo" va trattata da segmentRichLines come
-  // heading, non come lead paragraph: altrimenti il "##" resta letterale
-  // a schermo invece di diventare un h2/h3/h4 vero.
-  const hasLead = lines.length > 1 && !lines[0].startsWith("- ") && !/^#{2,4}\s+/.test(lines[0]) && lines[0].length <= 130;
+  // Una prima riga con un prefisso dell'editor (titolo, elenco puntato o
+  // numerato) va lasciata a segmentRichLines, non resa come lead paragraph:
+  // altrimenti "##", "-" o "1." restano letterali a schermo.
+  const hasLead = lines.length > 1 && !LINE_MARKUP_RE.test(lines[0]) && lines[0].length <= 130;
   const leadLine = hasLead ? lines[0] : null;
   const bodyLines = hasLead ? lines.slice(1) : lines;
   const segments = segmentRichLines(bodyLines);
@@ -215,11 +303,12 @@ function MixedSectionContent({ blocks, studyTitle, onDark }: { blocks: CustomBlo
     <div className="max-w-5xl mx-auto space-y-8">
       {blocks.map((block, i) => {
         if (block.type === "text") {
-          const isHeading = !seenText && isHeadingLike(block);
+          const opensSection = !seenText;
+          const isHeading = opensSection && isHeadingLike(block);
           seenText = true;
           return (
             <div key={block.id} className="max-w-3xl mx-auto">
-              <TextBlockContent text={block.text} isHeading={isHeading} onDark={onDark} />
+              <TextBlockContent text={block.text} isHeading={isHeading} opensSection={opensSection} onDark={onDark} />
             </div>
           );
         }
@@ -265,11 +354,11 @@ function MixedSectionContent({ blocks, studyTitle, onDark }: { blocks: CustomBlo
 // so admin controls (reorder/insert/delete) stay tied to a stable 1:1 mapping
 // with the stored blocks array.
 function CustomBlocksView({ blocks, studyTitle, openLightbox }: { blocks: CustomBlock[]; studyTitle: string; openLightbox: (images: string[], index: number) => void }) {
-  const { groups } = groupCustomBlocks(blocks);
+  const { groups, groupColors } = groupCustomBlocks(renderableBlocks(blocks));
   return (
     <>
       {groups.map((group, gi) => {
-        const bg = BAND_COLORS[gi % 2];
+        const bg = groupColors[gi];
         const onDark = bg === G.blue;
         if (group.kind === "mixed") {
           return (
@@ -282,7 +371,7 @@ function CustomBlocksView({ blocks, studyTitle, openLightbox }: { blocks: Custom
           return (
             <section key={gi} className={`relative ${BLOCK_SECTION_PAD}`} style={{ background: bg }}>
               <div className="max-w-5xl mx-auto">
-                <div className={`tracking-[0.3em] uppercase mb-8 text-center ${onDark ? "text-white/50" : "text-[#2E2784]/50"}`} style={{ fontSize: "0.65rem", fontWeight: 600 }}>{group.title || "Social"}</div>
+                <div className={`tracking-[0.3em] uppercase mb-8 text-center ${onDark ? "text-white/50" : "text-[#2E2784]/50"}`} style={{ fontSize: "0.65rem", fontWeight: 600 }}>{group.title ? renderInlineMarkup(group.title, "t") : "Social"}</div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {/* No per-item "Instagram"/"Instagram Reels" caption: only some
                       items in a run had a preceding heading block, so showing it
@@ -307,7 +396,7 @@ function CustomBlocksView({ blocks, studyTitle, openLightbox }: { blocks: Custom
           <section key={gi} className={`relative ${BLOCK_SECTION_PAD}`} style={{ background: bg }}>
             <div className="max-w-6xl mx-auto">
               {group.title && (
-                <div className={`tracking-[0.3em] uppercase mb-8 ${onDark ? "text-white/60" : "text-[#2E2784]/60"}`} style={{ fontSize: "0.65rem", fontWeight: 600 }}>{group.title}</div>
+                <div className={`tracking-[0.3em] uppercase mb-8 ${onDark ? "text-white/60" : "text-[#2E2784]/60"}`} style={{ fontSize: "0.65rem", fontWeight: 600 }}>{renderInlineMarkup(group.title, "t")}</div>
               )}
               <div className={`grid gap-4 items-start ${galleryColsClass(block.columns, block.images.length)}`}>
                 {block.images.map((img, i) => {
@@ -445,14 +534,11 @@ export function StudyDetail({ id, go, initialStudies, initialBrands }: {
 
   const layoutMode: "default" | "custom" = details?.layoutMode === "custom" ? "custom" : "default";
   const customBlocks: CustomBlock[] = Array.isArray(details?.blocks) ? details.blocks : [];
-  const customGrouping = groupCustomBlocks(customBlocks);
-  const customBandByBlock = customGrouping.blockBand;
-  // The published custom-blocks view alternates bands starting on blue (see
-  // CustomBlocksView); continuing that same sequence here keeps the RELATED
-  // and CLOSING sections from ever landing on the same color as whatever
-  // band immediately precedes them.
-  const customBandCount = !editing && layoutMode === "custom" ? customGrouping.groups.length : 0;
-  const relatedBg = customBandCount > 0 ? BAND_COLORS[customBandCount % 2] : G.yellow;
+  // Stessi colori in editing, anteprima e pubblicazione (vedi
+  // customBlockColors): RELATED/CLOSING continuano l'alternanza dopo
+  // l'ultima sezione, così non prendono mai il suo stesso colore.
+  const { blockColors: customBlockColor, lastColor: customLastColor } = customBlockColors(customBlocks);
+  const relatedBg = layoutMode === "custom" && customLastColor ? (customLastColor === G.blue ? G.yellow : G.blue) : G.yellow;
   const closingBg = relatedBg === G.blue ? G.yellow : G.blue;
 
   function switchToCustomLayout() {
@@ -615,7 +701,7 @@ export function StudyDetail({ id, go, initialStudies, initialBrands }: {
             </div>
           </section>
           {editing && (
-            <div className="flex justify-center py-3" style={{ background: G.blue }}>
+            <div className="flex justify-center py-3" style={{ background: customBlockColor[0] ?? G.blue }}>
               <InsertBlockButton onInsert={(t) => insertBlockAt(0, t)} />
             </div>
           )}
@@ -628,17 +714,19 @@ export function StudyDetail({ id, go, initialStudies, initialBrands }: {
             // per blocco per tenere i controlli ancorati 1:1 all'array, ma
             // il colore ora anticipa il raggruppamento reale invece di
             // alternare per indice grezzo.
-            const bg = BAND_COLORS[customBandByBlock[idx] % 2];
+            const bg = customBlockColor[idx];
             const controls = editing ? {
               onUp: () => moveBlockIdx(idx, -1), onDown: () => moveBlockIdx(idx, 1), onDelete: () => removeBlock(idx),
               disabledUp: idx === 0, disabledDown: idx === customBlocks.length - 1,
+              band: block.band, effectiveBand: (bg === G.blue ? "blue" : "yellow") as BlockBand,
+              onBandChange: (band: BlockBand | undefined) => updateBlock(idx, { band }),
             } : null;
             let content: React.ReactNode = null;
             if (block.type === "text") {
               content = (
                 <section className="relative py-20 md:py-28 px-8" style={{ background: bg }}>
                   <div className="max-w-3xl mx-auto">
-                    <EditableBlockText value={block.text} onCommit={(v) => updateBlock(idx, { text: v })} />
+                    <EditableBlockText value={block.text} onCommit={(v) => updateBlock(idx, { text: v })} onDark={bg === G.blue} />
                   </div>
                 </section>
               );
@@ -734,7 +822,7 @@ export function StudyDetail({ id, go, initialStudies, initialBrands }: {
             return (
               <div key={block.id}>
                 {controls ? <BlockShell label={BLOCK_LABELS[block.type]} {...controls}>{content}</BlockShell> : content}
-                {editing && <div className="flex justify-center py-1" style={{ background: [G.blue, G.yellow][(idx + 1) % 2] }}><InsertBlockButton onInsert={(t) => insertBlockAt(idx + 1, t)} /></div>}
+                {editing && <div className="flex justify-center py-1" style={{ background: customBlockColor[idx] }}><InsertBlockButton onInsert={(t) => insertBlockAt(idx + 1, t)} /></div>}
               </div>
             );
           })}

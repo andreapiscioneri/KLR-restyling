@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { uploadAdminFile } from "@/lib/upload-client";
 import { ArrowLeft, ArrowRight, ArrowUp, ArrowDown, Check, Link2, List, ListOrdered, Loader2, Pencil, Plus, Trash2, Upload, X } from "lucide-react";
 
 // Swaps the item at `index` with its neighbour in `direction` and returns a
@@ -409,6 +410,9 @@ export function EditableImage({
   const fileRef = useRef<HTMLInputElement>(null);
 
   if (!editing) {
+    // Senza file non si disegna nulla: un <img> senza src mostrerebbe il
+    // testo alternativo al posto dell'immagine.
+    if (!src?.trim()) return null;
     // eslint-disable-next-line @next/next/no-img-element
     return <img src={src} alt={alt || ""} className={className} style={style} />;
   }
@@ -416,20 +420,15 @@ export function EditableImage({
   async function handleFile(file: File) {
     setUploading(true);
     setUploadError(null);
-    const fd = new FormData();
-    fd.append("file", file);
     try {
-      const res = await fetch("/api/admin/upload", { method: "POST", body: fd, credentials: "include" });
-      const json = await res.json().catch(() => null) as { url?: string; error?: string } | null;
-      if (res.ok && json?.url) {
-        setUrl(json.url); onCommit(json.url); setOpen(false);
-      } else {
-        setUploadError(json?.error || `Caricamento fallito (HTTP ${res.status})`);
-      }
+      const json = await uploadAdminFile(file);
+      if (!json.url) throw new Error("Caricamento fallito: il server non ha restituito l'indirizzo del file.");
+      setUrl(json.url); onCommit(json.url); setOpen(false);
     } catch (err) {
       setUploadError(err instanceof Error ? err.message : "Caricamento fallito");
+    } finally {
+      setUploading(false);
     }
-    setUploading(false);
   }
 
   const isEmpty = !src;
@@ -631,11 +630,16 @@ export type ImageFit = "cover" | "contain" | "original";
 // same `images` array so old content needs no migration.
 export type GalleryImage = string | { url: string; fit?: ImageFit };
 
-export type CustomBlock =
+// Colore di sfondo scelto dall'editor per il blocco (Viola/Giallo).
+// Assente = automatico (alternanza tra sezioni, comportamento storico).
+export type BlockBand = "blue" | "yellow";
+
+export type CustomBlock = (
   | { id: string; type: "text"; text: string }
   | { id: string; type: "image"; imageUrl: string; caption?: string; fit?: ImageFit }
   | { id: string; type: "gallery"; images: GalleryImage[]; title?: string; columns?: number; fit?: ImageFit }
-  | { id: string; type: "video"; videoUrl: string; caption?: string; poster?: string };
+  | { id: string; type: "video"; videoUrl: string; caption?: string; poster?: string }
+) & { band?: BlockBand };
 
 export function galleryImageUrl(img: GalleryImage): string {
   return typeof img === "string" ? img : img.url;
@@ -669,7 +673,20 @@ export function mediaFrameClasses(fit: ImageFit | undefined, heightClass: string
 // React nodes. This is never rendered via dangerouslySetInnerHTML, so
 // there's no HTML/XSS surface: the stored value is always plain text, just
 // with a couple of recognized patterns inside it.
-const INLINE_MARKUP_RE = /\*\*(.+?)\*\*|\*(.+?)\*|\[([^\]]+)\]\(((?:https?:\/\/|\/)[^\s)"]+)(?:\s+"(_blank|_self)")?\)/g;
+// Il link accetta qualsiasi URL senza spazi, così una sintassi
+// "[testo](…)" non resta mai letterale a schermo; safeLinkHref decide poi
+// se diventa un link vero o solo il testo (es. "javascript:" scartato).
+const INLINE_MARKUP_RE = /\*\*(.+?)\*\*|\*(.+?)\*|\[([^\]]+)\]\(((?:[^\s()"]|\([^\s()"]*\))+)(?:\s+"(_blank|_self)")?\)/g;
+
+// Normalizza l'URL digitato nel prompt del link: http(s), percorsi interni,
+// ancore, mailto: e tel: passano; "www.sito.com"/"sito.com/pagina" senza
+// schema diventano https://; tutto il resto (javascript:, data:, …) null.
+function safeLinkHref(raw: string): string | null {
+  if (/^(https?:\/\/|\/|#|mailto:|tel:)/i.test(raw)) return raw;
+  if (/^[a-z][a-z0-9+.-]*:/i.test(raw)) return null;
+  if (/^[\w-]+(\.[\w-]+)+([/?#].*)?$/.test(raw)) return `https://${raw}`;
+  return null;
+}
 
 export function renderInlineMarkup(text: string, keyPrefix: string): React.ReactNode[] {
   const nodes: React.ReactNode[] = [];
@@ -683,8 +700,10 @@ export function renderInlineMarkup(text: string, keyPrefix: string): React.React
       nodes.push(<strong key={`${keyPrefix}-b${i++}`}>{match[1]}</strong>);
     } else if (match[2] !== undefined) {
       nodes.push(<em key={`${keyPrefix}-i${i++}`}>{match[2]}</em>);
+    } else if (safeLinkHref(match[4]) === null) {
+      nodes.push(match[3]);
     } else {
-      const url = match[4];
+      const url = safeLinkHref(match[4])!;
       const target = match[5] ?? (url.startsWith("http") ? "_blank" : "_self");
       nodes.push(
         <a key={`${keyPrefix}-a${i++}`} href={url} {...(target === "_blank" ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="underline underline-offset-2">
@@ -712,9 +731,40 @@ export type RichSegment =
 
 const NUMBERED_LINE_RE = /^\d+\.\s+/;
 
+// Caratteri invisibili che arrivano incollando da Word, Google Docs o chat
+// (spazio a larghezza zero, BOM, trattino morbido): davanti a "## " fanno
+// fallire il riconoscimento e il prefisso resterebbe letterale a schermo.
+const INVISIBLE_CHARS_RE = /[\u200B-\u200D\u2060\uFEFF\u00AD]/g;
+
+// Riporta una riga alla forma canonica che segmentRichLines e la toolbar
+// riconoscono, così nessuna variante "quasi giusta" finisce a schermo con
+// i simboli visibili:
+// - "## ## Titolo" (cancelletti scritti a mano + pulsante H2), "###Titolo"
+//   senza spazio, "# Titolo" / "##### Titolo" (markdown incollato) →
+//   un solo prefisso "## "/"### "/"#### " (H1 → H2, oltre H4 → H4);
+// - "**## Titolo**" (grassetto attorno al prefisso) → "## **Titolo**";
+// - "＃" a larghezza piena → "#"; "• voce" / "* voce" → "- voce";
+//   "1) voce" → "1. voce".
+export function normalizeRichLine(raw: string): string {
+  let line = raw.replace(INVISIBLE_CHARS_RE, "").replace(/\uFF03/g, "#").trim();
+  const wrapped = /^(\*\*|\*)(#+)\s*(.+?)\1$/.exec(line);
+  if (wrapped) line = `${wrapped[2]} ${wrapped[1]}${wrapped[3]}${wrapped[1]}`;
+  const heading = /^(#{2,})\s*(\S.*)$/.exec(line) ?? /^(#)\s+(\S.*)$/.exec(line);
+  if (heading) {
+    const level = Math.min(4, Math.max(2, heading[1].length));
+    const text = heading[2].replace(/^(#+\s*)+/, "").trim();
+    return text ? `${"#".repeat(level)} ${text}` : "";
+  }
+  if (/^[•*]\s+/.test(line)) return "- " + line.replace(/^[•*]\s+/, "");
+  if (/^\d+\)\s+/.test(line)) return line.replace(/^(\d+)\)\s+/, "$1. ");
+  return line;
+}
+
 export function segmentRichLines(lines: string[]): RichSegment[] {
   const segments: RichSegment[] = [];
-  for (const line of lines) {
+  for (const raw of lines) {
+    const line = normalizeRichLine(raw);
+    if (!line) continue;
     const headingMatch = /^(#{2,4})\s+(.*)$/.exec(line);
     if (headingMatch) {
       const level = (headingMatch[1].length === 2 ? "h2" : headingMatch[1].length === 3 ? "h3" : "h4") as "h2" | "h3" | "h4";
@@ -742,10 +792,13 @@ export function segmentRichLines(lines: string[]): RichSegment[] {
 // contentEditable) is used deliberately: selectionStart/selectionEnd make
 // "wrap the current selection" and "bullet these lines" trivial and
 // reliable, which contentEditable's DOM selection API is not.
-export function EditableBlockText({ value, onCommit, placeholder = "Scrivi qui…" }: {
+export function EditableBlockText({ value, onCommit, placeholder = "Scrivi qui…", onDark = true }: {
   value: string;
   onCommit: (v: string) => void;
   placeholder?: string;
+  // false su sfondo giallo: testo e pulsanti scuri, come nella pagina
+  // pubblicata, invece del bianco illeggibile.
+  onDark?: boolean;
 }) {
   const ref = useRef<HTMLTextAreaElement>(null);
   const [local, setLocal] = useState(value);
@@ -798,10 +851,12 @@ export function EditableBlockText({ value, onCommit, placeholder = "Scrivi qui�
     const nextBreak = local.indexOf("\n", e);
     const lineEnd = nextBreak === -1 ? local.length : nextBreak;
     const lines = local.slice(lineStart, lineEnd).split("\n");
-    const allMarked = lines.every((l) => l.trim() === "" || lineIsKind(l, kind));
+    // Righe normalizzate prima di classificarle: un "## ## Titolo" o un
+    // "###Titolo" già presenti vengono ripuliti invece di accumulare prefissi.
+    const allMarked = lines.every((l) => l.trim() === "" || lineIsKind(normalizeRichLine(l), kind));
     const nextLines = lines.map((l) => {
       if (l.trim() === "") return l;
-      const bare = l.replace(LINE_PREFIX_STRIP_RE, "");
+      const bare = normalizeRichLine(l).replace(LINE_PREFIX_STRIP_RE, "");
       return allMarked ? bare : prefixFor(kind) + bare;
     });
     const next = local.slice(0, lineStart) + nextLines.join("\n") + local.slice(lineEnd);
@@ -817,7 +872,7 @@ export function EditableBlockText({ value, onCommit, placeholder = "Scrivi qui�
     const nextBreak = local.indexOf("\n", e);
     const lineEnd = nextBreak === -1 ? local.length : nextBreak;
     const lines = local.slice(lineStart, lineEnd).split("\n");
-    const nextLines = lines.map((l) => (l.trim() === "" ? l : l.replace(LINE_PREFIX_STRIP_RE, "")));
+    const nextLines = lines.map((l) => (l.trim() === "" ? l : normalizeRichLine(l).replace(LINE_PREFIX_STRIP_RE, "")));
     const next = local.slice(0, lineStart) + nextLines.join("\n") + local.slice(lineEnd);
     commit(next);
     requestAnimationFrame(() => el.focus());
@@ -835,7 +890,8 @@ export function EditableBlockText({ value, onCommit, placeholder = "Scrivi qui�
     commit(local.slice(0, s) + `[${selected}](${url} "${newTab ? "_blank" : "_self"}")` + local.slice(e));
   }
 
-  const toolBtn = "w-8 h-8 rounded-lg bg-white/15 hover:bg-white/25 text-white text-xs font-black flex items-center justify-center flex-shrink-0";
+  const toolBtn = `w-8 h-8 rounded-lg ${onDark ? "bg-white/15 hover:bg-white/25 text-white" : "bg-[#2E2784]/10 hover:bg-[#2E2784]/20 text-[#2E2784]"} text-xs font-black flex items-center justify-center flex-shrink-0`;
+  const divider = `w-px h-5 ${onDark ? "bg-white/20" : "bg-[#2E2784]/20"} mx-0.5`;
 
   return (
     <div>
@@ -843,12 +899,12 @@ export function EditableBlockText({ value, onCommit, placeholder = "Scrivi qui�
         <button type="button" onClick={() => wrapSelection("**", "**")} title="Grassetto" className={`${toolBtn} text-sm`}>B</button>
         <button type="button" onClick={() => wrapSelection("*", "*")} title="Corsivo" className={`${toolBtn} italic text-sm`}>I</button>
         <button type="button" onClick={insertLink} title="Inserisci link" className={toolBtn}><Link2 size={14} /></button>
-        <span className="w-px h-5 bg-white/20 mx-0.5" />
+        <span className={divider} />
         <button type="button" onClick={() => applyLineStyle("h2")} title="Titolo H2" className={toolBtn}>H2</button>
         <button type="button" onClick={() => applyLineStyle("h3")} title="Titolo H3" className={toolBtn}>H3</button>
         <button type="button" onClick={() => applyLineStyle("h4")} title="Titolo H4" className={toolBtn}>H4</button>
         <button type="button" onClick={forceParagraph} title="Paragrafo normale" className={toolBtn}>P</button>
-        <span className="w-px h-5 bg-white/20 mx-0.5" />
+        <span className={divider} />
         <button type="button" onClick={() => applyLineStyle("bullet")} title="Elenco puntato" className={toolBtn}><List size={14} /></button>
         <button type="button" onClick={() => applyLineStyle("numbered")} title="Elenco numerato" className={toolBtn}><ListOrdered size={14} /></button>
       </div>
@@ -858,7 +914,7 @@ export function EditableBlockText({ value, onCommit, placeholder = "Scrivi qui�
         onChange={(e) => commit(e.target.value)}
         placeholder={placeholder}
         rows={Math.max(3, local.split("\n").length)}
-        className="w-full bg-white/10 focus:bg-white/15 rounded-xl p-4 text-white outline-none resize-y tracking-tight placeholder:text-white/40"
+        className={`w-full rounded-xl p-4 outline-none resize-y tracking-tight ${onDark ? "bg-white/10 focus:bg-white/15 text-white placeholder:text-white/40" : "bg-white/35 focus:bg-white/50 text-[#2E2784] placeholder:text-[#2E2784]/40"}`}
         style={{ fontSize: "1rem", lineHeight: 1.6 }}
       />
     </div>
@@ -986,15 +1042,27 @@ export function InsertBlockButton({ onInsert }: { onInsert: (type: CustomBlock["
   );
 }
 
-export function BlockShell({ label, onUp, onDown, onDelete, disabledUp, disabledDown, children }: {
+export function BlockShell({ label, onUp, onDown, onDelete, disabledUp, disabledDown, band, effectiveBand, onBandChange, children }: {
   label: string;
   onUp: () => void;
   onDown: () => void;
   onDelete: () => void;
   disabledUp?: boolean;
   disabledDown?: boolean;
+  // Colore scelto (undefined = automatico) e colore effettivo mostrato.
+  band?: BlockBand;
+  effectiveBand?: BlockBand;
+  onBandChange?: (band: BlockBand | undefined) => void;
   children: React.ReactNode;
 }) {
+  const swatch = (value: BlockBand, color: string, title: string) => {
+    const active = (band ?? effectiveBand) === value;
+    return (
+      <button type="button" onClick={() => onBandChange?.(value)} title={title} aria-label={title} aria-pressed={band === value}
+        className={`w-6 h-6 rounded-full border-2 ${active ? "border-white" : "border-white/25"} ${band === value ? "ring-2 ring-offset-1 ring-offset-black/70 ring-white/70" : ""}`}
+        style={{ background: color }} />
+    );
+  };
   return (
     <div className="relative">
       <div className="absolute top-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 rounded-full bg-black/70 text-white pl-3 pr-1.5 py-1.5 shadow-lg backdrop-blur">
@@ -1002,6 +1070,18 @@ export function BlockShell({ label, onUp, onDown, onDelete, disabledUp, disabled
         <button type="button" onClick={onUp} disabled={disabledUp} className="w-6 h-6 rounded-full bg-white/15 flex items-center justify-center disabled:opacity-30" aria-label="Sposta su"><ArrowUp size={12} /></button>
         <button type="button" onClick={onDown} disabled={disabledDown} className="w-6 h-6 rounded-full bg-white/15 flex items-center justify-center disabled:opacity-30" aria-label="Sposta giù"><ArrowDown size={12} /></button>
         <button type="button" onClick={onDelete} className="w-6 h-6 rounded-full bg-red-600/80 flex items-center justify-center" aria-label="Elimina blocco"><Trash2 size={12} /></button>
+        {onBandChange && (
+          <>
+            <span className="w-px h-4 bg-white/25 mx-0.5" />
+            <span className="text-[10px] font-bold uppercase tracking-wider opacity-80">Sfondo</span>
+            {swatch("blue", "#2E2784", "Sfondo viola")}
+            {swatch("yellow", "#F8AE01", "Sfondo giallo")}
+            <button type="button" onClick={() => onBandChange(undefined)} title="Colore automatico (alterna tra le sezioni)"
+              className={`rounded-full text-[10px] font-bold px-2 h-6 ${band ? "bg-white/10 text-white/60 hover:bg-white/20" : "bg-white text-black"}`}>
+              Auto
+            </button>
+          </>
+        )}
       </div>
       {children}
     </div>
@@ -1019,20 +1099,15 @@ export function EditableVideoUrl({ url, onCommit, editing }: { url: string; onCo
   async function handleFile(file: File) {
     setUploading(true);
     setUploadError(null);
-    const fd = new FormData();
-    fd.append("file", file);
     try {
-      const res = await fetch("/api/admin/upload", { method: "POST", body: fd, credentials: "include" });
-      const json = await res.json().catch(() => null) as { url?: string; error?: string } | null;
-      if (res.ok && json?.url) {
-        setValue(json.url); onCommit(json.url); setOpen(false);
-      } else {
-        setUploadError(json?.error || `Caricamento fallito (HTTP ${res.status})`);
-      }
+      const json = await uploadAdminFile(file);
+      if (!json.url) throw new Error("Caricamento fallito: il server non ha restituito l'indirizzo del file.");
+      setValue(json.url); onCommit(json.url); setOpen(false);
     } catch (err) {
       setUploadError(err instanceof Error ? err.message : "Caricamento fallito");
+    } finally {
+      setUploading(false);
     }
-    setUploading(false);
   }
 
   return (
