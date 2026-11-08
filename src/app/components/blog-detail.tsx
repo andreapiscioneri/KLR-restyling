@@ -11,7 +11,7 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import {
   useEditMode, useCollectionEditor, EditableText, EditableImage, EditToolbar,
   EditableRichText, escapeHtml, useTextColorToolbar,
-  type CustomBlock, newBlockId, blankBlock, InsertBlockButton, BlockShell, EditableVideoUrl,
+  type CustomBlock, type BlockBand, newBlockId, blankBlock, InsertBlockButton, BlockShell, EditableVideoUrl,
   galleryImageUrl, setGalleryImageUrl,
 } from "./inline-edit";
 import { VideoEmbed } from "./video-embed";
@@ -20,6 +20,7 @@ import type { Route } from "../routes";
 
 const BLOCK_LABELS: Record<string, string> = { text: "Testo", image: "Immagine", gallery: "Galleria", video: "Video" };
 const BLOCK_BG = ["#241f69", "#F8AE01", "#1a1752"];
+const BLOCK_BAND_BG: Record<BlockBand, string> = { blue: "#241f69", yellow: "#F8AE01" };
 
 const COLORS = {
   navy: "#1a1752",       // Sfondo pagina profondo
@@ -358,10 +359,25 @@ export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOp
               </div>
             )}
             {customBlocks.map((block, idx) => {
-              const bg = BLOCK_BG[idx % BLOCK_BG.length];
+              // Nella pagina pubblicata un blocco senza contenuto non si
+              // mostra: altrimenti comparirebbero ai lettori riquadri vuoti
+              // o la scritta d'editor "Nessun video — aggiungine uno".
+              if (!editing) {
+                const empty = block.type === "text" ? !block.text.trim()
+                  : block.type === "image" ? !block.imageUrl?.trim()
+                  : block.type === "video" ? !block.videoUrl?.trim()
+                  : !block.images.some((img) => galleryImageUrl(img)?.trim());
+                if (empty) return null;
+              }
+              // Colore scelto dall'editor (Viola/Giallo) o, in automatico,
+              // l'alternanza storica: stessa formula in modifica e pubblicato.
+              const bg = block.band ? BLOCK_BAND_BG[block.band] : BLOCK_BG[idx % BLOCK_BG.length];
+              const onYellow = bg === BLOCK_BAND_BG.yellow;
               const controls = editing ? {
                 onUp: () => moveBlockIdx(idx, -1), onDown: () => moveBlockIdx(idx, 1), onDelete: () => removeBlock(idx),
                 disabledUp: idx === 0, disabledDown: idx === customBlocks.length - 1,
+                band: block.band, effectiveBand: (onYellow ? "yellow" : "blue") as BlockBand,
+                onBandChange: (band: BlockBand | undefined) => updateBlock(idx, { band }),
               } : null;
               let content: React.ReactNode = null;
               if (block.type === "text") {
@@ -371,7 +387,7 @@ export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOp
                       <div className="max-w-3xl mx-auto">
                         <EditableText as="p" editing={editing} multiline value={block.text}
                           onCommit={(v) => updateBlock(idx, { text: v })}
-                          className="text-white/90 tracking-tight" style={{ fontSize: "clamp(1.05rem, 1.8vw, 1.35rem)", lineHeight: 1.7 }}/>
+                          className={`${onYellow ? "text-[#2E2784]" : "text-white/90"} tracking-tight`} style={{ fontSize: "clamp(1.05rem, 1.8vw, 1.35rem)", lineHeight: 1.7 }}/>
                       </div>
                     </div>
                   </AnimatedSection>
@@ -401,7 +417,7 @@ export function BlogDetail({ slug, go, initialPost, initialOthers, contentHtmlOp
                           className="tracking-[0.3em] uppercase text-white/50 mb-6" style={{ fontSize: "0.65rem", fontWeight: 600 }}/>
                       )}
                       <div className="grid sm:grid-cols-2 gap-4">
-                      {block.images.map((img, i) => (
+                      {block.images.map((img, i) => (!editing && !galleryImageUrl(img)?.trim()) ? null : (
                         <div key={`${galleryImageUrl(img)}-${i}`} className={`relative rounded-[24px] ${!editing ? "cursor-zoom-in" : ""}`}
                           onClick={() => !editing && openLightbox(block.images.map(galleryImageUrl), i)}>
                           <EditableImage editing={editing} src={galleryImageUrl(img)} className="w-full h-[220px] object-cover rounded-[24px]" alt={`${post.title} ${i + 1}`}

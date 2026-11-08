@@ -9,7 +9,7 @@ import {
   Home, Info, Wrench, Phone, Footprints, Star, Palette, Settings,
   Lightbulb, Paperclip, ArrowRight, CheckCircle, Folder, MapPin,
   Link as LinkIcon, Calendar, MessageSquare, BookOpen, Briefcase,
-  Eye, EyeOff, Upload, Plus, Trash2, GripVertical, Navigation, Award, FileCode, Cookie, RefreshCw,
+  Eye, EyeOff, Upload, Loader2, Plus, Trash2, GripVertical, Navigation, Award, FileCode, Cookie, RefreshCw,
   Images, Search, Copy, FileVideo, FileAudio, File as FileIcon, Pencil, Activity, Inbox, ArrowDownUp,
   AlertTriangle, Sparkles, TrendingUp
 } from "lucide-react";
@@ -20,7 +20,8 @@ import { analyzeContent, analyzeAccessibility, trafficLight, TRAFFIC_LIGHT_COLOR
 import { AdminI18nProvider, useAdminI18n } from "@/lib/admin-i18n";
 import { LanguageSwitcher } from "@/components/admin/LanguageSwitcher";
 import { AuthorAvatar } from "@/src/app/components/author-avatar";
-import { EditableBlockText, blankBlock, type CustomBlock } from "@/src/app/components/inline-edit";
+import { EditableBlockText, blankBlock, type CustomBlock, type BlockBand } from "@/src/app/components/inline-edit";
+import { uploadAdminFile } from "@/lib/upload-client";
 
 const ADMIN_INTL_LOCALE: Record<"it" | "en" | "ru", string> = {
   it: "it-IT",
@@ -607,23 +608,17 @@ function useImageUpload(onUrl: (url: string) => void) {
   const ref = useRef<HTMLInputElement>(null);
   const { t } = useAdminI18n();
 
-  async function handleFile(file: File, attempt = 1) {
+  async function handleFile(file: File) {
     setUploading(true); setUploadError("");
-    const fd = new FormData();
-    fd.append("file", file);
     try {
-      const res  = await fetch("/api/admin/upload", { method: "POST", body: fd });
-      const json = await res.json() as { url?: string; error?: string };
-      if (json.url) { onUrl(json.url); setUploading(false); return; }
-      // A cold-start Netlify Blobs write can fail transiently; retry once
-      // before showing an error, same as the content-save path.
-      if (attempt < 2) { await new Promise(r => setTimeout(r, 800)); return handleFile(file, attempt + 1); }
-      setUploadError(json.error || t.common.uploadFailed);
-    } catch {
-      if (attempt < 2) { await new Promise(r => setTimeout(r, 800)); return handleFile(file, attempt + 1); }
-      setUploadError(t.common.networkError);
+      const json = await uploadAdminFile(file);
+      if (json.url) onUrl(json.url);
+      else setUploadError(t.common.uploadFailed);
+    } catch (err) {
+      setUploadError(err instanceof Error ? err.message : t.common.networkError);
+    } finally {
+      setUploading(false);
     }
-    setUploading(false);
   }
 
   function open() { ref.current?.click(); }
@@ -691,7 +686,41 @@ function MoveButtons({ onUp, onDown, disableUp, disableDown, upLabel, downLabel 
   );
 }
 
-function StringListField({ label, value, onChange, placeholder, image }: { label:string; value:string[]; onChange:(v:string[])=>void; placeholder?:string; image?:boolean }) {
+// Campo URL video con caricamento diretto del file, come il pulsante
+// "Carica" dei video in "Modifica in pagina": prima qui si poteva solo
+// incollare un indirizzo.
+function VideoUrlInput({ value, onChange, placeholder }: { value:string; onChange:(v:string)=>void; placeholder?:string }) {
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState("");
+  const ref = useRef<HTMLInputElement>(null);
+  async function handleFile(file: File) {
+    setUploading(true); setError("");
+    try {
+      const json = await uploadAdminFile(file);
+      if (json.url) onChange(json.url); else setError("Caricamento fallito: il server non ha restituito l'indirizzo del file.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Caricamento fallito");
+    } finally {
+      setUploading(false);
+    }
+  }
+  return (
+    <div>
+      <div style={{ display:"flex",gap:8,alignItems:"center" }}>
+        <div style={{ flex:1 }}><Input value={value} placeholder={placeholder} onChange={onChange}/></div>
+        <button type="button" onClick={()=>ref.current?.click()} disabled={uploading}
+          style={{ ...listRowBtn,width:"auto",padding:"0 12px",gap:6,display:"flex",alignItems:"center",background:"#F8AE01",color:"#2E2784",fontWeight:700,fontSize:12 }}>
+          {uploading ? <Loader2 size={13} className="animate-spin"/> : <Upload size={13}/>} Carica
+        </button>
+        <input ref={ref} type="file" accept="video/mp4,video/quicktime,video/webm" style={{ display:"none" }}
+          onChange={e => { const f = e.target.files?.[0]; if (f) handleFile(f); e.target.value = ""; }}/>
+      </div>
+      {error && <div style={{ fontSize:12,color:"#dc2626",background:"#fef2f2",borderRadius:8,padding:"6px 10px",marginTop:6 }}>{error}</div>}
+    </div>
+  );
+}
+
+function StringListField({ label, value, onChange, placeholder, image, video }: { label:string; value:string[]; onChange:(v:string[])=>void; placeholder?:string; image?:boolean; video?:boolean }) {
   const items = value ?? [];
   const { t } = useAdminI18n();
   function update(i:number, v:string) { const next=[...items]; next[i]=v; onChange(next); }
@@ -705,6 +734,8 @@ function StringListField({ label, value, onChange, placeholder, image }: { label
             <div style={{ flex:1 }}>
               {image
                 ? <ImageField value={v} onChange={(nv)=>update(i,nv)} label=""/>
+                : video
+                ? <VideoUrlInput value={v} placeholder={placeholder} onChange={(nv)=>update(i,nv)}/>
                 : <Input value={v} placeholder={placeholder} onChange={(nv)=>update(i,nv)}/>}
             </div>
             <button type="button" onClick={()=>remove(i)} aria-label={t.common.removeItem} style={listRowBtn}><Trash2 size={13}/></button>
@@ -1060,6 +1091,24 @@ const BLOCK_TYPE_LABEL_IT: Record<CustomBlock["type"], string> = { text: "Testo"
 // text can be formatted straight from the backend form. Image/gallery/video
 // blocks stay summary-only here: their controls (crop, colonne, poster) are
 // inherently visual and already live on the page itself.
+// Stessa scelta Sfondo (Auto/Viola/Giallo) della barra del blocco in
+// "Modifica in pagina": il campo `band` è unico, quindi i due editor
+// restano allineati e la pagina pubblicata usa sempre il colore scelto.
+function BlockBandSelect({ band, onChange }: { band?: BlockBand; onChange:(b:BlockBand|undefined)=>void }) {
+  const opt = (value: BlockBand|undefined, label: string, color?: string) => (
+    <button type="button" onClick={()=>onChange(value)} aria-pressed={band === value}
+      style={{ display:"flex",alignItems:"center",gap:5,fontSize:11,fontWeight:700,padding:"4px 8px",borderRadius:999,border:"1px solid rgba(136,136,136,0.35)",cursor:"pointer",
+        background: band === value ? "#F8AE01" : "transparent", color: band === value ? "#2E2784" : "#888" }}>
+      {color && <span style={{ width:10,height:10,borderRadius:999,background:color,border:"1px solid rgba(255,255,255,0.6)" }}/>}{label}
+    </button>
+  );
+  return (
+    <span style={{ display:"flex",alignItems:"center",gap:4,flexShrink:0 }} title="Colore di sfondo del blocco nella pagina">
+      {opt(undefined, "Auto")}{opt("blue", "Viola", "#2E2784")}{opt("yellow", "Giallo", "#F8AE01")}
+    </span>
+  );
+}
+
 function StudyBlocksField({ value, onChange }: { value:CustomBlock[]; onChange:(v:CustomBlock[])=>void }) {
   const blocks = value ?? [];
   function update(i:number, patch:Partial<CustomBlock>) {
@@ -1084,7 +1133,10 @@ function StudyBlocksField({ value, onChange }: { value:CustomBlock[]; onChange:(
                   <span style={{ display:"flex",alignItems:"center",gap:6,color:"#F8AE01",fontSize:11,fontWeight:700,textTransform:"uppercase",letterSpacing:"0.05em" }}>
                     <Icon size={13}/>Testo
                   </span>
-                  <button type="button" onClick={()=>remove(i)} aria-label="Rimuovi blocco" style={{ ...listRowBtn,background:"rgba(220,38,38,0.3)",color:"#fff" }}><Trash2 size={13}/></button>
+                  <span style={{ display:"flex",alignItems:"center",gap:8 }}>
+                    <BlockBandSelect band={b.band} onChange={(band)=>update(i,{ band })}/>
+                    <button type="button" onClick={()=>remove(i)} aria-label="Rimuovi blocco" style={{ ...listRowBtn,background:"rgba(220,38,38,0.3)",color:"#fff" }}><Trash2 size={13}/></button>
+                  </span>
                 </div>
                 <EditableBlockText value={b.text} onCommit={(v)=>update(i,{ text:v })}/>
               </div>
@@ -1098,6 +1150,7 @@ function StudyBlocksField({ value, onChange }: { value:CustomBlock[]; onChange:(
               <Icon size={14} color="#888"/>
               <span style={{ fontSize:11,fontWeight:700,color:"#888",textTransform:"uppercase",flexShrink:0 }}>{BLOCK_TYPE_LABEL_IT[b.type]}</span>
               <span style={{ fontSize:12.5,color:"#555",flex:1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap" }}>{summary}</span>
+              <BlockBandSelect band={b.band} onChange={(band)=>update(i,{ band })}/>
               <button type="button" onClick={()=>remove(i)} aria-label="Rimuovi blocco" style={listRowBtn}><Trash2 size={13}/></button>
             </div>
           );
@@ -2078,17 +2131,21 @@ function MediaLibraryPanel() {
     if (!files || files.length === 0) return;
     setUploading(true);
     let ok = 0, fail = 0;
+    const errors: string[] = [];
     for (const file of Array.from(files)) {
-      const fd = new FormData();
-      fd.append("file", file);
       try {
-        const res = await fetch("/api/admin/media", { method: "POST", body: fd });
-        if (res.ok) ok++; else fail++;
-      } catch { fail++; }
+        await uploadAdminFile(file, { endpoint: "/api/admin/media" });
+        ok++;
+      } catch (err) {
+        fail++;
+        errors.push(`${file.name}: ${err instanceof Error ? err.message : t.common.uploadFailed}`);
+      }
     }
     setUploading(false);
-    setUploadMsg(t.common.uploadSummary.replace("{ok}", String(ok)).replace("{fail}", String(fail)));
-    setTimeout(() => setUploadMsg(""), 4000);
+    // Il riepilogo da solo ("1 falliti") non diceva perché: il motivo di
+    // ogni file fallito resta visibile finché l'utente non riprova.
+    setUploadMsg([t.common.uploadSummary.replace("{ok}", String(ok)).replace("{fail}", String(fail)), ...errors].join(" — "));
+    if (!errors.length) setTimeout(() => setUploadMsg(""), 4000);
     load(query, typeFilter);
   }
 
@@ -2097,13 +2154,13 @@ function MediaLibraryPanel() {
     let res: Response;
     try {
       if (replaceFile) {
-        const fd = new FormData();
-        fd.append("file", replaceFile);
-        fd.append("title", record.title);
-        fd.append("alt", record.alt);
-        fd.append("caption", record.caption);
-        fd.append("description", record.description);
-        res = await fetch(`/api/admin/media/${record.id}`, { method: "PUT", body: fd });
+        await uploadAdminFile(replaceFile, {
+          endpoint: `/api/admin/media/${record.id}`, method: "PUT",
+          extraFields: { title: record.title, alt: record.alt, caption: record.caption, description: record.description },
+        });
+        setEditing(null);
+        load(query, typeFilter);
+        return;
       } else {
         res = await fetch(`/api/admin/media/${record.id}`, {
           method: "PUT",
@@ -3121,7 +3178,7 @@ function StudiesEditor   ({ data, brands, users, currentUser, onSave }: { data:S
             <RewardGroupsField label={sd.rewardGroups} value={details.rewardGroups} onChange={v => setDetails({rewardGroups:v})}/>
             <StringListField label={sd.gallery} value={details.gallery} onChange={v => setDetails({gallery:v})} image/>
             <StringListField label={sd.social} value={details.social} onChange={v => setDetails({social:v})} placeholder={sd.socialPlaceholder}/>
-            <StringListField label={sd.videos} value={details.videos} onChange={v => setDetails({videos:v})} placeholder={sd.videoPlaceholder}/>
+            <StringListField label={sd.videos} value={details.videos} onChange={v => setDetails({videos:v})} placeholder={sd.videoPlaceholder} video/>
           </Grid>
           </div>
           <SeoScorePanel title={form.title||""} description={form.summary||""}

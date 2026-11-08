@@ -149,6 +149,7 @@ type TeamProps = {
 
 export function Team({ go, initialLeadership, initialStats, initialTeamCms }: TeamProps) {
   const [joinStatus, setJoinStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [joinError, setJoinError] = useState("");
   const leadership = initialLeadership ?? [];
   const stats = initialStats ?? fallbackStats;
   const teamCms = initialTeamCms ?? {};
@@ -402,13 +403,29 @@ export function Team({ go, initialLeadership, initialStats, initialTeamCms }: Te
                   const form = e.currentTarget;
                   const data = new FormData(form);
                   for (const [k, v] of Object.entries(getAttribution())) if (v) data.set(k, v);
+                  // Stesso limite di /api/apply: meglio dirlo subito che far
+                  // partire un invio che il server rifiuterà.
+                  const cv = data.get("cv");
+                  if (cv instanceof File && cv.size > 8 * 1024 * 1024) {
+                    setJoinError("Your CV is larger than 8 MB. Please attach a lighter PDF or Word file.");
+                    setJoinStatus("error");
+                    return;
+                  }
+                  setJoinError("");
                   setJoinStatus("sending");
+                  // Senza timeout un invio rimasto appeso lasciava
+                  // "Sending…" per sempre, senza nessun messaggio.
+                  const controller = new AbortController();
+                  const timer = setTimeout(() => controller.abort(), 90_000);
                   try {
-                    const res = await fetch("/api/apply", { method: "POST", body: data });
+                    const res = await fetch("/api/apply", { method: "POST", body: data, signal: controller.signal });
+                    if (res.status === 413) setJoinError("Your CV file is too large to upload. Please attach a lighter PDF or Word file.");
                     if (!res.ok) throw new Error("request failed");
                     setJoinStatus("sent");
                   } catch {
                     setJoinStatus("error");
+                  } finally {
+                    clearTimeout(timer);
                   }
                 }}
                 className="rounded-[32px] p-7 md:p-10 grid gap-5"
@@ -478,7 +495,7 @@ export function Team({ go, initialLeadership, initialStats, initialTeamCms }: Te
                   </button>
                   {joinStatus === "error" && (
                     <p className="mt-3 text-[#2E2784]" style={{ fontSize: "0.85rem" }}>
-                      Something went wrong. Please try again, or write to us at{" "}
+                      {joinError ? `${joinError} ` : "Something went wrong. Please try again, or "}{joinError ? "You can also write to us at " : "write to us at "}
                       <a href="mailto:info@klr-europe.com" className="underline font-semibold">info@klr-europe.com</a>.
                     </p>
                   )}

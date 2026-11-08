@@ -46,6 +46,10 @@ export function ImageWithFallback(
 
   const { src, alt, style, className, sizes, ...rest } = props
 
+  // Nessun file (es. campo immagine lasciato vuoto nel CMS): niente <img>,
+  // altrimenti il browser mostra il testo alternativo al suo posto.
+  if (typeof src !== "string" || !src.trim()) return null
+
   if (didError) {
     return (
       <div className={`inline-block bg-gray-100 text-center align-middle ${className ?? ''}`} style={style}>
